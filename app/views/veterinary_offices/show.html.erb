@@ -1,0 +1,6 @@
+<h1><%= @veterinary_office.name %></h1>
+<p>Max patient capacity: <%= @veterinary_office.max_patient_capacity %></p>
+<p class="veterinarian-count">Veterinarians on staff: <%= @veterinary_office.vet_count %>
+<%= link_to "All veterinarians at #{@veterinary_office.name}", "/veterinary_offices/#{@veterinary_office.id}/veterinarians" %>
+
+<p><%= link_to "Delete #{@veterinary_office.name}", "/veterinary_offices/#{@veterinary_office.id}", method: :delete %></p>

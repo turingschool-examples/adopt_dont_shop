@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Adopt, Don't Shop</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag 'application', media: 'all' %>
+  </head>
+
+  <body>
+    <% flash.each do |type, msg| %>
+      <div>
+        <%= msg %>
+      </div>
+    <% end %>
+    <section>
+      <p><%= link_to "Pets", "/pets" %></p>
+      <p><%= link_to "Shelters", "/shelters" %></p>
+      <p><%= link_to "Veterinarians", "/veterinarians" %></p>
+      <p><%= link_to "Veterinary Offices", "/veterinary_offices" %></p>
+    </section>
+    <%= yield %>
+  </body>
+</html>

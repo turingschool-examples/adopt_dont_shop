@@ -1,0 +1,20 @@
+<h1>All pets at <%= @shelter.name %></h1>
+
+<%= link_to "Sort alphabetically", "/shelters/#{@shelter.id}/pets?sort=alphabetical" %>
+
+<% @shelter_pets.each do |pet| %>
+  <h3><%= pet.name %></h3>
+  <p>Age: <%= pet.age %></p>
+  <p>Breed: <%= pet.breed %></p>
+  <p><%= pet.name %> can be adopted from <%= @shelter.name %>!</p>
+  <%= link_to "Edit #{pet.name}", "/pets/#{pet.id}/edit" %>
+  <%= link_to "Delete #{pet.name}", "/pets/#{pet.id}", method: :delete %>
+<% end %>
+
+<%= form_with url: "/shelters/#{@shelter.id}/pets", method: :get do |form| %>
+  <%= form.label "Only display pets with an age of at least..." %>
+  <%= form.select :age, [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15] %>
+  <%= form.submit "Filter" %>
+<% end %>
+
+<p><%= link_to "Create a Pet", "/shelters/#{@shelter.id}/pets/new" %></p>
