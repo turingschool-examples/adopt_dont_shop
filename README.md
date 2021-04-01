@@ -26,7 +26,7 @@ During your Check In, you should be prepared to review your database schema for 
 | | **Feature Completeness** | **Rails** | **ActiveRecord** | **Testing and Debugging** | **Project Management** |
 | --- | --- | --- | --- | --- | --- |
 | **4: Exceptional**  | All User Stories 100% complete including all sad paths and edge cases, and some extension work completed | Students implement strategies not discussed in class and can defend their design decisions | At least one ActiveRecord extension is complete | 100% coverage for features and models. A gem that enhances testing effectiveness is implemented (orderly, factorybot, faker, etc). Students can point to multiple examples of edge case testing that are not included in the user stories | GitHub Project board is fully up to date in all checkins and the evaluation. Students create custom cards on the project board to track tasks in addition to user stories.
-| **3: Passing** | Students complete all User Stories. No more than 2 Stories fail to correctly implement sad path and edge case functionality. | Students use the principles of MVC to effectively organize code with only 1 - 2 infractions. Action View helpers are used to create forms, links, and buttons. Routes and Actions mostly follow RESTful conventions, and student can defend any non restful routes. At least one partial is created and included in at least two different views. Models include validations. Flash messages are used. | ActiveRecord helpers are utilized whenever possible. ActiveRecord is used in a clear and effective way to read/write data. No Ruby is used to process data. All queries functional and accurately implemented. | 100% coverage for models. 98% coverage for features. Tests are well written and meaningful. Tests utilize within blocks to target specific areas of a page | Student uses GitHub Project to track all user stories. Project board is mostly up to date in all checkins. Project board is fully up to date at the evaluation |
+| **3: Passing** | All stories in the "Deploy", "Apply for Pet(s)", "Database Logic Part 1", and "Approving Applications" sections are completed | Students use the principles of MVC to effectively organize code with only 1 - 2 infractions. Action View helpers are used to create forms, links, and buttons. Routes and Actions mostly follow RESTful conventions, and student can defend any non restful routes. At least one partial is created and included in at least two different views. Models include validations. Flash messages are used. | ActiveRecord helpers are utilized whenever possible. ActiveRecord is used in a clear and effective way to read/write data. No Ruby is used to process data. All queries functional and accurately implemented. | 100% coverage for models. 98% coverage for features. Tests are well written and meaningful. Tests utilize within blocks to target specific areas of a page | Student uses GitHub Project to track all user stories. Project board is mostly up to date in all checkins. Project board is fully up to date at the evaluation |
 | **2: Below Expectations** | Students complete all but 1 - 3 User Stories |  Students use the principles of MVC to effectively organize code, but may have more than 2 infractions. Some routes and actions are not restful, and student cannot defend those decisions. Project may fail to include one of the following: a partial that is included in at least two different views, model validations, or use of flash messages. | Ruby is used to process data that could use ActiveRecord instead. Some instances where ActiveRecord helpers are not utilized. Some queries not accurately implemented. | Feature test coverage between 90% and 98%, or model test coverage below 100%, or tests are not meaningfully written or have an unclear objective, or tests do not utilize within blocks | GitHub Project board is not utilized during one of the checkins. Project board is not fully up to date during evaluation.
 | **1: Failing** | Students fail to complete 4 or more User Stories | Project fails to include two out of the following: a partial that is included in at least two different views, model validations, or use of flash messages | Ruby is used to process data more often than ActiveRecord. Many cases where ActiveRecord helpers are not utilized. | Below 90% coverage for either features or models. | GitHub projects is not utilized
 
@@ -178,6 +178,10 @@ And I have not added any pets to the application
 Then I do not see a section to submit my application
 ```
 
+## Database Logic Part 1
+
+These stories emphasize key database concepts
+
 ```
 [ ] done
 
@@ -202,17 +206,11 @@ Then my search is case insensitive
 For example, if I search for "fluff", my search would match pets with names "Fluffy", "FLUFF", and "Mr. FlUfF"
 ```
 
-## Approving Applications
-
-Pets on an application can either be accepted or rejected. Once all pets on an application have been marked either accepted or rejected, then the application is no longer "Pending". If all the pets were accepted, then the application is "Accepted". If one or more pets on the application is rejected, then the entire application is "Rejected".
-
-For this set of stories, we will be making routes that begin with '/admin'. This is to indicate that only a user with special privileges should be able to accept or reject pets on an application. Normally, we would want to make sure that a user is logged into an admin account before being able complete any of this workflow, but we will not add any log in or authorization functionality to this project.
-
-### SQL Only
-
-For this story, you should write your queries in raw sql. You can use the [ActiveRecord find_by_sql](https://guides.rubyonrails.org/active_record_querying.html#finding-by-sql) method to execute raw sql queries.
-
 ```
+SQL Only Story
+
+For this story, you should write your queries in raw sql. You can use the ActiveRecord find_by_sql method to execute raw sql queries: https://guides.rubyonrails.org/active_record_querying.html#finding-by-sql
+
 Admin Shelters Index
 
 As a visitor
@@ -220,11 +218,9 @@ When I visit the admin shelter index ('/admin/shelters')
 Then I see all Shelters in the system listed in reverse alphabetical order by name
 ```
 
-### ActiveRecord Only
-
-For this story, you should fully leverage ActiveRecord methods in your queries.
-
 ```
+For this story, you should fully leverage ActiveRecord methods in your query.
+
 Shelters with Pending Applications
 
 As a visitor
@@ -232,6 +228,12 @@ When I visit the admin shelter index ('/admin/shelters')
 Then I see a section for "Shelter's with Pending Applications"
 And in this section I see the name of every shelter that has a pending application
 ```
+
+## Approving Applications
+
+Pets on an application can either be accepted or rejected.
+
+For this set of stories, we will be making routes that begin with '/admin'. This is to indicate that only a user with special privileges should be able to accept or reject pets on an application. Normally, we would want to make sure that a user is logged into an admin account before being able complete any of this workflow, but we will not add any log in or authorization functionality to this project.
 
 ```
 [ ] done
@@ -272,6 +274,10 @@ When I visit the other application's admin show page
 Then I do not see that the pet has been accepted or rejected for that application
 And instead I see buttons to approve or reject the pet for this specific application
 ```
+
+## Completed Applications
+
+Once all pets on an application have been marked either accepted or rejected, then the application is no longer "Pending". If all the pets were accepted, then the application is "Accepted". If one or more pets on the application is rejected, then the entire application is "Rejected".
 
 ```
 [ ] done
@@ -322,15 +328,15 @@ And instead I see a message that this pet has been approved for adoption
 And I do see a button to reject them
 ```
 
-## Admin Shelter Views
+## Database Logic Part 2
 
-These stories build out admin views for shelters. They will emphasize SQL and ActiveRecord concepts.
-
-### SQL Only
-
-For this story, you should write your queries in raw sql. You can use the [ActiveRecord find_by_sql](https://guides.rubyonrails.org/active_record_querying.html#finding-by-sql) method to execute raw sql queries.
+These stories emphasize SQL and ActiveRecord concepts.
 
 ```
+SQL Only Story
+
+For this story, you should write your queries in raw sql. You can use the ActiveRecord find_by_sql method to execute raw sql queries: https://guides.rubyonrails.org/active_record_querying.html#finding-by-sql
+
 Admin Shelters Show Page
 
 As a visitor
