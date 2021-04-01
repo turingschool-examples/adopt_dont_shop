@@ -208,6 +208,22 @@ Pets on an application can either be accepted or rejected. Once all pets on an a
 
 For this set of stories, we will be making routes that begin with '/admin'. This is to indicate that only a user with special privileges should be able to accept or reject pets on an application. Normally, we would want to make sure that a user is logged into an admin account before being able complete any of this workflow, but we will not add any log in or authorization functionality to this project.
 
+### SQL Only
+
+For this story, you should write your queries in raw sql. You can use the [ActiveRecord find_by_sql](https://guides.rubyonrails.org/active_record_querying.html#finding-by-sql) method to execute raw sql queries.
+
+```
+Admin Shelters Index
+
+As a visitor
+When I visit the admin shelter index ('/admin/shelters')
+Then I see all Shelters in the system listed in reverse alphabetical order by name
+```
+
+### ActiveRecord Only
+
+For this story, you should fully leverage ActiveRecord methods in your queries.
+
 ```
 Shelters with Pending Applications
 
@@ -215,15 +231,6 @@ As a visitor
 When I visit the admin shelter index ('/admin/shelters')
 Then I see a section for "Shelter's with Pending Applications"
 And in this section I see the name of every shelter that has a pending application
-```
-
-```
-Shelters with Pending Applications Listed Alphabetically
-
-As a visitor
-When I visit the admin shelter index ('/admin/shelters')
-And I look in the section for shelters with pending applications
-Then I see all those shelters are listed alphabetically
 ```
 
 ```
@@ -321,15 +328,7 @@ These stories build out admin views for shelters. They will emphasize SQL and Ac
 
 ### SQL Only
 
-For the following stories, you should write your queries in raw sql. You can use the [ActiveRecord find_by_sql](https://guides.rubyonrails.org/active_record_querying.html#finding-by-sql) method to execute raw sql queries.
-
-```
-Admin Shelters Index
-
-As a visitor
-When I visit the admin shelter index ('/admin/shelters')
-Then I see all Shelters in the system listed in reverse alphabetical order by name
-```
+For this story, you should write your queries in raw sql. You can use the [ActiveRecord find_by_sql](https://guides.rubyonrails.org/active_record_querying.html#finding-by-sql) method to execute raw sql queries.
 
 ```
 Admin Shelters Show Page
@@ -344,6 +343,15 @@ NOTE: Your query should only return the necessary data to complete the story
 ### ActiveRecord
 
 For the following stories, you should fully leverage ActiveRecord methods in your queries.
+
+```
+Shelters with Pending Applications Listed Alphabetically
+
+As a visitor
+When I visit the admin shelter index ('/admin/shelters')
+And I look in the section for shelters with pending applications
+Then I see all those shelters are listed alphabetically
+```
 
 ```
 Admin Shelters Show Page Links
