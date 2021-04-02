@@ -1,5 +1,5 @@
 class AdoptingApplicationsController < ApplicationController
-  def index
-
+  def show
+    @applicant = AdoptingApplication.find(params[:id])
   end
 end
