@@ -15,7 +15,7 @@ ActiveRecord::Schema.define(version: 2021_04_02_180238) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "applications", force: :cascade do |t|
+  create_table "adopting_applications", force: :cascade do |t|
     t.string "full_name"
     t.string "street_address"
     t.string "city"
@@ -28,7 +28,7 @@ ActiveRecord::Schema.define(version: 2021_04_02_180238) do
     t.bigint "pet_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["pet_id"], name: "index_applications_on_pet_id"
+    t.index ["pet_id"], name: "index_adopting_applications_on_pet_id"
   end
 
   create_table "pets", force: :cascade do |t|
@@ -69,7 +69,7 @@ ActiveRecord::Schema.define(version: 2021_04_02_180238) do
     t.datetime "updated_at", null: false
   end
 
-  add_foreign_key "applications", "pets"
+  add_foreign_key "adopting_applications", "pets"
   add_foreign_key "pets", "shelters"
   add_foreign_key "veterinarians", "veterinary_offices"
 end
