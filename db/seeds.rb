@@ -3,6 +3,7 @@ Shelter.destroy_all
 Shelter.reset_pk_sequence
 Veterinarian.reset_pk_sequence
 Pet.reset_pk_sequence
+AdoptingApplication.reset_pk_sequence
 VeterinaryOffice.reset_pk_sequence
 
 
