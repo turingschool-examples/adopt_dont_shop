@@ -1,3 +1,9 @@
+<%= link_to "Pets", "/pets" %>
+<%= link_to "Shelters", "/shelters" %>
+<%= link_to "Veterinarians", "/veterinarians" %>
+<%= link_to "Veterinary Offices", "/veterinary_offices" %>
+<%= link_to "Applications", "/applications" %>
+
 <h1>Edit Shelter</h1>
 <%= form_with url: "/veterinary_offices/#{@vet_office.id}", method: :patch, local: true do |f| %>
   <%= f.label :name %>
