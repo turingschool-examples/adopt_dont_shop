@@ -13,21 +13,18 @@ class AdoptingApplication < ApplicationRecord
   end
 
   def self.accepted
-    binding.pry
     where(accepted: true)
   end
 
   def self.in_progress
-    binding.pry
     where(in_progress: true)
   end
 
   def self.declined
-    binding.pry
     where(declined: true)
   end
 
-  def is_accepted
-    
+  def self.pending
+    where(pending: true)
   end
 end
