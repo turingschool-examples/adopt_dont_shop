@@ -1,0 +1,17 @@
+
+<h1>Applicant: <%= @applicant.full_name %></h1>
+<h3> Street Address: <%= @applicant.street_address %> </h3>
+<h3> City: <%= @applicant.city %></h3>
+<h3> State: <%= @applicant.state %></h3>
+<h3> Zipcode: <%= @applicant.zipcode %></h3>
+<h3> Description: <%= @applicant.description %></h3>
+<h3> Applying for: <%= @applicant.pet_name %></h3>
+<h3> Application Status:
+  <% if @applicant.in_progress == true %>
+  <p>  In Progress </p>
+  <% elsif @applicant.accepted == true %>
+  <p>  Accepted </p>
+  <% elsif @applicant.declined == true %>
+  <p>  Declined </p>
+  <% end %>
+</h3>
