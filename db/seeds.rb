@@ -6,46 +6,76 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 require 'faker'
+class Seed
+  def self.start
+    seed = Seed.new
+    seed.generate_shelters
+    seed.generate_pets
+    seed.generate_applications
+    #seed.generate_application_pets
+    seed.generate_veterinarian_offices
+    seed.generate_veterinarians
+  end
 
-fake = Faker
+  def generate_shelters
+    name = ["Terry's Terriers", 'Lost and Found', 'Too Many Tails', 'Dogs Unleashed', 'Woof and Purr']
+    5.times do |i|
+    shelter = Shelter.create!(
+      foster_program: Faker::Boolean.boolean,
+      name: name.pop,
+      city: Faker::Address.city,
+      rank: Faker::Number.between(from: 0, to: 5)
+    )
+    end
+  end
 
-status = ['approved', 'incomplete']
+  def generate_pets
+    25.times do |i|
+      shelter = Shelter.find(Random.new.rand(1..5))
+      pet = shelter.pets.create!(
+        adoptable: Faker::Boolean.boolean,
+        age: Faker::Number.between(from: 0, to: 25),
+        breed: Faker::Creature::Dog.breed,
+        name: Faker::Creature::Dog.name
+      )
+    end
+  end
 
-#shelters
-# 4.times do |i|
-#   shelter = Shelter.create!(
-#     foster_program: Faker::Boolean.boolean,
-#     name: Faker::Company.name,
-#     city: Faker::Address.city,
-#     rank: Faker::Number.between(0,5)
-#   )
-# end
-# #pets
-# 10.times do |i|
-#   Shelter.createpet = Pet.create!(
-#     adoptable: Faker::Boolean.boolean,
-#     age: Faker::Number.between(18,100),
-#     breed: Faker::Creature::Dog.breed,
-#     name: Faker::Creature::Dog.name
-#   )
-# end
-#
-# #applications
-# 5.times do |i|
-#   application = Application.create!(
-#     name: Faker::Name.name,
-#     street_address: Faker::Address.street_address,
-#     city: Faker::Address.city,
-#     state: Faker::Address.state,
-#     zip_code: Faker::Address.zip_code,
-#     description: Faker::Company.bs,
-#     status: fake.sample
-#   )
-# end
+  def generate_applications
+    status = ["In Progress", "Pending", "Accepted", "Rejected"]
+    15.times do |i|
+      application = Application.create!(
+        name: Faker::Name.unique.name,
+        street_address: Faker::Address.street_address,
+        city: Faker::Address.city,
+        state: Faker::Address.state,
+        zip_code: Faker::Address.zip_code,
+        description: Faker::Company.bs,
+        status: status.sample
+      )
+    end
+  end
 
-#application_pets
+  def generate_veterinarian_offices
+    5.times do |i|
+      veterinary_office = VeterinaryOffice.create!(
+        boarding_services: Faker::Boolean.boolean,
+        max_patient_capacity: Faker::Number.between(from: 15, to: 30),
+        name: Faker::FunnyName.name.concat("'s Vet Office")
+      )
+    end
+  end
 
+  def generate_veterinarians
+    20.times do |i|
+      veterinary_office = VeterinaryOffice.find(Random.new.rand(1..5))
+      veterinarian = veterinary_office.veterinarians.create!(
+        on_call: Faker::Boolean.boolean,
+        review_rating: Faker::Number.between(from: 0, to: 5),
+        name: Faker::Name.unique.name
+      )
+    end
+  end
 
-#veterinarians
-
-#veterinary_offices
+  Seed.start
+end
