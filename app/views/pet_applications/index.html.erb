@@ -1,0 +1,17 @@
+<h1>All Applications</h1>
+
+<%= form_with url: "/pet_applications", method: :get, local: true do |f| %>
+  <%= f.label :search %>
+  <%= f.text_field :search %>
+  <%= f.submit "Search" %>
+<% end %>
+
+
+<% @pet_applications.each do |pet_application| %>
+  <h3>Applicant name: <%= pet_application.applicant.name %></h3>
+  <p>Address: <%= pet_application.applicant.street_address %>, <%= pet_application.applicant.city %>, <%= pet_application.applicant.state %> <%= pet_application.applicant.zipcode %></p>
+  <p> NEED TO INSERT LIST OF PETS <%= pet_application.pet.name %></p>
+  <p>Cover Letter: <%= pet_application.cover_letter %></p>
+  <p>Application status: <%= pet_application.status %></p>
+
+<% end %>
