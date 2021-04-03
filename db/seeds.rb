@@ -1,22 +1,21 @@
 require 'factory_bot_rails'
 
+PetApplication.destroy_all
 Pet.destroy_all
 Applicant.destroy_all
+Shelter.destroy_all
 
-2.times do
-  FactoryBot.create(:applicant) do |applicant|
-    FactoryBot.create_list(:pet, 3, applicant: applicant)
-  end
-end
+FactoryBot.create(:shelter)
+FactoryBot.create(:applicant)
+FactoryBot.create(:pet)
+FactoryBot.create(:pet_application)
+FactoryBot.create(:pet_application)
+FactoryBot.create(:pet_application)
+FactoryBot.create(:pet_application)
 
-2.times do
-  FactoryBot.create(:applicant) do |applicant|
-    FactoryBot.create_list(:pet, 1, applicant: applicant)
-  end
-end
 
-1.times do
-  FactoryBot.create(:applicant) do |applicant|
-    FactoryBot.create_list(:pet, 2, applicant: applicant)
-  end
-end
+# 3.times do
+#   FactoryBot.create(:library) do |library|
+#     FactoryBot.create_list(:book, 4, library: library)
+#   end
+# end
