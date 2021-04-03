@@ -22,16 +22,16 @@
                           created_at: Time.now,
                           updated_at: Time.now
                           )
-  # applicant = dog.applications.create!(name: "Fred",
-  #                                     street_address: "123 way",
-  #                                     city: "Denver",
-  #                                     state: "Colorado",
-  #                                     zip_code: 80204,
-  #                                     description: "I like dogs",
-  #                                     created_at: Time.now,
-  #                                     updated_at: Time.now
-  #                                     )
-  Application.create!(name: application ....)
-  
+  applicant = dog.applications.create!(name: "Fred",
+                                      street_address: "123 way",
+                                      city: "Denver",
+                                      state: "Colorado",
+                                      zip_code: 80204,
+                                      description: "I like dogs",
+                                      created_at: Time.now,
+                                      updated_at: Time.now
+                                      )
+  # Application.create!(name: application ....)
+
 
   ApplicationPet.create!(application: applicant, pet: dog)
