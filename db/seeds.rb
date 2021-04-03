@@ -12,9 +12,9 @@ class Seed
     seed.generate_shelters
     seed.generate_pets
     seed.generate_applications
-    #seed.generate_application_pets
     seed.generate_veterinarian_offices
     seed.generate_veterinarians
+    # seed.generate_application_pets
   end
 
   def generate_shelters
@@ -53,6 +53,7 @@ class Seed
         description: Faker::Company.bs,
         status: status.sample
       )
+      add_pets(application)
     end
   end
 
@@ -74,6 +75,13 @@ class Seed
         review_rating: Faker::Number.between(from: 0, to: 5),
         name: Faker::Name.unique.name
       )
+    end
+  end
+
+  def add_pets(application)
+    10.times do |i|
+      pet = Pet.find(Random.new.rand(1..25))
+      application.pets << pet
     end
   end
 
