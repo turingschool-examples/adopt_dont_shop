@@ -7,6 +7,7 @@
 #   Character.create(name: 'Luke', movie: movies.first)
   Shelter.destroy_all
   ApplicationPet.destroy_all
+  # Application.destroy_all
 
   pound = Shelter.create!(foster_program: true,
                         name: "da pound",
@@ -22,12 +23,13 @@
                           created_at: Time.now,
                           updated_at: Time.now
                           )
-  applicant = dog.applications.create!(name: "Fred",
+  applicant = dog.applications.create!(name: "Klaw",
                                       street_address: "123 way",
                                       city: "Denver",
                                       state: "Colorado",
                                       zip_code: 80204,
                                       description: "I like dogs",
+                                      status: "In Progress",
                                       created_at: Time.now,
                                       updated_at: Time.now
                                       )
