@@ -12,7 +12,6 @@ RSpec.describe "the Application index page" do
       city: "Denver",
       state: "CO",
       zip_code: "80001",
-      pet_names: "Ramone, Lawson",
       statement: "I live near a park",
       status: "in progress"
     )
@@ -21,7 +20,6 @@ RSpec.describe "the Application index page" do
       city: "Denver",
       state: "CO",
       zip_code: "80012",
-      pet_names: "Lawson",
       statement: "I have a fenced in yard",
       status: "pending"
     )
@@ -30,7 +28,6 @@ RSpec.describe "the Application index page" do
       city: "Golden",
       state: "CO",
       zip_code: "80123",
-      pet_names: "Petunia",
       statement: "I sing to my pets",
       status: "pending"
     )

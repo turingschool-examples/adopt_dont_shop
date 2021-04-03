@@ -37,9 +37,9 @@ RSpec.describe 'the application show' do
     expect(page).to have_content(@hayley_williams.city)
     expect(page).to have_content(@hayley_williams.state)
     expect(page).to have_content(@hayley_williams.zip_code)
-    expect(page).to have_content(@hayley_williams.pet_names)
+    # expect(page).to have_content(@hayley_williams.pet_names)
     expect(page).to have_content(@hayley_williams.statement)
-    expect(page).to have_content(@hayley_williams.status)
+    # expect(page).to have_content(@hayley_williams.status)
     expect(page).to_not have_content(@jeff_rosenstock.applicant_name)
   end
 

@@ -40,15 +40,15 @@ class ApplicationsController < ApplicationController
   end
 
   def edit
-    # @application = Application.find(params[:application_id])
+    # @application = Application.find(params[:id])
   end
 
   def update
-    # application = Application.find(application_params[:application_id])
+    # application = Application.find(application_params[:id])
     # if application.update(application_params)
     #   redirect_to '/applications'
     # else
-    #   redirect_to "/applications/#{application.application_id}/edit"
+    #   redirect_to "/applications/#{application.id}/edit"
     #   flash[:alert] = "Error: #{error_message(application.errors)}"
     # end
   end
@@ -62,6 +62,6 @@ class ApplicationsController < ApplicationController
   private
 
   def application_params
-    params.require(:application).permit(:application_id, :applicant_name, :street, :city, :state, :zip_code, :statement, :pet_names, :status)
+    params.require(:application).permit(:id, :applicant_name, :street, :city, :state, :zip_code, :statement, :status)
   end
 end
