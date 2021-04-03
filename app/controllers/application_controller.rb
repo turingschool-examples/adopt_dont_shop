@@ -3,7 +3,6 @@ class ApplicationController < ActionController::Base
   end
 
   def show
-    
   end
 
   private
