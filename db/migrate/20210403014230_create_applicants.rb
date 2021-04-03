@@ -6,6 +6,7 @@ class CreateApplicants < ActiveRecord::Migration[5.2]
       t.string :city
       t.string :state
       t.integer :zipcode
+      t.string :cover_letter
 
       t.timestamps
     end
