@@ -1,10 +1,10 @@
 VeterinaryOffice.destroy_all
 Shelter.destroy_all
-Shelter.reset_pk_sequence
-Veterinarian.reset_pk_sequence
-Pet.reset_pk_sequence
-AdoptingApplication.reset_pk_sequence
-VeterinaryOffice.reset_pk_sequence
+# Shelter.reset_pk_sequence
+# Veterinarian.reset_pk_sequence
+# Pet.reset_pk_sequence
+# AdoptingApplication.reset_pk_sequence
+# VeterinaryOffice.reset_pk_sequence
 
 
 shelter_1 = Shelter.create!(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
