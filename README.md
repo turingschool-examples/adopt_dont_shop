@@ -4,9 +4,7 @@
 ![visual-schema.png](https://i.postimg.cc/0ywZgQ1W/visual-schema.png)
 
 ### Updated database design
-<p align="center">
-  <img src="https://imgur.com/a/NMZajYx">
-</p>
+![Screen-Shot-2021-04-02-at-9-46-55-PM.png](https://i.postimg.cc/0QTmdpz8/Screen-Shot-2021-04-02-at-9-46-55-PM.png)
 
 ## Learning Goals
 
