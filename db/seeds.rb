@@ -5,3 +5,21 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+Application.destroy_all
+Pet.destroy_all
+Shelter.destroy_all
+
+FactoryBot.create(:shelter)
+FactoryBot.create(:shelter)
+FactoryBot.create(:shelter)
+FactoryBot.create(:pet)
+FactoryBot.create(:pet)
+FactoryBot.create(:pet)
+FactoryBot.create(:pet)
+FactoryBot.create(:pet)
+FactoryBot.create(:application)
+FactoryBot.create(:application)
+FactoryBot.create(:application)
+FactoryBot.create(:application)
+FactoryBot.create(:application)
+FactoryBot.create(:application)
