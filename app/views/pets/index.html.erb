@@ -15,5 +15,5 @@
   <p>You can find <%= pet.name %> at <%= pet.shelter_name %>!</p>
   <%= link_to "Edit #{pet.name}", "/pets/#{pet.id}/edit" %>
   <%= link_to "Delete #{pet.name}", "/pets/#{pet.id}", method: :delete %>
-  <%= link_to "Start an Application", "/pets/#{pet.id}/application" %>
-<% end %>
+<% end %></br>
+<%= link_to "Start an Application", "/applications/new" %>
