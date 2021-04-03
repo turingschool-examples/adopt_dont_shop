@@ -20,13 +20,12 @@ Rails.application.routes.draw do
   post '/shelters/:shelter_id/pets', to: 'pets#create'
 
   get '/applications', to: 'applications#index'
-  get '/applications/:application_id', to: 'applications#show'
-  # get '/applications/new', to: 'applications#new'
-  # post 'applications', to: 'applications#create'
-  # get '/applications/:id', to: 'applications#show'
-  # get 'applications/:id/edit', to: 'applications#edit'
-  # patch 'applications/:id/', to: 'applications#update'
-  # delete '/applications/:id', to: 'applications#destroy'
+  get '/applications/new', to: 'applications#new'
+  post 'applications', to: 'applications#create'
+  get '/applications/:id', to: 'applications#show'
+  get 'applications/:id/edit', to: 'applications#edit'
+  patch 'applications/:id/', to: 'applications#update'
+  delete '/applications/:id', to: 'applications#destroy'
 
 ###############################################################################
   get '/veterinary_offices', to: 'veterinary_offices#index'
