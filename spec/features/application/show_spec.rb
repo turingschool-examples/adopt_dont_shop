@@ -43,3 +43,5 @@ RSpec.describe "the Application show page" do
     ApplicationPet.create!(application: applicant, pet: dog)
 
     visit '/welcome/show' #I am not sure where to visit for us1
+  end 
+end
