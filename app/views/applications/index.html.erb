@@ -1,8 +1,13 @@
 <% @applications.each do |application| %>
   <section id="application-<%= application.id %>">
-    <h1><%= application.applicant_name %></h1>
-    <% application.pets.each do |pet| %>
-       <p><%= pet.name %></p>
-    <% end %>
+    <h2>Application ID: <%= application.id %> <%= application.applicant_name %></h2>
+    <p>Address: <%= application.street %> <%= application.city %>, <%= application.state %> <%= application.zip_code %></p>
+    <p>Description - why they'd be a good pet owner: <%= application.statement %></p>
+    <p>Pets: <%= application.pet_names %></p>
+    <h5>Application Status: <%= application.status %></h5>
   </section>
 <% end %>
+
+<%# <% application.pets.each do |pet| %>
+<%# <%= pet.name %>
+<%# <% end %>

@@ -1,11 +1,11 @@
 class ApplicationsController < ApplicationController
   def index
+    @applications = Application.all
     # if params[:sort].present? && params[:sort] == "pet_count"
     #   @shelters = Shelter.order_by_number_of_pets
     # elsif params[:search].present?
     #   @shelters = Shelter.search(params[:search])
     # else
-    @applications = Application.all
     # end
   end
 
@@ -22,33 +22,33 @@ class ApplicationsController < ApplicationController
   # end
 
   def show
-    @shelter = Shelter.find(params[:id])
+    @application = Application.find(params[:id])
   end
 
   def new
   end
 
   def create
-    # application = Application.new(application_params)
-    #
-    # if application.save
-    #   redirect_to '/applications'
-    # else
-    #   redirect_to '/application/new'
-    #   flash[:alert] = "Error: #{error_message(application.errors)}"
-    # end
+    application = Application.new(application_params)
+
+    if application.save
+      redirect_to '/applications'
+    else
+      redirect_to '/application/new'
+      flash[:alert] = "Error: #{error_message(application.errors)}"
+    end
   end
 
   def edit
-    # @application = Application.find(params[:id])
+    # @application = Application.find(params[:application_id])
   end
 
   def update
-    # application = Application.find(application_params[:id])
+    # application = Application.find(application_params[:application_id])
     # if application.update(application_params)
     #   redirect_to '/applications'
     # else
-    #   redirect_to "/applications/#{application.id}/edit"
+    #   redirect_to "/applications/#{application.application_id}/edit"
     #   flash[:alert] = "Error: #{error_message(application.errors)}"
     # end
   end
@@ -62,6 +62,6 @@ class ApplicationsController < ApplicationController
   private
 
   def application_params
-    params.permit(:id, :applicant_name, :address, :statement, :pet_names, :status)
+    params.require(:application).permit(:application_id, :applicant_name, :street, :city, :state, :zip_code, :statement, :pet_names, :status)
   end
 end
