@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'the application show' do
   before :each do
-    @foothills_shelter = Shelter.create!(name: 'Foothills Animal Shelter', 
+    @foothills_shelter = Shelter.create!(name: 'Foothills Animal Shelter',
       city: 'Golden, CO', foster_program: true, rank: 4)
     @rufio = @foothills_shelter.pets.create!(name: 'Rufio', breed: 'hound',
       age: 2, adoptable: true)
@@ -74,7 +74,18 @@ RSpec.describe 'the application show' do
    one of these buttons I am taken back to the application show page and\
    I see the Pet I want to adopt listed on this application" do
 
-   end
+    fill_in "Search by Pet name", with: "Ru"
+    click_on("Search")
+
+    expect(page).to have_button("Adopt this Pet")
+
+    within "#pet_search_result-#{@rug.id}" do
+      expect(page).to have_content(@rug.name)
+      click_on("Adopt this Pet")
+    end
+
+    expect(page).to_not have_content(@rufio.name)
+  end
 
   it "Has a section to submit my application after I have added one or more\
     pets to the application. And in that section I see an input to enter why I\
