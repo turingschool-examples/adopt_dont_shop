@@ -1,0 +1,16 @@
+<%= form_with url: "/applications/new", method: :post, local: true do |form| %>
+  <%= form.label :name %>
+  <%= form.text_field :name %><br>
+  <%= form.label "street address" %>
+  <%= form.text_field :street_address%><br>
+  <%= form.label "city" %>
+  <%= form.text_field :city%><br>
+  <%= form.label "state" %>
+  <%= form.text_field :state%><br>
+  <%= form.label "zip code" %>
+  <%= form.text_field :zip_code%><br>
+  <%= form.label "why you might be a good fit for adoption" %>
+  <%= form.text_field :street_address%><br>
+
+  <%= form.submit 'Submit New Application' %>
+<% end %>
