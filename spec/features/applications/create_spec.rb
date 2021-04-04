@@ -1,75 +1,50 @@
 require 'rails_helper'
 
-require 'rails_helper'
-
 RSpec.describe 'application creation' do
-  before(:each) do
-    @shelter = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
-  end
-
   describe 'Starting an Application' do
     it 'renders the new form' do
       visit "/applications/new"
 
       expect(page).to have_content('Adoption Application')
-      expect(find('form')).to have_content('Applicant Name:')
-      expect(find('form')).to have_content('Address')
-      expect(find('form')).to have_content('Street:')
+      expect(find('form')).to have_content('Applicant name')
+      expect(find('form')).to have_content('Street')
       expect(find('form')).to have_content('City')
       expect(find('form')).to have_content('State')
-      expect(find('form')).to have_content('Zip Code')
+      expect(find('form')).to have_content('Zip code')
     end
   end
 
-  describe 'the pet create' do
+  describe 'Create the application' do
     context 'given valid data' do
-      it 'creates the pet and redirects to the shelter pets index' do
-        visit "/shelters/#{@shelter.id}/pets/new"
+      it 'creates the application' do
+        visit "/applications/new"
 
-        fill_in 'Name', with: 'Bumblebee'
-        fill_in 'Age', with: 1
-        fill_in 'Breed', with: 'Welsh Corgi'
-        check 'Adoptable'
-        click_button 'Save'
-        expect(page).to have_current_path("/shelters/#{@shelter.id}/pets")
-        expect(page).to have_content('Bumblebee')
+        fill_in 'Applicant name', with: 'Some person'
+        fill_in 'Street', with: "321 Court"
+        fill_in 'City', with: 'Longmont'
+        select 'CO', :from => 'State'
+        fill_in 'Zip code', with: 80000
+        click_button 'Submit'
+
+        # expect(current_path).to eq("/applications/#{application.id}") <-- how to target new id?
+        expect(page).to have_content("Some person")
+        expect(page).to have_content("321 Court")
       end
     end
 
     context 'given invalid data' do
       it 're-renders the new form' do
-        visit "/shelters/#{@shelter.id}/pets/new"
+        visit "/applications/new"
 
-        click_button 'Save'
-        expect(page).to have_current_path("/shelters/#{@shelter.id}/pets/new")
-        expect(page).to have_content("Error: Name can't be blank, Age can't be blank, Age is not a number")
+        fill_in 'Applicant name', with: 'Vincent Adultman'
+        select 'CA', :from => 'State'
+        fill_in 'Zip code', with: 90200
+
+        click_button 'Submit'
+
+        expect(page).to have_content("Error: Street can't be blank, City can't be blank")
+        expect(page).to have_current_path('/applications/new')
       end
-    end
-  end
-end
-
-
-
-
-
-
-
-
-RSpec.describe "As a visitor", type: :feature do
-  describe "I am directed to New Form" do
-    it "I can create a new office" do
-      visit '/offices/new'
-
-      fill_in "Name", with: "Office 1"
-      fill_in "Capacity", with: "22"
-      check "First Aid Available:"
-
-      click_on "Create Office"
-
-      expect(current_path).to eq("/offices")
-      expect(page).to have_content("Office 1")
-      expect(page).to have_content(22)
-      expect(page).to have_content "First Aid Available: true"
     end
   end
 end
