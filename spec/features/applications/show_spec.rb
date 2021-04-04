@@ -2,10 +2,14 @@ require 'rails_helper'
 
 RSpec.describe 'the application show' do
   before :each do
-    @foothills_shelter = Shelter.create!(name: 'Foothills Animal Shelter', city: 'Golden, CO', foster_program: true, rank: 4)
-    @rumba = @foothills_shelter.pets.create!(name: 'Rumba', breed: 'hound', age: 2, adoptable: true)
-    @rug = @foothills_shelter.pets.create!(name: 'Rug', breed: 'Australian shepherd', age: 6, adoptable: true)
-    @petunia = @foothills_shelter.pets.create!(name: 'Petunia', breed: 'chihuahua', age: 1, adoptable: true)
+    @foothills_shelter = Shelter.create!(name: 'Foothills Animal Shelter', 
+      city: 'Golden, CO', foster_program: true, rank: 4)
+    @rufio = @foothills_shelter.pets.create!(name: 'Rufio', breed: 'hound',
+      age: 2, adoptable: true)
+    @rug = @foothills_shelter.pets.create!(name: 'Rug',
+      breed: 'Australian shepherd', age: 6, adoptable: true)
+    @petunia = @foothills_shelter.pets.create!(name: 'Petunia',
+      breed: 'chihuahua', age: 1, adoptable: true)
 
     @hayley_williams = Application.create!(applicant_name: 'Hayley Williams',
       street: "789 Rose St.",
@@ -41,20 +45,18 @@ RSpec.describe 'the application show' do
     expect(page).to_not have_content(@jeff_rosenstock.applicant_name)
   end
 
-  # The Application's status, either "In Progress", "Pending", "Accepted", or "Rejected"
+  # The Application's status, either "In Progress", "Pending", "Accepted", or
+  # Rejected
   it "has a status of 'In Progress', 'Pending', 'Accepted', or 'Rejected'" do
     expect(@hayley_williams.status).to eq("In Progress")
   end
 
-  it "When I visit an application's show page and that application has not been\
-    submitted, then I see a section on the page to 'Add a Pet to this\
-    Application." do
-
+  it "has a section on the page to 'Add a Pet to this Application" do
     expect(page).to have_content("Add a Pet to this Application")
   end
 
-  it 'has a text box where I can search for pets by name' do
-    expect(page).to have_button("Search by Pet name")
+  it "has a text box where I can search for pets by name" do
+    expect(page).to have_button("Search")
   end
 
   it "Fill in search field with a Pet's name and click submit, then I am taken\
@@ -62,10 +64,10 @@ RSpec.describe 'the application show' do
    whose name matches my search" do
 
    fill_in "Search by Pet name", with: "Ru"
-   click_on("Search by Pet name")
+   click_on("Search")
 
    expect(page).to have_content(@rug.name)
-   expect(page).to have_content(@rumba.name)
+   expect(page).to have_content(@rufio.name)
   end
 
   it "next to each Pet's name I see a button to 'Adopt this Pet', when I click\
@@ -77,7 +79,7 @@ RSpec.describe 'the application show' do
   it "Has a section to submit my application after I have added one or more\
     pets to the application. And in that section I see an input to enter why I\
     would make a good owner for these pet(s)" do
-  
+
   end
 
   #
