@@ -14,7 +14,6 @@ class Seed
     seed.generate_applications
     seed.generate_veterinarian_offices
     seed.generate_veterinarians
-    # seed.generate_application_pets
   end
 
   def generate_shelters
@@ -78,12 +77,13 @@ class Seed
     end
   end
 
+  private
+
   def add_pets(application)
-    10.times do |i|
+    5.times do |i|
       pet = Pet.find(Random.new.rand(1..25))
       application.pets << pet
     end
   end
-
-  Seed.start
 end
+Seed.start
