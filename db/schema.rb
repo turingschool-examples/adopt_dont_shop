@@ -26,8 +26,8 @@ ActiveRecord::Schema.define(version: 2021_04_03_174454) do
 
   create_table "applications", force: :cascade do |t|
     t.string "applicant_name"
-    t.string "statement"
-    t.string "status"
+    t.string "statement", default: " "
+    t.string "status", default: "In Progress"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "street"
