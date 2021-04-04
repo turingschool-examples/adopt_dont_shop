@@ -1,18 +1,20 @@
 <h1>Adoption Application</h1>
 
-<%= form_with url: '/applications', method: :post, local: true do |form|%>
-<h3><%= form.label "Start a new application:" %></h3><br>
-<%= form.label :applicant_name %>
-<%= form.text_field :applicant_name %><br>
+<%= form_with url: "/applications", method: :post, local: true do |f| %>
+<h3><%= f.label "Start a new application:" %></h3><br>
+<%= f.label :applicant_name %>
+<%= f.text_field :applicant_name %><br>
 <p>Address:
-<%= form.label :street %>
-<%= form.text_field :street %>
-<%= form.label :city %>
-<%= form.text_field :city %>
-<%= form.label :state %>
-<%= form.text_field :state %>
-<%= form.label :zip_code %>
-<%= form.text_field :zip_code %></p>
+<div><%= f.label :street %>
+<%= f.text_field :street %></div>
+<%= f.label :city %>
+<%= f.text_field :city %>
+<%= f.label :state %>
+<%= f.select :state, options_for_select(us_states) %>
+<%= f.label :zip_code %>
+<%= f.text_field :zip_code %></p>
+<% f.text_field :statement, value: " " %>
+<% f.select :status, value: "in progress" %>
 <br>
-<%= form.submit "Submit" %>
+<%= f.submit "Submit" %>
 <% end %>
