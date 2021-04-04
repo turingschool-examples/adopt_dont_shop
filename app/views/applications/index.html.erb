@@ -8,11 +8,9 @@
 
 <% @applications.each do |application| %>
   <h3><%= application.name %></h3>
-  <p>Street Address: <%= application.street_address %></p>
-  <p>City: <%= application.city %></p>
-  <p>State: <%= application.state %></p>
-  <p>Zip Code: <%= application.zip_code %></p>
-  <!-- <p>Adoptable: </p> -->
-  <%# <%= link_to "Edit #{application.name}", "/applications/#{application.id}/edit" %> %>
-  <%# <%= link_to "Delete #{application.name}", "/applications/#{application.id}", method: :delete %> %>
+  <p>Address: <%= application.street_address %>
+  <%= application.city %>, <%= application.state %> <%= application.zip_code %></p>
+
+  <p>Description: <%= application.description %></p>
+  <p>Application Status: <%= application.status %></p>
 <% end %>
