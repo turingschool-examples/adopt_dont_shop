@@ -1,0 +1,16 @@
+<h1>New Application</h1>
+<%= form_with url: '/applications', method: :post, local: true do |f| %>
+<%= f.label :name %>
+<%= f.text_field :name %>
+<br><br>
+<%= f.label :street_address %>
+<%= f.text_field :street_address %>
+<%= f.label :city %>
+<%= f.text_field :city %>
+<%= f.label :state %>
+<%= f.select :state, ['AL', 'AK', 'AS', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'DC', 'FM', 'FL', 'GA', 'GU', 'HI', 'ID', 'IL', 'IN', 'IA', 'KS', 'KY', 'LA', 'ME', 'MH', 'MD', 'MA', 'MI', 'MN', 'MS', 'MO', 'MT', 'NE', 'NV', 'NH', 'NJ', 'NM', 'NY', 'NC', 'ND', 'MP', 'OH', 'OK', 'OR', 'PW', 'PA', 'PR', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VT', 'VI', 'VA', 'WA', 'WV', 'WI', 'WY', 'AE', 'AA', 'AP'] %>
+<%= f.label :zip_code %>
+<%= f.text_field :zip_code %>
+<%= f.hidden_field :status, value: 'In Progress' %>
+<%= f.submit 'Submit' %>
+<% end %>
