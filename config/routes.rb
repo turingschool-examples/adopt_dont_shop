@@ -21,11 +21,15 @@ Rails.application.routes.draw do
 
   get '/applications', to: 'applications#index'
   get '/applications/new', to: 'applications#new'
-  post 'applications', to: 'applications#create'
   get '/applications/:id', to: 'applications#show'
+  post 'applications', to: 'applications#create'
   get 'applications/:id/edit', to: 'applications#edit'
   patch 'applications/:id/', to: 'applications#update'
   delete '/applications/:id', to: 'applications#destroy'
+
+
+
+
 
 ###############################################################################
   get '/veterinary_offices', to: 'veterinary_offices#index'
