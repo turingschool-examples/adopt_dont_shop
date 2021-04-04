@@ -5,9 +5,10 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+  # ActiveRecord::Base.connection.reset_pk_sequence!('applications')
   Shelter.destroy_all
   ApplicationPet.destroy_all
-  # Application.destroy_all
+  Application.destroy_all
 
   pound = Shelter.create!(foster_program: true,
                         name: "da pound",
