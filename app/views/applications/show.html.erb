@@ -5,24 +5,36 @@
   <h5>Application Status: <%= @application.status %></h5>
 </section>
 
+<section id="added_pets-<%= @application.id %>">
+  <% if @application.pets %>
+    <% chosen_pets = @application.pets %>
+    <% chosen_pets.each do |pet| %>
+      <h4><%= link_to "#{pet.name}", "/pets/#{pet.id}" %> </h4>
+    <% end %>
+  <% end %>
+</section>
+
 <section id="add_pet-<%= @application.id %>">
   <h4> Add a Pet to this Application </h4>
   <%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |f| %>
-    <%= f.label :search, "Search by Pet name" %>
-    <%= f.text_field :search %>
-    <%= f.submit "Search" %>
+  <%= f.label :search, "Search by Pet name" %>
+  <%= f.text_field :search %>
+  <%= f.submit "Search" %>
   <% end %>
 
   <% if @pets %>
     <% @pets.each do |pet| %>
+    <section id="pet_search_result-<%= pet.id %>">
       <h4><%= pet.name %></h4>
       <p>Age: <%= pet.age %></p>
       <p>Breed: <%= pet.breed %></p>
       <p>Adoptable: <%= pet.adoptable %></p>
       <p>You can find <%= pet.name %> at <%= pet.shelter_name %></p>
-      <%= button_to "Adopt this Pet", "/applications/#{@application.id}" %>
+      <%= button_to "Adopt this Pet", "/applications/#{@application.id}", params: {adopt: pet}, :method => :get %>
+    </section>
     <% end %>
   <% end %>
-</section>
+
+
 
 <%# <section id="submit-<%= @application.id %>

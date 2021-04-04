@@ -25,9 +25,9 @@ aurora_shelter.pets.create!(name: 'Mr. Pirate', breed: 'tuxedo shorthair', age: 
 aurora_shelter.pets.create!(name: 'Clawdia', breed: 'shorthair', age: 3, adoptable: true)
 aurora_shelter.pets.create!(name: 'Ann', breed: 'ragdoll', age: 3, adoptable: false)
 
-co_humane_society.pets.create!(name: 'Toto', breed: 'dachshund', age: 1, adoptable: true)
-co_humane_society.pets.create!(name: 'Madoc', breed: 'boxer', age: 1, adoptable: true)
-co_humane_society.pets.create!(name: 'Theo', breed: 'labrador retriever', age: 4, adoptable: false)
+co_humane_society.pets.create!(name: 'Link', breed: 'dachshund', age: 1, adoptable: true)
+co_humane_society.pets.create!(name: 'Tofu', breed: 'boxer', age: 1, adoptable: true)
+co_humane_society.pets.create!(name: 'Theo', breed: 'labrador retriever', age: 4, adoptable: true)
 
 foothills_shelter.pets.create!(name: 'Ramone', breed: 'hound', age: 2, adoptable: true)
 foothills_shelter.pets.create!(name: 'Lawson', breed: 'Australian shepherd', age: 6, adoptable: true)
@@ -36,7 +36,7 @@ foothills_shelter.pets.create!(name: 'Petunia', breed: 'chihuahua', age: 1, adop
 humane_society_boulder.pets.create!(name: 'Emma', breed: 'beagle', age: 1, adoptable: true)
 humane_society_boulder.pets.create!(name: 'Odessa', breed: 'border terrier', age: 6, adoptable: true)
 
-animal_rescue_rockies.pets.create!(name: 'Hoss', breed: 'great pyrenees', age: 0, adoptable: true)
+animal_rescue_rockies.pets.create!(name: 'Bear', breed: 'flat-coated retriever', age: 0, adoptable: true)
 animal_rescue_rockies.pets.create!(name: 'Six', breed: 'great pyrenees', age: 0, adoptable: true)
 animal_rescue_rockies.pets.create!(name: 'Eddie', breed: 'pit bull terrier', age: 3, adoptable: true)
 
@@ -44,7 +44,7 @@ denver_animal_shelter.pets.create!(name: 'Leia', breed: 'pit bull terrier', age:
 denver_animal_shelter.pets.create!(name: 'Josh', breed: 'Australian shepherd', age: 3, adoptable: true)
 denver_animal_shelter.pets.create!(name: 'Maisie', breed: 'American staffordshire terrier', age: 1, adoptable: true)
 denver_animal_shelter.pets.create!(name: 'Rug', breed: 'mixed', age: 3, adoptable: true)
-denver_animal_shelter.pets.create!(name: 'Waffles', breed: 'hound', age: 2, adoptable: false)
+denver_animal_shelter.pets.create!(name: 'Waffles', breed: 'hound', age: 2, adoptable: true)
 
 
 ######################
