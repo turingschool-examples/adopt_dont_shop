@@ -14,6 +14,15 @@
   <% end %>
 </section>
 
+<section id="statement-<%= @application.id %>">
+  <% if @application.pets %>
+    <h5>Why would you make a good owner for the selected pet(s)?</h5>
+    <%= form_with url: "/applications/#{@application.id}", method: :patch, local: true do |f| %>
+    <%= f.text_area :statement %>
+    <%= f.submit "Save Response" %>
+  <% end %>
+</section>
+
 <section id="add_pet-<%= @application.id %>">
   <h4> Add a Pet to this Application </h4>
   <%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |f| %>
@@ -34,7 +43,7 @@
     </section>
     <% end %>
   <% end %>
-
+<% end  %>
 
 
 <%# <section id="submit-<%= @application.id %>
