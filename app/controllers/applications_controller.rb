@@ -16,6 +16,9 @@ class ApplicationsController < ApplicationController
     @application = Application.find(params[:id])
   end
 
+  def new
+  end
+
   def update
   end
 
