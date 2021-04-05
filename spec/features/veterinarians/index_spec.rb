@@ -2,9 +2,9 @@ require 'rails_helper'
 
 RSpec.describe 'the veterinarians index' do
   it 'lists all the veterinarians with their attributes' do
-    vet_office = VeterinaryOffice.create(name: 'Best Vets', boarding_services: true, max_patient_capacity: 20)
-    vet_1 = Veterinarian.create(name: 'Taylor', review_rating: 10, on_call: true, veterinary_office_id: vet_office.id)
-    vet_2 = Veterinarian.create(name: 'Jim', review_rating: 8, on_call: true, veterinary_office_id: vet_office.id)
+    vet_office = VeterinaryOffice.find_or_create_by!(name: 'Best Vets', boarding_services: true, max_patient_capacity: 20)
+    vet_1 = Veterinarian.find_or_create_by!(name: 'Taylor', review_rating: 10, on_call: true, veterinary_office_id: vet_office.id)
+    vet_2 = Veterinarian.find_or_create_by!(name: 'Jim', review_rating: 8, on_call: true, veterinary_office_id: vet_office.id)
 
     visit '/veterinarians'
 
@@ -18,9 +18,9 @@ RSpec.describe 'the veterinarians index' do
   end
 
   it 'only shows on call veterinarians' do
-    vet_office = VeterinaryOffice.create(name: 'Best Vets', boarding_services: true, max_patient_capacity: 20)
-    vet_1 = Veterinarian.create(name: 'Taylor', review_rating: 10, on_call: false, veterinary_office_id: vet_office.id)
-    vet_2 = Veterinarian.create(name: 'Jim', review_rating: 8, on_call: true, veterinary_office_id: vet_office.id)
+    vet_office = VeterinaryOffice.find_or_create_by!(name: 'Best Vets', boarding_services: true, max_patient_capacity: 20)
+    vet_1 = Veterinarian.find_or_create_by!(name: 'Taylor', review_rating: 10, on_call: false, veterinary_office_id: vet_office.id)
+    vet_2 = Veterinarian.find_or_create_by!(name: 'Jim', review_rating: 8, on_call: true, veterinary_office_id: vet_office.id)
 
     visit '/veterinarians'
 
@@ -28,9 +28,9 @@ RSpec.describe 'the veterinarians index' do
   end
 
   it 'displays a link to edit each veterinarian' do
-    vet_office = VeterinaryOffice.create(name: 'Best Vets', boarding_services: true, max_patient_capacity: 20)
-    vet_1 = Veterinarian.create(name: 'Taylor', review_rating: 10, on_call: true, veterinary_office_id: vet_office.id)
-    vet_2 = Veterinarian.create(name: 'Jim', review_rating: 8, on_call: true, veterinary_office_id: vet_office.id)
+    vet_office = VeterinaryOffice.find_or_create_by!(name: 'Best Vets', boarding_services: true, max_patient_capacity: 20)
+    vet_1 = Veterinarian.find_or_create_by!(name: 'Taylor', review_rating: 10, on_call: true, veterinary_office_id: vet_office.id)
+    vet_2 = Veterinarian.find_or_create_by!(name: 'Jim', review_rating: 8, on_call: true, veterinary_office_id: vet_office.id)
 
     visit '/veterinarians'
 
@@ -43,9 +43,9 @@ RSpec.describe 'the veterinarians index' do
   end
 
   it 'displays a link to delete each veterinarian' do
-    vet_office = VeterinaryOffice.create(name: 'Best Vets', boarding_services: true, max_patient_capacity: 20)
-    vet_1 = Veterinarian.create(name: 'Taylor', review_rating: 10, on_call: true, veterinary_office_id: vet_office.id)
-    vet_2 = Veterinarian.create(name: 'Jim', review_rating: 8, on_call: true, veterinary_office_id: vet_office.id)
+    vet_office = VeterinaryOffice.find_or_create_by!(name: 'Best Vets', boarding_services: true, max_patient_capacity: 20)
+    vet_1 = Veterinarian.find_or_create_by!(name: 'Taylor', review_rating: 10, on_call: true, veterinary_office_id: vet_office.id)
+    vet_2 = Veterinarian.find_or_create_by!(name: 'Jim', review_rating: 8, on_call: true, veterinary_office_id: vet_office.id)
 
     visit '/veterinarians'
 

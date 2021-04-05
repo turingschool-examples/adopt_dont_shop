@@ -2,13 +2,13 @@ require 'rails_helper'
 
 RSpec.describe 'the veterinary offices veterinarians index' do
   before(:each) do
-    @vet_office_1 = VeterinaryOffice.create(name: 'Best Vets', boarding_services: true, max_patient_capacity: 20)
-    @vet_office_2 = VeterinaryOffice.create(name: 'Vets R Us', boarding_services: true, max_patient_capacity: 20)
-    @not_on_call_vet = Veterinarian.create(name: 'Taylor', review_rating: 10, on_call: false, veterinary_office_id: @vet_office_1.id)
-    @vet_1 = Veterinarian.create(name: 'Taylor', review_rating: 10, on_call: true, veterinary_office_id: @vet_office_1.id)
-    @vet_2 = Veterinarian.create(name: 'Jim', review_rating: 8, on_call: true, veterinary_office_id: @vet_office_1.id)
-    @vet_3 = Veterinarian.create(name: 'Sarah', review_rating: 9, on_call: true, veterinary_office_id: @vet_office_2.id)
-    @vet_4 = Veterinarian.create(name: 'John', review_rating: 2, on_call: true, veterinary_office_id: @vet_office_2.id)
+    @vet_office_1 = VeterinaryOffice.find_or_create_by!(name: 'Best Vets', boarding_services: true, max_patient_capacity: 20)
+    @vet_office_2 = VeterinaryOffice.find_or_create_by!(name: 'Vets R Us', boarding_services: true, max_patient_capacity: 20)
+    @not_on_call_vet = Veterinarian.find_or_create_by!(name: 'Taylor', review_rating: 10, on_call: false, veterinary_office_id: @vet_office_1.id)
+    @vet_1 = Veterinarian.find_or_create_by!(name: 'Taylor', review_rating: 10, on_call: true, veterinary_office_id: @vet_office_1.id)
+    @vet_2 = Veterinarian.find_or_create_by!(name: 'Jim', review_rating: 8, on_call: true, veterinary_office_id: @vet_office_1.id)
+    @vet_3 = Veterinarian.find_or_create_by!(name: 'Sarah', review_rating: 9, on_call: true, veterinary_office_id: @vet_office_2.id)
+    @vet_4 = Veterinarian.find_or_create_by!(name: 'John', review_rating: 2, on_call: true, veterinary_office_id: @vet_office_2.id)
   end
 
   it 'lists all the veterinarians associated with the office, with their attributes' do

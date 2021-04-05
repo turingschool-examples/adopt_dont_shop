@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'the shelter show' do
   it "shows the shelter and all it's attributes" do
-    shelter = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
+    shelter = Shelter.find_or_create_by!(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
 
     visit "/shelters/#{shelter.id}"
 
@@ -12,8 +12,8 @@ RSpec.describe 'the shelter show' do
   end
 
   it "shows the number of pets associated with the shelter" do
-    shelter = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
-    shelter.pets.create(name: 'garfield', breed: 'shorthair', adoptable: true, age: 1)
+    shelter = Shelter.find_or_create_by!(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
+    shelter.pets.find_or_create_by!(name: 'garfield', breed: 'shorthair', adoptable: true, age: 1)
 
     visit "/shelters/#{shelter.id}"
 
@@ -23,7 +23,7 @@ RSpec.describe 'the shelter show' do
   end
 
   it "allows the user to delete a shelter" do
-    shelter = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
+    shelter = Shelter.find_or_create_by!(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
 
     visit "/shelters/#{shelter.id}"
 
@@ -34,7 +34,7 @@ RSpec.describe 'the shelter show' do
   end
 
   it 'displays a link to the shelters pets index' do
-    shelter = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: true, rank: 9)
+    shelter = Shelter.find_or_create_by!(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: true, rank: 9)
 
     visit "/shelters/#{shelter.id}"
 

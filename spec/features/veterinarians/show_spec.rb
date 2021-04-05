@@ -2,8 +2,8 @@ require 'rails_helper'
 
 RSpec.describe 'the veterinarian show' do
   it "shows the veterinarian and all it's attributes" do
-    vet_office = VeterinaryOffice.create(name: 'Best Vets', boarding_services: true, max_patient_capacity: 20)
-    vet = Veterinarian.create(name: 'Taylor', review_rating: 10, on_call: false, veterinary_office_id: vet_office.id)
+    vet_office = VeterinaryOffice.find_or_create_by!(name: 'Best Vets', boarding_services: true, max_patient_capacity: 20)
+    vet = Veterinarian.find_or_create_by!(name: 'Taylor', review_rating: 10, on_call: false, veterinary_office_id: vet_office.id)
 
     visit "/veterinarians/#{vet.id}"
 
@@ -14,8 +14,8 @@ RSpec.describe 'the veterinarian show' do
   end
 
   it "allows the user to delete a veterinarian" do
-    vet_office = VeterinaryOffice.create(name: 'Best Vets', boarding_services: true, max_patient_capacity: 20)
-    vet = Veterinarian.create(name: 'Taylor', review_rating: 10, on_call: false, veterinary_office_id: vet_office.id)
+    vet_office = VeterinaryOffice.find_or_create_by!(name: 'Best Vets', boarding_services: true, max_patient_capacity: 20)
+    vet = Veterinarian.find_or_create_by!(name: 'Taylor', review_rating: 10, on_call: false, veterinary_office_id: vet_office.id)
 
     visit "/veterinarians/#{vet.id}"
 

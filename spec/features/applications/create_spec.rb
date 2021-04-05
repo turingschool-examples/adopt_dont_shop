@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'application creation' do
   before(:each) do
-    @applicant = Application.create!(name: "Fred",
+    @applicant = Application.find_or_create_by!(name: "Fred",
                               street_address: "123 way",
                               city: "Denver",
                               state: "Colorado",
@@ -31,7 +31,7 @@ RSpec.describe 'application creation' do
     describe 'the application create' do
       context 'given valid data' do
         it 'creates the application and redirects to the application show page' do
-          @applicant1 = Application.create!(name: "Klaud",
+          @applicant1 = Application.find_or_create_by!(name: "Klaud",
                                     street_address: "123 way",
                                     city: "Denver",
                                     state: "Colorado",

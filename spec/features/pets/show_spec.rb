@@ -2,8 +2,8 @@ require 'rails_helper'
 
 RSpec.describe 'the shelter show' do
   it "shows the shelter and all it's attributes" do
-    shelter = Shelter.create(name: 'Mystery Building', city: 'Irvine CA', foster_program: false, rank: 9)
-    pet = Pet.create(name: 'Scooby', age: 2, breed: 'Great Dane', adoptable: true, shelter_id: shelter.id)
+    shelter = Shelter.find_or_create_by!(name: 'Mystery Building', city: 'Irvine CA', foster_program: false, rank: 9)
+    pet = Pet.find_or_create_by!(name: 'Scooby', age: 2, breed: 'Great Dane', adoptable: true, shelter_id: shelter.id)
 
     visit "/pets/#{pet.id}"
 
@@ -15,8 +15,8 @@ RSpec.describe 'the shelter show' do
   end
 
   it "allows the user to delete a pet" do
-    shelter = Shelter.create(name: 'Mystery Building', city: 'Irvine CA', foster_program: false, rank: 9)
-    pet = Pet.create(name: 'Scrappy', age: 1, breed: 'Great Dane', adoptable: true, shelter_id: shelter.id)
+    shelter = Shelter.find_or_create_by!(name: 'Mystery Building', city: 'Irvine CA', foster_program: false, rank: 9)
+    pet = Pet.find_or_create_by!(name: 'Scrappy', age: 1, breed: 'Great Dane', adoptable: true, shelter_id: shelter.id)
 
     visit "/pets/#{pet.id}"
 

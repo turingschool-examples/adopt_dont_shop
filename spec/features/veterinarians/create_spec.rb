@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'veterinarian creation' do
   before(:each) do
-    @vet_office = VeterinaryOffice.create(name: 'Best Vets', boarding_services: true, max_patient_capacity: 20)
+    @vet_office = VeterinaryOffice.find_or_create_by!(name: 'Best Vets', boarding_services: true, max_patient_capacity: 20)
   end
 
   describe 'the veterinarian new' do

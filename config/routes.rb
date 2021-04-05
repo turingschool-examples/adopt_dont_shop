@@ -15,12 +15,11 @@ Rails.application.routes.draw do
   patch '/pets/:id', to: 'pets#update'
   delete '/pets/:id', to: 'pets#destroy'
 
-  get '/applications', to: 'applications#index' #don't necessarily need a view for index
+  get '/applications', to: 'applications#index' 
   post '/applications', to: 'applications#create'
   get '/applications/new', to: 'applications#new'
   get '/applications/:id', to: 'applications#show'
-  # post '/applications', to: 'applications#create'
-  
+
   post '/applications/:id', to: 'application_pets#create'
   # resources :applications
 

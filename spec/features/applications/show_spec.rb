@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "the Application show page" do
   it "should display applicant info" do
-    applicant = Application.create!(name: "Fred",
+    applicant = Application.find_or_create_by!(name: "Fred",
                               street_address: "123 way",
                               city: "Denver",
                               state: "Colorado",
@@ -23,7 +23,7 @@ RSpec.describe "the Application show page" do
   end
 
   it "shows links that can be clicked on" do
-    applicant = Application.create!(name: "Fred",
+    applicant = Application.find_or_create_by!(name: "Fred",
                               street_address: "123 way",
                               city: "Denver",
                               state: "Colorado",

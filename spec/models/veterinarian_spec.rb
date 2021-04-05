@@ -12,11 +12,11 @@ RSpec.describe Veterinarian, type: :model do
   end
 
   before(:each) do
-    @vet_office = VeterinaryOffice.create(name: 'Best Vets', boarding_services: true, max_patient_capacity: 20)
-    @vet_1 = @vet_office.veterinarians.create(name: 'Taylor', review_rating: 10, on_call: true)
-    @vet_2 = @vet_office.veterinarians.create(name: 'Tanya', review_rating: 9, on_call: true)
-    @vet_3 = @vet_office.veterinarians.create(name: 'Jim', review_rating: 8, on_call: true)
-    @not_on_call_vet = @vet_office.veterinarians.create(name: 'Sam', review_rating: 10, on_call: false)
+    @vet_office = VeterinaryOffice.find_or_create_by!(name: 'Best Vets', boarding_services: true, max_patient_capacity: 20)
+    @vet_1 = @vet_office.veterinarians.find_or_create_by!(name: 'Taylor', review_rating: 10, on_call: true)
+    @vet_2 = @vet_office.veterinarians.find_or_create_by!(name: 'Tanya', review_rating: 9, on_call: true)
+    @vet_3 = @vet_office.veterinarians.find_or_create_by!(name: 'Jim', review_rating: 8, on_call: true)
+    @not_on_call_vet = @vet_office.veterinarians.find_or_create_by!(name: 'Sam', review_rating: 10, on_call: false)
   end
 
   describe 'class methods' do
@@ -25,7 +25,7 @@ RSpec.describe Veterinarian, type: :model do
         expect(Veterinarian.search("Ta")).to eq([@vet_1, @vet_2])
       end
     end
-  
+
     describe '#on_call' do
       it 'returns on call veterinarians' do
         expect(Veterinarian.on_call).to eq([@vet_1, @vet_2, @vet_3])

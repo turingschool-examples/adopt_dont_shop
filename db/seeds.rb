@@ -6,35 +6,32 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
   # ActiveRecord::Base.connection.reset_pk_sequence!('applications')
-  Shelter.destroy_all
-  ApplicationPet.destroy_all
-  Application.destroy_all
+  # Shelter.destroy_all
+  # ApplicationPet.destroy_all
+  # Application.destroy_all
 
-  pound = Shelter.create!(foster_program: true,
-                        name: "da pound",
-                        city: "Denver",
-                        rank: 1,
-                        created_at: Time.now,
-                        updated_at: Time.now
-                        )
-  dog = pound.pets.create!(name: "Bob",
-                          adoptable: true,
-                          age: 1,
-                          breed: "smol",
-                          created_at: Time.now,
-                          updated_at: Time.now
-                          )
-  applicant = dog.applications.create!(name: "Klaw",
-                                      street_address: "123 way",
+  pound = Shelter.find_or_create_by!(foster_program: true,
+                                      name: "da pound",
                                       city: "Denver",
-                                      state: "Colorado",
-                                      zip_code: 80204,
-                                      description: "I like dogs",
-                                      status: "In Progress",
+                                      rank: 1,
                                       created_at: Time.now,
                                       updated_at: Time.now
                                       )
-  # Application.create!(name: application ....)
-
-
-  ApplicationPet.create!(application: applicant, pet: dog)
+  dog = pound.pets.find_or_create_by!(name: "Bob",
+                                      adoptable: true,
+                                      age: 1,
+                                      breed: "smol",
+                                      created_at: Time.now,
+                                      updated_at: Time.now
+                                      )
+  applicant = Application.find_or_create_by!(name: "Klaw",
+                                              street_address: "123 way",
+                                              city: "Denver",
+                                              state: "Colorado",
+                                              zip_code: 80204,
+                                              description: "I like dogs",
+                                              status: "In Progress",
+                                              created_at: Time.now,
+                                              updated_at: Time.now
+                                              )
+ApplicationPet.find_or_create_by!(application: applicant, pet: dog)

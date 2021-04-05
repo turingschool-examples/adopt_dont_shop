@@ -2,12 +2,12 @@ require 'rails_helper'
 
 RSpec.describe 'the veterinary offices index' do
   before(:each) do
-    @vet_office_1 = VeterinaryOffice.create(name: 'Special Friends', boarding_services: true, max_patient_capacity: 100)
-    @vet_office_2 = VeterinaryOffice.create(name: 'Pet Emergency Room', boarding_services: true, max_patient_capacity: 50)
-    @vet_office_3 = VeterinaryOffice.create(name: 'The Country Vet', boarding_services: true, max_patient_capacity: 200)
-    @vet_office_1.veterinarians.create(name: 'Morgan', on_call: true, review_rating: 10)
-    @vet_office_1.veterinarians.create(name: 'Heather', on_call: true, review_rating: 9)
-    @vet_office_3.veterinarians.create(name: 'John', on_call: true, review_rating: 9)
+    @vet_office_1 = VeterinaryOffice.find_or_create_by!(name: 'Special Friends', boarding_services: true, max_patient_capacity: 100)
+    @vet_office_2 = VeterinaryOffice.find_or_create_by!(name: 'Pet Emergency Room', boarding_services: true, max_patient_capacity: 50)
+    @vet_office_3 = VeterinaryOffice.find_or_create_by!(name: 'The Country Vet', boarding_services: true, max_patient_capacity: 200)
+    @vet_office_1.veterinarians.find_or_create_by!(name: 'Morgan', on_call: true, review_rating: 10)
+    @vet_office_1.veterinarians.find_or_create_by!(name: 'Heather', on_call: true, review_rating: 9)
+    @vet_office_3.veterinarians.find_or_create_by!(name: 'John', on_call: true, review_rating: 9)
   end
 
   it 'lists all the vet office names' do
