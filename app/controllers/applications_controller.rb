@@ -4,6 +4,9 @@ class ApplicationsController < ApplicationController
     @application.new(application_params)
   end
 
+  def index
+  end
+
   def show
     @application = Application.find(params[:id])
   end
