@@ -1,4 +1,6 @@
 <h1>All pets</h1>
+
+<h3> <%= link_to "Start an Application:", {:action => :new, :controller => :applicants_pets}, :method => :get %> </h3>
 <br>
 
 <%= form_with url: "/pets", method: :get, local: true do |f| %>

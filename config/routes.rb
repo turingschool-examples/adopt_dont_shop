@@ -37,5 +37,6 @@ Rails.application.routes.draw do
   get '/veterinary_offices/:veterinary_office_id/veterinarians/new', to: 'veterinarians#new'
   post '/veterinary_offices/:veterinary_office_id/veterinarians', to: 'veterinarians#create'
 
+  get '/applicants_pets/new', to: 'applicants_pets#new'
   get '/applicants_pets/:id', to: 'applicants_pets#show'
 end
