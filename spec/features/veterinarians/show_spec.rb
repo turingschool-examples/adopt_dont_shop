@@ -19,7 +19,7 @@ RSpec.describe 'the veterinarian show' do
 
     visit "/veterinarians/#{vet.id}"
 
-    click_on("Delete #{vet.name}")
+    click_button("Delete #{vet.name}")
 
     expect(page).to have_current_path('/veterinarians')
     expect(page).to_not have_content(vet.name)

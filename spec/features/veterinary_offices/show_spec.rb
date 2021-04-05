@@ -25,7 +25,7 @@ RSpec.describe 'the vet office show' do
 
     visit "/veterinary_offices/#{vet_office.id}"
 
-    click_on("Delete #{vet_office.name}")
+    click_button("Delete #{vet_office.name}")
 
     expect(page).to have_current_path('/veterinary_offices')
     expect(page).to_not have_content(vet_office.name)

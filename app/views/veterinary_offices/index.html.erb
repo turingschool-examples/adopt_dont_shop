@@ -8,6 +8,6 @@
     <h3><%= office.name %></h3>
     <p>Created at: <%= office.created_at %></p>
     <%= link_to "Update #{office.name}", "/veterinary_offices/#{office.id}/edit" %>
-    <%= link_to "Delete #{office.name}", "/veterinary_offices/#{office.id}", method: :delete %>
+    <%= button_to "Delete #{office.name}", "/veterinary_offices/#{office.id}", method: :delete %>
   </div>
 <% end %>

@@ -75,18 +75,18 @@ RSpec.describe 'the veterinary offices index' do
     visit "/veterinary_offices"
 
     within "#veterinary-office-#{@vet_office_1.id}" do
-      expect(page).to have_link("Delete #{@vet_office_1.name}")
+      expect(page).to have_button("Delete #{@vet_office_1.name}")
     end
 
     within "#veterinary-office-#{@vet_office_2.id}" do
-      expect(page).to have_link("Delete #{@vet_office_2.name}")
+      expect(page).to have_button("Delete #{@vet_office_2.name}")
     end
 
     within "#veterinary-office-#{@vet_office_3.id}" do
-      expect(page).to have_link("Delete #{@vet_office_3.name}")
+      expect(page).to have_button("Delete #{@vet_office_3.name}")
     end
 
-    click_on("Delete #{@vet_office_1.name}")
+    click_button("Delete #{@vet_office_1.name}")
     expect(page).to have_current_path("/veterinary_offices")
     expect(page).to_not have_content(@vet_office_1.name)
   end
