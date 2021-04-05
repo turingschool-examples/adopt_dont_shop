@@ -1,5 +1,4 @@
 <h1>All pets</h1>
-<%= link_to "Start Application", "/adopting_applications/new" %>
 <br>
 
 <%= form_with url: "/pets", method: :get, local: true do |f| %>
@@ -16,5 +15,5 @@
   <p>Adoptable: </p>
   <p>You can find <%= pet.name %> at <%= pet.shelter_name %>!</p>
   <%= link_to "Edit #{pet.name}", "/pets/#{pet.id}/edit" %>
-  <%= link_to "Delete #{pet.name}", "/pets/#{pet.id}", method: :delete %>
+  <%= button_to "Delete #{pet.name}", "/pets/#{pet.id}", method: :delete %>
 <% end %>
