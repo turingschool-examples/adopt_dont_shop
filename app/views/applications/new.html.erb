@@ -10,7 +10,9 @@
   <%= form.label "zip code" %>
   <%= form.text_field :zip_code%><br>
   <%= form.label "why you might be a good fit for adoption" %>
-  <%= form.text_field :street_address%><br>
+  <%= form.text_area :street_address%><br>
 
+  <%= hidden_field_tag :status, 'In Progress' %>
+  <p>Your application status is: In Progress</p>
   <%= form.submit 'Submit New Application' %>
 <% end %>
