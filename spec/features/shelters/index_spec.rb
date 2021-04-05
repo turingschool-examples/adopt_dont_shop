@@ -75,15 +75,15 @@ RSpec.describe 'the shelters index' do
     visit "/shelters"
 
     within "#shelter-#{@shelter_1.id}" do
-      expect(page).to have_link("Delete #{@shelter_1.name}")
+      expect(page).to have_button("Delete #{@shelter_1.name}")
     end
 
     within "#shelter-#{@shelter_2.id}" do
-      expect(page).to have_link("Delete #{@shelter_2.name}")
+      expect(page).to have_button("Delete #{@shelter_2.name}")
     end
 
     within "#shelter-#{@shelter_3.id}" do
-      expect(page).to have_link("Delete #{@shelter_3.name}")
+      expect(page).to have_button("Delete #{@shelter_3.name}")
     end
 
     click_on("Delete #{@shelter_1.name}")
