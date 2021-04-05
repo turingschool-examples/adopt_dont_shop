@@ -106,7 +106,7 @@ And I see an indicator that this application is "In Progress"
 ```
 
 ```
-[ ] done [ ] complete but probably need to refactor [ ] skipped [x] in progress
+[x] done [ ] complete but probably need to refactor [ ] skipped [ ] in progress
 
 Starting an Application, Form not Completed
 
