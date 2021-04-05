@@ -14,7 +14,7 @@ pet_3 = Pet.create(adoptable: true, age: 3, breed: 'Doberman', name: 'Lobster', 
 pet_3 = Pet.create(adoptable: true, age: 15, breed: 'Chow Golden Retriever mix', name: 'Zeus', shelter_id: shelter_2.id)
 
 application_1 = Application.create!(name: "Alan Smithee", address: "742 Evergreen Terrace Springfield, OR 97205", description: "Looking for a lockdown companion", status: "In progress")
-application_2 = Application.create!(name: "Alan Smithee", address: "742 Evergreen Terrace Springfield, OR 97205", description: "Looking for a lockdown companion", status: "In progress")
+application_2 = Application.create!(name: "JoAnna Brownrigg", address: "1138 Memory Lane Aurora, CO 80010", description: "I want to adopt one new cat every year", status: "In progress")
 
 
 
