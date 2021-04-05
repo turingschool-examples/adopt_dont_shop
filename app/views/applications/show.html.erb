@@ -1,6 +1,6 @@
 <h1><%= @application.name %></h1>
 <h3>Address: <%= @application.address %></h3>
-<h3>Description: <%= @application.description %></h3>
+<h3>Why I'd make a good home for this pet(s): <%= @application.description %></h3>
 <h3>Status: <%= @application.status %></h3>
 <h3>Pets Applied For: </h3><% @application.pets.each do |pet| %>
    <p><%= pet.name %></p>
