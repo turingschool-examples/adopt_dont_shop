@@ -1,16 +1,26 @@
-<h1>New Pet</h1>
-<%= form_with url: "/applications", method: :post, local: true do |f| %>
-  <%= f.label :name %>
-  <%= f.text_field :name %>
+<h1>New Application</h1>
+<%= form_with url: "/applications/new", method: :post, local: true do |f| %>
 
-  <%= f.label :breed %>
-  <%= f.text_field :breed %>
+<%= f.label :name %>
+<%= f.text_field :name %><br><br>
 
-  <%= f.label :age %>
-  <%= f.number_field :age %>
+<%= f.label :address %>
+<%= f.text_field :address%>
 
-  <%= f.label :adoptable %>
-  <%= f.check_box :adoptable, value: true %>
+<%= f.label :city %>
+<%= f.text_field :city %>
 
-  <%= f.submit %>
+<%= f.label :state %>
+<%= f.text_field :state %>
+
+<%= f.label :zip_code %>
+<%= f.text_field :zip_code %><br><br>
+
+<%= f.label :description %>
+<%= f.text_field :description %><br><br>
+
+<%= f.label :status%>
+<%= f.text_field :status %><br><br>
+<%= f.submit %>
+
 <% end %>
