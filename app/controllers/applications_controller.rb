@@ -5,6 +5,7 @@ class ApplicationsController < ApplicationController
   end
 
   def index
+    @applications = Application.all
   end
 
   def show

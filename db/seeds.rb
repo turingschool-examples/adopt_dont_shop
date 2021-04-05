@@ -6,25 +6,7 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 shelter_1 = Shelter.create!(foster_program: true, name: "Portland Animal Rescue", city: "Portland, OR", rank: 1)
-Pet.create!(name: "Cowboy", age: 1, adoptable: true, breed: "russian blue", shelter_id: shelter_1.id)
+pet_1 = Pet.create!(name: "Cowboy", age: 1, adoptable: true, breed: "russian blue", shelter_id: shelter_1.id)
+application_1 = Application.create!(name: "Alan Smithee", address: "742 Evergreen Terrace Springfield, OR 97205", description: "Looking for a lockdown companion", status: "In progress")
 
-
-#   t.boolean "adoptable"
-#     t.integer "age"
-#     t.string "breed"
-#     t.string "name"
-#     t.bigint "shelter_id", null: false
-#     t.datetime "created_at", null: false
-#     t.datetime "updated_at", null: false
-#     t.index ["shelter_id"], name: "index_pets_on_shelter_id"
-
-
-#       create_table "shelters", force: :cascade do |t|
-#     t.boolean "foster_program"
-#     t.string "name"
-#     t.string "city"
-#     t.integer "rank"
-#     t.datetime "created_at", null: false
-#     t.datetime "updated_at", null: false
-#   end
 
