@@ -45,21 +45,6 @@ RSpec.describe 'the pets index' do
     expect(page).to have_current_path("/pets/#{pet_1.id}/edit")
   end
 
-  it 'displays a link to apply to adopt each pet' do
-    shelter = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
-    pet_1 = Pet.create(adoptable: true, age: 1, breed: 'sphynx', name: 'Lucille Bald', shelter_id: shelter.id)
-    pet_2 = Pet.create(adoptable: true, age: 3, breed: 'doberman', name: 'Lobster', shelter_id: shelter.id)
-
-    visit '/pets'
-
-    expect(page).to have_content("Apply to Adopt #{pet_1.name}")
-    expect(page).to have_content("Apply to Adopt #{pet_2.name}")
-
-    click_link("Apply to Adopt #{pet_1.name}")
-
-    expect(page).to have_current_path("/application/new")
-  end
-
   it 'displays a link to delete each pet' do
     shelter = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
     pet_1 = Pet.create(adoptable: true, age: 1, breed: 'sphynx', name: 'Lucille Bald', shelter_id: shelter.id)
@@ -95,5 +80,11 @@ RSpec.describe 'the pets index' do
     expect(page).to have_content(pet_1.name)
     expect(page).to have_content(pet_2.name)
     expect(page).to_not have_content(pet_3.name)
+  end
+
+  it 'displays a link to start an application' do
+    visit "/pets"
+
+    expect(page).to have_link('Start an Application', href: '/applications/new')
   end
 end
