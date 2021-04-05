@@ -40,10 +40,14 @@ class PetsController < ApplicationController
     end
   end
 
-  def destroy
-    Pet.find(params[:id]).destroy
-    redirect_to '/pets'
-  end
+    def destroy
+      # pet = Pet.find(params[:id])
+      # pet.pet_applications.destroy_all
+      # pet.destroy
+      # redirect_to '/pets'
+      Pet.find(params[:id]).destroy
+      redirect_to '/pets'
+    end
 
   private
 
