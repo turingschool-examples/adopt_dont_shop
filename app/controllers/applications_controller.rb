@@ -1,18 +1,16 @@
 class ApplicationsController < ApplicationController
   def index
     @applications = Application.all
-    # if params[:sort].present? && params[:sort] == "pet_count"
-    #   @shelters = Shelter.order_by_number_of_pets
-    # elsif params[:search].present?
-    #   @shelters = Shelter.search(params[:search])
-    # else
-    # end
   end
 
   def show
     if params[:adopt].present?
       @application = Application.find(params[:id])
-      @pets_to_adopt = @application.pets << Pet.find(params[:adopt])
+      if @application.pets.include?(Pet.find(params[:adopt]))
+        @application = Application.find(params[:id])
+      else
+        @pets_to_adopt = @application.pets << Pet.find(params[:adopt])
+      end
     elsif params[:search].present?
       @application = Application.find(params[:id])
       @pets = Pet.search(params[:search])
@@ -41,11 +39,11 @@ class ApplicationsController < ApplicationController
   end
 
   def update
-    application = Application.find(application_params[:id])
-    if application.update(application_params)
+    application = Application.find(params[:id])
+    if application.update(statement: params[:application][:statement])
       redirect_to "/applications/#{application.id}"
     else
-      redirect_to "/applications/#{application.id}/edit"
+      redirect_to "/applications/#{application.id}"
       flash[:alert] = "Error: #{error_message(application.errors)}"
     end
   end

@@ -5,23 +5,24 @@
   <h5>Application Status: <%= @application.status %></h5>
 </section>
 
-<section id="added_pets-<%= @application.id %>">
   <% if @application.pets %>
     <% chosen_pets = @application.pets %>
-    <% chosen_pets.each do |pet| %>
-      <h4><%= link_to "#{pet.name}", "/pets/#{pet.id}" %> </h4>
-    <% end %>
+    <section id="added_pets-<%= @application.id %>">
+      <% chosen_pets.each do |pet| %>
+        <h4><%= link_to "#{pet.name}", "/pets/#{pet.id}" %> </h4>
+      <% end %>
+    </section>
   <% end %>
-</section>
 
-<section id="statement-<%= @application.id %>">
-  <% if @application.pets %>
+  <% if @application.pets.include?(@application.id) %>
+    <section id="statement-<%= @application.id %>">
     <h5>Why would you make a good owner for the selected pet(s)?</h5>
     <%= form_with url: "/applications/#{@application.id}", method: :patch, local: true do |f| %>
-    <%= f.text_area :statement %>
-    <%= f.submit "Save Response" %>
-  <% end %>
-</section>
+      <%= f.text_area :statement %>
+      <%= f.submit "Save Response", params: {adopt: pet}, :method => :patch %>
+    <% end %>
+    </section>
+  <% end  %>
 
 <section id="add_pet-<%= @application.id %>">
   <h4> Add a Pet to this Application </h4>
@@ -43,7 +44,7 @@
     </section>
     <% end %>
   <% end %>
-<% end  %>
+
 
 
 <%# <section id="submit-<%= @application.id %>
