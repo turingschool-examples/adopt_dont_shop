@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_02_214138) do
+ActiveRecord::Schema.define(version: 2021_04_05_225649) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,6 +23,15 @@ ActiveRecord::Schema.define(version: 2021_04_02_214138) do
     t.string "progress"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "pet_applications", force: :cascade do |t|
+    t.bigint "pets_id"
+    t.bigint "applications_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["applications_id"], name: "index_pet_applications_on_applications_id"
+    t.index ["pets_id"], name: "index_pet_applications_on_pets_id"
   end
 
   create_table "pets", force: :cascade do |t|
