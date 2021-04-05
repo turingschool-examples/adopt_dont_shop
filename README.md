@@ -51,7 +51,7 @@ During your evaluation, you will present your project and discuss each of the ca
 ## Deploy
 
 ```
-[ ] done
+[x] done
 
 Deploy your application to Heroku
 
@@ -69,7 +69,7 @@ Use these guides: https://devcenter.heroku.com/articles/getting-started-with-rai
 Visitors to the site will be able to create applications to adopt pets. An application has many pets. Pets can have many applications.
 
 ```
-[ ] done
+[ ] done [x] complete but probably need to refactor [ ] skipped
 
 Application Show Page
 
@@ -84,7 +84,7 @@ Then I can see the following:
 ```
 
 ```
-[ ] done
+[ ] done [x] complete but probably need to refactor [ ] skipped
 
 Starting an Application
 
@@ -106,7 +106,7 @@ And I see an indicator that this application is "In Progress"
 ```
 
 ```
-[ ] done
+[ ] done [ ] complete but probably need to refactor [ ] skipped [x] in progress
 
 Starting an Application, Form not Completed
 
@@ -119,7 +119,7 @@ And I see a message that I must fill in those fields.
 ```
 
 ```
-[ ] done
+[ ] done [ ] complete but probably need to refactor [ ] skipped [ ] in progress
 
 Searching for Pets for an Application
 
@@ -135,7 +135,7 @@ And under the search bar I see any Pet whose name matches my search
 ```
 
 ```
-[ ] done
+[ ] done [ ] complete but probably need to refactor [ ] skipped [ ] in progress
 
 Add a Pet to an Application
 
@@ -150,7 +150,7 @@ And I see the Pet I want to adopt listed on this application
 ```
 
 ```
-[ ] done
+[ ] done [ ] complete but probably need to refactor [ ] skipped [ ] in progress
 
 Submit an Application
 
@@ -168,7 +168,7 @@ And I do not see a section to add more pets to this application
 ```
 
 ```
-[ ] done
+[ ] done [ ] complete but probably need to refactor [ ] skipped [ ] in progress
 
 No Pets on an Application
 
