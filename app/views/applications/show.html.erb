@@ -3,3 +3,13 @@
 <%= link_to "Veterinarians", "/veterinarians" %>
 <%= link_to "Veterinary Offices", "/veterinary_offices" %>
 <%= link_to "Applications", "/applications" %>
+
+
+<%= application.name %>
+<%= application.address %>
+<%= application.description %>
+<%= application.pets %>
+<%= application.status %>
+
+<%= link_to "Edit #{application.name}", "/applications/#{application.id}/edit" %>
+<%= link_to "Delete #{application.name}", "/application/#{application.id}", method: :delete %>
