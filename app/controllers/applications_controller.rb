@@ -12,6 +12,13 @@ class ApplicationsController < ApplicationController
     @application = Application.find(params[:id])
   end
 
+  def edit
+    @application = Application.find(params[:id])
+  end
+
+  def update
+  end
+
   private
 
   def application_params

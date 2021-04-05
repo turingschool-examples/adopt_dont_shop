@@ -95,7 +95,7 @@ When I click this link
 Then I am taken to the new application page where I see a form
 When I fill in this form with my:
   - Name
-  - Street Address
+  - Address
   - City
   - State
   - Zip Code
