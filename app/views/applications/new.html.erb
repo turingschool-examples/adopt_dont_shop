@@ -1,0 +1,10 @@
+<%= form_with url: "/applications", method: :post, local: true do |form| %>
+  <%= form.label :name %>
+  <%= form.text_field :name %><br>
+  <%= form.label :address %>
+  <%= form.text_field :address %><br>
+  <%= form.label :description, "Why I'd make a good home for this pet(s): " %>
+  <%= form.text_field :description %><br>
+  <%= form.hidden_field :status, :value => "In progress" %>
+  <%= form.submit 'Submit' %>
+<% end %>

@@ -1,11 +1,15 @@
 class ApplicationsController < ApplicationController
 
   def create
-    @application.new(application_params)
+    @application = Application.create(application_params)
+    redirect_to "/applications/#{@application.id}"
   end
 
   def show
     @application = Application.find(params[:id])
+  end
+
+  def new
   end
 
   private
