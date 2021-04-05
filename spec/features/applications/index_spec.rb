@@ -40,25 +40,24 @@ RSpec.describe 'the pets index' do
                                         description: 'My kids want a dog.',
                                         status: 'Rejected')
 
-    @pet_application_1 = PetApplication.create!(pet: pet_1, application: application_1)
-    @pet_application_2 = PetApplication.create!(pet: pet_2, application: application_1)
-    @pet_application_3 = PetApplication.create!(pet: pet_3, application: application_1)
-    @pet_application_4 = PetApplication.create!(pet: pet_3, application: application_2)
-    @pet_application_5 = PetApplication.create!(pet: pet_2, application: application_3)
-    @pet_application_6 = PetApplication.create!(pet: pet_1, application: application_4)
-    @pet_application_7 = PetApplication.create!(pet: pet_1, application: application_4)
+    @pet_application_1 = PetApplication.create!(pet: @pet_1, application: @application_1)
+    @pet_application_2 = PetApplication.create!(pet: @pet_2, application: @application_1)
+    @pet_application_3 = PetApplication.create!(pet: @pet_3, application: @application_1)
+    @pet_application_4 = PetApplication.create!(pet: @pet_3, application: @application_2)
+    @pet_application_5 = PetApplication.create!(pet: @pet_2, application: @application_3)
+    @pet_application_6 = PetApplication.create!(pet: @pet_1, application: @application_4)
+    @pet_application_7 = PetApplication.create!(pet: @pet_1, application: @application_4)
   end
-end
 
   it 'lists all the applications with their attributes' do
     visit "/applications"
 
+save_and_open_page
 
-
-    expect(page).to have_content(pet_2.name)
-    expect(page).to have_content(pet_2.breed)
-    expect(page).to have_content(pet_2.age)
-    expect(page).to have_content(shelter.name)
+    expect(page).to have_content(@pet_2.name)
+    expect(page).to have_content(@pet_2.breed)
+    expect(page).to have_content(@pet_2.age)
+    expect(page).to have_content(@shelter.name)
 
     within("#application-#{@application_1}") do
       expect(page).to have_content(@application_1.name)
@@ -71,6 +70,7 @@ end
       expect(page).to have_content(@pet_3.name)
     end
   end
+end
 
 #   it 'only lists adoptable pets' do
 #     shelter = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
