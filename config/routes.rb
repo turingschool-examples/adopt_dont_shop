@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   root 'welcome#index'
-  get '/', to: 'application#welcome'
+  # get '/', to: 'welcome#index'
 
   get '/shelters', to: 'shelters#index'
   get '/shelters/new', to: 'shelters#new'
@@ -39,5 +39,5 @@ Rails.application.routes.draw do
   post '/veterinary_offices/:veterinary_office_id/veterinarians', to: 'veterinarians#create'
 
   get '/applications', to: 'applications#index'
-  
+
 end
