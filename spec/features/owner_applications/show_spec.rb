@@ -19,10 +19,30 @@ RSpec.describe "Owner applications Show Page", type: :feature do
         # Uncomment line below when relationship to pets is complete
         # expect(page).to have_content(@application1.pets)
       end
+      describe "then the application has not been submitted" do
+        it "I see a section on the page to add a pet" do
+          visit "/applications/#{@application1.id}"
+          expect(page).to have_content("Search for Pets by Name")
+          fill_in "Search for Pets by Name", with: "josie"
+          click_button "Submit"
+          expect(current_path).to be("/applications/#{@application1.id}")
+          expect(page).to have_content("Josie")
+        end
+      end
     end
   end
 end
-
+# Searching for Pets for an Application
+#
+# As a visitor
+# When I visit an application's show page
+# And that application has not been submitted,
+# Then I see a section on the page to "Add a Pet to this Application"
+# In that section I see an input where I can search for Pets by name
+# When I fill in this field with a Pet's name
+# And I click submit,
+# Then I am taken back to the application show page
+# And under the search bar I see any Pet whose name matches my search
 # As a visitor
 # When I visit an applications show page
 # Then I can see the following:
