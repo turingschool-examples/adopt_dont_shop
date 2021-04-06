@@ -6,6 +6,7 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 Shelter.destroy_all
+PetApplication.destroy_all
 Pet.destroy_all
 Application.destroy_all
 
@@ -47,10 +48,10 @@ Application.destroy_all
                                     description: 'My kids want a dog.',
                                     status: 'Rejected')
 
-@pet_application_1 = PetApplication.create!(pet: pet_1, application: application_1)
-@pet_application_2 = PetApplication.create!(pet: pet_2, application: application_1)
-@pet_application_3 = PetApplication.create!(pet: pet_3, application: application_1)
-@pet_application_4 = PetApplication.create!(pet: pet_3, application: application_2)
-@pet_application_5 = PetApplication.create!(pet: pet_2, application: application_3)
-@pet_application_6 = PetApplication.create!(pet: pet_1, application: application_4)
-@pet_application_7 = PetApplication.create!(pet: pet_1, application: application_4)
+@pet_application_1 = PetApplication.create!(pet: @pet_1, application: @application_1)
+@pet_application_2 = PetApplication.create!(pet: @pet_2, application: @application_1)
+@pet_application_3 = PetApplication.create!(pet: @pet_3, application: @application_1)
+@pet_application_4 = PetApplication.create!(pet: @pet_3, application: @application_2)
+@pet_application_5 = PetApplication.create!(pet: @pet_2, application: @application_3)
+@pet_application_6 = PetApplication.create!(pet: @pet_1, application: @application_4)
+@pet_application_7 = PetApplication.create!(pet: @pet_1, application: @application_4)

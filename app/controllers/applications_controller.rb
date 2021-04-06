@@ -43,6 +43,7 @@ class ApplicationsController < ApplicationController
   #   redirect_to '/applications'
   # end
 
+
   private
   def application_params
     params.permit(:id, :name, :street_address, :city, :state, :zip_code, :description, :status)
