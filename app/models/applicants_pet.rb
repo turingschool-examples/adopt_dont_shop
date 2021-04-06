@@ -15,18 +15,18 @@ class ApplicantsPet < ApplicationRecord
   end
 
   def self.accepted
-    where(accepted: true)
+    where(status: "Accepted")
   end
 
   def self.in_progress
-    where(in_progress: true)
+    where(status: "In Progress")
   end
 
   def self.rejected
-    where(rejected: true)
+    where(status: "Rejected")
   end
 
   def self.pending
-    where(pending: true)
+    where(status: "Pending")
   end
 end

@@ -5,14 +5,5 @@
 <h3> Zipcode: <%= @application.applicant.zipcode%></h3>
 <h3> Description: <%= @application.description %></h3>
 <h3> Applying For: <%= link_to "#{@application.pet.name}", {controller: "pets", action: "show", id: "#{@application.pet.id}"} %> </h3>
-<h3> Application Status:
-  <% if @application.in_progress == true %>
-  <p>  In Progress </p>
-  <% elsif @application.pending == true %>
-  <p>  Pending </p>
-  <% elsif @application.accepted == true %>
-  <p>  Accepted </p>
-  <% elsif @application.rejected == true %>
-  <p>  Rejected </p>
-  <% end %>
-</h3>
+<h3> Application Status: <%= @application.status %> </h3>
+  

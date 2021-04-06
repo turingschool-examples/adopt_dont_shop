@@ -14,9 +14,9 @@ RSpec.describe 'applicants_pets show' do
     @applicant_2 = Applicant.create!(full_name: 'Yo Lo', street_address: '95837 Tomahawk Dr.', city: 'Cincinatti', state: 'OH', zipcode: 44567)
     @applicant_3 = Applicant.create!(full_name: 'Sam Smith', street_address: '34573 Board Rd.', city: 'Austin', state: 'TX', zipcode: 67875 )
 
-    @application_1 = ApplicantsPet.create(description: 'blah', in_progress: true, pending: false, accepted: false, rejected: false, pet_id: @pet_1.id, applicant_id: @applicant_1.id )
-    @application_2 = ApplicantsPet.create(description: 'aer', in_progress: true, pending: false, accepted: false, rejected: false, pet_id: @pet_2.id, applicant_id: @applicant_2.id )
-    @application_3 = ApplicantsPet.create(description: 'TBD', in_progress: true, pending: false, accepted: false, rejected: false, pet_id: @pet_3.id, applicant_id: @applicant_3.id )
+    @application_1 = ApplicantsPet.create(description: 'blah', pet_id: @pet_1.id, applicant_id: @applicant_1.id )
+    @application_2 = ApplicantsPet.create(description: 'aer', pet_id: @pet_2.id, applicant_id: @applicant_2.id )
+    @application_3 = ApplicantsPet.create(description: 'TBD', pet_id: @pet_3.id, applicant_id: @applicant_3.id )
   end
 
   it "shows the application and all of its attributes" do

@@ -27,10 +27,10 @@ RSpec.describe ApplicantsPet, type: :model do
     @applicant_2 = Applicant.create!(full_name: 'Yo Lo', street_address: '95837 Tomahawk Dr.', city: 'Cincinatti', state: 'OH', zipcode: 44567)
     @applicant_3 = Applicant.create!(full_name: 'Sam Smith', street_address: '34573 Board Rd.', city: 'Austin', state: 'TX', zipcode: 67875 )
 
-    @association_1 = ApplicantsPet.create!(description: 'blah', in_progress: true, pending: false, accepted: false, rejected: false, pet_id: @pet_1.id, applicant_id: @applicant_1.id )
-    @association_2 = ApplicantsPet.create!(description: 'aer', in_progress: false, pending: true, accepted: false, rejected: false, pet_id: @pet_2.id, applicant_id: @applicant_2.id )
-    @association_3 = ApplicantsPet.create!(description: 'TBD', in_progress: false, pending: false, accepted: true, rejected: false, pet_id: @pet_3.id, applicant_id: @applicant_3.id )
-    @association_4 = ApplicantsPet.create!(description: 'TBD', in_progress: false, pending: false, accepted: false, rejected: true, pet_id: @pet_3.id, applicant_id: @applicant_3.id )
+    @association_1 = ApplicantsPet.create!(description: 'blah', pet_id: @pet_1.id, applicant_id: @applicant_1.id )
+    @association_2 = ApplicantsPet.create!(description: 'aer', pet_id: @pet_2.id, status: "Pending", applicant_id: @applicant_2.id )
+    @association_3 = ApplicantsPet.create!(description: 'TBD', pet_id: @pet_3.id, status: "Accepted", applicant_id: @applicant_3.id )
+    @association_4 = ApplicantsPet.create!(description: 'TBD', pet_id: @pet_3.id, status: "Rejected", applicant_id: @applicant_3.id )
 
   end
 
