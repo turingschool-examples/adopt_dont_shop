@@ -14,10 +14,11 @@
 
 <section><br>
   <%= "Add a Pet to this Application" %>
-  <%= form_with url: "/pets", method: :get, local: true do |f| %>
+  <%= form_with url: "/applications", method: :get, local: true do |f| %>
     <%= f.label :search %>
     <%= f.text_field :search %>
     <%= f.submit "Search" %>
   <% end %>
-
+  <% if params(:search) == pet.name%>
+  <%= pet.name %>
 </section>
