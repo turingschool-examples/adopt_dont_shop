@@ -29,10 +29,11 @@ ActiveRecord::Schema.define(version: 2021_04_06_015005) do
 
   create_table "pet_applications", force: :cascade do |t|
     t.bigint "pets_id"
-    t.bigint "applications_id"
+    t.bigint "owner_applications_id"
+    t.string "approve_status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["applications_id"], name: "index_pet_applications_on_applications_id"
+    t.index ["owner_applications_id"], name: "index_pet_applications_on_owner_applications_id"
     t.index ["pets_id"], name: "index_pet_applications_on_pets_id"
   end
 
