@@ -16,13 +16,11 @@ class OwnerApplicationsController < ApplicationController
       flash[:notice] = 'Please fill in all fields'
       render :new
     end
-
   end
 
+  private
   def owner_application_params
     defaults = {status: 'In Progress'}
     params.permit(:name, :address, :city, :state, :zip, :description)
   end
-
-
 end
