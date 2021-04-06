@@ -49,21 +49,23 @@ RSpec.describe 'the pets index' do
     @pet_application_7 = PetApplication.create!(pet: @pet_1, application: @application_4)
   end
 
-  it 'lists all the applications with their attributes' do
-    visit "/applications"
 
-    within("#application-#{@application_1}") do
+  it 'lists all the applications with their attributes' do
+    visit "/applications/#{@application_1.id}"
+
+    within("#application-#{@application_1.id}") do
       expect(page).to have_content(@application_1.name)
       expect(page).to have_content(@application_1.street_address)
       expect(page).to have_content(@application_1.city)
       expect(page).to have_content(@application_1.state)
       expect(page).to have_content(@application_1.zip_code)
+      expect(page).to have_content(@application_1.description)
+      expect(page).to have_content(@application_1.status)
       expect(page).to have_content(@pet_1.name)
       expect(page).to have_content(@pet_2.name)
       expect(page).to have_content(@pet_3.name)
     end
   end
-end
 
 #   it 'only lists adoptable pets' do
 #     shelter = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
@@ -127,4 +129,4 @@ end
 #     expect(page).to have_content(pet_2.name)
 #     expect(page).to_not have_content(pet_3.name)
 #   end
-# end
+end
