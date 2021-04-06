@@ -1,9 +1,23 @@
-<!-- <a href="/applications/<%=@application.id%>"</a> -->
 
-<h3><%= @application.name%> </h3>
-<h3><%= @application.address%> </h3>
-<h3><%= @application.city%></h3>
-<h3><%= @application.state %></h3>
-<h3><%= @application.zip_code %></h3>
-<h3><%= @application.description %></h3>
-<h3><%= @application.status %></h3>
+
+<h3>Applicants Name: <%= @application.name%> </h3>
+<h3>Street: <%= @application.address%> </h3>
+<h3>City: <%= @application.city%></h3>
+<h3>State: <%= @application.state %></h3>
+<h3>Zio Code: <%= @application.zip_code %></h3>
+<h3>Why they want to adopt:<%=@application.description%></h3>
+<h3>Status: <%=@application.status%></h3>
+
+  <%@application.pets.each do |pet| %>
+    <%= link_to "#{pet.name}", "/pets/#{pet.id}"%><br>
+  <%end%>
+
+<section><br>
+  <%= "Add a Pet to this Application" %>
+  <%= form_with url: "/pets", method: :get, local: true do |f| %>
+    <%= f.label :search %>
+    <%= f.text_field :search %>
+    <%= f.submit "Search" %>
+  <% end %>
+
+</section>
