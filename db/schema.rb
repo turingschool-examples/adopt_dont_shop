@@ -22,7 +22,7 @@ ActiveRecord::Schema.define(version: 2021_04_04_234837) do
     t.string "state"
     t.integer "zip_code"
     t.string "description"
-    t.string "status"
+    t.string "status" #status needs to be in pet applications table as well
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
