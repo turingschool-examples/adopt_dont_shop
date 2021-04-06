@@ -25,7 +25,7 @@ RSpec.describe "the Application show page" do
   it 'can search for pets by name' do
     visit "/applications/#{@application.id}"
 
-    fill_in = 'Bear'
+    fill_in with: 'Bear'
     click_on "Search"
 
     expect(page).to have_content(@pet_3.name)

@@ -12,8 +12,10 @@
   <%= submit_tag ("Search") %>
 <% end %>
 
-<% if (@pet.nil?) %>
+<% if (@pets.count == 0) %>
   <p>No pets searched</p>
 <% else %>
-  <p><%= @pet.name %></p>
+  <% @pets.each do |pet| %>
+    <p><%= pet.name %></p>
+  <% end %>
 <% end %>
