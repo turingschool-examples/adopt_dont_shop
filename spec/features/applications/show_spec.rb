@@ -20,4 +20,24 @@ RSpec.describe "the Application show page" do
     expect(page).to have_content(@pet_1.name)
     expect(page).to have_content(@pet_2.name)
   end
+
+  it "When I visit an application's show page and that application has not been
+    submitted, then I see a section on the page to 'Add a Pet to this
+    Application." do
+
+     expect(page).to have_content("Add a Pet to this Application")
+  end
+
+   it 'has a text box where I can search for pets by name' do
+
+    expect(page).to have_button("Search by Pet name")
+  end
+
+  it "Fill in search bar and expect to see all pets with partial or full matches" do
+
+   fill_in "Search by Pet name", with: "Co"
+   click_on("Search by Pet name")
+
+   expect(page).to have_content(@pet_1.name)
+  end
 end
