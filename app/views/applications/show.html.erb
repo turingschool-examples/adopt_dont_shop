@@ -5,21 +5,36 @@
   <h5>Application Status: <%= @application.status %></h5>
 </section>
 
-<section id="added_pets-<%= @application.id %>">
   <% if @application.pets %>
     <% chosen_pets = @application.pets %>
-    <% chosen_pets.each do |pet| %>
-      <h4><%= link_to "#{pet.name}", "/pets/#{pet.id}" %> </h4>
-    <% end %>
+    <section id="added_pets-<%= @application.id %>">
+      <% chosen_pets.each do |pet| %>
+        <h4><%= link_to "#{pet.name}", "/pets/#{pet.id}" %> </h4>
+      <% end %>
+    </section>
   <% end %>
-</section>
 
-<section id="add_pet-<%= @application.id %>">
-  <h4> Add a Pet to this Application </h4>
-  <%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |f| %>
-  <%= f.label :search, "Search by Pet name" %>
-  <%= f.text_field :search %>
-  <%= f.submit "Search" %>
+<% if not @application.status == "Pending" %>
+  <% if @application.pets %>
+    <section id="statement-<%= @application.id %>">
+      <h5>Why would you make a good owner for the selected pet(s)?</h5>
+      <%= form_with model: @application do |f| %>
+      <%= f.text_area :statement %>
+      <%= f.submit "Submit Application" %>
+      <% end %>
+    </section>
+  <% end  %>
+<% end %>
+
+  <% if @application.status == "In Progress" %>
+    <section id="add_pet-<%= @application.id %>">
+      <h4> Add a Pet to this Application </h4>
+      <%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |f| %>
+      <%= f.label :search, "Search by Pet name" %>
+      <%= f.text_field :search %>
+      <%= f.submit "Search" %>
+      <% end %>
+    </section>
   <% end %>
 
   <% if @pets %>
@@ -34,7 +49,3 @@
     </section>
     <% end %>
   <% end %>
-
-
-
-<%# <section id="submit-<%= @application.id %>

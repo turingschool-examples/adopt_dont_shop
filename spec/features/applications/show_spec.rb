@@ -19,7 +19,6 @@ RSpec.describe 'the application show' do
       statement: " ",
       status: "In Progress"
       )
-    # @hayley_williams.pets << @petunia
 
     @jeff_rosenstock = Application.create!(applicant_name: 'Jeff Rosenstock',
       street: "456 Mississippi Ave.",
@@ -29,7 +28,6 @@ RSpec.describe 'the application show' do
       statement: " ",
       status: "In Progress"
       )
-    # @jeff_rosenstock.pets << @lawson
 
     visit "/applications/#{@hayley_williams.id}"
   end
@@ -45,8 +43,6 @@ RSpec.describe 'the application show' do
     expect(page).to_not have_content(@jeff_rosenstock.applicant_name)
   end
 
-  # The Application's status, either "In Progress", "Pending", "Accepted", or
-  # Rejected
   it "has a status of 'In Progress', 'Pending', 'Accepted', or 'Rejected'" do
     expect(@hayley_williams.status).to eq("In Progress")
   end
@@ -93,15 +89,15 @@ RSpec.describe 'the application show' do
 
   end
 
-  #
-  #   it "When I fill in that input and I click a button to submit this application\
-  #     then I am taken back to the application's show page" do
-  #
-  #   end
-  #
-  #   it "And I see an indicator that the application is 'Pending'.\
-  #     And I see all the pets that I want to adopt. And I do not see a section\
-  #     to add more pets to this application" do
-  #
-  #   end
+
+  it "When I fill in that input and I click a button to submit this application\
+    then I am taken back to the application's show page" do
+
   end
+
+  it "And I see an indicator that the application is 'Pending'.\
+    And I see all the pets that I want to adopt. And I do not see a section\
+    to add more pets to this application" do
+
+  end
+end

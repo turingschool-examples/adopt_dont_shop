@@ -1,18 +1,16 @@
 class ApplicationsController < ApplicationController
   def index
     @applications = Application.all
-    # if params[:sort].present? && params[:sort] == "pet_count"
-    #   @shelters = Shelter.order_by_number_of_pets
-    # elsif params[:search].present?
-    #   @shelters = Shelter.search(params[:search])
-    # else
-    # end
   end
 
   def show
     if params[:adopt].present?
       @application = Application.find(params[:id])
-      @pets_to_adopt = @application.pets << Pet.find(params[:adopt])
+      if @application.pets.include?(Pet.find(params[:adopt]))
+        @application = Application.find(params[:id])
+      else
+        @pets_to_adopt = @application.pets << Pet.find(params[:adopt])
+      end
     elsif params[:search].present?
       @application = Application.find(params[:id])
       @pets = Pet.search(params[:search])
@@ -31,7 +29,7 @@ class ApplicationsController < ApplicationController
       redirect_to "/applications/#{application.id}"
     else
       redirect_to '/applications/new'
-      # render :action => :edit
+      # render :action => :edit ------- can answers be maintained?
       flash[:alert] = "Error: #{error_message(application.errors)}"
     end
   end
@@ -41,13 +39,16 @@ class ApplicationsController < ApplicationController
   end
 
   def update
-    application = Application.find(application_params[:id])
-    if application.update(application_params)
-      redirect_to '/applications'
-    else
-      redirect_to "/applications/#{application.id}/edit"
-      flash[:alert] = "Error: #{error_message(application.errors)}"
-    end
+    application = Application.find(params[:id])
+    application.statement = params[:application][:statement]
+    application.status = "Pending"
+    application.save
+    # if application.update = params[:application][:statement]
+    #   redirect_to "/applications/#{application.id}"
+    # else
+    redirect_to "/applications/#{application.id}"
+    #   flash[:alert] = "Error: #{error_message(application.errors)}"
+    # end
   end
 
   def destroy

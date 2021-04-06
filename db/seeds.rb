@@ -29,7 +29,7 @@ co_humane_society.pets.create!(name: 'Link', breed: 'dachshund', age: 1, adoptab
 co_humane_society.pets.create!(name: 'Tofu', breed: 'boxer', age: 1, adoptable: true)
 co_humane_society.pets.create!(name: 'Theo', breed: 'labrador retriever', age: 4, adoptable: true)
 
-foothills_shelter.pets.create!(name: 'Ramone', breed: 'hound', age: 2, adoptable: true)
+foothills_shelter.pets.create!(name: 'Rude Boy', breed: 'hound', age: 2, adoptable: true)
 foothills_shelter.pets.create!(name: 'Lawson', breed: 'Australian shepherd', age: 6, adoptable: true)
 foothills_shelter.pets.create!(name: 'Petunia', breed: 'chihuahua', age: 1, adoptable: true)
 
