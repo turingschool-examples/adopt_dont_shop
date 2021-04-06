@@ -119,7 +119,7 @@ And I see a message that I must fill in those fields.
 ```
 
 ```
-[ ] done [ ] complete but probably need to refactor [ ] skipped [x] in progress
+[x] done [ ] complete but probably need to refactor [ ] skipped [] in progress
 
 Searching for Pets for an Application
 
