@@ -119,7 +119,7 @@ And I see a message that I must fill in those fields.
 ```
 
 ```
-[ ] done [ ] complete but probably need to refactor [ ] skipped [ ] in progress
+[ ] done [ ] complete but probably need to refactor [ ] skipped [x] in progress
 
 Searching for Pets for an Application
 
@@ -135,7 +135,7 @@ And under the search bar I see any Pet whose name matches my search
 ```
 
 ```
-[ ] done [ ] complete but probably need to refactor [ ] skipped [ ] in progress
+[ ] done [ ] complete but probably need to refactor [ ] skipped [x] in progress
 
 Add a Pet to an Application
 
