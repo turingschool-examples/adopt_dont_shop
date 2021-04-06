@@ -15,7 +15,7 @@
   <% end %>
 
 <% if not @application.status == "Pending" %>
-  <% if @application.pets %>
+  <% if @application.pets.count > 0 %>
     <section id="statement-<%= @application.id %>">
       <h5>Why would you make a good owner for the selected pet(s)?</h5>
       <%= form_with model: @application do |f| %>
