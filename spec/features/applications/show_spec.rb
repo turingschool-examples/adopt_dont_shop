@@ -37,7 +37,7 @@ RSpec.describe 'As a visitor' do
 
       visit "applications/#{application.id}"
 
-      expect(page).to have_content("Pet name")
+      expect(page).to have_content("Pets you've searched for:")
     end
   end
 end
