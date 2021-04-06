@@ -25,9 +25,21 @@ RSpec.describe "the Application show page" do
   it 'can search for pets by name' do
     visit "/applications/#{@application.id}"
 
-    fill_in with: 'Bear'
+    fill_in with: "#{@pet_3.name}"
     click_on "Search"
 
     expect(page).to have_content(@pet_3.name)
+  end
+
+  it 'can add pet to application' do
+    visit "/applications/#{@application.id}"
+
+    fill_in with: "#{@pet_3.name}"
+    click_on "Search"
+    click_button "Adopt #{@pet_3.name}"
+
+    expect(current_path).to eq("/applications/#{@application.id}")
+    expect(@pet_3.name).to appear_before('Search')
+    expect(page).to have_content('No pets searched')
   end
 end
