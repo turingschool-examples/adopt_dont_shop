@@ -38,7 +38,7 @@ RSpec.describe "Creating a new Application" do
 
     click_button 'Save'
 
-    expect(current_path).to eq("/applications")
-    expect(page).to have_content("Please check your information. All information must be filled in.")
+    expect(current_path).to eq("/applications/new")
+    expect(page).to have_content("Please check your information all information must be filled in.")
   end
 end

@@ -24,11 +24,11 @@ RSpec.describe 'the application show page' do
     expect(page).to have_content(@joan.description)
   end
 
-  # it 'names all the pets that this application is for' do
-  #   click_link "#{@pet1.name}"
-  #   expect(page).to have_current_path("/pets/#{@pet1.id}/show")
-  #   expect(page).to have_content("pending")
-  # end
+  it 'names all the pets that this application is for' do
+    click_link "#{@pet1.name}"
+    expect(page).to have_current_path("/pets/#{@pet1.id}/show")
+    expect(page).to have_content("pending")
+  end
   #
   # it 'Search for a Pet for Application' do
   #   visit "/applications/#{@joan.id}"
