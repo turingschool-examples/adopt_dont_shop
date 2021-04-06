@@ -29,7 +29,7 @@ class ApplicationsController < ApplicationController
       redirect_to "/applications/#{application.id}"
     else
       redirect_to '/applications/new'
-      # render :action => :edit
+      # render :action => :edit ------- can answers be maintained?
       flash[:alert] = "Error: #{error_message(application.errors)}"
     end
   end
@@ -40,12 +40,15 @@ class ApplicationsController < ApplicationController
 
   def update
     application = Application.find(params[:id])
-    if application.update(statement: params[:application][:statement])
-      redirect_to "/applications/#{application.id}"
-    else
-      redirect_to "/applications/#{application.id}"
-      flash[:alert] = "Error: #{error_message(application.errors)}"
-    end
+    application.statement = params[:application][:statement]
+    application.status = "Pending"
+    application.save
+    # if application.update = params[:application][:statement]
+    #   redirect_to "/applications/#{application.id}"
+    # else
+    redirect_to "/applications/#{application.id}"
+    #   flash[:alert] = "Error: #{error_message(application.errors)}"
+    # end
   end
 
   def destroy

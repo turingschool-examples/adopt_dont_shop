@@ -14,22 +14,27 @@
     </section>
   <% end %>
 
-  <% if @application.pets.include?(@application.id) %>
+<% if not @application.status == "Pending" %>
+  <% if @application.pets %>
     <section id="statement-<%= @application.id %>">
-    <h5>Why would you make a good owner for the selected pet(s)?</h5>
-    <%= form_with url: "/applications/#{@application.id}", method: :patch, local: true do |f| %>
+      <h5>Why would you make a good owner for the selected pet(s)?</h5>
+      <%= form_with model: @application do |f| %>
       <%= f.text_area :statement %>
-      <%= f.submit "Save Response", params: {adopt: pet}, :method => :patch %>
-    <% end %>
+      <%= f.submit "Submit Application" %>
+      <% end %>
     </section>
   <% end  %>
+<% end %>
 
-<section id="add_pet-<%= @application.id %>">
-  <h4> Add a Pet to this Application </h4>
-  <%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |f| %>
-  <%= f.label :search, "Search by Pet name" %>
-  <%= f.text_field :search %>
-  <%= f.submit "Search" %>
+  <% if @application.status == "In Progress" %>
+    <section id="add_pet-<%= @application.id %>">
+      <h4> Add a Pet to this Application </h4>
+      <%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |f| %>
+      <%= f.label :search, "Search by Pet name" %>
+      <%= f.text_field :search %>
+      <%= f.submit "Search" %>
+      <% end %>
+    </section>
   <% end %>
 
   <% if @pets %>
@@ -44,7 +49,3 @@
     </section>
     <% end %>
   <% end %>
-
-
-
-<%# <section id="submit-<%= @application.id %>
