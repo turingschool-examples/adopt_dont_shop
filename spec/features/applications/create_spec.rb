@@ -25,10 +25,8 @@ RSpec.describe "Creating a new Application" do
     fill_in "City", with: "No Way"
     fill_in "State", with: "USA"
     fill_in "Zip code", with: 12345
-    fill_in "Description", with: "Love pets"
-    fill_in "Status", with: "pending"
 
-    click_button 'Save'
+    click_button 'Submit Application'
 
     expect(page).to have_content("Scott")
     end
@@ -36,7 +34,12 @@ RSpec.describe "Creating a new Application" do
   it "Shows for not Completed Error Message" do
     visit "/applications/new"
 
-    click_button 'Save'
+    fill_in "Name", with: ""
+    fill_in "Address", with: "237 Nope St"
+    fill_in "City", with: "No Way"
+    fill_in "State", with: "USA"
+    fill_in "Zip code", with: 12345
+    click_button 'Submit Application'
 
     expect(current_path).to eq("/applications/new")
     expect(page).to have_content("Please check your information all information must be filled in.")

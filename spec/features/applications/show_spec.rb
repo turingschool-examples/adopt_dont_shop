@@ -13,8 +13,9 @@ RSpec.describe 'the application show page' do
     PetApplication.create(pet_id: @pet2.id, application_id: @joan.id)
   end
 
-    it 'shows the name of the Applicant including street, city, state, and zip code ' do
+  it 'shows the name of the Applicant including street, city, state, and zip code ' do
     visit "/applications/#{@joan.id}"
+
     expect(page).to have_content(@joan.name)
     expect(page).to have_content(@joan.address)
     expect(page).to have_content(@joan.city)
@@ -25,44 +26,32 @@ RSpec.describe 'the application show page' do
   end
 
   it 'names all the pets that this application is for' do
+    visit "/applications/#{@joan.id}"
     click_link "#{@pet1.name}"
-    expect(page).to have_current_path("/pets/#{@pet1.id}/show")
-    expect(page).to have_content("pending")
+    expect(page).to have_current_path("/pets/#{@pet1.id}")
   end
-  #
-  # it 'Search for a Pet for Application' do
-  #   visit "/applications/#{@joan.id}"
-  #   expect(page).to have_content(@joan.name)
-  #   expect(page).to have_content(@joan.address)
-  #   expect(page).to have_content(@joan.city)
-  #   expect(page).to have_content(@joan.state)
-  #   expect(page).to have_content(@joan.zip_code)
-  #   expect(page).to have_content(@joan.status)
-  #   expect(page).to have_content("Add a Pet to this Application")
-  #   expect(pafe).to have_field("search for pet")
-  #
-  #   fill_in "search for pet", with: "#{@pet1.name}"
-  #   click_button "search"
-  #   expect(page).to have_current_path
-  #
-  #   expect(page).to have_content("#{@pet1.name}")
-  #   expect(page).to_not have_content("#{@pet2.name}")
-  # end
-  #
-  # it 'It can add a pet to an applicaton' do
-  #   visit "/applications/#{@joan.id}"
-  #   expect(page).to have_content(@joan.name)
-  #   expect(page).to have_content(@joan.address)
-  #   click_button "search"
-  #   #Look into what page it goes to
-  #   expect(page).to have_content(@pet1.name)
-  #   click_button "Adopt #{@pet1.name}"
-  #   expect(page).to have_current_path
-  #
-  #   expect(page).to have_content(@joan.name)
-  #   expect(page).to have_content(@joan.address)
-  #   expect(page).to have_content(@pet1.name)
-  # end
+
+  it 'Search for a Pet by name for Application' do
+    visit "/applications/#{@joan.id}"
+    expect(page).to have_content(@joan.name)
+    expect(page).to have_content(@joan.address)
+    expect(page).to have_content(@joan.city)
+    expect(page).to have_content(@joan.state)
+    expect(page).to have_content(@joan.zip_code)
+    expect(page).to have_content(@joan.status)
+    expect(page).to have_content("Add a Pet to this Application")
+    expect(page).to have_field("Search")
+
+    fill_in "Search", with: "#{@pet1.name}"
+    click_button "Search"
+
+    expect(page).to have_current_path("/applications/#{@joan.id}")
+    
+    expect(page).to have_content("#{@pet1.name}")
+    expect(page).to_not have_content("#{@pet2.name}")
+  end
+
+
   #
   # it 'Submit an Application' do
   #   fill_in :description, with: "I have another cat"

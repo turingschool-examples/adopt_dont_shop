@@ -24,5 +24,5 @@ end
 
   private
   def application_params
-    params.permit(:name, :address, :city, :state, :zip_code, :description, :status)
+    params.permit(:name, :address, :city, :state, :zip_code, :status)
   end
