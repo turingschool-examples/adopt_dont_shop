@@ -23,5 +23,21 @@ RSpec.describe 'As a visitor' do
       expect(page).to have_content("eh breddy gool guy")
       expect(page).to have_content("In Progress")
     end
+
+    it 'I see a section to search for pets' do
+      application = Application.create!(
+        name: "Bob Ham",
+        street_address: "5714 Carmel Rd",
+        city: "Charlotte",
+        state: "NC",
+        zipcode: 28226,
+        description: "eh breddy gool guy",
+        status: "In Progress"
+      )
+
+      visit "applications/#{application.id}"
+
+      expect(page).to have_content("Pet name")
+    end
   end
 end

@@ -1,9 +1,14 @@
 class ApplicationsController < ApplicationController
+
   def show
     @application = Application.find(params[:id])
+    if params[:pet_name].present?
+      @pets = Pet.search(params[:pet_name])
+    end
   end
 
   def new
+
   end
 
   def create
@@ -15,6 +20,8 @@ class ApplicationsController < ApplicationController
       flash[:alert] = "Error: #{error_message(application.errors)}"
     end
   end
+
+  private
 
   def application_params
     params.permit(:id, :name, :street_address, :city, :state, :zipcode, :description, :status, :pet_id)
