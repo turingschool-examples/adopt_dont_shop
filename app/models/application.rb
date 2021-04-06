@@ -10,6 +10,6 @@ class Application < ApplicationRecord
   validates :description, presence: true
 
   def set_in_progress
-    self.status = "In Progress"
+    self.status = "In Progress" #self might be redundant
   end
 end

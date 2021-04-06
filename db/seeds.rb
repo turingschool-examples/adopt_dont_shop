@@ -31,7 +31,7 @@ vet_2 = VeterinaryOffice.create!(name: 'Country Vet', boarding_services: true, m
 
 vet_1.veterinarians.create!(name: 'Adam', review_rating: 10, on_call: true)
 vet_1.veterinarians.create!(name: 'Gwion', review_rating: 7, on_call: true)
-vet_1.veterinarians.create!(name: 'Llewellyn', review_rating: 10, on_call: false)
+vet_1.veterinarians.create!(name: 'Llewellyn', review_rating: 10, on_call: true)
 vet_1.veterinarians.create!(name: 'Sioned', review_rating: 8, on_call: false)
 
 vet_2.veterinarians.create!(name: 'Dylan', review_rating: 5, on_call: false)
