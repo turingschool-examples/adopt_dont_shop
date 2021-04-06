@@ -8,8 +8,12 @@ RSpec.describe Application, type: :model do
 
   describe 'validations' do
     it { should validate_presence_of(:name) }
-    it { should validate_presence_of(:age) }
-    it { should validate_numericality_of(:age) }
+    it { should validate_presence_of(:street_address) }
+    it { should validate_presence_of(:city) }
+    it { should validate_presence_of(:state) }
+    it { should validate_numericality_of(:zip_code) }
+    it { should validate_presence_of(:description) }
+    it { should validate_presence_of(:status) }
   end
 
   before(:each) do
@@ -51,13 +55,13 @@ RSpec.describe Application, type: :model do
                                         description: 'My kids want a dog.',
                                         status: 'Rejected')
 
-    @pet_application_1 = PetApplication.create!(pet: pet_1, application: application_1)
-    @pet_application_2 = PetApplication.create!(pet: pet_2, application: application_1)
-    @pet_application_3 = PetApplication.create!(pet: pet_3, application: application_1)
-    @pet_application_4 = PetApplication.create!(pet: pet_3, application: application_2)
-    @pet_application_5 = PetApplication.create!(pet: pet_2, application: application_3)
-    @pet_application_6 = PetApplication.create!(pet: pet_1, application: application_4)
-    @pet_application_7 = PetApplication.create!(pet: pet_1, application: application_4)
+    @pet_application_1 = PetApplication.create!(pet: @pet_1, application: @application_1)
+    @pet_application_2 = PetApplication.create!(pet: @pet_2, application: @application_1)
+    @pet_application_3 = PetApplication.create!(pet: @pet_3, application: @application_1)
+    @pet_application_4 = PetApplication.create!(pet: @pet_3, application: @application_2)
+    @pet_application_5 = PetApplication.create!(pet: @pet_2, application: @application_3)
+    @pet_application_6 = PetApplication.create!(pet: @pet_1, application: @application_4)
+    @pet_application_7 = PetApplication.create!(pet: @pet_1, application: @application_4)
   end
 end
 

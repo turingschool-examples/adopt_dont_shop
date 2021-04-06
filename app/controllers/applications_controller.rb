@@ -2,10 +2,12 @@ class ApplicationsController < ApplicationController
   def index
       @applications = Application.all
   end
-  #
-  # def show
-  #   @application = Application.find(params[:id])
-  # end
+
+  def show
+    @application = Application.find(params[:id])
+    @pets = @application.pets
+    # require "pry";binding.pry
+  end
   #
   # def new
   #   @shelter = Shelter.find(params[:shelter_id])
