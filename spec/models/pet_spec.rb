@@ -40,5 +40,11 @@ RSpec.describe Pet, type: :model do
         expect(@pet_3.shelter_name).to eq(@shelter_1.name)
       end
     end
+
+    describe '.find_by_name' do
+      it 'find the Pet with the given name param' do
+        expect(Pet.find_by_name("Ann")).to eq(@pet_3)
+      end
+    end
   end
 end

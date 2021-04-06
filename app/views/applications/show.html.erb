@@ -5,11 +5,15 @@
 <h3>Pets Applied For: </h3><% @application.pets.each do |pet| %>
    <p><%= pet.name %></p>
 <% end %>
+
 <h1>Add pet to application:</h1>
-<%= form_tag("/applications/#{@application.id}", method: :patch) do %>
-<%= text_field_tag(:search, params[:search]) %>
-<%= submit_tag ("Search") %>
+<%= form_tag(url_for(action: 'show'), method: :get) do %>
+  <%= text_field_tag(:search, params[:search]) %>
+  <%= submit_tag ("Search") %>
 <% end %>
-<% @pets.each do |pet| %>
-  <p><%= pet.name %></p>
+
+<% if (@pet.nil?) %>
+  <p>No pets searched</p>
+<% else %>
+  <p><%= @pet.name %></p>
 <% end %>
