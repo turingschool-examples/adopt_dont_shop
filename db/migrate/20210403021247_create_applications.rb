@@ -4,7 +4,6 @@ class CreateApplications < ActiveRecord::Migration[5.2]
       t.string :applicant_name
       t.string :address
       t.string :statement, :default => " "
-      t.string :pet_names
       t.string :status, :default => "In Progress"
 
       t.timestamps
