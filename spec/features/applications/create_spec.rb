@@ -17,10 +17,14 @@ end
   describe 'the application create' do
     context 'given valid data' do
       it 'creates a new application' do
+
+        # application = Application.create(name: '', street_address: '', city: '', state: '', status: '')
+
         visit '/applications/new'
 
         fill_in 'Name', with: 'Bob Ross'
         fill_in 'Street address', with: 'Downing St'
+        fill_in 'City', with: 'Denver'
         select 'CO', :from => 'State'
         fill_in 'Zip code', with: '80211'
         click_button 'Submit'
@@ -28,6 +32,7 @@ end
         # expect(current_path).to eq("/applications/#{@application.id}")
         expect(page).to have_content('Bob Ross')
         expect(page).to have_content('Downing St')
+        expect(page).to have_content('Denver')
         expect(page).to have_content('CO')
         expect(page).to have_content('80211')
         expect(page).to have_content('In Progress')

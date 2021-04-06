@@ -6,6 +6,13 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 require 'faker'
+
+# Shelter.destroy_all
+# Pet.destroy_all
+# Application.destroy_all
+# VeterinaryOffice.destroy_all
+# Veterinarian.destroy_all
+
 class Seed
   def self.start
     seed = Seed.new
@@ -35,7 +42,7 @@ class Seed
         adoptable: Faker::Boolean.boolean,
         age: Faker::Number.between(from: 0, to: 25),
         breed: Faker::Creature::Dog.breed,
-        name: Faker::Creature::Dog.name
+        name: Faker::Creature::Dog.unique.name
       )
     end
   end
