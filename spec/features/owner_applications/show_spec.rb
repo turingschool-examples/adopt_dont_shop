@@ -7,7 +7,7 @@ RSpec.describe "Owner applications Show Page", type: :feature do
   describe "As a visitor" do
     describe "When I visit an applications show page" do
       it "shows info of an application" do
-        visit "/applications/#{@application1.id}"
+        visit "/owner_applications/#{@application1.id}"
         expect(page).to have_content(@application1.name)
         expect(page).to have_content(@application1.street_address)
         expect(page).to have_content(@application1.city)

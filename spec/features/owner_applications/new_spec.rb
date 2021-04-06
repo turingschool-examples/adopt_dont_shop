@@ -5,14 +5,14 @@ RSPec.describe "New Application Page", type: :feature do
     describe "when I visit the pet index page" do
       it "shows a link to start an application" do
         click_link("Start an Application")
-        expect(current_path).to eq("/applications/new")
+        expect(current_path).to eq("/owner_applications/new")
       end
     end
 
 
     describe "When I am on the new application page" do
       it "shows a blank form to fill out" do
-        visit "/applications/new"
+        visit "/owner_applications/new"
         expect(page).to have_content('Name:')
         expect(page).to have_content('Street Address:')
         expect(page).to have_content('City:')
@@ -22,7 +22,7 @@ RSPec.describe "New Application Page", type: :feature do
       end
 
       it "allows me to fill out the form and submit" do
-        visit "/applications/new"
+        visit "/owner_applications/new"
         fill_in 'Name:', with: 'Wyatt'
         fill_in 'Street Address:', with: '559 S washington st'
         fill_in 'City:', with: 'Denver'
@@ -38,7 +38,7 @@ RSPec.describe "New Application Page", type: :feature do
 
 
     it "Shows an error if something isnt filled out and I click submit" do
-      visit "/applications/new"
+      visit "/owner_applications/new"
       fill_in 'Name:' with: 'Wyatt'
       click_button 'Submit'
       expect(page).to have_content('Please fill in all fields')
