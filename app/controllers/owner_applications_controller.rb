@@ -14,7 +14,7 @@ class OwnerApplicationsController < ApplicationController
 
     else
       flash[:notice] = 'Please fill in all fields'
-      redirect_to "/applications/new"
+      render :new
     end
 
   end
