@@ -20,9 +20,9 @@ class ApplicationsController < ApplicationController
     @pets = Pet.search(params[:search])
   end
 
-  def add_pet
+  def update
     @application = Application.find(params[:id])
-    @pet = Pet.find_by_name(params[:search])
+    @pet = Pet.find_by_name(params[:pet_name])
     PetApplication.create!(application: @application, pet: @pet)
     redirect_to "/applications/#{@application.id}"
   end

@@ -17,5 +17,6 @@
 <% else %>
   <% @pets.each do |pet| %>
     <p><%= pet.name %></p>
+    <%= button_to "Adopt #{pet.name}", { action: "update"}, method: :patch, params: {pet_name: pet.name} %>
   <% end %>
 <% end %>
