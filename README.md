@@ -84,7 +84,7 @@ Then I can see the following:
 ```
 
 ```
-[ ] done
+[ x] done
 
 Starting an Application
 
