@@ -16,3 +16,7 @@
   <%= submit_tag 'Submit Application' %>
 
   <% end %>
+
+<% flash.each do |type, message| %>
+  <p><%= message %></p>
+<% end%>

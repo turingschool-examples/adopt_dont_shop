@@ -11,7 +11,9 @@ class OwnerApplicationsController < ApplicationController
     @new_app = OwnerApplication.new(owner_application_params)
     if new_app.save
       redirect_to "/applications/#{@new_app.id}"
+
     else
+      flash[:notice] = 'Please fill in all fields'
       redirect_to "/applications/new"
     end
 
