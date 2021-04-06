@@ -241,7 +241,7 @@ For this set of stories, we will be making routes that begin with '/admin'. This
 Approving a Pet for Adoption
 
 As a visitor
-When I visit an admin application show page ('/admin/applications/:id')
+When I visit an admin application show page ('/admin/owner_applications/:id')
 For every pet that the application is for, I see a button to approve the application for that specific pet
 When I click that button
 Then I'm taken back to the admin application show page
@@ -255,7 +255,7 @@ And instead I see an indicator next to the pet that they have been approved
 Rejecting a Pet for Adoption
 
 As a visitor
-When I visit an admin application show page ('/admin/applications/:id')
+When I visit an admin application show page ('/admin/owner_applications/:id')
 For every pet that the application is for, I see a button to reject the application for that specific pet
 When I click that button
 Then I'm taken back to the admin application show page

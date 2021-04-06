@@ -21,11 +21,11 @@ RSpec.describe "Owner applications Show Page", type: :feature do
       end
       describe "then the application has not been submitted" do
         it "I see a section on the page to add a pet" do
-          visit "/applications/#{@application1.id}"
+          visit "/owner_applications/#{@application1.id}"
           expect(page).to have_content("Search for Pets by Name")
           fill_in "Search for Pets by Name", with: "josie"
           click_button "Submit"
-          expect(current_path).to be("/applications/#{@application1.id}")
+          expect(current_path).to be("/owner_applications/#{@application1.id}")
           expect(page).to have_content("Josie")
         end
       end

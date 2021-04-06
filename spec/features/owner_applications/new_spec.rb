@@ -42,7 +42,7 @@ RSPec.describe "New Application Page", type: :feature do
       fill_in 'Name:' with: 'Wyatt'
       click_button 'Submit'
       expect(page).to have_content('Please fill in all fields')
-      expect(current_path).to eq('/applications/new')
+      expect(current_path).to eq('/owner_applications/new')
       # expect(page).to have_content('Wyatt')
     end
   end
