@@ -3,5 +3,5 @@
 <h3>Description: <%= @application.description %></h3>
 <h3>Status: <%= @application.status %></h3>
 <h3>Pets Applied For: </h3><% @application.pets.each do |pet| %>
-   <p><%= pet.name %></p>
+   <p><%= link_to pet.name, pets_path(pet)  %></p>
 <% end %>

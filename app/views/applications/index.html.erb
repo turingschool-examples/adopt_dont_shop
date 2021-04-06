@@ -1,5 +1,9 @@
 <H1>Applications</h1>
 
+<section>
+  <%= link_to 'Start an Application', applications_new_path %>
+</section>
+
 <section> 
   <% @applications.each do |application| %>
     <br>Name: <%= application.name%><br>

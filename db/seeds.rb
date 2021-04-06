@@ -19,10 +19,12 @@ shelter_2 = Shelter.create(name: 'Aurora Shelter', city: 'Aurora, CO', foster_pr
 pet_1 = Pet.create(adoptable: true, age: 1, breed: 'Russian Blue', name: 'Cowboy', shelter_id: shelter_1.id)
 pet_2 = Pet.create(adoptable: true, age: 1, breed: 'Sphynx', name: 'Ceri', shelter_id: shelter_1.id)
 pet_3 = Pet.create(adoptable: true, age: 3, breed: 'Doberman', name: 'Carwyn', shelter_id: shelter_2.id)
-pet_3 = Pet.create(adoptable: true, age: 15, breed: 'Chow Golden Retriever mix', name: 'Zeus', shelter_id: shelter_2.id)
+pet_4 = Pet.create(adoptable: true, age: 15, breed: 'Chow Golden Retriever mix', name: 'Zeus', shelter_id: shelter_2.id)
 
-application_1 = Application.create!(name: "Alan Smithee", address: "742 Evergreen Terrace Springfield, OR 97205", description: "Looking for a lockdown companion", status: "In progress")
-application_2 = Application.create!(name: "JoAnna Brownrigg", address: "1138 Memory Lane Aurora, CO 80010", description: "I want to adopt one new cat every year", status: "In progress")
+application_1 = Application.create!(name: "Alan Smithee", address: "742 Evergreen Terrace", city: "Springfield", state: "OR", zip_code: 97205, description: "Looking for a lockdown companion", status: "In progress")
+application_2 = Application.create!(name: "JoAnna Brownrigg", address: "1138 Memory Lane", city: "Aurora", state: "CO", zip_code: 20165, description: "I want to adopt one new cat every year", status: "In progress")
+PetApplication.create!(application: application_1, pet: pet_1)
+PetApplication.create!(application: application_2, pet: pet_2)
 
 vet_1 = VeterinaryOffice.create!(name: 'Frontier Veterinary Clinic', boarding_services: true, max_patient_capacity: 30)
 vet_2 = VeterinaryOffice.create!(name: 'Country Vet', boarding_services: true, max_patient_capacity: 15)

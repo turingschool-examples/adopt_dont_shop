@@ -51,7 +51,7 @@ During your evaluation, you will present your project and discuss each of the ca
 ## Deploy
 
 ```
-[ ] done
+[ x] done
 
 Deploy your application to Heroku
 
@@ -84,7 +84,7 @@ Then I can see the following:
 ```
 
 ```
-[ ] done
+[ x] done
 
 Starting an Application
 
@@ -95,7 +95,7 @@ When I click this link
 Then I am taken to the new application page where I see a form
 When I fill in this form with my:
   - Name
-  - Street Address
+  - Address
   - City
   - State
   - Zip Code
@@ -106,7 +106,7 @@ And I see an indicator that this application is "In Progress"
 ```
 
 ```
-[ ] done
+[ x] done
 
 Starting an Application, Form not Completed
 
