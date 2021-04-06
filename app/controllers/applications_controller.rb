@@ -2,12 +2,12 @@ class ApplicationsController < ApplicationController
 
   def create
     @application = Application.new(application_params)
-    @application.status = "In Progress"
+    @application.set_in_progress
     if @application.save
       flash[:success] = "Your application is in progress"
       redirect_to "/applications/#{@application.id.to_s}"
     else
-      flash[:error] = "You must fill in all fields to complete application"
+      flash[:error] = @application.errors.full_messages
       render :new
     end
   end
@@ -33,7 +33,6 @@ class ApplicationsController < ApplicationController
   private
 
   def application_params
-    # params.permit(:id, :name, :address, :description)
     params.permit(:name, :address, :city, :state, :zip_code, :description)
   end
 

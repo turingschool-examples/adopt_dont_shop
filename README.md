@@ -51,7 +51,7 @@ During your evaluation, you will present your project and discuss each of the ca
 ## Deploy
 
 ```
-[ ] done
+[ x] done
 
 Deploy your application to Heroku
 
@@ -106,7 +106,7 @@ And I see an indicator that this application is "In Progress"
 ```
 
 ```
-[ ] done
+[ x] done
 
 Starting an Application, Form not Completed
 
