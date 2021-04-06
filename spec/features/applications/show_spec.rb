@@ -87,17 +87,42 @@ RSpec.describe 'the application show' do
     pets to the application. And in that section I see an input to enter why I\
     would make a good owner for these pet(s)" do
 
+    fill_in "Search by Pet name", with: "Ru"
+    click_on("Search")
+
+    within "#pet_search_result-#{@rug.id}" do
+      click_on("Adopt this Pet")
+    end
+
+    expect(page).to have_content(@rug.name)
+    expect(page).to_not have_content(@rufio.name)
+    expect(page).to have_content("Why would you make a good owner for the selected pet(s)?")
+
+    expect(page).to have_button("Submit Application")
   end
 
 
   it "When I fill in that input and I click a button to submit this application\
     then I am taken back to the application's show page" do
+    it "And I see an indicator that the application is 'Pending'.\
+      And I see all the pets that I want to adopt. And I do not see a section\
+      to add more pets to this application" do
 
-  end
+      fill_in "Search by Pet name", with: "Ru"
+      click_on("Search")
 
-  it "And I see an indicator that the application is 'Pending'.\
-    And I see all the pets that I want to adopt. And I do not see a section\
-    to add more pets to this application" do
+      within "#pet_search_result-#{@rug.id}" do
+        click_on("Adopt this Pet")
+      end
 
+      fill_in :statment, with: "I have a fenced-in yard"
+      click_on("Submit Application")
+
+      expect(page).to have_content("Application Status: Pending")
+      expect(page).to have_content(@rug.name)
+      expect(page).to_not have_content("Why would you make a good owner for the selected pet(s)?")
+      expect(page).to_not have_button("Search")
+      expect(page).to_not have_button("Adopt this Pet")
+    end
   end
 end
