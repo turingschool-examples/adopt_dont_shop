@@ -29,7 +29,6 @@ RSpec.describe 'the pets index' do
                                         city: "Newark",
                                         state: 'NJ',
                                         zip_code: 78291,
-                                        description: 'I am blind and need a seeing eye dog.',
                                         status: 'In Progress')
 
     @application_4 = Application.create(name: 'Kevin McCalister',
@@ -53,7 +52,6 @@ RSpec.describe 'the pets index' do
   it 'lists all the applications with their attributes' do
     visit "/applications/#{@application_1.id}"
 
-    within("#application-#{@application_1.id}") do
       expect(page).to have_content(@application_1.name)
       expect(page).to have_content(@application_1.street_address)
       expect(page).to have_content(@application_1.city)
@@ -64,7 +62,6 @@ RSpec.describe 'the pets index' do
       expect(page).to have_content(@pet_1.name)
       expect(page).to have_content(@pet_2.name)
       expect(page).to have_content(@pet_3.name)
-    end
   end
 
 #   it 'only lists adoptable pets' do

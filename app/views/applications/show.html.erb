@@ -1,14 +1,11 @@
-  <h3><%= @application.name %></h3>
-  <p>Address: <%= @application.street_address %>
-  <%= @application.city %>, <%= @application.state %> <%= @application.zip_code %></p>
+<h3><%= @application.name %></h3>
+<p>Address: <%= @application.street_address %>
+<%= @application.city %>, <%= @application.state %> <%= @application.zip_code %></p>
 
-  <p>Description: <%= @application.description %></p>
-  <p>Application Status: <%= @application.status %></p>
+<p>Description: <%= @application.description %></p>
+<p>Application Status: <%= @application.status %></p>
 
-
-<% @pets.each do |pet| %>
-  <h3><%= pet.name %></h3>
-  <p>Address: <%= pet.name %>
-
-
+<p>Interested in: </p>
+<% @application.pets.each do |pet| %>
+  <p><%= pet.name %></p>
 <% end %>
