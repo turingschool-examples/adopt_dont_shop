@@ -7,7 +7,7 @@ class ApplicationsController < ApplicationController
       flash[:success] = "Your application is in progress"
       redirect_to "/applications/#{@application.id.to_s}"
     else
-      flash[:error] = @application.errors.full_messages
+      flash[:error] = @application.errors.full_messages.to_sentence
       render :new
     end
   end
