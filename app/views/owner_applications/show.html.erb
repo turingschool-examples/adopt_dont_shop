@@ -1,0 +1,17 @@
+<%= link_to "Pets", "/pets" %>
+<%= link_to "Shelters", "/shelters" %>
+<%= link_to "Veterinarians", "/veterinarians" %>
+<%= link_to "Veterinary Offices", "/veterinary_offices" %>
+
+
+<h3> Application for: <%= @application.name %></h3>
+<p> Name: <%= @application.name %></p>
+<p> Street Address: <%= @application.street_address %></p>
+<p> City: <%= @application.city %></p>
+<p> State: <%= @application.state %></p>
+<p> Zip Code <%= @application.zip_code %></p>
+<%= @application.pets %>
+<%= @application.status %>
+
+<%= link_to "Edit #{@application.name}", "/applications/#{@application.id}/edit" %>
+<%= link_to "Delete #{@application.name}", "/application/#{@application.id}", method: :delete %>
