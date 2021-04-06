@@ -20,9 +20,9 @@ class ApplicationsController <ApplicationController
     render :new
     end
   end
-end
 
   private
   def application_params
     params.permit(:name, :address, :city, :state, :zip_code, :status)
   end
+end
