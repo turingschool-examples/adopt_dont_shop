@@ -1,18 +1,18 @@
 <h1> New Owner Application Form </h1>
 
-  <%= label_tag :name %>
+  <%= label_tag 'Name:' %>
   <%= text_field_tag :name %><br>
-  <%= label_tag :address %>
-  <%= text_field_tag :address %><br>
-  <%= label_tag :city %>
+  <%= label_tag 'Street Address' %>
+  <%= text_field_tag :street_address %><br>
+  <%= label_tag 'City' %>
   <%= text_field_tag :city %><br>
-  <%= label_tag :state %>
+  <%= label_tag 'State' %>
   <%= text_field_tag :state %><br>
-  <%= label_tag :zip %>
-  <%= text_field_tag :zip %><br>
-  <%= label_tag(" Why would you make a great pet owner?") %>
-  <%= text_field_tag :description %><br>
+  <%= label_tag 'Zip Code:' %>
+  <%= text_field_tag :zip_code %><br>
 
   <%= submit_tag 'Submit Application' %>
 
-  <% end %>
+<% flash.each do |type, message| %>
+  <p><%= message %></p>
+<% end%>

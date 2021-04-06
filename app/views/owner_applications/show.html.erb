@@ -1,14 +1,11 @@
 
-<h3> Application for: <%= @application.name %></h3>
-<p> Name: <%= @application.name %></p>
-<p> Street Address: <%= @application.street_address %></p>
-<p> City: <%= @application.city %></p>
-<p> State: <%= @application.state %></p>
-<p> Zip Code: <%= @application.zip_code %></p>
-<p> Pets Selected: <%= @pets.name %></p>
-<p> Why would you make a great pet owner? <%= @application.description %><p>
+<h3>Application for: <%= @application.name %></h3>
+<p>Name: <%= @application.name %></p>
+<p>Street Address: <%= @application.street_address %></p>
+<p>City: <%= @application.city %></p>
+<p>State: <%= @application.state %></p>
+<p>Zip Code: <%= @application.zip_code %></p>
 
-<p> Application Status: <%= @application.status %></p>
+<p>Why would you make a great pet owner?: <%= @application.description %></p>
 
-<%= link_to "Edit #{@application.name}", "/applications/#{@application.id}/edit" %>
-<%= link_to "Delete #{@application.name}", "/application/#{@application.id}", method: :delete %>
+<p>Application Status: <%= @application.status %></p>
