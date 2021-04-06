@@ -41,9 +41,9 @@ vet_office_3.veterinarians.create!(name: 'Rebecca', review_rating: 9, on_call: t
 
 
 
-ApplicantsPet.create(description: 'blah', in_progress: true, pending: false, accepted: false, rejected: false, pet_id: pet_1.id, applicant_id: applicant_1.id )
-ApplicantsPet.create(description: 'aer', in_progress: true, pending: false, accepted: false, rejected: false, pet_id: pet_2.id, applicant_id: applicant_2.id )
-ApplicantsPet.create(description: 'TBD', in_progress: true, pending: false, accepted: false, rejected: false, pet_id: pet_3.id, applicant_id: applicant_3.id )
+ApplicantsPet.create(description: 'blah', pet_id: pet_1.id, applicant_id: applicant_1.id )
+ApplicantsPet.create(description: 'aer', pet_id: pet_2.id, applicant_id: applicant_2.id )
+ApplicantsPet.create(description: 'TBD', pet_id: pet_3.id, applicant_id: applicant_3.id )
 
 # pet_2.applying_applications.create(full_name: 'Sam Smith', street_address: '95837 Tomahawk Dr.',
 #                                    city: 'Cincinatti', state: 'OH', zipcode: 44567 ,
