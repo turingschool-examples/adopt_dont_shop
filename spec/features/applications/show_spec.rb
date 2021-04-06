@@ -102,7 +102,7 @@ RSpec.describe 'the application show' do
   end
 
 
-  it "When I fill in that input and I click a button to submit this application\
+  describe "When I fill in that input and I click a button to submit this application\
     then I am taken back to the application's show page" do
     it "And I see an indicator that the application is 'Pending'.\
       And I see all the pets that I want to adopt. And I do not see a section\
@@ -115,7 +115,7 @@ RSpec.describe 'the application show' do
         click_on("Adopt this Pet")
       end
 
-      fill_in :statment, with: "I have a fenced-in yard"
+      fill_in "", with: "I have a fenced-in yard"
       click_on("Submit Application")
 
       expect(page).to have_content("Application Status: Pending")
