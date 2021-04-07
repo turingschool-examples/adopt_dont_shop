@@ -7,6 +7,7 @@ RSpec.describe 'the application show page' do
     @shelter = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
     @joan = Application.create(name: "Joan", address: "1234 Cherry St.", city: "Franklin", state:"Pennsylvania", zip_code: 18801, status: "Pending", description: "I am depressed")
     @jane = Application.create(name: "Jane", address: "1234 Cherry St.", city: "Franklin", state:"Pennsylvania", zip_code: 18801, status: "Pending", description: "cat")
+    @parker = Application.create(name: "Parker", address: "1234 Cherry St.", city: "Franklin", state:"Pennsylvania", zip_code: 18801, status: "Pending", description: "cat")
     @pet1 = @shelter.pets.create(adoptable: true, age: 1, breed: 'sphynx', name: 'Bare-y Manilow', shelter_id: @shelter.id)
     @pet2 = @shelter.pets.create(adoptable: true, age: 3, breed: 'doberman', name: 'Lobster', shelter_id: @shelter.id)
     @pet3 = @shelter.pets.create(adoptable: true, age: 3, breed: 'maincoon', name: 'george', shelter_id: @shelter.id)
@@ -50,18 +51,25 @@ RSpec.describe 'the application show page' do
     fill_in "Search", with: "#{@pet1.name}"
     click_on("Search")
 
-    expect(page).to have_content("#{@pet1.name}")
+    expect(page).to have_button("Adopt #{@pet1.name}")
     expect(page).to_not have_content("#{@pet3.name}")
+
+    click_on("Adopt #{@pet1.name}")
+    expect(page).to have_content("Description")
+    expect(page).to have_button("Submit")
+
+    fill_in "Description", with: "I love cats"
+    click_on("Submit")
+    expect(page).to have_content("Congrats")
+    expect(page).to_not have_content("Search")
   end
 
-  it 'Submit an Application' do
-    fill_in :description, with: "I have another cat"
-    click_on('submit application')
-  end
 
-  # it 'Unable to submit 'do
-  #   expect(page).to_not have_content("Submit")
-  # end
+  it 'Unable to submit if application doe not have any pets 'do
+    visit "/applications/#{@parker.id}"
+    expect(page).to_not have_content("Submit")
+    expect(page).to have_content("Search")
+  end
 
   it "visit a search bar can match pets with names that contain partial metches" do
     visit "/applications/#{@jane.id}"
