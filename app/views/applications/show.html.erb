@@ -12,13 +12,16 @@
     <%= link_to "#{pet.name}", "/pets/#{pet.id}"%><br>
   <%end%>
 
-<section><br>
+
   <%= "Add a Pet to this Application" %>
-  <%= form_with url: "/applications", method: :get, local: true do |f| %>
+  <%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |f| %>
     <%= f.label :search %>
     <%= f.text_field :search %>
     <%= f.submit "Search" %>
-  <% end %>
-  <% if params(:search) == pet.name%>
-  <%= pet.name %>
-</section>
+    <% end %>
+
+  <% if @pets %>
+    <% @pets.each do |pet| %>
+      <%=button_to "Adopt #{pet.name}", application_pets_path(pet: pet)%>
+      <% end %>
+    <% end %>
