@@ -5,3 +5,27 @@
 <h3>Pets Applied For: </h3><% @application.pets.each do |pet| %>
    <p><%= link_to pet.name, pets_path(pet)  %></p>
 <% end %>
+
+
+<section id="add_pet-<%= @application.id %>">
+  <h4> Add a Pet to this Application </h4>
+  <%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |f| %>
+    <%= f.label :search, "Search by Pet name" %>
+    <%= f.text_field :search %>
+    <%= f.submit "Search" %>
+  <% end %>
+  
+  <% if @pets %>
+    <% @pets.each do |pet| %>
+      <h4><%= pet.name %></h4>
+      <p>Age: <%= pet.age %></p>
+      <p>Breed: <%= pet.breed %></p>
+      <p>Adoptable: <%= pet.adoptable %></p>
+      <p>You can find <%= pet.name %> at <%= pet.shelter_name %></p>
+      <%= form_with url: "/applications/#{@application.id}", method: :patch, local: true, remote: false do |f|%>
+        <%= f.hidden_field :pet_id, value: pet.id %>
+        <%= f.submit "Adopt This Pet"%>
+      <% end %>
+    <% end %>
+  <% end %>
+</section>

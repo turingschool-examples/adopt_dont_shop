@@ -17,6 +17,9 @@ class ApplicationsController < ApplicationController
   end
 
   def show
+    if params[:search].present?
+      @pets = Pet.search(params[:search])
+    end
     @application = Application.find(params[:id])
   end
 
@@ -28,6 +31,12 @@ class ApplicationsController < ApplicationController
   end
 
   def update
+    @application = Application.find(params[:id])
+    @application.update(application_params)
+    if params[:pet_id].present?
+      @application.pet_applications.create(pet_id: params[:pet_id])
+    end
+    redirect_to "/applications/#{@application.id}"
   end
 
   private

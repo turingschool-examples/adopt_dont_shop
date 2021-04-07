@@ -21,8 +21,7 @@ RSpec.describe "the Application show page" do
     expect(page).to have_content(@pet_2.name)
   end
 
-  it "When I visit an application's show page and that application has not been
-    submitted, then I see a section on the page to 'Add a Pet to this
+  it "When I visit an application's show page I see a button to 'Add a Pet to this
     Application." do
 
      expect(page).to have_content("Add a Pet to this Application")
