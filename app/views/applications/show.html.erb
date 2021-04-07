@@ -32,6 +32,6 @@
   <% if @pets %>
     <% @pets.each do |pet| %>
       <%=button_to "Adopt #{pet.name}", application_pets_path(pet: pet)%>
-      <% end %>
     <% end %>
-    <% end %>
+  <% end %>
+<% end %>
