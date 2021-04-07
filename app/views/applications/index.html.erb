@@ -1,1 +1,14 @@
+<center>
+<h1>All Applications</h1>
 
+<%= @applications.each do |application| %>
+<h2>Applicants Name: <%= application.name%> </h2>
+<h4>Street: <%= application.address%> </h4>
+<h4>City: <%= application.city%></h4>
+<h4>State: <%= application.state %></h4>
+<h4>Zip Code: <%= application.zip_code %></h4>
+<h4>Why they want to adopt:<%= application.description%></h4>
+<h4>Status: <%= application.status%></h4>
+<p>-------------</p>
+<% end %>
+</center>
