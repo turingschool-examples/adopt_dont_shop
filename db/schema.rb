@@ -10,30 +10,28 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_06_000301) do
+ActiveRecord::Schema.define(version: 2021_04_07_162019) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "applicants", force: :cascade do |t|
-    t.string "full_name"
-    t.string "street_address"
-    t.string "city"
-    t.string "state"
-    t.integer "zipcode"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "applicants_pets", force: :cascade do |t|
-    t.bigint "pet_id"
-    t.bigint "applicant_id"
+  create_table "applications", force: :cascade do |t|
     t.string "status", default: "In Progress"
     t.string "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["applicant_id"], name: "index_applicants_pets_on_applicant_id"
-    t.index ["pet_id"], name: "index_applicants_pets_on_pet_id"
+    t.bigint "user_id"
+    t.index ["user_id"], name: "index_applications_on_user_id"
+  end
+
+  create_table "applications_pets", force: :cascade do |t|
+    t.bigint "pet_id"
+    t.string "status", default: "In Progress"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "application_id"
+    t.index ["application_id"], name: "index_applications_pets_on_application_id"
+    t.index ["pet_id"], name: "index_applications_pets_on_pet_id"
   end
 
   create_table "pets", force: :cascade do |t|
@@ -56,6 +54,16 @@ ActiveRecord::Schema.define(version: 2021_04_06_000301) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "users", force: :cascade do |t|
+    t.string "full_name"
+    t.string "street_address"
+    t.string "city"
+    t.string "state"
+    t.integer "zipcode"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "veterinarians", force: :cascade do |t|
     t.boolean "on_call"
     t.integer "review_rating"
@@ -74,8 +82,7 @@ ActiveRecord::Schema.define(version: 2021_04_06_000301) do
     t.datetime "updated_at", null: false
   end
 
-  add_foreign_key "applicants_pets", "applicants"
-  add_foreign_key "applicants_pets", "pets"
+  add_foreign_key "applications_pets", "pets"
   add_foreign_key "pets", "shelters"
   add_foreign_key "veterinarians", "veterinary_offices"
 end
