@@ -10,10 +10,12 @@ RSpec.describe 'the application show page' do
     @pet1 = @shelter.pets.create(adoptable: true, age: 1, breed: 'sphynx', name: 'Bare-y Manilow', shelter_id: @shelter.id)
     @pet2 = @shelter.pets.create(adoptable: true, age: 3, breed: 'doberman', name: 'Lobster', shelter_id: @shelter.id)
     @pet3 = @shelter.pets.create(adoptable: true, age: 3, breed: 'maincoon', name: 'george', shelter_id: @shelter.id)
+    @pet4 = @shelter.pets.create(adoptable: true, age: 4, breed: 'ragdoll', name: 'gertie', shelter_id: @shelter.id)
 
     PetApplication.create(pet_id: @pet1.id, application_id: @joan.id)
     PetApplication.create(pet_id: @pet2.id, application_id: @joan.id)
     PetApplication.create(pet_id: @pet3.id, application_id: @jane.id)
+    PetApplication.create(pet_id: @pet4.id, application_id: @jane.id)
   end
 
   it 'shows the name of the Applicant including street, city, state, and zip code ' do
@@ -46,13 +48,11 @@ RSpec.describe 'the application show page' do
     expect(page).to have_field("Search")
 
     fill_in "Search", with: "#{@pet1.name}"
-    click_button "Search"
+    click_on("Search")
 
     expect(page).to have_content("#{@pet1.name}")
     expect(page).to_not have_content("#{@pet3.name}")
   end
-end
-
   #
   # it 'Submit an Application' do
   #   fill_in :description, with: "I have another cat"
@@ -62,11 +62,20 @@ end
   # it 'Unable to submit 'do
   #   expect(page).to_not have_content("Submit")
   # end
-#
-#   As a visitor
-# When I visit an application show page
-# And I search for Pets by name
-# Then I see any pet whose name PARTIALLY matches my search
-# For example, if I search for "fluff", my search would match pets with names "fluffy", "fluff", and "mr. fluff"
-  # it "visit a search bar can match pets with names that contain partial metches" do
-  #   visit "/applications/#{@application.id}"
+
+  it "visit a search bar can match pets with names that contain partial metches" do
+    visit "/applications/#{@jane.id}"
+      fill_in "Search", with: "ge"
+      click_button "Search"
+      expect(page).to have_content("#{@pet3.name}")
+      expect(page).to have_content("#{@pet4.name}")
+      expect(page).to_not have_content("#{@pet2.name}")
+  end
+
+  it "visit a search bar can match pets with names that is case insensitive metches" do
+    visit "/applications/#{@jane.id}"
+      fill_in "Search", with: "GEORGE"
+      click_button "Search"
+      expect(page).to have_content("#{@pet3.name}")
+  end
+end
