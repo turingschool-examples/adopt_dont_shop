@@ -9,8 +9,8 @@ class ApplicationsPet < ApplicationRecord
     pet.name
   end
 
-  def applicant_name
-    applicant.full_name
+  def user_name
+    application.user_name
   end
 
   def self.accepted

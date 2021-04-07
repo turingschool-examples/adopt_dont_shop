@@ -72,7 +72,7 @@ RSpec.describe ApplicationsPet, type: :model do
 
     describe 'user_name' do
       it 'returns the users name for the given application' do
-        expect(@association_1.application.user_name).to eq(@user_1.full_name)
+        expect(@association_1.user_name).to eq(@user_1.full_name)
       end
     end
   end
