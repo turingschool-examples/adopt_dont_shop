@@ -46,10 +46,9 @@ RSpec.describe "the Application show page" do
 
   it 'can submit an application' do
     visit "/applications/#{@application.id}"
-    save_and_open_page
 
-    fill_in with: "I'm chill. Need pets"
-    click_on "Submit Application"
+      fill_in with: "I'm chill. Need pets"
+      click_on "Submit Application"
 
     expect(current_path).to eq("/applications/#{@application.id}")
     expect(@application.status).to eq('Pending')
