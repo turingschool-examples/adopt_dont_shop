@@ -1,4 +1,4 @@
-class PetApplicationsController <ApplicationController
+class PetApplicationsController < ApplicationController
   def create
     application = Application.find(params[:id])
     pet = Pet.find(params[:pet])
