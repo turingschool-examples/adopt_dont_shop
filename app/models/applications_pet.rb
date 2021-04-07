@@ -1,10 +1,9 @@
-class ApplicantsPet < ApplicationRecord
+class ApplicationsPet < ApplicationRecord
+  validates :application_id, presence: true, numericality: true
   validates :pet_id, presence: true, numericality: true
-  validates :applicant_id, presence: true, numericality: true
-  validates :description, presence: true
 
   belongs_to :pet
-  belongs_to :applicant
+  belongs_to :application
 
   def pet_name
     pet.name
