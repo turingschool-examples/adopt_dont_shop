@@ -53,12 +53,12 @@ RSpec.describe 'the application show page' do
     expect(page).to have_content("#{@pet1.name}")
     expect(page).to_not have_content("#{@pet3.name}")
   end
-  #
-  # it 'Submit an Application' do
-  #   fill_in :description, with: "I have another cat"
-  #   click_button('submit application')
-  # end
-  #
+
+  it 'Submit an Application' do
+    fill_in :description, with: "I have another cat"
+    click_on('submit application')
+  end
+
   # it 'Unable to submit 'do
   #   expect(page).to_not have_content("Submit")
   # end

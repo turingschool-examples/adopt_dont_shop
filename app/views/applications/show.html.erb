@@ -10,8 +10,17 @@
 
   <%@application.pets.each do |pet| %>
     <%= link_to "#{pet.name}", "/pets/#{pet.id}"%><br>
-  <%end%>
+    <% end %>
 
+    <% if @application.status == "Pending" %>
+      <%= "Congrats"%>
+    <% else %>
+
+      <%= form_with url: "/applications/#{@application.id}", method: :patch, local: true do |f| %>
+        <%= f.label :description %>
+        <%= f.text_field :description %>
+        <%= f.submit "Submit" %>
+      <%end%>
 
   <%= "Add a Pet to this Application" %>
   <%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |f| %>
@@ -24,4 +33,5 @@
     <% @pets.each do |pet| %>
       <%=button_to "Adopt #{pet.name}", application_pets_path(pet: pet)%>
       <% end %>
+    <% end %>
     <% end %>
