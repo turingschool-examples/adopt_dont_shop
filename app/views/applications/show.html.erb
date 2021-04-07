@@ -6,9 +6,10 @@
   <%= @application.state %>,
   <%= @application.zipcode %></p>
 <p>Description: <%= @application.description %></p>
-<p>All pets applied for:</p>
 <p>Application status: <%= @application.status %></p>
+<p>All pets applied for:</p><br><br>
 
+<h3>Add a pet to this application: </h3>
 <%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |f| %>
 <%= f.label :pet_name %>
 <%= f.search_field :pet_name %>
@@ -17,7 +18,7 @@
 <%= f.submit "Submit" %>
 <% end %>
 
-<p>Pets you've searched for:
+<p>Pet search results: <br><br>
   <% if @pets.nil? %>
    <p> No pets searched yet. </p>
    <% else %>
