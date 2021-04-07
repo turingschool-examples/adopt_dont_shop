@@ -135,7 +135,7 @@ And under the search bar I see any Pet whose name matches my search
 ```
 
 ```
-[ ] done [ ] complete but probably need to refactor [ ] skipped [x] in progress
+[x] done [ ] complete but probably need to refactor [ ] skipped [ ] in progress
 
 Add a Pet to an Application
 
@@ -150,7 +150,7 @@ And I see the Pet I want to adopt listed on this application
 ```
 
 ```
-[ ] done [ ] complete but probably need to refactor [ ] skipped [ ] in progress
+[ ] done [ ] complete but probably need to refactor [ ] skipped [x] in progress
 
 Submit an Application
 

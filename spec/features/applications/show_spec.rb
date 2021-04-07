@@ -6,7 +6,7 @@ RSpec.describe "the Application show page" do
     @pet_1 = @shelter.pets.create!(adoptable: true, age: 1, breed: 'sphynx', name: 'Lucille Bald', shelter_id: @shelter.id)
     @pet_2 = @shelter.pets.create!(adoptable: true, age: 3, breed: 'doberman', name: 'Lobster', shelter_id: @shelter.id)
     @pet_3 = @shelter.pets.create!(adoptable: true, age: 5, breed: 'lab', name: 'Bear', shelter_id: @shelter.id)
-    @application = Application.create!(name: "Bob Baker", address: "345 2nd St Denver, CO 80206", description: "am lonely, need pets", status: "In progress")
+    @application = Application.create!(name: "Bob Baker", address: "345 2nd St Denver, CO 80206", description: nil, status: "In progress")
     PetApplication.create!(application: @application, pet: @pet_1)
     PetApplication.create!(application: @application, pet: @pet_2)
   end
@@ -41,5 +41,18 @@ RSpec.describe "the Application show page" do
     expect(current_path).to eq("/applications/#{@application.id}")
     expect(@pet_3.name).to appear_before('Search')
     expect(page).to have_content('No pets searched')
+    expect(@application.pets).to include(@pet_3)
+  end
+
+  it 'can submit an application' do
+    visit "/applications/#{@application.id}"
+    save_and_open_page
+
+    fill_in with: "I'm chill. Need pets"
+    click_on "Submit Application"
+
+    expect(current_path).to eq("/applications/#{@application.id}")
+    expect(@application.status).to eq('Pending')
+    expect(page).not_to have_content('Submit Application')
   end
 end

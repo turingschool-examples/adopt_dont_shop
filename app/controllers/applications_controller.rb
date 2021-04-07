@@ -6,6 +6,7 @@ class ApplicationsController < ApplicationController
   def create
     application = Application.new(application_params)
     application.update_attribute(:status, "In progress")
+    application.update_attribute(:description, nil)
 
     if application.save
       redirect_to "/applications/#{application.id}"
@@ -22,9 +23,16 @@ class ApplicationsController < ApplicationController
 
   def update
     @application = Application.find(params[:id])
-    @pet = Pet.find_by_name(params[:pet_name])
-    PetApplication.create!(application: @application, pet: @pet)
-    redirect_to "/applications/#{@application.id}"
+    if params[:description]
+      @application.update_attribute(:status, "Pending")
+      @application.update_attribute(:description, params[:description])
+    else
+      @application = Application.find(params[:id])
+      @application.pet_applications.create(pet_id: params[:pet_id])
+      # @pet = Pet.find(params[:pet_id])
+      # PetApplication.create!(application: @application, pet: @pet)
+      redirect_to "/applications/#{@application.id}"
+    end
   end
 
   private
