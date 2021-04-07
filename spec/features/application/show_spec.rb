@@ -16,7 +16,7 @@ RSpec.describe 'applications_pets show' do
     expect(page).to have_content("City: #{@user.city}")
     expect(page).to have_content("State: #{@user.state}")
     expect(page).to have_content("Zipcode: #{@user.zipcode}")
-    expect(page).to have_content("\nNo pets applied for\n")
+    expect(page).to have_content("\nApplying For: No pets applied for\n")
   end
 
   it "shows the application's pets" do

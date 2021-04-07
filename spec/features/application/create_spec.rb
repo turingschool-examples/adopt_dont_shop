@@ -15,39 +15,40 @@ RSpec.describe 'application creation' do
     it 'renders the new form' do
       visit "/applications/new"
 
-      # expect(page).to have_content('New Application')
-      # expect(find('form')).to have_content('Full Name')
-      # expect(find('form')).to have_content('Street Address')
-      # expect(find('form')).to have_content('City')
-      # expect(find('form')).to have_content('State')
-      # expect(find('form')).to have_content('Zipcode')
-      # expect(find('form')).to have_content('Description')
+      expect(page).to have_content('New Application')
+      expect(find('form')).to have_content('Full name')
+      expect(find('form')).to have_content('Street address')
+      expect(find('form')).to have_content('City')
+      expect(find('form')).to have_content('State')
+      expect(find('form')).to have_content('Zipcode')
     end
   end
 
-  # describe 'the pet create' do
-  #   context 'given valid data' do
-  #     it 'creates the pet and redirects to the shelter pets index' do
-  #       visit "/shelters/#{@shelter.id}/pets/new"
-  #
-  #       fill_in 'Name', with: 'Bumblebee'
-  #       fill_in 'Age', with: 1
-  #       fill_in 'Breed', with: 'Welsh Corgi'
-  #       check 'Adoptable'
-  #       click_button 'Save'
-  #       expect(page).to have_current_path("/shelters/#{@shelter.id}/pets")
-  #       expect(page).to have_content('Bumblebee')
-  #     end
-  #   end
-  #
-  #   context 'given invalid data' do
-  #     it 're-renders the new form' do
-  #       visit "/shelters/#{@shelter.id}/pets/new"
-  #
-  #       click_button 'Save'
-  #       expect(page).to have_current_path("/shelters/#{@shelter.id}/pets/new")
-  #       expect(page).to have_content("Error: Name can't be blank, Age can't be blank, Age is not a number")
-  #     end
-  #   end
-  # end
+  describe 'the application create' do
+    context 'given valid data' do
+      it 'creates the application and redirects to that applications show page' do
+        visit "/applications/new"
+
+        fill_in 'Full name', with: 'Brock Lesnar'
+        fill_in 'Street address', with: '1234 Rock Avenue'
+        fill_in 'City', with: 'Queens'
+        fill_in 'State', with: 'New York'
+        fill_in 'Zipcode', with: 14567
+        click_button 'Submit'
+
+        expect(current_path).to have_content("/applications")
+        expect(page).to have_content('Brock Lesnar')
+      end
+    end
+
+    context 'given invalid data' do
+      it 're-renders the new form' do
+        visit "/applications/new"
+
+        click_button 'Submit'
+        expect(page).to have_current_path("/applications/new")
+        expect(page).to have_content("Error: Please Fill in All Fields")
+      end
+    end
+  end
 end

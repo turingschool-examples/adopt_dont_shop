@@ -6,7 +6,7 @@
 <h3> Description: <%= @application.description %></h3>
 
 <% if @application.pets_empty? %>
-<h3> No pets applied for </h3>
+<h3> Applying For: No pets applied for </h3>
 <% else %>
 <h2> Applying For:
   <% @application.pets.each do |pet| %>
