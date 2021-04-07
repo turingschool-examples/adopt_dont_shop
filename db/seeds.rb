@@ -36,6 +36,6 @@ winthrop.pets.create!(adoptable: true, age: 3, breed: "Dachshund", name: "Frank"
 winthrop.pets.create!(adoptable: true, age: 2, breed: "Mix", name: "Mel")
 
 application1 = Application.create!(name: "Kon Ham", street_address: "5714 Carmel Rd", city: "Charlotte", state: "NC", zipcode: 28226, description: "I'm a cool guy")
-application2 = Application.create!(name: "Gaelyn Cooper", street_address: "123 ABC St", city: "Huntsville", state: "AL", zipcode: 35649, description: "I'm a cool guy")
-application3 = Application.create!(name: "Andrew Smith", street_address: "99 Bottles Rd", city: "Portland", state: "OR", zipcode: 97035, description: "I'm a cool guy")
-application4 = Application.create!(name: "Leigh Pulzone", street_address: "52135 Mellow Blvd", city: "Bend", state: "OR", zipcode: 97701, description: "I'm a cool guy")
+application2 = Application.create!(name: "Gaelyn Cooper", street_address: "123 ABC St", city: "Huntsville", state: "AL", zipcode: 35649, description: "I have many pets and have a large yard")
+application3 = Application.create!(name: "Andrew Smith", street_address: "99 Bottles Rd", city: "Portland", state: "OR", zipcode: 97035, description: "I am a previous applicant and I have adopted here before")
+application4 = Application.create!(name: "Leigh Pulzone", street_address: "52135 Mellow Blvd", city: "Bend", state: "OR", zipcode: 97701, description: "I like turtles")
