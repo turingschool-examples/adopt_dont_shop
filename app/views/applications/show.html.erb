@@ -1,0 +1,17 @@
+<h1> User: <%= @application.user.full_name %></h1>
+<h3> Street Address: <%= @application.user.street_address %> </h3>
+<h3> City: <%= @application.user.city %></h3>
+<h3> State: <%= @application.user.state %></h3>
+<h3> Zipcode: <%= @application.user.zipcode%></h3>
+<h3> Description: <%= @application.description %></h3>
+
+<% if @application.pets_empty? %>
+<h3> No pets applied for </h3>
+<% else %>
+<h2> Applying For:
+  <% @application.pets.each do |pet| %>
+  <%= link_to "#{pet.pet_name},", {controller: "pets", action: "show", id: "#{pet.id}"} %>
+  <% end %>
+</h2>
+<% end %>
+<h3> Application Status: <%= @application.status %> </h3>
