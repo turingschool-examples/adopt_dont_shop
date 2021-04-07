@@ -6,11 +6,14 @@ RSpec.describe 'the application show page' do
     Application.destroy_all
     @shelter = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
     @joan = Application.create(name: "Joan", address: "1234 Cherry St.", city: "Franklin", state:"Pennsylvania", zip_code: 18801, status: "Pending", description: "I am depressed")
+    @jane = Application.create(name: "Jane", address: "1234 Cherry St.", city: "Franklin", state:"Pennsylvania", zip_code: 18801, status: "Pending", description: "cat")
     @pet1 = @shelter.pets.create(adoptable: true, age: 1, breed: 'sphynx', name: 'Bare-y Manilow', shelter_id: @shelter.id)
     @pet2 = @shelter.pets.create(adoptable: true, age: 3, breed: 'doberman', name: 'Lobster', shelter_id: @shelter.id)
+    @pet3 = @shelter.pets.create(adoptable: true, age: 3, breed: 'maincoon', name: 'george', shelter_id: @shelter.id)
 
     PetApplication.create(pet_id: @pet1.id, application_id: @joan.id)
     PetApplication.create(pet_id: @pet2.id, application_id: @joan.id)
+    PetApplication.create(pet_id: @pet3.id, application_id: @jane.id)
   end
 
   it 'shows the name of the Applicant including street, city, state, and zip code ' do
@@ -45,12 +48,10 @@ RSpec.describe 'the application show page' do
     fill_in "Search", with: "#{@pet1.name}"
     click_button "Search"
 
-    expect(page).to have_current_path("/applications/#{@joan.id}")
-    
     expect(page).to have_content("#{@pet1.name}")
-    expect(page).to_not have_content("#{@pet2.name}")
+    expect(page).to_not have_content("#{@pet3.name}")
   end
-
+end
 
   #
   # it 'Submit an Application' do
@@ -61,4 +62,11 @@ RSpec.describe 'the application show page' do
   # it 'Unable to submit 'do
   #   expect(page).to_not have_content("Submit")
   # end
-end
+#
+#   As a visitor
+# When I visit an application show page
+# And I search for Pets by name
+# Then I see any pet whose name PARTIALLY matches my search
+# For example, if I search for "fluff", my search would match pets with names "fluffy", "fluff", and "mr. fluff"
+  # it "visit a search bar can match pets with names that contain partial metches" do
+  #   visit "/applications/#{@application.id}"
