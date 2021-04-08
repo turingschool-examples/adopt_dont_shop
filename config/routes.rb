@@ -27,9 +27,8 @@ Rails.application.routes.draw do
   patch 'applications/:id', to: 'applications#update', as: 'application'
   delete '/applications/:id', to: 'applications#destroy'
 
-
-
-
+  get '/admin/shelters', to: 'admin_shelters#index'
+  get '/admin/applications/:id', to: 'admin_applications#show'
 
 ###############################################################################
   get '/veterinary_offices', to: 'veterinary_offices#index'
@@ -50,3 +49,7 @@ Rails.application.routes.draw do
   get '/veterinary_offices/:veterinary_office_id/veterinarians/new', to: 'veterinarians#new'
   post '/veterinary_offices/:veterinary_office_id/veterinarians', to: 'veterinarians#create'
 end
+
+# namespace :admin do
+#   resources :applications, :shelters, only: [:index, :show]
+# end
