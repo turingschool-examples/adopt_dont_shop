@@ -52,10 +52,12 @@ RSpec.describe 'the pets index' do
   it 'lists all the applications with their attributes' do
     visit "/applications"
 
+    within "#application-#{@application_1.id}" do
       expect(page).to have_content(@application_1.name)
       expect(page).to have_content(@application_1.street_address)
       expect(page).to have_content(@application_1.city)
       expect(page).to have_content(@application_1.state)
       expect(page).to have_content(@application_1.zip_code)
+    end
   end
 end
