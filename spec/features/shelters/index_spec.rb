@@ -105,19 +105,4 @@ RSpec.describe 'the shelters index' do
     expect(page).to have_content(@shelter_2.name)
     expect(page).to_not have_content(@shelter_1.name)
   end
-
-  describe "As a visitor, when I visit the admin shelter index\
-    ('/admin/shelters')" do
-    it "I see all Shelters in the system listed in reverse alphabetical order\
-       by name" do
-      @shelter_4 = Shelter.create(name: 'Rolf o Rama', city: 'Arfvada, CO', foster_program: true, rank: 6)
-      @shelter_4.pets.create(name: 'Barkley', breed: 'muppet', age: 42, adoptable: true)
-
-      visit "/admin/shelters"
-
-      expect(@shelter_4.name).to appear_before(@shelter_2.name)
-      expect(@shelter_2.name).to appear_before(@shelter_3.name)
-      expect(@shelter_3.name).to appear_before(@shelter_1.name)
-    end
-  end
 end

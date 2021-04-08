@@ -26,6 +26,7 @@ class SheltersController < ApplicationController
   end
 
   def new
+    @shelter = Shelter.new
   end
 
   def create

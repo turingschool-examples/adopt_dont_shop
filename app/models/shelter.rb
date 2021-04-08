@@ -17,8 +17,7 @@ class Shelter < ApplicationRecord
   end
 
   def self.reverse_abc_order
-    # order(name: :desc)
-    self.find_by_sql("SELECT * FROM shelters ORDER BY name desc")
+    self.find_by_sql("select * from shelters order by lower(name) desc")
   end
 
   def pet_count
