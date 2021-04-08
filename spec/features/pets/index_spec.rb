@@ -93,6 +93,6 @@ RSpec.describe 'the pets index' do
 
     click_link("Start an Application")
 
-    expect(page).to have_current_path("/pets/new")
+    expect(page).to have_current_path("/applications/new")
   end
 end

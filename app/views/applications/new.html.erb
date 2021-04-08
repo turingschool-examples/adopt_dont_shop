@@ -2,18 +2,23 @@
 <%= form_with url: "/applications", method: :post, local: true do |f| %>
   <%= f.label :name, "Name:" %>
   <%= f.text_field :name %>
-
+  <br>
+  <br>
   <%= f.label :street_address, "Street Address:" %>
   <%= f.text_field :street_address %>
-
+  <br>
+  <br>
   <%= f.label :city, "City:" %>
   <%= f.text_field :city %>
-
+  <br>
+  <br>
   <%= f.label :state, "State:" %>
   <%= f.text_field :state %>
-
-  <%= f.label :zip_code, "Zip Code" %>
+  <br>
+  <br>
+  <%= f.label :zip_code, "Zip Code:" %>
   <%= f.number_field :zip_code %>
-
-  <%= f.submit %>
+  <br>
+  <br>
+  <%= f.submit "Submit" %>
 <% end %>
