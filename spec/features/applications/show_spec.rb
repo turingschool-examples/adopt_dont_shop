@@ -60,7 +60,6 @@ RSpec.describe 'the application show page' do
 
     fill_in "Description", with: "I love cats"
     click_on("Submit")
-    expect(page).to have_content("Congrats")
     expect(page).to_not have_content("Search")
   end
 

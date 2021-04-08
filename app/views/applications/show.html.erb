@@ -12,26 +12,27 @@
     <%= link_to "#{pet.name}", "/pets/#{pet.id}"%><br>
     <% end %>
 
-    <% if @application.status == "Pending" %>
-      <%= "Congrats"%>
-    <% else%>
+    <% if @application.pets.count > 0%>
+    <%= form_with url: "/applications/#{@application.id}", method: :patch, local: true do |f| %>
+      <%= f.label :description %>
+      <%= f.text_area :description %>
+      <%= f.submit "Submit" %>
+  
+    <% @application.pets.count > 0 && @application.status == "Pending" %>
+    <%end%>
+  <%end%>
 
-      <%= form_with url: "/applications/#{@application.id}", method: :patch, local: true do |f| %>
-        <%= f.label :description %>
-        <%= f.text_field :description %>
-        <%= f.submit "Submit" %>
-      <%end%>
-
+ <%if @application.status != "Pending" %>
   <%= "Add a Pet to this Application" %>
   <%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |f| %>
     <%= f.label :search %>
     <%= f.text_field :search %>
     <%= f.submit "Search" %>
     <% end %>
+  <% end %>
 
   <% if @pets %>
     <% @pets.each do |pet| %>
       <%=button_to "Adopt #{pet.name}", application_pets_path(pet: pet)%>
-    <% end %>
   <% end %>
 <% end %>

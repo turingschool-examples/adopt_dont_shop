@@ -1,0 +1,8 @@
+<h1>Approval Status</h1>
+<p>Applicant Name: <%= @application.name%></p>
+<p>Address: <%= @application.address%></p>
+<p>Description: <%=@application.description%></p>
+<p>Application status: <%= @application.status %></
+
+  <%= @pets %>
+ <button><%= button_to "Approve for Adoption", "/admin/applications/#{@application.id}", method: :patch %></button>

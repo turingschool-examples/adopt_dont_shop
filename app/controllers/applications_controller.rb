@@ -30,7 +30,6 @@ class ApplicationsController <ApplicationController
       status: "Pending"
       })
       redirect_to "/applications/#{application.id}"
-
   end
 
 
