@@ -1,22 +1,37 @@
 <h1><%= @application.name %></h1>
 <h3>Address: <%= @application.address %></h3>
-<h3>Why I'd make a good home for this pet(s): <%= @application.description %></h3>
 <h3>Status: <%= @application.status %></h3>
+<h3>Why I'd make a good home for this pet(s): <%= @application.description %></h3>
 <h3>Pets Applied For: </h3><% @application.pets.each do |pet| %>
    <p><%= pet.name %></p>
 <% end %>
 
-<h1>Add pet to application:</h1>
-<%= form_tag(url_for(action: 'show'), method: :get) do %>
-  <%= text_field_tag(:search, params[:search]) %>
-  <%= submit_tag ("Search") %>
-<% end %>
+<section id="search-pet">
+  <h3>Add pet to application:</h3>
+  <%= form_tag(url_for(action: 'show'), method: :get) do %>
+    <%= text_field_tag(:search, params[:search]) %>
+    <%= submit_tag ("Search") %>
+  <% end %>
+</section>
 
-<% if params[:search].nil? %>
-  <p>No pets searched</p>
-<% else %>
-  <% @pets.each do |pet| %>
-    <p><%= pet.name %></p>
-    <%= button_to "Adopt #{pet.name}", { action: "update"}, method: :patch, params: {pet_name: pet.name} %>
+<section id="adopt-pet">
+  <% if params[:search].nil? %>
+    <p>No pets searched</p>
+  <% else %>
+    <% @pets.each do |pet| %>
+      <p><%= pet.name %></p>
+      <%= button_to "Adopt #{pet.name}", "/applications/#{@application.id}/pet_applications", method: :post, params: {pet_id: pet.id} %>
+    <% end %>
+  <% end %><br>
+</section>
+
+
+<section id="submit">
+<% if @application.has_pets? && @application.description.nil? %>
+  <%= form_with url: "/applications/#{@application.id}", method: :patch, local: true do |form| %>
+    <%= form.label :description, "Why I'd make a good home: " %>
+    <%= form.text_field :description %>
+    <%= form.submit 'Submit Application' %>
   <% end %>
 <% end %>
+</section>
