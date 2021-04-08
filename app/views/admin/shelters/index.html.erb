@@ -1,0 +1,15 @@
+<section class="sorted-shelters">
+
+<h1>Shelters</h1>
+
+<% @shelters.each do |shelter| %>
+<%= shelter.name %>
+<% end %>
+</section>
+
+<section class="applications-pending">
+  <h2>Shelters with pending Pet Applications</h2>
+  <% @pending_shelters.each do |shelter| %>
+  <%= shelter.name %>
+  <% end %>
+</section>
