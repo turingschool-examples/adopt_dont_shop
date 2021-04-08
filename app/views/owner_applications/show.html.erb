@@ -1,19 +1,14 @@
 
 <h3>Application for: <%= @application.name %></h3>
 <p>Name: <%= @application.name %></p>
+
 <p>Street Address: <%= @application.street_address %></p>
 <p>City: <%= @application.city %></p>
 <p>State: <%= @application.state %></p>
 <p>Zip Code: <%= @application.zip_code %></p>
 
 <p>Why would you make a great pet owner?: <%= @application.description %></p>
-<p> Pets: </p>
-  <% if @application.pets.empty? %>
-    <strong><p> Please add pets to apply for. </p><strong>
-  <% else %>
-    <% @application.pets.each do |pet| %>
-    <strong><%= pet.name %></strong>
-  <% end %>
+
 
 
 <p>Application Status: <%= @application.status %></p>
@@ -22,15 +17,13 @@
   <h3>Add a pet to this application: </h3>
 
   <%= form_with url: "/owner_applications/#{@application.id}", method: :get, local: true do |f| %>
-    <%= f.label :pet_name %>
-    <%= f.search_field :pet_name %>
+    <%= f.label :search %>
+    <%= f.search_field :search %>
     <%= hidden_field :id, @application.id %>
     <%= f.submit "Submit" %>
   <% end %>
-<% end %>
 
-<h3> Pet Search: </h3><br>
-<% @pets.each do |pet| %>
-  <%= pet.name %>
-  <%= button_to "Adopt this pet", {action: "update"}, method: :patch, params: {pet_name: pet.name, pet_id: pet.id} %>
+  <% if @pets.search
+
+
 <% end %>

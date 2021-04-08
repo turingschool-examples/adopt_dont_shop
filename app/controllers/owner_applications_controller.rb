@@ -1,9 +1,12 @@
 class OwnerApplicationsController < ApplicationController
 
   def show
-    @application = OwnerApplication.find(params[:id])
-    if params[:pet_name].present?
-      @pets = Pet.search(params[:pet_name])
+    if params[:search].present?
+      @application = OwnerApplication.find(params[:id])
+      @pet = Pet.search(params[:search])
+
+    else
+      @application = OwnerApplication.find(params[:id])
     end
   end
 
@@ -23,17 +26,19 @@ class OwnerApplicationsController < ApplicationController
 
   def update
     if params[:pet_id].present? == false
-      @application = Application.find(params[:id])
+      @application = OwnerApplication.find(params[:id])
       @application.update(description: params[:description], status: params[:status])
       render :show
     else
-      @application = Application.find(params[:id])
+      @application = OwnerApplication.find(params[:id])
       PetApplication.create!(application_id: @application.id, pet_id: params[:pet_id])
       render :show
+    end
+  end
 
   private
   def owner_application_params
     defaults = {status: 'In Progress'}
-    params.permit(:name, :address, :city, :state, :zip, :description, :status)
+    params.permit(:name, :street_address, :city, :state, :zip, :description, :status)
   end
 end
