@@ -9,3 +9,10 @@
 <p>Why would you make a great pet owner?: <%= @application.description %></p>
 
 <p>Application Status: <%= @application.status %></p>
+<%= if pet_application.status = N/A %>
+  <%= form_with url: "/pets", method: :get, local: true do |f| %>
+    <%= f.label :search %>
+    <%= f.text_field :search %>
+    <%= f.submit "Search" %>
+  <% end %>
+<% end %>
