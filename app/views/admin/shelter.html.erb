@@ -1,2 +1,5 @@
 <h1>Admin#shelter</h1>
 <p>Find me in app/views/admin/shelter.html.erb</p>
+<% @shelters.each do |shelter| %>
+  <p><%= shelter.name %></p>
+<% end %>
