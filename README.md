@@ -32,19 +32,13 @@ During your Check In, you should be prepared to review your database schema for 
 
 ## Evaluation
 
-During your evaluation, you will present your project and discuss each of the categories in the rubric above. Specifically, you should be prepared to:
+Before your evaluation, choose 2 user stories to present in a small group. Try to pick user stories that you think will deliever the highest value in terms of feedback from the instructor and peers. 
 
-1. Show your fully updated project board and discuss what your were able to complete on the project.
-1. Show your app working on Heroku
-1. Show your routes file, discuss the RESTfulness of your routes, and defend any non-restful routes
-1. Show examples of where you used ActionView Helpers to create a form, a link, and a button.
-1. Show an example of using a partial to DRY up your views
-1. Show an example of where you used a flash message
-1. Discuss which validations are included in your models
-1. Show the query logic for the stories in the "ActiveRecord" section
-1. Run your feature tests and model tests respectively and show the SimpleCov coverage report for each
-1. Show a well-written and meaningful test where you utilized `within` blocks
-1. Ask any questions you might have from the project or point out areas where you would like additional feedback.
+During the evaluation, you will present your user story:
+
+* Demonstrate the user story on Heroku (or localhost if the feature is not functional in Production)
+* Show the test(s) for the user story
+* Show all code that implements the user story
 
 # User Stories
 
