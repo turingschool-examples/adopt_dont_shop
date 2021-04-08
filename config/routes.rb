@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'admin/shelter'
   root 'welcome#index'
   get '/', to: 'application#welcome'
 
