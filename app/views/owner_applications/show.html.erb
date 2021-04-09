@@ -7,7 +7,9 @@
 <p>State: <%= @application.state %></p>
 <p>Zip Code: <%= @application.zip_code %></p>
 
-<p>Why would you make a great pet owner?: <%= @application.description %></p>
+<% if @application.pets == true %>
+  <p>Why would you make a great pet owner?: <%= @application.description %></p>
+<% end %>
 
 
 
@@ -18,12 +20,14 @@
 
   <%= form_with url: "/owner_applications/#{@application.id}", method: :get, local: true do |f| %>
     <%= f.label :search %>
-    <%= f.search_field :search %>
+    <%= f.text_field :search %>
     <%= hidden_field :id, @application.id %>
     <%= f.submit "Submit" %>
   <% end %>
-
-  <% if @pets.search
-
-
+  <% if !@pets.nil? %>
+    <% @pets.each do |pet| %>
+      <%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
+      <br>
+    <% end %>
+  <% end %>
 <% end %>

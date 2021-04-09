@@ -13,9 +13,4 @@ class Pet < ApplicationRecord
     where(adoptable: true)
   end
 
-  def self.search(search)
-    if search
-      pet = Pet.find_by(name: search)
-    end
-  end
 end

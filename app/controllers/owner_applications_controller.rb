@@ -1,12 +1,15 @@
 class OwnerApplicationsController < ApplicationController
 
-  def show
-    if params[:search].present?
-      @application = OwnerApplication.find(params[:id])
-      @pet = Pet.search(params[:search])
+  def index
+    @applications = OwnerApplication.all
+  end
 
-    else
-      @application = OwnerApplication.find(params[:id])
+  def show
+    @application = OwnerApplication.find(params[:id])
+
+    if params[:search].present?
+      @pets = []
+      @pets = Pet.search(params[:search])
     end
   end
 

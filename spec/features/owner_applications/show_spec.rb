@@ -15,21 +15,19 @@ RSpec.describe "Owner applications Show Page", type: :feature do
         expect(page).to have_content(@application1.zip_code)
         expect(page).to have_content(@application1.description)
         expect(page).to have_content(@application1.status)
-
-        # Uncomment line below when relationship to pets is complete
-        # expect(page).to have_content(@application1.pets)
       end
+
       describe "then the application has not been submitted" do
-        it "I see a section on the page to add a pet" do
+        it "I see a section on the page to search for a pet" do
           visit "/owner_applications/#{@application1.id}"
-          expect(page).to have_content("Search for Pets by Name")
-          fill_in "Search for Pets by Name", with: "josie"
+          expect(page).to have_content("Search")
+          fill_in "Search", with: "josie"
           click_button "Submit"
-          expect(current_path).to be("/owner_applications/#{@application1.id}")
           expect(page).to have_content("Josie")
         end
       end
     end
+
   end
 end
 # Searching for Pets for an Application
