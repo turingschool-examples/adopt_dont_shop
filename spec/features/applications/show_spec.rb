@@ -16,7 +16,6 @@ RSpec.describe "the Application show page" do
 
     expect(page).to have_content(@application.name)
     expect(page).to have_content(@application.address)
-    expect(page).to have_content(@application.description)
     expect(page).to have_content(@application.status)
     expect(page).to have_content(@pet_1.name)
     expect(page).to have_content(@pet_2.name)
