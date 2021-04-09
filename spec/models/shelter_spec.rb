@@ -73,5 +73,11 @@ RSpec.describe Shelter, type: :model do
         expect(@shelter_1.pet_count).to eq(3)
       end
     end
+
+    describe '.count_of_adoptable_pets' do
+      it 'returns the number of pets that are adoptable at the given shelter' do
+        expect(@shelter_1.count_of_adoptable_pets).to eq(2)
+      end
+    end
   end
 end
