@@ -1,8 +1,17 @@
 <h1>Approval Status</h1>
 <p>Applicant Name: <%= @application.name%></p>
-<p>Address: <%= @application.address%></p>
 <p>Description: <%=@application.description%></p>
-<p>Application status: <%= @application.status %></
+<p>Application status: <%= @application.status %><br>
 
-  <%= @pets %>
- <button><%= button_to "Approve for Adoption", "/admin/applications/#{@application.id}", method: :patch %></button>
+  <% if @application.status == "Approved"%>
+  <%= "Application has been approved. CONGRATS!" %>
+    <% elsif @application.status == "Rejected"%>
+      <%= "This application has been rejected"%>
+  <%end%>
+
+  <%if @application.status != "Approved" && @application.status !="Rejected"%>
+  <% @pets.each do |pet| %>
+  <%= button_to "Approve #{pet.name} for Adoption", "/admin/applications/#{@application.id}",method: :patch, params: {name: "Approved"} %>
+  <%= button_to "Reject Application for #{pet.name}", "/admin/applications/#{@application.id}", method: :patch,  params: {name: "Rejected"} %><br>
+  <%end%>
+  <%end%>

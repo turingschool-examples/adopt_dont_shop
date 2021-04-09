@@ -21,6 +21,11 @@ RSpec.describe Shelter, type: :model do
     @pet_2 = @shelter_1.pets.create(name: 'Clawdia', breed: 'shorthair', age: 3, adoptable: true)
     @pet_3 = @shelter_3.pets.create(name: 'Lucille Bald', breed: 'sphynx', age: 8, adoptable: true)
     @pet_4 = @shelter_1.pets.create(name: 'Ann', breed: 'ragdoll', age: 5, adoptable: true)
+
+    @olivia = Application.create(name: 'Olivia Charles' ,address: '2390 toad holler rd ', city: 'montrose', state: 'PA', zip_code: 12345, description: 'Love cats', status: 'Pending')
+
+    PetApplication.create(pet_id: @pet_1.id, application_id: @olivia.id, status: 'Pending')
+    PetApplication.create(pet_id: @pet_2.id, application_id: @olivia.id, status: 'Pending')
   end
 
   describe 'class methods' do
@@ -65,6 +70,12 @@ RSpec.describe Shelter, type: :model do
     describe '.pet_count' do
       it 'returns the number of pets at the given shelter' do
         expect(@shelter_1.pet_count).to eq(3)
+      end
+    end
+
+  describe '.reverse_sort' do
+    it 'shows shelters in reverse alphabetical order' do
+      expect(Shelter.reverse_sort).to eq([@shelter_2, @shelter_3, @shelter_1])
       end
     end
   end
