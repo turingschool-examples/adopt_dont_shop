@@ -6,6 +6,8 @@
   <%= f.submit "Search" %>
 <% end %>
 
+<p> <%= button_to "Start an Application", '/applications/new', method: :get %> </p>
+
 
 <% @pets.each do |pet| %>
   <h3><%= pet.name %></h3>

@@ -4,12 +4,6 @@ class PetsController < ApplicationController
     if params[:search]
       @pets = Pet.search(params[:search])
     end
-
-    # if params[:search].present?
-    #   @pets = Pet.search(params[:search])
-    # else
-    #   @pets = Pet.adoptable
-    # end
   end
 
   def show
