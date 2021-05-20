@@ -94,6 +94,6 @@ RSpec.describe 'the pets index' do
       click_on("Start an Application")
     end
 
-    expect(current_path).to eq("/new")
+    expect(current_path).to eq("/applications/new")
   end
 end

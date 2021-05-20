@@ -30,7 +30,7 @@
           <td><%= pet.age %></td>
           <td><%= pet.breed %></td>
           <td><%= pet.adoptable %></td>
-          <td><%= button_to "Start an Application", "/new" %></td>
+          <td><%= button_to "Start an Application", "/applications/new", method: :get %></td>
       <% end %>
     </tbody>
   </table>
