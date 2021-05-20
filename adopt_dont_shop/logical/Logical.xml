@@ -1,0 +1,7 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<LogicalDesign class="oracle.dbtools.crest.model.design.logical.LogicalDesign" name="Logical" id="44DC709A-CCA4-CC83-FBED-17E36BC04F61" mainViewID="BBFE255F-C460-241C-3C1B-E2D18B1D02AC">
+<createdBy>netia</createdBy>
+<createdTime>2021-05-20 21:52:54 UTC</createdTime>
+<ownerDesignName>adopt_dont_shop</ownerDesignName>
+<shouldBeOpen>false</shouldBeOpen>
+</LogicalDesign>

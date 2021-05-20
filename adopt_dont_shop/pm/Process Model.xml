@@ -1,0 +1,7 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<ProcessModel class="oracle.dbtools.crest.model.design.process.ProcessModel" name="Process Model" id="4A6E8EF3-240A-D137-5DD9-7FDAFCD2E2B5">
+<createdBy>netia</createdBy>
+<createdTime>2021-05-20 21:52:54 UTC</createdTime>
+<ownerDesignName>adopt_dont_shop</ownerDesignName>
+<shouldBeOpen>false</shouldBeOpen>
+</ProcessModel>
