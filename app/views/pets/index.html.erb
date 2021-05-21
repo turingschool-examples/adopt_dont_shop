@@ -23,8 +23,8 @@
         <tr class="row">
           <th scope="row">
             <%= pet.name %>
-            <p class="link"><%= link_to "Edit #{pet.name}", "/pets/#{pet.id}/edit" %></p>
-            <p class="link"><%= link_to "Delete #{pet.name}", "/pets/#{pet.id}", method: :delete %></p>
+            <%= link_to "Edit #{pet.name}", "/pets/#{pet.id}/edit" %>
+            <%= link_to "Delete #{pet.name}", "/pets/#{pet.id}", method: :delete %>
           </th>
           <td><p>You can find <%= pet.name %> at <%= pet.shelter_name %>!</p></td>
           <td><%= pet.age %></td>
