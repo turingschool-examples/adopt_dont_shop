@@ -1,0 +1,23 @@
+<h1> All Applications </h1>
+
+<table class="table">
+    <thead>
+      <th scope="col">Status</th>
+      <th scope="col">Applicant Name</th>
+      <th scope="col">Submitted On</th>
+      <th scope="col"></th>
+    </thead>  
+
+    <tbody>
+        <tr class="row">
+        <% @applications.each do |application| %>
+          <th scope="row"><%= application.id %></th>
+          <td><%= application.name %></td>
+          <td><%= application.created_at %></td>
+          <td>
+            <p class="link"><%= link_to "Edit #{application.name}", "/applications/#{application.id}/edit" %></p>
+            <p class="link"><%= link_to "Delete #{application.name}", "/applications/#{application.id}", method: :delete %></p>
+          </td>
+        <% end %>
+    </tbody>
+  </table>
