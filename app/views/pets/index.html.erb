@@ -2,17 +2,30 @@
 
 <%= form_with url: "/pets", method: :get, local: true do |f| %>
   <%= f.label :search %>
-  <%= f.text_field :search %>
-  <%= f.submit "Search" %>
-<% end %>
+  <%= f.text_field :search
+  <%# <%= f.submit "Search"
+<%# <% end %><br>
 
+<table style='width:100%'>
+  <tr>
+    <th>Name</th>
+    <th>Age</th>
+    <th>Breed</th>
+    <th>Adoptable</th>
+    <th>Shelter</th>
+    <th>Edit Pet</th>
+    <th>Delete Pet</th>
+  </tr>
+      <% @pets.each do |pet| %>
+    <tr>
+        <td><%= pet.name %></td>
+        <td><%= pet.age %></td>
+        <td><%= pet.breed %></td>
+        <td><%= pet.adoptable %></td>
+        <td><%= pet.shelter_name %>!</td>
+        <td><%= link_to "Edit #{pet.name}", "/pets/#{pet.id}/edit" %></td>
+        <td><%= link_to "Delete #{pet.name}", "/pets/#{pet.id}", method: :delete %></td>
+    </tr>
+  <% end %>
+</table>
 
-<% @pets.each do |pet| %>
-  <h3><%= pet.name %></h3>
-  <p>Age: <%= pet.age %></p>
-  <p>Breed: <%= pet.breed %></p>
-  <p>Adoptable: </p>
-  <p>You can find <%= pet.name %> at <%= pet.shelter_name %>!</p>
-  <%= link_to "Edit #{pet.name}", "/pets/#{pet.id}/edit" %>
-  <%= link_to "Delete #{pet.name}", "/pets/#{pet.id}", method: :delete %>
-<% end %>

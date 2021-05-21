@@ -15,12 +15,14 @@
         <%= msg %>
       </div>
     <% end %>
-    <section>
-      <p><%= link_to "Pets", "/pets" %></p>
-      <p><%= link_to "Shelters", "/shelters" %></p>
-      <p><%= link_to "Veterinarians", "/veterinarians" %></p>
-      <p><%= link_to "Veterinary Offices", "/veterinary_offices" %></p>
-    </section>
+    <div class="topnav">
+     <%= image_tag('paw_print.png', id: 'main-logo') %>
+      <span style="text-align: right">
+      <a class="active" href="/">Home</a>
+      <a class="active" href="/pets">Pets</a>
+      <a class="active" href="/shelters">Shelters</a>
+      </span>
+    </div>
     <%= yield %>
   </body>
 </html>
