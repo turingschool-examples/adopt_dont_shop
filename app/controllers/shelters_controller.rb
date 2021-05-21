@@ -44,8 +44,8 @@ class SheltersController < ApplicationController
   end
 
   def update
-    shelter = Shelter.find(shelter_params[:id])
-    if shelter.update(shelter_params)
+    shelter = Shelter.find(params[:id])
+    if shelter.update_attributes(shelter_params)
       redirect_to '/shelters'
     else
       redirect_to "/shelters/#{shelter.id}/edit"
@@ -62,6 +62,6 @@ class SheltersController < ApplicationController
   private
 
   def shelter_params
-    params.permit(:id, :name, :city, :foster_program, :rank)
+    params.permit(:name, :city, :foster_program, :rank)
   end
 end
