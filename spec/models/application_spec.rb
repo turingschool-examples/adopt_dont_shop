@@ -1,4 +1,4 @@
-#spec/models/application_spec
+# spec/models/application_spec
 require 'rails_helper'
 
 RSpec.describe Application, type: :model do
