@@ -1,16 +1,17 @@
-<h1> Apply To Adopt a Pet! </h1>
+<h1> Apply to Adopt a Pet! </h1>
 </ul> <%= form_with url: '/applications', method: :post, local: true do |form| %>
   <li><%= form.label :name %>
   <%= form.text_field :name %></li>
-  <li><%= form.label :street_address %>
+  <li><%= form.label :street_address, 'Street Address' %>
   <%= form.text_field :street_address %></li>
   <li><%= form.label :city %>
   <%= form.text_field :city %></li>
   <li> <%= form.label :state %>
   <%= form.text_field :state %></li>
-  <li><%= form.label :zip_code %>
-  <%= form.number_field :zip_code %></li>
+  <li><%= form.label :zipcode %>
+  <%= form.number_field :zipcode %></li>
   <li><%= form.label :good_home, "Why I Would Provide a Good Home" %>
   <br>
   <%= form.text_area :good_home, class: 'wide' %></li>
+  <%= form.submit 'Start Application' %>
   <% end %> </ul>
