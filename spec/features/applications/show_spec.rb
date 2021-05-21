@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'the application show' do
+RSpec.describe 'the application show page' do
   it "shows the application and all it's attributes" do
     app_1 = Application.create!(name: "Suzie Kim", street_address: "123 State Street", city: "Boston", state: "Masachusetts", zip_code: 02115, description: "I'm ready to love again" )
 

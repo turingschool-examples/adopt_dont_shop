@@ -1,8 +1,25 @@
-<h1>Application</h1>
-<h3><%= @pet.age %> years old</h3>
-<h3><%= @pet.breed %></h3>
-<h3><%= @pet.adoptable %></h3>
-<h3><%= @pet.shelter_name %></h3>
+<h1>Applications</h1>
+<table class="table">
+    <thead>
+      <th scope="col">Status</th>
+      <th scope="col">Name</th>
+      <th scope="col">Address</th>
+      <th scope="col">Why would you be a good home?</th>
+      <th scope="col"></th>
+    </thead>  
 
-<p><%= link_to "Update #{@pet.name}", "pets/#{@pet.id}/edit" %></p>
-<p><%= link_to "Delete #{@pet.name}", "/pets/#{@pet.id}", method: :delete %></p>
+    <tbody>
+        <tr class="row">
+          <th scope="row"><%= @application.status %></th>
+          <td><%= @application.name %></td>
+          <td>
+              <%= @application.street_address %></td><br>
+              <%= @application.city %>, <%= @application.state %> <%= @application.zip_code %>
+          </td>
+          <td><%= @application.description %></td>
+          <td>
+            <p class="link"><%= link_to "Edit #{@application.name}", "/applications/#{@application.id}/edit" %></p>
+            <p class="link"><%= link_to "Delete #{@application.name}", "/applications/#{@application.id}", method: :delete %></p>
+          </td>
+    </tbody>
+  </table>
