@@ -16,11 +16,8 @@ RSpec.describe 'the applications index page' do
 
   it "links to show page" do
     visit "/applications"
-    save_and_open_page
-  
-    within first(".row") do
-      click_on("#{@app_1.name}")
-    end
+    
+    click_on("#{@app_1.name}}")
 
     expect(current_path).to eq("/applications/#{@app_1.id}")
   end
@@ -29,31 +26,9 @@ RSpec.describe 'the applications index page' do
     visit "/applications"
 
     within first(".row") do
-      click_on("Edit #{@app_1.name}")
+      click_on("Update")
     end
 
     expect(current_path).to eq("/applications/edit")
-  end
-
-  it "links to delete page" do
-    visit "/applications"
-
-    within first(".row") do
-      click_on("Delete #{@app_1.name}")
-    end
-
-    expect(current_path).to eq("/applications")
-  end
-
-  xit "allows the user to delete a pet" do
-    shelter = Shelter.create(name: 'Mystery Building', city: 'Irvine CA', foster_program: false, rank: 9)
-    pet = Pet.create(name: 'Scrappy', age: 1, breed: 'Great Dane', adoptable: true, shelter_id: shelter.id)
-
-    visit "/pets/#{pet.id}"
-
-    click_on("Delete #{pet.name}")
-
-    expect(page).to have_current_path('/pets')
-    expect(page).to_not have_content(pet.name)
   end
 end
