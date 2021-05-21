@@ -21,23 +21,19 @@ RSpec.describe 'the shelters index' do
   it 'lists the shelters by most recently created first' do
     visit "/shelters"
 
-    oldest = find("#shelter-#{@shelter_1.id}")
-    mid = find("#shelter-#{@shelter_2.id}")
-    newest = find("#shelter-#{@shelter_3.id}")
+    expect(@shelter_3.name).to appear_before(@shelter_2.name)
+    expect(@shelter_2.name).to appear_before(@shelter_1.name)
 
-    expect(newest).to appear_before(mid)
-    expect(mid).to appear_before(oldest)
-
-    within "#shelter-#{@shelter_1.id}" do
-      expect(page).to have_content("Created at: #{@shelter_1.created_at}")
+    within "#shelters > tr:nth-child(4)" do
+      expect(page).to have_content(@shelter_1.created_at)
     end
 
-    within "#shelter-#{@shelter_2.id}" do
-      expect(page).to have_content("Created at: #{@shelter_2.created_at}")
+    within "#shelters > tr:nth-child(3)" do
+      expect(page).to have_content(@shelter_2.created_at)
     end
 
-    within "#shelter-#{@shelter_3.id}" do
-      expect(page).to have_content("Created at: #{@shelter_3.created_at}")
+    within "#shelters > tr:nth-child(2)" do
+      expect(page).to have_content(@shelter_3.created_at)
     end
   end
 
@@ -55,15 +51,15 @@ RSpec.describe 'the shelters index' do
   it 'has a link to update each shelter' do
     visit "/shelters"
 
-    within "#shelter-#{@shelter_1.id}" do
+    within "#shelters > tr:nth-child(4)" do
       expect(page).to have_link("Update #{@shelter_1.name}")
     end
 
-    within "#shelter-#{@shelter_2.id}" do
+    within "#shelters > tr:nth-child(3)" do
       expect(page).to have_link("Update #{@shelter_2.name}")
     end
 
-    within "#shelter-#{@shelter_3.id}" do
+    within "#shelters > tr:nth-child(2)" do
       expect(page).to have_link("Update #{@shelter_3.name}")
     end
 
@@ -74,19 +70,20 @@ RSpec.describe 'the shelters index' do
   it 'has a link to delete each shelter' do
     visit "/shelters"
 
-    within "#shelter-#{@shelter_1.id}" do
-      expect(page).to have_link("Delete #{@shelter_1.name}")
-    end
-
-    within "#shelter-#{@shelter_2.id}" do
-      expect(page).to have_link("Delete #{@shelter_2.name}")
-    end
-
-    within "#shelter-#{@shelter_3.id}" do
+    within "#shelters > tr:nth-child(2)"  do
       expect(page).to have_link("Delete #{@shelter_3.name}")
     end
 
-    click_on("Delete #{@shelter_1.name}")
+    within "#shelters > tr:nth-child(3)" do
+      expect(page).to have_link("Delete #{@shelter_2.name}")
+    end
+
+    within "#shelters > tr:nth-child(4)"  do
+      expect(page).to have_link("Delete #{@shelter_1.name}")
+    end
+
+    click_link("Delete #{@shelter_1.name}")
+
     expect(page).to have_current_path("/shelters")
     expect(page).to_not have_content(@shelter_1.name)
   end

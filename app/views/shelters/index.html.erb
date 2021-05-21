@@ -9,19 +9,19 @@
 <% end %><br>
 
 
-<table style='width:100%'>
+<table id='shelters' style='width:100%'>
   <tr>
     <th>Name</th>
     <th>Created At</th>
-    <th>Delete Shelter</th>
     <th>Edit Shelter</th>
+    <th>Delete Shelter</th>
   </tr>
   <% @shelters.each do |shelter| %>
     <tr>
-      <td><%= shelter.name %></td>
+      <td class="name"><%= shelter.name %></td>
       <td><p><%= shelter.created_at %></p></td>
       <td><%= link_to "Update #{shelter.name}", "/shelters/#{shelter.id}/edit" %></td>
-      <td><%= link_to "Delete #{shelter.name}", "/shelters/#{shelter.id}", method: :delete %></td>
+      <td class='delete-link'><%= link_to "Delete #{shelter.name}", "/shelters/#{shelter.id}", method: :delete %></td>
     </tr>
 <% end %>
 </table>
