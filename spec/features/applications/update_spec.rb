@@ -17,6 +17,7 @@ RSpec.describe 'the application update page' do
     expect(find('form')).to have_content('City')
     expect(find('form')).to have_content('State')
     expect(find('form')).to have_content('Zip code')
+    expect(find('form')).to have_content('Status')
   end
 
   context "given valid data" do
@@ -50,13 +51,13 @@ RSpec.describe 'the application update page' do
       shelter = Shelter.create(name: 'Heavenly pets', city: 'Aurora, CO', foster_program: false, rank: 7)
       pet = Pet.create(adoptable: false, age: 3, breed: 'Whippet', name: 'Annabelle', shelter_id: shelter.id)
 
-      visit "/application/#{pet.id}/edit"
+      visit "/applications/#{@app_1.id}/edit"
 
       fill_in 'Name', with: ''
       click_button 'Save'
 
       expect(page).to have_content("Error: Name can't be blank")
-      expect(page).to have_current_path("/pets/#{pet.id}/edit")
+      expect(page).to have_current_path("/applications/#{@app_1.id}/edit")
     end
   end
 end
