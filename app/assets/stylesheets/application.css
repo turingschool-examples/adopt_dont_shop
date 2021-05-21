@@ -27,6 +27,13 @@
   height: 50px;
   width: 75px;
 }
+
+section {
+  background-color: powderblue;
+  border: 2px solid powderblue;
+  padding: 10px;
+  width: 25%;
+}
 table, th {
   text-align: left;
   vertical-align: text-top;
