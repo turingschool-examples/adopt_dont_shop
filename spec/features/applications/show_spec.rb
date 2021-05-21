@@ -19,6 +19,7 @@ RSpec.describe 'the application show' do
   it 'has text box to search for pet by name' do
     visit "/applications/#{@app_1.id}"
 
+    expect(page).to have_content("Add a Pet to this Application")
     expect(page).to have_button("Search")
   end
 end
