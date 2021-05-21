@@ -1,0 +1,26 @@
+<h1><%= "#{@application.name}'s Application" %></h1>
+<table class="table">
+    <thead>
+      <th scope="col">Status</th>
+      <th scope="col">Name</th>
+      <th scope="col">Address</th>
+      <th scope="col">Why would you be a good home?</th>
+      <th scope="col"></th>
+    </thead>  
+
+    <tbody>
+        <tr class="row">
+          <th scope="row"><%= @application.status %></th>
+          <td>
+            <p><%= @application.name %></p>
+          </td>
+          <td>
+              <%= @application.street_address %><br>
+              <%= @application.city %>, <%= @application.state %> <%= @application.zip_code %>
+          </td>
+          <td><%= @application.description %></td>
+          <td>
+            <p class="link"><%= link_to "Edit", "/applications/#{@application.id}/edit" %></p>
+          </td>
+    </tbody>
+  </table>
