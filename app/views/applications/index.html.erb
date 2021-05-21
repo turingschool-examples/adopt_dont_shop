@@ -12,14 +12,14 @@
     <tbody>
       <% @applications.each do |application| %>
         <tr class="row">
-          <th scope><%= application.id %></th>
+          <th scope><%= application.status %></th>
+          <td><%= application.id %></td>
           <td><%= link_to "#{application.name}", "/applications/#{application.id}" %></td>
           <td><%= application.created_at %></td>
           <td>
-            <p class="link"><%= link_to "Edit", "/applications/#{application.id}/edit" %></p>
-            <p class="link"><%= link_to "Delete", "/applications/#{application.id}", method: :delete %></p>
+            <%= link_to "Update", "/applications/#{application.id}/edit" %>
           </td>
-          <!-- <td><%= link_to "Check Application", "/applications/#{application.id}" %></td> -->
+          <td> <td>
         </tr>
       <% end %>
     </tbody>
