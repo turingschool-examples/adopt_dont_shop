@@ -4,7 +4,7 @@ class PetitionsController < ApplicationController
 
   def create
     @petition = Petition.create(petition_params)
-    redirect_to "/petitons/#{@petition.id}"
+    redirect_to "/petitions/#{@petition.id}"
   end
 
   private
@@ -16,7 +16,6 @@ class PetitionsController < ApplicationController
       :city,
       :state,
       :zipcode,
-      :good_home
     )
   end
 end

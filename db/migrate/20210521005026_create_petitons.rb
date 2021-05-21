@@ -1,6 +1,6 @@
 class CreatePetitons < ActiveRecord::Migration[5.2]
   def change
-    create_table :petitons do |t|
+    create_table :petitions do |t|
       t.string :name
       t.string :street_address
       t.string :city
