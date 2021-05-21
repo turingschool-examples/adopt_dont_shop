@@ -42,7 +42,6 @@ class PetsController < ApplicationController
 
   def destroy
     pet = Pet.find(params[:id])
-    require 'pry'; binding.pry
     pet.destroy
     redirect_to '/pets'
   end
