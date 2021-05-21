@@ -1,16 +1,16 @@
 <h1>Edit Shelter</h1>
 <%= form_with url: "/shelters/#{@shelter.id}", method: :patch, local: true do |f| %>
   <%= f.label :name %>
-  <%= f.text_field :name %>
+  <%= f.text_field :name, value: @shelter.name %>
 
   <%= f.label :city %>
-  <%= f.text_field :city %>
+  <%= f.text_field :city, value: @shelter.city %>
 
   <%= f.label :foster_program %>
-  <%= f.check_box :foster_program %>
+  <%= f.check_box :foster_program, checked: @shelter.foster_program %>
 
   <%= f.label :rank %>
-  <%= f.number_field :rank %>
+  <%= f.number_field :rank, value: @shelter.rank %>
 
   <%= f.submit %>
 <% end %>
