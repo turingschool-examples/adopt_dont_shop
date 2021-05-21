@@ -102,6 +102,6 @@ RSpec.describe 'the pets index' do
     visit "/pets"
     click_button 'Start an Application'
 
-    expect(current_path).to eq('/applications/new')
+    expect(current_path).to eq('/petitions/new')
   end
 end

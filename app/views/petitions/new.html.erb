@@ -1,5 +1,5 @@
 <h1> Apply to Adopt a Pet! </h1>
-</ul> <%= form_with url: '/applications', method: :post, local: true do |form| %>
+</ul> <%= form_with url: '/petitions', method: :post, local: true do |form| %>
   <li><%= form.label :name %>
   <%= form.text_field :name %></li>
   <li><%= form.label :street_address, 'Street Address' %>
