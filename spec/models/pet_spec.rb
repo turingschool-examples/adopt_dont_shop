@@ -1,3 +1,4 @@
+#spec/models/pet_spec
 require 'rails_helper'
 
 RSpec.describe Pet, type: :model do
