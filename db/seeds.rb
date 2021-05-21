@@ -5,9 +5,36 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-application = Application.create(name: "Suzie Kim", street_address: "123 State Street", city: "Boston", state: "Masachusetts", zip_code: 02115, description: "I'm ready to love again" )
-shelter = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
 
-pet_1 = Pet.create(adoptable: true, age: 7, breed: 'sphynx', name: 'Bare-y Manilow', shelter_id: shelter.id)
-pet_2 = Pet.create(adoptable: true, age: 3, breed: 'domestic pig', name: 'Babe', shelter_id: shelter.id)
-pet_3 = Pet.create(adoptable: true, age: 4, breed: 'chihuahua', name: 'Elle', shelter_id: shelter.id)
+Application.destroy_all 
+Shelter.destroy_all
+Pet.destroy_all
+
+5.times do
+  Shelter.create do |shelter|
+    shelter.name = Faker::Company.name
+    shelter.city = Faker::Address.city
+    shelter.foster_program = [true, false].sample
+    shelter.rank = rand(1..10)
+    5.times do
+      shelter.pets.new do |pet|
+        pet.name = Faker::Creature::Dog.name
+        pet.breed = Faker::Creature::Dog.breed
+        pet.age = rand(1..15)
+        pet.adoptable = [true, false].sample
+      end
+    end
+  end
+end
+
+5.times do
+ Application.create do |app|
+    app.name = Faker::Name.name
+    app.street_address = Faker::Address.street_address
+    app.city = Faker::Address.city
+    app.state = Faker::Address.state
+    app.zip_code = Faker::Address.zip_code
+    app.description = Faker::Food.description
+    app.status = ["In Progress", "Pending", "Accepted", "Rejected"].sample
+  end
+end
