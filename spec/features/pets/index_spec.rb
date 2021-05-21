@@ -72,7 +72,7 @@ RSpec.describe 'the pets index' do
     expect(page).to have_content("Delete #{@pet_2.name}")
 
     click_link("Delete #{@pet_1.name}")
-
+    save_and_open_page
     expect(page).to have_current_path("/pets")
     expect(page).to_not have_content(@pet_1.name)
   end
