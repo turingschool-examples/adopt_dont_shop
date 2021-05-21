@@ -11,7 +11,9 @@
     <tbody>
         <tr class="row">
           <th scope="row"><%= @application.status %></th>
-          <td><%= @application.name %></td>
+          <td>
+            <p><%= link_to "#{@application.name}", "/applications/#{application.id}" %></p>
+          </td>
           <td>
               <%= @application.street_address %></td><br>
               <%= @application.city %>, <%= @application.state %> <%= @application.zip_code %>
