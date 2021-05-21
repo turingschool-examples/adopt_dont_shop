@@ -1,0 +1,39 @@
+<h1><%= "Edit #{@application.name}'s Application" %></h1>
+<%= form_with url: "/applications/#{@application.id}", method: :patch, local: true do |f| %>
+<p>
+    <%= f.label :name %>
+    <%= f.text_field :name, value: "#{@application.name}" %>
+  </p>
+
+  <p>
+    <%= f.label :street_address, "Street Address" %>
+    <%= f.text_field :street_address, value: "#{@application.street_address}"%>
+  </p>
+
+  <p>
+    <%= f.label :city %>
+    <%= f.text_field :city, value: @application.city %>
+  </p>
+
+  <p>
+    <%= f.label :state %>
+    <%= f.text_field :state, value: @application.state %>
+  </p>
+  
+  <p>
+    <%= f.label :zip_code %>
+    <%= f.number_field :zip_code, in: 0..99999, step: 1, value: @application.zip_code %>
+  </p>
+
+  <p> 
+    <%= f.label :description, "Why are you a good home?" %>
+    <%= f.text_area :description, value: "I'd be a good home because...", value: @application.description %>
+  </p>
+
+  <p> 
+    <%= f.label :status %>
+    <%= f.select :status, ['In Progress', 'Pending', 'Accepted', 'Rejected'], value: @application.status %>
+  </p>
+
+  <%= f.submit %>
+<% end %>
