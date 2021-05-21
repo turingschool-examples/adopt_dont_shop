@@ -79,8 +79,12 @@ test:
 # Read https://guides.rubyonrails.org/configuring.html#configuring-a-database
 # for a full overview on how database connection configuration can be specified.
 #
+# production:
+#   <<: *default
+#   database: adopt_dont_shop_production
+#   username: adopt_dont_shop
+#   password: <%= ENV['ADOPT_DONT_SHOP_DATABASE_PASSWORD'] %>
+
 production:
-  <<: *default
-  database: adopt_dont_shop_production
-  username: adopt_dont_shop
-  password: <%= ENV['ADOPT_DONT_SHOP_DATABASE_PASSWORD'] %>
+  url: <%= ENV["DATABASE_URL"] %>
+
