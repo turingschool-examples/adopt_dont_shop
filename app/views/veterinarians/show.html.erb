@@ -9,5 +9,5 @@
 <h3>Rating: <%= @veterinarian.review_rating %></h3>
 <h3>Practice: <%= @veterinarian.office_name %></h3>
 
-<%= link_to "Update #{@veterinarian.name}", "veterinarians/#{@veterinarian.id}/edit" %>
+<%= link_to "Update #{@veterinarian.name}", "/veterinarians/#{@veterinarian.id}/edit" %>
 <%= link_to "Delete #{@veterinarian.name}", "/veterinarians/#{@veterinarian.id}", method: :delete %>
