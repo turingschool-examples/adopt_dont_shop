@@ -1,4 +1,4 @@
-<h1>Applications</h1>
+<h1><%= "#{@application.name}'s Application" %></h1>
 <table class="table">
     <thead>
       <th scope="col">Status</th>
@@ -12,16 +12,15 @@
         <tr class="row">
           <th scope="row"><%= @application.status %></th>
           <td>
-            <p><%= link_to "#{@application.name}", "/applications/#{application.id}" %></p>
+            <p><%= @application.name %></p>
           </td>
           <td>
-              <%= @application.street_address %></td><br>
+              <%= @application.street_address %><br>
               <%= @application.city %>, <%= @application.state %> <%= @application.zip_code %>
           </td>
           <td><%= @application.description %></td>
           <td>
-            <p class="link"><%= link_to "Edit #{@application.name}", "/applications/#{@application.id}/edit" %></p>
-            <p class="link"><%= link_to "Delete #{@application.name}", "/applications/#{@application.id}", method: :delete %></p>
+            <p class="link"><%= link_to "Edit", "/applications/#{@application.id}/edit" %></p>
           </td>
     </tbody>
   </table>
