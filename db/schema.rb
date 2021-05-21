@@ -15,20 +15,25 @@ ActiveRecord::Schema.define(version: 2021_05_20_225919) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "applicants", force: :cascade do |t|
-  end
-
   create_table "application_pets", force: :cascade do |t|
     t.bigint "application_id"
     t.bigint "pet_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["application_id"], name: "index_application_pets_on_application_id"
     t.index ["pet_id"], name: "index_application_pets_on_pet_id"
   end
 
   create_table "applications", force: :cascade do |t|
-    t.bigint "applicant_id"
-    t.string "status"
-    t.index ["applicant_id"], name: "index_applications_on_applicant_id"
+    t.string "name"
+    t.string "street_address"
+    t.string "city"
+    t.string "state"
+    t.string "zip_code"
+    t.string "status", default: "In Progress"
+    t.string "statement"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "pets", force: :cascade do |t|
@@ -53,6 +58,5 @@ ActiveRecord::Schema.define(version: 2021_05_20_225919) do
 
   add_foreign_key "application_pets", "applications"
   add_foreign_key "application_pets", "pets"
-  add_foreign_key "applications", "applicants"
   add_foreign_key "pets", "shelters"
 end

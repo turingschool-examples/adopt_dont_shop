@@ -1,0 +1,19 @@
+<h1>New Pet Adoption Application</h1>
+<p>Let's start with some details about who you are.</p><br>
+
+<section>
+<%= form_with url: '/applications/', method: :post, local: true do |form| %>
+    <h3>Applicant Details</h3>
+    <%= form.label :name, 'Full Name:' %>
+    <%= form.text_field :name %><br><br>
+    <%= form.label :street_address, 'Street Address:' %>
+    <%= form.text_field :street_address %><br><br>
+    <%= form.label :city, 'City:' %>
+    <%= form.text_field :city %><br><br>
+    <%= form.label :state, 'State:' %>
+    <%= form.text_field :state %><br><br>
+    <%= form.label :zip_code, 'Zip Code:' %>
+    <%= form.text_field :zip_code %><br><br>
+    <%= form.submit 'Submit Applicant Details' %>
+  <% end %>
+  </section>
