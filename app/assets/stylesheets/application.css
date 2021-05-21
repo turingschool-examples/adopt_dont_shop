@@ -17,3 +17,8 @@
 li {
   margin: 10px;
 }
+
+.wide {
+  height: 90px;
+  width: 50%;
+}
