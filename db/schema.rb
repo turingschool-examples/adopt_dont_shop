@@ -30,7 +30,7 @@ ActiveRecord::Schema.define(version: 2021_05_20_225919) do
     t.string "city"
     t.string "state"
     t.string "zip_code"
-    t.string "status"
+    t.string "status", default: "In Progress"
     t.string "statement"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

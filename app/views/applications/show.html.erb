@@ -1,1 +1,20 @@
-<h1><%= "#{@application.name}'s Pet Adoption Application" %></h1>
+<h1 style="text-decoration: underline;"><%= "#{@application.name}'s Pet Adoption Application" %></h3><br>
+
+<h3><%= "Application Status: #{@application.status}" %></h3>
+
+<h3>Application Details: </h3>
+
+<table>
+  <tr>
+    <th>Detail</th>
+    <th>Value</th>
+  </tr>
+  <tr><td>Name:</td><td><%= @application.name %></td></tr>
+  <tr><td>Street Address:</td><td><%= @application.street_address %></td></tr>
+  <tr><td>City:</td><td><%= @application.city %></td></tr>
+  <tr><td>State:</td><td><%= @application.state %></td></tr>
+  <tr><td>Zip Code:</td><td><%= @application.zip_code %></td></tr>
+  <%# <tr><td>Pet(s) You Want To Adopt:</td><td><%= @application. %></td></tr>
+  <tr><td>Why you think you would be a good pet parent:</td><td><%= @application.statement %></td></tr>
+</table><br>
+
