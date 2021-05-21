@@ -6,18 +6,21 @@
       <th scope="col">Applicant Name</th>
       <th scope="col">Submitted On</th>
       <th scope="col"></th>
+      <th scopt="col"></th>
     </thead>  
 
     <tbody>
+      <% @applications.each do |application| %>
         <tr class="row">
-        <% @applications.each do |application| %>
-          <th scope="row"><%= application.id %></th>
-          <td><%= application.name %></td>
+          <th scope><%= application.id %></th>
+          <td><%= link_to "#{application.name}", "/applications/#{application.id}" %></td>
           <td><%= application.created_at %></td>
           <td>
-            <p class="link"><%= link_to "Edit #{application.name}", "/applications/#{application.id}/edit" %></p>
-            <p class="link"><%= link_to "Delete #{application.name}", "/applications/#{application.id}", method: :delete %></p>
+            <p class="link"><%= link_to "Edit", "/applications/#{application.id}/edit" %></p>
+            <p class="link"><%= link_to "Delete", "/applications/#{application.id}", method: :delete %></p>
           </td>
-        <% end %>
+          <!-- <td><%= link_to "Check Application", "/applications/#{application.id}" %></td> -->
+        </tr>
+      <% end %>
     </tbody>
   </table>
