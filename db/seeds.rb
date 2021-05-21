@@ -15,9 +15,9 @@ george_hairlesson = hollywood.pets.create!(adoptable: true, age: 1, breed: 'sphy
 luke_skywalker = hollywood.pets.create!(adoptable: false, age: 5, breed: 'aussie', name: 'Luke Skywalker', shelter_id: hollywood.id)
 
 best_vets = VeterinaryOffice.create!(name: 'Best Vets', boarding_services: true, max_patient_capacity: 20)
-taylor = best_vets.veterinians.create!(name: 'Taylor', review_rating: 10, on_call: true, veterinary_office_id: best_vets.id)
-jim = best_vets.veterinians.create!(name: 'Jim', review_rating: 8, on_call: true, veterinary_office_id: best_vets.id)
+taylor = best_vets.veterinarians.create!(name: 'Taylor', review_rating: 10, on_call: true, veterinary_office_id: best_vets.id)
+jim = best_vets.veterinarians.create!(name: 'Jim', review_rating: 8, on_call: true, veterinary_office_id: best_vets.id)
 
 aspen_arbor = VeterinaryOffice.create!(name: 'Aspen Arbor', boarding_services: false, max_patient_capacity: 40)
-ashley = aspen_arbor.veterinians.create!(name: 'Ashley', review_rating: 6, on_call: true, veterinary_office_id: aspen_arbor.id)
-lacey = aspen_arbor.veterinians.create!(name: 'Lacey', review_rating: 10, on_call: false, veterinary_office_id: aspen_arbor.id)
+ashley = aspen_arbor.veterinarians.create!(name: 'Ashley', review_rating: 6, on_call: true, veterinary_office_id: aspen_arbor.id)
+lacey = aspen_arbor.veterinarians.create!(name: 'Lacey', review_rating: 10, on_call: false, veterinary_office_id: aspen_arbor.id)
