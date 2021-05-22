@@ -32,7 +32,7 @@ class PetsController < ApplicationController
 
   def update
     pet = Pet.find(params[:id])
-    if pet.update(pet_params)
+    if pet.update_attributes(pet_params)
       redirect_to "/pets/#{pet.id}"
     else
       redirect_to "/pets/#{pet.id}/edit"
