@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe 'the shelter update' do
-  it "shows the shelter edit form" do
+  it 'shows the shelter edit form' do
     shelter = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
 
     visit "/shelters/#{shelter.id}/edit"
@@ -12,8 +14,8 @@ RSpec.describe 'the shelter update' do
     expect(find('form')).to have_content('Foster program')
   end
 
-  context "given valid data" do
-    it "submits the edit form and updates the shelter" do
+  context 'given valid data' do
+    it 'submits the edit form and updates the shelter' do
       shelter = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
 
       visit "/shelters/#{shelter.id}/edit"
@@ -30,7 +32,7 @@ RSpec.describe 'the shelter update' do
     end
   end
 
-  context "given invalid data" do
+  context 'given invalid data' do
     it 're-renders the edit form' do
       shelter = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
 

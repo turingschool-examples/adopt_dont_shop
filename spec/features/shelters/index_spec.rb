@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe 'the shelters index' do
@@ -11,7 +13,7 @@ RSpec.describe 'the shelters index' do
   end
 
   it 'lists all the shelter names' do
-    visit "/shelters"
+    visit '/shelters'
 
     expect(page).to have_content(@shelter_1.name)
     expect(page).to have_content(@shelter_2.name)
@@ -19,7 +21,7 @@ RSpec.describe 'the shelters index' do
   end
 
   it 'lists the shelters by most recently created first' do
-    visit "/shelters"
+    visit '/shelters'
 
     oldest = find("#shelter-#{@shelter_1.id}")
     mid = find("#shelter-#{@shelter_2.id}")
@@ -44,8 +46,8 @@ RSpec.describe 'the shelters index' do
   it 'has a link to sort shelters by the number of pets they have' do
     visit '/shelters'
 
-    expect(page).to have_link("Sort by number of pets")
-    click_link("Sort by number of pets")
+    expect(page).to have_link('Sort by number of pets')
+    click_link('Sort by number of pets')
 
     expect(page).to have_current_path('/shelters?sort=pet_count')
     expect(@shelter_1.name).to appear_before(@shelter_3.name)
@@ -53,7 +55,7 @@ RSpec.describe 'the shelters index' do
   end
 
   it 'has a link to update each shelter' do
-    visit "/shelters"
+    visit '/shelters'
 
     within "#shelter-#{@shelter_1.id}" do
       expect(page).to have_link("Update #{@shelter_1.name}")
@@ -72,7 +74,7 @@ RSpec.describe 'the shelters index' do
   end
 
   it 'has a link to delete each shelter' do
-    visit "/shelters"
+    visit '/shelters'
 
     within "#shelter-#{@shelter_1.id}" do
       expect(page).to have_link("Delete #{@shelter_1.name}")
@@ -87,20 +89,20 @@ RSpec.describe 'the shelters index' do
     end
 
     click_on("Delete #{@shelter_1.name}")
-    expect(page).to have_current_path("/shelters")
+    expect(page).to have_current_path('/shelters')
     expect(page).to_not have_content(@shelter_1.name)
   end
 
   it 'has a text box to filter results by keyword' do
-    visit "/shelters"
-    expect(page).to have_button("Search")
+    visit '/shelters'
+    expect(page).to have_button('Search')
   end
 
   it 'lists partial matches as search results' do
-    visit "/shelters"
+    visit '/shelters'
 
-    fill_in 'Search', with: "RGV"
-    click_on("Search")
+    fill_in 'Search', with: 'RGV'
+    click_on('Search')
 
     expect(page).to have_content(@shelter_2.name)
     expect(page).to_not have_content(@shelter_1.name)

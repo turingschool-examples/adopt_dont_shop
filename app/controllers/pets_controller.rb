@@ -1,10 +1,9 @@
+# frozen_string_literal: true
+
 class PetsController < ApplicationController
   def index
-    if params[:search].present?
-      @pets = Pet.search(params[:search])
-    else
-      @pets = Pet.adoptable
-    end
+    @pets = Pet.adoptable
+    @pets = Pet.search(params[:search]) if params[:search]
   end
 
   def show

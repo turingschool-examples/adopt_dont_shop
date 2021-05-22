@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Veterinarian < ApplicationRecord
   validates :name, presence: true
   validates :review_rating, presence: true, numericality: true

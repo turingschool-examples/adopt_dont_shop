@@ -1,3 +1,4 @@
+<br>
 <h1>All pets</h1>
 
 <%= form_with url: "/pets", method: :get, local: true do |f| %>
@@ -5,6 +6,8 @@
   <%= f.text_field :search %>
   <%= f.submit "Search" %>
 <% end %>
+
+<p> <%= button_to "Start an Application", '/petitions/new', method: :get %> </p>
 
 
 <% @pets.each do |pet| %>

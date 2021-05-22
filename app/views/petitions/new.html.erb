@@ -1,0 +1,15 @@
+<br>
+<h1> Apply to Adopt a Pet! </h1>
+</ul> <%= form_with url: '/petitions', method: :post, local: true do |form| %>
+  <li><%= form.label :name %>
+  <%= form.text_field :name %></li>
+  <li><%= form.label :street_address, 'Street Address' %>
+  <%= form.text_field :street_address %></li>
+  <li><%= form.label :city %>
+  <%= form.text_field :city %></li>
+  <li> <%= form.label :state %>
+  <%= form.text_field :state %></li>
+  <li><%= form.label :zipcode %>
+  <%= form.number_field :zipcode %></li>
+  <%= form.submit 'Start Application' %>
+  <% end %> </ul>
