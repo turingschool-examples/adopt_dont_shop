@@ -23,6 +23,13 @@ li {
   width: 50%;
 }
 
+.flash {
+  color: rgb(161, 5, 5);
+  font-size: 20px;
+  font-weight: bold;
+  text-decoration: underline dotted darkblue;
+}
+
 .topnav a {
   float: left;
   background-color: rgb(34, 117, 38, 0.5);
@@ -41,4 +48,8 @@ li {
 
 h1 {
   margin: 10px;
+}
+
+a {
+  padding: 10px
 }
