@@ -13,3 +13,45 @@
  *= require_tree .
  *= require_self
  */
+
+ @import url('https://fonts.googleapis.com/css2?family=Pattaya&display=swap');
+
+.content{
+  margin-top: 50px;
+}
+
+ .navbar {
+   overflow: hidden;
+   background-color: #8E5DDE;
+   color: #FFFFFF;
+   position: fixed;
+   top: 0;
+   width: 100%;
+   z-index: 2;
+ }
+
+ .navbar-item{
+  display: inline-block;
+  height: 30px;
+  text-align: center;
+  cursor: pointer;
+  font-weight: bold;
+ }
+
+ .navbar a {
+   float: left;
+   display: block;
+   color: #FFFFFF;
+   text-align: center;
+   padding: 14px 16px;
+   text-decoration: none;
+ }
+
+ .navbar a:hover {
+   background: #D9CAF0;
+   color: #5D23F6;
+ }
+
+ h1{
+  font-family: 'Pattaya', sans-serif;
+ }

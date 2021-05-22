@@ -1,13 +1,15 @@
-<h1>New Veterinarian</h1>
-<%= form_with url: "/veterinary_offices/#{@vet_office.id}/veterinarians", method: :post, local: true do |f| %>
-  <%= f.label :name %>
-  <%= f.text_field :name %>
+<div class="content">
+  <h1>New Veterinarian</h1>
+  <%= form_with url: "/veterinary_offices/#{@vet_office.id}/veterinarians", method: :post, local: true do |f| %>
+    <%= f.label :name %>
+    <%= f.text_field :name %>
 
-  <%= f.label :review_rating %>
-  <%= f.number_field :review_rating %>
+    <%= f.label :review_rating %>
+    <%= f.number_field :review_rating %>
 
-  <%= f.label :on_call %>
-  <%= f.check_box :on_call, checked_value: 1 %>
+    <%= f.label :on_call %>
+    <%= f.check_box :on_call, checked_value: 1 %>
 
-  <%= f.submit %>
-<% end %>
+    <%= f.submit %>
+  <% end %>
+</div>

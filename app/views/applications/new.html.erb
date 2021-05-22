@@ -1,35 +1,37 @@
-<h1>New Application</h1>
+<div class="content">
+  <h1>New Application</h1>
 
-<%= form_with url: "/applications", method: :post, local: true do |f| %>
-  <p>
-    <%= f.label :name %>
-    <%= f.text_field :name %>
-  </p>
+  <%= form_with url: "/applications", method: :post, local: true do |f| %>
+    <p>
+      <%= f.label :name %>
+      <%= f.text_field :name %>
+    </p>
 
-  <p>
-    <%= f.label :street_address, "Street Address" %>
-    <%= f.text_field :street_address %>
-  </p>
+    <p>
+      <%= f.label :street_address, "Street Address" %>
+      <%= f.text_field :street_address %>
+    </p>
 
-  <p>
-    <%= f.label :city %>
-    <%= f.text_field :city %>
-  </p>
+    <p>
+      <%= f.label :city %>
+      <%= f.text_field :city %>
+    </p>
 
-  <p>
-    <%= f.label :state %>
-    <%= f.text_field :state %>
-  </p>
-  
-  <p>
-    <%= f.label :zip_code %>
-    <%= f.number_field :zip_code, in: 0..99999, step: 1 %>
-  </p>
+    <p>
+      <%= f.label :state %>
+      <%= f.text_field :state %>
+    </p>
+    
+    <p>
+      <%= f.label :zip_code %>
+      <%= f.number_field :zip_code, in: 0..99999, step: 1 %>
+    </p>
 
-  <p> 
-    <%= f.label :description, "Why are you a good home?" %>
-    <%= f.text_area :description, value: "I'd be a good home because..." %>
-  </p>
+    <p> 
+      <%= f.label :description, "Why are you a good home?" %>
+      <%= f.text_area :description, value: "I'd be a good home because..." %>
+    </p>
 
-  <p><%= f.submit "Submit" %></p>
-<% end %>
+    <p><%= f.submit "Submit" %></p>
+  <% end %>
+</div>
