@@ -3,8 +3,9 @@
 <h3>Application Status:</h3>
 <p><%= "#{@application.status}" %></p>
 <% if @application.status == 'In Progress'%>
-<p style='color:darkred;'><%= 'Note - Your application has not been submitted yet!' %><br></p>
+<p style='color:darkred;'><%= 'Note - Your application has not been submitted yet!' %></p>
 <p><%= "In order to submit, you must add both 'Pets To Adopt' and an 'Adoption Statement' below." %></p>
+<p><%= "You will be able to add your 'Adoption Statement' once you've added one or more pets to the application." %></p>
 <% end %>
 
 <h3>Applicant Details: </h3>
@@ -31,24 +32,32 @@
 </ul>
 <% end %>
 
-<%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |f| %>
-  <%= f.label "Search Pets By Name" %>
-  <%= f.text_field :search %>
-  <%= f.submit "Search" %>
+<% if @application.status == 'In Progress' %>
+  <%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |f| %>
+    <%= f.label "Search Pets By Name" %>
+    <%= f.text_field :search %>
+    <%= f.submit "Search" %>
+  <% end %>
+
+  <% if params[:search].nil? %>
+    <h4>All Adoptable Pets:</h4>
+  <% else %>
+    <h4>Adoptable Pets Matching Search</h4>
+  <% end %>
+  <%= render partial: 'pets/pets_view', locals: {path: "/applications/#{@application.id}", method: :post } %>
 <% end %>
 
-<% if params[:search].nil? %>
-  <h4>All Adoptable Pets:</h4>
-<% else %>
-  <h4>Adoptable Pets Matching Search</h4>
+<% if @pets_adopting.count != 0 %>
+  <h3>Adoption Statement:</h3>
+  <%= form_with url: "/applications/#{@application.id}", method: "patch", local: true do |form| %>
+    <%= form.label :statement, 'Please explain why you would be a good pet parent:'%><br>
+    <%= form.text_area :statement, size: '40x3', value: @application.statement %>
+    <br><br>
+    <% if @application.status == 'In Progress'%>
+     <%= form.submit 'Submit Application' %>
+    <% end %>
+  <% end %>
 <% end %>
-<%= render partial: 'pets/pets_view', locals: {path: "/applications/#{@application.id}", method: :post } %>
-
-<h3>Adoption Statement:</h3>
-<% if @application.statement.nil? %>
-  <p style="color: darkred;"><%= "Please add an adoption statement" %></p>
-<% end %>
-<%= button_to "Add Statement", "/facilities/new", method: :get %>
 
 
 
