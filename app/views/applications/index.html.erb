@@ -2,7 +2,7 @@
 
 <table class="table">
     <thead>
-      <th scope="col">Status</th>
+      <th scope="col">Applicantion ID</th>
       <th scope="col">Applicant Name</th>
       <th scope="col">Submitted On</th>
       <th scope="col"></th>
@@ -12,14 +12,12 @@
     <tbody>
       <% @applications.each do |application| %>
         <tr class="row">
-          <th scope><%= application.status %></th>
-          <td><%= application.id %></td>
+          <th scope><%= application.id %></th> 
           <td><%= link_to "#{application.name}", "/applications/#{application.id}" %></td>
           <td><%= application.created_at %></td>
           <td>
             <%= link_to "Update", "/applications/#{application.id}/edit" %>
           </td>
-          <td> <td>
         </tr>
       <% end %>
     </tbody>
