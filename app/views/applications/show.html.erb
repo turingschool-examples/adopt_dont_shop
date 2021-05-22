@@ -1,6 +1,8 @@
 
-  <h4>Name: <%= @application.name %></h2>
-  <p>Address: <%= @application.address %>
+  <h3>Name: <%= @application.name %></h3>
+  Address
+  <p><%= @application.street_address %></p>
+  <p><%= @application.city %>, <%= @application.state %>, <%= @application.zip_code %></p>
   <p>Reasons for a good home: <%= @application.applicant_qualitys %></p>
   <p>Pets names: <%= @application.pet_names %></p>
   <p>application status: <%= @application.application_status %></p>
