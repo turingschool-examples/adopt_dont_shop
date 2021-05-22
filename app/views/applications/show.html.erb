@@ -1,0 +1,13 @@
+<h1><%= @application.first_name %> <%= @application.middle_name %> <%= @application.last_name %></h1><br>
+<h3><%= @application.street_number %> <%= @application.street_prefix %> <%= @application.street_name %> <%= @application.street_type %></h3><br>
+<h3><%= @application.city %></h3><br>
+<h3><%= @application.state %></h3><br>
+<h3><%= @application.zip_code %></h3><br>
+<h3><%= @application.description %></h3><br>
+<h3><%= @application.status %></h3><br>
+
+<section id="application-<%= @application.id %>">
+  <% @pets.each do |pet| %>
+     <p><%= link_to pet.name, "/pets/#{pet.id}" %></p>
+  <% end %>
+</section>
