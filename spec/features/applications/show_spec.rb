@@ -23,7 +23,7 @@ RSpec.describe 'Application Show Page' do
     @pet_app_4 = PetApplication.create!(pet_id: @pet_4.id, application_id: @application_2.id)
   end
 
-  it 'Shows the applications attributes' do
+  it 'Shows the only the given applications attributes' do
     visit "/applications/#{@application_1.id}"
 
     expect(page).to have_content(@application_1.name)
@@ -33,5 +33,18 @@ RSpec.describe 'Application Show Page' do
     expect(page).to have_content(@application_1.zip_code)
     expect(page).to have_content(@application_1.description)
     expect(page).to have_content(@application_1.status)
+    expect(page).to have_content(@pet_1.name)
+    expect(page).to have_content(@pet_2.name)
+    expect(page).to have_content(@pet_3.name)
+
+    expect(page).to_not have_content(@application_2.name)
+  end
+
+  it 'has a link to each pet' do
+    visit "/applications/#{@application_1.id}"
+
+    click_on "#{@pet_1.name}"
+
+    expect(current_path).to eq("/pets/#{@pet_1.id}")
   end
 end
