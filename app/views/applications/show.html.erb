@@ -44,7 +44,10 @@
 <% end %>
 <%= render partial: 'pets/pets_view', locals: {path: "/applications/#{@application.id}", method: :post } %>
 
-<h3>Adoption Statement</h3>
+<h3>Adoption Statement:</h3>
+<% if @application.statement.nil? %>
+  <p style="color: darkred;"><%= "Please add an adoption statement" %></p>
+<% end %>
 <%= button_to "Add Statement", "/facilities/new", method: :get %>
 
 
