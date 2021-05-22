@@ -18,7 +18,7 @@ RSpec.describe 'application creation' do
     context 'given valid data' do
       it 'creates the application' do
         visit '/applications/new'
-        
+
         fill_in 'Name', with: 'Chris P. Bacon'
         fill_in 'Street address', with: '123 Main Street'
         fill_in 'City', with: 'Anytown'
@@ -28,6 +28,16 @@ RSpec.describe 'application creation' do
         click_button 'Save'
 
         expect(page).to have_content('Chris P. Bacon')
+      end
+    end
+
+    context 'given invalid data' do
+      it 're-renders the new form' do
+        visit '/applications/new'
+        click_button 'Save'
+
+        expect(page).to have_content("Error: Name can't be blank, Street address can't be blank, City can't be blank, State can't be blank, Zip code can't be blank, Zip code is not a number")
+        expect(page).to have_current_path('/applications/new')
       end
     end
   end
