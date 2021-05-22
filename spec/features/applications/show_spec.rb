@@ -43,7 +43,7 @@ RSpec.describe 'Application show page' do
       pet_1 = shelter_1.pets.create(name: 'Mr. Pirate', breed: 'tuxedo shorthair', age: 5, adoptable: true)
       pet_2 = shelter_1.pets.create(name: 'Clawdia', breed: 'shorthair', age: 3, adoptable: true)
       pet_3 = shelter_1.pets.create(name: 'Ann', breed: 'ragdoll', age: 3, adoptable: false)
-      
+
       visit "/applications/#{application.id}"
       fill_in 'Search', with: 'Ann'
 
@@ -54,6 +54,39 @@ RSpec.describe 'Application show page' do
       end
       within('#pet_search') do
         expect(page).to have_content(pet_3.name)
+      end
+    end
+    it 'shows the pets with names that partially match the search' do
+      application = Application.create!(name: 'Chris P. Bacon', street_address: '123 Main Street', city: 'Anytown', state: 'CO', zip_code: 12345, description: 'I like pets', status: 'Pending')
+      shelter_1 = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
+      pet_1 = shelter_1.pets.create(name: 'Mr. Pirate', breed: 'tuxedo shorthair', age: 5, adoptable: true)
+      pet_2 = shelter_1.pets.create(name: 'Clawdia', breed: 'shorthair', age: 3, adoptable: true)
+      pet_3 = shelter_1.pets.create(name: 'Ann', breed: 'ragdoll', age: 3, adoptable: false)
+      pet_4 = shelter_1.pets.create(name: 'Another Pet', breed: 'ragdoll', age: 3, adoptable: false)
+
+      visit "/applications/#{application.id}"
+      fill_in 'Search', with: 'An'
+
+      click_button 'Search'
+
+      within("#application-#{application.id}") do
+        expect(page).to have_content(application.name)
+      end
+      within('#pet_search') do
+        expect(page).to have_content(pet_3.name)
+        expect(page).to have_content(pet_4.name)
+      end
+      visit "/applications/#{application.id}"
+      fill_in 'Search', with: 'an'
+
+      click_button 'Search'
+
+      within("#application-#{application.id}") do
+        expect(page).to have_content(application.name)
+      end
+      within('#pet_search') do
+        expect(page).to have_content(pet_3.name)
+        expect(page).to have_content(pet_4.name)
       end
     end
   end
