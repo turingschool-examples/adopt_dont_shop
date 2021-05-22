@@ -10,15 +10,12 @@ RSpec.describe 'Application show page' do
     application.pets << pet_1
     application.pets << pet_2
     application.pets << pet_3
-    # require 'pry'; binding.pry
+    
     visit "/applications/#{application.id}"
-    # save_and_open_page
+
     within("#application-#{application.id}") do
       expect(page).to have_content(application.name)
-      expect(page).to have_content(application.street_address)
-      expect(page).to have_content(application.city)
-      expect(page).to have_content(application.state)
-      expect(page).to have_content(application.zip_code)
+      expect(page).to have_content(application.full_address)
       expect(page).to have_content(application.description)
       expect(page).to have_content(application.status)
       expect(page).to have_content(pet_1.name)
