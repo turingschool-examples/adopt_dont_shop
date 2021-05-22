@@ -74,4 +74,22 @@ RSpec.describe 'applications show page', type: :feature do
       expect(page).to_not have_content('Oleg')
     end
   end
+  describe 'Add pet functionality' do
+    it 'Allows you to add pets to the application' do
+      visit "/applications/#{@application1.id}"
+      fill_in 'search', with: 'PeAr'
+      click_button('Search')
+      click_button('Adopt Pear')
+
+      within "#pets-list" do
+        expect(page).to have_content('Pear')
+      end
+
+      expect(page).to_not have_content('Please add pets to your application')
+
+      click_link('Pear')
+
+      expect(current_path).to eq("/pets/#{@pet1.id}")
+    end
+  end
 end
