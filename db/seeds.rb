@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
 #
@@ -23,9 +25,9 @@ moon = eagle.pets.create!(name: 'Moon', breed: 'Dacshund', age: 3, adoptable: tr
 chalky = eagle.pets.create!(name: 'Chalky', breed: 'Pekingese', age: 4, adoptable: true)
 chomper = eagle.pets.create!(name: 'Chomper', breed: 'Pig', age: 5, adoptable: false)
 
-hospital = VeterinaryOffice.create!(name: 'Denver Pet Hospital', max_patient_capacity:12, boarding_services: false)
-vet = VeterinaryOffice.create!(name: 'Bettes Vets', max_patient_capacity:2, boarding_services: true)
-doctor = VeterinaryOffice.create!(name: 'Doctor Paws', max_patient_capacity:7, boarding_services: true)
+hospital = VeterinaryOffice.create!(name: 'Denver Pet Hospital', max_patient_capacity: 12, boarding_services: false)
+vet = VeterinaryOffice.create!(name: 'Bettes Vets', max_patient_capacity: 2, boarding_services: true)
+doctor = VeterinaryOffice.create!(name: 'Doctor Paws', max_patient_capacity: 7, boarding_services: true)
 
 ramesh = hospital.veterinarians.create!(name: 'Ramesh Ranganathan', review_rating: 10, on_call: false)
 nish = hospital.veterinarians.create!(name: 'Nish Kumar', review_rating: 1, on_call: true)

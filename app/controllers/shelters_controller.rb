@@ -1,32 +1,33 @@
+# frozen_string_literal: true
+
 class SheltersController < ApplicationController
   def index
-    if params[:sort].present? && params[:sort] == "pet_count"
-      @shelters = Shelter.order_by_number_of_pets
-    elsif params[:search].present?
-      @shelters = Shelter.search(params[:search])
-    else
-      @shelters = Shelter.order_by_recently_created
-    end
+    @shelters = if params[:sort].present? && params[:sort] == 'pet_count'
+                  Shelter.order_by_number_of_pets
+                elsif params[:search].present?
+                  Shelter.search(params[:search])
+                else
+                  Shelter.order_by_recently_created
+                end
   end
 
   def pets
     @shelter = Shelter.find(params[:shelter_id])
 
-    if params[:sort] == 'alphabetical'
-      @shelter_pets = @shelter.alphabetical_pets
-    elsif params[:age]
-      @shelter_pets = @shelter.shelter_pets_filtered_by_age(params[:age])
-    else
-      @shelter_pets = @shelter.adoptable_pets
-    end
+    @shelter_pets = if params[:sort] == 'alphabetical'
+                      @shelter.alphabetical_pets
+                    elsif params[:age]
+                      @shelter.shelter_pets_filtered_by_age(params[:age])
+                    else
+                      @shelter.adoptable_pets
+                    end
   end
 
   def show
     @shelter = Shelter.find(params[:id])
   end
 
-  def new
-  end
+  def new; end
 
   def create
     shelter = Shelter.new(shelter_params)

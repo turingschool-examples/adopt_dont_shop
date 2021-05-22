@@ -1,7 +1,8 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe 'petitions creation' do
-
   describe 'petitions new' do
     it 'renders the form for new petitions' do
       visit '/petitions/new'

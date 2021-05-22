@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe 'the shelter show' do
@@ -11,18 +13,18 @@ RSpec.describe 'the shelter show' do
     expect(page).to have_content(shelter.city)
   end
 
-  it "shows the number of pets associated with the shelter" do
+  it 'shows the number of pets associated with the shelter' do
     shelter = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
     shelter.pets.create(name: 'garfield', breed: 'shorthair', adoptable: true, age: 1)
 
     visit "/shelters/#{shelter.id}"
 
-    within ".pet-count" do
+    within '.pet-count' do
       expect(page).to have_content(shelter.pets.count)
     end
   end
 
-  it "allows the user to delete a shelter" do
+  it 'allows the user to delete a shelter' do
     shelter = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
 
     visit "/shelters/#{shelter.id}"

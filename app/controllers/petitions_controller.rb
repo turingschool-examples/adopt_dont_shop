@@ -1,11 +1,12 @@
+# frozen_string_literal: true
+
 class PetitionsController < ApplicationController
-  def new
-  end
+  def new; end
 
   def create
     @petition = Petition.create(petition_params)
     redirect_to "/petitions/#{@petition.id}"
-    flash[:status] = "In Progress"
+    flash[:status] = 'In Progress'
   end
 
   def show
@@ -20,7 +21,7 @@ class PetitionsController < ApplicationController
       :street_address,
       :city,
       :state,
-      :zipcode,
+      :zipcode
     )
   end
 end

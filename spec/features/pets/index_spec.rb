@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe 'the pets index' do
@@ -6,7 +8,7 @@ RSpec.describe 'the pets index' do
     pet_1 = Pet.create(adoptable: true, age: 1, breed: 'sphynx', name: 'Lucille Bald', shelter_id: shelter.id)
     pet_2 = Pet.create(adoptable: true, age: 3, breed: 'doberman', name: 'Lobster', shelter_id: shelter.id)
 
-    visit "/pets"
+    visit '/pets'
 
     expect(page).to have_content(pet_1.name)
     expect(page).to have_content(pet_1.breed)
@@ -25,7 +27,7 @@ RSpec.describe 'the pets index' do
     pet_2 = Pet.create(adoptable: true, age: 3, breed: 'doberman', name: 'Lobster', shelter_id: shelter.id)
     pet_3 = Pet.create(adoptable: false, age: 2, breed: 'saint bernard', name: 'Beethoven', shelter_id: shelter.id)
 
-    visit "/pets"
+    visit '/pets'
 
     expect(page).to_not have_content(pet_3.name)
   end
@@ -57,13 +59,13 @@ RSpec.describe 'the pets index' do
 
     click_link("Delete #{pet_1.name}")
 
-    expect(page).to have_current_path("/pets")
+    expect(page).to have_current_path('/pets')
     expect(page).to_not have_content(pet_1.name)
   end
 
   it 'has a text box to filter results by keyword' do
-    visit "/pets"
-    expect(page).to have_button("Search")
+    visit '/pets'
+    expect(page).to have_button('Search')
   end
 
   it 'lists partial matches as search results' do
@@ -72,10 +74,10 @@ RSpec.describe 'the pets index' do
     pet_2 = Pet.create(adoptable: true, age: 3, breed: 'domestic pig', name: 'Babe', shelter_id: shelter.id)
     pet_3 = Pet.create(adoptable: true, age: 4, breed: 'chihuahua', name: 'Elle', shelter_id: shelter.id)
 
-    visit "/pets"
+    visit '/pets'
 
-    fill_in 'Search', with: "Ba"
-    click_on("Search")
+    fill_in 'Search', with: 'Ba'
+    click_on('Search')
 
     expect(page).to have_content(pet_1.name)
     expect(page).to have_content(pet_2.name)
@@ -88,7 +90,7 @@ RSpec.describe 'the pets index' do
     pet_2 = Pet.create(adoptable: true, age: 3, breed: 'domestic pig', name: 'Babe', shelter_id: shelter.id)
     pet_3 = Pet.create(adoptable: true, age: 4, breed: 'chihuahua', name: 'Elle', shelter_id: shelter.id)
 
-    visit "/pets"
+    visit '/pets'
 
     expect(page).to have_button('Start an Application')
   end
@@ -99,7 +101,7 @@ RSpec.describe 'the pets index' do
     pet_2 = Pet.create(adoptable: true, age: 3, breed: 'domestic pig', name: 'Babe', shelter_id: shelter.id)
     pet_3 = Pet.create(adoptable: true, age: 4, breed: 'chihuahua', name: 'Elle', shelter_id: shelter.id)
 
-    visit "/pets"
+    visit '/pets'
     click_button 'Start an Application'
 
     expect(current_path).to eq('/petitions/new')

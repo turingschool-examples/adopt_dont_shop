@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe 'petition show' do
-  before :each do 
+  before :each do
     visit '/petitions/new'
     fill_in 'Name', with: 'Ted Leo'
     fill_in 'Street Address', with: '123 Pharmacist Ln'

@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe 'the veterinarian update' do
-  it "shows the veterinarian edit form" do
+  it 'shows the veterinarian edit form' do
     shelter = Shelter.create(name: 'Hollywood shelter', city: 'Irvine, CA', foster_program: false, rank: 7)
     pet = Pet.create(adoptable: true, age: 1, breed: 'sphynx', name: 'George Hairlesson', shelter_id: shelter.id)
 
@@ -13,8 +15,8 @@ RSpec.describe 'the veterinarian update' do
     expect(find('form')).to have_content('Age')
   end
 
-  context "given valid data" do
-    it "submits the edit form and updates the veterinarian" do
+  context 'given valid data' do
+    it 'submits the edit form and updates the veterinarian' do
       shelter = Shelter.create(name: 'Heavenly pets', city: 'Aurora, CO', foster_program: true, rank: 7)
       pet = Pet.create(adoptable: true, age: 3, breed: 'GSD', name: 'Charlie', shelter_id: shelter.id)
 
@@ -31,7 +33,7 @@ RSpec.describe 'the veterinarian update' do
     end
   end
 
-  context "given invalid data" do
+  context 'given invalid data' do
     it 're-renders the edit form' do
       shelter = Shelter.create(name: 'Heavenly pets', city: 'Aurora, CO', foster_program: false, rank: 7)
       pet = Pet.create(adoptable: false, age: 3, breed: 'Whippet', name: 'Annabelle', shelter_id: shelter.id)
