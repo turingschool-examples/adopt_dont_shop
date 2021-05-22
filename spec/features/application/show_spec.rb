@@ -2,12 +2,10 @@ require 'rails_helper'
 
 RSpec.describe 'the application show' do
   it "shows the application and all it's attributes" do
-    application = Application.create!(
-      name: "John",
-      address: "123 clarkson ln.",
-      applicant_qualitys: "Loves dogs",
-      pet_names: "Sparky",
-      application_status: "In Progress")
+    shelter = Shelter.create!(foster_program: true, name: "Adopt em all!", city: "Denver", rank: 5)
+    sparky = shelter.pets.create!(adoptable: true, age: 3, breed: "Mutt", name: "Sparky")
+    application = Application.create!(name: "John", address: "123 clarkson ln.", applicant_qualitys: "Loves dogs", pet_names: "Sparky", application_status: "In Progress")
+    app = ApplicationPet.create!(pet: sparky, application: application)
 
     visit "applications/#{application.id}"
 
