@@ -7,6 +7,10 @@ class PetitionsController < ApplicationController
     redirect_to "/petitions/#{@petition.id}"
   end
 
+  def show
+    @petition = Petition.find(params[:id])
+  end
+
   private
 
   def petition_params
