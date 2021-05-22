@@ -1,8 +1,13 @@
-<h1 style="text-decoration: underline;"><%= "#{@application.name}'s Pet Adoption Application" %></h3><br>
+<h1 style="text-decoration: underline;"><%= "#{@application.name}'s Pet Adoption Application" %></h3>
 
-<h3><%= "Application Status: #{@application.status}" %></h3>
+<h3>Application Status:</h3>
+<p><%= "#{@application.status}" %></p>
+<% if @application.status == 'In Progress'%>
+<p style='color:darkred;'><%= 'Note - Your application has not been submitted yet!' %><br></p>
+<p><%= "In order to submit, you must add both 'Pets To Adopt' and an 'Adoption Statement' below." %></p>
+<% end %>
 
-<h3>Application Details: </h3>
+<h3>Applicant Details: </h3>
 
 <table>
   <tr>
@@ -14,7 +19,25 @@
   <tr><td>City:</td><td><%= @application.city %></td></tr>
   <tr><td>State:</td><td><%= @application.state %></td></tr>
   <tr><td>Zip Code:</td><td><%= @application.zip_code %></td></tr>
-  <%# <tr><td>Pet(s) You Want To Adopt:</td><td><%= @application. %></td></tr>
-  <tr><td>Why you think you would be a good pet parent:</td><td><%= @application.statement %></td></tr>
 </table><br>
+<h3>Pets To Be Adopted:</h3>
+<% if @pets_adopting.count == 0 %>
+<p style="color: darkred;"><%= "Please add pets to your application" %></p>
+<% end %>
+<ul>
+  <% @pets_adopting.each do |pet| %>
+    <li><tr><td><%= pet.name %></li>
+    <% end %>
+</ul>
+
+
+<%= button_to "Add Pets", "/applications/#{@application.id}/pets/4", method: :post %><br>
+<%# <%= render "pets/pets_view?via=#{@application.id}", pets: @pets, locals => { :origin => 'applications'} %>
+<h4>Adoptable Pets:</h4>
+<%= render partial: 'pets/pets_view', locals: {path: "/applications/#{@application.id}", method: :post, button_text: 'Click Here'} %>
+
+<h3>Adoption Statement</h3>
+<%= button_to "Add Statement", "/facilities/new", method: :get %>
+
+
 

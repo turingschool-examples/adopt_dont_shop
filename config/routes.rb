@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :applications
+
   get '/', to: 'application#welcome'
 
   get '/shelters', to: 'shelters#index'
@@ -18,6 +20,8 @@ Rails.application.routes.draw do
   get '/shelters/:shelter_id/pets', to: 'shelters#pets'
   get '/shelters/:shelter_id/pets/new', to: 'pets#new'
   post '/shelters/:shelter_id/pets', to: 'pets#create'
+
+  post '/applications/:id/pets/:id', to: 'application_pets#create'
 
   get '/applications/new', to: 'applications#new'
   post '/applications', to: 'applications#create'

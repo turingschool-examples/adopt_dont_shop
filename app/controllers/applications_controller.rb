@@ -6,15 +6,19 @@ class ApplicationsController < ApplicationController
   end
 
   def new
+    @application = Application.new
   end
 
   def show
     @application = Application.find(params[:id])
+    @pets_adopting = @application.pets
+    @pets = Pet.adoptable
+    @source = 'applications'
   end
 
   private
   def application_params
-    params.permit(:name,
+    params.require(:application).permit(:name,
                   :street_address,
                   :city,
                   :state,
