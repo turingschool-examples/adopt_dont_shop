@@ -8,7 +8,6 @@
 <% end %>
 
 <h3>Applicant Details: </h3>
-
 <table>
   <tr>
     <th>Detail</th>
@@ -20,6 +19,7 @@
   <tr><td>State:</td><td><%= @application.state %></td></tr>
   <tr><td>Zip Code:</td><td><%= @application.zip_code %></td></tr>
 </table><br>
+
 <h3>Pets To Be Adopted:</h3>
 <% if @pets_adopting.count == 0 %>
 <p style="color: darkred;"><%= "Please add pets to your application" %></p>
