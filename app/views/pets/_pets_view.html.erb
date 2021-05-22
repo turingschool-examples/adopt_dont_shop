@@ -27,7 +27,7 @@
           <td><%= link_to "Edit #{pet.name}", "/pets/#{pet.id}/edit" %></td>
           <td><%= link_to "Delete #{pet.name}", "/pets/#{pet.id}", method: :delete %></td>
         <% elsif @source == 'applications' %>
-          <td><%= link_to "Adopt #{pet.name}", "#{request.path}/pets/#{pet.id}", method: :post %></td>
+          <td><%= button_to "Adopt #{pet.name}", "#{request.path}/pets/#{pet.id}", method: :post %></td>
         <% end %>
     </tr>
   <% end %>

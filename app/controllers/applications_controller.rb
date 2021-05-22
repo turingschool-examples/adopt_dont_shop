@@ -11,8 +11,12 @@ class ApplicationsController < ApplicationController
 
   def show
     @application = Application.find(params[:id])
+    if params[:search].nil?
+      @pets = Pet.adoptable
+    else
+      @pets = Pet.search_by_name(params[:search])
+    end
     @pets_adopting = @application.pets
-    @pets = Pet.adoptable
     @source = 'applications'
   end
 

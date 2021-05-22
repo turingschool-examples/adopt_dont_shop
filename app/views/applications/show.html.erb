@@ -23,18 +23,26 @@
 <h3>Pets To Be Adopted:</h3>
 <% if @pets_adopting.count == 0 %>
 <p style="color: darkred;"><%= "Please add pets to your application" %></p>
-<% end %>
+<% else %>
 <ul>
   <% @pets_adopting.each do |pet| %>
     <li><tr><td><%= pet.name %></li>
     <% end %>
 </ul>
+<% end %>
 
+<%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |f| %>
+  <%= f.label "Search Pets By Name" %>
+  <%= f.text_field :search %>
+  <%= f.submit "Search" %>
+<% end %>
 
-<%= button_to "Add Pets", "/applications/#{@application.id}/pets/4", method: :post %><br>
-<%# <%= render "pets/pets_view?via=#{@application.id}", pets: @pets, locals => { :origin => 'applications'} %>
-<h4>Adoptable Pets:</h4>
-<%= render partial: 'pets/pets_view', locals: {path: "/applications/#{@application.id}", method: :post, button_text: 'Click Here'} %>
+<% if params[:search].nil? %>
+  <h4>All Adoptable Pets:</h4>
+<% else %>
+  <h4>Adoptable Pets Matching Search</h4>
+<% end %>
+<%= render partial: 'pets/pets_view', locals: {path: "/applications/#{@application.id}", method: :post } %>
 
 <h3>Adoption Statement</h3>
 <%= button_to "Add Statement", "/facilities/new", method: :get %>
