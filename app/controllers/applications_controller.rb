@@ -20,6 +20,7 @@ class ApplicationsController < ApplicationController
 
   def show
     @application = Application.find(params[:id])
+    
     if params[:search].present?
       @pets = Pet.adoptable.search(params[:search])
     else 
