@@ -49,8 +49,9 @@ RSpec.describe 'Application show page' do
 
       visit "/applications/#{application.id}"
       fill_in 'Search', with: 'Ann'
+     
       click_button 'Search'
-      save_and_open_page
+
       within('#pet_search') do
         # expect(page).to have_current_path("/applications/#{application.id}")
         expect(page).to have_content(pet_3.name)

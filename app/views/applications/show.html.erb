@@ -1,9 +1,16 @@
 <section id="pet_search">
 <h1>Add a Pet to this Application</h1>
-  <%= form_with url: "/pets", method: :get, local: true do |f| %>
+
+  <%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |f| %>
     <%= f.label :search %>
     <%= f.text_field :search %>
     <%= f.submit "Search" %>
+  <% end %>
+  
+<% if params[:search].present?%>
+  <% @pets.each do |pet| %>
+  <h3><%= pet.name %></h3>
+  <% end %>
   <% end %>
 </section>
 
