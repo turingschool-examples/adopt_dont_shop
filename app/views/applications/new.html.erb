@@ -1,0 +1,22 @@
+<h1>Pet application</h1>
+<%= form_with url: "/applications/", method: :post, local: true do |f| %>
+  <%= f.hidden_field :applicant_qualitys, :value => "I Love Dogs" %>
+  <%= f.hidden_field :application_status, :value => "In Progress" %>
+
+  <%= f.label :name %><br>
+  <%= f.text_field :name, :required => true %><br>
+
+  <%= f.label :street_address %><br>
+  <%= f.text_field :street_address, :required => true %><br>
+
+  <%= f.label :city %><br>
+  <%= f.text_field :city, :required => true %><br>
+
+  <%= f.label :state %><br>
+  <%= f.text_field :state, :required => true %><br>
+
+  <%= f.label :zip_code %><br>
+  <%= f.text_field :zip_code, :required => true %><br>
+  <br>
+  <%= f.submit "Submit" %>
+<% end %>
