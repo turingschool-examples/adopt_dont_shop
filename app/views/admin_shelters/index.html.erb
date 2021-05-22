@@ -1,0 +1,33 @@
+<h1>Shelters</h1>
+
+<h3>All Shelters</h3>
+<table id='admin-shelters-all' style='width:100%'>
+  <tr>
+    <th>Name</th>
+    <th>City</th>
+    <th>Rank</th>
+  </tr>
+      <% @shelters.each do |shelter| %>
+    <tr>
+        <td><%= shelter.name %></td>
+        <td><%= shelter.city%></td>
+        <td><%= shelter.rank %></td>
+    </tr>
+  <% end %>
+</table><br>
+
+<h3>Shelters With Pending Applications</h3>
+<table id='admin-shelters-pending-apps' style='width:100%'>
+  <tr>
+    <th>Name</th>
+    <th>City</th>
+    <th>Rank</th>
+  </tr>
+      <% @shelters_w_pending_apps.each do |shelter| %>
+    <tr>
+        <td><%= shelter.name %></td>
+        <td><%= shelter.city%></td>
+        <td><%= shelter.rank %></td>
+    </tr>
+  <% end %>
+</table><br>
