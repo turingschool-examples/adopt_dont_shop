@@ -40,12 +40,11 @@ RSpec.describe 'applications show page', type: :feature do
       expect(page).to have_content('Oleg')
       expect(page).to have_content('Ralph')
     end
-    it 'has certain text in the Adoption Statement section by default' do
+    it 'hides the Adoption Statement section and submission button by default' do
       visit "/applications/#{@application1.id}"
 
-      expect(page).to have_content('Adoption Statement')
-      expect(page).to have_content('Please add an adoption statement')
-      expect(page).to have_button('Add Statement')
+      expect(page).to_not have_content('Please explain why you would be a good pet parent:')
+      expect(page).to_not have_button('Submit Application')
     end
   end
   describe 'Searching pets functionality' do
@@ -90,6 +89,41 @@ RSpec.describe 'applications show page', type: :feature do
       click_link('Pear')
 
       expect(current_path).to eq("/pets/#{@pet1.id}")
+    end
+    it 'displays the Adoption Statement section and submission button after a pet has been added' do
+      visit "/applications/#{@application1.id}"
+      click_button('Adopt Pear')
+
+      expect(page).to have_content('Please explain why you would be a good pet parent:')
+      expect(page).to have_button('Submit Application')
+    end
+  end
+  describe 'submit functionality' do
+    it 'redirects to the application show page after submission' do
+      visit "/applications/#{@application1.id}"
+      click_button('Adopt Pear')
+      fill_in 'statement', with: 'Because I love animals.'
+      click_button('Submit Application')
+
+      expect(current_path).to eq("/applications/#{@application1.id}")
+    end
+    it 'reflects an application status of pending after submission' do
+      visit "/applications/#{@application1.id}"
+      click_button('Adopt Pear')
+      fill_in 'statement', with: 'Because I love animals.'
+      click_button('Submit Application')
+
+      expect(page).to have_content('Pending')
+    end
+    it 'doesnt allow you to edit the application after submission' do
+      visit "/applications/#{@application1.id}"
+      click_button('Adopt Pear')
+      fill_in 'statement', with: 'Because I love animals.'
+      click_button('Submit Application')
+
+      expect(page).to_not have_content('Adopt Pear')
+      expect(page).to_not have_content('Search')
+      expect(page).to_not have_content('Submit Application')
     end
   end
 end

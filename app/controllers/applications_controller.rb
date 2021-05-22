@@ -25,6 +25,14 @@ class ApplicationsController < ApplicationController
     @source = 'applications'
   end
 
+  def update
+    application = Application.find(params[:id])
+    application.update(statement: params[:statement],
+                       status: 'Pending')
+    application.save
+    redirect_to "/applications/#{params[:id]}"
+  end
+
   private
   def application_params
     if !params[:application].nil?
