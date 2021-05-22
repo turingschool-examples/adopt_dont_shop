@@ -8,6 +8,6 @@
   <h3>Application Status: <%= @application.status %></h3>
   <h2>Pets on this Application:</h2>
   <% @application.pets.each do |pet| %>
-    <p><%= pet.name %></p>
+    <p><%= link_to "#{pet.name}", "/pets/#{pet.id}", method: :get %></p>
   <% end %>
 </section>

@@ -12,7 +12,7 @@ RSpec.describe 'Application show page' do
     application.pets << pet_3
     # require 'pry'; binding.pry
     visit "/applications/#{application.id}"
-    save_and_open_page
+    # save_and_open_page
     within("#application-#{application.id}") do
       expect(page).to have_content(application.name)
       expect(page).to have_content(application.street_address)
@@ -21,6 +21,12 @@ RSpec.describe 'Application show page' do
       expect(page).to have_content(application.zip_code)
       expect(page).to have_content(application.description)
       expect(page).to have_content(application.status)
+      expect(page).to have_content(pet_1.name)
+      expect(page).to have_content(pet_2.name)
+      expect(page).to have_content(pet_3.name)
+      expect(page).to have_link(nil, href: "/pets/#{pet_1.id}")
+      expect(page).to have_link(nil, href: "/pets/#{pet_2.id}")
+      expect(page).to have_link(nil, href: "/pets/#{pet_3.id}")
     end
   end
 end
