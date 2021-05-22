@@ -4,3 +4,8 @@ Name: <%= @application.name %>
 <p>Address: <%= @application.street_address %>, <%= @application.city %>, <%= @application.state %> <%= @application.zip_code %></p>
 <p>Good Home Description: <%= @application.description %></p>
 <p>Application Status: <%= @application.application_status %></p>
+<section id="application-<%= @application.id %>" >
+  <% @pets.each do |pet| %>
+    <p> <%=link_to "Pet Name: #{pet.name}", "/pets/#{pet.id}" %></p>
+  <% end %>
+</section>

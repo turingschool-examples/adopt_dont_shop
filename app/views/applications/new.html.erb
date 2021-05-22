@@ -1,0 +1,23 @@
+<%= form_with url: '/applications/new', method: :post, local: true do |form| %>
+  <%= form.label :name %>
+  <%= form.text_field :name %>
+  <br>
+  <br>
+  <%= form.label :street_address%>
+  <%= form.text_field :street_address %>
+ <br>
+ <br>
+ <%= form.label :city %>
+ <%= form.text_field :city %>
+ <br>
+ <br>
+ <%= form.label :state %>
+ <%= form.text_field :state %>
+ <br>
+ <br>
+ <%= form.label :zip_code %>
+ <%= form.text_field :zip_code %>
+ <br>
+ <br>
+  <%= form.submit "Submit" %>
+<% end %>
