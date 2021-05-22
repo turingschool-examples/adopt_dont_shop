@@ -12,4 +12,9 @@ class Pet < ApplicationRecord
   def self.adoptable
     where(adoptable: true)
   end
+
+  def self.search_by_name(search)
+    pets = Pet.arel_table
+    where(pets[:name].matches("%#{search}%"))
+  end
 end

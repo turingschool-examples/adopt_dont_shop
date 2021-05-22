@@ -5,6 +5,7 @@ class PetsController < ApplicationController
     else
       @pets = Pet.adoptable
     end
+    @source = 'pets'
   end
 
   def show
