@@ -19,7 +19,6 @@
 # pet8 = shelter3.pets.create!(adoptable: true, age: 7, breed: 'Miniature Daschund', name: 'Sparky')
 # pet9 = shelter3.pets.create!(adoptable: true, age: 8, breed: 'Greyhound', name: 'Grey')
 
-# applicant1 = Applicant.create!(name: "Suzie Q", street_address: '1311 E 27th Ave', city: 'Denver', state: 'CO', zip_code: 80205)
-# applicant2 = Applicant.create!(name: "Jane Doe", street_address: '201 W Colfax Ave', city: 'Denver', state: 'CO', zip_code: 80202)
-# applicant3 = Applicant.create!(name: "Barak Obama", street_address: '1600 Pennsylvania Ave', city: 'Washington', state: 'DC', zip_code: 20500)
-# application1 = applicant1.
+# application1 = Applicant.create!(name: "Suzie Q", street_address: '1311 E 27th Ave', city: 'Denver', state: 'CO', zip_code: 80205, statement: "TEST")
+# application2 = Applicant.create!(name: "Jane Doe", street_address: '201 W Colfax Ave', city: 'Denver', state: 'CO', zip_code: 80202, statement: "TEST")
+# application3 = Applicant.create!(name: "Barak Obama", street_address: '1600 Pennsylvania Ave', city: 'Washington', state: 'DC', zip_code: 20500, statement: "TEST")

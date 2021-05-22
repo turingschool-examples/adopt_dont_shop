@@ -2,13 +2,22 @@ require 'rails_helper'
 
 RSpec.describe 'admin_shelters index page', type: :feature do
   before (:each) do
-    @application1 = Application.create!(name: "Big Bird", street_address: '1311 E 27TH AVE', city: 'DENVER', state: 'CO', zip_code: 80205, statement: nil)
-    @shelter1 = Shelter.create!(foster_program: true, name: 'Cats R Us', city: 'Denver', rank: 1)
-    @shelter2 = Shelter.create!(foster_program: true, name: 'Coon Haven', city: 'Brighton', rank: 2)
-    @shelter3 = Shelter.create!(foster_program: true, name: 'The Pound', city: 'Denver', rank: 3)
-    @pet1 = @shelter1.pets.create!(adoptable: true, age: 0, breed: 'Siamese Cat', name: 'Pear')
-    @pet2 = @shelter1.pets.create!(adoptable: true, age: 1, breed: 'Blue Russian Cat', name: 'Oleg')
-    @pet3 = @shelter1.pets.create!(adoptable: true, age: 2, breed: 'Domestic Short Hair Cat', name: 'Ralph')
+    @shelter1 = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
+    @shelter2 = Shelter.create(name: 'RGV animal shelter', city: 'Harlingen, TX', foster_program: false, rank: 5)
+    @shelter3 = Shelter.create(name: 'Fancy pets of Colorado', city: 'Denver, CO', foster_program: true, rank: 10)
+
+    @pet_1 = @shelter1.pets.create(name: 'Mr. Pirate', breed: 'tuxedo shorthair', age: 5, adoptable: false)
+    @pet_2 = @shelter1.pets.create(name: 'Clawdia', breed: 'shorthair', age: 3, adoptable: true)
+    @pet_3 = @shelter3.pets.create(name: 'Lucille Bald', breed: 'sphynx', age: 8, adoptable: true)
+    @pet_4 = @shelter1.pets.create(name: 'Ann', breed: 'ragdoll', age: 5, adoptable: true)
+
+    @application1 = Application.create!(name: "Suzie Q", street_address: '1311 E 27th Ave', city: 'Denver', state: 'CO', zip_code: 80205, statement: "TEST", status: 'Pending')
+    @application2 = Application.create!(name: "Jane Doe", street_address: '201 W Colfax Ave', city: 'Denver', state: 'CO', zip_code: 80202, statement: "TEST", status: 'Pending')
+    @application3 = Application.create!(name: "Barak Obama", street_address: '1600 Pennsylvania Ave', city: 'Washington', state: 'DC', zip_code: 20500, statement: "TEST", status: 'Pending')
+
+    @application_pet1 = ApplicationPet.create!(application: @application1, pet: @pet_1)
+    @application_pet2 = ApplicationPet.create!(application: @application2, pet: @pet_3)
+    @application_pet3 = ApplicationPet.create!(application: @application3, pet: @pet_2)
   end
 
   describe 'default page appearance' do
@@ -18,15 +27,29 @@ RSpec.describe 'admin_shelters index page', type: :feature do
       expect(page).to have_content('All Shelters')
 
       within "#admin-shelters-all > tr:nth-child(2)" do
-        expect(page).to have_content(@shelter3.name)
+        expect(page).to have_content(@shelter2.name)
       end
 
       within "#admin-shelters-all > tr:nth-child(3)" do
-        expect(page).to have_content(@shelter2.name)
+        expect(page).to have_content(@shelter3.name)
       end
 
       within "#admin-shelters-all > tr:nth-child(4)" do
         expect(page).to have_content(@shelter1.name)
+      end
+    end
+
+    it 'has a table showing only shelters with pending applications' do
+      visit '/admin/shelters'
+
+      expect(page).to have_content('Shelters With Pending Applications')
+
+      within "#admin-shelters-pending-apps > tr:nth-child(2)" do
+        expect(page).to have_content(@shelter1.name)
+      end
+
+      within "#admin-shelters-pending-apps > tr:nth-child(3)" do
+        expect(page).to have_content(@shelter3.name)
       end
     end
   end

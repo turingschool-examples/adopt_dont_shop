@@ -7,4 +7,8 @@ class Application < ApplicationRecord
   validates :city, presence: true
   validates :state, presence: true
   validates :zip_code, presence: true
+
+  def self.filter_by_pending
+    where(status: 'Pending').pluck(:id)
+  end
 end
