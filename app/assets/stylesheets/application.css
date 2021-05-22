@@ -23,6 +23,16 @@
   font-size: 20px;
   text-align: right;
 }
+
+.error {
+  background-color: darkred;
+  color: white;
+  font-size: larger;
+  font-weight: bold;
+  height: 50px;
+  padding-top: 25px;
+  padding-left: 20px;
+}
 #main-logo {
   height: 50px;
   width: 75px;

@@ -11,11 +11,6 @@
   </head>
 
   <body>
-    <% flash.each do |type, msg| %>
-      <div>
-        <%= msg %>
-      </div>
-    <% end %>
     <div class="topnav">
      <%= image_tag('paw_print.png', id: 'main-logo') %>
       <span style="text-align: right">
@@ -24,6 +19,11 @@
       <a class="active" href="/shelters">Shelters</a>
       </span>
     </div>
+    <br><% flash.each do |type, msg| %>
+      <div class='error'>
+        <%= msg %>
+      </div>
+    <% end %>
     <%= yield %>
   </body>
 </html>

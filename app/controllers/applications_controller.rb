@@ -1,8 +1,13 @@
 class ApplicationsController < ApplicationController
 
   def create
-    application = Application.create!(application_params)
-    redirect_to "/applications/#{application.id}"
+    application = Application.new(application_params)
+    if application.save
+      redirect_to "/applications/#{application.id}"
+    else
+      flash[:notice] = "Warning - You must fill in all fields before beginning your application!"
+      redirect_to "/applications/new"
+    end
   end
 
   def new
@@ -22,11 +27,13 @@ class ApplicationsController < ApplicationController
 
   private
   def application_params
-    params.require(:application).permit(:name,
-                  :street_address,
-                  :city,
-                  :state,
-                  :zip_code,
-                  :status)
+    if !params[:application].nil?
+      params.require(:application).permit(:name,
+                    :street_address,
+                    :city,
+                    :state,
+                    :zip_code,
+                    :status)
     end
+  end
 end
