@@ -1,13 +1,15 @@
-<h1>New Vet Office</h1>
-<%= form_with url: '/veterinary_offices', local: true do |f| %>
-  <%= f.label :name %>
-  <%= f.text_field :name %>
+<div class="content">
+  <h1>New Vet Office</h1>
+  <%= form_with url: '/veterinary_offices', local: true do |f| %>
+    <%= f.label :name %>
+    <%= f.text_field :name %>
 
-  <%= f.label :boarding_services%>
-  <%= f.check_box :boarding_services %>
+    <%= f.label :boarding_services%>
+    <%= f.check_box :boarding_services %>
 
-  <%= f.label :max_patient_capacity %>
-  <%= f.number_field :max_patient_capacity %>
+    <%= f.label :max_patient_capacity %>
+    <%= f.number_field :max_patient_capacity %>
 
-  <%= f.submit %>
-<% end %>
+    <%= f.submit %>
+  <% end %>
+</div>

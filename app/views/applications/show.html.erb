@@ -1,51 +1,53 @@
-<h1><%= "#{@application.name}'s Application" %></h1>
-<table class="table">
+<div class="content">
+  <h1><%= "#{@application.name}'s Application" %></h1>
+  <table class="table">
+      <thead>
+        <th scope="col">Status</th>
+        <th scope="col">Address</th>
+        <th scope="col">Why would you be a good home?</th>
+        <th scope="col"></th>
+      </thead>  
+
+      <tbody>
+          <tr class="row">
+            <th scope="row"><%= @application.status %></th>
+            <td>
+                <%= @application.street_address %><br>
+                <%= @application.city %>, <%= @application.state %> <%= @application.zip_code %>
+            </td>
+            <td><%= @application.description %></td>
+            <td>
+              <p class="link"><%= link_to "Edit", "/applications/#{@application.id}/edit" %></p>
+            </td>
+      </tbody>
+    </table>
+
+    <h1> Add a Pet to this Application </h1>
+    <%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |f| %>
+      <%= f.label :search %>
+      <%= f.text_field :search %>
+      <%= f.submit "Search" %>
+    <% end %>
+
+  <table>
     <thead>
-      <th scope="col">Status</th>
-      <th scope="col">Address</th>
-      <th scope="col">Why would you be a good home?</th>
-      <th scope="col"></th>
-    </thead>  
+      <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Age</th>
+        <th scope="col">Breed</th>
+        <th scope="col">Adopt?</th>
+      </tr>
+    </thead>
 
     <tbody>
-        <tr class="row">
-          <th scope="row"><%= @application.status %></th>
-          <td>
-              <%= @application.street_address %><br>
-              <%= @application.city %>, <%= @application.state %> <%= @application.zip_code %>
-          </td>
-          <td><%= @application.description %></td>
-          <td>
-            <p class="link"><%= link_to "Edit", "/applications/#{@application.id}/edit" %></p>
-          </td>
+      <% @pets.each do |pet| %>
+        <tr> 
+          <th scope="row"><%= link_to pet.name, "/pets/#{pet.id}" %></th>
+          <td><p><%= pet.age %> years old</p></td>
+          <td><p><%= pet.breed %></p></td>
+          <td></td>
+        </tr>
+      <% end %>
     </tbody>
   </table>
-
-  <h1> Add a Pet to this Application </h1>
-  <%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |f| %>
-    <%= f.label :search %>
-    <%= f.text_field :search %>
-    <%= f.submit "Search" %>
-  <% end %>
-
-<table>
-  <thead>
-    <tr>
-      <th scope="col">Name</th>
-      <th scope="col">Age</th>
-      <th scope="col">Breed</th>
-      <th scope="col">Adopt?</th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @pets.each do |pet| %>
-      <tr> 
-        <th scope="row"><%= link_to pet.name, "/pets/#{pet.id}" %></th>
-        <td><p><%= pet.age %> years old</p></td>
-        <td><p><%= pet.breed %></p></td>
-        <td></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+</div>
