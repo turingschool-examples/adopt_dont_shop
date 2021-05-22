@@ -5,6 +5,7 @@ class PetitionsController < ApplicationController
   def create
     @petition = Petition.create(petition_params)
     redirect_to "/petitions/#{@petition.id}"
+    flash[:status] = "In Progress"
   end
 
   def show
