@@ -6,6 +6,7 @@ class ApplicationsController < ApplicationController
   def show
     @application = Application.find(params[:id])
     @pets = Pet.search(params[:pet_of_interst_name])
+    @pet = @application.pets
   end
 
   def new
@@ -28,6 +29,14 @@ class ApplicationsController < ApplicationController
   def destroy
     Application.find(params[:id]).destroy
     redirect_to '/applications'
+  end
+
+  def add_pet
+    @application = Application.find(params[:id])
+    @pet = Pet.find(params[:pet_id])
+    @application.pets << @pet
+    # binding.pry
+    redirect_to "/applications/#{@application.id}"
   end
 
   private

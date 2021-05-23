@@ -52,8 +52,43 @@ RSpec.describe 'the application show' do
 
     fill_in( "pet_of_interst_name", with: "Jack")
     click_on("Find")
-    
+
     expect(page).to have_content("Jack")
+  end
+
+  #   [x] done
+  #
+  # Add a Pet to an Application
+  #
+  # As a visitor
+  # When I visit an application's show page
+  # And I search for a Pet by name
+  # And I see the names Pets that match my search
+  # Then next to each Pet's name I see a button to "Adopt this Pet"
+  # When I click one of these buttons
+  # Then I am taken back to the application show page
+  # And I see the Pet I want to adopt listed on this application
+
+  it "can search for a pet by name" do
+    shelter = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
+    application_one = Application.create!(name: 'Sally Smith', address: '123 West 23rd Ave Parker, CO 80134', description: 'Looking for a pet', status: "Pending" )
+    pet_1 = Pet.create(adoptable: true, age: 1, breed: 'sphynx', name: 'Jack', shelter_id: shelter.id)
+    visit "/applications/#{application_one.id}"
+
+    expect(page).to have_content("Sally Smith")
+    expect(page).to have_field(:pet_of_interst_name)
+
+    fill_in( "pet_of_interst_name", with: "Jack")
+    click_on("Find")
+
+    expect(page).to have_content("Jack")
+    expect(page).to have_link("Add Jack")
+    click_on("Add Jack")
+    expect(page).to have_content("Jack")
+
+    within '#pet_requests' do
+      expect(page).to have_content("Jack")
+    end
   end
 
 
