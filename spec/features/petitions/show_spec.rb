@@ -17,4 +17,8 @@ RSpec.describe 'petition show' do
     expect(page).to have_content('Your address: 123 Pharmacist Ln Denver, CO 80210')
     expect(page).to have_content('In Progress')
   end
+
+  it 'displays option to search for pets and add to petition' do
+    expect(page).to have_content('Add a Pet to this Application')
+  end
 end

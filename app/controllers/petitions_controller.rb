@@ -17,6 +17,7 @@ class PetitionsController < ApplicationController
 
   def show
     @petition = Petition.find(params[:id])
+    @pets = Pet.search(params[:search]) if params[:search]
   end
 
   private

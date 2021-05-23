@@ -4,3 +4,9 @@
 <%= "Your name: #{@petition.name}" %>
 <br>
 <%= "Your address: #{@petition.street_address} #{@petition.city}, #{@petition.state} #{@petition.zipcode}" %>
+
+<%= form_with url: "/petitions/#{@petition.id}", method: :get, local: true do |f| %>
+<%= f.label :search, 'Add a Pet to this Application' %>
+<%= f.text_field :search %>
+<%= f.submit "Search" %>
+<% end %>
