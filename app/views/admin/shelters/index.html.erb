@@ -1,5 +1,5 @@
 <div class="content">
   <% @shelters.each do |shelter| %>
-    <%= shelter.name %>
+    <h2><%= link_to "#{shelter.name}", "/admin/shelters/#{shelter.id}" %></h2>
   <% end %>
 </div>
