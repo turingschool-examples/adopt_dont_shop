@@ -28,5 +28,17 @@ RSpec.describe 'petitions creation' do
 
       expect(current_path).to eq "/petitions/#{id}"
     end
+
+    it 'rejects the application if it is incomplete' do
+      visit '/petitions/new'
+      fill_in 'Name', with: 'Ted Leo'
+      fill_in 'Street Address', with: '123 Pharmacist Ln'
+      fill_in 'City', with: 'Denver'
+      fill_in 'State', with: 'CO'
+      click_button 'Start Application'
+
+      expect(current_path).to eq '/petitions/new'
+      expect(page).to have_content('Must Fill In All Fields')
+    end
   end
 end
