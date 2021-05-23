@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'new page' do
-  it 'can fill out a form' do
+  it 'can create a new application' do
     # Starting an Application
     # As a visitor
     # When I visit the pet index page
@@ -33,7 +33,7 @@ RSpec.describe 'new page' do
     fill_in('zip_code', with: '80216')
     click_button('Submit')
     new_application_id = Application.last.id
-    expect(current_path).to eq("/applications/show")
+    expect(current_path).to eq("/applications/#{new_application_id}")
     expect(page).to have_content("Carlos")
     expect(page).to have_content("123 Cherry Rd")
     expect(page).to have_content("Denver")

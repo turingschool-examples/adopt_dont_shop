@@ -40,7 +40,7 @@ RSpec.describe 'show page' do
     expect(page).to have_content(application_1.zip_code)
     expect(page).to have_content(application_1.description)
     expect(page).to have_content(application_1.application_status)
-    save_and_open_page
+    
     within("#application-#{application_1.id}") do
       expect(page).to have_content(pet_1.name)
       expect(page).to have_content(pet_2.name)
