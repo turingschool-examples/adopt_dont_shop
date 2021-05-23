@@ -3,6 +3,15 @@
 <h3><%= @application.description %></h3>
 <h3><%= @application.status %></h3>
 
+<div id="pet_requests">
+  <h4> Your pets: </h4>
+  <% if @pet != nil %>
+    <% @pet.each do |pet| %>
+      <p><%= pet.name %></p>
+    <% end %>
+  <% end %>
+</div>
+
 
 <%= form_with(url: "/applications/#{@application.id}", method: :get) do |form| %>
   <%= form.label "Find Pet for this Application (pet name):" %>
@@ -10,6 +19,8 @@
   <%= form.submit value: "Find" %>
 <% end %>
 
-<% @pets.each do |pet| %>
-<p><%= pet.name %></p>
-<% end %>
+
+  <% @pets.each do |pet| %>
+    <p><%= pet.name %></p>
+    <%= link_to("Add #{pet.name}", "/applications/#{@application.id}/#{pet.id}", method: :get) %>
+  <% end %>
