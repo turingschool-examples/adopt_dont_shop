@@ -30,6 +30,11 @@ RSpec.describe Shelter, type: :model do
       end
     end
 
+    describe '#find_name_and_city' do
+      it 'returns shelter name and city' do
+        expect(@shelter_1.find_name_and_city).to eq([])
+      end
+    end
     describe '#order_by_reverse_alphabetical' do
       it 'returns shelters in reverse alphabetical order' do
         expect(Shelter.order_by_reverse_alphabetical).to eq([@shelter_2, @shelter_3, @shelter_1])
