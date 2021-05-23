@@ -4,6 +4,9 @@ require 'rails_helper'
 
 RSpec.describe 'petition show' do
   before :each do
+    @shelter = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
+    @pet_1 = Pet.create(adoptable: true, age: 1, breed: 'sphynx', name: 'Lucille Bald', shelter_id: @shelter.id)
+    @pet_2 = Pet.create(adoptable: true, age: 3, breed: 'doberman', name: 'Fluffy', shelter_id: @shelter.id)
     visit '/petitions/new'
     fill_in 'Name', with: 'Ted Leo'
     fill_in 'Street Address', with: '123 Pharmacist Ln'
@@ -23,10 +26,12 @@ RSpec.describe 'petition show' do
     expect(page).to have_content('Add a Pet to this Application')
   end
 
+  it 'shows all pets by default' do
+    expect(page).to have_content 'Lucille Bald'
+    expect(page).to have_content 'Fluffy'
+  end
+
   it 'searching returns a list of pets on existing show page' do
-    shelter = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
-    pet_1 = Pet.create(adoptable: true, age: 1, breed: 'sphynx', name: 'Lucille Bald', shelter_id: shelter.id)
-    pet_2 = Pet.create(adoptable: true, age: 3, breed: 'doberman', name: 'Fluffy', shelter_id: shelter.id)
     fill_in 'Add a Pet to this Application', with: 'Fluffy'
     click_button 'Search'
 
