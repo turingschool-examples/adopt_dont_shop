@@ -5,6 +5,12 @@ class Shelter < ApplicationRecord
 
   has_many :pets, dependent: :destroy
 
+  def self.order_by_reverse_alphabetical
+    # select("shelters.*, from shelters AS shelters_reverse")
+    #   .order("shelters_reverse DESC")
+    find_by_sql("SELECT  * FROM shelters ORDER BY shelters.name DESC")
+  end
+
   def self.order_by_recently_created
     order(created_at: :desc)
   end
