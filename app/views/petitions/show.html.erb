@@ -4,3 +4,17 @@
 <%= "Your name: #{@petition.name}" %>
 <br>
 <%= "Your address: #{@petition.street_address} #{@petition.city}, #{@petition.state} #{@petition.zipcode}" %>
+
+<%= form_with url: "/petitions/#{@petition.id}", method: :get, local: true do |f| %>
+<%= f.label :search, 'Add a Pet to this Application' %>
+<%= f.text_field :search %>
+<%= f.submit "Search" %>
+<% end %>
+
+<% @pets.each do |pet| %>
+<h3><%= pet.name %></h3>
+<p>Age: <%= pet.age %></p>
+<p>Breed: <%= pet.breed %></p>
+<p>Adoptable: <%= pet.adoptable %> </p>
+<p>You can find <%= pet.name %> at <%= pet.shelter_name %>!</p>
+<% end %>
