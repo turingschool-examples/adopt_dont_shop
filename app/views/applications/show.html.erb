@@ -1,13 +1,21 @@
-<h1><%= @application.first_name %> <%= @application.middle_name %> <%= @application.last_name %></h1><br>
-<h3><%= @application.street_number %> <%= @application.street_prefix %> <%= @application.street_name %> <%= @application.street_type %></h3><br>
-<h3><%= @application.city %></h3><br>
-<h3><%= @application.state %></h3><br>
-<h3><%= @application.zip_code %></h3><br>
-<h3><%= @application.description %></h3><br>
-<h3><%= @application.status %></h3><br>
+<html>
+<head>
+  <h1><%= @application.first_name %> <%= @application.middle_name %> <%= @application.last_name %></h1><br>
+</head>
 
-<section id="application-<%= @application.id %>">
-  <% @pets.each do |pet| %>
-     <p><%= link_to pet.name, "/pets/#{pet.id}" %></p>
-  <% end %>
-</section>
+<body style="font-size:20px">
+  <table>
+    <tr><td>Address:</td><td><%= @application.street_number %> <%= @application.street_prefix %> <%= @application.street_name %> <%= @application.street_type %></td></tr>
+    <tr><td>City:</td><td><%= @application.city %></td></tr>
+    <tr><td>State:</td><td><%= @application.state %></td></tr>
+    <tr><td>Zip Code:</td><td><%= @application.zip_code %></td></tr>
+    <tr><td>Why would you make a good forever home?</td><td><%= @application.description %></td></tr>
+    <tr><td>Application Status:</td><td><%= @application.status %></td></tr>
+  </table><br>
+
+  <section id="application-<%= @application.id %>">
+    <% @pets.each do |pet| %>
+      <p><%= link_to pet.name, "/pets/#{pet.id}" %></p>
+    <% end %>
+  </section>
+</body>
