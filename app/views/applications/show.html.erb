@@ -22,7 +22,7 @@
       </tbody>
     </table>
 
-    <h1> Add a Pet to this Application </h1>
+    <h1> Search for Adoptable Pets </h1>
     <%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |f| %>
       <%= f.label :search %>
       <%= f.text_field :search %>
@@ -45,7 +45,8 @@
           <th scope="row"><%= link_to pet.name, "/pets/#{pet.id}" %></th>
           <td><p><%= pet.age %> years old</p></td>
           <td><p><%= pet.breed %></p></td>
-          <td></td>
+          <td><%= button_to "Adopt #{pet.name}", "/pet_applications/#{@application.id}/#{pet.id}/edit", method: :get%>
+          </td>
         </tr>
       <% end %>
     </tbody>
