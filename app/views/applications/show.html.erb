@@ -4,8 +4,7 @@
       <thead>
         <th scope="col">Status</th>
         <th scope="col">Address</th>
-        <th scope="col">Why would you be a good home?</th>
-        <th scope="col"></th>
+        <th scope="col">Applying for: </th>
       </thead>  
 
       <tbody>
@@ -15,9 +14,13 @@
                 <%= @application.street_address %><br>
                 <%= @application.city %>, <%= @application.state %> <%= @application.zip_code %>
             </td>
-            <td><%= @application.description %></td>
+            <td class="apply_to_pet">
+              <% @application.pets.each do |pet| %>
+              <p><%= link_to pet.name, "/pets/#{pet.id}" %></p>
+              <% end %>
+            </td>
             <td>
-              <p class="link"><%= link_to "Edit", "/applications/#{@application.id}/edit" %></p>
+              <p><%= link_to "Edit", "/applications/#{@application.id}/edit" %></p>
             </td>
       </tbody>
     </table>
@@ -45,7 +48,7 @@
           <th scope="row"><%= link_to pet.name, "/pets/#{pet.id}" %></th>
           <td><p><%= pet.age %> years old</p></td>
           <td><p><%= pet.breed %></p></td>
-          <td><%= button_to "Adopt #{pet.name}", "/pet_applications/#{@application.id}/#{pet.id}/edit", method: :get%>
+          <td><%= button_to "Adopt #{pet.name}", "/pet_applications/#{@application.id}/#{pet.id}", method: :patch%>
           </td>
         </tr>
       <% end %>

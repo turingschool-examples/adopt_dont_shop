@@ -29,8 +29,7 @@ Rails.application.routes.draw do
   # patch '/applications/:id', to: 'applications#update'
   # post '/applications', to: 'applications#create'
 
-  get 'pet_applications/:applications_id/:pet_id/edit', to: 'pet_applications#edit'
-  patch 'pet_applications/:applications_id/', to: 'pet_applications#update'
+  patch 'pet_applications/:applications_id/:pet_id', to: 'pet_applications#add_pet'
   
   resources :veterinary_offices 
   # get '/veterinary_offices', to: 'veterinary_offices#index'

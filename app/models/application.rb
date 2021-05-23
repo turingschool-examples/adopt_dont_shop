@@ -1,6 +1,6 @@
 class Application < ApplicationRecord
-  has_many :pet_applications 
-  has_many :pets, through: :pet_applications
+  has_many :pet_applications, dependent: :destroy
+  has_many :pets, through: :pet_applications, dependent: :destroy
 
   validates :name, presence: true
   validates :street_address, presence: true
