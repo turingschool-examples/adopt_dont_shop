@@ -16,14 +16,13 @@ RSpec.describe 'the application show' do
     expect(page).to have_content(@app_1.city)
     expect(page).to have_content(@app_1.state)
     expect(page).to have_content(@app_1.zip_code)
-    expect(page).to have_content(@app_1.description)
     expect(page).to have_content(@app_1.status)
   end
 
   it 'has text box to search for pet by name' do
     visit "/applications/#{@app_1.id}"
 
-    expect(page).to have_content("Add a Pet to this Application")
+    expect(page).to have_content("Search for Adoptable Pets")
     expect(page).to have_button("Search")
   end
 
@@ -36,6 +35,20 @@ RSpec.describe 'the application show' do
     expect(page).to have_content(@pet_1.name)
     expect(page).to_not have_content(@pet_2.name)
     expect(page).to_not have_content(@pet_3.name)
+  end
+
+  it 'adds pet to application' do
+    visit "/applications/#{@app_1.id}"
+
+    within(".apply_to_pet") do 
+      expect(page).to_not have_content("#{@pet_1.name}")
+    end
+
+    click_on("Adopt #{@pet_1.name}")
+
+    within(".apply_to_pet") do 
+      expect(page).to have_content("#{@pet_1.name}")
+    end
   end
 end
 
