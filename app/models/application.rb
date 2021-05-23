@@ -6,4 +6,9 @@ class Application < ApplicationRecord
   def default_value
     self.application_status = 'In Progress'
   end
+
+  def form_incomplete?
+    self.name.blank? || self.street_address.blank? || self.city.blank? ||
+    self.state.blank? || self.zip_code.blank? || self.description.blank?
+  end
 end

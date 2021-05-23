@@ -16,7 +16,12 @@ class ApplicationsController < ApplicationController
       zip_code: params[:zip_code],
       description: params[:description]
     )
-    @application.save
-    redirect_to "/applications/#{@application.id}"
+    if @application.form_incomplete?
+      flash[:notice] = 'Please fill in all fields'
+      redirect_to "/applications/new"
+    else
+      @application.save
+      redirect_to "/applications/#{@application.id}"
+    end
   end
 end

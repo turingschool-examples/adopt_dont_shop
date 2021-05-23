@@ -12,5 +12,11 @@ RSpec.describe Application, type: :model do
       application.save
       application.application_status.should == 'In Progress'
     end
+
+    it 'can check for incomplete form text fields' do
+      application = Application.new(name: 'Peter', city: ' ')
+      application.save
+      application.form_incomplete?.should == true
+    end
   end
 end
