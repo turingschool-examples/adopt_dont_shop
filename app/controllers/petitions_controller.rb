@@ -18,16 +18,23 @@ class PetitionsController < ApplicationController
   def show
     @petition = Petition.find(params[:id])
     @pets = Pet.all
+    @pending_pets = []
     if params[:search]
       @pets = Pet.search(params[:search])
     end
+    if params[:pet_id]
+      @potential_pet = Pet.find(params[:pet_id])
+      @pending_pets << @potential_pet
+    end
   end
 
-  def add_pet
-    @petition = Petition.find(params[:id])
-    @pet = Pet.find(params[:id])
-    
-  end
+  # def add_pet
+  #   @petition = Petition.find(params[:id])
+  #   @pet = Pet.find(params[:id])
+  #   @pending_pets = []
+  #   @pending_pets << @pet
+
+  # end
 
   private
 
