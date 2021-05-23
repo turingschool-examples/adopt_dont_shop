@@ -8,7 +8,6 @@ class CreatePetitons < ActiveRecord::Migration[5.2]
       t.string :city
       t.string :state
       t.integer :zipcode
-      t.string :good_home
       t.timestamps
     end
   end
