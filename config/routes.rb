@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
   get '/', to: 'application#welcome'
+  
+  namespace :admin do
+    resources :shelters, only: [:index, :show]
+  end
 
   resources :shelters
   # get '/shelters', to: 'shelters#index'
@@ -10,14 +14,14 @@ Rails.application.routes.draw do
   # patch '/shelters/:id', to: 'shelters#update'
   # delete '/shelters/:id', to: 'shelters#destroy'
 
-  resources :pets, only: [:index, :show, :edit, :update, :destroy]
+  resources :pets, except: [:new, :create]
   # get '/pets', to: 'pets#index'
   # get '/pets/:id', to: 'pets#show'
   # get '/pets/:id/edit', to: 'pets#edit'
   # patch '/pets/:id', to: 'pets#update'
   # delete '/pets/:id', to: 'pets#destroy'
 
-  resources :applications, only: [:index, :new, :show, :edit, :update, :create]
+  resources :applications, except: [:destroy]
   # get '/applications', to: 'applications#index'
   # get '/applications/new', to: 'applications#new'
   # get '/applications/:id', to: 'applications#show'
@@ -34,7 +38,7 @@ Rails.application.routes.draw do
   # patch '/veterinary_offices/:id', to: 'veterinary_offices#update'
   # delete '/veterinary_offices/:id', to: 'veterinary_offices#destroy'
 
-  resources :veterinarians, only: [:index, :show, :edit, :update, :destroy]
+  resources :veterinarians, except: [:create]
   # get '/veterinarians', to: 'veterinarians#index'
   # get '/veterinarians/:id', to: 'veterinarians#show'
   # get '/veterinarians/:id/edit', to: 'veterinarians#edit'
