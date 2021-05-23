@@ -2,7 +2,8 @@ require 'rails_helper'
 
 RSpec.describe Petition do
   describe 'relationships' do
-    it {should have_many(:pets) }
+    it {should have_many(:pet_petitions) }
+    it { should have_many(:pets).through(:pet_petitions)}
   end
 
   describe 'validations' do
