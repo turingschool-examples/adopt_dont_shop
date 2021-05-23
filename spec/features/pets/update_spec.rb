@@ -14,7 +14,7 @@ RSpec.describe 'the pet update' do
   end
 
   context "given valid data" do
-    it "submits the edit form and updates the pet' do
+    it 'submits the edit form and updates the pet' do
       shelter = Shelter.create(name: 'Heavenly pets', city: 'Aurora, CO', foster_program: true, rank: 7)
       pet = Pet.create(adoptable: true, age: 3, breed: 'GSD', name: 'Charlie', shelter_id: shelter.id)
 
