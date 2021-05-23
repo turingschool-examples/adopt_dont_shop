@@ -2,3 +2,14 @@
 <h3><%= @application.address %></h3>
 <h3><%= @application.description %></h3>
 <h3><%= @application.status %></h3>
+
+
+<%= form_with(url: "/applications/#{@application.id}", method: :get) do |form| %>
+  <%= form.label "Find Pet for this Application (pet name):" %>
+  <%= form.text_field :pet_of_interst_name %>
+  <%= form.submit value: "Find" %>
+<% end %>
+
+<% @pets.each do |pet| %>
+<p><%= pet.name %></p>
+<% end %>

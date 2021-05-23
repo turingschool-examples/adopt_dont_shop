@@ -37,4 +37,43 @@ RSpec.describe 'the application show' do
     expect(current_path).to eq('/applications')
     expect(page).to have_content('Daniel Casias')
   end
+
+  # [ ] done
+
+  # Starting an Application, Form not Completed
+  #
+  # As a visitor
+  # When I visit the new application page
+  # And I fail to fill in any of the form fields
+  # And I click submit
+  # Then I am taken back to the new applications page
+  # And I see a message that I must fill in those fields.
+
+  it "Will not let you submit a form that has empty fields" do
+
+    visit "/pets/"
+    click_on "New Application"
+
+    expect(current_path).to eq("/applications/new")
+
+    fill_in( 'Name', with: "Daniel Casias")
+    click_button('Submit')
+
+    expect(current_path).to eq("/applications/new")
+
+    # fill_in( 'Name', with: "Daniel Casias")
+    # fill_in('address', with: '3456 East Spaulding Ave Parker, CO 80134')
+    # click_button('Submit')
+    #
+    # expect(current_path).to eq("/applications/new")
+    #
+    # fill_in( 'Name', with: "Daniel Casias")
+    # fill_in('address', with: '3456 East Spaulding Ave Parker, CO 80134')
+    # ill_in('Description', with: 'I would love a new pet!')
+    # click_button('Submit')
+    #
+    # expect(current_path).to eq('/applications')
+    # expect(page).to have_content('Daniel Casias')
+  end
+
 end

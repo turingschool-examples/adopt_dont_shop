@@ -1,9 +1,9 @@
 <%= form_with url: '/applications', method: :post, local: true do |form| %>
-  <%= form.label :name %><br/>
-  <%= form.text_field :name %><br/>
+  <%= form.label :name%><br/>
+  <%= form.text_field :name, :required => true %><br/>
   <%= form.label :address %><br/>
-  <%= form.text_field :address %><br/>
+  <%= form.text_field :address, :required => true %><br/>
   <%= form.label :description %><br/>
-  <%= form.text_field :description %><br/>
+  <%= form.text_field :description, :required => true %><br/>
   <%= form.submit "Submit" %>
 <% end %>
