@@ -27,11 +27,6 @@
     </p>
 
     <p> 
-      <%= f.label :description, "Why are you a good home?" %>
-      <%= f.text_area :description, value: "I'd be a good home because...", value: @application.description %>
-    </p>
-
-    <p> 
       <%= f.label :status %>
       <%= f.select :status, ['In Progress', 'Pending', 'Accepted', 'Rejected'], value: @application.status %>
     </p>
