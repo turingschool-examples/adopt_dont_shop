@@ -23,6 +23,12 @@ class PetitionsController < ApplicationController
     end
   end
 
+  def add_pet
+    @petition = Petition.find(params[:id])
+    @pet = Pet.find(params[:id])
+    
+  end
+
   private
 
   def petition_params

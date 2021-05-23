@@ -17,4 +17,5 @@
 <p>Breed: <%= pet.breed %></p>
 <p>Adoptable: <%= pet.adoptable %> </p>
 <p>You can find <%= pet.name %> at <%= pet.shelter_name %>!</p>
+<p> <%= button_to "Adopt #{pet.name}", "/petitions/#{@petition.id}/add_pet", method: :get, params: { pet_id: pet.id }%>
 <% end %>
