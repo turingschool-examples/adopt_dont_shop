@@ -32,5 +32,6 @@ RSpec.describe 'petition show' do
 
     expect(current_path).to eq "/petitions/#{@id}"
     expect(page).to have_content('Fluffy')
+    expect(page).not_to have_content('Lucille Bald')
   end
 end
