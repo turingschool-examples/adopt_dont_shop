@@ -44,12 +44,22 @@ Rails.application.routes.draw do
   # get '/veterinarians/:id/edit', to: 'veterinarians#edit'
   # patch '/veterinarians/:id', to: 'veterinarians#update'
   # delete '/veterinarians/:id', to: 'veterinarians#destroy'
-
-  get '/shelters/:shelter_id/pets', to: 'shelters#pets'
-  get '/shelters/:shelter_id/pets/new', to: 'pets#new'
-  post '/shelters/:shelter_id/pets', to: 'pets#create'
   
-  get '/veterinary_offices/:veterinary_office_id/veterinarians', to: 'veterinary_offices#veterinarians'
-  get '/veterinary_offices/:veterinary_office_id/veterinarians/new', to: 'veterinarians#new'
-  post '/veterinary_offices/:veterinary_office_id/veterinarians', to: 'veterinarians#create'
+  resources :shelters do
+    get '/pets', to: 'shelters#pets'
+    resources :pets, only: [:new, :create] 
+  end
+
+  # get '/shelters/:shelter_id/pets', to: 'shelters#pets'
+  # get '/shelters/:shelter_id/pets/new', to: 'pets#new'
+  # post '/shelters/:shelter_id/pets', to: 'pets#create'
+
+  resources :veterinary_offices do
+    get '/veterinarians', to: 'veterinary_offices#veterinarians'
+    resources :veterinarians, only: [:new, :create] 
+  end
+
+  # get '/veterinary_offices/:veterinary_office_id/veterinarians', to: 'veterinary_offices#veterinarians'
+  # get '/veterinary_offices/:veterinary_office_id/veterinarians/new', to: 'veterinarians#new'
+  # post '/veterinary_offices/:veterinary_office_id/veterinarians', to: 'veterinarians#create'
 end
