@@ -9,7 +9,7 @@ RSpec.describe 'the admin show' do
 
   it 'shows shelter and its attributes' do
     visit "/admin/shelters/#{@shelter.id}"
-   
+  
     expect(page).to have_content(@shelter.name)
     expect(page).to have_content(@shelter.city)
   end
