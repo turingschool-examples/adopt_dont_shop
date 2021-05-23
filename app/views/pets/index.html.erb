@@ -13,6 +13,7 @@
   <p>Breed: <%= pet.breed %></p>
   <p>Adoptable: </p>
   <p>You can find <%= pet.name %> at <%= pet.shelter_name %>!</p>
+  <%= link_to "Start application for #{pet.name}", "/pet_applications/new" %>
   <%= link_to "Edit #{pet.name}", "/pets/#{pet.id}/edit" %>
   <%= link_to "Delete #{pet.name}", "/pets/#{pet.id}", method: :delete %>
 <% end %>

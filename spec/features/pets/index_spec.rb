@@ -82,26 +82,27 @@ RSpec.describe 'the pets index' do
     expect(page).to_not have_content(pet_3.name)
   end
 
-  it 'shows an application' do
-    shelter = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
-    pet_1 = Pet.create(adoptable: true, age: 7, breed: 'sphynx', name: 'Bare-y Manilow', shelter_id: shelter.id)
-    pet_2 = Pet.create(adoptable: true, age: 3, breed: 'domestic pig', name: 'Babe', shelter_id: shelter.id)
-    pet_3 = Pet.create(adoptable: true, age: 4, breed: 'chihuahua', name: 'Elle', shelter_id: shelter.id)
+    it 'shows an application' do
+      shelter = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
+      pet_1 = Pet.create(adoptable: true, age: 7, breed: 'sphynx', name: 'Bare-y Manilow', shelter_id: shelter.id)
+      pet_2 = Pet.create(adoptable: true, age: 3, breed: 'domestic pig', name: 'Babe', shelter_id: shelter.id)
+      pet_3 = Pet.create(adoptable: true, age: 4, breed: 'chihuahua', name: 'Elle', shelter_id: shelter.id)
 
-    visit '/pets'
+      visit '/pets'
 
-    expect(page).to have_link("Start an Application")
-    click_link "Start an Application"
-    expect(current_path).to eq("/pets/new_application")
-    fill_in "applicant[name]", with: "Alex"
-    fill_in "applicant[address]", with: "123 Dutch"
-    fill_in "applicant[city]", with: "Denver"
-    fill_in "applicant[state]", with: "Colorado"
-    fill_in "applicant[zip]", with: "80226"
-    fill_in "applicant[reason]", with: "because I'm great"
-    expect(page).to have_button("Submit Application")
-    click_button "Submit Application"
-    expect(current_path).to eq("/pets/application")
-    expect(page).to have_content("In Progress")
-  end
+      expect(page).to have_link("Start application for #{pet_2.name}")
+      click_link "Start application for #{pet_2.name}"
+      expect(current_path).to eq("/pet_applications/new")
+      fill_in :name, with: "Alex"
+      fill_in :street, with: "123 Dutch"
+      fill_in :city, with: "Denver"
+      fill_in :state, with: "Colorado"
+      fill_in :zip, with: "80226"
+      fill_in :reason, with: "Because animals are great"
+      expect(page).to have_button("Save")
+      click_button "Save"
+      pet_application = PetApplication.last
+      expect(current_path).to eq("/pet_applications/#{pet_application.id}") #its currently giving the application ID not the pet_id
+      expect(page).to have_content("Pending")
+    end
 end

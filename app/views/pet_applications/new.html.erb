@@ -1,0 +1,29 @@
+<h1>New Application</h1>
+<%= form_with url: "/pet_applications", method: :post, local: true do |f| %>
+  <%= f.label :name %>
+  <%= f.text_field :name, required: true %><br><br>
+
+  <%= f.label :street %>
+  <%= f.text_field :street, required: true %><br><br>
+
+  <%= f.label :city %>
+  <%= f.text_field :city, required: true %><br><br>
+
+  <%= f.label :state %>
+  <%= f.text_field :state, required: true %><br><br>
+
+  <%= f.label :zip %>
+  <%= f.text_field :zip, required: true %><br><br>
+
+  <%= f.label :reason %>
+  <%= f.text_field :reason, required: true %><br><br>
+
+  <%= f.submit %>
+
+<% end %>
+<br>
+<%= form_with url: "/pets", method: :get, local: true do |f| %>
+  <%= f.label :search %>
+  <%= f.text_field :search %>
+  <%= f.submit "Search" %>
+<% end %>

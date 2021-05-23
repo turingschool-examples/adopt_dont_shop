@@ -1,0 +1,15 @@
+<h1>Pet Applications</h1>
+
+<% @pet_applications.each do |pet_application| %>
+  <h4><%= pet_application.name %><br></h4>
+  Address:<br>
+  <%= pet_application.street%><br>
+  <%= pet_application.city%><br>
+  <%= pet_application.state%><br>
+  <%= pet_application.zip%><br>
+  <%= pet_application.reason%><br>
+  <%= pet_application.status%><br>
+  <%= button_to 'Delete Application', "/pet_applications/#{pet_application.id}", method: :delete %>
+
+  <br>
+<% end %>
