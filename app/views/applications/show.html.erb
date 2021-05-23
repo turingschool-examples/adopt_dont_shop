@@ -6,10 +6,11 @@
     <%= f.text_field :search %>
     <%= f.submit "Search" %>
   <% end %>
-  
+
 <% if params[:search].present?%>
   <% @pets.each do |pet| %>
-  <h3><%= pet.name %></h3>
+  <%= button_to 'Adopt this Pet', "/applications/#{@application.id}", method: :get, params: { adopt: pet.id } %>
+  <%= pet.name %>
   <% end %>
   <% end %>
 </section>
