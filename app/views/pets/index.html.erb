@@ -7,7 +7,7 @@
     <%= f.submit "Search" %>
   <% end %>
 
-  <table class="table">
+  <table class="pets">
     <thead>
       <th scope="col">Name</th>
       <th scope="col">Shelter</th>
@@ -21,12 +21,12 @@
     <tbody>
       <% @pets.each do |pet| %>
         <tr class="row">
-          <th scope="row">
-            <%= pet.name %>
-            <%= link_to "Edit #{pet.name}", "/pets/#{pet.id}/edit" %>
-            <%= link_to "Delete #{pet.name}", "/pets/#{pet.id}", method: :delete %>
+          <th scope="row" class="links">
+            <h3><%= pet.name %></h3>
+            <p><%= link_to "Edit #{pet.name}", "/pets/#{pet.id}/edit" %></p>
+            <p><%= link_to "Delete #{pet.name}", "/pets/#{pet.id}", method: :delete %></p>
           </th>
-          <td><p>You can find <%= pet.name %> at <%= pet.shelter_name %>!</p></td>
+          <td><h3>You can find <%= pet.name %> at <%= pet.shelter_name %>!</h3></td>
           <td><%= pet.age %></td>
           <td><%= pet.breed %></td>
           <td><%= pet.adoptable %></td>

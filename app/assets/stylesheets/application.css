@@ -13,12 +13,14 @@
  *= require_tree .
  *= require_self
  */
-
+ 
+ /* fonts */
  @import url('https://fonts.googleapis.com/css2?family=Pattaya&display=swap');
+ @import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
 
-.content{
+ .content{
   margin-top: 50px;
-}
+ }
 
  .navbar {
    overflow: hidden;
@@ -55,3 +57,34 @@
  h1{
   font-family: 'Pattaya', sans-serif;
  }
+
+ body {
+   font-family: 'Lato', sans-serif;
+   display: grid;
+ }
+
+ table{
+   display: grid;
+   grid-template-columns: minmax(150px, 1.33fr) minmax(150px, 2.33fr);
+   display: contents;
+   margin: 25px 0;
+   font-size: 1em;
+   box-shadow: 0 0 20px rgba(0, 0, 0, 0.15)
+ }
+
+ table th,
+ table td {
+   padding: 12px 15px;
+   text-align: left;
+   vertical-align: top;
+ }
+
+ table thead{
+  background-color: #d9def2;
+  font-weight: bold;
+}
+
+.pets p {
+  font-size: .09em;
+}
+

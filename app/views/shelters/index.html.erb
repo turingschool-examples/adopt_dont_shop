@@ -9,12 +9,21 @@
     <%= f.submit "Search" %>
   <% end %>
 
-  <% @shelters.each do |shelter| %>
-    <div id="shelter-<%= shelter.id %>">
-      <h3><%= shelter.name %></h3>
-      <p>Created at: <%= shelter.created_at %></p>
-      <%= link_to "Update #{shelter.name}", "/shelters/#{shelter.id}/edit" %>
-      <%= link_to "Delete #{shelter.name}", "/shelters/#{shelter.id}", method: :delete %>
-    </div>
-  <% end %>
+  <table class="shelters">
+    <thead>
+      <th scope="col">Name</th>
+      <th scope="col">Created At:</th>
+      <th scope="col"></th>
+    </thead>  
+    <% @shelters.each do |shelter| %>
+      <tr class="row">
+        <th scope="row"><h3><%= shelter.name %></h3></th>
+        <td><%= shelter.created_at %></td>
+        <td>
+         <p><%= link_to "Update #{shelter.name}", "/shelters/#{shelter.id}/edit" %></p>
+         <p><%= link_to "Delete #{shelter.name}", "/shelters/#{shelter.id}", method: :delete %></p>
+        </td>
+      </div>
+    <% end %>
+  </table>
 </div>
