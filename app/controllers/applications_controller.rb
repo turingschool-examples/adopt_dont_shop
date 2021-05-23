@@ -13,8 +13,10 @@ class ApplicationsController < ApplicationController
       street_address: params[:street_address],
       city: params[:city],
       state: params[:state],
-      zip_code: params[:zip_code]
+      zip_code: params[:zip_code],
+      description: params[:description]
     )
+    @application.save
     redirect_to "/applications/#{@application.id}"
   end
 end

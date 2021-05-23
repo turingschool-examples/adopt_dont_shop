@@ -31,6 +31,7 @@ RSpec.describe 'new page' do
     fill_in('city', with: 'Denver')
     fill_in('state', with: 'CO')
     fill_in('zip_code', with: '80216')
+    fill_in('description', with: 'I want a cat that will keep me company')
     click_button('Submit')
     new_application_id = Application.last.id
     expect(current_path).to eq("/applications/#{new_application_id}")
@@ -39,5 +40,6 @@ RSpec.describe 'new page' do
     expect(page).to have_content("Denver")
     expect(page).to have_content("CO")
     expect(page).to have_content("80216")
+    expect(page).to have_content("I want a cat that will keep me company")
   end
 end
