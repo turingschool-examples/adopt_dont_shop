@@ -1,18 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Pet, type: :model do
-  describe 'relationships' do
-    it { should belong_to(:shelter) }
-    it {should have_many(:pet_applications)}
-    it {should have_many(:applications).through(:pet_applications)}
-  end
-
-  describe 'validations' do
-    it { should validate_presence_of(:name) }
-    it { should validate_presence_of(:age) }
-    it { should validate_numericality_of(:age) }
-  end
-
+RSpec.describe 'the application show' do
   before(:each) do
     @shelter_1 = Shelter.create!(foster_program: true, name: "Idaho Humane Society", city: "Boise", rank: 3)
     @shelter_2 = Shelter.create!(foster_program: true, name: "Denver Humane Society", city: "Denver", rank: 1)
@@ -36,27 +24,14 @@ RSpec.describe Pet, type: :model do
     @application_1 = Application.create!(name: "Percy", state: "Colorado", city: "Meridian", zip_code: 83616, address: "395 Artesian Street", description: "Government Official", status: "Rejected")
     @application_1 = Application.create!(name: "Charlie", state: "Colorado", city: "Nampa", zip_code: 83616, address: "395 Eagle Road", description: "Anthropologist", status: "Pending")
     @application_1 = Application.create!(name: "Bill", state: "Colorado", city: "Kuna", zip_code: 83616, address: "395 Purple Street", description: "student", status: "Accepted")
+
+    visit "/applications/#{@application_1.id}"
   end
 
-  describe 'class methods' do
-    describe '#search' do
-      it 'returns partial matches' do
-        expect(Pet.search("Claw")).to eq([@pet_2])
-      end
-    end
-
-    describe '#adoptable' do
-      it 'returns adoptable pets' do
-        expect(Pet.adoptable).to eq([@pet_1, @pet_2])
-      end
-    end
-  end
-
-  describe 'instance methods' do
-    describe '.shelter_name' do
-      it 'returns the shelter name for the given pet' do
-        expect(@pet_3.shelter_name).to eq(@shelter_1.name)
-      end
-    end
+  it "shows the application and its attributes" do
+    expect(page).to have_content(@application_1.name)
+    expect(page).to have_content(@application_1.address)
+    expect(page).to have_content(@application_1.description)
+    expect(page).to have_content(@application_1.status)
   end
 end
