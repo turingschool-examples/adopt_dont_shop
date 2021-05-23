@@ -16,11 +16,11 @@
         <%= msg %>
       </div>
     <% end %>
-    <section>
-      <p><%= link_to "Pets", "/pets" %></p>
-      <p><%= link_to "Shelters", "/shelters" %></p>
-      <p><%= link_to "Veterinarians", "/veterinarians" %></p>
-      <p><%= link_to "Veterinary Offices", "/veterinary_offices" %></p>
+    <section class="topnav">
+      <a class="active"><%= link_to "Pets", "/pets" %></a>
+      <a class="active"><%= link_to "Shelters", "/shelters" %></a>
+      <a class="active"><%= link_to "Veterinarians", "/veterinarians" %></a>
+      <a class="active"><%= link_to "Veterinary Offices", "/veterinary_offices" %></a>
     </section>
     <%= yield %>
   </body>

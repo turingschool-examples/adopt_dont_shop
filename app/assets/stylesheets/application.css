@@ -13,3 +13,22 @@
  *= require_tree .
  *= require_self
  */
+
+.topnav {
+  height: 50px;
+  text-indent: 20px;
+  word-spacing: 10px;
+  padding-right: 20px;
+  border-style: solid;
+  border-color: lightblue;
+}
+
+.active {
+   margin: 5;
+   position: relative;
+   top: 30%;
+   color: white;
+   font-weight: bold;
+   font-size: 20px;
+   text-align: right;
+ }
