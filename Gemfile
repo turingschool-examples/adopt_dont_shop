@@ -38,7 +38,7 @@ gem 'bootsnap', '>= 1.1.0', require: false
 
 group :development, :test do
   gem 'capybara'
-  gem 'shoulda-matchers'
+  gem 'shoulda-matchers', '~> 4.0'
   gem 'launchy'
   gem 'orderly'
   gem 'pry'
