@@ -5,6 +5,7 @@
 <br>
 <%= "Your address: #{@petition.street_address} #{@petition.city}, #{@petition.state} #{@petition.zipcode}" %>
 <br>
+<%= "Why you'd make a great home for these pets: #{@petition.goodhome}" %>
 <% if !@pet_petition.nil? %>
 <%= "Pets you'd like to adopt:" %>
 <% @associated_pets.each do |pet| %>
