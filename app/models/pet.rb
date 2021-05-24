@@ -21,4 +21,9 @@ class Pet < ApplicationRecord
   def self.filter_by_pending_apps
     where(:id => ApplicationPet.filter_by_pending_apps).pluck(:shelter_id)
   end
+
+  def application_status(application_id)
+    #does this belong in application pet? If so, do i "link" to a method there from here?
+    ApplicationPet.where(application_id: application_id, pet_id: self.id).pluck(:status).first
+  end
 end

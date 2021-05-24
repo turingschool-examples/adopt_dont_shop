@@ -13,13 +13,18 @@
  <table>
         <tr>
           <th>Pet</th>
-          <th>Approve</th>
-          <th>Reject</th>
+          <th>Action / Status</th>
         </tr>
           <% @pets_adopting.each do |pet| %>
             <tr><td><%= pet.name %></td>
-            <td><%= button_to "Approve", adminapp_path(:outcome => 'approve'), method: :patch, :style => "background-color: lightgreen" %></td>
-            <td><%= button_to "Reject", adminapp_path(:outcome => 'reject'), method: :patch, :style => "background-color: lightcoral",  name: 'action', value: 'reject'%></td></tr>
+            <td>
+            <% if pet.application_status(@application.id).nil? %>
+              <button style="background-color: lightgreen"><%= link_to "Approve", adminapp_path(:outcome => 'approve', :pet_id => pet.id), method: :patch %></button>
+              <button style="background-color: lightcoral"><%= link_to "Reject", adminapp_path(:outcome => 'reject', :pet_id => pet.id), method: :patch %></button>
+              </td></tr>
+            <% else %>
+              <%= pet.application_status(@application.id) %>
+            <% end %>
           <% end %>
       </table><br>
 <% end %>

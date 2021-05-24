@@ -6,14 +6,14 @@ class AdminApplicationsController < ApplicationController
   end
 
   def update
-    #should this all live here or in the application?
-    application = Application.find(params[:id])
+    #should this all live here or in the application? And here or in the model?
+    applicationpet = ApplicationPet.find_record(params[:pet_id], params[:id])
     if params[:outcome] == 'approve'
-      application.update(status: 'Approved')
+      applicationpet.update(status: 'Approved')
     else
-      application.update(status: 'Rejected')
+      applicationpet.update(status: 'Rejected')
     end
-    application.save
-    redirect_to action: "show", id: application.id
+    applicationpet.save
+    redirect_to action: "show", id: params[:id]
   end
 end
