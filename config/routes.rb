@@ -46,4 +46,5 @@ Rails.application.routes.draw do
   delete '/applications/:id', to: 'applications#destroy'
 
   get 'applications/:id/:pet_id', to: 'applications#add_pet'
+  post 'applications/:id', to: 'applications#submit_pet'
 end

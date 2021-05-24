@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe 'the application show' do
 
-  # [] done
+  # [x] done
   #
   # Application Show Page
   #
@@ -27,7 +27,7 @@ RSpec.describe 'the application show' do
     expect(page).to have_content(application_one.status)
   end
 
-  #   [ ] done
+  #   [x] done
   #
   # Searching for Pets for an Application
   #
@@ -43,12 +43,14 @@ RSpec.describe 'the application show' do
 
   it "can search for a pet by name" do
     shelter = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
-    application_one = Application.create!(name: 'Sally Smith', address: '123 West 23rd Ave Parker, CO 80134', description: 'Looking for a pet', status: "Pending" )
+    application_one = Application.create!(name: 'Sally Smith', address: '123 West 23rd Ave Parker, CO 80134', description: nil, status: "Pending" )
     pet_1 = Pet.create(adoptable: true, age: 1, breed: 'sphynx', name: 'Jack', shelter_id: shelter.id)
     visit "/applications/#{application_one.id}"
 
     expect(page).to have_content("Sally Smith")
     expect(page).to have_field(:pet_of_interst_name)
+    expect(page).to have_content("In Progress")
+
 
     fill_in( "pet_of_interst_name", with: "Jack")
     click_on("Find")
@@ -71,7 +73,7 @@ RSpec.describe 'the application show' do
 
   it "can search for a pet by name" do
     shelter = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
-    application_one = Application.create!(name: 'Sally Smith', address: '123 West 23rd Ave Parker, CO 80134', description: 'Looking for a pet', status: "Pending" )
+    application_one = Application.create!(name: 'Sally Smith', address: '123 West 23rd Ave Parker, CO 80134', description: nil, status: "Pending" )
     pet_1 = Pet.create(adoptable: true, age: 1, breed: 'sphynx', name: 'Jack', shelter_id: shelter.id)
     visit "/applications/#{application_one.id}"
 
@@ -82,13 +84,60 @@ RSpec.describe 'the application show' do
     click_on("Find")
 
     expect(page).to have_content("Jack")
-    expect(page).to have_link("Add Jack")
-    click_on("Add Jack")
+    expect(page).to have_link("Adopt Jack")
+    click_on("Adopt Jack")
     expect(page).to have_content("Jack")
 
     within '#pet_requests' do
       expect(page).to have_content("Jack")
     end
+  end
+
+  #   [x] done
+  #
+  # Submit an Application
+  #
+  # As a visitor
+  # When I visit an application's show page
+  # And I have added one or more pets to the application
+  # Then I see a section to submit my application
+  # And in that section I see an input to enter why I would make a good owner for these pet(s)
+  # When I fill in that input
+  # And I click a button to submit this application
+  # Then I am taken back to the application's show page
+  # And I see an indicator that the application is "Pending"
+  # And I see all the pets that I want to adopt
+  # And I do not see a section to add more pets to this application
+
+  it "can post pet for adoption" do
+    shelter = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
+    application_one = Application.create!(name: 'Sally Smith', address: '123 West 23rd Ave Parker, CO 80134', description: nil, status: "Pending" )
+    pet_1 = Pet.create(adoptable: true, age: 1, breed: 'sphynx', name: 'Jack', shelter_id: shelter.id)
+    visit "/applications/#{application_one.id}"
+
+    expect(page).to have_content("In Progress")
+    expect(page).to have_content("Sally Smith")
+    expect(page).to have_field(:pet_of_interst_name)
+
+    fill_in( "pet_of_interst_name", with: "Jack")
+    click_on("Find")
+
+    expect(page).to have_content("Jack")
+    expect(page).to have_link("Adopt Jack")
+    click_on("Adopt Jack")
+    expect(page).to have_content("Jack")
+
+    within '#pet_requests' do
+      expect(page).to have_content("Jack")
+    end
+    expect(page).to have_field(:description)
+    fill_in( "description", with: "I would love a new friend.")
+    click_on("Submit Adoption Form")
+    expect(current_path).to eq("/applications/#{application_one.id}")
+
+    expect(page).to have_content("I would love a new friend.")
+    expect(page).to have_content("Pending")
+    expect(page).to_not have_field(:pet_of_interst_name)
   end
 
 

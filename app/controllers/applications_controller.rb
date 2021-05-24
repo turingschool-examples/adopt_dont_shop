@@ -39,6 +39,13 @@ class ApplicationsController < ApplicationController
     redirect_to "/applications/#{@application.id}"
   end
 
+  def submit_pet
+    @application = Application.find(params[:id])
+    @application.description = params[:description]
+    @application.save
+    redirect_to "/applications/#{@application.id}"
+  end
+
   private
 
   def applications_params
