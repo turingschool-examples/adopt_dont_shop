@@ -6,6 +6,10 @@ RSpec.describe 'application creation' do
     @application_2 = Application.create!(name: 'Annie Pulzone', street_address: '123 Lava LN', city: 'Pilot', state: 'Oregon', zip_code: 97703)
   end
 
+  after :each do
+    Application.destroy_all
+  end
+
   context 'application set up' do
     it 'has a welcome message' do
       visit '/applications/new'
@@ -21,25 +25,22 @@ RSpec.describe 'application creation' do
       expect(find('form')).to have_content('City')
       expect(find('form')).to have_content('State')
       expect(find('form')).to have_content('Zip code')
-      save_and_open_page
     end
   end
 
   context 'the application create' do
-    describe 'give vaild data' do
-      it 'creates the application and redirects to the applicaiton show page' do
-        visit '/applications/new'
+    it 'creates the application and redirects to the applicaiton show page' do
+      visit '/applications/new'
 
-        fill_in 'Name', with: "#{@application_1.name}"
-        fill_in 'Name', with: "#{@application_1.street_address}"
-        fill_in 'Name', with: "#{@application_1.city}"
-        fill_in 'Name', with: "#{@application_1.state}"
-        fill_in 'Name', with: "#{@application_1.zip_code}"
-        click_button 'Save'
-      end
+      fill_in 'Name', with: "#{@application_1.name}"
+      fill_in 'Street address', with: "#{@application_1.street_address}"
+      fill_in 'City', with: "#{@application_1.city}"
+      fill_in 'State', with: "#{@application_1.state}"
+      fill_in 'Zip code', with: "#{@application_1.zip_code}"
+      click_button 'Save'
+
+      expect(current_path).to eq("/applications/#{@application_1.id}")
+      expect(page).to have_content("#{@application_1.name}")
     end
-
-    describe 'given invalid data'
-      it 're-renders the new form'
   end
 end
