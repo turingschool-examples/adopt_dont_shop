@@ -33,4 +33,12 @@ RSpec.describe ApplicationPet, type: :model do
       end
     end
   end
+
+  describe 'instance methods' do
+    describe '#find_record' do
+      it 'returns only ApplicationPet record associated with a given pet/appp id' do
+        expect(ApplicationPet.find_record(@pet_1.id, @application1.id)).to eq(@application_pet1)
+      end
+    end
+  end
 end
