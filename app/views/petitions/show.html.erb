@@ -14,10 +14,16 @@
 <% @associated_pets.each do |pet| %>
 <%= pet.name %>
 <% end %>
+<%= form_with url: "/petitions/#{@petition.id}/submit", method: :patch, local: true do |f| %>
+<%= f.label :goodhome, 'Say a bit about why you would make a good owner for these pets:' %>
+<%= f.text_area :goodhome, size:"80X80" %>
+<%= f.submit 'Submit Your Application' %>
+<% end %>
+
 <% end %>
 
 
-
+<% if @petition.status == 'In Progress' %>
 <%= form_with url: "/petitions/#{@petition.id}", method: :get, local: true do |f| %>
 <%= f.label :search, 'Add a Pet to this Application' %>
 <%= f.text_field :search %>
@@ -31,4 +37,5 @@
 <p>Adoptable: <%= pet.adoptable %> </p>
 <p>You can find <%= pet.name %> at <%= pet.shelter_name %>!</p>
 <p> <%= button_to "Adopt #{pet.name}", "/petitions/#{@petition.id}", method: :get, params: { pet_id: pet.id }%>
-  <% end %>
+<% end %>
+<% end %>

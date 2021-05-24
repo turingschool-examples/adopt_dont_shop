@@ -42,5 +42,6 @@ Rails.application.routes.draw do
   get '/petitions/new', to: 'petitions#new'
   get '/petitions/:id/add_pet', to: 'petitions#add_pet'
   get '/petitions/:id', to: 'petitions#show'
+  patch '/petitions/:id/submit', to: 'petitions#submit'
   post '/petitions', to: 'petitions#create'
 end
