@@ -3,10 +3,11 @@
   <h1>Enter Your Information</h1>
 </head>
 
-<body>
-  <%= form_with url: "/applications", method: :post, local: true do |f| %>
+<body style="font-size:20px">
+  <h3 style="color:red"><%= flash[:notice] %></h3><br>
+  <%= form_with model: @application, url: "/applications", method: :post, local: true do |f| %>
     <div><%= f.label :first_name, 'First Name' %> <%= f.text_field :first_name %></div>
-    <div><%= f.label :middle_name, 'Middle Name' %> <%= f.text_field :middle_name %></div>
+    <div><%= f.label :middle_name, 'Middle Name (optional)' %> <%= f.text_field :middle_name %></div>
     <div><%= f.label :last_name, 'Last Name' %> <%= f.text_field :last_name %></div><br>
     <div><%= f.label :street_number, 'Street Number' %> <%= f.number_field :street_number %></div>
     <div><%= f.label :street_prefix, 'Street Prefix (if any)' %> <%= f.text_field :street_prefix %></div>
