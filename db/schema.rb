@@ -21,8 +21,8 @@ ActiveRecord::Schema.define(version: 2021_05_21_213634) do
     t.string "city"
     t.integer "zip_code"
     t.string "address"
-    t.string "description"
-    t.string "status"
+    t.string "description", default: "(Empty by default)"
+    t.string "status", default: "In Progress"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
