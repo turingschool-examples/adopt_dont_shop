@@ -12,7 +12,7 @@ RSpec.describe 'Start Application' do
     visit '/applications/new'
 
     fill_in('First Name', with: 'Kelly')
-    fill_in('Middle Name', with: 'Sarah')
+    fill_in('Middle Name (optional)', with: 'Sarah')
     fill_in('Last Name', with: 'Johnson')
     fill_in('Street Number', with: 4928)
     fill_in('Street Prefix (if any)', with: 'N')
@@ -33,7 +33,7 @@ RSpec.describe 'Start Application' do
     zip = "#{ksj_application.zip_code}"
     ksj_why = "#{ksj_application.description}"
 
-    expect(current_path).to eq("/applications/#{Application.last.id}")
+    expect(current_path).to eq("/applications/#{ksj_application.id}")
     expect(page).to have_content(name)
     expect(page).to have_content(address)
     expect(page).to have_content(city)
@@ -41,5 +41,22 @@ RSpec.describe 'Start Application' do
     expect(page).to have_content(zip)
     expect(page).to have_content(ksj_why)
     expect(page).to have_content('In Progress')
+  end
+
+  it 'returns to new application form when form is not completed' do
+    visit '/applications/new'
+
+    fill_in('First Name', with: 'Kelly')
+    fill_in('Last Name', with: 'Johnson')
+    fill_in('Street Number', with: 4928)
+    fill_in('Street Prefix (if any)', with: 'N')
+    fill_in('Street Name', with: 'Main')
+    fill_in('City', with: 'Arvada')
+    fill_in('State', with: 'Colorado')
+    click_button("Submit")
+
+    expect(current_path).to eq('/applications/new')
+    expect(page).to have_content('Please fill out necessary fields for submission')
+    expect(page).to have_button("Submit")
   end
 end
