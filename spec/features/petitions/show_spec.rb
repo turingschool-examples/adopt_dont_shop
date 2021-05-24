@@ -39,4 +39,15 @@ RSpec.describe 'petition show' do
     expect(page).to have_content('Fluffy')
     expect(page).not_to have_content('Lucille Bald')
   end
+
+  it 'has a link to adopt a pet' do
+    expect(page).to have_button('Adopt Fluffy')
+    expect(page).to have_button('Adopt Lucille Bald')
+  end
+
+  it 'after clicking adopt button lists pets you want to adopt' do
+    click_button('Adopt Fluffy')
+
+    expect(page).to have_content ("Pets you'd like to adopt: Fluffy")
+  end
 end

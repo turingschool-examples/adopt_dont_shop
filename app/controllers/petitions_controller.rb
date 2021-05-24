@@ -18,8 +18,14 @@ class PetitionsController < ApplicationController
   def show
     @petition = Petition.find(params[:id])
     @pets = Pet.all
+
     if params[:search]
       @pets = Pet.search(params[:search])
+    end
+    if params[:pet_id]
+      new_pet = Pet.find(params[:pet_id])
+      @pet_petition = PetPetition.create(petition: @petition, pet: new_pet)
+      @associated_pets = PetPetition.associated_pets(@petition.id)
     end
   end
 

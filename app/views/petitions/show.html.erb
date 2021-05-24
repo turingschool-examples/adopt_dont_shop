@@ -4,6 +4,15 @@
 <%= "Your name: #{@petition.name}" %>
 <br>
 <%= "Your address: #{@petition.street_address} #{@petition.city}, #{@petition.state} #{@petition.zipcode}" %>
+<br>
+<% if !@pet_petition.nil? %>
+<%= "Pets you'd like to adopt:" %>
+<% @associated_pets.each do |pet| %>
+<%= pet.name %>
+<% end %>
+<% end %>
+
+
 
 <%= form_with url: "/petitions/#{@petition.id}", method: :get, local: true do |f| %>
 <%= f.label :search, 'Add a Pet to this Application' %>
@@ -17,4 +26,5 @@
 <p>Breed: <%= pet.breed %></p>
 <p>Adoptable: <%= pet.adoptable %> </p>
 <p>You can find <%= pet.name %> at <%= pet.shelter_name %>!</p>
-<% end %>
+<p> <%= button_to "Adopt #{pet.name}", "/petitions/#{@petition.id}", method: :get, params: { pet_id: pet.id }%>
+  <% end %>
