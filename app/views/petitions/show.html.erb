@@ -7,8 +7,9 @@
 <br>
 <% if !@pet_petition.nil? %>
 <%= "Pets you'd like to adopt:" %>
-<%   binding.pry  %>
-<%= %>
+<% @associated_pets.each do |pet| %>
+<%= pet.name %>
+<% end %>
 <% end %>
 
 
