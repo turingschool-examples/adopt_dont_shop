@@ -1,0 +1,10 @@
+<h3>Pets To Be Adopted:</h3>
+<% if @pets_adopting.count == 0 %>
+<p style="color: darkred;"><%= "Please add pets to your application" %></p>
+<% else %>
+<ul id='pets-list'>
+  <% @pets_adopting.each do |pet| %>
+    <li><tr><td><%= link_to "#{pet.name}", "/pets/#{pet.id}" %></li>
+    <% end %>
+</ul>
+<% end %>

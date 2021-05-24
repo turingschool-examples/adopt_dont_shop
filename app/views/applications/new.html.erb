@@ -1,4 +1,4 @@
 <h1>New Pet Adoption Application</h1>
-<p>Let's start with some details about who you are.</p><br>
+<p>Let's start with some details about who you are.</p>
 
-<%= render 'form', application: @application %>
+<%= render partial: 'application_applicant', locals: { method: :post } %>

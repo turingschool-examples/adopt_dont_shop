@@ -1,0 +1,7 @@
+<h3>Application Status:</h3>
+<p><%= "#{@application.status}" %></p>
+<% if @application.status == 'In Progress'%>
+<p style='color:darkred;'><%= 'Note - Your application has not been submitted yet!' %></p>
+<p><%= "In order to submit, you must add both 'Pets To Adopt' and an 'Adoption Statement' below." %></p>
+<p><%= "You will be able to add your 'Adoption Statement' once you've added one or more pets to the application." %></p>
+<% end %>

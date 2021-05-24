@@ -24,11 +24,11 @@ RSpec.describe 'applications new page', type: :feature do
     it 'allows you to enter info and redirects you to the applications#show page on submission' do
 
       visit "/applications/new"
-      fill_in 'application[name]', with: 'Big Bird'
-      fill_in 'application[street_address]', with: '1311 E 27TH AVE'
-      fill_in 'application[city]', with: 'DENVER'
-      fill_in 'application[state]', with: 'CO'
-      fill_in 'application[zip_code]', with: '80205'
+      fill_in 'name', with: 'Big Bird'
+      fill_in 'street_address', with: '1311 E 27TH AVE'
+      fill_in 'city', with: 'DENVER'
+      fill_in 'state', with: 'CO'
+      fill_in 'zip_code', with: '80205'
       click_button 'Submit Applicant Details'
       last_app = Application.last
 
@@ -38,10 +38,10 @@ RSpec.describe 'applications new page', type: :feature do
 
       visit "/applications/new"
       # save_and_open_page
-      fill_in 'application[street_address]', with: '1311 E 27TH AVE'
-      fill_in 'application[city]', with: 'DENVER'
-      fill_in 'application[state]', with: 'CO'
-      fill_in 'application[zip_code]', with: '80205'
+      fill_in 'street_address', with: '1311 E 27TH AVE'
+      fill_in 'city', with: 'DENVER'
+      fill_in 'state', with: 'CO'
+      fill_in 'zip_code', with: '80205'
       click_button 'Submit Applicant Details'
       last_app = Application.last
 

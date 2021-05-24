@@ -1,0 +1,15 @@
+<% if @pets_adopting.count != 0 %>
+  <h3>Adoption Statement:</h3>
+  <% if @application.statement.nil? %>
+    <%= form_with url: request.path, method: method, local: true do |form| %>
+      <%= form.label :statement, 'Please explain why you would be a good pet parent:'%><br>
+      <%= form.text_area :statement, size: '40x3', value: @application.statement %>
+      <br><br>
+      <% if @application.status == 'In Progress'%>
+      <%= form.submit 'Submit Application' %>
+      <% end %>
+    <% end %>
+  <% else %>
+    <%= @application.statement %>
+  <% end %>
+<% end %>

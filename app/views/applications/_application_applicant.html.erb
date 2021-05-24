@@ -1,0 +1,28 @@
+<%= form_with url: '/applications/', method: method, local: true do |form| %>
+    <h3>Applicant Details:</h3>
+    <% if method == :post %>
+      <%= form.label :name, 'Full Name:' %>
+      <%= form.text_field :name, required: true %><br><br>
+      <%= form.label :street_address, 'Street Address:' %>
+      <%= form.text_field :street_address, required: true %><br><br>
+      <%= form.label :city, 'City:' %>
+      <%= form.text_field :city, required: true %><br><br>
+      <%= form.label :state, 'State:' %>
+      <%= form.text_field :state, required: true %><br><br>
+      <%= form.label :zip_code, 'Zip Code:' %>
+      <%= form.text_field :zip_code, required: true %><br><br>
+      <%= form.submit 'Submit Applicant Details' %>
+    <% else %>
+      <table>
+        <tr>
+          <th>Detail</th>
+          <th>Value</th>
+        </tr>
+        <tr><td>Name:</td><td><%= @application.name %></td></tr>
+        <tr><td>Street Address:</td><td><%= @application.street_address %></td></tr>
+        <tr><td>City:</td><td><%= @application.city %></td></tr>
+        <tr><td>State:</td><td><%= @application.state %></td></tr>
+        <tr><td>Zip Code:</td><td><%= @application.zip_code %></td></tr>
+      </table><br>
+    <% end %>
+  <% end %>
