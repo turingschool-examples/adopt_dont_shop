@@ -1,10 +1,25 @@
 <h3>Pets To Be Adopted:</h3>
-<% if @pets_adopting.count == 0 %>
-<p style="color: darkred;"><%= "Please add pets to your application" %></p>
+<% if user == :applicant %>
+  <% if @pets_adopting.count == 0 %>
+  <p style="color: darkred;"><%= "Please add pets to your application" %></p>
+  <% else %>
+  <ul id='pets-list'>
+    <% @pets_adopting.each do |pet| %>
+      <li><tr><td><%= link_to "#{pet.name}", "/pets/#{pet.id}" %></li>
+      <% end %>
+  </ul>
+  <% end %>
 <% else %>
-<ul id='pets-list'>
-  <% @pets_adopting.each do |pet| %>
-    <li><tr><td><%= link_to "#{pet.name}", "/pets/#{pet.id}" %></li>
-    <% end %>
-</ul>
+ <table>
+        <tr>
+          <th>Pet</th>
+          <th>Approve</th>
+          <th>Reject</th>
+        </tr>
+          <% @pets_adopting.each do |pet| %>
+            <tr><td><%= pet.name %></td>
+            <td><%= button_to "Approve", adminapp_path(:outcome => 'approve'), method: :patch, :style => "background-color: lightgreen" %></td>
+            <td><%= button_to "Reject", adminapp_path(:outcome => 'reject'), method: :patch, :style => "background-color: lightcoral",  name: 'action', value: 'reject'%></td></tr>
+          <% end %>
+      </table><br>
 <% end %>
