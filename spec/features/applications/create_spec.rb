@@ -1,7 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'the application show' do
-
+RSpec.describe 'the application new page' do
 #   [ ] done
 #
 # Starting an Application
@@ -30,11 +29,11 @@ RSpec.describe 'the application show' do
     expect(current_path).to eq("/applications/new")
 
     fill_in( 'Name', with: "Daniel Casias")
-    fill_in('street_address', with: '3456 East Spaulding Ave')
+    fill_in('address', with: '3456 East Spaulding Ave')
     fill_in('city', with: 'Parker')
     fill_in('state', with: 'CO')
     fill_in('ip', with: '80134')
-    save_and_open_page
+    # save_and_open_page
     click_button('Submit')
     expect(current_path).to eq('/applications')
     expect(page).to have_content('Daniel Casias')
@@ -53,29 +52,17 @@ RSpec.describe 'the application show' do
 
   it "Will not let you submit a form that has empty fields" do
 
-    # visit "/pets/"
-    # click_on "New Application"
-    #
-    # expect(current_path).to eq("/applications/new")
-    #
-    # fill_in( 'Name', with: "Daniel Casias")
-    # click_button('Submit')
-    #
-    # expect(current_path).to eq("/applications/new")
+    visit "/pets/"
+    click_on "New Application"
+    expect(current_path).to eq("/applications/new")
 
-    # fill_in( 'Name', with: "Daniel Casias")
-    # fill_in('address', with: '3456 East Spaulding Ave Parker, CO 80134')
-    # click_button('Submit')
-    #
-    # expect(current_path).to eq("/applications/new")
-    #
-    # fill_in( 'Name', with: "Daniel Casias")
-    # fill_in('address', with: '3456 East Spaulding Ave Parker, CO 80134')
-    # ill_in('Description', with: 'I would love a new pet!')
-    # click_button('Submit')
-    #
-    # expect(current_path).to eq('/applications')
-    # expect(page).to have_content('Daniel Casias')
+    application_one = Application.create(name: "Sarah")
+    expect(application_one).to_not be_valid
+
+    application_two = Application.create(name: "Sarah", address: "123")
+    expect(application_two).to be_valid
+    click_on("Submit")
+    expect(current_path).to eq("/applications")
   end
 
 end

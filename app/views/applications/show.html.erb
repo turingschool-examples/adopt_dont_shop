@@ -8,7 +8,7 @@
 <% else !@application.description.nil? %>
   <%@application.status = "Pending" %>
   <h3>Status: <%= @application.status %></h3>
-  <h4> Your pets: </h4>
+  <h3> Your pets: </h3>
     <% @pet.each do |pet| %>
       <p><%= pet.name %></p>
     <% end %>
@@ -17,21 +17,22 @@
 <% if @application.status != "Pending" %>
   <div id="pet_requests">
     <h4> Your pets: </h4>
-    <% if @pet != nil %>
+    <% if @pet != nil && @pet.count > 0%>
+
       <% @pet.each do |pet| %>
         <p><%= pet.name %></p>
       <% end %>
 
-        <section>
-          <%= form_with(url: "/applications/#{@application.id}", method: :post) do |form| %>
-            <%= form.label "Why I would make a great owner:" %>
-            <%= form.text_field :description %>
-            <%= form.submit value: "Submit Adoption Form" %>
-          <% end %>
-        </section>
-
-
+      <section>
+        <%= form_with(url: "/applications/#{@application.id}", method: :post) do |form| %>
+          <%= form.label "Why I would make a great owner:" %>
+          <%= form.text_field :description, :required => true %>
+          <%= form.submit value: "Submit Adoption Form" %>
+        <% end %>
+      </section>
+      
     <% end %>
+
   </div>
 
 

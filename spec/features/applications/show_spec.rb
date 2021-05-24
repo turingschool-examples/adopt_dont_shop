@@ -140,6 +140,34 @@ RSpec.describe 'the application show' do
     expect(page).to_not have_field(:pet_of_interst_name)
   end
 
+  #   [ ] done
+  #
+  # No Pets on an Application
+  #
+  # As a visitor
+  # When I visit an application's show page
+  # And I have not added any pets to the application
+  # Then I do not see a section to submit my application
+
+  it "will not allow you to bumit a for without pets requested" do
+    shelter = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
+    application_one = Application.create!(name: 'Sally Smith', address: '123 West 23rd Ave Parker, CO 80134', description: nil, status: "Pending" )
+    pet_1 = Pet.create(adoptable: true, age: 1, breed: 'sphynx', name: 'Jack', shelter_id: shelter.id)
+    visit "/applications/#{application_one.id}"
+
+    expect(page).to have_content("In Progress")
+    expect(page).to have_content("Sally Smith")
+
+    expect(page).to have_field(:pet_of_interst_name)
+
+    expect(page).to_not have_field(:description)
+
+    fill_in( "pet_of_interst_name", with: "Jack")
+    click_on("Find")
+    click_on("Adopt Jack")
+
+    expect(page).to have_field(:description)
+  end
 
 
 end
