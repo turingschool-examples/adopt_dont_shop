@@ -26,6 +26,10 @@ RSpec.describe 'petition show' do
     expect(page).to have_content('Add a Pet to this Application')
   end
 
+  it 'displays the default good home message by default' do
+    expect(page).to have_content("Why you'd make a great home for these pets: I love dogs")
+  end
+
   it 'shows all pets by default' do
     expect(page).to have_content 'Lucille Bald'
     expect(page).to have_content 'Fluffy'
