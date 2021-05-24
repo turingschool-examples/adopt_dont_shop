@@ -8,3 +8,24 @@
   <%= @pet_application.reason%><br>
   <%= @pet_application.status%><br>
   <br>
+  <br>
+  <%= form_with url: "/pet_applications/#{@pet_application.id}", method: :get, local: true do |f| %>
+    <%= f.label  "search for pet" %>
+    <%= f.text_field :search_for_pet %>
+    <%= f.submit "Search" %>
+  <% end %>
+  <br><br>
+
+<% if @matching_pet!= nil %>
+  <% @matching_pet.each do |pet|%>
+  <%= link_to "#{pet.name}'s page", "/pets/#{pet.id}" %>
+  <%= link_to "Add #{pet.name} to application", "/pet_applications/#{@pet_application.id}/pets/#{pet.id}", method: :patch %>
+  <% end %>
+<% end %>
+  <br><br>
+  <% if @pet_application.pets.count > 0 %>
+    <% @pet_application.pets.each do |pet| %>
+    <%= "#{pet.name} has been added" %><br>
+    <% end %>
+  <% end %>
+  <br><br>

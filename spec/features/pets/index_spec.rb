@@ -90,8 +90,8 @@ RSpec.describe 'the pets index' do
 
       visit '/pets'
 
-      expect(page).to have_link("Start application for #{pet_2.name}")
-      click_link "Start application for #{pet_2.name}"
+      expect(page).to have_link("Start application")
+      click_link "Start application"
       expect(current_path).to eq("/pet_applications/new")
       fill_in :name, with: "Alex"
       fill_in :street, with: "123 Dutch"
@@ -102,7 +102,7 @@ RSpec.describe 'the pets index' do
       expect(page).to have_button("Save")
       click_button "Save"
       pet_application = PetApplication.last
-      expect(current_path).to eq("/pet_applications/#{pet_application.id}") #its currently giving the application ID not the pet_id
-      expect(page).to have_content("Pending")
+      expect(current_path).to eq("/pet_applications/#{pet_application.id}")
+      expect(page).to have_content("In Progress")
     end
 end

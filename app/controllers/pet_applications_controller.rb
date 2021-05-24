@@ -6,6 +6,9 @@ class PetApplicationsController < ApplicationController
 
   def show
     @pet_application = PetApplication.find(params[:id])
+    if params[:search_for_pet]
+      @matching_pet = Pet.search(params[:search_for_pet])
+    end
   end
 
   def new
@@ -25,7 +28,7 @@ class PetApplicationsController < ApplicationController
   end
 
   def edit
-    @application = Application.find(params[id])
+    @pet_application = PetApplication.find(params[id])
   end
 
   # def update
@@ -43,6 +46,15 @@ class PetApplicationsController < ApplicationController
     pet_application.destroy
     redirect_to '/pet_applications'
   end
+
+  def connect_pet_to_app
+    @pet_application = PetApplication.find(params[:id])
+    @pet = Pet.find(params[:pet_id])
+    @pet_application.pets.push(@pet)
+
+    redirect_to "/pet_applications/#{@pet_application.id}"
+  end
+
 
   private
 
