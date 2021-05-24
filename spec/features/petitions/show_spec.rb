@@ -30,6 +30,10 @@ RSpec.describe 'petition show' do
     expect(page).to have_content("Why you'd make a great home for these pets: I love dogs")
   end
 
+  it 'starts off as status in progress' do
+    expect(page).to have_content('Your application status: In Progress')
+  end
+
   it 'shows all pets by default' do
     expect(page).to have_content 'Lucille Bald'
     expect(page).to have_content 'Fluffy'
