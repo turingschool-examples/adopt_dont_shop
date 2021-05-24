@@ -1,0 +1,32 @@
+<h1>New Application</h1>
+<%= form_with url: "/pet_application/new", method: :create, local: true do |f| %>
+  <%= f.label :applicant %>
+  <%= f.text_field :applicant %>
+<br>
+<br>
+  <%= f.label "Street Address" %>
+  <%= f.text_field "Street Address" %>
+<br>
+<br>
+  <%= f.label 'City' %>
+  <%= f.text_field 'City' %>
+<br>
+<br>
+  <%= f.label 'State' %>
+  <%= f.text_field 'State' %>
+<br>
+<br>
+  <%= f.label "Zip Code" %>
+  <%= f.text_field "Zip Code" %>
+<br>
+<br>
+  <%= f.label 'Description' %>
+  <%= f.text_field 'Description' %>
+<br>
+<br>
+  <%= f.label 'Application Status' %>
+  <%= f.text_field 'Application Status' %>
+<br>
+<br>
+  <%= f.submit %>
+<% end %>

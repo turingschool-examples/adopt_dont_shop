@@ -5,6 +5,9 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+Shelter.destroy_all
+VeterinaryOffice.destroy_all
+
 @shelter_1 = Shelter.create!(name: 'Hollywood shelter', city: 'Irvine, CA', foster_program: false, rank: 7)
 @shelter_2 = Shelter.create!(name: 'Heavenly pets', city: 'Denver, CO', foster_program: true, rank: 7)
 @shelter_3 = Shelter.create!(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
@@ -33,3 +36,7 @@
 @vet_office_3.veterinarians.create!(name: 'Taylor', on_call: true, review_rating: 10, veterinary_office_id: @vet_office_3.id)
 @vet_office_4.veterinarians.create!(name: 'Jim', on_call: true, review_rating: 8, veterinary_office_id: @vet_office_4.id)
 @vet_office_4.veterinarians.create!(name: 'Shannon', on_call: true, review_rating: 9, veterinary_office_id: @vet_office_4.id)
+
+
+@pet_application_1 = PetApplication.create!(name: 'Kathy', street_address: '16998 Farmwell Drive', city: 'Denver', state: 'Colorado', zip_code: '80014', description: 'No kids', status: 'Pending')
+@pet_application_2 = PetApplication.create!(name: 'Cody', street_address: '18772 Flower Lane', city: 'Dallas', state: 'Texas', zip_code: '75001', description: 'No other animals', status: 'Accepted')
