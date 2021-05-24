@@ -6,12 +6,19 @@ class ApplicationsController < ApplicationController
   end
 
   def new
+    @application = Application.new
   end
 
   def create
-    application = Application.new(application_params)
-    application.save
-    redirect_to "/applications/#{application.id}"
+    @application = Application.new(application_params)
+
+    if @application.save
+      redirect_to "/applications/#{@application.id}"
+    else
+      flash[:notice] = "Please fill out necessary fields for submission"
+      redirect_to '/applications/new'
+      # render :new
+    end
   end
 
   private
