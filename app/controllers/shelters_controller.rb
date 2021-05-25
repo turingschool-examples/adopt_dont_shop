@@ -62,6 +62,6 @@ class SheltersController < ApplicationController
   private
 
   def shelter_params
-    params.permit(:id, :name, :city, :foster_program, :rank)
+    params.permit(:id, :name, :street_address, :city, :state, :zip_code, :foster_program, :rank)
   end
 end

@@ -23,7 +23,6 @@ class ApplicationsController < ApplicationController
       @pets = Pet.search_by_name(params[:search])
     end
     @pets_adopting = @application.pets
-    # @source = 'applications'
   end
 
   def update

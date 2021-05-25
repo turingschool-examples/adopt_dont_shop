@@ -13,11 +13,11 @@ class Application < ApplicationRecord
   end
 
   def evaluate_status
-    if self.application_pets.where(status: 'Rejected').count > 0
-      self.update!(status: 'Rejected')
-    elsif self.application_pets.where(status: 'Approved').count == self.pets.count
-      self.update!(status: 'Approved')
-      self.pets.update_all(adoptable: false)
+    if application_pets.where(status: 'Rejected').count > 0
+      update!(status: 'Rejected')
+    elsif application_pets.where(status: 'Approved').count == self.pets.count
+      update!(status: 'Approved')
+      pets.update_all(adoptable: false)
     end
   end
 end
