@@ -140,7 +140,7 @@ RSpec.describe 'the application show' do
     expect(page).to_not have_field(:pet_of_interst_name)
   end
 
-  #   [ ] done
+  #   [x] done
   #
   # No Pets on an Application
   #
@@ -169,7 +169,7 @@ RSpec.describe 'the application show' do
     expect(page).to have_field(:description)
   end
 
-  # [ ] done
+  # [x] done
 
   # Partial Matches for Pet Names
   #
@@ -196,7 +196,7 @@ RSpec.describe 'the application show' do
     expect(page).to have_content("Jack")
   end
 
-  # [ ] done
+  # [x] done
 
   # Case Insensitive Matches for Pet Names
   #
