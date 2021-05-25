@@ -76,8 +76,8 @@ RSpec.describe 'application new page' do
     fill_in('Zip Code', with: '30346')
     click_button('Submit')
 
-    expect(page).to have_content("Please fill in missing fields.")
+    expect(page).to have_content("Application not saved: Please fill in missing fields.")
     # ask if the fields need to be specified or if this general statement is okay
+    # also ask if the filled in fields need to be stored/saved so the user only needs to fill in the missing ones
   end
-  
 end
