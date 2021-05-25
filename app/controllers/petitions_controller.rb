@@ -1,8 +1,7 @@
 # frozen_string_literal: true
 
 class PetitionsController < ApplicationController
-  def new
-  end
+  def new; end
 
   def create
     @petition = Petition.new(petition_params)
@@ -19,9 +18,7 @@ class PetitionsController < ApplicationController
     @petition = Petition.find(params[:id])
     @pets = Pet.all
 
-    if params[:search]
-      @pets = Pet.search(params[:search])
-    end
+    @pets = Pet.search(params[:search]) if params[:search]
     if params[:pet_id]
       new_pet = Pet.find(params[:pet_id])
       @pet_petition = PetPetition.create(petition: @petition, pet: new_pet)
@@ -32,7 +29,7 @@ class PetitionsController < ApplicationController
   def submit
     @petition = Petition.find(params[:id])
     @petition.goodhome = params[:goodhome]
-    @petition.status = "Pending"
+    @petition.status = 'Pending'
     @petition.save
     redirect_to "/petitions/#{@petition.id}"
   end

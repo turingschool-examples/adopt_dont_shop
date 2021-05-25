@@ -44,4 +44,6 @@ Rails.application.routes.draw do
   get '/petitions/:id', to: 'petitions#show'
   patch '/petitions/:id/submit', to: 'petitions#submit'
   post '/petitions', to: 'petitions#create'
+
+  get 'admin/shelters', to: 'admin_shelters#index'
 end

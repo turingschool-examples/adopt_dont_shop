@@ -56,7 +56,7 @@ RSpec.describe 'petition show' do
   it 'after clicking adopt button lists pets you want to adopt' do
     click_button('Adopt Fluffy')
 
-    expect(page).to have_content ("Pets you'd like to adopt: Fluffy")
+    expect(page).to have_content("Pets you'd like to adopt: Fluffy")
   end
 
   it 'allows for submitting application' do
