@@ -36,9 +36,8 @@ class Shelter < ApplicationRecord
     adoptable_pets.where('age >= ?', age_filter)
   end
 
-  def self.filter_by_pending_apps
-    
-    where(:id => Pet.filter_by_pending_apps)
+  def self.filter_by_pending_apps_ordered_alphabetically
+    where(:id => Pet.filter_by_pending_apps).order(:name)
   end
 
   def sql_name

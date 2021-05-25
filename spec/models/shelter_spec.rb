@@ -56,10 +56,10 @@ RSpec.describe Shelter, type: :model do
       end
     end
 
-    describe '#filter_by_pending_apps' do
-      it 'returns only shelters with pending apps' do
-        expect(Shelter.filter_by_pending_apps.first).to eq(@shelter_1)
-        expect(Shelter.filter_by_pending_apps.last).to eq(@shelter_3)
+    describe '#filter_by_pending_apps_ordered_alphabetically' do
+      it 'returns only shelters with pending apps ordered alphabetically' do
+        expect(Shelter.filter_by_pending_apps_ordered_alphabetically.first).to eq(@shelter_3)
+        expect(Shelter.filter_by_pending_apps_ordered_alphabetically.last).to eq(@shelter_1)
       end
     end
   end

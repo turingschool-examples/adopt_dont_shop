@@ -23,7 +23,6 @@ class Pet < ApplicationRecord
   end
 
   def application_status(app_id)
-    #does this belong in application pet? If so, do i "link" to a method there from here?
     if application_pets.where(pet_id: self.id, application_id: app_id, status: 'Approved').count > 0
       'Approved'
     elsif application_pets.where(pet_id: self.id, application_id: app_id, status: 'Rejected').count > 0
