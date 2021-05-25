@@ -30,16 +30,26 @@ RSpec.describe 'application new page' do
     fill_in('Description', with: 'I will love this pet forever!')
 
     click_button('Submit')
-    new_application_id = Application.last.id
-    expect(current_path).to eq("/applications/#{new_application_id}")
+    @new_application = Application.last
+    expect(current_path).to eq("/applications/#{@new_application.id}")
   end
 
   it 'shows the new application as in progress by default' do
-    application = Application.create!(name: 'June Harrity', street_address: '123 Pine St', city: 'Loganville', state: 'Georiga', zip_code: 30052, description: 'Because I am awesome.')
+    visit 'applications/new'
 
-    visit "/applications/#{application.id}"
+    fill_in('Name', with: 'Jessica Smith')
+    fill_in('Street Address', with: '356 Main St')
+    fill_in('City', with: 'Smyrna')
+    fill_in('State', with: 'Georgia')
+    fill_in('Zip Code', with: '30346')
+    fill_in('Description', with: 'I will love this pet forever!')
 
-    expect(page).to have_content("#{application.status}")
-    expect(application.status).to eq("In Progress")
+    click_button('Submit')
+    @new_application = Application.last
+
+    visit "/applications/#{@new_application.id}"
+
+    expect(page).to have_content("#{@new_application.status}")
+    expect(@new_application.status).to eq("In Progress")
   end
 end
