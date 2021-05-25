@@ -56,8 +56,11 @@ class Shelter < ApplicationRecord
 
   def sql_full_address
     sql = ("select concat(street_address,
+                          ' ',
                           city,
+                          ' ',
                           state,
+                          ' ',
                           zip_code)
             from shelters
             where id = #{self.id}")

@@ -13,9 +13,9 @@ RSpec.describe Shelter, type: :model do
   end
 
   before(:each) do
-    @shelter_1 = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
-    @shelter_2 = Shelter.create(name: 'RGV animal shelter', city: 'Harlingen, TX', foster_program: false, rank: 5)
-    @shelter_3 = Shelter.create(name: 'Fancy pets of Colorado', city: 'Denver, CO', foster_program: true, rank: 10)
+    @shelter_1 = Shelter.create(name: 'Fluffy Friends', street_address: '1311 E 27th Ave', city: 'Denver', state: 'CO', zip_code: 80205, foster_program: false, rank: 9)
+    @shelter_2 = Shelter.create(name: 'Coon City', street_address: '201 W Colfax Ave', city: 'Denver', state: 'CO', zip_code: 80202, foster_program: false, rank: 5)
+    @shelter_3 = Shelter.create(name: 'Cat Savers', street_address: '1455 High St', city: 'Denver', state: 'CO', zip_code: 80218, foster_program: true, rank: 10)
 
     @pet_1 = @shelter_1.pets.create(name: 'Mr. Pirate', breed: 'tuxedo shorthair', age: 5, adoptable: false)
     @pet_2 = @shelter_1.pets.create(name: 'Clawdia', breed: 'shorthair', age: 3, adoptable: true)
@@ -34,7 +34,7 @@ RSpec.describe Shelter, type: :model do
   describe 'class methods' do
     describe '#search' do
       it 'returns partial matches' do
-        expect(Shelter.search("Fancy")).to eq([@shelter_3])
+        expect(Shelter.search("Cat")).to eq([@shelter_3])
       end
     end
 
@@ -52,7 +52,7 @@ RSpec.describe Shelter, type: :model do
 
     describe '#order_by_alphabetical' do
       it 'orders the shelters by name in reverse alphabetical order' do
-        expect(Shelter.order_by_alphabetical).to eq([@shelter_2, @shelter_3, @shelter_1])
+        expect(Shelter.order_by_alphabetical).to eq([@shelter_1, @shelter_2, @shelter_3])
       end
     end
 
@@ -86,6 +86,19 @@ RSpec.describe Shelter, type: :model do
     describe '.pet_count' do
       it 'returns the number of pets at the given shelter' do
         expect(@shelter_1.pet_count).to eq(3)
+      end
+    end
+
+    describe '.sql_name' do
+      it 'returns the name of any given shelter' do
+
+        expect(@shelter_1.sql_name).to eq('Fluffy Friends')
+      end
+    end
+
+    describe '.sql_full_address' do
+      it 'returns the full address of any given shelter' do
+        expect(@shelter_1.sql_full_address).to eq('1311 E 27th Ave Denver CO 80205')
       end
     end
   end
