@@ -40,7 +40,27 @@ class Shelter < ApplicationRecord
     where(:id => Pet.filter_by_pending_apps)
   end
 
-  # def sql_name
-  #   # find_by_sql("select name from shelters where id = #{self.id}")
-  # end
+  def sql_name
+    # This is so frustrating.
+    # Even through my SQL returns the correct value,
+    # the fact that the SQL is running over AR means the end result is an AR association.
+    # So, in order to get my data out of an AR association,
+    # I have to do another pluck which should have been handled by my select statement,
+    # and then a first to get it out of the association
+    # One, this is annoying, and two, im  not sure this meets the spec
+    # If it doesnt, please help me understand what you're looing for
+    sql = ("select name from shelters where id = #{self.id}")
+    ActiveRecord::Base.connection.execute(sql)[0].values[0]
+    # self.find_by_sql("select name from shelters where id = #{id}").pluck(:name).first
+  end
+
+  def sql_full_address
+    sql = ("select concat(street_address,
+                          city,
+                          state,
+                          zip_code)
+            from shelters
+            where id = #{self.id}")
+    ActiveRecord::Base.connection.execute(sql)[0].values[0]
+  end
 end

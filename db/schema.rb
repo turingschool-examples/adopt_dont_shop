@@ -30,7 +30,7 @@ ActiveRecord::Schema.define(version: 2021_05_20_225919) do
     t.string "street_address"
     t.string "city"
     t.string "state"
-    t.string "zip_code"
+    t.integer "zip_code"
     t.string "status", default: "In Progress"
     t.string "statement"
     t.datetime "created_at", null: false
@@ -51,7 +51,10 @@ ActiveRecord::Schema.define(version: 2021_05_20_225919) do
   create_table "shelters", force: :cascade do |t|
     t.boolean "foster_program"
     t.string "name"
+    t.string "street_address"
     t.string "city"
+    t.string "state"
+    t.integer "zip_code"
     t.integer "rank"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
