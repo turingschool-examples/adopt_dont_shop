@@ -8,5 +8,5 @@ class Application < ApplicationRecord
   validates :city, presence: :true
   validates :state, presence: :true
   validates :zip_code, presence: :true
-  validates :description, presence: :true
+  #validates :description, presence: :true
 end

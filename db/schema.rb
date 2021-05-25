@@ -21,10 +21,10 @@ ActiveRecord::Schema.define(version: 2021_05_24_232136) do
     t.string "city", null: false
     t.string "state", null: false
     t.integer "zip_code", null: false
-    t.text "description", null: false
     t.string "status", default: "In Progress"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text "description"
   end
 
   create_table "pet_applications", force: :cascade do |t|

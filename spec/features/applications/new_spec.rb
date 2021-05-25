@@ -15,7 +15,6 @@ RSpec.describe 'application new page' do
     expect(page).to have_css('#city')
     expect(page).to have_css('#state')
     expect(page).to have_css('#zip_code')
-    expect(page).to have_css('#description')
     expect(page).to have_button('Submit')
   end
 
@@ -27,7 +26,6 @@ RSpec.describe 'application new page' do
     fill_in('City', with: 'Smyrna')
     fill_in('State', with: 'Georgia')
     fill_in('Zip Code', with: '30346')
-    fill_in('Description', with: 'I will love this pet forever!')
 
     click_button('Submit')
     @new_application = Application.last
@@ -42,7 +40,6 @@ RSpec.describe 'application new page' do
     fill_in('City', with: 'Smyrna')
     fill_in('State', with: 'Georgia')
     fill_in('Zip Code', with: '30346')
-    fill_in('Description', with: 'I will love this pet forever!')
 
     click_button('Submit')
     @new_application = Application.last
@@ -60,10 +57,9 @@ RSpec.describe 'application new page' do
     fill_in('Street Address', with: '356 Main St')
     fill_in('City', with: 'Smyrna')
     fill_in('State', with: 'Georgia')
-    fill_in('Zip Code', with: '30346')
     click_button('Submit')
 
-    
+
     expect(current_path).to eq("/applications/new")
   end
 
@@ -74,7 +70,6 @@ RSpec.describe 'application new page' do
     fill_in('Street Address', with: '356 Main St')
     fill_in('City', with: 'Smyrna')
     fill_in('State', with: 'Georgia')
-    fill_in('Zip Code', with: '30346')
     click_button('Submit')
 
     expect(page).to have_content("Application not saved: Please fill in missing fields.")
