@@ -1,10 +1,33 @@
 <h3>Pets To Be Adopted:</h3>
-<% if @pets_adopting.count == 0 %>
-<p style="color: darkred;"><%= "Please add pets to your application" %></p>
+<% if user == :applicant %>
+  <% if @pets_adopting.count == 0 %>
+  <p style="color: darkred;"><%= "Please add pets to your application" %></p>
+  <% else %>
+  <ul id='pets-list'>
+    <% @pets_adopting.each do |pet| %>
+      <li><tr><td><%= link_to "#{pet.name}", "/pets/#{pet.id}" %></li>
+      <% end %>
+  </ul>
+  <% end %>
 <% else %>
-<ul id='pets-list'>
-  <% @pets_adopting.each do |pet| %>
-    <li><tr><td><%= link_to "#{pet.name}", "/pets/#{pet.id}" %></li>
-    <% end %>
-</ul>
+ <table id='pets_adopting'>
+        <tr>
+          <th>Pet</th>
+          <th>Action / Status</th>
+        </tr>
+          <% @pets_adopting.each do |pet| %>
+            <tr><td><%= pet.name %></td>
+            <td>
+            <% if pet.approved_on_other_apps?(@application.id) %>
+              <%= "Approved For Adoption on Other App" %>
+              <button style="background-color: lightcoral"><%= link_to "Reject", adminapp_path(:outcome => 'reject', :pet_id => pet.id), method: :patch %></button>
+            <% elsif %>
+              <% pet.application_status(@application.id).nil? %>
+              <button style="background-color: lightgreen"><%= link_to "Approve", adminapp_path(:outcome => 'approve', :pet_id => pet.id), method: :patch %></button>
+              <button style="background-color: lightcoral"><%= link_to "Reject", adminapp_path(:outcome => 'reject', :pet_id => pet.id), method: :patch %></button>
+            <% else %>
+              <%= pet.application_status(@application.id) %>
+            <% end %> </td></tr>
+          <% end %>
+      </table><br>
 <% end %>

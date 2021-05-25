@@ -21,4 +21,23 @@ class Pet < ApplicationRecord
   def self.filter_by_pending_apps
     where(:id => ApplicationPet.filter_by_pending_apps).pluck(:shelter_id)
   end
+
+  def application_status(app_id)
+    #does this belong in application pet? If so, do i "link" to a method there from here?
+    if self.application_pets.where(pet_id: self.id, application_id: app_id, status: 'Approved').count > 0
+      'Approved'
+    elsif self.application_pets.where(pet_id: self.id, application_id: app_id, status: 'Rejected').count > 0
+      'Rejected'
+    else
+      nil
+    end
+  end
+
+  def approved_on_other_apps?(app_id)
+    approved_apps = self.application_pets.where(pet_id: self.id, status: 'Approved').pluck(:application_id)
+    other_approved_apps = Application.where.not(status: 'Rejected', id: app_id).where(:id => approved_apps)
+    if !other_approved_apps.empty?
+      return true
+    end
+  end
 end

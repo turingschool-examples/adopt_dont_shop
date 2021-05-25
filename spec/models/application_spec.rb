@@ -15,8 +15,8 @@ RSpec.describe Application, type: :model do
     @application2 = Application.create!(name: "Jane Doe", street_address: '201 W Colfax Ave', city: 'Denver', state: 'CO', zip_code: 80202, statement: "TEST", status: 'Pending')
     @application3 = Application.create!(name: "Barak Obama", street_address: '1600 Pennsylvania Ave', city: 'Washington', state: 'DC', zip_code: 20500, statement: "TEST", status: 'Pending')
 
-    @application_pet1 = ApplicationPet.create!(application: @application1, pet: @pet_1)
-    @application_pet2 = ApplicationPet.create!(application: @application2, pet: @pet_3)
+    @application_pet1 = ApplicationPet.create!(application: @application1, pet: @pet_1, status: 'Rejected')
+    @application_pet2 = ApplicationPet.create!(application: @application2, pet: @pet_3, status: 'Approved')
     @application_pet3 = ApplicationPet.create!(application: @application3, pet: @pet_2)
   end
 
@@ -30,6 +30,32 @@ RSpec.describe Application, type: :model do
       it 'returns only application_ids for pending apps' do
         expect(Application.filter_by_pending.first).to eq(@application1.id)
         expect(Application.filter_by_pending.last).to eq(@application3.id)
+      end
+    end
+  end
+  describe 'instance methods' do
+    describe '#evaluate_status' do
+      it 'evaluates the status of each pet on an application and updates the application status accordingly' do
+        @application1.evaluate_status
+
+        expect(@application1.status).to eq('Rejected')
+
+        @application2.evaluate_status
+
+        expect(@application2.status).to eq('Approved')
+
+        @application3.evaluate_status
+
+        expect(@application3.status).to eq('Pending')
+      end
+      it 'changes pets adoptable attribute to false if any application is approved' do
+
+        @application2.evaluate_status
+        pet = @application2.pets.first
+        
+        expect(pet.adoptable).to eq(false)
+        # These are the same, therefore the line below should work, but it doesnt.
+        # expect(@pets3).to eq(false)
       end
     end
   end

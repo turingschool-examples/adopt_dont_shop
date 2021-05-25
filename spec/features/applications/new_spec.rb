@@ -37,7 +37,7 @@ RSpec.describe 'applications new page', type: :feature do
     it 'flashes an error message and stays on the page if you fail to fill in any field' do
 
       visit "/applications/new"
-      # save_and_open_page
+
       fill_in 'street_address', with: '1311 E 27TH AVE'
       fill_in 'city', with: 'DENVER'
       fill_in 'state', with: 'CO'
