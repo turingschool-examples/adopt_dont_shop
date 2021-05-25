@@ -4,9 +4,6 @@ class Petition < ApplicationRecord
   has_many :pet_petitions
   has_many :pets, through: :pet_petitions
 
-  validates :name, presence: true
-  validates :street_address, presence: true
-  validates :city, presence: true
-  validates :state, presence: true
-  validates :zipcode, presence: true
+  validates :name, :street_address, :city, :state, :zipcode, presence: true
+
 end
