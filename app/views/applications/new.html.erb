@@ -1,3 +1,7 @@
+<% flash.each do |type, message| %>
+  <p><%= message %></p>
+<% end %>
+
 <%= form_with url: "/applications/:id", method: :post do |form| %>
   <%= form.label :name, 'Name' %>
   <%= form.text_field :name %>

@@ -52,4 +52,33 @@ RSpec.describe 'application new page' do
     expect(page).to have_content("#{@new_application.status}")
     expect(@new_application.status).to eq("In Progress")
   end
+
+  it 'redirects the user to the new application page if the form is not completed' do
+    visit "/applications/new"
+
+    fill_in('Name', with: 'Jessica Smith')
+    fill_in('Street Address', with: '356 Main St')
+    fill_in('City', with: 'Smyrna')
+    fill_in('State', with: 'Georgia')
+    fill_in('Zip Code', with: '30346')
+    click_button('Submit')
+
+    
+    expect(current_path).to eq("/applications/new")
+  end
+
+  it 'displays a message that the user must fill in missing fields before submitting' do
+    visit "/applications/new"
+
+    fill_in('Name', with: 'Jessica Smith')
+    fill_in('Street Address', with: '356 Main St')
+    fill_in('City', with: 'Smyrna')
+    fill_in('State', with: 'Georgia')
+    fill_in('Zip Code', with: '30346')
+    click_button('Submit')
+
+    expect(page).to have_content("Application not saved: Please fill in missing fields.")
+    # ask if the fields need to be specified or if this general statement is okay
+    # also ask if the filled in fields need to be stored/saved so the user only needs to fill in the missing ones
+  end
 end
