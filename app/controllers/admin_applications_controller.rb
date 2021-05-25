@@ -13,7 +13,6 @@ class AdminApplicationsController < ApplicationController
     #should this all live here or in the application? And here or in the model?
     applicationpet = ApplicationPet.find_record(params[:pet_id], params[:id])
     if params[:outcome] == 'approve'
-      # require 'pry'; binding.pry
       applicationpet.update(status: 'Approved')
     else
       applicationpet.update(status: 'Rejected')

@@ -13,7 +13,7 @@
   <% else %>
     <h4>Adoptable Pets Matching Search</h4>
   <% end %>
-  <%= render partial: 'pets/pets_view', locals: {path: "/applications/#{@application.id}", method: :patch } %>
+  <%= render partial: 'pets/pets_view', locals: { source: :applications, method: :patch } %>
 <% end %>
 
 <%= render partial: 'application_statement', locals: { method: :patch } %>

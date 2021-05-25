@@ -1,7 +1,7 @@
 <h1>All pets</h1>
 
 <%= button_to "Start an Adoption Application", "/applications/new", method: :get %><br>
-<%= render 'pets_view', pets: @pets %>
+<%= render partial: 'pets_view', locals: { source: :pets } %>
 
 <%= form_with url: "/pets", method: :get, local: true do |f| %>
   <%= f.label "Search Pets By Name" %>

@@ -37,6 +37,7 @@ class Shelter < ApplicationRecord
   end
 
   def self.filter_by_pending_apps
+    
     where(:id => Pet.filter_by_pending_apps)
   end
 
