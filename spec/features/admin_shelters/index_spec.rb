@@ -30,6 +30,22 @@ RSpec.describe 'admin_shelters index page', type: :feature do
         expect(page).to have_content('Cat Savers')
       end
     end
+    it 'the names of each shelter on the page is a link to its admin show page' do
+      visit "/admin/shelters/"
+
+      within "#admin-shelters-all" do
+        click_link 'Fluffy Friends'
+        expect(current_path).to eq("/admin/shelters/#{@shelter1.id}")
+      end
+
+      visit "/admin/shelters/"
+
+      within "#admin-shelters-pending-apps" do
+        click_link 'Cat Savers'
+        expect(current_path).to eq("/admin/shelters/#{@shelter3.id}")
+      end
+    end
+
     it 'lists all shelters with pending apps ordered alphabetically' do
       visit "/admin/shelters"
 
