@@ -58,4 +58,15 @@ RSpec.describe 'petition show' do
 
     expect(page).to have_content ("Pets you'd like to adopt: Fluffy")
   end
+
+  it 'allows for submitting application' do
+    click_button('Adopt Fluffy')
+    fill_in 'Say a bit about why you would make a good owner for these pets:', with: 'I love fluffy'
+    click_button('Submit Your Application')
+
+    expect(page).to have_content('Your application status: Pending')
+    expect(page).to have_content("Why you'd make a great home for these pets: I love fluffy")
+    expect(page).not_to have_content('Adopt Lucille Bald')
+    expect(page).not_to have_content('Submit Your Application')
+  end
 end
