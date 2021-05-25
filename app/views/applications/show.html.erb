@@ -9,13 +9,22 @@
     <tr><td>City:</td><td><%= @application.city %></td></tr>
     <tr><td>State:</td><td><%= @application.state %></td></tr>
     <tr><td>Zip Code:</td><td><%= @application.zip_code %></td></tr>
-    <tr><td>Why would you make a good forever home?</td><td><%= @application.description %></td></tr>
     <tr><td>Application Status:</td><td><%= @application.status %></td></tr>
   </table><br>
 
+  <section>
+    <div style="font-size:20px">Add a Pet to this Application</div><br>
+    <%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |f| %>
+      <%= f.label :search, "Search for Pet(s):" %>
+      <%= f.text_field :search %>
+      <%= f.submit "Search" %><br>
+    <% end %>
+  </section><br>
+
   <section id="application-<%= @application.id %>">
     <% @pets.each do |pet| %>
-      <p><%= link_to pet.name, "/pets/#{pet.id}" %></p>
+      <p><%= link_to pet.name, "/pets/#{pet.id}" %> </p>
     <% end %>
   </section>
 </body>
+</html>
