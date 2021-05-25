@@ -3,9 +3,9 @@ require 'rails_helper'
 RSpec.describe 'application show page' do
   before(:each) do
     @shelter = Shelter.create!(name: 'Mystery Building', city: 'Irvine CA', foster_program: false, rank: 9)
-    @pet_1 = Pet.create!(name: 'Scooby', age: 2, breed: 'Great Dane', adoptable: true, shelter_id: shelter.id)
-    @pet_2 = Pet.create!(name: 'Breadbox', age: 5, breed: 'Golden Lab', adoptable: true, shelter_id: shelter.id)
-    @pet_3 = Pet.create!(name: 'Lemon', age: 12, breed: 'Chihuaha', adoptable: true, shelter_id: shelter.id)
+    @pet_1 = Pet.create!(name: 'Scooby', age: 2, breed: 'Great Dane', adoptable: true, shelter_id: @shelter.id)
+    @pet_2 = Pet.create!(name: 'Breadbox', age: 5, breed: 'Golden Lab', adoptable: true, shelter_id: @shelter.id)
+    @pet_3 = Pet.create!(name: 'Lemon', age: 12, breed: 'Chihuaha', adoptable: true, shelter_id: @shelter.id)
     @application = Application.create!(name: 'June Harrity', street_address: '123 Pine St', city: 'Loganville', state: 'Georiga', zip_code: 30052, description: 'Because I am awesome.', status: "In Progress")
 
     @application.pets << @pet_1

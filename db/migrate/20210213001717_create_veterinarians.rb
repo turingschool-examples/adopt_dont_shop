@@ -5,7 +5,6 @@ class CreateVeterinarians < ActiveRecord::Migration[5.2]
       t.integer :review_rating
       t.string :name
       t.references :veterinary_office, foreign_key: true
-
       t.timestamps
     end
   end

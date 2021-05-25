@@ -4,7 +4,6 @@ class CreateVeterinaryOffices < ActiveRecord::Migration[5.2]
       t.boolean :boarding_services
       t.integer :max_patient_capacity
       t.string :name
-
       t.timestamps
     end
   end

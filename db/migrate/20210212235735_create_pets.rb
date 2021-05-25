@@ -6,7 +6,6 @@ class CreatePets < ActiveRecord::Migration[5.2]
       t.string :breed
       t.string :name
       t.references :shelter, null: false, foreign_key: true
-
       t.timestamps
     end
   end

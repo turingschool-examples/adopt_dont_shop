@@ -5,7 +5,6 @@ class CreateShelters < ActiveRecord::Migration[5.2]
       t.string :name
       t.string :city
       t.integer :rank
-
       t.timestamps
     end
   end
