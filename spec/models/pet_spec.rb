@@ -30,6 +30,8 @@ RSpec.describe Pet, type: :model do
     @application_pet1 = ApplicationPet.create!(application: @application1, pet: @pet_1)
     @application_pet2 = ApplicationPet.create!(application: @application2, pet: @pet_3)
     @application_pet3 = ApplicationPet.create!(application: @application3, pet: @pet_2)
+    @application_pet4 = ApplicationPet.create!(application: @application3, pet: @pet_1, status: 'Approved')
+    @application_pet5 = ApplicationPet.create!(application: @application2, pet: @pet_1, status: 'Rejected')
   end
 
   describe 'class methods' do
@@ -73,7 +75,15 @@ RSpec.describe Pet, type: :model do
     end
     describe '#application status' do
       it 'returns the status for a given application/pet pair' do
+        expect(@pet_1.application_status(@application3.id)).to eq('Approved')
+        expect(@pet_1.application_status(@application2.id)).to eq('Rejected')
         expect(@pet_3.application_status(@application1.id)).to eq(nil)
+      end
+    end
+    describe '#approved_on_other_apps?' do
+      it 'tells you if the pet is approved on other apps' do
+        expect(@pet_1.approved_on_other_apps?(@application1.id)).to eq(true)
+        expect(@pet_3.approved_on_other_apps?(@application2.id)).to eq(nil)
       end
     end
   end

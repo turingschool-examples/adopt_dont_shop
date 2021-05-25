@@ -18,13 +18,16 @@
           <% @pets_adopting.each do |pet| %>
             <tr><td><%= pet.name %></td>
             <td>
-            <% if pet.application_status(@application.id).nil? %>
+            <% if pet.approved_on_other_apps?(@application.id) %>
+              <%= "Approved For Adoption on Other App" %>
+              <button style="background-color: lightcoral"><%= link_to "Reject", adminapp_path(:outcome => 'reject', :pet_id => pet.id), method: :patch %></button>
+            <% elsif %>
+              <% pet.application_status(@application.id).nil? %>
               <button style="background-color: lightgreen"><%= link_to "Approve", adminapp_path(:outcome => 'approve', :pet_id => pet.id), method: :patch %></button>
               <button style="background-color: lightcoral"><%= link_to "Reject", adminapp_path(:outcome => 'reject', :pet_id => pet.id), method: :patch %></button>
-              </td></tr>
             <% else %>
               <%= pet.application_status(@application.id) %>
-            <% end %>
+            <% end %> </td></tr>
           <% end %>
       </table><br>
 <% end %>
