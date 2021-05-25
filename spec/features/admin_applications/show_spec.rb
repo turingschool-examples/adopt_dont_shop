@@ -18,6 +18,7 @@ RSpec.describe 'admin_applications show page', type: :feature do
     @application_pet1 = ApplicationPet.create!(application: @application1, pet: @pet_1)
     @application_pet1 = ApplicationPet.create!(application: @application1, pet: @pet_4)
     @application_pet2 = ApplicationPet.create!(application: @application2, pet: @pet_3)
+    @application_pet3 = ApplicationPet.create!(application: @application3, pet: @pet_1)
     @application_pet3 = ApplicationPet.create!(application: @application3, pet: @pet_2)
   end
 
@@ -73,6 +74,24 @@ RSpec.describe 'admin_applications show page', type: :feature do
         expect(page).to have_content('Rejected')
         expect(page).to_not have_link('Approve')
         expect(page).to_not have_link('Reject')
+      end
+    end
+    it 'does not allow you to approve a pet approved on another application' do
+      visit "/admin/applications/#{@application1.id}"
+
+      click_link('Approve', match: :first)
+
+      visit "/admin/applications/#{@application3.id}"
+
+      within "#pets_adopting > tr:nth-child(2)" do
+        expect(page).to have_content('Approved For Adoption on Other App')
+        expect(page).to_not have_link('Approve')
+        expect(page).to have_link('Reject')
+      end
+
+      within "#pets_adopting > tr:nth-child(3)" do
+        expect(page).to have_link('Approve')
+        expect(page).to have_link('Reject')
       end
     end
     # This test does not work and I'm not sure why....
