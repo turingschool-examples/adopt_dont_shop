@@ -17,6 +17,7 @@ class Application < ApplicationRecord
       self.update!(status: 'Rejected')
     elsif self.application_pets.where(status: 'Approved').count == self.pets.count
       self.update!(status: 'Approved')
+      self.pets.update_all(adoptable: false)
     end
   end
 end

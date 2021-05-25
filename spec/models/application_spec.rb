@@ -48,6 +48,15 @@ RSpec.describe Application, type: :model do
 
         expect(@application3.status).to eq('Pending')
       end
+      it 'changes pets adoptable attribute to false if any application is approved' do
+
+        @application2.evaluate_status
+        pet = @application2.pets.first
+        
+        expect(pet.adoptable).to eq(false)
+        # These are the same, therefore the line below should work, but it doesnt.
+        # expect(@pets3).to eq(false)
+      end
     end
   end
 end
