@@ -32,7 +32,7 @@ During your Check In, you should be prepared to review your database schema for 
 
 ## Evaluation
 
-Before your evaluation, choose 2 user stories to present in a small group. Try to pick user stories that you think will deliever the highest value in terms of feedback from the instructor and peers. 
+Before your evaluation, choose 2 user stories to present in a small group. Try to pick user stories that you think will deliever the highest value in terms of feedback from the instructor and peers.
 
 During the evaluation, you will present your user story:
 
@@ -420,3 +420,16 @@ Then next to each pet's name I see a link to the admin application show page whe
 ### Styling
 
 Implement a CSS Grid Framework to improve your styling, either [CSS Grid Layout](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout) or [Bootstrap](https://getbootstrap.com/)
+
+
+<% if @application.description.nil? %>
+  <%@application.status = "In Progress" %>
+  <h3>Status: <%= @application.status %></h3>
+<% else !@application.description.nil? %>
+  <%@application.status = "Pending" %>
+  <h3>Status: <%= @application.status %></h3>
+  <h3> Your pets: </h3>
+    <% @pet.each do |pet| %>
+      <p><%= pet.name %></p>
+    <% end %>
+<% end %>

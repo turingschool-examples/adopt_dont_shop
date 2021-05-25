@@ -43,11 +43,12 @@ RSpec.describe 'the application show' do
 
   it "can search for a pet by name" do
     shelter = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
-    application_one = Application.create!(name: 'Sally Smith', address: '123 West 23rd Ave Parker, CO 80134', description: nil, status: "Pending" )
+    application_one = Application.create!(name: 'Sally Smith', address: '123 West 23rd Ave Parker, CO 80134', description: nil, status: "In Progress" )
     pet_1 = Pet.create(adoptable: true, age: 1, breed: 'sphynx', name: 'Jack', shelter_id: shelter.id)
     visit "/applications/#{application_one.id}"
 
     expect(page).to have_content("Sally Smith")
+    # save_and_open_page
     expect(page).to have_field(:pet_of_interst_name)
     expect(page).to have_content("In Progress")
 
@@ -73,7 +74,7 @@ RSpec.describe 'the application show' do
 
   it "can search for a pet by name" do
     shelter = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
-    application_one = Application.create!(name: 'Sally Smith', address: '123 West 23rd Ave Parker, CO 80134', description: nil, status: "Pending" )
+    application_one = Application.create!(name: 'Sally Smith', address: '123 West 23rd Ave Parker, CO 80134', description: nil, status: "In Progress" )
     pet_1 = Pet.create(adoptable: true, age: 1, breed: 'sphynx', name: 'Jack', shelter_id: shelter.id)
     visit "/applications/#{application_one.id}"
 
@@ -111,7 +112,7 @@ RSpec.describe 'the application show' do
 
   it "can post pet for adoption" do
     shelter = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
-    application_one = Application.create!(name: 'Sally Smith', address: '123 West 23rd Ave Parker, CO 80134', description: nil, status: "Pending" )
+    application_one = Application.create!(name: 'Sally Smith', address: '123 West 23rd Ave Parker, CO 80134', description: nil, status: "In Progress" )
     pet_1 = Pet.create(adoptable: true, age: 1, breed: 'sphynx', name: 'Jack', shelter_id: shelter.id)
     visit "/applications/#{application_one.id}"
 
@@ -151,7 +152,7 @@ RSpec.describe 'the application show' do
 
   it "will not allow you to bumit a for without pets requested" do
     shelter = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
-    application_one = Application.create!(name: 'Sally Smith', address: '123 West 23rd Ave Parker, CO 80134', description: nil, status: "Pending" )
+    application_one = Application.create!(name: 'Sally Smith', address: '123 West 23rd Ave Parker, CO 80134', description: nil, status: "In Progress" )
     pet_1 = Pet.create(adoptable: true, age: 1, breed: 'sphynx', name: 'Jack', shelter_id: shelter.id)
     visit "/applications/#{application_one.id}"
 
@@ -181,7 +182,7 @@ RSpec.describe 'the application show' do
 
   it 'can find partial matches to pet name' do
     shelter = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
-    application_one = Application.create!(name: 'Sally Smith', address: '123 West 23rd Ave Parker, CO 80134', description: nil, status: "Pending" )
+    application_one = Application.create!(name: 'Sally Smith', address: '123 West 23rd Ave Parker, CO 80134', description: nil, status: "In Progress" )
     pet_1 = Pet.create(adoptable: true, age: 1, breed: 'sphynx', name: 'Jack', shelter_id: shelter.id)
     pet_2 = Pet.create(adoptable: true, age: 1, breed: 'sphynx', name: 'Fluffy', shelter_id: shelter.id)
     pet_3 = Pet.create(adoptable: true, age: 1, breed: 'sphynx', name: 'Rascal', shelter_id: shelter.id)
@@ -209,7 +210,7 @@ RSpec.describe 'the application show' do
 
   it 'can find case insensitive matches' do
     shelter = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
-    application_one = Application.create!(name: 'Sally Smith', address: '123 West 23rd Ave Parker, CO 80134', description: nil, status: "Pending" )
+    application_one = Application.create!(name: 'Sally Smith', address: '123 West 23rd Ave Parker, CO 80134', description: nil, status: "In Progress" )
     pet_1 = Pet.create(adoptable: true, age: 1, breed: 'sphynx', name: 'Jack', shelter_id: shelter.id)
     pet_2 = Pet.create(adoptable: true, age: 1, breed: 'sphynx', name: 'Fluffy', shelter_id: shelter.id)
     pet_3 = Pet.create(adoptable: true, age: 1, breed: 'sphynx', name: 'Rascal', shelter_id: shelter.id)

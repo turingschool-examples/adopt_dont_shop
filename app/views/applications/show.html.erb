@@ -1,12 +1,12 @@
 <h1><%= @application.name %></h1>
 <h3>Street Address: <%= @application.address %></h3>
+<h3>Status: <%= @application.status %></h3>
 <h3>Description: <%= @application.description %></h3>
 
-<% if @application.description.nil? %>
-  <%@application.status = "In Progress" %>
-  <h3>Status: <%= @application.status %></h3>
-<% else !@application.description.nil? %>
+
+<% if !@application.description.nil? %>
   <%@application.status = "Pending" %>
+  <% @application.save %>
   <h3>Status: <%= @application.status %></h3>
   <h3> Your pets: </h3>
     <% @pet.each do |pet| %>
@@ -30,7 +30,7 @@
           <%= form.submit value: "Submit Adoption Form" %>
         <% end %>
       </section>
-      
+
     <% end %>
 
   </div>
