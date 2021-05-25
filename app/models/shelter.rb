@@ -40,6 +40,18 @@ class Shelter < ApplicationRecord
     where(:id => Pet.filter_by_pending_apps).order(:name)
   end
 
+  def average_pet_age
+    pets.average(:age).round(2)
+  end
+
+  def num_adoptable_pets
+    pets.where(adoptable: true).count
+  end
+
+  def num_adopted_pets
+    pets.where(adoptable: false).count
+  end
+
   def sql_name
     # This is so frustrating.
     # Even through my SQL returns the correct value,

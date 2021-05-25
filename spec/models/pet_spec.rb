@@ -41,7 +41,6 @@ RSpec.describe Pet, type: :model do
         expect(Pet.search("Claw")).to eq([@pet_2])
       end
     end
-
     describe '#search_by_name' do
       it 'returns partial matches' do
         expect(Pet.search_by_name("Claw")).to eq([@pet_2])
@@ -53,13 +52,11 @@ RSpec.describe Pet, type: :model do
         expect(Pet.search_by_name("ClaWDia")).to eq([@pet_2])
       end
     end
-
     describe '#adoptable' do
       it 'returns adoptable pets' do
         expect(Pet.adoptable).to eq([@pet_2, @pet_3, @pet_4])
       end
     end
-
     describe '#filter_by_pending_apps' do
       it 'returns shelter_ids for only pets with pending apps' do
         expect(Pet.filter_by_pending_apps.first).to eq(@pet_1.shelter_id)

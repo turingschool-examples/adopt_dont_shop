@@ -1,5 +1,23 @@
-<h1>Shelter Details For:
+<h1><%= "Shelter Details For #{@shelter.sql_name}" %></h1>
 
-<h3><%= "#{@shelter.sql_name}" %></h3>
+<h3><%= "Location: #{@shelter.sql_full_address}" %></h3>
 
-<h4><%= "Located at #{@shelter.sql_full_address}" %></h4>
+<h3> Shelter Statistics </h3>
+<table>
+  <tr>
+    <th>Data Point</th>
+    <th>Value</th>
+  </tr>
+    <tr>
+      <td>Average Pet Age</td>
+      <td><%= "#{@shelter.average_pet_age} years" %></td>
+    </tr>
+    <tr>
+      <td>Number of Adoptable Pets</td>
+      <td><%= "#{@shelter.num_adoptable_pets} pets" %></td>
+    </tr>
+    <tr>
+      <td>Number of Pets Adopted</td>
+      <td><%= "#{@shelter.num_adopted_pets} pets" %></td>
+    </tr>
+</table>

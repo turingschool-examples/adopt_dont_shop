@@ -70,35 +70,40 @@ RSpec.describe Shelter, type: :model do
         expect(@shelter_1.adoptable_pets).to eq([@pet_2, @pet_4])
       end
     end
-
     describe '.alphabetical_pets' do
       it 'returns pets associated with the given shelter in alphabetical name order' do
         expect(@shelter_1.alphabetical_pets).to eq([@pet_4, @pet_2])
       end
     end
-
     describe '.shelter_pets_filtered_by_age' do
       it 'filters the shelter pets based on given params' do
         expect(@shelter_1.shelter_pets_filtered_by_age(5)).to eq([@pet_4])
       end
     end
-
     describe '.pet_count' do
       it 'returns the number of pets at the given shelter' do
         expect(@shelter_1.pet_count).to eq(3)
       end
     end
-
     describe '.sql_name' do
       it 'returns the name of any given shelter' do
 
         expect(@shelter_1.sql_name).to eq('Fluffy Friends')
       end
     end
-
     describe '.sql_full_address' do
       it 'returns the full address of any given shelter' do
         expect(@shelter_1.sql_full_address).to eq('1311 E 27th Ave Denver CO 80205')
+      end
+    end
+    describe '#average_pet_age' do
+      it 'tells you what the average age of pets at the shelter is' do
+        expect(@shelter_1.average_pet_age).to eq(4.33)
+      end
+    end
+    describe '#num_adoptable_pets' do
+      it 'tells you how many adoptable pets the shelter has' do
+        expect(@shelter_1.numer_adoptable_pets).to eq(2)
       end
     end
   end
