@@ -26,6 +26,14 @@ RSpec.describe 'petition show' do
     expect(page).to have_content('Add a Pet to this Application')
   end
 
+  it 'displays the default good home message by default' do
+    expect(page).to have_content("Why you'd make a great home for these pets: I love dogs")
+  end
+
+  it 'starts off as status in progress' do
+    expect(page).to have_content('Your application status: In Progress')
+  end
+
   it 'shows all pets by default' do
     expect(page).to have_content 'Lucille Bald'
     expect(page).to have_content 'Fluffy'
@@ -49,5 +57,16 @@ RSpec.describe 'petition show' do
     click_button('Adopt Fluffy')
 
     expect(page).to have_content ("Pets you'd like to adopt: Fluffy")
+  end
+
+  it 'allows for submitting application' do
+    click_button('Adopt Fluffy')
+    fill_in 'Say a bit about why you would make a good owner for these pets:', with: 'I love fluffy'
+    click_button('Submit Your Application')
+
+    expect(page).to have_content('Your application status: Pending')
+    expect(page).to have_content("Why you'd make a great home for these pets: I love fluffy")
+    expect(page).not_to have_content('Adopt Lucille Bald')
+    expect(page).not_to have_content('Submit Your Application')
   end
 end

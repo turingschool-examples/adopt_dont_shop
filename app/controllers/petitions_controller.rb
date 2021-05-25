@@ -29,6 +29,14 @@ class PetitionsController < ApplicationController
     end
   end
 
+  def submit
+    @petition = Petition.find(params[:id])
+    @petition.goodhome = params[:goodhome]
+    @petition.status = "Pending"
+    @petition.save
+    redirect_to "/petitions/#{@petition.id}"
+  end
+
   private
 
   def petition_params
