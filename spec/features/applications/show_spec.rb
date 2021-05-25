@@ -169,5 +169,60 @@ RSpec.describe 'the application show' do
     expect(page).to have_field(:description)
   end
 
+  # [ ] done
+
+  # Partial Matches for Pet Names
+  #
+  # As a visitor
+  # When I visit an application show page
+  # And I search for Pets by name
+  # Then I see any pet whose name PARTIALLY matches my search
+  # For example, if I search for "fluff", my search would match pets with names "fluffy", "fluff", and "mr. fluff"
+
+  it 'can find partial matches to pet name' do
+    shelter = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
+    application_one = Application.create!(name: 'Sally Smith', address: '123 West 23rd Ave Parker, CO 80134', description: nil, status: "Pending" )
+    pet_1 = Pet.create(adoptable: true, age: 1, breed: 'sphynx', name: 'Jack', shelter_id: shelter.id)
+    pet_2 = Pet.create(adoptable: true, age: 1, breed: 'sphynx', name: 'Fluffy', shelter_id: shelter.id)
+    pet_3 = Pet.create(adoptable: true, age: 1, breed: 'sphynx', name: 'Rascal', shelter_id: shelter.id)
+    pet_4 = Pet.create(adoptable: true, age: 1, breed: 'sphynx', name: 'Applejack', shelter_id: shelter.id)
+    visit "/applications/#{application_one.id}"
+
+    fill_in( "pet_of_interst_name", with: "Jack")
+    click_on("Find")
+    expect(page).to_not have_content("Fluffy")
+    expect(page).to_not have_content("Rascal")
+    expect(page).to have_content("Applejack")
+    expect(page).to have_content("Jack")
+  end
+
+  # [ ] done
+
+  # Case Insensitive Matches for Pet Names
+  #
+  # As a visitor
+  # When I visit an application show page
+  # And I search for Pets by name
+  # Then my search is case insensitive
+  # For example, if I search for "fluff", my search would match pets with names "Fluffy", "FLUFF", and "Mr. FlUfF"
+
+
+  it 'can find case insensitive matches' do
+    shelter = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
+    application_one = Application.create!(name: 'Sally Smith', address: '123 West 23rd Ave Parker, CO 80134', description: nil, status: "Pending" )
+    pet_1 = Pet.create(adoptable: true, age: 1, breed: 'sphynx', name: 'Jack', shelter_id: shelter.id)
+    pet_2 = Pet.create(adoptable: true, age: 1, breed: 'sphynx', name: 'Fluffy', shelter_id: shelter.id)
+    pet_3 = Pet.create(adoptable: true, age: 1, breed: 'sphynx', name: 'Rascal', shelter_id: shelter.id)
+    pet_4 = Pet.create(adoptable: true, age: 1, breed: 'sphynx', name: 'Applejack', shelter_id: shelter.id)
+    visit "/applications/#{application_one.id}"
+
+    fill_in( "pet_of_interst_name", with: "JACK")
+    click_on("Find")
+    expect(page).to_not have_content("Fluffy")
+    expect(page).to_not have_content("Rascal")
+    expect(page).to have_content("Applejack")
+    expect(page).to have_content("Jack")
+  end
+
 
 end
