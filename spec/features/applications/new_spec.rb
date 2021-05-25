@@ -30,8 +30,8 @@ RSpec.describe 'application new page' do
     fill_in('Description', with: 'I will love this pet forever!')
 
     click_button('Submit')
-
-    expect(current_path).to eq("/applications/1")
+    new_application_id = Application.last.id
+    expect(current_path).to eq("/applications/#{new_application_id}")
   end
 
   it 'shows the new application as in progress by default' do
