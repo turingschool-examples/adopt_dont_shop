@@ -12,5 +12,4 @@ describe 'admin shelters index' do
     expect('Greely Dumb Friends League').to appear_before('Eagle Pet Sanctuary')
     expect('Eagle Pet Sanctuary').to appear_before('Denver Pet Shelter')
   end
-
 end

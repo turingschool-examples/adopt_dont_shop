@@ -19,7 +19,7 @@ class Shelter < ApplicationRecord
   end
 
   def self.reverse_alphabet
-    Shelter.find_by_sql("SELECT * FROM shelters ORDER BY name DESC")
+    Shelter.find_by_sql('SELECT * FROM shelters ORDER BY name DESC')
   end
 
   def pet_count
