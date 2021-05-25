@@ -49,10 +49,13 @@ Rails.application.routes.draw do
   post 'applications/:id', to: 'applications#submit_pet'
 
   get '/admin/shelters', to: 'admin_shelters#index'
+  get '/admin/shelters/:id', to: 'admin_shelters#show'
+  
   # get '/admin/shelters/new', to: 'shelters#new'
   # get '/admin/shelters/:id', to: 'shelters#show'
   # post '/admin/shelters', to: 'shelters#create'
   # get '/admin/shelters/:id/edit', to: 'shelters#edit'
   # patch '/admin/shelters/:id', to: 'shelters#update'
   # delete '/admin/shelters/:id', to: 'shelters#destroy'
+
 end
