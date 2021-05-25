@@ -2,6 +2,7 @@ class AdminApplicationsController < ApplicationController
 
   def show
     @application = Application.find(params[:id])
+    @application.evaluate_status
     @pets_adopting = @application.pets
   end
 
