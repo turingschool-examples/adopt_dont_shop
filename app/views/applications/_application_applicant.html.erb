@@ -2,15 +2,15 @@
     <h3>Applicant Details:</h3>
     <% if method == :post %>
       <%= form.label :name, 'Full Name:' %>
-      <%= form.text_field :name, required: true %><br><br>
+      <%= form.text_field :name, required: true, value: @application.name %><br><br>
       <%= form.label :street_address, 'Street Address:' %>
-      <%= form.text_field :street_address, required: true %><br><br>
+      <%= form.text_field :street_address, required: true, value: @application.name %><br><br>
       <%= form.label :city, 'City:' %>
-      <%= form.text_field :city, required: true %><br><br>
+      <%= form.text_field :city, required: true, value: @application.name %><br><br>
       <%= form.label :state, 'State:' %>
-      <%= form.text_field :state, required: true %><br><br>
+      <%= form.text_field :state, required: true, value: @application.name %><br><br>
       <%= form.label :zip_code, 'Zip Code:' %>
-      <%= form.text_field :zip_code, required: true %><br><br>
+      <%= form.text_field :zip_code, value: @application.name %><br><br>
       <%= form.submit 'Submit Applicant Details' %>
     <% else %>
       <table>

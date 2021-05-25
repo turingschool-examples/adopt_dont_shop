@@ -1,0 +1,5 @@
+Error messages - have both javascript required and flash messages,
+but following steps outlined in class today did not succeed in auto-filling my form.
+Remember to replace required on zip code!
+
+Is it standard practice to name all controllers/routes plural? I.E. admins vs admin

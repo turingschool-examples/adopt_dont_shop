@@ -9,7 +9,7 @@
   </tr>
       <% @shelters.each do |shelter| %>
     <tr>
-        <td><%= shelter.name %></td>
+        <td><%= link_to "#{shelter.name}", "/admin/shelters/#{shelter.id}", method: :get %></td>
         <td><%= shelter.city%></td>
         <td><%= shelter.rank %></td>
     </tr>
@@ -25,7 +25,7 @@
   </tr>
       <% @shelters_w_pending_apps.each do |shelter| %>
     <tr>
-        <td><%= shelter.name %></td>
+        <td><%= link_to "#{shelter.name}", "/admin/shelters/#{shelter.id}", method: :get %></td>
         <td><%= shelter.city%></td>
         <td><%= shelter.rank %></td>
     </tr>

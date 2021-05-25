@@ -39,4 +39,8 @@ class Shelter < ApplicationRecord
   def self.filter_by_pending_apps
     where(:id => Pet.filter_by_pending_apps)
   end
+
+  # def sql_name
+  #   # find_by_sql("select name from shelters where id = #{self.id}")
+  # end
 end

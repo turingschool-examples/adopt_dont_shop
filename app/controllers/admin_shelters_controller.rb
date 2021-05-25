@@ -4,4 +4,8 @@ class AdminSheltersController < ApplicationController
     @shelters = Shelter.order_by_alphabetical
     @shelters_w_pending_apps = Shelter.filter_by_pending_apps
   end
+
+  def show
+    @shelter = Shelter.find(params[:id])
+  end
 end

@@ -1,5 +1,8 @@
 class AdminApplicationsController < ApplicationController
 
+  def index
+  end
+
   def show
     @application = Application.find(params[:id])
     @application.evaluate_status
