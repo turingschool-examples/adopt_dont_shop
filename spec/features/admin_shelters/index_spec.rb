@@ -21,36 +21,15 @@ RSpec.describe 'admin_shelters index page', type: :feature do
   end
 
   describe 'default page appearance' do
-    it 'has a table showing all shelters in reverse alphabetical order' do
-      visit '/admin/shelters'
+    it 'lists the name of the shelter being shown' do
+      visit "/admin/shelters/#{@shelter1.id}"
 
-      expect(page).to have_content('All Shelters')
-
-      within "#admin-shelters-all > tr:nth-child(2)" do
-        expect(page).to have_content(@shelter1.name)
-      end
-
-      within "#admin-shelters-all > tr:nth-child(3)" do
-        expect(page).to have_content(@shelter2.name)
-      end
-
-      within "#admin-shelters-all > tr:nth-child(4)" do
-        expect(page).to have_content(@shelter3.name)
-      end
+      expect(page).to have_content('Fluffy Friends')
     end
+    it 'lists the full address of the shelter being shown' do
+      visit "/admin/shelters/#{@shelter1.id}"
 
-    it 'has a table showing only shelters with pending applications' do
-      visit '/admin/shelters'
-
-      expect(page).to have_content('Shelters With Pending Applications')
-
-      within "#admin-shelters-pending-apps > tr:nth-child(2)" do
-        expect(page).to have_content(@shelter1.name)
-      end
-
-      within "#admin-shelters-pending-apps > tr:nth-child(3)" do
-        expect(page).to have_content(@shelter3.name)
-      end
+      expect(page).to have_content('1311 E 27th Ave Denver CO 80205')
     end
   end
 end
