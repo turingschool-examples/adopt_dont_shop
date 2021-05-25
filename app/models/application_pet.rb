@@ -10,16 +10,4 @@ class ApplicationPet < ApplicationRecord
     id = where(application_id: app_id, pet_id: pet_id).pluck(:id)
     find(id).first
   end
-
-  def self.rejected_pet_count_for_app(app_id)
-    where(application_id: app_id, status: 'Rejected').count
-  end
-
-  def self.approved_pet_count_for_app(app_id)
-    where(application_id: app_id, status: 'Approved').count
-  end
-
-  def self.total_pet_count_for_app(app_id)
-    where(application_id: app_id).count
-  end
 end

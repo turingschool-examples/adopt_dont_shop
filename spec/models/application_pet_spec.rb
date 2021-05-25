@@ -33,20 +33,6 @@ RSpec.describe ApplicationPet, type: :model do
         expect(ApplicationPet.filter_by_pending_apps.last).to eq(@pet_2.id)
       end
     end
-    describe '#rejected_pet_count_for_app' do
-      it 'returns a count of how many pets have been rejected in a given app' do
-
-        expect(ApplicationPet.rejected_pet_count_for_app(@application1.id)).to eq(1)
-        expect(ApplicationPet.rejected_pet_count_for_app(@application2.id)).to eq(0)
-      end
-    end
-    describe '#approved_pet_count_for_app' do
-      it 'returns a count of how many pets have been rejected in a given app' do
-
-        expect(ApplicationPet.approved_pet_count_for_app(@application1.id)).to eq(0)
-        expect(ApplicationPet.approved_pet_count_for_app(@application2.id)).to eq(1)
-      end
-    end
   end
 
   describe 'instance methods' do

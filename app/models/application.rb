@@ -13,9 +13,9 @@ class Application < ApplicationRecord
   end
 
   def evaluate_status
-    if ApplicationPet.rejected_pet_count_for_app(self.id) > 0
+    if self.application_pets.where(status: 'Rejected').count > 0
       self.update!(status: 'Rejected')
-    elsif ApplicationPet.approved_pet_count_for_app(self.id) == self.pets.count
+    elsif self.application_pets.where(status: 'Approved').count == self.pets.count
       self.update!(status: 'Approved')
     end
   end
