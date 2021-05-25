@@ -8,29 +8,6 @@ class ApplicationsController < ApplicationController
   end
 
   def create
-    if params[:name] == ""
-      params[:name] = nil
-    end
-
-    if params[:street_address] == ""
-      params[:street_address] = nil
-    end
-
-    if params[:city] == ""
-      params[:city] = nil
-    end
-
-    if params[:state] == ""
-      params[:state] = nil
-    end
-
-    if params[:zip_code] == ""
-      params[:zip_code] = nil
-    end
-
-    if params[:description] == ""
-      params[:description] = nil
-    end
     @application = Application.new(
       name: params[:name],
       street_address: params[:street_address],
@@ -43,7 +20,7 @@ class ApplicationsController < ApplicationController
       redirect_to "/applications/#{@application.id}"
     else
       flash[:notice] = "Application not saved: Please fill in missing fields."
-      render :new
+      redirect_to "/applications/new" #render does not work here, why?
     end
   end
 end

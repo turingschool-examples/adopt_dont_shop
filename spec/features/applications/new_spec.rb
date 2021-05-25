@@ -63,6 +63,7 @@ RSpec.describe 'application new page' do
     fill_in('Zip Code', with: '30346')
     click_button('Submit')
 
+    
     expect(current_path).to eq("/applications/new")
   end
 
