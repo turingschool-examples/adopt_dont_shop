@@ -11,7 +11,7 @@ require 'faker'
 FactoryBot.define do
   factory :shelter do
     foster_program { rand(2) == 0 }
-    name { Faker::Address.street_address }
+    name { Faker::Company.name }
     city { Faker::Address.city}
     rank { rand(1..5) }
   end

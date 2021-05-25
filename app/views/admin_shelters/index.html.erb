@@ -1,0 +1,12 @@
+<% @shelters.each do |shelter| %>
+  <p><%= shelter.name %></p>
+<% end %>
+
+<p>Shelters with Pending Applications: </p>
+<% @shelters.each do |shelter| %>
+  <% @applications_pending.each do |application| %>
+    <% if application.shelter_id == shelter.id %>
+      <p><%= shelter.name %></p>
+    <% end %>
+  <% end %>
+<% end %>
