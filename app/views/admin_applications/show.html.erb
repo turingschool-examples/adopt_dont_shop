@@ -1,0 +1,10 @@
+<h1><%= @application.name %></h1>
+<h3>Street Address: <%= @application.address %></h3>
+<h3>Status: <%= @application.status %></h3>
+<h3>Description: <%= @application.description %></h3>
+
+<h3> Pets for Adoption: </h3>
+<% @pet.each do |pet| %>
+  <p><%= pet.name %></p>
+  <%= link_to("Approve #{pet.name}", "/admin/applications/#{@application.id}", method: :post, :remote => true).replace("#{pet.name} was Approved!") %>
+<% end %>
