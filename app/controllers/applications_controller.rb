@@ -3,10 +3,12 @@ class ApplicationsController < ApplicationController
   def show
     @application = Application.find(params[:id])
 
-    if params[:seek_adoption] && !@application.pets.include?(Pet.find(params[:seek_adoption]))
-      @applicant_pets = @application.pet_to_adopt(Pet.find(params[:seek_adoption]))
+    if params[:seek_adoption] && @application.pets.include?(Pet.find(params[:seek_adoption]))
+      flash[:notice] = "You have already selected this pet!"
+    elsif params[:seek_adoption] && !@application.pets.include?(Pet.find(params[:seek_adoption]))
+      @application.pet_to_adopt(Pet.find(params[:seek_adoption]))
+      @application.pets
     elsif params[:search]
-      # binding.pry
       @pets_search = Pet.adoptable.search(params[:search])
     elsif @application.status == 'Pending'
       @pets = @application.pets
@@ -23,7 +25,7 @@ class ApplicationsController < ApplicationController
     if @application.save
       redirect_to "/applications/#{@application.id}"
     else
-      flash[:notice] = "Please fill out necessary fields for submission"
+      flash[:notice] = "Please fill out necessary fields for submission!"
       redirect_to '/applications/new'
       # render :new
     end
@@ -33,7 +35,7 @@ class ApplicationsController < ApplicationController
     application = Application.find(params[:id])
     application.status = params[:status]
     application.description = params[:reason]
-    application.save
+    application.save!
     redirect_to "/applications/#{application.id}"
   end
 
