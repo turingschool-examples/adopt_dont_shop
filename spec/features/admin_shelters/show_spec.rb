@@ -18,6 +18,8 @@ RSpec.describe 'admin_shelters index page', type: :feature do
     @application_pet1 = ApplicationPet.create!(application: @application1, pet: @pet_1)
     @application_pet2 = ApplicationPet.create!(application: @application2, pet: @pet_3)
     @application_pet3 = ApplicationPet.create!(application: @application3, pet: @pet_2)
+    @application_pet4 = ApplicationPet.create!(application: @application2, pet: @pet_1)
+    @application_pet4 = ApplicationPet.create!(application: @application1, pet: @pet_2)
   end
 
   describe 'default page appearance' do
@@ -49,6 +51,25 @@ RSpec.describe 'admin_shelters index page', type: :feature do
 
       expect(page).to have_content('Number of Pets Adopted')
       expect(page).to have_content('1 pets')
+    end
+    it 'has a section that details pets needing action' do
+      visit "/admin/shelters/#{@shelter1.id}"
+      save_and_open_page
+
+      expect(page).to have_content('Pets Requiring Action')
+      expect(page).to have_content('Pet')
+      expect(page).to have_content('Application(s) Requiring Review')
+    end
+    it 'has links to the show pages for applications that need action' do
+      visit "/admin/shelters/#{@shelter1.id}"
+
+      expect(page).to have_content('Clawdia')
+      expect(page).to have_link("View Application #{@application1.id}")
+      expect(page).to have_link("View Application #{@application3.id}")
+
+      click_link "View Application #{@application1.id}"
+
+      expect(current_path).to eq("/admin/applications/#{@application1.id}")
     end
   end
 end
