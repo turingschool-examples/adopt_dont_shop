@@ -6,12 +6,7 @@ class Application < ApplicationRecord
   validates :street_name, :street_type, presence: true
   validates :city, :state, presence: true
   validates :zip_code, presence: true
-  before_save :default_status
-
-  def default_status
-    self.status = 'In Progress'
-  end
-
+  
   def pet_count
     pets.count
   end
