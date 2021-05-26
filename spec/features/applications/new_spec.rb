@@ -20,10 +20,10 @@ RSpec.describe 'Start Application' do
     fill_in('Street Type', with: 'Avenue')
     fill_in('City', with: 'Arvada')
     fill_in('State', with: 'Colorado')
-    fill_in('Zip Code', with: 83020)
+    fill_in('Zip Code', with: '83020')
+    # save_and_open_page
 
     click_button("Submit")
-
     ksj_application = Application.last
 
     name = "#{ksj_application.first_name} #{ksj_application.middle_name} #{ksj_application.last_name}"

@@ -13,6 +13,21 @@ FactoryBot.define do
     rank { rand(1..20) }
   end
 
+  factory :application do
+    first_name { Faker::Name.first_name }
+    middle_name { Faker::Name.middle_name }
+    last_name { Faker::Name.last_name }
+    street_number { Faker::Number.number(digits: 5) }
+    street_prefix { Faker::Compass.cardinal_abbreviation }
+    street_name { Faker::Address.street_name }
+    street_type { Faker::Address.street_suffix }
+    city { Faker::Address.city }
+    state { Faker::Address.state }
+    zip_code { Faker::Address.zip_code }
+    description { ' ' }
+    status { 'In Progress' }
+  end
+
   factory :veterinarian do
     name { Faker::Name.name }
     on_call { Faker::Boolean.boolean }

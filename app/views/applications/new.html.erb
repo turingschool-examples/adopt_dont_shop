@@ -6,16 +6,16 @@
 <body style="font-size:20px">
   <h3 style="color:red"><%= flash[:notice] %></h3><br>
   <%= form_with model: @application, url: "/applications", method: :post, local: true do |f| %>
-    <div><%= f.label :first_name, 'First Name' %> <%= f.text_field :first_name %></div>
-    <div><%= f.label :middle_name, 'Middle Name (optional)' %> <%= f.text_field :middle_name %></div>
-    <div><%= f.label :last_name, 'Last Name' %> <%= f.text_field :last_name %></div><br>
-    <div><%= f.label :street_number, 'Street Number' %> <%= f.number_field :street_number %></div>
-    <div><%= f.label :street_prefix, 'Street Prefix (if any)' %> <%= f.text_field :street_prefix %></div>
-    <div><%= f.label :street_name, 'Street Name' %> <%= f.text_field :street_name %></div>
-    <div><%= f.label :street_type, 'Street Type' %> <%= f.text_field :street_type %></div>
-    <div><%= f.label :city, 'City' %> <%= f.text_field :city %></div>
-    <div><%= f.label :state, 'State' %> <%= f.text_field :state %></div>
-    <div><%= f.label :zip_code, 'Zip Code' %> <%= f.number_field :zip_code %></div><br>
+    <div><%= f.label :first_name, 'First Name' %> <%= f.text_field :first_name, value: @application.first_name %></div>
+    <div><%= f.label :middle_name, 'Middle Name (optional)' %> <%= f.text_field :middle_name, value: @application.middle_name %></div>
+    <div><%= f.label :last_name, 'Last Name' %> <%= f.text_field :last_name, value: @application.last_name %></div><br>
+    <div><%= f.label :street_number, 'Street Number' %> <%= f.number_field :street_number, value: @application.street_number %></div>
+    <div><%= f.label :street_prefix, 'Street Prefix (if any)' %> <%= f.text_field :street_prefix, value: @application.street_prefix %></div>
+    <div><%= f.label :street_name, 'Street Name' %> <%= f.text_field :street_name, value: @application.street_name %></div>
+    <div><%= f.label :street_type, 'Street Type' %> <%= f.text_field :street_type, value: @application.street_type %></div>
+    <div><%= f.label :city, 'City' %> <%= f.text_field :city, value: @application.city %></div>
+    <div><%= f.label :state, 'State' %> <%= f.text_field :state, value: @application.state %></div>
+    <div><%= f.label :zip_code, 'Zip Code' %> <%= f.number_field :zip_code, value: @application.zip_code %></div><br>
     <div><%= f.submit "Submit" %></div>
   <% end %>
 </body>
