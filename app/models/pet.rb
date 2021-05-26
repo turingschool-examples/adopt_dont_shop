@@ -19,6 +19,7 @@ class Pet < ApplicationRecord
   end
 
   def self.filter_by_pending_apps
+    # joins(:application_pets, :applications).where("application_pets.application_id = applications.id AND applications.status")
     where(:id => ApplicationPet.filter_by_pending_apps).pluck(:shelter_id)
   end
 
@@ -38,5 +39,9 @@ class Pet < ApplicationRecord
     if !other_approved_apps.empty?
       return true
     end
+  end
+
+  def outstanding_apps
+    outstanding_apps = applications.joins(:application_pets).where("applications.status = 'Pending' and application_pets.status is NULL").distinct
   end
 end

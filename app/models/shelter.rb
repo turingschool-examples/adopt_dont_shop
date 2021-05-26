@@ -78,4 +78,9 @@ class Shelter < ApplicationRecord
             where id = #{self.id}")
     ActiveRecord::Base.connection.execute(sql)[0].values[0]
   end
+
+  def pets_needing_action
+    pets_not_needing_action = pets.joins(:application_pets, :applications).where("application_pets.application_id = applications.id AND applications.status = 'Pending' and application_pets.status = 'Approved' AND adoptable = true").distinct.pluck(:id)
+    pets_needing_action = pets.joins(:application_pets, :applications).where("application_pets.application_id = applications.id AND applications.status = 'Pending' and application_pets.status IS NULL = true AND adoptable = true").where.not(:id => pets_not_needing_action).distinct
+  end
 end

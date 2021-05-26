@@ -21,3 +21,5 @@
       <td><%= "#{@shelter.num_adopted_pets} pets" %></td>
     </tr>
 </table>
+
+<%= render partial: '/applications/application_pets_adopting', locals: { source: :admin_shelters }%>

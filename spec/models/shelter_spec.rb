@@ -29,6 +29,8 @@ RSpec.describe Shelter, type: :model do
     @application_pet1 = ApplicationPet.create!(application: @application1, pet: @pet_1)
     @application_pet2 = ApplicationPet.create!(application: @application2, pet: @pet_3)
     @application_pet3 = ApplicationPet.create!(application: @application3, pet: @pet_2)
+    @application_pet4 = ApplicationPet.create!(application: @application3, pet: @pet_4)
+    @application_pet5 = ApplicationPet.create!(application: @application2, pet: @pet_4)
   end
 
   describe 'class methods' do
@@ -109,6 +111,23 @@ RSpec.describe Shelter, type: :model do
     describe '#num_adopted_pets' do
       it 'tells you how many pets were adopted from the shelter' do
         expect(@shelter_1.num_adopted_pets).to eq(1)
+      end
+    end
+    describe '#pets_needing_action' do
+      it 'returns pets for the shelter than are tied to a pending app' do
+        expect(@shelter_1.pets_needing_action).to eq([@pet_2, @pet_4])
+      end
+      it 'does not show pets that have been approved on this or any other app' do
+        @application_pet5.status = 'Approved'
+        @application_pet5.save
+        expect(@shelter_1.pets_needing_action).to eq([@pet_2])
+      end
+      it 'does not show non-adoptable pets' do
+        @application2.status = 'Approved'
+        @application2.save
+        @pet_4.adoptable = false
+        @pet_4.save
+        expect(@shelter_1.pets_needing_action).to eq([@pet_2])
       end
     end
   end

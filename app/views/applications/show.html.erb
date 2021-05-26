@@ -4,7 +4,7 @@
 
 <%= render partial: 'application_applicant', locals: { method: :get } %>
 
-<%= render partial: 'application_pets_adopting', locals: { user: :applicant } %>
+<%= render partial: 'application_pets_adopting', locals: { source: :application } %>
 
 <% if @application.status == 'In Progress' %>
   <%= render partial: 'pets/pets_search', locals: { path: request.path, method: :get } %>

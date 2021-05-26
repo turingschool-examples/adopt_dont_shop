@@ -4,6 +4,6 @@
 
 <%= render partial: '/applications/application_applicant', locals: { method: :get } %>
 
-<%= render partial: '/applications/application_pets_adopting', locals: { user: :admin }%>
+<%= render partial: '/applications/application_pets_adopting', locals: { source: :admin_application }%>
 
 <%= render partial: '/applications/application_statement', locals: { method: :get } %>
