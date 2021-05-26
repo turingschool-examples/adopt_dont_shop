@@ -2,22 +2,24 @@ class ApplicationsController < ApplicationController
 
   def show
     @application = Application.find(params[:id])
-    @pets = @application.pets
 
-    if params[:search].present?
-      @pets = Pet.search(params[:search])
-    else
-      
+    if params[:seek_adoption] && !@application.pets.include?(Pet.find(params[:seek_adoption]))
+      @applicant_pets = @application.pet_to_adopt(Pet.find(params[:seek_adoption]))
+    elsif params[:search]
+      # binding.pry
+      @pets_search = Pet.adoptable.search(params[:search])
+    elsif @application.status == 'Pending'
+      @pets = @application.pets
     end
   end
 
   def new
-    # @application = Application.new
+    @application = Application.new
   end
 
   def create
     @application = Application.new(application_params)
-
+# binding.pry
     if @application.save
       redirect_to "/applications/#{@application.id}"
     else
@@ -28,12 +30,17 @@ class ApplicationsController < ApplicationController
   end
 
   def update
+    application = Application.find(params[:id])
+    application.status = params[:status]
+    application.description = params[:reason]
+    application.save
+    redirect_to "/applications/#{application.id}"
   end
 
   private
 
   def application_params
-    params.permit(
+    params.require(:application).permit(
       :first_name,
       :middle_name,
       :last_name,
