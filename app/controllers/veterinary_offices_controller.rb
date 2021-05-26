@@ -45,7 +45,7 @@ class VeterinaryOfficesController < ApplicationController
 
   def update
     vet_office = VeterinaryOffice.find(params[:id])
-    if vet_office.update(vet_office_params)
+    if vet_office.update_attributes(vet_office_params)
       redirect_to '/veterinary_offices'
     else
       redirect_to "/veterinary_offices/#{vet_office.id}/edit"

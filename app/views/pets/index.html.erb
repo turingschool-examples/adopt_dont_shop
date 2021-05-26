@@ -4,11 +4,12 @@
   <%= f.label :search %>
   <%= f.text_field :search %>
   <%= f.submit "Search" %>
-<% end %>
+<% end %><br>
 
+<div style="font-size:20px"><%= link_to "Start an Application", "/applications/new" %></div><br>
 
 <% @pets.each do |pet| %>
-  <h3><%= pet.name %></h3>
+  <h3><%= link_to pet.name, "/pets/#{pet.id}" %></h3>
   <p>Age: <%= pet.age %></p>
   <p>Breed: <%= pet.breed %></p>
   <p>Adoptable: </p>

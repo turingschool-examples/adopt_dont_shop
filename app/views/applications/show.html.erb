@@ -1,0 +1,78 @@
+<html>
+<head>
+  <h1><%= @application.first_name %> <%= @application.middle_name %> <%= @application.last_name %></h1><br>
+</head>
+
+<body style="font-size:20px">
+  <table>
+    <tr><td>Address:</td><td><%= @application.street_number %> <%= @application.street_prefix %> <%= @application.street_name %> <%= @application.street_type %></td></tr>
+    <tr><td>City:</td><td><%= @application.city %></td></tr>
+    <tr><td>State:</td><td><%= @application.state %></td></tr>
+    <tr><td>Zip Code:</td><td><%= @application.zip_code %></td></tr>
+    <tr><td>Description:</td><td><%= @application.description %></td></tr>
+    <tr><td>Application Status:</td><td><%= @application.status %></td></tr>
+  </table><br>
+
+  <section style="font-size:20px">
+    <% if @application.status == 'Pending' %>
+      <div>Pets Pending to be Adopted</div><br>
+      <% @pets.each do |pet| %>
+        <div><%= link_to "Name: #{pet.name}", "/pets/#{pet.id}" %></div><br>
+        <div><%= "Breed: #{pet.breed}" %></div><br>
+        <div><%= "Age: #{pet.age}" %></div><br>
+        <div style="display:none;"><%= "Adoptable? #{pet.adoptable}" %></div><br>
+      <% end %>
+    <% end %>
+  </section><br>
+
+  <section style="font-size:20px">
+    <% if @application.status != 'Pending' %>
+      <div>List of Pets You Want to Adopt</div><br>
+      <% if !@application.pets.nil? %>
+        <% @application.pets.each do |pet| %>
+          <div><%= link_to "Pet Name: #{pet.name}", "/pets/#{pet.id}" %></div><br>
+          <div><%= "Breed: #{pet.breed}" %></div><br>
+          <div><%= "Age: #{pet.age}" %></div><br>
+          <div style="display:none;"><%= "Adoptable? #{pet.adoptable}" %></div><br>
+        <% end %>
+      <% end %>
+    <% end %>
+  </section><br>
+
+  <section>
+    <% if @application.status == 'In Progress' %>
+      <div style="font-size:20px">Add a Pet to this Application</div><br>
+      <%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |f| %>
+        <%= f.label :search, "Search for Pet(s):" %>
+        <%= f.text_field :search %>
+        <%= f.submit "Search" %><br>
+      <% end %>
+    <% end %><br>
+
+    <% if params[:search] %>
+      <% @pets_search.each do |pet| %>
+        <div><%= link_to "#{pet.name}-#{pet.breed}", "/pets/#{pet.id}" %>
+        <%= button_to "Adopt #{pet.name}",
+          "/applications/#{@application.id}",
+          method: :get, params: {seek_adoption: pet},
+          form: {style: 'display:inline-block;'} %></div><br>
+      <% end %>
+    <% end %>
+  </section><br>
+
+  <section>
+    <% if @application.status != 'Pending' %>
+      <% if @application.pet_count > 0 %>
+        <div style="font-size:20px">Submit Application</div><br>
+        <%= form_with url: "/applications/#{@application.id}", method: :patch, local: true do |f| %>
+          <%= f.hidden_field :status, value: 'Pending' %>
+          <%= f.label "Why would you be a good forever home?" %>
+          <%= f.text_area :reason %>
+          <%= f.submit "Submit Application" %><br>
+        <% end %>
+      <% end %>
+    <% end %><br>
+  </section><br>
+
+</body>
+</html>
