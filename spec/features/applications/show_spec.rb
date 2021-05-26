@@ -60,7 +60,7 @@ RSpec.describe 'the applications show page' do
 
     visit "/applications/#{@kas_application.id}"
 
-    fill_in 'Search', with: "ba"
+    fill_in('Search', with: 'ba')
     click_on("Search")
 
     expect(page).to have_content(pet_1.name)
@@ -88,11 +88,48 @@ RSpec.describe 'the applications show page' do
 
     visit "/applications/#{@tkt_application.id}"
 
-    fill_in 'Search', with: "ba"
+    fill_in('Search', with: 'ba')
     click_on("Search")
     click_button("Adopt #{pet_1.name}")
 
     expect(page).to have_content("List of Pets You Want to Adopt")
     expect(page).to_not have_content("Adopt #{pet_1.name}")
-  end  
+    expect(page).to have_link("Pet Name: #{pet_1.name}")
+  end
+
+  it 'can add pet to application' do
+    @tkt_application = Application.create!(
+      first_name: 'Timothy',
+      middle_name: 'Kelly',
+      last_name: 'Tyson',
+      street_number: 8399,
+      street_name: 'Thomas',
+      street_type: 'Lane',
+      city: 'Arvada',
+      state: 'CO',
+      zip_code: '89049',
+      status: 'In Progress'
+    )
+    shelter = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
+    pet_1 = Pet.create(adoptable: true, age: 7, breed: 'sphynx', name: 'Bare-y Manilow', shelter_id: shelter.id)
+    pet_2 = Pet.create(adoptable: true, age: 3, breed: 'domestic pig', name: 'Babe', shelter_id: shelter.id)
+    pet_3 = Pet.create(adoptable: true, age: 4, breed: 'chihuahua', name: 'Elle', shelter_id: shelter.id)
+
+    visit "/applications/#{@tkt_application.id}"
+
+    fill_in('Search', with: 'ba')
+    click_on("Search")
+    click_button("Adopt #{pet_1.name}")
+
+    expect(page).to have_button('Submit Application')
+
+    fill_in(:reason, with: 'Pet lover for many years')
+    click_button('Submit Application')
+
+    expect(current_path).to eq("/applications/#{@tkt_application.id}")
+    expect(page).to_not have_button('Submit Application')
+    expect(page).to_not have_content('In Progress')
+    expect(page).to have_content('Pending')
+    expect(page).to have_content('Pet lover for many years')
+  end
 end
