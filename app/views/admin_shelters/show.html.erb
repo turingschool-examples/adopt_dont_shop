@@ -1,25 +1,28 @@
-<h1><%= "Shelter Details For #{@shelter.sql_name}" %></h1>
+<div class="container">
+ <div class="d-flex flex-column justify-content-start">
+  <h1><%= "Shelter Details For #{@shelter.sql_name}" %></h1><br>
+  <h3><%= "Location: #{@shelter.sql_full_address}" %></h3><br>
+    <div class="col-md-50 col-md-offset-2"></div>
+    <h3> Shelter Statistics </h3>
+    <table>
+      <tr>
+        <th>Data Point</th>
+        <th>Value</th>
+      </tr>
+        <tr>
+          <td>Average Pet Age</td>
+          <td><%= "#{@shelter.average_pet_age} years" %></td>
+        </tr>
+        <tr>
+          <td>Number of Adoptable Pets</td>
+          <td><%= "#{@shelter.num_adoptable_pets} pets" %></td>
+        </tr>
+        <tr>
+          <td>Number of Pets Adopted</td>
+          <td><%= "#{@shelter.num_adopted_pets} pets" %></td>
+        </tr>
+    </table><br>
 
-<h3><%= "Location: #{@shelter.sql_full_address}" %></h3>
-
-<h3> Shelter Statistics </h3>
-<table>
-  <tr>
-    <th>Data Point</th>
-    <th>Value</th>
-  </tr>
-    <tr>
-      <td>Average Pet Age</td>
-      <td><%= "#{@shelter.average_pet_age} years" %></td>
-    </tr>
-    <tr>
-      <td>Number of Adoptable Pets</td>
-      <td><%= "#{@shelter.num_adoptable_pets} pets" %></td>
-    </tr>
-    <tr>
-      <td>Number of Pets Adopted</td>
-      <td><%= "#{@shelter.num_adopted_pets} pets" %></td>
-    </tr>
-</table>
-
-<%= render partial: '/applications/application_pets_adopting', locals: { source: :admin_shelters }%>
+  <%= render partial: '/applications/application_pets_adopting', locals: { source: :admin_shelters }%>
+  </div>
+</div>

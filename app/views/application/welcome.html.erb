@@ -1,1 +1,9 @@
-<h1>Adopt, don't shop!</h1>
+<div style='padding-left: 12%; padding-right: 12%' class="carousel slide" data-ride="carousel">
+  <div class="carousel-inner">
+    <div class="carousel-item active" >
+      <img style='width: 100%; display: flex; justify-content: center;' <%= image_tag("Pear.png", id: 'main-page') %> alt="First slide">
+        <div style='margin: auto;' class="carousel-caption d-none d-md-block">
+         <h1 style='background-color: white; margin: auto; width: 50%;'><%= link_to "Browse Adoptable Pets", "pets", method: :get %></h1>
+      </div>
+    </div>
+  </div>
