@@ -34,6 +34,22 @@ RSpec.describe Pet, type: :model do
         expect(Pet.adoptable).to eq([@pet_1, @pet_2])
       end
     end
+
+    describe '.pending' do
+      it 'returns pets with pending petitions' do
+        petition = Petition.create!(name:'Ted Leo', 
+                                    street_address: '123 Pharmacist Ln', 
+                                    city: 'Denver', 
+                                    state: 'Co',
+                                    zipcode: 12345,
+                                    goodhome: 'Lurv Fluffers',
+                                    status: 'Pending')
+        pet_petition = PetPetition.create!(petition: petition, pet:@pet_1)
+        pet_petition2 = PetPetition.create!(petition: petition, pet:@pet_2)
+
+        expect(Pet.pending).to eq([@pet_1, @pet_2])
+      end
+    end
   end
 
   describe 'instance methods' do
