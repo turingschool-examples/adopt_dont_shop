@@ -8,7 +8,9 @@ class PetsController < ApplicationController
   end
 
   def show
-    @pet = Pet.find(params[:id])
+    @record = Pet.find(params[:id])
+    @formatted_attributes = Pet.formatted_attributes
+    @record_path = '/pets/'
   end
 
   def new

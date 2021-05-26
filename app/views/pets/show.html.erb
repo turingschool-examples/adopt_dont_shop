@@ -1,8 +1,22 @@
-<h1><%= @pet.name %></h1>
-<h3><%= @pet.age %> years old</h3>
-<h3><%= @pet.breed %></h3>
-<h3><%= @pet.adoptable %></h3>
-<h3><%= @pet.shelter_name %></h3>
+</table >
+<table>
+  <tr>
+    <th>Detail</th>
+    <th>Value</th>
+  </tr>
+    <% @formatted_attributes.each do |attribute, formatted_attribute| %>
+      <tr>
+        <td><%= "#{formatted_attribute}" %></td>
+        <td><% if @record.send("#{attribute}") == true %>
+            <%= 'Yes' %>
+          <% elsif @record.send("#{attribute}") == false %>
+            <%= 'No' %>
+          <% else %>
+            <%= @record.send("#{attribute}") %>
+          <% end %></td>
+      </tr>
+    <% end %>
+  </table><br>
 
-<p><%= link_to "Update #{@pet.name}", "pets/#{@pet.id}/edit" %></p>
-<p><%= link_to "Delete #{@pet.name}", "/pets/#{@pet.id}", method: :delete %></p>
+<%= button_to "Edit", "#{@record_path}#{@record.id}/edit", method: :edit %><br>
+<%= button_to "Delete", "#{@record_path}#{@record.id}", method: :delete %>
