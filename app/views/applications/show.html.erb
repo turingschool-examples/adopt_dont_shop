@@ -17,28 +17,30 @@
     <% if @application.status == 'Pending' %>
       <div>Pets Pending to be Adopted</div><br>
       <% @pets.each do |pet| %>
-        <div><%= link_to pet.name, "/pets/#{pet.id}" %></div><br>
-        <div><%= pet.breed %></div><br>
-        <div><%= pet.age %></div><br>
-        <div><%= pet.adoptable %></div><br>
+        <div><%= link_to "Name: #{pet.name}", "/pets/#{pet.id}" %></div><br>
+        <div><%= "Breed: #{pet.breed}" %></div><br>
+        <div><%= "Age: #{pet.age}" %></div><br>
+        <div style="display:none;"><%= "Adoptable? #{pet.adoptable}" %></div><br>
       <% end %>
     <% end %>
   </section><br>
 
   <section style="font-size:20px">
-    <% if params[:seek_adoption] && @application.status != 'Pending' %>
+    <% if @application.status != 'Pending' %>
       <div>List of Pets You Want to Adopt</div><br>
-      <% @applicant_pets.each do |pet| %>
-        <div><%= link_to "Pet Name: #{pet.name}", "/pets/#{pet.id}" %></div><br>
-        <div><%= "Breed: #{pet.breed}" %></div><br>
-        <div><%= "Age: #{pet.age}" %></div><br>
-        <div><%= "Adoptable? #{pet.adoptable}" %></div><br>
+      <% if !@application.pets.nil? %>
+        <% @application.pets.each do |pet| %>
+          <div><%= link_to "Pet Name: #{pet.name}", "/pets/#{pet.id}" %></div><br>
+          <div><%= "Breed: #{pet.breed}" %></div><br>
+          <div><%= "Age: #{pet.age}" %></div><br>
+          <div style="display:none;"><%= "Adoptable? #{pet.adoptable}" %></div><br>
+        <% end %>
       <% end %>
     <% end %>
   </section><br>
 
   <section>
-    <% if @application.status == 'In Progress' && !params[:seek_adoption] %>
+    <% if @application.status == 'In Progress' %>
       <div style="font-size:20px">Add a Pet to this Application</div><br>
       <%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |f| %>
         <%= f.label :search, "Search for Pet(s):" %>
