@@ -8,5 +8,4 @@ class Petition < ApplicationRecord
   def associated_pet_petitions
     pet_petitions.all
   end
-
 end

@@ -30,11 +30,29 @@ describe 'admin petitions show' do
     expect(page).to have_button('Reject Ted Leo for Clawdia')
   end
 
-  it 'clicking approve approves a pet for adoption'
+  it 'clicking approve approves a pet for adoption' do
+    click_button('Approve Ted Leo for Mr. Pirate')
 
-  it 'clicking reject rejects the adoption'
+    expect(current_path).to eq "/admin/petitions/#{@petition.id}"
+    expect(page).to have_content 'Application Status: Approved'
+  end
 
-  it 'clicking approve or reject removes button'
+  it 'clicking reject rejects the adoption' do
+    click_button('Reject Ted Leo for Mr. Pirate')
+
+    expect(current_path).to eq "/admin/petitions/#{@petition.id}"
+    expect(page).to have_content 'Application Status: Rejected'
+  end
+
+  it 'clicking approve or reject removes button' do
+    click_button('Approve Ted Leo for Mr. Pirate')
+    click_button('Reject Ted Leo for Clawdia')
+
+    expect(page).not_to have_button('Approve Ted Leo for Mr. Pirate')
+    expect(page).not_to have_button('Reject Ted Leo for Mr. Pirate')
+    expect(page).not_to have_button('Approve Ted Leo for Clawdia')
+    expect(page).not_to have_button('Reject Ted Leo for Clawdia')
+  end
 
   it 'clicking approve or reject does not affect other applications'
   #   click_button('Approve Ted Leo for Mr. Pirate')
