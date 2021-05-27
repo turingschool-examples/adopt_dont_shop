@@ -5,6 +5,8 @@ require 'rails_helper'
 RSpec.describe Shelter, type: :model do
   describe 'relationships' do
     it { should have_many(:pets) }
+    it { should have_many(:pet_petitions).through(:pets) }
+    it { should have_many(:petitions).through(:pet_petitions) }
   end
 
   describe 'validations' do
@@ -47,6 +49,22 @@ RSpec.describe Shelter, type: :model do
     describe 'reverse_alphabet' do
       it 'orders shelters by descending alphabetical order by name' do
         expect(Shelter.reverse_alphabet).to eq([@shelter_2, @shelter_3, @shelter_1])
+      end
+    end
+
+    describe '.with_pending' do
+      it 'returns names of shelters with pending applications' do
+        petition = Petition.create!(name:'Ted Leo', 
+                                    street_address: '123 Pharmacist Ln', 
+                                    city: 'Denver', 
+                                    state: 'Co',
+                                    zipcode: 12345,
+                                    goodhome: 'Lurv Fluffers',
+                                    status: 'Pending')
+        pet_petition = PetPetition.create!(petition: petition, pet:@pet_1)
+        pet_petition2 = PetPetition.create!(petition: petition, pet:@pet_3)
+
+        expect(Shelter.with_pending).to eq([@shelter_1, @shelter_3])
       end
     end
   end

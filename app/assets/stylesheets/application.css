@@ -53,3 +53,9 @@ h1 {
 a {
   padding: 10px
 }
+
+.right_list {
+  float: right;
+  margin: 10px;
+  background-color: blanchedalmond;
+  }
