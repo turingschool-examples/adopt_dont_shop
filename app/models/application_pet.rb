@@ -12,4 +12,3 @@ class ApplicationPet < ApplicationRecord
   end
 end
 
-joins(pets: :applications).where({applications: {status: :pending}}).group(:id).order(:name)

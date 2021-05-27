@@ -1,27 +1,31 @@
-<div style='padding-left: 20px;'><h1><%= @record.name %></h1>
 
-<%= image_tag("#{@record.name}.png", id: 'show-image', size: => "40x50") %><br>
-<br>
-</table >
-<table>
-  <tr>
-    <th>Detail</th>
-    <th>Value</th>
-  </tr>
-    <% @formatted_attributes.each do |attribute, formatted_attribute| %>
-      <tr>
-        <td><%= "#{formatted_attribute}" %></td>
-        <td><% if @record.send("#{attribute}") == true %>
-            <%= 'Yes' %>
-          <% elsif @record.send("#{attribute}") == false %>
-            <%= 'No' %>
-          <% else %>
-            <%= @record.send("#{attribute}") %>
-          <% end %></td>
-      </tr>
-    <% end %>
-  </table><br>
-
-<button><%= link_to "Edit", "#{@record_path}#{@record.id}/edit", method: :edit %></button>
-<button><%= link_to "Delete", "#{@record_path}#{@record.id}", method: :delete %></button>
+ <div class="container">
+  <div class="row">
+    <div class="col-sm", style='padding-left: 25px'>
+      <h1><%= "All About #{@record.name}" %></h1><br>
+      <table style='width: 100%; border-color: white;'>
+        <tr>
+          <th>Detail</th>
+          <th>Value</th>
+        </tr>
+          <% @formatted_attributes.each do |attribute, formatted_attribute| %>
+            <tr>
+              <td><%= "#{formatted_attribute}" %></td>
+              <td><% if @record.send("#{attribute}") == true %>
+                  <%= 'Yes' %>
+                <% elsif @record.send("#{attribute}") == false %>
+                  <%= 'No' %>
+                <% else %>
+                  <%= @record.send("#{attribute}") %>
+                <% end %></td>
+            </tr>
+          <% end %>
+      </table><br>
+      <button><%= link_to "Edit", "#{@record_path}#{@record.id}/edit", method: :edit %></button>
+      <button><%= link_to "Delete", "#{@record_path}#{@record.id}", method: :delete %></button>
+    </div>
+    <div class="col-sm", style='padding-left: 25px'>
+     <%= image_tag("#{@record.name}.png", id: 'pet-photo-show') %>
+    </div>
+  </div>
 </div>
