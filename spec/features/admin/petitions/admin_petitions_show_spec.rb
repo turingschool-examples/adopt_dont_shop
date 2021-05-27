@@ -6,15 +6,15 @@ describe 'admin petitions show' do
     @eagle = Shelter.create!(name: 'Eagle Pet Sanctuary', city: 'Eagle', rank: 3, foster_program: true)
     @pet_1 = @denver.pets.create(name: 'Mr. Pirate', breed: 'tuxedo shorthair', age: 5, adoptable: false)
     @pet_2 = @eagle.pets.create(name: 'Clawdia', breed: 'shorthair', age: 3, adoptable: true)
-    @petition = Petition.create!(name:'Ted Leo', 
-                                street_address: '123 Pharmacist Ln', 
-                                city: 'Denver', 
-                                state: 'Co',
-                                zipcode: 12345,
-                                goodhome: 'Lurv Fluffers',
-                                status: 'Pending')
-    @pet_petition = PetPetition.create!(petition: @petition, pet:@pet_1)
-    @pet_petition2 = PetPetition.create!(petition: @petition, pet:@pet_2)
+    @petition = Petition.create!(name: 'Ted Leo',
+                                 street_address: '123 Pharmacist Ln',
+                                 city: 'Denver',
+                                 state: 'Co',
+                                 zipcode: 12_345,
+                                 goodhome: 'Lurv Fluffers',
+                                 status: 'Pending')
+    @pet_petition = PetPetition.create!(petition: @petition, pet: @pet_1)
+    @pet_petition2 = PetPetition.create!(petition: @petition, pet: @pet_2)
     visit "/admin/petitions/#{@petition.id}"
   end
 
@@ -55,15 +55,15 @@ describe 'admin petitions show' do
   end
 
   it 'clicking approve or reject does not affect other applications' do
-    @petition_2 = Petition.create!(name:'Thao Nguyen', 
-                                street_address: '456 Getdown St', 
-                                city: 'Los Angeles', 
-                                state: 'CA',
-                                zipcode: 12345,
-                                goodhome: 'Need a dragon',
-                                status: 'Pending')
-    @pet_petition_3 = PetPetition.create!(petition: @petition_2, pet:@pet_1)
-    @pet_petition_4 = PetPetition.create!(petition: @petition_2, pet:@pet_2)
+    @petition_2 = Petition.create!(name: 'Thao Nguyen',
+                                   street_address: '456 Getdown St',
+                                   city: 'Los Angeles',
+                                   state: 'CA',
+                                   zipcode: 12_345,
+                                   goodhome: 'Need a dragon',
+                                   status: 'Pending')
+    @pet_petition_3 = PetPetition.create!(petition: @petition_2, pet: @pet_1)
+    @pet_petition_4 = PetPetition.create!(petition: @petition_2, pet: @pet_2)
     click_button('Approve Ted Leo for Mr. Pirate')
     click_button('Reject Ted Leo for Clawdia')
     visit "/admin/petitions/#{@petition_2.id}"

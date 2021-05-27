@@ -8,6 +8,6 @@ class PetPetition < ApplicationRecord
   end
 
   def self.select(pet_id, petition_id)
-    where("pet_id = ? AND petition_id = ?", pet_id, petition_id).first
+    where('pet_id = ? AND petition_id = ?', pet_id, petition_id).first
   end
 end

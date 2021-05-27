@@ -54,15 +54,15 @@ RSpec.describe Shelter, type: :model do
 
     describe '.with_pending' do
       it 'returns names of shelters with pending applications' do
-        petition = Petition.create!(name:'Ted Leo', 
-                                    street_address: '123 Pharmacist Ln', 
-                                    city: 'Denver', 
+        petition = Petition.create!(name: 'Ted Leo',
+                                    street_address: '123 Pharmacist Ln',
+                                    city: 'Denver',
                                     state: 'Co',
-                                    zipcode: 12345,
+                                    zipcode: 12_345,
                                     goodhome: 'Lurv Fluffers',
                                     status: 'Pending')
-        pet_petition = PetPetition.create!(petition: petition, pet:@pet_1)
-        pet_petition2 = PetPetition.create!(petition: petition, pet:@pet_3)
+        pet_petition = PetPetition.create!(petition: petition, pet: @pet_1)
+        pet_petition2 = PetPetition.create!(petition: petition, pet: @pet_3)
 
         expect(Shelter.with_pending).to eq([@shelter_1, @shelter_3])
       end

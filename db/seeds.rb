@@ -20,7 +20,7 @@ eagle = Shelter.create!(name: 'Eagle Pet Sanctuary', city: 'Eagle', rank: 3, fos
 
 fluffy = denver.pets.create!(name: 'Fluffy', breed: 'Siamese Cat', age: 12, adoptable: true)
 scruffy = denver.pets.create!(name: 'Scruffy', breed: 'Bulldog', age: 1, adoptable: true)
-tig = denver.pets.create!(name: 'Tig', breed: 'Calico Cat', age: 2, adoptable: true )
+tig = denver.pets.create!(name: 'Tig', breed: 'Calico Cat', age: 2, adoptable: true)
 
 deborah = greely.pets.create!(name: 'Deborah', breed: 'Goldfish', age: 6, adoptable: true)
 terrence = greely.pets.create!(name: 'Terrence', breed: 'Parrot', age: 7, adoptable: true)
@@ -47,22 +47,22 @@ david = doctor.veterinarians.create!(name: 'David Mitchell', review_rating: 7, o
 lolly = doctor.veterinarians.create!(name: 'Lolly Adefope', review_rating: 9, on_call: true)
 mel = doctor.veterinarians.create!(name: 'Mel Gedroic', review_rating: 2, on_call: true)
 
-ted = Petition.create!(name:'Ted Leo', 
-                            street_address: '123 Pharmacist Ln', 
-                            city: 'Denver', 
-                            state: 'Co',
-                            zipcode: 12345,
-                            goodhome: 'Lurv Fluffers',
-                            status: 'Pending')
-thao = Petition.create!(name:'Thao Nguyen', 
-                            street_address: '456 Getdown St', 
-                            city: 'Los Angeles', 
-                            state: 'CA',
-                            zipcode: 23456,
-                            goodhome: 'Need Dragons',
-                            status: 'Pending')
+ted = Petition.create!(name: 'Ted Leo',
+                       street_address: '123 Pharmacist Ln',
+                       city: 'Denver',
+                       state: 'Co',
+                       zipcode: 12_345,
+                       goodhome: 'Lurv Fluffers',
+                       status: 'Pending')
+thao = Petition.create!(name: 'Thao Nguyen',
+                        street_address: '456 Getdown St',
+                        city: 'Los Angeles',
+                        state: 'CA',
+                        zipcode: 23_456,
+                        goodhome: 'Need Dragons',
+                        status: 'Pending')
 
-application_1 = PetPetition.create!(petition: ted, pet: chomper )
+application_1 = PetPetition.create!(petition: ted, pet: chomper)
 application_2 = PetPetition.create!(petition: ted, pet: paul)
 application_3 = PetPetition.create!(petition: thao, pet: paul)
 application_4 = PetPetition.create!(petition: thao, pet: daisy)
