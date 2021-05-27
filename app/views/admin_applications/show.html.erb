@@ -1,9 +1,11 @@
-<h1 style="text-decoration: underline;"><%= "#{@application.name}'s Pet Adoption Application" %></h3>
+ <div class="container" style='padding-left: 20px; padding-bottom: 20px;'>
+  <h1 style="text-decoration: underline;"><%= "#{@application.name}'s Pet Adoption Application" %></h3>
 
-<%= render partial: '/applications/application_status' %>
+  <%= render partial: '/applications/application_status' %>
 
-<%= render partial: '/applications/application_applicant', locals: { method: :get } %>
+  <%= render partial: '/applications/application_applicant', locals: { method: :get } %>
 
-<%= render partial: '/applications/application_pets_adopting', locals: { source: :admin_application }%>
+  <%= render partial: '/applications/application_pets_adopting', locals: { source: :admin_application }%>
 
-<%= render partial: '/applications/application_statement', locals: { method: :get } %>
+  <%= render partial: '/applications/application_statement', locals: { method: :get } %>
+</div>

@@ -1,33 +1,31 @@
+<div class="container" style='padding-left: 20px; padding-bottom: 20px;'>
 <h1>Shelters</h1>
 
 <h3>All Shelters</h3>
-<table id='admin-shelters-all'>
+<table id='admin-shelters-all' style='width: 25%'>
   <tr>
     <th>Name</th>
     <th>City</th>
-    <th>Rank</th>
   </tr>
       <% @shelters.each do |shelter| %>
     <tr>
         <td><%= link_to "#{shelter.name}", "/admin/shelters/#{shelter.id}", method: :get %></td>
         <td><%= shelter.city%></td>
-        <td><%= shelter.rank %></td>
     </tr>
   <% end %>
 </table><br>
 
 <h3>Shelters With Pending Applications</h3>
-<table id='admin-shelters-pending-apps'>
+<table id='admin-shelters-pending-apps' style='width: 25%'>
   <tr>
     <th>Name</th>
     <th>City</th>
-    <th>Rank</th>
   </tr>
       <% @shelters_w_pending_apps.each do |shelter| %>
     <tr>
         <td><%= link_to "#{shelter.name}", "/admin/shelters/#{shelter.id}", method: :get %></td>
         <td><%= shelter.city%></td>
-        <td><%= shelter.rank %></td>
     </tr>
   <% end %>
 </table><br>
+</div>
