@@ -141,7 +141,7 @@ And under the search bar I see any Pet whose name matches my search
 ```
 
 ```
-[ ] done
+[/] done
 
 Add a Pet to an Application
 
