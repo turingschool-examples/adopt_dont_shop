@@ -1,0 +1,26 @@
+<table style='width:100%'>
+  <tr>
+    <% @formatted_attributes.each do |attribute, formatted_attribute| %>
+      <th><%= formatted_attribute %></th>
+    <% end %>
+    <th>Edit</th>
+    <th>Delete</th>
+  </tr>
+  <% @records.each do |record| %>
+    <tr>
+      <% @formatted_attributes.each do |attribute, formatted_attribute| %>
+        <td><% if record.send("#{attribute}") == true %>
+            <%= 'Yes' %>
+          <% elsif record.send("#{attribute}") == false %>
+            <%= 'No' %>
+          <% elsif attribute == "id" %>
+            <% @record_id = record.send("#{attribute}") %>
+            <%= link_to @record_id, "#{@record_path}#{@record_id}", method: :get %>
+          <% else %>
+            <%= record.send("#{attribute}") %></td>
+          <% end %>
+      <% end %></td>
+      <td><%= link_to 'Edit', "#{@record_path}#{@record_id}/edit", method: :get %></td>
+      <td><%= link_to 'Delete', "#{@record_path}#{@record_id}", method: :delete %></td>
+    </tr>
+  <% end %>

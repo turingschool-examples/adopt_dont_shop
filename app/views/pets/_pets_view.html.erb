@@ -1,0 +1,30 @@
+<table style='width:100%'>
+  <tr>
+    <th>Name</th>
+    <th>Age</th>
+    <th>Breed</th>
+    <th>Description</th>
+    <th>Shelter</th>
+    <% if source == :pets %>
+      <th>Edit Pet</th>
+      <th>Delete Pet</th>
+    <% elsif source == :applications %>
+      <th>Adopt Pet</th>
+    <% end %>
+  </tr>
+      <% @pets.each do |pet| %>
+    <tr>
+        <td><%= pet.name %></td>
+        <td><%= pet.age %></td>
+        <td><%= pet.breed %></td>
+        <td><%= pet.description %></td>
+        <td><%= pet.shelter_name %>!</td>
+        <% if source == :pets %>
+          <td><%= link_to "Edit #{pet.name}", "/pets/#{pet.id}/edit" %></td>
+          <td><%= link_to "Delete #{pet.name}", "/pets/#{pet.id}", method: :delete %></td>
+        <% elsif source == :applications %>
+          <td><button style="width: 150px"><%= link_to "Adopt #{pet.name}", "#{request.path}/pets/#{pet.id}", method: :post %></button></td>
+        <% end %>
+    </tr>
+  <% end %>
+</table><br>

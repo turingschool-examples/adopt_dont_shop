@@ -1,16 +1,20 @@
-<h1>Edit Veterinarian</h1>
-<%= form_with url: "/pets/#{@pet.id}", method: :patch, local: true do |f| %>
-  <%= f.label :name %>
-  <%= f.text_field :name %>
+ <div class="container">
+  <div class="row">
+    <div class="col-sm", style='padding-left: 25px'>
+      <h1><%= "Edit #{@pet.name}" %></h1><br>
+      <%= bootstrap_form_with url: "/pets/#{@pet.id}", method: :patch, local: true do |f| %>
+        <%= f.text_field :name, value: @pet.name %><br>
+        <%= f.text_field :breed, value: @pet.breed %><br>
+        <%= f.number_field :age, value: @pet.age %><br>
+        <%= f.text_area :description, value: @pet.description %><br>
+        <%= f.check_box :adoptable, value: true %><br>
+        <%= f.submit %>
+      <% end %>
+    </div>
+    <div class="col-sm">
+      <%= image_tag("#{@pet.name}.png", id: 'pet-photo-edit') %><br><br>
 
-  <%= f.label :breed %>
-  <%= f.text_field :breed %>
-
-  <%= f.label :adoptable %>
-  <%= f.check_box :adoptable %>
-
-  <%= f.label :age %>
-  <%= f.number_field :age %>
-
-  <%= f.submit %>
-<% end %>
+  </div>
+   </div>
+  </div>
+</div>

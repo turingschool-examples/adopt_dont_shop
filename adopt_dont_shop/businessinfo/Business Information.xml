@@ -1,0 +1,7 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<BusinessInfoDesign class="oracle.dbtools.crest.model.businessinfo.BusinessInfoDesign" name="Business Information" id="8044A4C3-4FC4-F3AA-FA9B-6A32675C8955">
+<createdBy>netia</createdBy>
+<createdTime>2021-05-20 21:52:55 UTC</createdTime>
+<ownerDesignName>adopt_dont_shop</ownerDesignName>
+<shouldBeOpen>false</shouldBeOpen>
+</BusinessInfoDesign>

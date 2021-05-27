@@ -1,12 +1,15 @@
 class SheltersController < ApplicationController
   def index
     if params[:sort].present? && params[:sort] == "pet_count"
-      @shelters = Shelter.order_by_number_of_pets
+      @records = Shelter.order_by_number_of_pets
     elsif params[:search].present?
-      @shelters = Shelter.search(params[:search])
+      @records = Shelter.search(params[:search])
     else
-      @shelters = Shelter.order_by_recently_created
+      @records = Shelter.order_by_recently_created
     end
+
+    @formatted_attributes = Shelter.formatted_attributes
+    @record_path = '/shelters/'
   end
 
   def pets
@@ -22,7 +25,8 @@ class SheltersController < ApplicationController
   end
 
   def show
-    @shelter = Shelter.find(params[:id])
+    @formatted_attributes = Shelter.formatted_attributes
+    @record = Shelter.find(params[:id])
   end
 
   def new
@@ -62,6 +66,6 @@ class SheltersController < ApplicationController
   private
 
   def shelter_params
-    params.permit(:id, :name, :city, :foster_program, :rank)
+    params.permit(:id, :name, :street_address, :city, :state, :zip_code, :foster_program, :rank)
   end
 end

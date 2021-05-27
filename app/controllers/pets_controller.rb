@@ -8,7 +8,9 @@ class PetsController < ApplicationController
   end
 
   def show
-    @pet = Pet.find(params[:id])
+    @record = Pet.find(params[:id])
+    @formatted_attributes = Pet.formatted_attributes
+    @record_path = '/pets/'
   end
 
   def new
@@ -17,7 +19,6 @@ class PetsController < ApplicationController
 
   def create
     pet = Pet.new(pet_params)
-
     if pet.save
       redirect_to "/shelters/#{pet_params[:shelter_id]}/pets"
     else
@@ -42,7 +43,8 @@ class PetsController < ApplicationController
 
   def destroy
     Pet.find(params[:id]).destroy
-    redirect_to '/pets'
+    redirect_to action: "index"
+    # require 'pry'; binding.pry
   end
 
   private
