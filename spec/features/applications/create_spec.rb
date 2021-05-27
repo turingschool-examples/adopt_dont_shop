@@ -60,8 +60,12 @@ RSpec.describe 'the application new page' do
     expect(application_one).to_not be_valid
 
     application_two = Application.create(name: "Sarah", address: "123")
-    expect(application_two).to be_valid
+    expect(application_two).to_not be_valid
+
+    application_three = Application.create!(name: 'Sally Smith', address: '123 West 23rd Ave', city: 'Parker', state: 'CO', zip: '80134')
+    expect(application_three).to be_valid
     click_on("Submit")
+
     expect(current_path).to eq("/applications")
   end
 

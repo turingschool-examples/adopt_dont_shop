@@ -18,11 +18,14 @@ RSpec.describe 'the application show' do
   # - The Application's status, either "In Progress", "Pending", "Accepted", or "Rejected"
 
   it "shows the application and all it's attributes" do
-    application_one = Application.create!(name: 'Sally Smith', address: '123 West 23rd Ave Parker, CO 80134', description: 'Looking for a pet', status: "Pending" )
+    application_one = Application.create!(name: 'Sally Smith', address: '123 West 23rd Ave', city: 'Parker', state: 'CO', zip: '80134', description: nil, status: "In Progess" )
     visit "/applications/#{application_one.id}"
 
     expect(page).to have_content(application_one.name)
     expect(page).to have_content(application_one.address)
+    expect(page).to have_content(application_one.city)
+    expect(page).to have_content(application_one.state)
+    expect(page).to have_content(application_one.zip)
     expect(page).to have_content(application_one.description)
     expect(page).to have_content(application_one.status)
   end
@@ -43,17 +46,16 @@ RSpec.describe 'the application show' do
 
   it "can search for a pet by name" do
     shelter = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
-    application_one = Application.create!(name: 'Sally Smith', address: '123 West 23rd Ave Parker, CO 80134', description: nil, status: "In Progress" )
+    application_one = Application.create!(name: 'Sally Smith', address: '123 West 23rd Ave', city: 'Parker', state: 'CO', zip: '80134', description: nil, status: "In Progress" )
     pet_1 = Pet.create(adoptable: true, age: 1, breed: 'sphynx', name: 'Jack', shelter_id: shelter.id)
     visit "/applications/#{application_one.id}"
 
     expect(page).to have_content("Sally Smith")
-    # save_and_open_page
     expect(page).to have_field(:pet_of_interst_name)
     expect(page).to have_content("In Progress")
 
 
-    fill_in( "pet_of_interst_name", with: "Jack")
+    fill_in( :pet_of_interst_name, with: "Jack")
     click_on("Find")
 
     expect(page).to have_content("Jack")
@@ -74,14 +76,14 @@ RSpec.describe 'the application show' do
 
   it "can search for a pet by name" do
     shelter = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
-    application_one = Application.create!(name: 'Sally Smith', address: '123 West 23rd Ave Parker, CO 80134', description: nil, status: "In Progress" )
+    application_one = Application.create!(name: 'Sally Smith', address: '123 West 23rd Ave', city: 'Parker', state: 'CO', zip: '80134', description: nil, status: "In Progess" )
     pet_1 = Pet.create(adoptable: true, age: 1, breed: 'sphynx', name: 'Jack', shelter_id: shelter.id)
     visit "/applications/#{application_one.id}"
 
     expect(page).to have_content("Sally Smith")
     expect(page).to have_field(:pet_of_interst_name)
 
-    fill_in( "pet_of_interst_name", with: "Jack")
+    fill_in( :pet_of_interst_name, with: "Jack")
     click_on("Find")
 
     expect(page).to have_content("Jack")
@@ -112,7 +114,7 @@ RSpec.describe 'the application show' do
 
   it "can post pet for adoption" do
     shelter = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
-    application_one = Application.create!(name: 'Sally Smith', address: '123 West 23rd Ave Parker, CO 80134', description: nil, status: "In Progress" )
+    application_one = Application.create!(name: 'Sally Smith', address: '123 West 23rd Ave', city: 'Parker', state: 'CO', zip: '80134', description: nil, status: "In Progress" )
     pet_1 = Pet.create(adoptable: true, age: 1, breed: 'sphynx', name: 'Jack', shelter_id: shelter.id)
     visit "/applications/#{application_one.id}"
 
@@ -150,9 +152,9 @@ RSpec.describe 'the application show' do
   # And I have not added any pets to the application
   # Then I do not see a section to submit my application
 
-  it "will not allow you to bumit a for without pets requested" do
+  it "will not allow you to submit a form without pets requested" do
     shelter = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
-    application_one = Application.create!(name: 'Sally Smith', address: '123 West 23rd Ave Parker, CO 80134', description: nil, status: "In Progress" )
+    application_one = Application.create!(name: 'Sally Smith', address: '123 West 23rd Ave', city: 'Parker', state: 'CO', zip: '80134', description: nil, status: "In Progress" )
     pet_1 = Pet.create(adoptable: true, age: 1, breed: 'sphynx', name: 'Jack', shelter_id: shelter.id)
     visit "/applications/#{application_one.id}"
 
@@ -182,7 +184,7 @@ RSpec.describe 'the application show' do
 
   it 'can find partial matches to pet name' do
     shelter = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
-    application_one = Application.create!(name: 'Sally Smith', address: '123 West 23rd Ave Parker, CO 80134', description: nil, status: "In Progress" )
+    application_one = Application.create!(name: 'Sally Smith', address: '123 West 23rd Ave', city: 'Parker', state: 'CO', zip: '80134', description: nil, status: "In Progess" )
     pet_1 = Pet.create(adoptable: true, age: 1, breed: 'sphynx', name: 'Jack', shelter_id: shelter.id)
     pet_2 = Pet.create(adoptable: true, age: 1, breed: 'sphynx', name: 'Fluffy', shelter_id: shelter.id)
     pet_3 = Pet.create(adoptable: true, age: 1, breed: 'sphynx', name: 'Rascal', shelter_id: shelter.id)
@@ -210,7 +212,7 @@ RSpec.describe 'the application show' do
 
   it 'can find case insensitive matches' do
     shelter = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
-    application_one = Application.create!(name: 'Sally Smith', address: '123 West 23rd Ave Parker, CO 80134', description: nil, status: "In Progress" )
+    application_one = Application.create!(name: 'Sally Smith', address: '123 West 23rd Ave', city: 'Parker', state: 'CO', zip: '80134', description: nil, status: "In Progress" )
     pet_1 = Pet.create(adoptable: true, age: 1, breed: 'sphynx', name: 'Jack', shelter_id: shelter.id)
     pet_2 = Pet.create(adoptable: true, age: 1, breed: 'sphynx', name: 'Fluffy', shelter_id: shelter.id)
     pet_3 = Pet.create(adoptable: true, age: 1, breed: 'sphynx', name: 'Rascal', shelter_id: shelter.id)

@@ -6,7 +6,6 @@ class ApplicationsController < ApplicationController
   def show
     @application = Application.find(params[:id])
     @pets = Pet.search(params[:pet_of_interst_name])
-    # binding.pry
     @pet = @application.pets
   end
 
@@ -16,8 +15,12 @@ class ApplicationsController < ApplicationController
   def create
     application = Application.create(applications_params)
     application.status = "In Progress"
-    application.save
-    redirect_to '/applications'
+    if application.save
+      redirect_to "/applications"
+    else
+      flash[:alert] = "Error! Please fill out full form!"
+      render :new
+    end
   end
 
   def edit
@@ -50,6 +53,6 @@ class ApplicationsController < ApplicationController
   private
 
   def applications_params
-    params.permit(:name, :address, :description, :status)
+    params.permit(:name, :address, :city, :state, :zip, :description, :status)
   end
 end

@@ -1,5 +1,8 @@
 <h1><%= @application.name %></h1>
 <h3>Street Address: <%= @application.address %></h3>
+<h3>Street city: <%= @application.city %></h3>
+<h3>Street state: <%= @application.state %></h3>
+<h3>Street zip: <%= @application.zip %></h3>
 <h3>Status: <%= @application.status %></h3>
 <h3>Description: <%= @application.description %></h3>
 
@@ -17,7 +20,7 @@
 <% if @application.status != "Pending" %>
   <div id="pet_requests">
     <h4> Your pets: </h4>
-    <% if @pet != nil && @pet.count > 0%>
+    <% if @pet != nil && @application.pet_count > 0%>
 
       <% @pet.each do |pet| %>
         <p><%= pet.name %></p>
@@ -51,6 +54,6 @@
         <p>Breed: <%= pet.breed %></p>
         <p>Adoptable? <%= pet.adoptable %></p>
         <%= link_to("Adopt #{pet.name}", "/applications/#{@application.id}/#{pet.id}", method: :get) %>
-      <% end %>  
+      <% end %>
     <% end %>
 <% end %>
