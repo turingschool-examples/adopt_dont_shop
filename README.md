@@ -45,7 +45,7 @@ During the evaluation, you will present your user story:
 ## Deploy
 
 ```
-[ ] done
+[x] done
 
 Deploy your application to Heroku
 
@@ -73,7 +73,7 @@ How do i add a pet to a application, is this part of the joins thing?
 Visitors to the site will be able to create applications to adopt pets. An application has many pets. Pets can have many applications.
 
 ```
-[ x] done
+[x] done
 
 Application Show Page
 
@@ -90,7 +90,7 @@ Then I can see the following:
 ```
 
 ```
-[ x] done
+[x] done
 
 Starting an Application
 
@@ -112,7 +112,7 @@ And I see an indicator that this application is "In Progress"
 ```
 
 ```
-[x ] done
+[x] done
 
 Starting an Application, Form not Completed
 
