@@ -1,10 +1,20 @@
  <div class="container" style='padding-left: 20px; padding-bottom: 20px;'>
-<h1><%= @shelter.name %></h1>
-<p>Rank: <%= @shelter.rank %></p>
-<p>City: <%= @shelter.city %></p>
+<h1><%= @record.name %></h1>
+<table>
+    <% @formatted_attributes.each do |attribute, formatted_attribute| %>
+      <tr>
+        <td><%= "#{formatted_attribute}" %></td>
+        <td><% if @record.send("#{attribute}") == true %>
+            <%= 'Yes' %>
+          <% elsif @record.send("#{attribute}") == false %>
+            <%= 'No' %>
+          <% else %>
+            <%= @record.send("#{attribute}") %>
+          <% end %></td>
+      </tr>
+    <% end %>
+  </table><br>
 
-<p class="pet-count">Pets at <%= @shelter.name %>: <%= @shelter.pet_count %></p>
-<p><%= link_to "All pets at #{@shelter.name}", "/shelters/#{@shelter.id}/pets" %></p>
-
-<p><%= link_to "Delete #{@shelter.name}", "/shelters/#{@shelter.id}", method: :delete %></p>
+<button><%= link_to "Edit", "#{@record_path}#{@record.id}/edit", method: :edit %></button>
+<button><%= link_to "Delete", "#{@record_path}#{@record.id}", method: :delete %></button>
 </div>

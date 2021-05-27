@@ -25,7 +25,8 @@ class SheltersController < ApplicationController
   end
 
   def show
-    @shelter = Shelter.find(params[:id])
+    @formatted_attributes = Shelter.formatted_attributes
+    @record = Shelter.find(params[:id])
   end
 
   def new
