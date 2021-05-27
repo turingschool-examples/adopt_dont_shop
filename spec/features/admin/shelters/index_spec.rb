@@ -43,7 +43,7 @@ RSpec.describe 'the admin/shelters page' do
     pet_2 = Pet.create(adoptable: true, age: 3, breed: 'doberman', name: 'Lobster', shelter_id: @shelter_2.id)
     pet_3 = Pet.create(adoptable: false, age: 2, breed: 'saint bernard', name: 'Beethoven', shelter_id: @shelter_3.id)
 
-    application_one = Application.create!(name: 'Sally Smith', address: '123 West 23rd Ave Parker, CO 80134', description: nil, status: "In Progress" )
+    application_one = Application.create!(name: 'Sally Smith', address: '123 West 23rd Ave', city: 'Parker', state: 'CO', zip: '80134')
 
     visit "/applications/#{application_one.id}"
     fill_in( "pet_of_interst_name", with: "Lucille Bald")
@@ -53,7 +53,7 @@ RSpec.describe 'the admin/shelters page' do
     click_on("Submit Adoption Form")
     pending_applications = Application.pending
     visit "/admin/shelters"
-    
+
     expect(Application.all.count).to eq(1)
     expect(Application.first.status).to eq("Pending")
     expect(Application.pending.first).to eq(application_one)

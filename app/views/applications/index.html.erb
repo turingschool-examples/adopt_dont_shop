@@ -3,6 +3,9 @@
 <% @applications.each do |application| %>
   <h3><%= application.name %></h3>
   <p>Address: <%= application.address %></p>
+  <p>Address: <%= application.city %></p>
+  <p>Address: <%= application.state %></p>
+  <p>Address: <%= application.zip %></p>
   <p>Description: <%= application.description %></p>
-  <p>Status: In Progress</p>
+  <p>Status: <%= application.status %></p>
 <% end %>
