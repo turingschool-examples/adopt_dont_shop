@@ -37,15 +37,15 @@ FactoryBot.define do
 
 end
 
-10.times do
+5.times do
   shelter = Shelter.create!(FactoryBot::attributes_for(:shelter))
-  rand(5..10).times do
+  rand(2..5).times do
     attrs = FactoryBot::attributes_for(:pet)
     shelter.pets.create!(attrs)
   end
 end
 
-10.times do
+5.times do
   veterinary_office = VeterinaryOffice.create!(FactoryBot::attributes_for(:veterinary_office))
   rand(2..3).times do
     attrs = FactoryBot::attributes_for(:veterinarian)

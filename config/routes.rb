@@ -52,7 +52,14 @@ Rails.application.routes.draw do
 
   get '/admin/applications', to: 'admin_applications#index'
   get '/admin/applications/:id', to: 'admin_applications#show'
-  post '/admin/applications/:id', to: 'admin_applications#show'
+  
+  patch '/admin/applications/:id/pets/:pet_id/approve', to: 'admin_applications#approve'
+  patch '/admin/applications/:id/pets/:pet_id/reject', to: 'admin_applications#reject'
+
+  # get '/admin/applications/:id/approve', to: 'admin_applications#approve'
+  # post '/admin/applications/:id', to: 'admin_applications#approve'
+  # get '/admin/applications/:id/reject', to: 'admin_applications#reject'
+  # post '/admin/applications/:id', to: 'admin_applications#reject'
 
   # get '/admin/shelters/new', to: 'shelters#new'
   # get '/admin/shelters/:id', to: 'shelters#show'

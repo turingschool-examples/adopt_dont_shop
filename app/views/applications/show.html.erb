@@ -24,7 +24,7 @@
       <% end %>
 
       <section>
-        <%= form_with(url: "/applications/#{@application.id}", method: :post) do |form| %>
+        <%= form_with(url: "/applications/#{@application.id}", method: :post, local: true) do |form| %>
           <%= form.label "Why I would make a great owner:" %>
           <%= form.text_field :description, :required => true %>
           <%= form.submit value: "Submit Adoption Form" %>
@@ -37,7 +37,7 @@
 
 
 
-  <%= form_with(url: "/applications/#{@application.id}", method: :get) do |form| %>
+  <%= form_with(url: "/applications/#{@application.id}", method: :get, local: true) do |form| %>
     <%= form.label "Find Pet for this Application (pet name):" %>
     <%= form.text_field :pet_of_interst_name %>
     <%= form.submit value: "Find" %>
@@ -45,10 +45,12 @@
 
 
     <% @pets.each do |pet| %>
-      <h3><%= pet.name %></h3>
-      <p>Age: <%= pet.age %></p>
-      <p>Breed: <%= pet.breed %></p>
-      <p>Adoptable? <%= pet.adoptable %></p>
-      <%= link_to("Adopt #{pet.name}", "/applications/#{@application.id}/#{pet.id}", method: :get) %>
+      <% if pet.adoptable == true %>
+        <h3><%= pet.name %></h3>
+        <p>Age: <%= pet.age %></p>
+        <p>Breed: <%= pet.breed %></p>
+        <p>Adoptable? <%= pet.adoptable %></p>
+        <%= link_to("Adopt #{pet.name}", "/applications/#{@application.id}/#{pet.id}", method: :get) %>
+      <% end %>  
     <% end %>
 <% end %>
