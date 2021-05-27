@@ -16,15 +16,15 @@ describe 'admin shelters index' do
   it 'lists shelters with pending applications' do
     @pet_1 = @denver.pets.create(name: 'Mr. Pirate', breed: 'tuxedo shorthair', age: 5, adoptable: false)
     @pet_2 = @eagle.pets.create(name: 'Clawdia', breed: 'shorthair', age: 3, adoptable: true)
-    petition = Petition.create!(name:'Ted Leo', 
-                                street_address: '123 Pharmacist Ln', 
-                                city: 'Denver', 
+    petition = Petition.create!(name: 'Ted Leo',
+                                street_address: '123 Pharmacist Ln',
+                                city: 'Denver',
                                 state: 'Co',
-                                zipcode: 12345,
+                                zipcode: 12_345,
                                 goodhome: 'Lurv Fluffers',
                                 status: 'Pending')
-    pet_petition = PetPetition.create!(petition: petition, pet:@pet_1)
-    pet_petition2 = PetPetition.create!(petition: petition, pet:@pet_2)
+    pet_petition = PetPetition.create!(petition: petition, pet: @pet_1)
+    pet_petition2 = PetPetition.create!(petition: petition, pet: @pet_2)
 
     expect(page).to have_content('Denver Pet Shelter')
     expect(page).to have_content('Eagle Pet Sanctuary')

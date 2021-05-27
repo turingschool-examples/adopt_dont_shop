@@ -14,7 +14,7 @@ class Shelter < ApplicationRecord
   end
 
   def self.order_by_number_of_pets
-    select('shelters.*, count(pets.id) AS pets_count') 
+    select('shelters.*, count(pets.id) AS pets_count')
       .joins('LEFT OUTER JOIN pets ON pets.shelter_id = shelters.id')
       .group('shelters.id')
       .order('pets_count DESC')
@@ -25,7 +25,7 @@ class Shelter < ApplicationRecord
   end
 
   def self.with_pending
-    joins(:pets).joins(:pet_petitions).joins(:petitions).where(petitions: {status: "Pending"}).distinct
+    joins(:pets).joins(:pet_petitions).joins(:petitions).where(petitions: { status: 'Pending' }).distinct
   end
 
   def pet_count
