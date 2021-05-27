@@ -21,9 +21,11 @@ VeterinaryOffice.destroy_all
 @veterinarian_2 = @veterinarian_office_2.veterinarians.create!(on_call: false, review_rating: 5, name: "Dr. Josh")
 
 @application_1 = Application.create!(name: "George", state: "Idaho", city: "Boise", zip_code: 83616, address: "395 Middle Street", description: "student", status: "Accepted")
-@application_1 = Application.create!(name: "Fred", state: "Idaho", city: "Star", zip_code: 83616, address: "395 State Street", description: "student", status: "Accepted")
-@application_1 = Application.create!(name: "Ronald", state: "Idaho", city: "Boise", zip_code: 83616, address: "395 Start Road", description: "Teacher", status: "In Progress")
-@application_1 = Application.create!(name: "Ginny", state: "Idaho", city: "Eagle", zip_code: 83616, address: "395 Home Way", description: "Land Owner", status: "Accepted")
-@application_1 = Application.create!(name: "Percy", state: "Colorado", city: "Meridian", zip_code: 83616, address: "395 Artesian Street", description: "Government Official", status: "Rejected")
-@application_1 = Application.create!(name: "Charlie", state: "Colorado", city: "Nampa", zip_code: 83616, address: "395 Eagle Road", description: "Anthropologist", status: "Pending")
-@application_1 = Application.create!(name: "Bill", state: "Colorado", city: "Kuna", zip_code: 83616, address: "395 Purple Street", description: "student", status: "Accepted")
+@application_2 = Application.create!(name: "Fred", state: "Idaho", city: "Star", zip_code: 83616, address: "395 State Street", description: "student", status: "Accepted")
+@application_3 = Application.create!(name: "Charlie", state: "Colorado", city: "Nampa", zip_code: 83616, address: "395 Eagle Road", description: "Anthropologist", status: "Pending")
+@application_4 = Application.create!(name: "Bill", state: "Colorado", city: "Kuna", zip_code: 83616, address: "395 Purple Street", description: "student", status: "Accepted")
+
+PetApplication.create!(pet: @pet_1, application: @application_1)
+PetApplication.create!(pet: @pet_2, application: @application_2)
+PetApplication.create!(pet: @pet_3, application: @application_3)
+PetApplication.create!(pet: @pet_4, application: @application_4)

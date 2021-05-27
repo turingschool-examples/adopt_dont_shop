@@ -2,3 +2,7 @@
 <h3>Address: <%= @application.address %> <%=@application.city%> <%=@application.state%> <%=@application.zip_code%></h3>
 <h3>Description: <%= @application.description %></h3>
 <h3>Application Status: <%= @application.status %></h3>
+
+<% @pets.each do |pet|%>
+<p><%= link_to "#{pet.name}", "pets/#{pet.name}" %></p>
+<% end %>

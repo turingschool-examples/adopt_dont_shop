@@ -19,6 +19,16 @@ RSpec.describe 'the pets index' do
     expect(page).to have_content(shelter.name)
   end
 
+  it 'displays a start application link' do
+    shelter = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
+
+    visit "/pets"
+
+    expect(page).to have_link("Start an Application")
+    click_on("Start an Application")
+    expect(page).to have_current_path("/applications/new")
+  end
+
   it 'only lists adoptable pets' do
     shelter = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
     pet_1 = Pet.create(adoptable: true, age: 1, breed: 'sphynx', name: 'Lucille Bald', shelter_id: shelter.id)

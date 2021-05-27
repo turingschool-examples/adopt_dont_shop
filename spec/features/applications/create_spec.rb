@@ -18,20 +18,28 @@ RSpec.describe 'application creation' do
   end
 
   describe 'create' do
-    # context 'given valid data' do
-    #   it 'creates the application' do
+    context 'given valid data' do
+      it 'creates the application' do
 
-    #     fill_in 'Name', with: 'Fleur'
-    #     fill_in 'Address', with: '321 Drive'
-    #     fill_in 'City', with: 'Denver'
-    #     fill_in 'State', with: 'Colorado'
-    #     fill_in 'Zip code', with: 80031
-    #     click_button 'Save'
+        fill_in 'Name', with: 'Fleur'
+        fill_in 'Address', with: '321 Drive'
+        fill_in 'City', with: 'Denver'
+        fill_in 'State', with: 'Colorado'
+        fill_in 'Zip code', with: 80031
+        click_button 'Save'
 
-    #     expect(page).to have_current_path('/applications/:id/show')
-    #     expect(page).to have_content('Fleur')
-    #   end
-    # end
+        expect(page).to have_current_path("/applications/#{Application.last.id}")
+        expect(page).to have_content('Fleur')
+        expect(page).to have_content('Description')
+        expect(page).to have_content('321 Drive')
+        expect(page).to have_content('Denver')
+        expect(page).to have_content('Colorado')
+        expect(page).to have_content(80031)
+        expect(page).to have_content('Address')
+        expect(page).to have_content('Application Status')
+        expect(page).to have_content('In Progress')
+      end
+    end
 
     context 'given invalid data' do
       it 're-renders the new form' do
@@ -40,6 +48,7 @@ RSpec.describe 'application creation' do
         click_button 'Save'
 
         expect(page).to have_current_path('/applications/new')
+        expect(page).to have_content("Error: Please Fill In Field")
       end
     end
   end

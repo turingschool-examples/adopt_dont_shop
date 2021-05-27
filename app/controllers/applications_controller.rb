@@ -10,19 +10,21 @@ class ApplicationsController < ApplicationController
   def create
     application = Application.new(application_params)
     if application.save
-      redirect_to "/applications/#{application.id}/show"
+      redirect_to "/applications/#{application.id}"
     else
-      redirect_to '/applications/new'
+      flash[:notice] = "Error: Please Fill In Field"
+      redirect_to "/applications/new"
     end
   end
 
   def show
     @application = Application.find(params[:id])
+    @pets = @application.pets
   end
 
   private
 
   def application_params
-    params.permit(:id, :name, :state, :city, :zip_code, :address, :description, :status)
+    params.permit(:id, :name, :state, :city, :zip_code, :address).merge(status: 'In Progress')
   end
 end
