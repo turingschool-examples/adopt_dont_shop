@@ -1,11 +1,16 @@
-<h1>Applicant Name: <%= @application.name %></h1>
-<h3>Address: <%= @application.address %> <%=@application.city%> <%=@application.state%> <%=@application.zip_code%></h3>
-<h3>Description: <%= @application.description %></h3>
-<h3>Application Status: <%= @application.status %></h3>
+<br>
 
+<h1>Applicant Name: <%= @application.name %></h1>
+<p>Address: <%= @application.address %> <%=@application.city%> <%=@application.state%> <%=@application.zip_code%></p>
+<p>Description: <%= @application.description %></p>
+<p>Application Status: <%= @application.status %></p>
+
+<h3>Pets Applied For:</h3>
 <% @pets.each do |pet|%>
-  <p><%= link_to "#{pet.name}", "/pets/#{pet.id}"%></p>
+  <p> - <%= link_to "#{pet.name}", "/pets/#{pet.id}"%></p>
 <% end %>
+
+<br>
 
 <h2>Add a Pet to this Application</h2>
 <%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |f| %>
@@ -18,4 +23,17 @@
   <% @pet_names.each do |pet| %>
   <p><%= pet.name%> <%= button_to "Adopt this Pet", "/pet_applications", method: :post, local: :true, params: {pet: pet, application: @application} %> </p>
   <% end %>
+<% end %>
+
+<br>
+
+<% if @pets.length > 0%>
+  <h2>Submit Your Application</h2>
+  <%= form_with url: "/applications/#{@application.id}", method: :post, local: true do |f| %>
+
+    <%= f.label :description %>
+    <%= f.text_field :description %>
+
+    <%= f.submit "Submit Application" %>
+    <% end %>
 <% end %>
