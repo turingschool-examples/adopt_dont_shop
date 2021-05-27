@@ -4,6 +4,6 @@
 <% @pets.each do |pet| %>
 <p><%= " #{pet.name} -- #{pet.breed}: #{pet.age} years old." %></p>
 <p><%= "Is #{pet.name} adoptable? #{pet.adoptable} " %></p>
-<%= button_to "Approve #{@petition.name} for #{pet.name}", "/admin/petitions/#{@petition.id}", method: :patch  %>
-<%= button_to "Reject #{@petition.name} for #{pet.name}", "/admin/petitions/#{@petition.id}", method: :patch %>
+<%= button_to "Approve #{@petition.name} for #{pet.name}", "/admin/petitions/#{@petition.id}", method: :patch, params: { approval: 'Approved', pet: pet.id} %>
+<%= button_to "Reject #{@petition.name} for #{pet.name}", "/admin/petitions/#{@petition.id}", method: :patch, params: { approval: 'Rejected', pet: pet.id} %>
 <% end %>
