@@ -115,7 +115,7 @@ And I see a message that I must fill in those fields.
 ```
 
 ```
-[/] done 4
+[x] done 4
 
 Searching for Pets for an Application
 
@@ -146,7 +146,7 @@ And I see the Pet I want to adopt listed on this application
 ```
 
 ```
-[ ] done 6
+[x] done 6
 
 Submit an Application
 
@@ -164,7 +164,7 @@ And I do not see a section to add more pets to this application
 ```
 
 ```
-[ ] done 7
+[x] done 7
 
 No Pets on an Application
 

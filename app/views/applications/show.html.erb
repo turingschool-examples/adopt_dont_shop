@@ -11,29 +11,30 @@
 <% end %>
 
 <br>
-
-<h2>Add a Pet to this Application</h2>
-<%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |f| %>
-  <%= f.label :search %>
-  <%= f.text_field :search %>
-  <%= f.submit "Search" %>
-<% end %>
-
-<% if !@pet_names.nil? then %>
-  <% @pet_names.each do |pet| %>
-  <p><%= pet.name%> <%= button_to "Adopt this Pet", "/pet_applications", method: :post, local: :true, params: {pet: pet, application: @application} %> </p>
+<% unless @application.status == "Pending"%>
+  <h2>Add a Pet to this Application</h2>
+  <%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |f| %>
+    <%= f.label :search %>
+    <%= f.text_field :search %>
+    <%= f.submit "Search" %>
   <% end %>
-<% end %>
 
-<br>
-
-<% if @pets.length > 0%>
-  <h2>Submit Your Application</h2>
-  <%= form_with url: "/applications/#{@application.id}", method: :post, local: true do |f| %>
-
-    <%= f.label :description %>
-    <%= f.text_field :description %>
-
-    <%= f.submit "Submit Application" %>
+  <% if !@pet_names.nil? then %>
+    <% @pet_names.each do |pet| %>
+    <p><%= pet.name%> <%= button_to "Adopt this Pet", "/pet_applications", method: :post, local: :true, params: {pet: pet, application: @application} %> </p>
     <% end %>
+  <% end %>
+
+  <br>
+
+  <% if @pets.length > 0%>
+    <h2>Submit Your Application</h2>
+    <%= form_with url: "/applications/#{@application.id}", method: :post, local: true do |f| %>
+
+      <%= f.label :description %>
+      <%= f.text_field :description %>
+
+      <%= f.submit "Submit Application" %>
+      <% end %>
+  <% end %>
 <% end %>
