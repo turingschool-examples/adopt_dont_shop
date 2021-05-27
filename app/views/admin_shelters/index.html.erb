@@ -1,8 +1,9 @@
+<h4>All Shelters: </h4>
 <% @shelters.each do |shelter| %>
   <p><%= shelter.name %></p>
 <% end %>
 
-<p>Shelters with Pending Applications: </p>
+<h4>Shelters with Pending Applications: </h4>
 <% @shelters.each do |shelter| %>
   <% @applications_pending.each do |application| %>
     <% if application.shelter_id == shelter.id %>

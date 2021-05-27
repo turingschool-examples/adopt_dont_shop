@@ -6,6 +6,7 @@ class ApplicationsController < ApplicationController
   def show
     @application = Application.find(params[:id])
     @pets = Pet.search(params[:pet_of_interst_name])
+    # binding.pry
     @pet = @application.pets
   end
 
@@ -36,7 +37,6 @@ class ApplicationsController < ApplicationController
     @application = Application.find(params[:id])
     @pet = Pet.find(params[:pet_id])
     @application.pets << @pet
-    # binding.pry
     redirect_to "/applications/#{@application.id}"
   end
 

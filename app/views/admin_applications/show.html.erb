@@ -3,8 +3,27 @@
 <h3>Status: <%= @application.status %></h3>
 <h3>Description: <%= @application.description %></h3>
 
+
+<% if !@pet_applications.nil? && !@pets.nil? %>
+<% binding.pry %>
+<h3> Pets Status: </h3>
+<% @pet_applications.each do |application| %>
+  <% @pets.each do |pet| %>
+
+
+    <% if application.pet_id == pet.id && application.was_approved == true %>
+      <p><%= pet.name %> was approved!</p>
+    <% else application.pet_id == pet.id && application.was_approved == false %>
+      <p>Adoption for <%= pet.name %> was declined.</p>
+    <% end %>
+
+  <% end %>
+<% end %>
+<% end %>
+
 <h3> Pets for Adoption: </h3>
-<% @pet.each do |pet| %>
+<% @pets.each do |pet| %>
   <p><%= pet.name %></p>
-  <%= link_to("Approve #{pet.name}", "/admin/applications/#{@application.id}", method: :post, :remote => true).replace("#{pet.name} was Approved!") %>
+  <%= link_to("Approve #{pet.name}", "/admin/applications/#{@application.id}/pets/#{pet.id}/approve", method: :patch) %><br/>
+  <%= link_to("Reject Adoption for #{pet.name}", "/admin/applications/#{@application.id}/pets/#{pet.id}/reject", method: :patch) %><br/>
 <% end %>
