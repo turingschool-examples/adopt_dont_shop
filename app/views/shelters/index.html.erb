@@ -18,7 +18,12 @@
   <% @records.each do |record| %>
     <tr>
       <% @formatted_attributes.each do |attribute, formatted_attribute| %>
-        <td><% if @record_id = record.send("#{attribute}") %>
+        <td><% if record.send("#{attribute}") == true %>
+            <%= 'Yes' %>
+          <% elsif record.send("#{attribute}") == false %>
+            <%= 'No' %>
+          <% elsif attribute == "id" %>
+            <% @record_id = record.send("#{attribute}") %>
             <%= link_to @record_id, "#{@record_path}#{@record_id}", method: :get %>
           <% else %>
             <%= record.send("#{attribute}") %></td>
