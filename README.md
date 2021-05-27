@@ -58,22 +58,12 @@ the application must be hosted on Heroku.
 Use these guides: https://devcenter.heroku.com/articles/getting-started-with-rails5
 ```
 
-### CHECK IN QUESTIONS
-Is my heroku set up correctly?
-
-Im feel lost and overwhelmed at the moemnt, what exercises should i be doing other than the project so i can get a better understanding of the flow.
-
-Any advice on how to study this stuff better?
-
-How do i add a pet to a application, is this part of the joins thing?
-- names of all pets that this application is for (all names of pets should be links to their show page)
-
 ## Apply for Pet(s)
 
 Visitors to the site will be able to create applications to adopt pets. An application has many pets. Pets can have many applications.
 
 ```
-[x] done
+[x] done 1
 
 Application Show Page
 
@@ -90,7 +80,7 @@ Then I can see the following:
 ```
 
 ```
-[x] done
+[x] done 2
 
 Starting an Application
 
@@ -112,7 +102,7 @@ And I see an indicator that this application is "In Progress"
 ```
 
 ```
-[x] done
+[x] done 3
 
 Starting an Application, Form not Completed
 
@@ -125,7 +115,7 @@ And I see a message that I must fill in those fields.
 ```
 
 ```
-[/] done
+[/] done 4
 
 Searching for Pets for an Application
 
@@ -141,7 +131,7 @@ And under the search bar I see any Pet whose name matches my search
 ```
 
 ```
-[x] done
+[x] done 5
 
 Add a Pet to an Application
 
@@ -156,7 +146,7 @@ And I see the Pet I want to adopt listed on this application
 ```
 
 ```
-[ ] done
+[ ] done 6
 
 Submit an Application
 
@@ -174,7 +164,7 @@ And I do not see a section to add more pets to this application
 ```
 
 ```
-[ ] done
+[ ] done 7
 
 No Pets on an Application
 
