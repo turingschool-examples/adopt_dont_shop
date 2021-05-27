@@ -30,7 +30,15 @@ describe 'admin petitions show' do
     expect(page).to have_button('Reject Ted Leo for Clawdia')
   end
 
-  it 'clicking approve approves a pet for adoption' do
-    click_button('Approve Ted Leo for Mr. Pirate')
-  end
+  it 'clicking approve approves a pet for adoption'
+
+  it 'clicking reject rejects the adoption'
+
+  it 'clicking approve or reject removes button'
+
+  it 'clicking approve or reject does not affect other applications'
+  #   click_button('Approve Ted Leo for Mr. Pirate')
+
+    
+  # end
 end
