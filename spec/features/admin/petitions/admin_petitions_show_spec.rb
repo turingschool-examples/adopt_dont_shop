@@ -19,7 +19,14 @@ describe 'admin petitions show' do
   end
 
   it 'lists every pet associated with petition' do
-    expect(page).to have_content('Mr. Pirate')
-    expect(page).to have_content('Clawdia')
+    expect(page).to have_content('Mr. Pirate -- tuxedo shorthair: 5 years old.')
+    expect(page).to have_content('Clawdia -- shorthair: 3 years old.')
+  end
+
+  it 'contains a button next to each of those pets to approve or reject application' do
+    expect(page).to have_button('Approve Ted Leo for Mr. Pirate')
+    expect(page).to have_button('Reject Ted Leo for Mr. Pirate')
+    expect(page).to have_button('Approve Ted Leo for Clawdia')
+    expect(page).to have_button('Reject Ted Leo for Clawdia')
   end
 end
