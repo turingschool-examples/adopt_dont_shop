@@ -1,0 +1,60 @@
+  <tr>
+    <% @formatted_attributes.each do |attribute, formatted_attribute| %>
+      <th><%= formatted_attribute %></th>
+    <% end %>
+    <th>Edit</th>
+    <th>Delete</th>
+  </tr>
+  <% @records.each do |record| %>
+    <tr>
+      <% @formatted_attributes.each do |attribute, formatted_attribute| %>
+        <td><% if record.send("#{attribute}") == true %>
+            <%= 'Yes' %>
+          <% elsif record.send("#{attribute}") == false %>
+            <%= 'No' %>
+          <% elsif attribute == "id" %>
+            <% @record_id = record.send("#{attribute}") %>
+            <%= link_to @record_id, "#{@record_path}#{@record_id}", method: :get %>
+          <% else %>
+            <%= record.send("#{attribute}") %></td>
+          <% end %>
+      <% end %></td>
+      <td><%= link_to 'Edit', "#{@record_path}#{@record_id}/edit", method: :get %></td>
+      <td><%= link_to 'Delete', "#{@record_path}#{@record_id}", method: :delete %></td>
+    </tr>
+  <% end %>
+
+  <h1><%= @b3_facility.full_address%></h1>
+<h3 style="text-decoration: underline;">Facility Details</h3>
+
+  <%# Ruby Forms Version %>
+
+  <%= form_with url: "/facilities/#{@b3_facility.id}", method: "patch", local: true do |form| %>
+    <%= form.label :b3_street_number, 'Street Number:'%>
+    <%= form.text_field :b3_street_number, value: @b3_facility.b3_street_number %><br><br>
+    <%= form.label :b3_street_prefix, 'Street Prefix:' %>
+    <%= form.select :b3_street_prefix, [' ', 'E', 'W', 'N', 'S'], value: @b3_facility.b3_street_prefix %><br><br>
+    <%= form.label :b3_street_name, 'Street Name:' %>
+    <%= form.text_field :b3_street_name , value: @b3_facility.b3_street_name %><br><br>
+    <%= form.label :b3_street_type, 'Street Type:' %>
+    <%= form.text_field :b3_street_type, value: @b3_facility.b3_street_type %><br><br>
+    <%= form.label :b3_unit_info, 'Unit Info:' %>
+    <%= form.text_field :b3_unit_info, value: @b3_facility.b3_unit_info %><br><br>
+    <%= form.label :b3_city, 'City:' %>
+    <%= form.text_field :b3_city, value: @b3_facility.b3_city %><br><br>
+    <%= form.label :b3_state, 'State:' %>
+    <%= form.text_field :b3_state, value: @b3_facility.b3_state %><br><br>
+    <%= form.label :b3_zip, 'Zip Code:' %>
+    <%= form.text_field :b3_zip, value: @b3_facility.b3_zip %><br><br>
+    <%= form.label :b3_square_footage, 'Square Footage:' %>
+    <%= form.text_field :b3_square_footage, value: @b3_facility.b3_square_footage %><br><br>
+    <%= form.label :b3_has_co, 'Has Certificate of Occupancy:' %><br>
+    <% if @b3_facility.b3_has_co == true %>
+      <%= form.radio_button :b3_has_co, true, :checked => true %>Yes
+      <%= form.radio_button :b3_has_co, false %>No<br><br>
+    <% else %>
+      <%= form.radio_button :b3_has_co, true %>Yes
+      <%= form.radio_button :b3_has_co, false, :checked => true %>No<br><br>
+    <% end %>
+    <%= form.submit 'Submit Edits' %>
+  <% end %>

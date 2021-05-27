@@ -32,14 +32,14 @@
   </table><br>
   <% elsif source == :admin_shelters %>
   <h3>Pets Requiring Action</h3>
-   <table id='pet-needing-action'>
+   <table id='pet-needing-action' style='width: 25%'>
     <tr>
       <th>Pet</th>
       <th>Application(s) Requiring Review</th>
     </tr>
       <% @pets_needing_action.each do |pet| %>
-            <tr><td><%= pet.name %></td>
-            <td><ul><% pet.outstanding_apps.each do |application| %>
+            <tr><td td style='border: 1px dotted black;'><%= pet.name %></td>
+            <td td style='border: 1px dotted black;'><ul><% pet.outstanding_apps.each do |application| %>
               <li><%= link_to "View Application #{application.id}", "/admin/applications/#{application.id}", method: :get %></li>
             <% end %></ul></td>
           </tr>

@@ -1,37 +1,15 @@
 <div class="container" style='padding-left: 20px; padding-bottom: 20px;'>
-<h1>All Shelters</h1>
+  <h1>All Shelters</h1>
 
-<%= link_to "Sort by number of pets", "/shelters?sort=pet_count" %><br><br>
+  <%= link_to "Sort by number of pets", "/shelters?sort=pet_count" %><br><br>
 
-<%= form_with url: "/shelters", method: :get, local: true do |f| %>
-  <%= f.label :search %>
-  <%= f.text_field :search %>
-  <%= f.submit "Search" %>
-<% end %><br>
+  <%= form_with url: "/shelters", method: :get, local: true do |f| %>
+    <%= f.label :search %>
+    <%= f.text_field :search %>
+    <%= f.submit "Search" %>
+  <% end %><br>
 
-<table id='shelters' style='width:100%;'>
-  <tr>
-    <% @formatted_attributes.each do |attribute, formatted_attribute| %>
-      <th><%= formatted_attribute %></th>
-    <% end %>
-  </tr>
-  <% @records.each do |record| %>
-    <tr>
-      <% @formatted_attributes.each do |attribute, formatted_attribute| %>
-        <td><% if record.send("#{attribute}") == true %>
-            <%= 'Yes' %>
-          <% elsif record.send("#{attribute}") == false %>
-            <%= 'No' %>
-          <% elsif attribute == "id" %>
-            <% @record_id = record.send("#{attribute}") %>
-            <%= link_to @record_id, "#{@record_path}#{@record_id}", method: :get %>
-          <% else %>
-            <%= record.send("#{attribute}") %></td>
-          <% end %>
-      <% end %></td>
-    </tr>
-  <% end %>
-</div>
+  <%= render partial: '/partials/index' %>
 </div>
 
 
