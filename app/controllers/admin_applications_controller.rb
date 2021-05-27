@@ -1,6 +1,10 @@
 class AdminApplicationsController < ApplicationController
 
   def index
+    @formatted_attributes = Application.formatted_attributes
+    @records = Application.all
+    @record_path = '/applications/'
+    @pets_needing_action = Application.pets_needing_action
   end
 
   def show

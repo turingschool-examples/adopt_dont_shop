@@ -11,3 +11,4 @@ class ApplicationPet < ApplicationRecord
     find(id).first
   end
 end
+

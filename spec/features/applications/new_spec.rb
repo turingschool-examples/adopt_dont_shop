@@ -13,11 +13,11 @@ RSpec.describe 'applications new page', type: :feature do
     it 'has certain fields' do
       visit "/applications/new"
 
-      expect(page).to have_content('Full Name:')
-      expect(page).to have_content('Street Address:')
-      expect(page).to have_content('City:')
-      expect(page).to have_content('State:')
-      expect(page).to have_content('Zip Code:')
+      expect(page).to have_content('Full Name')
+      expect(page).to have_content('Street Address')
+      expect(page).to have_content('City')
+      expect(page).to have_content('State')
+      expect(page).to have_content('Zip Code')
     end
   end
   describe '#new page functionality' do

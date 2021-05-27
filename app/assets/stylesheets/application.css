@@ -12,7 +12,9 @@
  *
  *= require_tree .
  *= require_self
+ *= require rails_bootstrap_forms
  */
+
 
  .active {
   margin: 0;
@@ -47,12 +49,21 @@
 }
 #pet-photo {
   height: 300px;
-  width: 420px;
+  width: 100%;
+}
+#pet-photo-edit {
+  width: 100%;
+  height: 450px;
+  padding-top: 90px;
+}
+#pet-photo-show {
+  width: 100%;
+  height: 400px;
 }
 table, th {
   text-align: left;
   vertical-align: text-top;
-  border: 1px solid black;
+  border-color: white;
 }
 td {
   border: 1px dotted black;

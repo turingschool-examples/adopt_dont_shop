@@ -48,6 +48,9 @@ GEM
     bindex (0.8.1)
     bootsnap (1.7.5)
       msgpack (~> 1.0)
+    bootstrap_form (4.5.0)
+      actionpack (>= 5.2)
+      activemodel (>= 5.2)
     builder (3.2.4)
     capybara (3.35.3)
       addressable
@@ -223,6 +226,7 @@ PLATFORMS
 
 DEPENDENCIES
   bootsnap (>= 1.1.0)
+  bootstrap_form (~> 4.0)
   capybara
   coffee-rails (~> 4.2)
   jbuilder (~> 2.5)
