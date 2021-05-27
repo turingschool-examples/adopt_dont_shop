@@ -7,5 +7,5 @@
 
 <h1> All Shelters </h1>
 <% @shelters.each do |shelter| %>
-<h2><%= shelter.name %></h2>
+<h2> <%= link_to "#{shelter.name}", "/admin/shelters/#{shelter.id}" %> </h2>
 <% end %>

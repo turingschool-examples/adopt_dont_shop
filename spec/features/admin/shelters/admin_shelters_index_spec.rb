@@ -46,4 +46,9 @@ describe 'admin shelters index' do
     within(".right_list", text: 'With Pending Applications') 
     expect('Eagle Pet Sanctuary').to appear_before('Denver Pet Shelter')
   end
+
+  it 'contains links to each shelter by name' do
+    expect(page).to have_link('Denver Pet Shelter', :href => "/admin/shelters/#{@denver.id}")
+    expect(page).to have_link('Eagle Pet Sanctuary', :href => "/admin/shelters/#{@eagle.id}")
+  end
 end
