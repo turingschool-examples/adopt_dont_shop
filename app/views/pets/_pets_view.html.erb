@@ -3,7 +3,7 @@
     <th>Name</th>
     <th>Age</th>
     <th>Breed</th>
-    <th>Adoptable</th>
+    <th>Description</th>
     <th>Shelter</th>
     <% if source == :pets %>
       <th>Edit Pet</th>
@@ -17,17 +17,13 @@
         <td><%= pet.name %></td>
         <td><%= pet.age %></td>
         <td><%= pet.breed %></td>
-        <td> <% if pet.adoptable == true %>
-        <%= 'Yes' %>
-        <% else %>
-        <%= 'No' %>
-        <% end %></td>
+        <td><%= pet.description %></td>
         <td><%= pet.shelter_name %>!</td>
         <% if source == :pets %>
           <td><%= link_to "Edit #{pet.name}", "/pets/#{pet.id}/edit" %></td>
           <td><%= link_to "Delete #{pet.name}", "/pets/#{pet.id}", method: :delete %></td>
         <% elsif source == :applications %>
-          <td><%= button_to "Adopt #{pet.name}", "#{request.path}/pets/#{pet.id}", method: :post %></td>
+          <td><button style="width: 150px"><%= link_to "Adopt #{pet.name}", "#{request.path}/pets/#{pet.id}", method: :post %></button></td>
         <% end %>
     </tr>
   <% end %>

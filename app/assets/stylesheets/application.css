@@ -63,7 +63,7 @@
 table, th {
   text-align: left;
   vertical-align: text-top;
-  border: 1px solid black;
+  border-color: white;
 }
 td {
   border: 1px dotted black;

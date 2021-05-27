@@ -78,7 +78,7 @@ RSpec.describe 'applications show page', type: :feature do
       visit "/applications/#{@application1.id}"
       fill_in 'search', with: 'PeAr'
       click_button('Search')
-      click_button('Adopt Pear')
+      click_link('Adopt Pear')
 
       within "#pets-list" do
         expect(page).to have_content('Pear')
@@ -92,7 +92,7 @@ RSpec.describe 'applications show page', type: :feature do
     end
     it 'displays the Adoption Statement section and submission button after a pet has been added' do
       visit "/applications/#{@application1.id}"
-      click_button('Adopt Pear')
+      click_link('Adopt Pear')
 
       expect(page).to have_content('Please explain why you would be a good pet parent:')
       expect(page).to have_button('Submit Application')
@@ -101,7 +101,7 @@ RSpec.describe 'applications show page', type: :feature do
   describe 'submit functionality' do
     it 'redirects to the application show page after submission' do
       visit "/applications/#{@application1.id}"
-      click_button('Adopt Pear')
+      click_link('Adopt Pear')
       fill_in 'statement', with: 'Because I love animals.'
       click_button('Submit Application')
 
@@ -109,7 +109,7 @@ RSpec.describe 'applications show page', type: :feature do
     end
     it 'reflects an application status of pending after submission' do
       visit "/applications/#{@application1.id}"
-      click_button('Adopt Pear')
+      click_link('Adopt Pear')
       fill_in 'statement', with: 'Because I love animals.'
       click_button('Submit Application')
 
@@ -117,7 +117,7 @@ RSpec.describe 'applications show page', type: :feature do
     end
     it 'doesnt allow you to edit the application after submission' do
       visit "/applications/#{@application1.id}"
-      click_button('Adopt Pear')
+      click_link('Adopt Pear')
       fill_in 'statement', with: 'Because I love animals.'
       click_button('Submit Application')
 

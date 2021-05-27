@@ -1,3 +1,4 @@
+ <div class="container" style='padding-left: 20px;'>
 <h1 style="text-decoration: underline;"><%= "#{@application.name}'s Pet Adoption Application" %></h3>
 
 <%= render partial: 'application_status' %>
@@ -9,14 +10,15 @@
 <% if @application.status == 'In Progress' %>
   <%= render partial: 'pets/pets_search', locals: { path: request.path, method: :get } %>
   <% if params[:search].nil? %>
-    <h4>All Adoptable Pets:</h4>
+    <br><h4>All Adoptable Pets:</h4>
   <% else %>
-    <h4>Adoptable Pets Matching Search</h4>
+    <br><h4>Adoptable Pets Matching Search</h4>
   <% end %>
   <%= render partial: 'pets/pets_view', locals: { source: :applications, method: :patch } %>
 <% end %>
 
 <%= render partial: 'application_statement', locals: { method: :patch } %>
+</div>
 
 
 
