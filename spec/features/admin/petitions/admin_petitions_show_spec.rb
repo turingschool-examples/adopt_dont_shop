@@ -54,9 +54,23 @@ describe 'admin petitions show' do
     expect(page).not_to have_button('Reject Ted Leo for Clawdia')
   end
 
-  it 'clicking approve or reject does not affect other applications'
-  #   click_button('Approve Ted Leo for Mr. Pirate')
+  it 'clicking approve or reject does not affect other applications' do
+    @petition_2 = Petition.create!(name:'Thao Nguyen', 
+                                street_address: '456 Getdown St', 
+                                city: 'Los Angeles', 
+                                state: 'CA',
+                                zipcode: 12345,
+                                goodhome: 'Need a dragon',
+                                status: 'Pending')
+    @pet_petition_3 = PetPetition.create!(petition: @petition_2, pet:@pet_1)
+    @pet_petition_4 = PetPetition.create!(petition: @petition_2, pet:@pet_2)
+    click_button('Approve Ted Leo for Mr. Pirate')
+    click_button('Reject Ted Leo for Clawdia')
+    visit "/admin/petitions/#{@petition_2.id}"
 
-    
-  # end
+    expect(page).to have_button('Approve Thao Nguyen for Mr. Pirate')
+    expect(page).to have_button('Reject Thao Nguyen for Mr. Pirate')
+    expect(page).to have_button('Approve Thao Nguyen for Clawdia')
+    expect(page).to have_button('Reject Thao Nguyen for Clawdia')
+  end
 end
