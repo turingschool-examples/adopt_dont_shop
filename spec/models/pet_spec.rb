@@ -51,6 +51,9 @@ RSpec.describe Pet, type: :model do
       it 'performs a case insensitive search' do
         expect(Pet.search_by_name("ClaWDia")).to eq([@pet_2])
       end
+      it 'can get an array of its attributes' do
+        expect(Pet.unformatted_attributes).to be_a(Array)
+      end
     end
     describe '#adoptable' do
       it 'returns adoptable pets' do

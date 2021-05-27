@@ -5,10 +5,10 @@ RSpec.describe 'the shelters pets index' do
     @shelter1 = Shelter.create(name: 'Fluffy Friends', street_address: '1311 E 27th Ave', city: 'Denver', state: 'CO', zip_code: 80205, foster_program: false, rank: 9)
     @shelter2 = Shelter.create(name: 'Coon City', street_address: '201 W Colfax Ave', city: 'Denver', state: 'CO', zip_code: 80202, foster_program: false, rank: 5)
     @shelter3 = Shelter.create(name: 'Cat Savers', street_address: '1455 High St', city: 'Denver', state: 'CO', zip_code: 80218, foster_program: true, rank: 10)
-    @pet_1 = Pet.create(adoptable: true, age: 1, breed: 'sphynx', name: 'Bare-y Manilow', shelter_id: @shelter1.id)
-    @pet_2 = Pet.create(adoptable: true, age: 3, breed: 'doberman', name: 'Lobster', shelter_id: @shelter1.id)
-    @pet_3 = Pet.create(adoptable: true, age: 1, breed: 'domestic shorthair', name: 'Sylvester', shelter_id: @shelter2.id)
-    @pet_4 = Pet.create(adoptable: true, age: 1, breed: 'orange tabby shorthair', name: 'Lasagna', shelter_id: @shelter1.id)
+    @pet_1 = Pet.create(adoptable: true, age: 1, breed: 'sphynx', name: 'Oleg', shelter_id: @shelter1.id)
+    @pet_2 = Pet.create(adoptable: true, age: 3, breed: 'doberman', name: 'Grey', shelter_id: @shelter1.id)
+    @pet_3 = Pet.create(adoptable: true, age: 1, breed: 'domestic shorthair', name: 'Pear', shelter_id: @shelter2.id)
+    @pet_4 = Pet.create(adoptable: true, age: 1, breed: 'orange tabby shorthair', name: 'Joe', shelter_id: @shelter1.id)
   end
 
   it 'lists all the pets associated with the shelter, with their attributes' do
@@ -85,7 +85,7 @@ RSpec.describe 'the shelters pets index' do
     expect(page).to have_link("Sort alphabetically")
     click_on("Sort alphabetically")
 
-    expect(@pet_1.name).to appear_before(@pet_4.name)
-    expect(@pet_4.name).to appear_before(@pet_2.name)
+    expect(@pet_4.name).to appear_before(@pet_1.name)
+    expect(@pet_2.name).to appear_before(@pet_4.name)
   end
 end

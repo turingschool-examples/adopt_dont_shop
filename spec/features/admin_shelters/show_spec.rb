@@ -54,7 +54,6 @@ RSpec.describe 'admin_shelters index page', type: :feature do
     end
     it 'has a section that details pets needing action' do
       visit "/admin/shelters/#{@shelter1.id}"
-      save_and_open_page
 
       expect(page).to have_content('Pets Requiring Action')
       expect(page).to have_content('Pet')
