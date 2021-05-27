@@ -15,10 +15,6 @@ class ApplicationRecord < ActiveRecord::Base
     unfrozen_attrs
   end
 
-  def self.attributes
-    attrs = attribute_names
-  end
-
   def self.formatted_attributes
     attrs = attribute_names
 
