@@ -1,9 +1,15 @@
 <h1><%= "#{@petition.name}'s Application for Pets" %>  </h1>
 
 <h2> Pets Applied For </h2>
-<% @pets.each do |pet| %>
-<p><%= " #{pet.name} -- #{pet.breed}: #{pet.age} years old." %></p>
-<p><%= "Is #{pet.name} adoptable? #{pet.adoptable} " %></p>
-<%= button_to "Approve #{@petition.name} for #{pet.name}", "/admin/petitions/#{@petition.id}", method: :patch, params: { approval: 'Approved', pet: pet.id} %>
-<%= button_to "Reject #{@petition.name} for #{pet.name}", "/admin/petitions/#{@petition.id}", method: :patch, params: { approval: 'Rejected', pet: pet.id} %>
+<% @associated_pet_petitions.each do |pet_petition| %>
+  <% if pet_petition.status != 'Undecided' %>
+      <p><%= " #{pet_petition.pet.name} -- #{pet_petition.pet.breed}: #{pet_petition.pet.age} years old." %></p>
+      <p><%= "Application Status: #{pet_petition.status}" %></p>
+      <p><%= "Is #{pet_petition.pet.name} adoptable? #{pet_petition.pet.adoptable} " %></p>
+  <% elsif pet_petition.status == 'Undecided' %>
+      <p><%= " #{pet_petition.pet.name} -- #{pet_petition.pet.breed}: #{pet_petition.pet.age} years old." %></p>
+      <p><%= "Is #{pet_petition.pet.name} adoptable? #{pet_petition.pet.adoptable} " %></p>
+      <%= button_to "Approve #{@petition.name} for #{pet_petition.pet.name}", "/admin/petitions/#{@petition.id}", method: :get, params: { approval: 'Approved', pet: pet_petition.pet.id} %>
+      <%= button_to "Reject #{@petition.name} for #{pet_petition.pet.name}", "/admin/petitions/#{@petition.id}", method: :get, params: { approval: 'Rejected', pet: pet_petition.pet.id} %>
+  <% end %>
 <% end %>
