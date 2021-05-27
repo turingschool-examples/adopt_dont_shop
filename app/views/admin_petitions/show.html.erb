@@ -1,0 +1,6 @@
+<h1><%= "#{@petition.name}'s Application for Pets" %>  </h1>
+
+<h2> Pets Applied For </h2>
+<% @pets.each do |pet| %>
+<p><%= pet.name %></p>
+<% end %>
