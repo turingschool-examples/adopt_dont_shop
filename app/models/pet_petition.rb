@@ -6,4 +6,8 @@ class PetPetition < ApplicationRecord
     pet_ids = where('petition_id = ?', id).pluck(:pet_id)
     Pet.find(pet_ids)
   end
+
+  def self.select(pet_id, petition_id)
+    where("pet_id = ? AND petition_id = ?", pet_id, petition_id).first
+  end
 end
