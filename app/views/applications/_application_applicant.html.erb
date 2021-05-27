@@ -1,17 +1,13 @@
-<%= form_with url: '/applications/', method: method, local: true do |form| %>
-    <h3>Applicant Details:</h3>
+<h3>Applicant Details:</h3>
     <% if method == :post %>
-      <%= form.label :name, 'Full Name:' %>
-      <%= form.text_field :name, required: true, value: @application.name %><br><br>
-      <%= form.label :street_address, 'Street Address:' %>
-      <%= form.text_field :street_address, required: true, value: @application.name %><br><br>
-      <%= form.label :city, 'City:' %>
-      <%= form.text_field :city, required: true, value: @application.name %><br><br>
-      <%= form.label :state, 'State:' %>
-      <%= form.text_field :state, required: true, value: @application.name %><br><br>
-      <%= form.label :zip_code, 'Zip Code:' %>
-      <%= form.text_field :zip_code, value: @application.name %><br><br>
-      <%= form.submit 'Submit Applicant Details' %>
+        <%= bootstrap_form_with url: '/applications/', method: method, local: true do |form| %>
+          <%= form.text_field :name, required: true, value: @application.name, label: "Full Name" %><br>
+          <%= form.text_field :street_address, required: true, value: @application.name, label: "Street Address" %><br>
+          <%= form.text_field :city, required: true, value: @application.name %><br>
+          <%= form.text_field :state, required: true, value: @application.name %><br>
+          <%= form.text_field :zip_code, value: @application.name, label: "Zip Code" %><br>
+          <%= form.submit 'Submit Applicant Details' %>
+        <% end %>
     <% else %>
       <table>
         <tr>
@@ -24,5 +20,4 @@
         <tr><td>State:</td><td><%= @application.state %></td></tr>
         <tr><td>Zip Code:</td><td><%= @application.zip_code %></td></tr>
       </table><br>
-    <% end %>
   <% end %>
