@@ -45,5 +45,15 @@ RSpec.describe 'the application show' do
     expect(page).to have_content("Sir Willim Wallace")
   end
 
+  it "has a adopt this pet button" do
+    visit "/applications/#{@application_1.id}"
+
+    fill_in 'Search', with: "Wanda"
+    click_on("Search")
+    click_on("Adopt this Pet")
+
+    expect(page).to have_link("Wanda")
+  end
+
 
 end

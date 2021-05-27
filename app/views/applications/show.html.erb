@@ -16,6 +16,6 @@
 
 <% if !@pet_names.nil? then %>
   <% @pet_names.each do |pet| %>
-  <p><%= pet.name%></p>
+  <p><%= pet.name%> <%= button_to "Adopt this Pet", "/pet_applications", method: :post, local: :true, params: {pet: pet, application: @application} %> </p>
   <% end %>
 <% end %>
