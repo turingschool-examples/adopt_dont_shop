@@ -29,4 +29,22 @@ describe 'admin shelters index' do
     expect(page).to have_content('Denver Pet Shelter')
     expect(page).to have_content('Eagle Pet Sanctuary')
   end
+
+  xit 'lists shelters with pending applications in alphabetical order' do
+    @pet_1 = @denver.pets.create(name: 'Mr. Pirate', breed: 'tuxedo shorthair', age: 5, adoptable: false)
+    @pet_2 = @eagle.pets.create(name: 'Clawdia', breed: 'shorthair', age: 3, adoptable: true)
+    petition = Petition.create!(name: 'Ted Leo',
+                                street_address: '123 Pharmacist Ln',
+                                city: 'Denver',
+                                state: 'Co',
+                                zipcode: 12_345,
+                                goodhome: 'Lurv Fluffers',
+                                status: 'Pending')
+    pet_petition = PetPetition.create!(petition: petition, pet: @pet_1)
+    pet_petition2 = PetPetition.create!(petition: petition, pet: @pet_2)
+
+    within(".right_list", text: 'With Pending Applications') 
+      expect('Eagle Pet Sanctuary').to appear_before('Denver Pet Shelter')
+    end
+  end
 end
