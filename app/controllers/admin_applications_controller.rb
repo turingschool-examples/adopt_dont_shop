@@ -7,7 +7,7 @@ class AdminApplicationsController < ApplicationController
     @application = Application.find(params[:id])
     @pets_found = Pet.search(params[:pet_of_interst_name])
     @pets = @application.pets
-    PetApplication.where({application_id: params[:id]})
+    @pet_applications = PetApplication.where(application_id: params[:id])
     # binding.pry
   end
 
@@ -19,7 +19,8 @@ class AdminApplicationsController < ApplicationController
     @application.save
     @pet_approved.update(adoptable: false)
     @pet_approved.save
-    @pet_applications = PetApplication.where({application_id: params[:id]})
+    @pet_application = PetApplication.where({application_id: params[:id]}).update_all(was_approved: true)
+    # binding.pry
     redirect_to "/admin/applications/#{@application.id}"
   end
 

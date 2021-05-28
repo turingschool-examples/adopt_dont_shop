@@ -2,10 +2,10 @@
 
 <% @applications.each do |application| %>
   <h3><%= application.name %></h3>
-  <p>Address: <%= application.address %></p>
-  <p>Address: <%= application.city %></p>
-  <p>Address: <%= application.state %></p>
-  <p>Address: <%= application.zip %></p>
+  <p>Street Address: <%= application.address %></p>
+  <p>City: <%= application.city %></p>
+  <p>State: <%= application.state %></p>
+  <p>Zip: <%= application.zip %></p>
   <p>Description: <%= application.description %></p>
   <p>Status: <%= application.status %></p>
 <% end %>

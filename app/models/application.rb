@@ -15,4 +15,14 @@ class Application < ApplicationRecord
     self.pets.count
   end
 
+  def approved_declined
+    if (status == "Approved")
+      status = "Approved"
+    elsif (status == "Rejected")
+      status = "Rejected"
+    else (status == "Approved" && status == "Rejected")
+      status = "Rejected"
+    end
+  end
+
 end

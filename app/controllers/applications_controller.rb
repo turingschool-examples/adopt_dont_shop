@@ -16,7 +16,7 @@ class ApplicationsController < ApplicationController
     application = Application.create(applications_params)
     application.status = "In Progress"
     if application.save
-      redirect_to "/applications"
+      redirect_to "/applications/#{application.id}"
     else
       flash[:alert] = "Error! Please fill out full form!"
       render :new

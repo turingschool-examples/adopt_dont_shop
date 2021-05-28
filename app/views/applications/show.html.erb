@@ -1,19 +1,19 @@
 <h1><%= @application.name %></h1>
 <h3>Street Address: <%= @application.address %></h3>
-<h3>Street city: <%= @application.city %></h3>
-<h3>Street state: <%= @application.state %></h3>
-<h3>Street zip: <%= @application.zip %></h3>
+<h3>City: <%= @application.city %></h3>
+<h3>State: <%= @application.state %></h3>
+<h3>Zip: <%= @application.zip %></h3>
 <h3>Status: <%= @application.status %></h3>
 <h3>Description: <%= @application.description %></h3>
 
 
-<% if !@application.description.nil? %>
-  <%@application.status = "Pending" %>
+<% if !@application.description.nil? &&  @application.status != "Rejected" &&  @application.status != "Accepted" %>
+  <% @application.status = "Pending" %>
   <% @application.save %>
   <h3>Status: <%= @application.status %></h3>
-  <h3> Your pets: </h3>
+  <h3> Your <%= @application.status %> Pets: </h3>
     <% @pet.each do |pet| %>
-      <p><%= pet.name %></p>
+      <h3><%= pet.name %></h3>
     <% end %>
 <% end %>
 
