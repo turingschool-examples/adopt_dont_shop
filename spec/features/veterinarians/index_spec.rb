@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'the veterinarians index' do
-  it 'lists all the veterinarians with their attributes' do
+  xit 'lists all the veterinarians with their attributes' do
     vet_office = VeterinaryOffice.create(name: 'Best Vets', boarding_services: true, max_patient_capacity: 20)
     vet_1 = Veterinarian.create(name: 'Taylor', review_rating: 10, on_call: true, veterinary_office_id: vet_office.id)
     vet_2 = Veterinarian.create(name: 'Jim', review_rating: 8, on_call: true, veterinary_office_id: vet_office.id)
@@ -17,7 +17,7 @@ RSpec.describe 'the veterinarians index' do
     expect(page).to have_content(vet_office.name)
   end
 
-  it 'only shows on call veterinarians' do
+  xit 'only shows on call veterinarians' do
     vet_office = VeterinaryOffice.create(name: 'Best Vets', boarding_services: true, max_patient_capacity: 20)
     vet_1 = Veterinarian.create(name: 'Taylor', review_rating: 10, on_call: false, veterinary_office_id: vet_office.id)
     vet_2 = Veterinarian.create(name: 'Jim', review_rating: 8, on_call: true, veterinary_office_id: vet_office.id)
@@ -27,7 +27,7 @@ RSpec.describe 'the veterinarians index' do
     expect(page).to_not have_content(vet_1.name)
   end
 
-  it 'displays a link to edit each veterinarian' do
+  xit 'displays a link to edit each veterinarian' do
     vet_office = VeterinaryOffice.create(name: 'Best Vets', boarding_services: true, max_patient_capacity: 20)
     vet_1 = Veterinarian.create(name: 'Taylor', review_rating: 10, on_call: true, veterinary_office_id: vet_office.id)
     vet_2 = Veterinarian.create(name: 'Jim', review_rating: 8, on_call: true, veterinary_office_id: vet_office.id)
@@ -42,7 +42,7 @@ RSpec.describe 'the veterinarians index' do
     expect(page).to have_current_path("/veterinarians/#{vet_1.id}/edit")
   end
 
-  it 'displays a link to delete each veterinarian' do
+  xit 'displays a link to delete each veterinarian' do
     vet_office = VeterinaryOffice.create(name: 'Best Vets', boarding_services: true, max_patient_capacity: 20)
     vet_1 = Veterinarian.create(name: 'Taylor', review_rating: 10, on_call: true, veterinary_office_id: vet_office.id)
     vet_2 = Veterinarian.create(name: 'Jim', review_rating: 8, on_call: true, veterinary_office_id: vet_office.id)

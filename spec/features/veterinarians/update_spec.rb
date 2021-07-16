@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'the veterinarian update' do
-  it "shows the veterinarian edit form" do
+  xit "shows the veterinarian edit form" do
     vet_office = VeterinaryOffice.create(name: 'Put a bird on it', boarding_services: true, max_patient_capacity: 5)
     vet = vet_office.veterinarians.create(name: 'Kelsey', on_call: true, review_rating: 9)
 
@@ -13,7 +13,7 @@ RSpec.describe 'the veterinarian update' do
   end
 
   context "given valid data" do
-    it "submits the edit form and updates the veterinarian" do
+    xit "submits the edit form and updates the veterinarian" do
       vet_office = VeterinaryOffice.create(name: 'Put a bird on it', boarding_services: true, max_patient_capacity: 5)
       vet = Veterinarian.create(name: 'Kelsey', on_call: true, review_rating: 9, veterinary_office_id: vet_office.id)
 
@@ -31,7 +31,7 @@ RSpec.describe 'the veterinarian update' do
   end
 
   context "given invalid data" do
-    it 're-renders the edit form' do
+    xit 're-renders the edit form' do
       vet_office = VeterinaryOffice.create(name: 'Put a bird on it', boarding_services: true, max_patient_capacity: 5)
       vet = Veterinarian.create(name: 'Kelsey', on_call: true, review_rating: 9, veterinary_office_id: vet_office.id)
 

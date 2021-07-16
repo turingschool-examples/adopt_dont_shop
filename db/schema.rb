@@ -10,10 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_13_001717) do
+ActiveRecord::Schema.define(version: 2021_07_16_025220) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "applications", force: :cascade do |t|
+    t.string "applicant_lastname"
+    t.string "applicant_firstname"
+    t.string "applicant_address"
+    t.string "applicant_city"
+    t.string "applicant_state"
+    t.string "applicant_zipcode"
+    t.string "applicant_description"
+    t.string "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "pets", force: :cascade do |t|
     t.boolean "adoptable"
@@ -33,6 +46,9 @@ ActiveRecord::Schema.define(version: 2021_02_13_001717) do
     t.integer "rank"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "address"
+    t.string "state"
+    t.string "zip"
   end
 
   create_table "veterinarians", force: :cascade do |t|

@@ -6,7 +6,7 @@ RSpec.describe 'veterinarian creation' do
   end
 
   describe 'the veterinarian new' do
-    it 'renders the new form' do
+    xit 'renders the new form' do
       visit "/veterinary_offices/#{@vet_office.id}/veterinarians/new"
 
       expect(page).to have_content('New Veterinarian')
@@ -18,7 +18,7 @@ RSpec.describe 'veterinarian creation' do
 
   describe 'the veterinarian create' do
     context 'given valid data' do
-      it 'creates the vet and redirects to the veterinary offices vet index' do
+      xit 'creates the vet and redirects to the veterinary offices vet index' do
         visit "/veterinary_offices/#{@vet_office.id}/veterinarians/new"
 
         fill_in 'Name', with: 'Dr. Burstyn'
@@ -33,7 +33,7 @@ RSpec.describe 'veterinarian creation' do
     end
 
     context 'given invalid data' do
-      it 're-renders the new form' do
+      xit 're-renders the new form' do
         visit "/veterinary_offices/#{@vet_office.id}/veterinarians/new"
 
         click_button 'Save'
