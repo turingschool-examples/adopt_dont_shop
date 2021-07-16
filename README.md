@@ -1,7 +1,7 @@
 # Adopt, don't Shop
 
-### Existing database design
-![visual-schema.png](https://i.postimg.cc/0ywZgQ1W/visual-schema.png)
+<!-- ### Existing database design
+![visual-schema.png](https://i.postimg.cc/0ywZgQ1W/visual-schema.png) -->
 
 ## Learning Goals
 
