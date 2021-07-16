@@ -1,7 +1,7 @@
 # Adopt, don't Shop
 
-<!-- ### Existing database design
-![visual-schema.png](https://i.postimg.cc/0ywZgQ1W/visual-schema.png) -->
+### Existing database design
+![visual-schema.png](app/assets/images/databased_design.png)
 
 ## Learning Goals
 
@@ -32,7 +32,7 @@ During your Check In, you should be prepared to review your database schema for 
 
 ## Evaluation
 
-Before your evaluation, choose 2 user stories to present in a small group. Try to pick user stories that you think will deliever the highest value in terms of feedback from the instructor and peers. 
+Before your evaluation, choose 2 user stories to present in a small group. Try to pick user stories that you think will deliever the highest value in terms of feedback from the instructor and peers.
 
 During the evaluation, you will present your user story:
 
