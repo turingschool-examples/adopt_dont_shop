@@ -72,6 +72,7 @@ GEM
       execjs
     coffee-script-source (1.12.2)
     concurrent-ruby (1.1.9)
+    cowsay (0.3.0)
     crass (1.0.6)
     diff-lcs (1.4.4)
     docile (1.4.0)
@@ -240,13 +241,14 @@ DEPENDENCIES
   bootstrap (~> 5.0.1)
   capybara
   coffee-rails (~> 4.2)
+  cowsay
   jbuilder (~> 2.5)
   launchy
   listen (>= 3.0.5, < 3.2)
   orderly
   pg (>= 0.18, < 2.0)
   pry
-  puma (~> 3.11)
+  puma
   rails (~> 5.2.5)
   rspec-rails
   sass-rails (~> 5.0)
