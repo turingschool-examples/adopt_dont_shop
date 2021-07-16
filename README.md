@@ -1,6 +1,7 @@
 # Adopt, don't Shop
 
 ### Existing database design
+
 ![visual-schema.png](app/assets/images/databased_design.png)
 
 ## Learning Goals
