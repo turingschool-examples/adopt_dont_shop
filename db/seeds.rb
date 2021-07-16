@@ -25,3 +25,10 @@ shelter.pets.create!(name: 'Ruger', adoptable: true, age: 8, breed: 'Husky Samoy
 shelter.pets.create!(name: 'Clyde', adoptable: true, age: 8, breed: 'Boxer')
 shelter.pets.create!(name: 'Jasmine', adoptable: true, age: 8, breed: 'Black Lab')
 shelter.pets.create!(name: 'Finn', adoptable: true, age: 8, breed: 'Australian Shepard')
+
+Application.create!(name: 'Elliot Olbright', street_address: '5743 Squirrel Circle', city: 'Aspen', state: 'CO', zip_code: 81611, applicant_status: pending)
+Application.create!(name: 'Sami Peterson', street_address: '1123 Arbor Lane', city: 'Chicago', state: 'IL', zip_code: 60007, applicant_status: approved)
+Application.create!(name: 'Amanda McGuire', street_address: '883 Teller Court', city: 'Wheat Ridge', state: 'CO', zip_code: 80033, applicant_status: pending)
+Application.create!(name: 'Brian Fletcher', street_address: '9090 Veterans Street', city: 'Wells', state: 'ME', zip_code: 04090, applicant_status: in progress)
+Application.create!(name: 'Jacob Martinez', street_address: '8439 Felines Court', city: 'Westminster', state: 'CO', zip_code: 80021, applicant_status: rejected)
+Application.create!(name: 'Jacob Piland', street_address: '953 Brewers Street', city: 'Austin', state: 'TX', zip_code: 78704, applicant_status: pending)
