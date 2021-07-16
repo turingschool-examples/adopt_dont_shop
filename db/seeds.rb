@@ -59,8 +59,7 @@ shelter_2.pets.create!(
 
 # # Applications
 # application_1 = Application.create!(
-#   applicant_lastname: 'Smith',
-#   applicant_firstname: 'John',
+#   applicant_fullname: 'John Smith',
 #   applicant_address: '1200 3rd St.',
 #   applicant_city: 'Golden',
 #   applicant_state: 'CO',
@@ -68,8 +67,7 @@ shelter_2.pets.create!(
 #   applicant_description: 'I am a good guy',
 #   status: 'In Progress')
 # application_2 = Application.create!(
-#   applicant_lastname: 'Doe',
-#   applicant_firstname: 'Jane',
+#   applicant_fullname: 'Jane Doe',
 #   applicant_address: '500 Poplar Ave.',
 #   applicant_city: 'Wheat Ridge',
 #   applicant_state: 'CO',
