@@ -12,14 +12,13 @@ Shelter.destroy_all
 Application.destroy_all
 
 # shelters
-brighter_days = Shelter.create!(name: 'Brighter Days Shelter', rank: 1, city: 'boulder', foster_program: true)
-underdogs = Shelter.create!(name: 'Underdogs Shelter', rank: 2, city: 'denver', foster_program: true)
+brighter_days = Shelter.create!(name: 'Brighter Days Shelter', rank: 1, city: 'Boulder', foster_program: true)
+underdogs = Shelter.create!(name: 'Underdogs Shelter', rank: 2, city: 'Denver', foster_program: true)
 
 # pets
 bosco = brighter_days.pets.create!(name: 'Bosco', adoptable: true, age: 8, breed: 'Springer Spaniel')
 lily = brighter_days.pets.create!(name: 'Lily', adoptable: true, age: 5, breed: 'German Shepard Boxer Mix')
 leia = brighter_days.pets.create!(name: 'Leia', adoptable: true, age: 6, breed: 'Bernadoodle')
-toby = brighter_days.pets.create!(name: 'Toby', adoptable: true, age: 3, breed: 'Chocolate Lab')
 beans = brighter_days.pets.create!(name: 'Beans', adoptable: true, age: 8, breed: 'German Shepard')
 
 izze = underdogs.pets.create!(name: 'Izze', adoptable: true, age: 8, breed: 'Cocker Spaniel')
