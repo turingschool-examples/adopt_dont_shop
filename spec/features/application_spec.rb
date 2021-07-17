@@ -7,6 +7,11 @@ RSpec.describe 'application' do
     expect(page).to have_link("Pets")
     click_link("Pets")
     expect(page).to have_current_path('/pets')
+    expect(page).to have_link("Shelters")
+    expect(page).to have_link("Pets")
+    expect(page).to have_link("Veterinarians")
+    expect(page).to have_link("Veterinary Offices")
+    expect(page).to have_link("Applications")
   end
 
   it 'displays a link to all shelters' do
@@ -19,6 +24,7 @@ RSpec.describe 'application' do
     expect(page).to have_link("Pets")
     expect(page).to have_link("Veterinarians")
     expect(page).to have_link("Veterinary Offices")
+    expect(page).to have_link("Applications")
   end
 
   it 'displays a link to all veterinary offices' do
@@ -31,6 +37,7 @@ RSpec.describe 'application' do
     expect(page).to have_link("Pets")
     expect(page).to have_link("Veterinarians")
     expect(page).to have_link("Veterinary Offices")
+    expect(page).to have_link("Applications")
   end
 
   it 'displays a link to all veterinarians' do
@@ -43,6 +50,7 @@ RSpec.describe 'application' do
     expect(page).to have_link("Pets")
     expect(page).to have_link("Veterinarians")
     expect(page).to have_link("Veterinary Offices")
+    expect(page).to have_link("Applications")
   end
 
   it 'displays a link to all applications' do
