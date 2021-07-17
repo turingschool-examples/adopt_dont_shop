@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'vet office creation' do
   describe 'the vet office new' do
-    xit 'renders the new form' do
+    it 'renders the new form' do
       visit '/veterinary_offices/new'
 
       expect(page).to have_content('New Vet Office')
@@ -14,7 +14,7 @@ RSpec.describe 'vet office creation' do
 
   describe 'the vet office create' do
     context 'given valid data' do
-      xit 'creates the vet office' do
+      it 'creates the vet office' do
         visit '/veterinary_offices/new'
 
         fill_in 'Name', with: 'Houston Vet Office'
@@ -27,7 +27,7 @@ RSpec.describe 'vet office creation' do
     end
 
     context 'given invalid data' do
-      xit 're-renders the new form' do
+      it 're-renders the new form' do
         visit '/veterinary_offices/new'
         click_button 'Save'
 

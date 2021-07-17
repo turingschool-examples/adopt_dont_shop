@@ -9,7 +9,7 @@
 
 Pet.destroy_all
 Shelter.destroy_all
-# Application.destroy_all
+Application.destroy_all
 
 # Shelters
 shelter_1 = Shelter.create!(
@@ -57,20 +57,29 @@ shelter_2.pets.create!(
   age: 6,
   adoptable: true)
 
-# # Applications
-# application_1 = Application.create!(
-#   applicant_fullname: 'John Smith',
-#   applicant_address: '1200 3rd St.',
-#   applicant_city: 'Golden',
-#   applicant_state: 'CO',
-#   applicant_zipcode: '80401',
-#   applicant_description: 'I am a good guy',
-#   status: 'In Progress')
-# application_2 = Application.create!(
-#   applicant_fullname: 'Jane Doe',
-#   applicant_address: '500 Poplar Ave.',
-#   applicant_city: 'Wheat Ridge',
-#   applicant_state: 'CO',
-#   applicant_zipcode: '80401',
-#   applicant_description: 'I want a kitty!',
-#   status: 'In Progress')
+# Applications
+application_1 = Application.create!(
+  applicant_fullname: 'John Smith',
+  applicant_address: '1200 3rd St.',
+  applicant_city: 'Golden',
+  applicant_state: 'CO',
+  applicant_zipcode: '80401',
+  applicant_description: 'I am a good guy',
+  status: 'In Progress')
+application_2 = Application.create!(
+  applicant_fullname: 'Jane Doe',
+  applicant_address: '500 Poplar Ave.',
+  applicant_city: 'Wheat Ridge',
+  applicant_state: 'CO',
+  applicant_zipcode: '80401',
+  applicant_description: 'I want a kitty!',
+  status: 'In Progress')
+
+# Pet Applications
+shelter_1.pets.all.each do |pet|
+  application_1.pets << pet
+end
+
+shelter_2.pets.all.each do |pet|
+  application_2.pets << pet
+end
