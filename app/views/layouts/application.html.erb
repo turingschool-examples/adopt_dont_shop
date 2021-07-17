@@ -1,11 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <!-- <nav style='background:#1C1526; color:#BDE3F2' -->
+  <!-- <nav class="navbar navbar-expand-lg" style='background:#1C1526; color:#BDE3F2'> -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+
     <!-- <a class="navbar-brand" href="#">Navbar</a> -->
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
+
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav">
         <li class="nav-item active">
@@ -49,7 +53,8 @@
     <%= csp_meta_tag %>
   </head>
 
-  <body>
+<body style='background:##F2F2F2; color:##1C1526'>
+
     <% flash.each do |type, msg| %>
       <div>
         <%= msg %>
