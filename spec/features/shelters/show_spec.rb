@@ -42,13 +42,4 @@ RSpec.describe 'the shelter show' do
 
     expect(page).to have_current_path("/shelters/#{shelter_2.id}/pets")
   end
-
-
-  xit "displays a link to the admin application show page next to each pet's name" do
-    visit "/admin/shelters" # admin_show.html.erb // admin_show_spec.rb
-
-    # And I look in the "Action Required" section
-
-    expect(page).to have_link("admin/application")
-  end
 end
