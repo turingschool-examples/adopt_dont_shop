@@ -1,4 +1,4 @@
-class Applications < ApplicationRecord
+class Application < ApplicationRecord
   def index
     @applications = Application.all
   end
