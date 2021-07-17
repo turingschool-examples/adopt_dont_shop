@@ -3,6 +3,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.7.2'
 
+gem "bootstrap_form", "~> 4.0"
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.5'
 # Use postgresql as the database for Active Record
@@ -37,13 +38,14 @@ gem 'jbuilder', '~> 2.5'
 gem 'bootsnap', '>= 1.1.0', require: false
 
 group :development, :test do
-  gem 'capybara'
-  gem 'shoulda-matchers'
-  gem 'launchy'
-  gem 'orderly'
-  gem 'pry'
+  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'rspec-rails'
+  gem 'pry'
   gem 'simplecov'
+  gem 'capybara'
+  gem 'launchy'
+  gem 'shoulda-matchers', '~> 4.0'
+  gem 'orderly'
 end
 
 group :development do
@@ -58,3 +60,5 @@ end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+gem 'bootstrap'
+gem 'jquery-rails'
