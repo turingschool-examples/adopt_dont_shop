@@ -7,9 +7,10 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 
+PetApplication.destroy_all
+Application.destroy_all
 Pet.destroy_all
 Shelter.destroy_all
-Application.destroy_all
 
 # Shelters
 shelter_1 = Shelter.create!(
@@ -75,11 +76,11 @@ application_2 = Application.create!(
   applicant_description: 'I want a kitty!',
   status: 'In Progress')
 
-# Pet Applications
-shelter_1.pets.all.each do |pet|
-  application_1.pets << pet
-end
-
-shelter_2.pets.all.each do |pet|
-  application_2.pets << pet
-end
+# # Pet Applications
+# shelter_1.pets.all.each do |pet|
+#   application_1.pets << pet
+# end
+#
+# shelter_2.pets.all.each do |pet|
+#   application_2.pets << pet
+# end
