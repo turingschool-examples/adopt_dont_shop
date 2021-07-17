@@ -5,4 +5,10 @@
 <p><%= "State: #{@application.state}" %></p>
 <p><%= "Zip Code: #{@application.zip_code}" %></p>
 <p><%= "Description: #{@application.description}" %></p>
+<p>Pet(s) Applied For: <% @application.pets.each do |pet| %>
+  <%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
+    <% if(pet != @application.pets.last) %>
+      ,
+    <% end %>
+<% end %></p>
 <p><%= "Application Status: #{@application.application_status}" %></p>

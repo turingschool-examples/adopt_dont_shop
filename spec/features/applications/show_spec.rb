@@ -23,7 +23,7 @@ RSpec.describe 'the applications show page' do
     @pet_app_5 = PetApplication.create!(pet: @ruger, application: @app_3)
   end
 
-  it 'can display the name, full address, description, names of pets, and status of the applicant' do
+  it 'can display the name, full address, description, pet(s) applied for, and status of the applicantion' do
     visit "/applications/#{@app_1.id}"
 
     expect(page).to have_content("#{@app_1.name}'s Application")
@@ -32,7 +32,7 @@ RSpec.describe 'the applications show page' do
     expect(page).to have_content("State: #{@app_1.state}")
     expect(page).to have_content("Zip Code: #{@app_1.zip_code}")
     expect(page).to have_content("Description: #{@app_1.description}")
-    # Names of all pets that this application is for (all names of pets should be links to their show page)
+    expect(page).to have_content("Pet(s) Applied For: #{@pet_app_1.pet.name} , #{@pet_app_2.pet.name}")
     expect(page).to have_content("Application Status: #{@app_1.application_status}")
   end
 end
