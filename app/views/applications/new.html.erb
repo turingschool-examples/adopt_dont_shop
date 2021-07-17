@@ -1,0 +1,35 @@
+<%= form_with url: '/applications', method: :post, local: true do |form| %>
+  <div class="form-control" align="center" style="background-color: #DEB887">
+    <div class="form-control" align="center" >
+      <%= form.label :name, "State Name" %>
+      <%= form.text_field :name %>
+    </div>
+    <br>
+    <div class="form-control" align="center" >
+      <%= form.label :region, "Region of Country" %>
+      <%= form.text_field :region %>
+      <br/>
+      <br/>
+      <img src="http://mulvaneela4.weebly.com/uploads/5/4/6/2/54621351/4224084_orig.png" height=20% width=20%>
+    </div>
+    <br>
+    <div class="form-control" align="center" >
+      <%= check_box_tag(:military_discount) %>
+      <%= label_tag(:military_discount, "State has military discount for camping reservations") %><br/><br/>
+      <a class="btn btn-small btn-warning" href="http://www.usvetcamper.com/veterans/state-park-passes/">Military Discount Information</a>
+    </div>
+    <br>
+    <div class="form-control" align="center" >
+      <%= form.label :green_rank %>
+      <%= form.number_field :green_rank, step: 1, max: 50 %>
+      <br/><br/>
+      <h1 style="text-align: center"><iframe src="https://cdn.wallethub.com/wallethub/embed/11987/ecofriendly-geochart.html" width="556" height="347" frameBorder="0" scrolling="no"></iframe>
+        <div style="width:556px;font-size:12px;color:#888;">State Environmental Rankings</div>
+
+    </div>
+    <br/>
+    <div class="form-group" align="center" >
+    <%= form.submit "Create State" %>
+    </div>
+  </div>
+  <% end %>
