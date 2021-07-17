@@ -4,9 +4,10 @@
 <div style="margin: 0 auto; text-align: center">
     <a style="align: center" class="btn btn-primary btn-outline-warning" href="/applications/new">Start an Application</a>
 </div>
-<section id="body">
-<%= form_with url: "/pets", method: :get, local: true do |f| %>
-  <%= f.label :search %>
+<br/>
+<section id="body" align="center">
+<%= form_with url: "/pets", method: :get, class: "btn btn-warning btn-outline-primary", local: true do |f| %>
+  <%= f.label :search, "Pet Name" %>
   <%= f.text_field :search %>
   <%= f.submit "Search" %>
 
