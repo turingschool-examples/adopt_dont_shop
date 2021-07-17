@@ -1,10 +1,17 @@
-<h1>All pets</h1>
-
+<div style="margin: 0 auto; text-align: center">
+  <img src="https://user-images.githubusercontent.com/74567704/126038524-5229413d-fda2-4498-bea7-72e92e827341.png" alt="All Pets">
+</div>
+<div style="margin: 0 auto; text-align: center">
+    <a style="align: center" class="btn btn-primary btn-outline-warning" href="/applications/new">Start an Application</a>
+</div>
+<section id="body">
 <%= form_with url: "/pets", method: :get, local: true do |f| %>
   <%= f.label :search %>
   <%= f.text_field :search %>
   <%= f.submit "Search" %>
+
 <% end %>
+</section>
 
 
 <% @pets.each do |pet| %>
