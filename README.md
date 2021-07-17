@@ -424,3 +424,44 @@ Then next to each pet's name I see a link to the admin application show page whe
 ### Styling
 
 Implement a CSS Grid Framework to improve your styling, either [CSS Grid Layout](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout) or [Bootstrap](https://getbootstrap.com/)
+
+
+
+#### Project Configurations
+
+* Ruby version
+    ```bash
+    $ ruby -v
+    ruby 2.7.2p137 (2020-10-01 revision 5445e04352) [x86_64-darwin20]
+    ```
+
+* [System dependencies](https://github.com/tvaroglu/adopt_dont_shop/blob/main/Gemfile)
+    ```bash
+    $ rails -v
+    Rails 5.2.6
+    ```
+
+* Database creation
+    ```bash
+    $ rails db:create
+    Created database 'adopt_dont_shop_development'
+    Created database 'adopt_dont_shop_test'
+    ```
+
+* Database initialization
+    ```bash
+    $ rails generate migration CreateApplications applicant_fullname:string applicant_address:string applicant_city:string applicant_state:string applicant_zipcode:string applicant_description:string status:string
+    $ rails db:migrate
+    $ rails dbconsole
+    ```
+
+* How to run the test suite
+    ```bash
+    $ bundle exec rspec
+    ```
+
+* Local deployment instructions, for testing:
+    ```bash
+    $ rails s
+    ```
+    [http://localhost:3000](http://localhost:3000)
