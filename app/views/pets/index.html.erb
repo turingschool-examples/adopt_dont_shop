@@ -2,9 +2,9 @@
   <img src="https://user-images.githubusercontent.com/74567704/126038524-5229413d-fda2-4498-bea7-72e92e827341.png" alt="All Pets">
 </div>
 <div style="margin: 0 auto; text-align: center">
-    <a style="align: center" class="btn btn-warning btn-outline-primary" href="/applications">Existing Applications</a>
+    <a style="align: center" class="btn btn-primary btn-outline-warning" href="/applications">Existing Applications</a>
 
-    <a style="align: center" class="btn btn-primary btn-outline-warning" href="/applications/new">Start an Application</a>
+    <a style="align: center" class="btn btn-success btn-outline-warning" href="/applications/new">Start an Application</a>
 </div>
 <br/>
 <section id="body" align="center">
@@ -17,14 +17,13 @@
 </section>
 <% @pets.each do |pet| %>
 
-
-<br/>
+<section id='body'>
+  <br/>
     <div class="container-fluid" align="center" style="text-align=center">
-
       <div class="col-sm-3">
         <div class="card" style="background-color: #F0FFFF">
           <div class="card-block">
-
+            <br/>
             <h4 class="card-title"><%= pet.name %></h4>
             <p class="card-text">You can find <%= pet.name %> at<br/>
               <a href="/shelters" class="btn btn-outline-primary btn-sm"><%= pet.shelter_name %></a>
@@ -37,7 +36,9 @@
             <li class="list-group-item" style="background-color: #F0FFFF"><br/>
               <a href=<%="/pets/#{pet.id}"%> class="btn btn-warning btn-outline-primary"><%= "Visit #{pet.name}" %></a>
               <a href=<%="/pets/#{pet.id}/edit"%> class="btn btn-success btn-outline-warning"><%= "Edit #{pet.name}" %></a>
-              <a href=<%="/pets/#{pet.id}"%> data-method="delete" class="btn btn-danger btn-outline-warning"><%= "Delete #{pet.name}" %></a>
+              <br/><br/>
+              <a style="text-align: center"><%= button_to "Delete #{pet.name}", "/pets/#{pet.id}",class: "btn btn-danger btn-outline-warning", method: :delete, data: { confirm: "Are you sure? It's a crazy world out there." } %>
+
             </li>
           </ul>
 
@@ -46,5 +47,5 @@
 
       </div>
     </div>
-  </div>
+</section>
 <% end %>

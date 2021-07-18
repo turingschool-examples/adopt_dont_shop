@@ -51,14 +51,14 @@ RSpec.describe 'the pets index' do
     pet_2 = Pet.create(adoptable: true, age: 3, breed: 'doberman', name: 'Lobster', shelter_id: shelter.id)
 
     visit '/pets'
+    within('section#body')
+      expect(page).to have_button("Delete #{pet_1.name}")
+      expect(page).to have_button("Delete #{pet_2.name}")
 
-    expect(page).to have_content("Delete #{pet_1.name}")
-    expect(page).to have_content("Delete #{pet_2.name}")
+      click_button("Delete #{pet_1.name}")
 
-    click_link("Delete #{pet_1.name}")
-
-    expect(page).to have_current_path("/pets")
-    expect(page).to_not have_content(pet_1.name)
+      expect(page).to have_current_path("/pets")
+      expect(page).to_not have_content(pet_1.name)
   end
 
   it 'has a text box to filter results by keyword' do
@@ -84,10 +84,11 @@ RSpec.describe 'the pets index' do
 
   it 'has a link to start a new application' do
     visit "/pets"
-    expect(page).to have_link("Start an Application")
-    click_link("Start an Application")
+    within('section#body')
+      expect(page).to have_link("Start an Application")
+      click_link("Start an Application")
 
-    expect(current_path).to eq("/applications/new")
+      expect(current_path).to eq("/applications/new")
   end
 
   it 'has a link to view all applications' do
