@@ -1,0 +1,19 @@
+<h1>Application to Adopt a Pet</h1>
+
+<%= form_with url:'/applications', method: :post, local: true do |form| %>
+  <%= form.label :name, 'Name' %>
+  <%= form.text_field :name %>
+  <%= form.label :street_address, 'Street Address' %>
+  <%= form.text_field :street_address %>
+  <%= form.label :city, 'City' %>
+  <%= form.text_field :city %>
+  <%= form.label :state, 'State' %>
+  <%= form.select :state, ['AL','AK','AS','AZ','AR','CA','CO','CT','DE','DC','FM','FL','GA',
+   'GU','HI','ID','IL','IN','IA','KS','KY','LA','ME','MH','MD','MA',
+   'MI','MN','MS','MO','MT','NE','NV','NH','NJ','NM','NY','NC','ND',
+   'MP','OH','OK','OR','PW','PA','PR','RI','SC','SD','TN','TX','UT',
+   'VT','VI','VA','WA','WV','WI','WY'] %>
+   <%= form.label :zip_code, 'Zip Code' %>
+   <%= form.number_field :zip_code %>
+   <%= form.submit 'Submit' %>
+ <% end %>
