@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  get '/', to: 'applications#welcome'
+  get '/', to: 'application#welcome'
   resources :applications
 
   get '/shelters', to: 'shelters#index'

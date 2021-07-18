@@ -1,15 +1,10 @@
-class ApplicationsController < ActionController::Base
-  def welcome
-  end
-
+class ApplicationsController < ApplicationController
   def show
     @application = Application.find(params[:id])
-    @pets = @application.associated_pets(params[:id])
-  end
-
-  private
-
-  def error_message(errors)
-    errors.full_messages.join(', ')
+    if params[:search].nil?
+      @pets = @application.associated_pets(params[:id])
+    else
+      @pets = Pet.search(params[:search])
+    end
   end
 end
