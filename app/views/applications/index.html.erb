@@ -19,9 +19,9 @@
           <ul class="list-group list-group-flush">
             <li class="list-group-item" style="background-color: #FFEBCD">Status: <%= app.application_status %></li>
             <li class="list-group-item" style="background-color: #F0FFFF"><br/>
-              <a href="/apps/#{app.id}" class="btn btn-warning btn-outline-primary"><%= "Visit #{app.name}" %></a>
-              <a href="/apps/#{app.id}/edit" class="btn btn-primary btn-outline-warning"><%= "Edit #{app.name}" %></a>
-              <a href="/pets/#{app.id}" data-method="delete" class="btn btn-danger btn-outline-warning"><%= "Delete #{app.name}" %></a>
+              <a href=<%="/applications/#{app.id}"%> class="btn btn-warning btn-outline-primary"><%= "Visit #{app.name}" %></a>
+              <a href=<%="/applications/#{app.id}/edit"%> class="btn btn-primary btn-outline-warning"><%= "Edit #{app.name}" %></a>
+              <a href=<%="/applications/#{app.id}"%> data-method="delete" class="btn btn-danger btn-outline-warning"><%= "Delete #{app.name}" %></a>
             </li>
           </ul>
 
