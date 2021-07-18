@@ -35,9 +35,9 @@
             <li class="list-group-item" style="background-color: #FFEBCD">Breed: <%= pet.breed %></li>
             <li class="list-group-item" style="background-color: #FFEBCD"><%= pet.name %> is adoptable!</li>
             <li class="list-group-item" style="background-color: #F0FFFF"><br/>
-              <a href="/pets/#{pet.id}" class="btn btn-warning btn-outline-primary"><%= "Visit #{pet.name}" %></a>
-              <a href="/pets/#{pet.id}/edit" class="btn btn-primary btn-outline-warning"><%= "Edit #{pet.name}" %></a>
-              <a href="/pets/#{pet.id}" data-method="delete" class="btn btn-danger btn-outline-warning"><%= "Delete #{pet.name}" %></a>
+              <a href=<%="/pets/#{pet.id}"%> class="btn btn-warning btn-outline-primary"><%= "Visit #{pet.name}" %></a>
+              <a href=<%="/pets/#{pet.id}/edit"%> class="btn btn-success btn-outline-warning"><%= "Edit #{pet.name}" %></a>
+              <a href=<%="/pets/#{pet.id}"%> data-method="delete" class="btn btn-danger btn-outline-warning"><%= "Delete #{pet.name}" %></a>
             </li>
           </ul>
 
