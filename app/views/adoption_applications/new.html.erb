@@ -1,0 +1,20 @@
+<h1>New Adoption Application</h1>
+
+<%= form_with url:"/adoption_applications", method: :post, local: true do |f| %>
+  <%= f.label :name %>
+  <%= f.text_field :name %></br>
+
+  <%= f.label :street_address %>
+  <%= f.text_field :street_address %></br>
+
+  <%= f.label :city %>
+  <%= f.text_field :city %></br>
+
+  <%= f.label :state %>
+  <%= f.text_field :state %></br>
+
+  <%= f.label :zip_code %>
+  <%= f.number_field :zip_code %></br>
+
+  <%= f.submit 'Submit' %>
+<% end %>
