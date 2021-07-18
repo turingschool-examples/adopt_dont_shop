@@ -10,6 +10,8 @@ RSpec.describe 'Application show page' do
 
     @application1 = Application.create!(name: 'Carina', street_address: '455 Cool Street', city: 'Portland', state: 'OR', zip_code: 23392, home_description: 'I love my furry friends and have a great yard they can roam around in', status: 'pending')
 
+    @application2 = Application.create!(name: 'Evan', street_address: '1234 Sparky Lane', city: 'Portland', state: 'OR', zip_code: 23392, home_description: 'I like playing and throwing ball with dogs', status: 'in progress')
+
     @application1.pets << [@lana, @doc]
   end
   describe 'visitor' do
@@ -21,6 +23,35 @@ RSpec.describe 'Application show page' do
       expect(page).to have_content("Why I'd be a good home for this pet(s):\n#{@application1.home_description}")
       expect(page).to have_content("Pet(s) to adopt:\n#{@lana.name}\n#{@doc.name}")
       expect(page).to have_content("Status:\n#{@application1.status}")
+    end
+
+
+
+    it 'can search pets for an application' do
+      visit "/applications/#{@application2.id}"
+
+      expect(page).to_not have_content('Doc')
+
+      fill_in(:search, with: 'Doc')
+      click_button('Search')
+
+      expect(current_path).to eq("/applications/#{@application2.id}")
+      expect(page).to have_content('Doc')
+    end
+
+    it 'can add a pet to the application' do
+      visit "/applications/#{@application2.id}"
+
+      fill_in(:search, with: 'Doc')
+      click_button('Search')
+
+      within(:css, ".result##{@doc.id}") do
+        click_on('Adopt this Pet')
+      end
+
+      expect(current_path).to eq("/applications/#{@application2.id}")
+      save_and_open_page
+      expect(page).to have_content('Doc')
     end
   end
 end

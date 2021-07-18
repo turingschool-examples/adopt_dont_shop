@@ -16,7 +16,7 @@ RSpec.describe Application do
 
       application1.pets << [lana, doc]
 
-      expect(application1.associated_pets(application1.id)).to eq(['Lana', 'Doc'])
+      expect(application1.associated_pets(application1.id)).to eq([lana, doc])
     end
   end
 end

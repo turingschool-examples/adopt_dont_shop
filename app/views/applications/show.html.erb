@@ -3,9 +3,25 @@
 <p><%= @application.street_address %>, <%= @application.city %>, <%= @application.state %> <%= @application.zip_code %></p>
 <h3>Why I'd be a good home for this pet(s):</h3>
 <p><%= @application.home_description %></p>
+
 <h3>Pet(s) to adopt:</h3>
-<% @pets.each do |pet| %>
-  <p><%= pet %></p>
+<% @added_pets.each do |pet| %>
+  <p><%= pet.name %></p>
 <% end %>
+
 <h3>Status:</h3>
 <p><%= @application.status %></p>
+
+<h2>Add pet to application:</h2>
+<%= form_with  url: "/applications/#{@application.id}", method: :get, local: true do |form|%>
+  <%= form.label :search %>
+  <%= form.text_field :search %>
+  <%= form.submit 'Search' %>
+<% end %>
+
+<% @search_pets.each do |pet| %>
+  <div class = "result" id =<%= pet.id %>>
+    <p><%= pet.name %></p>
+    <%= link_to 'Adopt this Pet', "/applications/#{@application.id}?pet_id=#{pet.id}", method: :patch  %>
+  </div>
+<% end %>
