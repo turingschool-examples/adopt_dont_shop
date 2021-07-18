@@ -89,4 +89,13 @@ RSpec.describe 'the pets index' do
 
     expect(current_path).to eq("/applications/new")
   end
+
+  it 'has a link to view all applications' do
+    visit "/pets"
+    expect(page).to have_link("Existing Applications")
+    click_link("Existing Applications")
+
+    expect(current_path).to eq("/applications")
+
+  end
 end
