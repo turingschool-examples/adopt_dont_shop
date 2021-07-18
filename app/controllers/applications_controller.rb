@@ -4,30 +4,40 @@ class ApplicationsController < ApplicationController
   end
 
   def new
-    # @application = Application.find(params[:application_id])
+
   end
 
   def create
-    application = Application.create!(application_params)
-    redirect_to "/applications/#{application.id}/"
+    @application = Application.new(application_params)
+    if @application.valid?
+      @application.save
+      flash[:notice] = "Application Saved Successfully"
+      redirect_to "/applications/#{@application.id}/"
+    else
+      redirect_to "/applications/new/"
+      # render "/applications/new/"
+      # , notice: "#{error_message(@application.errors)}"
+      flash[:notice] = "Error: #{error_message(@application.errors)}"
+    end
   end
 
   def edit
     @application = Application.find(params[:id])
   end
+
   def show
     @application = Application.find(params[:id])
   end
 
   def destroy
-  @application = Application.find(params[:id])
-  @application.destroy
-  redirect_to '/applications'
-end
+    @application = Application.find(params[:id])
+    @application.destroy
+    redirect_to '/applications'
+  end
 
 private
   def application_params
-    params.permit(:id, :name, :street, :city, :state, :zip_code, :application_status, :description)
+    params.permit(:name, :application_status, :street, :city, :state, :zip_code, :description)
   end
 
 
