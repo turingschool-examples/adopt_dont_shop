@@ -43,6 +43,7 @@ group :development, :test do
   gem 'orderly'
   gem 'pry'
   gem 'rspec-rails'
+  gem 'nyan-cat-formatter'
   gem 'simplecov'
 end
 

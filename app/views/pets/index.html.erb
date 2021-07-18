@@ -1,18 +1,51 @@
-<h1>All pets</h1>
+<div style="margin: 0 auto; text-align: center">
+  <img src="https://user-images.githubusercontent.com/74567704/126038524-5229413d-fda2-4498-bea7-72e92e827341.png" alt="All Pets">
+</div>
+<div style="margin: 0 auto; text-align: center">
+    <a style="align: center" class="btn btn-primary btn-outline-warning" href="/applications">Existing Applications</a>
 
-<%= form_with url: "/pets", method: :get, local: true do |f| %>
-  <%= f.label :search %>
+    <a style="align: center" class="btn btn-success btn-outline-warning" href="/applications/new">Start an Application</a>
+</div>
+<br/>
+<section id="body" align="center">
+<%= form_with url: "/pets", method: :get, class: "btn btn-warning btn-outline-primary", local: true do |f| %>
+  <%= f.label :search, "Pet Name" %>
   <%= f.text_field :search %>
   <%= f.submit "Search" %>
+
 <% end %>
-
-
+</section>
 <% @pets.each do |pet| %>
-  <h3><%= pet.name %></h3>
-  <p>Age: <%= pet.age %></p>
-  <p>Breed: <%= pet.breed %></p>
-  <p>Adoptable: </p>
-  <p>You can find <%= pet.name %> at <%= pet.shelter_name %>!</p>
-  <%= link_to "Edit #{pet.name}", "/pets/#{pet.id}/edit" %>
-  <%= link_to "Delete #{pet.name}", "/pets/#{pet.id}", method: :delete %>
+
+<section id='body'>
+  <br/>
+    <div class="container-fluid" align="center" style="text-align=center">
+      <div class="col-sm-3">
+        <div class="card" style="background-color: #F0FFFF">
+          <div class="card-block">
+            <br/>
+            <h4 class="card-title"><%= pet.name %></h4>
+            <p class="card-text">You can find <%= pet.name %> at<br/>
+              <a href="/shelters" class="btn btn-outline-primary btn-sm"><%= pet.shelter_name %></a>
+            </p><br/>
+          </div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item" style="background-color: #FFEBCD">Age: <%= pet.age %></li>
+            <li class="list-group-item" style="background-color: #FFEBCD">Breed: <%= pet.breed %></li>
+            <li class="list-group-item" style="background-color: #FFEBCD"><%= pet.name %> is adoptable!</li>
+            <li class="list-group-item" style="background-color: #F0FFFF"><br/>
+              <a href=<%="/pets/#{pet.id}"%> class="btn btn-warning btn-outline-primary"><%= "Visit #{pet.name}" %></a>
+              <a href=<%="/pets/#{pet.id}/edit"%> class="btn btn-success btn-outline-warning"><%= "Edit #{pet.name}" %></a>
+              <br/><br/>
+              <a style="text-align: center"><%= button_to "Delete #{pet.name}", "/pets/#{pet.id}",class: "btn btn-danger btn-outline-warning", method: :delete, data: { confirm: "Are you sure? It's a crazy world out there." } %>
+
+            </li>
+          </ul>
+
+        </div>
+        <br/>
+
+      </div>
+    </div>
+</section>
 <% end %>
