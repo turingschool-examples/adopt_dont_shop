@@ -74,7 +74,7 @@ RSpec.describe 'the pets index' do
 
     visit "/pets"
 
-    fill_in 'Search', with: "Ba"
+    fill_in :search, with: "Ba"
     click_on("Search")
 
     expect(page).to have_content(pet_1.name)
@@ -97,6 +97,21 @@ RSpec.describe 'the pets index' do
     click_link("Existing Applications")
 
     expect(current_path).to eq("/applications")
+  end
 
+  it 'will show only those searched for if desired' do
+    shelter = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
+    pet_1 = Pet.create(adoptable: true, age: 7, breed: 'sphynx', name: 'Bare-y Manilow', shelter_id: shelter.id)
+    pet_2 = Pet.create(adoptable: true, age: 3, breed: 'domestic pig', name: 'Babe', shelter_id: shelter.id)
+    pet_3 = Pet.create(adoptable: true, age: 4, breed: 'chihuahua', name: 'Elle', shelter_id: shelter.id)
+    visit "/pets"
+    expect(page).to have_content(pet_1.name)
+    expect(page).to have_content(pet_2.name)
+    expect(page).to have_content(pet_3.name)
+
+    visit "/pets/?search=ba"
+    expect(page).to have_content(pet_1.name)
+    expect(page).to have_content(pet_2.name)
+    expect(page).to_not have_content(pet_3.name)
   end
 end
