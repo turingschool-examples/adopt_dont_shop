@@ -1,4 +1,5 @@
 class ApplicationsController < ApplicationController
-  def show 
+  def show
+    @application = Application.find(params[:id])
   end
 end
