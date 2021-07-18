@@ -5,6 +5,10 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+PetApplication.destroy_all
+Application.destroy_all
+Pet.destroy_all
+Shelter.destroy_all
 
 furry = Shelter.create!(name:'Furrry Shelter', foster_program: true, city: 'New Orleans', rank: 5)
 small = Shelter.create!(name:'Small Friends Shelter', foster_program: false, city: 'Atlanta', rank: 2)
