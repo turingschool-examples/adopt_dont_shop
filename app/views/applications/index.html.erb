@@ -13,22 +13,26 @@
       <div class="col-sm-3">
         <div class="card" style="background-color: #F0FFFF">
           <div class="card-block">
-
+            <br/>
             <h4 class="card-title"><%= app.name %></h4>
           </div>
           <ul class="list-group list-group-flush">
-            <li class="list-group-item" style="background-color: #FFEBCD">Status: <%= app.application_status %></li>
+            <li class="list-group-item" style="background-color: #FFEBCD">Status: <strong><%= app.application_status %></strong></li>
             <li class="list-group-item" style="background-color: #F0FFFF"><br/>
               <a href=<%="/applications/#{app.id}"%> class="btn btn-warning btn-outline-primary"><%= "Visit #{app.name}" %></a>
               <a href=<%="/applications/#{app.id}/edit"%> class="btn btn-primary btn-outline-warning"><%= "Edit #{app.name}" %></a>
-              <a href=<%="/applications/#{app.id}"%> data-method="delete" class="btn btn-danger btn-outline-warning"><%= "Delete #{app.name}" %></a>
+              <br/><br/>
+
             </li>
           </ul>
 
         </div>
         <br/>
+        <td style="text-align: center"><%= button_to "Delete #{app.name}", "/applications/#{app.id}",class: "btn btn-danger btn-outline-warning", method: :delete, data: { confirm: "Are you sure? It's a crazy world out there." } %>
+
+        <br/>
 
       </div>
     </div>
-  </div>
+
 <% end %>

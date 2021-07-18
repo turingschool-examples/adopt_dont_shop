@@ -12,9 +12,18 @@ class ApplicationsController < ApplicationController
     redirect_to "/applications/#{application.id}/"
   end
 
+  def edit
+    @application = Application.find(params[:id])
+  end
   def show
     @application = Application.find(params[:id])
   end
+
+  def destroy
+  @application = Application.find(params[:id])
+  @application.destroy
+  redirect_to '/applications'
+end
 
 private
   def application_params

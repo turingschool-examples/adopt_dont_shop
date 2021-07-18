@@ -13,15 +13,15 @@ Shelter.destroy_all
 #applications
 
 app1 = Application.create!(name: 'Caroline Tan', street: '2534 Tan Blvd', city: 'Boulder', state: 'Colorado', zip_code: 80204, application_status: 'In Progress')
-app2 = Application.create!(name: 'Ezze Alwfai', street: '1234 fake st', city: 'Lafayette', state: 'Colorado', zip_code: 80328, application_status: 'pending')
-app3 = Application.create!(name: 'Marla Shulz', street: '2020 Corona st', city: 'Denver', state: 'Colorado', zip_code: 80218, application_status: 'approved')
-app4 = Application.create!(name: 'Matt Kragen', street: '5522 California st', city: 'Denver', state: 'Colorado', zip_code: 80218, application_status: 'approved')
+app2 = Application.create!(name: 'Ezze Alwfai', street: '1234 fake st', city: 'Lafayette', state: 'Colorado', zip_code: 80328, application_status: 'Pending')
+app3 = Application.create!(name: 'Marla Shulz', street: '2020 Corona st', city: 'Denver', state: 'Colorado', zip_code: 80218, application_status: 'Approved')
+app4 = Application.create!(name: 'Matt Kragen', street: '5522 California st', city: 'Denver', state: 'Colorado', zip_code: 80218, application_status: 'Approved')
 app5 = Application.create!(name: 'Scott Berecki', street: '2222 Studio rd', city: 'Colorado Springs', state: 'Colorado', zip_code: 80907, application_status: 'In Progress')
-app6 = Application.create!(name: 'Sami Peterson', street: '9341 Chicago st', city: 'Westminster', state: 'Colorado', zip_code: 80305, application_status: 'rejected')
-app7 = Application.create!(name: 'Taylor Varoglu', street: '1529 Beard st', city: 'Boulder', state: 'Colorado', zip_code: 80304, application_status: 'approved')
+app6 = Application.create!(name: 'Sami Peterson', street: '9341 Chicago st', city: 'Westminster', state: 'Colorado', zip_code: 80305, application_status: 'Rejected')
+app7 = Application.create!(name: 'Taylor Varoglu', street: '1529 Beard st', city: 'Boulder', state: 'Colorado', zip_code: 80304, application_status: 'Approved')
 app8 = Application.create!(name: 'Micheal Abbott', street: '6733 Washington st', city: 'Lyons', state: 'Colorado', zip_code: 80540, application_status: 'In Progress')
-app9 = Application.create!(name: 'Ozzie Osmonson', street: '2342 Pesto ln', city: 'Denver', state: 'Colorado', zip_code: 80019, application_status: 'rejected')
-app10 = Application.create!(name: 'Carina Sweets', street: '6354 Candy ln', city: 'Longmont', state: 'Colorado', zip_code: 80504, application_status: 'pending')
+app9 = Application.create!(name: 'Ozzie Osmonson', street: '2342 Pesto ln', city: 'Denver', state: 'Colorado', zip_code: 80019, application_status: 'Rejected')
+app10 = Application.create!(name: 'Carina Sweets', street: '6354 Candy ln', city: 'Longmont', state: 'Colorado', zip_code: 80504, application_status: 'Pending')
 
 
 
