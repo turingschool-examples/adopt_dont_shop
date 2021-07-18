@@ -15,7 +15,6 @@ RSpec.describe 'adoption application creation' do
 
       new_app_id = AdoptionApplication.last.id
       expect(current_path).to eq("/adoption_applications/#{new_app_id}")
-      # expect(page).to have_content('Michael Abbott')
     end
   end
 end

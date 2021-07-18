@@ -2,9 +2,9 @@ class AdoptionApplicationsController < ApplicationController
   def new
   end
 
-  # def show
-  #   @adopt_app = AdoptionApplication.find(params[:id])
-  # end
+  def show
+    @adopt_app = AdoptionApplication.find(params[:id])
+  end
 
   def create
     adopt_app = AdoptionApplication.create(adopt_app_params)
