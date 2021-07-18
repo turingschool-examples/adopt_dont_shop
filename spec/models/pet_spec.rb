@@ -3,6 +3,8 @@ require 'rails_helper'
 RSpec.describe Pet, type: :model do
   describe 'relationships' do
     it { should belong_to(:shelter) }
+    it { should have_many(:adoption_application_pets) }
+    it { should have_many(:adoption_applications).through(:adoption_application_pets) }
   end
 
   describe 'validations' do
