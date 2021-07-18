@@ -1,1 +1,34 @@
-all applications
+<div style="margin: 0 auto; text-align: center">
+  <img src="https://www.wivb.com/wp-content/uploads/sites/97/2020/03/Capture-57.jpg?w=1454&h=699&crop=1" height=20% width=20% alt="All Applications">
+</div>
+<div style="margin: 0 auto; text-align: center">
+<h1> All Applications </h1>
+</div>
+<% @applications.each do |app| %>
+
+
+<br/>
+    <div class="container-fluid" align="center" style="text-align=center">
+
+      <div class="col-sm-3">
+        <div class="card" style="background-color: #F0FFFF">
+          <div class="card-block">
+
+            <h4 class="card-title"><%= app.name %></h4>
+          </div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item" style="background-color: #FFEBCD">Status: <%= app.application_status %></li>
+            <li class="list-group-item" style="background-color: #F0FFFF"><br/>
+              <a href="/apps/#{app.id}" class="btn btn-warning btn-outline-primary"><%= "Visit #{app.name}" %></a>
+              <a href="/apps/#{app.id}/edit" class="btn btn-primary btn-outline-warning"><%= "Edit #{app.name}" %></a>
+              <a href="/pets/#{app.id}" data-method="delete" class="btn btn-danger btn-outline-warning"><%= "Delete #{app.name}" %></a>
+            </li>
+          </ul>
+
+        </div>
+        <br/>
+
+      </div>
+    </div>
+  </div>
+<% end %>
