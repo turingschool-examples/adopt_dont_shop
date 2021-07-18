@@ -8,9 +8,9 @@ RSpec.describe 'Application show page' do
     @lana = @furry.pets.create!(name: 'Lana', age: 1, adoptable: true, breed: 'short-haired')
     @doc = @furry.pets.create!(name: 'Doc', age: 8, adoptable: true, breed: 'schnauzer')
 
-    @application1 = Application.create!(name: 'Carina', street_address: '455 Cool Street', city: 'Portland', state: 'OR', zip_code: 23392, home_description: 'I love my furry friends and have a great yard they can roam around in', status: 'pending')
+    @application1 = Application.create!(name: 'Carina', street_address: '455 Cool Street', city: 'Portland', state: 'OR', zip_code: 23392, status: 'In Progress')
 
-    @application2 = Application.create!(name: 'Evan', street_address: '1234 Sparky Lane', city: 'Portland', state: 'OR', zip_code: 23392, home_description: 'I like playing and throwing ball with dogs', status: 'in progress')
+    @application2 = Application.create!(name: 'Evan', street_address: '1234 Sparky Lane', city: 'Portland', state: 'OR', zip_code: 23392, home_description: 'I like playing and throwing ball with dogs', status: 'In Progress')
 
     @application1.pets << [@lana, @doc]
   end
@@ -20,7 +20,6 @@ RSpec.describe 'Application show page' do
 
       expect(page).to have_content(@application1.name)
       expect(page).to have_content("Address:\n#{@application1.street_address}, #{@application1.city}, #{@application1.state} #{@application1.zip_code}")
-      expect(page).to have_content("Why I'd be a good home for this pet(s):\n#{@application1.home_description}")
       expect(page).to have_content("Pet(s) to adopt:\n#{@lana.name}\n#{@doc.name}")
       expect(page).to have_content("Status:\n#{@application1.status}")
     end
@@ -50,8 +49,46 @@ RSpec.describe 'Application show page' do
       end
 
       expect(current_path).to eq("/applications/#{@application2.id}")
-      save_and_open_page
-      expect(page).to have_content('Doc')
+      within(:css, ".adopt##{@doc.id}") do
+        expect(page).to have_content('Doc')
+      end
+
+      fill_in(:search, with: 'Bruce')
+      click_button('Search')
+
+      within(:css, ".result##{@bruce.id}") do
+        click_on('Adopt this Pet')
+      end
+
+      expect(current_path).to eq("/applications/#{@application2.id}")
+      within(:css, ".adopt##{@doc.id}") do
+        expect(page).to have_content('Doc')
+      end
+      within(:css, ".adopt##{@bruce.id}") do
+        expect(page).to have_content('Bruce')
+      end
+    end
+
+    it 'can submit application when more than 1 pet added' do
+      visit "/applications/#{@application1.id}"
+
+      fill_in(:home_description, with: 'I take lots of walks.')
+      click_button('Submit Application')
+
+      expect(current_path).to eq("/applications/#{@application1.id}")
+      expect(page).to have_content("Status:\nPending")
+      expect(page).to have_content(@lana.name)
+      expect(page).to have_content(@doc.name)
+      expect(page).to_not have_content(@bruce.name)
+
+      expect(page).to_not have_content('Why I would make a good owner for these pet(s)')
+    end
+
+    it 'cannot submit an application if there are no pets added' do
+      visit "/applications/#{@application2.id}"
+
+      expect(page).to_not have_content('Why I would make a good owner for these pet(s):')
+      expect(page).to_not have_content('Submit Application')
     end
   end
 end

@@ -6,13 +6,15 @@
 
 <h3>Pet(s) to adopt:</h3>
 <% @added_pets.each do |pet| %>
-  <p><%= pet.name %></p>
+  <div class="adopt" id="<%= pet.id %>">
+    <p><%= pet.name %></p>
+  </div>
 <% end %>
 
 <h3>Status:</h3>
 <p><%= @application.status %></p>
 
-<h2>Add pet to application:</h2>
+<h2>Search Adoptable Pets:</h2>
 <%= form_with  url: "/applications/#{@application.id}", method: :get, local: true do |form|%>
   <%= form.label :search %>
   <%= form.text_field :search %>
@@ -24,4 +26,12 @@
     <p><%= pet.name %></p>
     <%= link_to 'Adopt this Pet', "/applications/#{@application.id}?pet_id=#{pet.id}", method: :patch  %>
   </div>
+<% end %>
+
+<% if (@added_pets.length > 0) && (@application.status.downcase == 'in progress')%>
+  <%= form_with url: "/applications/#{@application.id}/submit", method: :patch, local: true do |form|  %>
+    <%= form.label :home_description, "Why I would make a good owner for these pet(s):" %>
+    <%= form.text_area :home_description  %>
+    <%= form.submit 'Submit Application'  %>
+  <% end %>
 <% end %>
