@@ -5,6 +5,7 @@ class ApplicationsController < ApplicationController
 
   def show
     @application = Application.find(params[:id])
+    @applicant_pets = @application.pets
   end
 
   # def new

@@ -1,0 +1,15 @@
+<h1> Application Number <%= @application.id %> </h1>
+
+<h3> Name: <%= @application.name %> </h3>
+<h3> Street Address: <%= @application.street_address %> </h3>
+<h3> City: <%= @application.city %> </h3>
+<h3> State: <%= @application.state %> </h3>
+<h3> Zip Code: <%= @application.zip_code %> </h3>
+<h3> Description: <%= @application.description %> </h3>
+<h3> Status: <%= @application.status %> </h3>
+</br>
+
+<h1> Pets Applicant has Applied for </h1>
+<% @applicant_pets.each do |pet| %>
+  <h3> Name of the pet: <%= link_to "#{pet.name}", "/pets/#{pet.id}" %> </h3>
+<% end %>
