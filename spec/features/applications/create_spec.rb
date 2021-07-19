@@ -19,7 +19,6 @@ RSpec.describe 'application creation' do
     expect(find('form')).to have_content('City')
     expect(find('form')).to have_content('State')
     expect(find('form')).to have_content('Zip Code')
-    expect(find('form')).to have_content('Why are you a good fit?')
     expect(find('form')).to have_button('Create Application')
   end
 
@@ -31,11 +30,10 @@ RSpec.describe 'application creation' do
     fill_in :city, with: "Marco Island"
     fill_in :state, with: "FL"
     fill_in :zip_code, with: "34145"
-    fill_in :description, with: "dogs cool people drool"
     click_button('Create Application')
 
     expect(page).to have_content("Brian F")
-    expect(page).to have_content("dogs cool people drool")
+    expect(page).to have_content("123 Main St.")
 
   end
 end
