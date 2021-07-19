@@ -15,7 +15,7 @@ RSpec.describe 'application creation' do
                                          city: 'Madison',
                                          state: 'WI',
                                          zip_code: 67119,
-                                         description: 'I get really bad nose bleeds',
+                                         description: 'I get really bad nose bleeds.',
                                          status: 'In Progress')
   end
 
@@ -31,9 +31,21 @@ RSpec.describe 'application creation' do
     fill_in("Description", with: "I get really bad nose bleeds.")
 
     click_on "Submit"
-    save_and_open_page
 
     expect(current_path).to eq("/applications/#{Application.last.id}")
     expect(page).to have_content("I get really bad nose bleeds.")
+  end
+
+  it 'displays an error message when invalid application is submitted' do
+    visit "/applications/new"
+
+    fill_in("Name", with: "Viola Hastings")
+    fill_in("Street address", with: "42 Blue Avenue")
+    fill_in("City", with: "Madison")
+    fill_in("State", with: "WI")
+
+    click_on "Submit"
+
+    expect(page).to have_content("Error: Zip code can't be blank, Description can't be blank")
   end
 end
