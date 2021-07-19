@@ -1,3 +1,14 @@
+<% if @application.errors.any? %>
+
+
+  <h2>The following errors prevented the application from being saved</h2>
+  <ul>
+    <% @application.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+  </ul>
+<% end %>
+
 <%= form_with url: '/applications', method: :post, local: true do |form| %>
 
 <br/>
@@ -42,8 +53,8 @@
 
     <ul class="list-group list-group-flush">
       <li class="list-group-item" style="background-color: #ffc40c">
-      <%= form.label :description, "Why are you a good fit?" %>
-      <%= form.text_area :description %>
+      <% form.label :description %>
+      <%= form.hidden_field :description %>
     <br/>
 
     <ul class="list-group list-group-flush">
@@ -56,6 +67,6 @@
     <br/>
 
     <%= form.submit "Create Application", class: "btn btn-primary btn-outline-warning", data: { confirm: "Are you sure? It's a big responsibility." } %>
-    </div>
   </div>
+
   <% end %>
