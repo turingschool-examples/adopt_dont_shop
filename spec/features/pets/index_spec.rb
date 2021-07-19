@@ -81,4 +81,33 @@ RSpec.describe 'the pets index' do
     expect(page).to have_content(pet_2.name)
     expect(page).to_not have_content(pet_3.name)
   end
+
+  #   Story 2
+  #   When I visit the pet index page
+  #   Then I see a link to "Start an Application"
+  #   When I click this link
+  #   Then I am taken to the new application page where I see a form
+  #   When I fill in this form with my:
+  #   - Name
+  #   - Street Address
+  #   - City
+  #   - State
+  #   - Zip Code
+  #   And I click submit
+  #   Then I am taken to the new application's show page
+  #   And I see my Name, address information, and description of why I would make a good home
+  #   And I see an indicator that this application is "In Progress"
+
+  it 'has a link to create a new application. upon completing returns applicant show page for pet_app' do
+    find('new application').click
+    expect(current_path).to eq("/pet_apps/new")
+    fill_in 'Name', with: 'Alex'
+    fill_in 'City', with: 'Houston'
+    fill_in 'Street', with: '123 fake' 
+    fill_in 'State', with: "MI"
+    fill_in 'zip', with: 12345
+    click_button 'commit'
+    expect(page).to have_content('Houston')
+    expect(page).to have_content('Status: In Progress')
+  end
 end
