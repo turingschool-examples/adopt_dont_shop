@@ -8,13 +8,19 @@ class ApplicationsController < ApplicationController
     @applicant_pets = @application.pets
   end
 
-  # def new
-    
-  # end
+  def new
+  end
 
-  # def create
-    
-  # end
+  def create
+    application = Application.new(application_params)
+
+    if application.save
+      redirect_to "/applications/#{application.id}"
+    else
+      redirect_to "/applications/new"
+      flash[:alert] = "Error: #{error_message(application.errors)}"
+    end
+  end
 
   # def edit
     
@@ -28,8 +34,8 @@ class ApplicationsController < ApplicationController
     
   # end
 
-  # private
-  # def _params
-  #   params.permit(:)
-  # end
+  private
+  def application_params
+    params.permit(:name, :street_address, :city, :state, :zip_code, :description, :status)
+  end
 end
