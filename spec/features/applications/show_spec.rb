@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'application' do
+RSpec.describe 'applications' do
   before(:each) do
     @application = Application.create!(name: 'Jason Knoll',
                                       street_address: '1234 N. Something St',
@@ -22,7 +22,6 @@ RSpec.describe 'application' do
     # names of all pets that this application is for (all names of pets should be links to their show page)
     # The Application's status, either "In Progress", "Pending", "Accepted", or "Rejected"
     visit "/applications/#{@application.id}"
-    save_and_open_page
 
     expect(page).to have_content(@application.name)
     expect(page).to have_content(@application.street_address)
