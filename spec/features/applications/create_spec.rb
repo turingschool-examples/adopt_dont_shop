@@ -78,7 +78,6 @@ RSpec.describe 'applications' do
         fill_in "Street Address", with: "5678 W. second St."
 
         click_button "Submit"
-        save_and_open_page
 
         expect(current_path).to eq("/applications/new")
         expect(page).to have_content("Error: City can't be blank, Zip code can't be blank, Zip code is not a number")
