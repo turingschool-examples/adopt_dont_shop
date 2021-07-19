@@ -5,6 +5,9 @@ Rails.application.routes.draw do
   resources :applications
   patch '/applications/:id/submit', to: 'applications#submit'
 
+  #admin shelters routes
+  get '/admin/shelters', to: 'admin_shelters#index'
+
   #shelters routes
   get '/shelters', to: 'shelters#index'
   get '/shelters/new', to: 'shelters#new'
