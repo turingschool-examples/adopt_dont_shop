@@ -21,6 +21,14 @@ RSpec.describe Shelter, type: :model do
     @pet_2 = @shelter_1.pets.create(name: 'Clawdia', breed: 'shorthair', age: 3, adoptable: true)
     @pet_3 = @shelter_3.pets.create(name: 'Lucille Bald', breed: 'sphynx', age: 8, adoptable: true)
     @pet_4 = @shelter_1.pets.create(name: 'Ann', breed: 'ragdoll', age: 5, adoptable: true)
+
+    @application1 = Application.create!(name: 'Carina', street_address: '455 Cool Street', city: 'Portland', state: 'OR', zip_code: 23392, home_description: 'I love my furry friends and have a great yard they can roam around in', status: 'pending')
+    @application2 = Application.create!(name: 'Amanda', street_address: '9892 Colorado Blvd.', city: 'Fargo', state: 'ND', zip_code:74563, home_description: 'Cuddles, pets, and long walks are my favorite things.', status: 'pending')
+    @application3 = Application.create!(name: 'Bob', street_address: '123 Builders Lane', city: 'Las Vegas', state: 'NV', zip_code: 99298, home_description: 'I just lost my dog and looking for another', status: 'in progress')
+
+    @application1.pets << @pet_1
+    @application2.pets << @pet_3
+    @application3.pets << @pet_2
   end
 
   describe 'class methods' do
@@ -66,6 +74,10 @@ RSpec.describe Shelter, type: :model do
       it 'returns the number of pets at the given shelter' do
         expect(@shelter_1.pet_count).to eq(3)
       end
+    end
+
+    it 'can return shelters with pending applications' do
+      expect(Shelter.pending).to eq([@shelter_1, @shelter_3])
     end
   end
 end
