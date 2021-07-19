@@ -24,7 +24,9 @@
 <% @search_pets.each do |pet| %>
   <div class = "result" id =<%= pet.id %>>
     <p><%= pet.name %></p>
-    <%= link_to 'Adopt this Pet', "/applicants/#{@application.id}?pet_id=#{pet.id}", method: :put  %>
+    <%= form_with url: "/applicants/#{@application.id}?pet_id=#{pet.id}", method: :patch, local: true do |form|  %>
+      <%= form.submit 'Adopt this Pet' %>
+    <% end %>
   </div>
 <% end %>
 
