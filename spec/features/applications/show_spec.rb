@@ -6,7 +6,9 @@ RSpec.describe 'applications' do
                                       street_address: '1234 N. Something St',
                                       city: "Scottsdale",
                                       state: "AZ",
-                                      zip_code: "99999")
+                                      zip_code: "99999",
+                                      description: "",
+                                      status: "In Progress")
   end
 
   it 'shows specifications of certain applicant' do
@@ -41,14 +43,14 @@ RSpec.describe 'applications' do
     pet_1 = Pet.create(adoptable: true, age: 1, breed: 'sphynx', name: 'Bare-y Manilow', shelter_id: shelter.id)
     pet_2 = Pet.create(adoptable: true, age: 3, breed: 'doberman', name: 'Lobster', shelter_id: shelter.id)
 
-    visit "applications/#{@application.id}"
+    visit "/applications/#{@application.id}"
     save_and_open_page
 
     expect(page).to have_content("Add a Pet to this Application")
     fill_in :pet_search, with: "Lobster"
     click_button "Submit"
 
-    expect(current_path).to eq "applications/#{@application.id}"
+    expect(current_path).to eq "/applications/#{@application.id}"
     expect(page).to have_content("doberman")
     expect(page).to have_content("adoptable")
 

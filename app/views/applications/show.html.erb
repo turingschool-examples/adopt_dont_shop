@@ -6,4 +6,12 @@
   <h3>Zip Code: <%= @application.zip_code %></h3>
   <h3>Why I would make a good home for my pet: <%= @application.description %></h3>
   <h3>Status: <%= @application.status %></h3>
+
+
+    <%= form_with url: "/applications/#{@application.id}", method: :get, local: true do %>
+      <%= label :pet_search, "Add a Pet", "Add a Pet to this Application" %>
+      <%= text_field_tag :pet_search, params[:pet_search] %>
+      <%= submit_tag 'Submit' %>
+    <% end %>
+
 </center>
