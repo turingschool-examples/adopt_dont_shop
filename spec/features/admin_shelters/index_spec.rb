@@ -15,10 +15,10 @@ RSpec.describe 'admin shelters index' do
     @addie = @paws.pets.create!(name: 'Addie', age: 2, adoptable: true, breed: 'long-haired')
     @lily = @paws.pets.create!(name: 'Lily', age: 10, adoptable: true, breed: 'Maltese')
 
-    @application1 = Application.create!(name: 'Carina', street_address: '455 Cool Street', city: 'Portland', state: 'OR', zip_code: 23392, home_description: 'I love my furry friends and have a great yard they can roam around in', status: 'pending')
-    @application2 = Application.create!(name: 'Amanda', street_address: '9892 Colorado Blvd.', city: 'Fargo', state: 'ND', zip_code:74563, home_description: 'Cuddles, pets, and long walks are my favorite things.', status: 'pending')
-    @application3 = Application.create!(name: 'Bob', street_address: '123 Builders Lane', city: 'Las Vegas', state: 'NV', zip_code: 99298, home_description: 'I just lost my dog and looking for another', status: 'in prorgess')
-    @application4 = Application.create!(name: 'Scott', street_address: '4425 Hatters Dr.', city: 'New Orleans', state: 'LA', zip_code: 65356, home_description: 'Hiking and camping are my favorites', status: 'approved')
+    @application1 = Applicant.create!(name: 'Carina', street_address: '455 Cool Street', city: 'Portland', state: 'OR', zip_code: 23392, home_description: 'I love my furry friends and have a great yard they can roam around in', status: 'pending')
+    @application2 = Applicant.create!(name: 'Amanda', street_address: '9892 Colorado Blvd.', city: 'Fargo', state: 'ND', zip_code:74563, home_description: 'Cuddles, pets, and long walks are my favorite things.', status: 'pending')
+    @application3 = Applicant.create!(name: 'Bob', street_address: '123 Builders Lane', city: 'Las Vegas', state: 'NV', zip_code: 99298, home_description: 'I just lost my dog and looking for another', status: 'in prorgess')
+    @application4 = Applicant.create!(name: 'Scott', street_address: '4425 Hatters Dr.', city: 'New Orleans', state: 'LA', zip_code: 65356, home_description: 'Hiking and camping are my favorites', status: 'approved')
 
     @application1.pets << [@pinky]
     @application2.pets << [@lily]

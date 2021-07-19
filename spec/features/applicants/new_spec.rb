@@ -7,11 +7,11 @@ RSpec.describe 'Start new application' do
 
       click_on 'Start an Application'
 
-      expect(current_path).to eq('/applications/new')
+      expect(current_path).to eq('/applicants/new')
     end
 
     it 'can fill out a new application' do
-      visit '/applications/new'
+      visit '/applicants/new'
 
       fill_in(:name, with: 'Sally')
       fill_in(:street_address, with: '1234 ABC')
@@ -21,7 +21,7 @@ RSpec.describe 'Start new application' do
 
       click_button('Submit')
 
-      expect(current_path).to eq("/applications/#{Application.all.last.id}")
+      expect(current_path).to eq("/applicants/#{Applicant.all.last.id}")
 
       expect(page).to have_content('Sally')
       expect(page).to have_content('1234 ABC, Alphabet, NY 12345')
@@ -29,12 +29,12 @@ RSpec.describe 'Start new application' do
     end
 
     it 'does not create an application when fields left empty' do
-      visit '/applications/new'
+      visit '/applicants/new'
 
       click_on 'Submit'
 
       expect(page).to have_content('Application not created: Required information missing.')
-      expect(current_path).to eq('/applications/new')
+      expect(current_path).to eq('/applicants/new')
 
       fill_in(:name, with: 'Sally')
       click_on 'Submit'

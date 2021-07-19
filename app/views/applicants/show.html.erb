@@ -15,7 +15,7 @@
 <p><%= @application.status %></p>
 
 <h2>Search Adoptable Pets:</h2>
-<%= form_with  url: "/applications/#{@application.id}", method: :get, local: true do |form|%>
+<%= form_with  url: "/applicants/#{@application.id}", method: :get, local: true do |form|%>
   <%= form.label :search %>
   <%= form.text_field :search %>
   <%= form.submit 'Search' %>
@@ -24,12 +24,12 @@
 <% @search_pets.each do |pet| %>
   <div class = "result" id =<%= pet.id %>>
     <p><%= pet.name %></p>
-    <%= link_to 'Adopt this Pet', "/applications/#{@application.id}?pet_id=#{pet.id}", method: :patch  %>
+    <%= link_to 'Adopt this Pet', "/applicants/#{@application.id}?pet_id=#{pet.id}", method: :put  %>
   </div>
 <% end %>
 
 <% if (@added_pets.length > 0) && (@application.status.downcase == 'in progress')%>
-  <%= form_with url: "/applications/#{@application.id}/submit", method: :patch, local: true do |form|  %>
+  <%= form_with url: "/applicants/#{@application.id}/submit", method: :patch, local: true do |form|  %>
     <%= form.label :home_description, "Why I would make a good owner for these pet(s):" %>
     <%= form.text_area :home_description  %>
     <%= form.submit 'Submit Application'  %>
