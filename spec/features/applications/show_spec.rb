@@ -33,7 +33,8 @@ RSpec.describe 'the application show page' do
     expect(page).to have_content(@application_1.description)
     expect(page).to have_content(@application_1.status)
   end
-  
+
+  # User Story 2
   it 'displays links to the pets they would like to adopt' do
     visit "/applications/#{@application_1.id}"
     save_and_open_page
