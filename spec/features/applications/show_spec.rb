@@ -6,9 +6,7 @@ RSpec.describe 'applications' do
                                       street_address: '1234 N. Something St',
                                       city: "Scottsdale",
                                       state: "AZ",
-                                      zip_code: "99999",
-                                      description: "I love pets",
-                                      status: "In Progress")
+                                      zip_code: "99999")
   end
 
   it 'shows specifications of certain applicant' do
@@ -28,7 +26,5 @@ RSpec.describe 'applications' do
     expect(page).to have_content(@application.city)
     expect(page).to have_content(@application.state)
     expect(page).to have_content(@application.zip_code)
-    expect(page).to have_content(@application.description)
-    expect(page).to have_content(@application.status)
   end
 end

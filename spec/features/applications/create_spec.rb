@@ -6,9 +6,7 @@ RSpec.describe 'applications' do
                                       street_address: '1234 N. Something St',
                                       city: "Scottsdale",
                                       state: "AZ",
-                                      zip_code: "99999",
-                                      description: "I love pets",
-                                      status: "In Progress")
+                                      zip_code: "99999")
   end
 
   # When I visit the pet index page
@@ -29,7 +27,6 @@ RSpec.describe 'applications' do
 
   it 'can gives all options for new applicant' do
     visit "/applications/new"
-    save_and_open_page
 
     expect(find('form')).to have_content('Name')
     expect(find('form')).to have_content('Street Address')
@@ -50,8 +47,10 @@ RSpec.describe 'applications' do
     fill_in "Zip Code", with: "88888"
 
     click_button "Submit"
+    application = Application.last
+    save_and_open_page
 
-    expect(current_path).to_not eq("/applications/new")
+    expect(current_path).to eq("/applications/#{application.id}")
     expect(page).to have_content("Megan")
     expect(page).to have_content("5678 W. second St.")
     expect(page).to have_content("Dallas")
