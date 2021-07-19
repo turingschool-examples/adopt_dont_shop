@@ -5,7 +5,7 @@ RSpec.describe 'the pet_apps show page' do
     @shelter = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
     @app = App.create(name: 'Scooby', street: "123", city:"fake", state: "fake", zip: 48248)
     @pet_1 = Pet.create(adoptable: true, age: 1, breed: 'sphynx', name: 'Lucille Bald', shelter_id: @shelter.id)
-    @pet_2 = Pet.create(adoptable: true, age: 3, breed: 'doberman', name: 'Lobster', shelter_id: @shelter.id)
+    @pet_2 = Pet.create(adoptable: true, age: 3, breed: 'doberman', name: 'Fluffington', shelter_id: @shelter.id)
     @pet_3 = Pet.create(adoptable: false, age: 2, breed: 'saint bernard', name: 'Beethoven', shelter_id: @shelter.id)
     visit "/pet_apps/#{app.id}"
   end
@@ -52,6 +52,7 @@ RSpec.describe 'the pet_apps show page' do
   # And I see all the pets that I want to adopt
   # And I do not see a section to add more pets to this application
   it 'Only once a pet is on app, there is a submit button and an input for good pet reasoning' do
+    #US 7, no submit button without pets on app
     expect(page).to_not have_button('commit')
     expect(page).to_not have_content('Reasons for adopting:')
     find("button#{@pet1.name}").click
@@ -68,6 +69,36 @@ RSpec.describe 'the pet_apps show page' do
     click_on 'commit'
     within('div#progress') do
       expect(page).to have_content('Pending')
+    end
+  end
+
+  # Story 8
+  # When I visit an application show page
+  # And I search for Pets by name
+  # Then I see any pet whose name PARTIALLY matches my search
+  # For example, if I search for "fluff", my search would match pets with names "fluffy", "fluff", and "mr. fluff"
+  it 'has partial match for pet names' do
+    fill_in 'Pet Name', with: 'Fluff'
+    within('div#pet_search') do
+      click_on('commit')
+    end
+    within('div#search_results') do
+      expect(page).to have_content('Fluffington')
+    end
+  end
+
+  # Story 9
+  # When I visit an application show page
+  # And I search for Pets by name
+  # Then my search is case insensitive
+  # For example, if I search for "fluff", my search would match pets with names "Fluffy", "FLUFF", and "Mr. FlUfF"
+  it 'has case insensitive partial match' do
+    fill_in 'Pet Name', with: 'fluff'
+    within('div#pet_search') do
+      click_on('commit')
+    end
+    within('div#search_results') do
+      expect(page).to have_content('Fluffington')
     end
   end
 end
