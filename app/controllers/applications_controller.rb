@@ -4,7 +4,7 @@ class ApplicationsController < ApplicationController
   end
 
   def new
-
+    @application = Application.new(application_params)
   end
 
   def create
@@ -14,10 +14,7 @@ class ApplicationsController < ApplicationController
       flash[:notice] = "Application Saved Successfully"
       redirect_to "/applications/#{@application.id}/"
     else
-      redirect_to "/applications/new/"
-      # render "/applications/new/"
-      # , notice: "#{error_message(@application.errors)}"
-      flash[:notice] = "Error: #{error_message(@application.errors)}"
+      render "new"
     end
   end
 
@@ -25,8 +22,21 @@ class ApplicationsController < ApplicationController
     @application = Application.find(params[:id])
   end
 
+  def update
+    @application = Application.find(params[:id])
+    @application.update(application_params)
+    redirect_to "/applications/#{@application.id}/?submitted=true"
+  end
+
   def show
     @application = Application.find(params[:id])
+    if params[:search].present?
+      @found_pets = Pet.find_by_name(params[:search])
+    elsif params[:pet_id].present?
+      @application.pets << Pet.find(params[:pet_id])
+    elsif params[:submitted].present?
+      @application = Application.find(params[:id])
+    end
   end
 
   def destroy
