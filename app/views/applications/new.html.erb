@@ -1,0 +1,32 @@
+<h1>Create Application</h1>
+
+<%= form_with url: "/applications", method: :post, local: true do |form| %>
+
+<p>
+  <%= form.label :name %>
+  <%= form.text_field :name, value: "#{@application.name}" %>
+</p>
+
+<p>
+  <%= form.label :street_address %>
+  <%= form.text_field :street_address, value: "#{@application.street_address}" %>
+</p>
+
+<p>
+  <%= form.label :city %>
+  <%= form.text_field :city, value: "#{@application.city}" %>
+</p>
+<p>
+  <%= form.label :state %>
+  <%= form.text_field :state, value: "#{@application.state}" %>
+</p>
+
+<p>
+  <%= form.label :zip_code %>
+  <%= form.text_field :zip_code, value: "#{@application.zip_code}" %>
+</p>
+
+<div class="actions">
+    <%= form.submit "Submit Application", class: 'btn btn-secondary' %>
+  </div>
+<% end %>
