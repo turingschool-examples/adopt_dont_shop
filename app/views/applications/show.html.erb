@@ -1,6 +1,5 @@
 <br/>
 <div class="container-fluid" align="center" style="text-align=center">
-
   <div class="col-sm-3">
     <div class="card" style="background-color: #F0FFFF">
       <div class="card-block">
@@ -13,7 +12,7 @@
           <%= @application.state %>
           <%= @application.zip_code %></li>
         <li class="list-group-item" style="background-color: #FFEBCD"><%= @application.application_status %></li>
-          <% if !params[:submitted].present? %>
+          <% if params[:submitted].present? %>
             <li class="list-group-item" style="background-color: #F0FFFF"><%= @application.description %><br/>
           <% end %>
           <% if !params[:submitted].present? %>
@@ -56,7 +55,7 @@
       <%= form.text_area :description, value: @application.description %>
       <%= form.label :description, "Why would you be a good fit to adopt?" %>
       <% form.label :application_status %>
-      <% form.hidden_field :application_status, value: 'Pending'%>
+      <%= form.hidden_field :application_status, value: 'Pending'%>
       <%= form.submit 'Submit Application' %>
     <% end %>
   <% end %>
