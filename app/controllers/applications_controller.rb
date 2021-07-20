@@ -16,6 +16,9 @@ class ApplicationsController < ApplicationController
   def new
   end
 
+  def search
+  end 
+
   private
   def applications_params
     params.permit(:name, :street_address, :city, :state, :zip_code, :description)

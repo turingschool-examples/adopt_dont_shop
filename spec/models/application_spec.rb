@@ -6,6 +6,7 @@ RSpec.describe Application, type: :model do
     it { should have_many(:pets).through(:pet_applications) }
   end
 
+  #User Story 3
   describe "validations" do
     it { should validate_presence_of(:name) }
     it { should validate_presence_of(:street_address) }
