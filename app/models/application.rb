@@ -3,6 +3,7 @@ class Application < ApplicationRecord
   validates :street_address, presence: true
   validates :city, presence: true
   validates :zip_code, presence: true, numericality: true
-  enum status: ["In Progress", "Pending", "Accepted", "Rejected"]
 
+  has_many :application_pets
+  has_many :pets, through: :application_pets
 end
