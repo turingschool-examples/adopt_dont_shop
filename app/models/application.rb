@@ -6,4 +6,10 @@ class Application < ApplicationRecord
 
   has_many :application_pets
   has_many :pets, through: :application_pets
+
+  # def adopt_pet(add_pet)
+  #   @application = Application.find(params[:id])
+  #   application.pet = Pet.find(add_pet)
+  #   pets << pet
+  # end
 end

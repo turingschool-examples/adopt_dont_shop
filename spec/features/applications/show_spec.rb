@@ -71,10 +71,10 @@ RSpec.describe 'applications' do
   visit "/applications/#{@application.id}"
   fill_in :search, with: "Lobster"
   click_button "Submit"
-  save_and_open_page
 
 
   click_button "Adopt this Pet"
+
   expect(page).to have_content("doberman")
   end
 end
