@@ -65,7 +65,7 @@ RSpec.describe Shelter, type: :model do
         pet_7 = app_2.pets.create(name: 'Lucille Bald', breed: 'sphynx', age: 8, adoptable: true, shelter_id: shelter_2.id)
         pet_8 = app_3.pets.create(name: 'Toby', breed: 'golden', age: 1, adoptable: true, shelter_id: shelter_3.id)
 
-        expect(Shelter.has_pending_status).to eq([shelter_1, shelter_2, shelter_3])
+        expect(Shelter.has_pending_status.length).to eq(3)
       end
     end
 
