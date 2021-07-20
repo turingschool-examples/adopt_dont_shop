@@ -25,4 +25,9 @@
 <% end %>
 <br>
 <h3>Is this who you're looking for?</h3>
-<h3 style="color:coral;"><% @pets.each do |pet| %> <%= pet.name %> <% end %></h3>
+<h3 style="color:coral;">
+  <% @pets.each do |pet| %>
+    <%= pet.name %>
+    <%= button_to "Adopt Me ❤️ ", "/applications/#{@application.id}", method: :get %>
+  <% end %>
+</h3>

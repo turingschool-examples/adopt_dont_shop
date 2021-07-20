@@ -17,6 +17,14 @@ RSpec.describe 'the application show page' do
                                          description: 'Do you like cheese?',
                                          status: 'In Progress')
 
+    @application_2 = Application.create!(name: 'Duke Orsino',
+                                         street_address: '108 Beautiful Street',
+                                         city: 'Chicago',
+                                         state: 'IL',
+                                         zip_code: 32557,
+                                         description: 'Word, g-mon',
+                                         status: 'In Progress')
+
     @pet_application_1 = PetApplication.create!(pet_id: @pet_1.id, application_id: @application_1.id)
     @pet_application_2 = PetApplication.create!(pet_id: @pet_3.id, application_id: @application_1.id)
   end
@@ -50,7 +58,21 @@ RSpec.describe 'the application show page' do
 
     fill_in :search, with: "#{@pet_4.name}"
     click_button "Give me the fuzz"
-    
+
     expect(page).to have_content("#{@pet_4.name}")
+  end
+
+  # User Story 5
+  it 'each pet searched has a button to adopt it' do
+    visit "/applications/#{@application_2.id}"
+
+    fill_in :search, with: "#{@pet_2.name}"
+    click_button "Give me the fuzz"
+
+    click_button "Adopt Me ❤️ "
+
+    pet_application_3 = PetApplication.create!(pet_id: @pet_2.id, application_id: @application_2.id)
+
+    expect(@pet_2.name).to appear_before("Give me the fuzz")
   end
 end
