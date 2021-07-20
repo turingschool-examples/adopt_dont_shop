@@ -5,6 +5,12 @@ class ApplicationsController < ApplicationController
 
   def show
     @application = Application.find(params[:id])
+
+    if params[:search]
+      @pets = Pet.adoptable.partial_search(params[:search])
+    else
+      @pets = []
+    end
   end
 
   def create
