@@ -36,6 +36,7 @@ RSpec.describe 'application creation' do
     expect(page).to have_content("I get really bad nose bleeds.")
   end
 
+  #User Story 3
   it 'displays an error message when invalid application is submitted' do
     visit "/applications/new"
 
