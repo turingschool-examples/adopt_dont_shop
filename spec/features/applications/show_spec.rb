@@ -15,7 +15,7 @@ RSpec.describe "the application show page" do
     shelter = Shelter.create!(name: 'Mystery Building', city: 'Irvine CA', foster_program: false, rank: 9)
     pet1 = Pet.create!(name: 'Scooby', age: 2, breed: 'Great Dane', adoptable: true, shelter_id: shelter.id)
     pet2 = Pet.create(name: "Gertie", age: 1, breed: "Border Collie", adoptable: true, shelter_id: shelter.id)
-    application1 = Application.create!(name: 'Alice Pieszecki', street: '407 Race St', city: 'Denver', state: 'CO', zip_code: 80305, description: 'I have a big heart and a back yard', status: 'pending')
+    application1 = Application.create!(name: 'Alice Pieszecki', street: '407 Race St', city: 'Denver', state: 'CO', zip_code: 80305, description: 'I am depressed', status: 'In Progress')
     PetApplication.create!(application: application1, pet: pet1)
     PetApplication.create!(application: application1, pet: pet2)
 
@@ -38,5 +38,31 @@ RSpec.describe "the application show page" do
     click_link("#{application1.pets[1].name}")
 
     expect(current_path).to eq("/pets/#{pet2.id}")
+  end
+
+  it 'implements a search bar for pet names' do
+    # Searching for Pets for an Application
+
+    # As a visitor
+    # When I visit an application's show page
+    # And that application has not been submitted,
+    # Then I see a section on the page to "Add a Pet to this Application"
+    # In that section I see an input where I can search for Pets by name
+    # When I fill in this field with a Pet's name
+    # And I click submit,
+    # Then I am taken back to the application show page
+    # And under the search bar I see any Pet whose name matches my search
+    shelter = Shelter.create!(name: 'Mystery Building', city: 'Irvine CA', foster_program: false, rank: 9)
+    pet1 = Pet.create!(name: 'Scooby', age: 2, breed: 'Great Dane', adoptable: true, shelter_id: shelter.id)
+    pet2 = Pet.create!(name: "Gertie", age: 1, breed: "Border Collie", adoptable: true, shelter_id: shelter.id)
+    application1 = Application.create!(name: 'Alice Pieszecki', street: '407 Race St', city: 'Denver', state: 'CO', zip_code: 80305, description: 'I am depressed', status: 'In Progress')
+
+    visit ("/applications/#{application1.id}")
+
+    fill_in('search_by_name', with: 'Scooby')
+    click_button("Find this pet!")
+    save_and_open_page
+
+
   end
 end

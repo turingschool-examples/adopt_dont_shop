@@ -1,6 +1,9 @@
 class PetsController < ApplicationController
   def index
-    if params[:search].present?
+    if params[:search_by_name] && params[:search_by_name] != ""
+     @pets = Pet.where("name like ?",
+     "%# {params[:search_by_name]}%")
+    elsif params[:search].present?
       @pets = Pet.search(params[:search])
     else
       @pets = Pet.adoptable

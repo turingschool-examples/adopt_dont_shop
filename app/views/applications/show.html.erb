@@ -13,4 +13,11 @@
   <p><%= link_to "#{pet.name}", "/pets/#{pet.id}" %></p>
 <% end %>
 
+<%= form_tag "/pets", method: "GET" do %>
+  <%= label_tag :search_by_name %>
+  <%= text_field_tag :search_by_name, params[:search_by_name] %>
+
+  <%= submit_tag "Find this pet!" %>
+<% end %>
+
 <p>Status: <%= @application.status %></p>
