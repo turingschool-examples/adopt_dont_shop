@@ -10,6 +10,8 @@ Rails.application.routes.draw do
 
   #admin application routes
   get '/admin/applications/:id', to: 'admin_applications#show'
+  patch '/admin/applications/:id', to: 'admin_applications#update'
+
 
   #shelters routes
   get '/shelters', to: 'shelters#index'
