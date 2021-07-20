@@ -21,6 +21,9 @@
       Age: <%= pet.age %><br>
       <% if pet.adoptable == true %>
         Adoptable
+        <%= form_with url: "/applications/#{@application.id}", method: :get, local: true do %>
+          <%= submit_tag 'Adopt this Pet' %>
+        <% end %>
       <% else %>
         Not Adoptable </p>
       <% end %>

@@ -48,7 +48,6 @@ RSpec.describe 'applications' do
     expect(page).to have_content("Add a Pet to this Application")
     fill_in :search, with: "Lobster"
     click_button "Submit"
-    save_and_open_page
 
     expect(current_path).to eq "/applications/#{@application.id}"
     expect(page).to have_content("doberman")
@@ -65,10 +64,15 @@ RSpec.describe 'applications' do
   # When I click one of these buttons
   # Then I am taken back to the application show page
   # And I see the Pet I want to adopt listed on this application
+  shelter = Shelter.create(name: 'Mystery Building', city: 'Irvine CA', foster_program: false, rank: 9)
+  pet_1 = Pet.create(adoptable: true, age: 1, breed: 'sphynx', name: 'Bare-y Manilow', shelter_id: shelter.id)
+  pet_2 = Pet.create(adoptable: true, age: 3, breed: 'doberman', name: 'Lobster', shelter_id: shelter.id)
 
-  visit "/applicaitons/#{@applicaiton.id}"
+  visit "/applications/#{@application.id}"
   fill_in :search, with: "Lobster"
   click_button "Submit"
+  save_and_open_page
+
 
   click_button "Adopt this Pet"
   expect(page).to have_content("doberman")
