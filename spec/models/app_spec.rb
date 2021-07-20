@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Applicant do
+RSpec.describe App do
   describe 'relationships' do
     it { should have_many(:pet_apps) }
     it { should have_many(:pets) }

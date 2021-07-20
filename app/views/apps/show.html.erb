@@ -1,0 +1,66 @@
+
+  <div class="col-lg-4 rounded" style="border: 2px red; padding: 15px">
+  
+    <div class="card " style="background-color: rgb(191, 202, 209);min-width: 480px">
+      <div class="card-header" style="background-color: rgb(59, 87, 105)">
+        <h4 style="padding-top: 8px; color: rgb(191, 202, 209);" class="card-title"><%=@app.name%></h4>
+        <h6 id="status" style="font-style:italic ;<%= @app.status == 'approved' ? 'color:green' : 'color: rgb(230,230,0)' %>">Status: <%= @app.status%></h6>
+        <hr
+          class="float-left"
+          style="
+            color: rgb(105, 0, 0);
+            border: 2px solid rgb(112, 0, 0);
+            width: 50%;
+          "
+        />
+        <br>
+        <Address style="color: rgb(191, 202, 209);">  <strong></strong><br>
+          <%=@app.street %><br>
+          <%=@app.city %>, <%=@app.state %> <%=@app.zip %><br>
+  
+        </Address>
+      </div>
+      <div class="card-body" style="background-color: rgb(217, 221, 222)">
+          <% if @app.pets != []%>
+            <div id="pets_on_app">
+              <h3>Adopt:</h3>
+              <% @app.pets.each do |pet| %>
+                <h5><%=pet.name %></h5>
+              <%end%>
+              <p class="card-text float:left" style="color: rgb(92, 95, 88); min-width: 100px">
+                Description: <%= @app.description == nil ? "Please fill out the description below" : @app.description%> <br>
+              </p>
+            </div>
+          <%end%>
+        <!--if no pets yet-->
+        <% if @app.status == "In Progress" %>
+          <%= bootstrap_form_tag url: "/apps/#{@app.id}", method: :get, id: 'search_params' do |form| %>
+            <%= form.text_field :name %>
+            <%= form.submit 'search' %>
+          <% end %>
+          <% if @pet_search != nil && @pet_search != [] %>
+            <ul class="list-group" id="search_results">
+              <% @pet_search.each do |result| %>
+                <% if @app.pets.include?(result)%>
+                
+                <% else %>
+                  <li class="list-group-item"><%=button_to "Adopt #{result.name}", pet_apps_path(pet_id: result.id, app_id: @app.id), id: "#{result.id}" %></li>
+                <% end %>
+              <% end %>
+            </ul>
+          <% end %>
+        <%end%>
+
+      </div>
+        <% if @app.pets != [] && @app.status == "In Progress" %>
+          <div class="card-footer">
+            <%= bootstrap_form_tag url: "/apps/#{@app.id}", method: :patch do |form| %>
+              <%= form.text_area :description, help: "tell us something about yourself and why you think you are a good match", required: true %>
+              <%= form.submit 'Apply to Adopt', id: "submit_app" %>
+            <% end %>
+          </div>
+        <%end%>
+      </div>
+    </div>
+  </div>
+  

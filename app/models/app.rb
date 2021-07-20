@@ -1,8 +1,8 @@
-class Applicant < ApplicationRecord
+class App < ApplicationRecord
   has_many :pet_apps, dependent: :destroy
   has_many :pets, through: :pet_apps
 
-  enum status: { in_progress: 0, pending: 1, approved: 2, rejected: 3 }
+  enum status: { "In Progress": 0, Pending: 1, Approved: 2, Rejected: 3 }
 
   validates :name, presence: true
   validates :street, presence: true

@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'the pet_apps new page' do
   before(:each) do
-    visit '/pet_apps/new'
+    visit '/apps/new'
   end
 
   #Story 3
@@ -17,9 +17,11 @@ RSpec.describe 'the pet_apps new page' do
     fill_in 'City', with: 'Houston'
     fill_in 'Street', with: '123 fake' 
     click_button 'commit'
-    expect(current_path).to eq('/pet_apps/new')
-    expect(page).to have_content('fill in zip')
-    expect(page).to have_content('fill in State')
-    
+    #expect errors
+    expect(page).to have_content("Error: Zip can't be blank, Zip is not a number, State can't be blank")
+    fill_in 'zip', with: '80204'
+    fill_in 'State', with: 'MI'
+    click_button 'commit'
+    #fill in missing fields, submit returns 
   end
 end

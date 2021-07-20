@@ -30,10 +30,11 @@ RSpec.describe 'the Admin Shelters Index' do
     @pet1 = Pet.create(name:'Muffin',adoptable:true,breed:'fluffy cat',age:5, shelter_id: @shelter6.id, pic:'20210429_144443.jpg')
     @pet2 = Pet.create(name:'Tesla',adoptable:true,breed:'hunter cat',age:4, shelter_id: @shelter7.id, pic:'tesla.jpg')
     @pet3 = Pet.create(name:'Cosmos',adoptable:true,breed:'playful cat',age:4, shelter_id: @shelter7.id, pic:'20210429_144443.jpg')
-    app = Applicant.create(name: 'Scooby', street: "123", city:"fake", state: "fake", zip: 48248)
-    PetApp.create(pet_id: @pet1.id applicant_id: app.id)
-    PetApp.create(pet_id: @pet3.id applicant_id: app.id)
-    PetApp.create(pet_id: @pet2.id applicant_id: app.id)
+    app = App.create(name: 'Scooby', street: "123", city:"fake", state: "fake", zip: 48248)
+    binding.pry
+    PetApp.create(pet_id: @pet1.id, app_id: app.id)
+    PetApp.create(pet_id: @pet3.id, app_id: app.id)
+    PetApp.create(pet_id: @pet2.id, app_id: app.id)
 
     within('div#pending') do
       expect(page).to have_content(@shelter6.name)

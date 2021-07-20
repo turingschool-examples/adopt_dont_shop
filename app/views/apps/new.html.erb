@@ -1,0 +1,33 @@
+<div class="col-6">
+  <h1>Create A New Application</h1>
+  <input type="address" class="form-control address" id="autocomplete" placeholder="Enter your address" type="text" />
+
+  <%= bootstrap_form_tag url: '/apps', method: :post do |form| %>
+      <%= form.text_field :name, inline: true, value: "#{@app_params ? @app_params[:name] : nil}", :required => true %>
+        <%= form.text_field :street, inline: true, value: "#{@app_params ? @app_params[:street] : nil}", :required => true %>
+        <%= form.text_field :city, inline: true, value: "#{@app_params ? @app_params[:city] : nil}", :required => true %>
+        <%= form.text_field :state, inline: true, value: "#{@app_params ? @app_params[:state] : nil}", :required => true %>
+        <%= form.text_field :zip, inline: true, value: "#{@app_params ? @app_params[:zip] : nil}"%>
+      <%= form.submit 'Submit' %>
+  <% end %>
+</div>
+<script>
+  let autocomplete
+  initAutocomplete = () =>{
+    autocomplete = new google.maps.places.Autocomplete(
+      document.getElementById('autocomplete')
+    )
+    autocomplete.addListener('place_changed', onPlaceChanged);
+  }
+  onPlaceChanged = () => {
+    let place = autocomplete.getPlace()
+    document.getElementById('street').value = place.address_components[0].long_name + ' ' + place.address_components[1].long_name
+    document.getElementById('city').value = place.address_components[3].long_name
+    document.getElementById('state').value = place.address_components[5].short_name
+    document.getElementById('zip').value = place.address_components[7].long_name
+  }
+</script>
+<script
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAaDgSBAylVg1I-yQDZjyDsCSy6U8OhTGo&libraries=places&callback=initAutocomplete">
+    async
+</script>

@@ -1,6 +1,6 @@
 class Pet < ApplicationRecord
   has_many :pet_apps, dependent: :destroy 
-  has_many :applicants, through: :pet_apps
+  has_many :apps, through: :pet_apps
   validates :name, presence: true
   validates :age, presence: true, numericality: true
   belongs_to :shelter

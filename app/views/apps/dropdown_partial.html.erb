@@ -1,0 +1,3 @@
+<% @pets.adoptable.each do |pet| %> <% if @app.pets.exclude?(pet) %> <%= link_to
+"Adopt #{pet.name}", app_path(params:{pets_id: pet.id}),
+:class=>"dropdown-item"%> <% end %> <% end %>
