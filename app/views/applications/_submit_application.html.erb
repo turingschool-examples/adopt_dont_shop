@@ -1,0 +1,7 @@
+<p>Submit Application Below:</p>
+<%= form_with url: "/applications/#{@application.id}", method: :post, local: true do |form| %>
+  <%= form.label :description, 'What makes me an ideal pet owner:' %>
+  <%= form.text_area :description, size: "70x5" %>
+
+  <%= form.submit "Submit Application!" %>
+<% end %>

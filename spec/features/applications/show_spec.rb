@@ -115,9 +115,16 @@ end
     # And I see all the pets that I want to adopt
     # And I do not see a section to add more pets to this application
     visit ("/applications/#{@app1.id}")
-    fill_in('search', with: 'Harper')
 
     expect(page).to have_link("Gertie")
-    expect(page).to have_content("Submit this application")
+    expect(page).to have_button("Submit Application!")
+
+    fill_in('description', with: 'A very good reason')
+    click_button("Submit Application!")
+
+    expect(current_path).to eq("/applications/#{@app1.id}")
+    expect(page).to have_content("Status: Pending")
+    expect(page).to have_link("Gertie")
+    expect(page).to_not have_content("Search for Pets by Name:")
   end
 end

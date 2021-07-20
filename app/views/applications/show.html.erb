@@ -11,7 +11,7 @@
 <p>Status: <%= @application.status %></p>
 <br>
 
-<p>Pets Applied For:</p>
+<p>Pets Applying For:</p>
 <% @pets.each do |pet| %>
   <p><%= link_to "#{pet.name}", "/pets/#{pet.id}" %></p>
 <% end %>
@@ -22,5 +22,11 @@
 
   <% if @found_pets.nil? == false %>
     <%= render 'found_pets' %>
+  <% end %>
+
+  <br>
+
+  <% if @pets.length > 0 %>
+    <%= render 'submit_application' %>
   <% end %>
 <% end %>

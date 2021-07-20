@@ -24,8 +24,8 @@ Shelter.destroy_all
 @app10 = Application.create(name: 'Helena Peabody', street: '6898 Pennsylvania Ave', city: 'Boulder', state: 'CO', zip_code: 81129, status: 'rejected')
 
 #shelters
-@shelter_1 = Shelter.create(name: "Boulder Humane Society", city: "Boulder, CO", rank: 1, foster_program: "true")
-@shelter_2 = Shelter.create(name: "Denver Humane Society", city: "Denver, CO", rank: 2, foster_program: "false")
+@shelter_1 = Shelter.create(name: "Boulder Humane Society", city: "Boulder, CO", rank: 1, foster_program: true)
+@shelter_2 = Shelter.create(name: "Denver Humane Society", city: "Denver, CO", rank: 2, foster_program: false)
 
 #pets
 @pet1 = @shelter_1.pets.create(name: "Gertie", breed: "Border Collie", adoptable: true, age: 1)
