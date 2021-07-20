@@ -1,3 +1,13 @@
-<% @reversed.each do |shelter| %>
-<%= link_to shelter.name , "/admin/shelters/#{shelter.id}" %>
+<h2>All Shelters</h2>
+<% @reversed.each do |shelter| %><
+  <p><%= link_to "#{shelter.name}", "/admin/shelters/#{shelter.id}" %></p>
 <% end %>
+
+<section id="pending">
+  <h3>Shelters with pending applications</h3>
+    <% @pending.each do |shelter| %>
+      <p>
+        <%= link_to "#{shelter.name}", "/admin/shelters/#{shelter.id}" %>
+      </p>
+    <% end %>
+</section>
