@@ -1,6 +1,34 @@
 require 'rails_helper'
 
 RSpec.describe "the application show page" do
+before(:each) do
+  #shelters
+  @shelter_1 = Shelter.create(name: "Boulder Humane Society", city: "Boulder, CO", rank: 1, foster_program: "true")
+  @shelter_2 = Shelter.create(name: "Denver Humane Society", city: "Denver, CO", rank: 2, foster_program: "false")
+
+  #pets
+  @pet1 = @shelter_1.pets.create(name: "Gertie", breed: "Border Collie", adoptable: true, age: 1)
+  @pet2 = @shelter_1.pets.create(name: "Millie", breed: "Labrador Retriever", adoptable: true, age: 3)
+  @pet3 = @shelter_1.pets.create(name: "Harper", breed: "Lab/Shar Pei/Chow mix", adoptable: false, age: 1)
+  @pet4 = @shelter_1.pets.create(name: "Rock", breed: "Pit Pull", adoptable: true, age: 4)
+  @pet5 = @shelter_2.pets.create(name: "Pebble", breed: "Chihuahua", adoptable: true, age: 2)
+
+  #applications
+  @app1 = Application.create(name: 'Alice Pieszecki', street: '407 Race St', city: 'Denver', state: 'CO', zip_code: 80305, description: 'A reason', status: 'pending')
+  @app2 = Application.create(name: 'Bette Porter', street: '777 Corona St', city: 'Denver', state: 'CO', zip_code: 80221, description: 'B reason', status: 'pending')
+  @app3 = Application.create(name: 'Shane McCutchen', street: '1234 Pine Ave', city: 'Arvada', state: 'CO', zip_code: 80218, description: 'C reason', status: 'pending')
+  @app4 = Application.create(name: 'Jenny Schecter', street: '2043 21st St', city: 'Denver', state: 'CO', zip_code: 80218, description: 'D reason', status: 'rejected')
+  @app5 = Application.create(name: 'Tina Kennard', street: '12 Colorado Blvd', city: 'Denver', state: 'CO', zip_code: 80210, description: 'E reason', status: 'rejected')
+
+  #pet application
+  PetApplication.create!(application: @app1, pet: @pet1)
+  PetApplication.create!(application: @app2, pet: @pet2)
+  PetApplication.create!(application: @app3, pet: @pet3)
+  PetApplication.create!(application: @app4, pet: @pet4)
+
+
+
+end
   it "shows the application and all its attributes" do
     # Application Show Page
     #
@@ -12,31 +40,84 @@ RSpec.describe "the application show page" do
     # - Description of why the applicant says they'd be a good home for this pet(s)
     # - names of all pets that this application is for (all names of pets should be links to their show page)
     # - The Application's status, either "In Progress", "Pending", "Accepted", or "Rejected"
-    shelter = Shelter.create!(name: 'Mystery Building', city: 'Irvine CA', foster_program: false, rank: 9)
-    pet1 = Pet.create!(name: 'Scooby', age: 2, breed: 'Great Dane', adoptable: true, shelter_id: shelter.id)
-    pet2 = Pet.create(name: "Gertie", age: 1, breed: "Border Collie", adoptable: true, shelter_id: shelter.id)
-    application1 = Application.create!(name: 'Alice Pieszecki', street: '407 Race St', city: 'Denver', state: 'CO', zip_code: 80305, description: 'I have a big heart and a back yard', status: 'pending')
-    PetApplication.create!(application: application1, pet: pet1)
-    PetApplication.create!(application: application1, pet: pet2)
 
+    visit ("/applications/#{@app1.id}")
 
-    visit ("/applications/#{application1.id}")
+    expect(page).to have_content(@app1.name)
+    expect(page).to have_content("Address: #{@app1.street} #{@app1.city}, #{@app1.state} #{@app1.zip_code}")
+    expect(page).to have_content("Description: #{@app1.description}")
+    expect(page).to have_link(@app1.pets[0].name)
+    expect(page).to have_content("Status: #{@app1.status}")
 
-    expect(page).to have_content(application1.name)
-    expect(page).to have_content("Address: #{application1.street} #{application1.city}, #{application1.state} #{application1.zip_code}")
-    expect(page).to have_content("Description: #{application1.description}")
-    expect(page).to have_link(application1.pets[0].name)
-    expect(page).to have_link(application1.pets[1].name)
-    expect(page).to have_content("Status: #{application1.status}")
+    click_link("#{@app1.pets[0].name}")
 
-    click_link("#{application1.pets[0].name}")
+    expect(current_path).to eq("/pets/#{@pet1.id}")
+  end
 
-    expect(current_path).to eq("/pets/#{pet1.id}")
+  it 'implements a search bar for pet names' do
+    # Searching for Pets for an Application
 
-    visit ("/applications/#{application1.id}")
+    # As a visitor
+    # When I visit an application's show page
+    # And that application has not been submitted,
+    # Then I see a section on the page to "Add a Pet to this Application"
+    # In that section I see an input where I can search for Pets by name
+    # When I fill in this field with a Pet's name
+    # And I click submit,
+    # Then I am taken back to the application show page
+    # And under the search bar I see any Pet whose name matches my search
 
-    click_link("#{application1.pets[1].name}")
+    visit ("/applications/#{@app1.id}")
 
-    expect(current_path).to eq("/pets/#{pet2.id}")
+    fill_in('search', with: 'Harper')
+
+    click_button("Find this pet!")
+
+    expect(page).to have_content("Search for Pets by Name:")
+    expect(page).to have_content("Harper")
+  end
+
+#ADD CASE INSENSITIVE AND PARTIAL MATCH WHEN SEARCHING TEST
+
+  it 'has a working adopt this pet button' do
+    # Add a Pet to an Application
+    #
+    # As a visitor
+    # When I visit an application's show page
+    # And I search for a Pet by name
+    # And I see the names Pets that match my search
+    # Then next to each Pet's name I see a button to "Adopt this Pet"
+    # When I click one of these buttons
+    # Then I am taken back to the application show page
+    # And I see the Pet I want to adopt listed on this application
+    visit ("/applications/#{@app1.id}")
+
+    fill_in('search', with: 'Harper')
+
+    click_button("Find this pet!")
+    click_button("Adopt this Pet")
+
+    expect(page).to have_link("Harper")
+  end
+
+  it 'can submit an application' do
+    # Submit an Application
+    #
+    # As a visitor
+    # When I visit an application's show page
+    # And I have added one or more pets to the application
+    # Then I see a section to submit my application
+    # And in that section I see an input to enter why I would make a good owner for these pet(s)
+    # When I fill in that input
+    # And I click a button to submit this application
+    # Then I am taken back to the application's show page
+    # And I see an indicator that the application is "Pending"
+    # And I see all the pets that I want to adopt
+    # And I do not see a section to add more pets to this application
+    visit ("/applications/#{@app1.id}")
+    fill_in('search', with: 'Harper')
+
+    expect(page).to have_link("Gertie")
+    expect(page).to have_content("Submit this application")
   end
 end

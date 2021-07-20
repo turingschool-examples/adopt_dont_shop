@@ -1,0 +1,6 @@
+<p>Search for Pets by Name:</p>
+<%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |f| %>
+  <%= f.label :search %>
+  <%= f.text_field :search %>
+  <%= f.submit "Find this pet!" %>
+<% end %>

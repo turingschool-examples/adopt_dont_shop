@@ -23,6 +23,7 @@ class PetsController < ApplicationController
     else
       redirect_to "/shelters/#{pet_params[:shelter_id]}/pets/new"
       flash[:alert] = "Error: #{error_message(pet.errors)}"
+      # render :new
     end
   end
 

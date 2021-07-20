@@ -8,9 +8,19 @@
 
 <p>Description: <%= @application.description %></p>
 
-<p>Pets: </p>
-<% @application.pets.each do |pet| %>
+<p>Status: <%= @application.status %></p>
+<br>
+
+<p>Pets Applied For:</p>
+<% @pets.each do |pet| %>
   <p><%= link_to "#{pet.name}", "/pets/#{pet.id}" %></p>
 <% end %>
+<br>
 
-<p>Status: <%= @application.status %></p>
+<% unless @application.status == "Pending" %>
+  <%= render 'search_pets' %>
+
+  <% if @found_pets.nil? == false %>
+    <%= render 'found_pets' %>
+  <% end %>
+<% end %>
