@@ -6,6 +6,7 @@ class AdminSheltersController < ApplicationController
   end
 
   def show
+    #convert to raw sequel
     @shelter = Shelter.find(params[:id])
   end
 end
