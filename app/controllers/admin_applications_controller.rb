@@ -5,7 +5,7 @@ class AdminApplicationsController < ApplicationController
     if params[:pet_id].nil?
 
     else
-      @pet_id = (params[:pet_id]).to_i
+      @pet_id = (params[:pet_id])
     end
   end
 end

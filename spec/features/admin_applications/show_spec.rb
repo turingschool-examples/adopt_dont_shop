@@ -37,5 +37,28 @@ RSpec.describe 'Admin Applications Show' do
         find_link('Approve').visible?
       end
     end
+
+    it 'can reject pets on application' do
+      visit "/admin/applications/#{@application1.id}"
+
+      expect(page).to have_content(@lana.name)
+      expect(page).to have_content(@doc.name)
+
+      within(:css, "##{@lana.id}") do
+        click_on('Reject')
+      end
+
+      expect(current_path).to eq("/admin/applications/#{@application1.id}")
+
+      within(:css, "##{@lana.id}") do
+        expect(page).to have_content('Rejected')
+        expect(page).to_not have_content('Approve')
+      end
+
+      within(:css, "##{@doc.id}") do
+        find_link('Reject').visible?
+        find_link('Approve').visible?
+      end
+    end
   end
 end

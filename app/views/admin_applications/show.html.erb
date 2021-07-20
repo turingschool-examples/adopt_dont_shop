@@ -4,10 +4,13 @@
 <% @pets.each do |pet| %>
   <div class = 'pet' id = "<%= pet.id  %>">
     <p>* <%= pet.name %> </p>
-    <% if pet.id == @pet_id %>
+    <% if "#{pet.id}A" == @pet_id %>
       <p>Approved</p>
+    <% elsif "#{pet.id}R" == @pet_id %>
+      <p>Rejected</p>
     <% else %>
-      <%= link_to 'Approve', "/admin/applications/#{@applicant.id}?pet_id=#{pet.id}" %>
+      <%= link_to 'Approve', "/admin/applications/#{@applicant.id}?pet_id=#{pet.id}A" %>
+      <%= link_to 'Reject', "/admin/applications/#{@applicant.id}?pet_id=#{pet.id}R"  %>
     <% end %>
   </div>
 <% end %>
