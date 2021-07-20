@@ -16,4 +16,9 @@ RSpec.describe 'the admin shelters index' do
     expect(page).to have_content(@shelter_2.name)
     expect(page).to have_content(@shelter_3.name)
   end
+
+  it 'lists all the shelters in reverse alphabetical order' do
+    expect(@shelter_2.name).to appear_before(@shelter_3.name)
+    expect(@shelter_3.name).to appear_before(@shelter_1.name)
+  end
 end
