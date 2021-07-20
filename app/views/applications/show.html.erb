@@ -6,6 +6,9 @@
   <h3>Zip Code: <%= @application.zip_code %></h3>
   <h3>Why I would make a good home for my pet: <%= @application.description %></h3>
   <h3>Status: <%= @application.status %></h3>
+  <% @application.pets.each do |pet| %>
+    <%= pet.name %>
+  <% end %>
 
 
   <%= form_with url: "/applications/#{@application.id}", method: :get, local: true do %>
@@ -27,6 +30,4 @@
       <% end %>
     <% end %>
   <% end %>
-
-  <%= @application %>
 </center>

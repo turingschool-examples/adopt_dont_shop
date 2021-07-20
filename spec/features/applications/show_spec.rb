@@ -74,7 +74,8 @@ RSpec.describe 'applications' do
 
 
   click_button "Adopt this Pet"
+  save_and_open_page
 
-  expect(page).to have_content("doberman")
+  expect(page).to have_content("Lobster")
   end
 end
