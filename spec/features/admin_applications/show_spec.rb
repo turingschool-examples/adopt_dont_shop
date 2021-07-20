@@ -14,6 +14,7 @@ RSpec.describe 'Admin Applications Show' do
     @application2 = Applicant.create!(name: 'Evan', street_address: '1234 Sparky Lane', city: 'Portland', state: 'OR', zip_code: 23392, home_description: 'I like playing and throwing ball with dogs', status: 'Pending')
 
     @application1.pets << [@lana, @doc]
+    @application2.pets << [@lana, @doc]
   end
 
   describe 'visitor' do
@@ -53,6 +54,33 @@ RSpec.describe 'Admin Applications Show' do
       within(:css, "##{@lana.id}") do
         expect(page).to have_content('Rejected')
         expect(page).to_not have_content('Approve')
+      end
+
+      within(:css, "##{@doc.id}") do
+        find_link('Reject').visible?
+        find_link('Approve').visible?
+      end
+    end
+
+    it 'pets on other applications are not affected' do
+      visit "/admin/applications/#{@application1.id}"
+
+      expect(page).to have_content(@lana.name)
+      expect(page).to have_content(@doc.name)
+
+      within(:css, "##{@lana.id}") do
+        click_on('Reject')
+      end
+
+      within(:css, "##{@doc.id}") do
+        click_on('Approve')
+      end
+
+      visit "/admin/applications/#{@application2.id}"
+
+      within(:css, "##{@lana.id}") do
+        find_link('Reject').visible?
+        find_link('Approve').visible?
       end
 
       within(:css, "##{@doc.id}") do
