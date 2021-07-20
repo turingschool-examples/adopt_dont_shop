@@ -4,13 +4,17 @@
 <% @pets.each do |pet| %>
   <div class = 'pet' id = "<%= pet.id  %>">
     <p>* <%= pet.name %> </p>
-    <% if "#{pet.id}A" == @pet_id %>
+    <% if @pet_application.status == 'approve' %>
       <p>Approved</p>
-    <% elsif "#{pet.id}R" == @pet_id %>
+    <% elsif @pet_application.status == 'reject' %>
       <p>Rejected</p>
     <% else %>
-      <%= link_to 'Approve', "/admin/applications/#{@applicant.id}?pet_id=#{pet.id}A" %>
-      <%= link_to 'Reject', "/admin/applications/#{@applicant.id}?pet_id=#{pet.id}R"  %>
+      <%= form_with url:"/admin/applications/#{@applicant.id}?status=approve&pet_id=#{pet.id}", method: :patch, local: true do |form| %>
+        <%= form.submit 'Approve'  %>
+      <% end %>
+      <%= form_with url:"/admin/applications/#{@applicant.id}?status=reject&pet_id=#{pet.id}", method: :patch, local: true do |form| %>
+        <%= form.submit 'Reject'  %>
+      <% end %>
     <% end %>
   </div>
 <% end %>
