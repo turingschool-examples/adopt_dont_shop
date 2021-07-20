@@ -34,7 +34,13 @@
 
   <% @pets.each do |pet| %>
       <p><%= pet.name %></p>
-      <p><%= pet.age %> years olds</p>
+      <p><%= pet.age %> years old </p>
       <p><%= pet.breed %></p>
+      <% @application.status ==  "In Progress" %>
+        <%= form_with url: "/pet_applications", method: :post, local: true do |f| %>
+        <%= f.hidden_field :application_id, :value => @application.id %>
+        <%= f.hidden_field :pet_id, :value => pet.id %>
+        <%= f.submit "Adopt this Pet" %>
+        <% end %>
     <% end %>
 <% end %>
