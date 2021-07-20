@@ -1,9 +1,6 @@
 class PetsController < ApplicationController
   def index
-    if params[:search_by_name] && params[:search_by_name] != ""
-     @pets = Pet.where("name like ?",
-     "%# {params[:search_by_name]}%")
-    elsif params[:search].present?
+    if params[:search].present?
       @pets = Pet.search(params[:search])
     else
       @pets = Pet.adoptable
@@ -26,6 +23,7 @@ class PetsController < ApplicationController
     else
       redirect_to "/shelters/#{pet_params[:shelter_id]}/pets/new"
       flash[:alert] = "Error: #{error_message(pet.errors)}"
+      # render :new
     end
   end
 

@@ -38,7 +38,7 @@ Rails.application.routes.draw do
   get '/shelters/:shelter_id/pets/new', to: 'pets#new'
   post '/shelters/:shelter_id/pets', to: 'pets#create'
 
-  # VETERINARY OFFICE VETERINARIANS --------------------------------------
+  # VETERINARY OFFICE VETERINARIANS ------------------------
   get '/veterinary_offices/:veterinary_office_id/veterinarians', to: 'veterinary_offices#veterinarians'
   get '/veterinary_offices/:veterinary_office_id/veterinarians/new', to: 'veterinarians#new'
   post '/veterinary_offices/:veterinary_office_id/veterinarians', to: 'veterinarians#create'
@@ -47,4 +47,7 @@ Rails.application.routes.draw do
   get '/applications/new', to: 'applications#new'
   get '/applications/:id', to: 'applications#show'
   post '/applications', to: 'applications#create'
+
+  # PET APPLICATIONS -----------------------------------
+  post '/pet_applications', to: 'pet_applications#create'
 end

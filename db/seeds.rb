@@ -29,7 +29,7 @@ Shelter.destroy_all
 
 #pets
 @pet1 = @shelter_1.pets.create(name: "Gertie", breed: "Border Collie", adoptable: true, age: 1)
-@pet2 = @shelter_1.pets.create(name: "Mille", breed: "Labrador Retriever", adoptable: true, age: 3)
+@pet2 = @shelter_1.pets.create(name: "Millie", breed: "Labrador Retriever", adoptable: true, age: 3)
 @pet3 = @shelter_1.pets.create(name: "Harper", breed: "Lab/Shar Pei/Chow mix", adoptable: false, age: 1)
 @pet4 = @shelter_1.pets.create(name: "Rock", breed: "Pit Pull", adoptable: true, age: 4)
 @pet5 = @shelter_2.pets.create(name: "Pebble", breed: "Chihuahua", adoptable: true, age: 2)

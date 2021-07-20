@@ -1,0 +1,3 @@
+<% @found_pets.each do |pet| %>
+  <p><%= pet.name%> <%= button_to "Adopt this Pet", "/pet_applications", method: :post, local: :true, params: {pet: pet, application: @application} %> </p>
+<% end %>
