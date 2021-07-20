@@ -8,10 +8,22 @@
   <h3>Status: <%= @application.status %></h3>
 
 
-    <%= form_with url: "/applications/#{@application.id}", method: :get, local: true do %>
-      <%= label :pet_search, "Add a Pet", "Add a Pet to this Application" %>
-      <%= text_field_tag :pet_search, params[:pet_search] %>
-      <%= submit_tag 'Submit' %>
-    <% end %>
+  <%= form_with url: "/applications/#{@application.id}", method: :get, local: true do %>
+    <%= label :search, "Add a Pet", "Add a Pet to this Application" %>
+    <%= text_field_tag :search, params[:search] %>
+    <%= submit_tag 'Submit' %>
+  <% end %>
 
+  <% if params[:search] %>
+    <% @pets.each do |pet| %>
+      <h2>Name: <%= pet.name %></h2>
+      <p>Breed:<%= pet.breed %><br>
+      Age: <%= pet.age %><br>
+      <% if pet.adoptable == true %>
+        Adoptable
+      <% else %>
+        Not Adoptable </p>
+      <% end %>
+    <% end %>
+  <% end %>
 </center>

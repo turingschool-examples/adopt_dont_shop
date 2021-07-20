@@ -44,15 +44,15 @@ RSpec.describe 'applications' do
     pet_2 = Pet.create(adoptable: true, age: 3, breed: 'doberman', name: 'Lobster', shelter_id: shelter.id)
 
     visit "/applications/#{@application.id}"
-    save_and_open_page
 
     expect(page).to have_content("Add a Pet to this Application")
     fill_in :search, with: "Lobster"
     click_button "Submit"
+    save_and_open_page
 
     expect(current_path).to eq "/applications/#{@application.id}"
     expect(page).to have_content("doberman")
-    expect(page).to have_content("adoptable")
+    expect(page).to have_content("Adoptable")
 
     expect(page).to_not have_content("sphynx")
   end
