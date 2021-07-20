@@ -23,3 +23,18 @@
   <strong>Description: </strong>
   <%= @application.description %>
 </p>
+
+<% if @application.status == "In Progress" %>
+  <h1> Search Adoptable Pets </h1>
+  <%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |f| %>
+    <%= f.label :search %>
+    <%= f.text_field :search %>
+    <%= f.submit "Search" %>
+  <% end %>
+
+  <% @pets.each do |pet| %>
+      <p><%= pet.name %></p>
+      <p><%= pet.age %> years olds</p>
+      <p><%= pet.breed %></p>
+    <% end %>
+<% end %>
