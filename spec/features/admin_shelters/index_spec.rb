@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'admin shelters index' do
   before (:each) do
-    @furry = Shelter.create!(name:'Furrry Shelter', foster_program: true, city: 'New Orleans', rank: 5)
+    @furry = Shelter.create!(name:'Furry Shelter', foster_program: true, city: 'New Orleans', rank: 5)
     @small = Shelter.create!(name:'Small Friends Shelter', foster_program: false, city: 'Atlanta', rank: 2)
     @paws = Shelter.create!(name: 'Dirty Paws Home', foster_program: true, city: 'Kansas City', rank: 4)
 
@@ -41,5 +41,21 @@ RSpec.describe 'admin shelters index' do
         expect(page).to_not have_content(@furry.name)
        end
      end
+  end
+
+  describe 'links' do
+    it 'can access each shelters applications index' do
+      visit '/admin/shelters'
+      click_link(@furry.name)
+      expect(current_path).to eq("/admin/shelters/#{@furry.id}")
+
+      visit '/admin/shelters'
+      click_link(@small.name)
+      expect(current_path).to eq("/admin/shelters/#{@small.id}")
+
+      visit '/admin/shelters'
+      click_link(@paws.name)
+      expect(current_path).to eq("/admin/shelters/#{@paws.id}")
+    end
   end
 end

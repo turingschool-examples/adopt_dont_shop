@@ -5,8 +5,12 @@ Rails.application.routes.draw do
   resources :applicants
   patch '/applicants/:id/submit', to: 'applicants#submit'
 
+  #admin routes
+  get '/admin', to: 'admin_shelters#index'
+
   #admin shelters routes
   get '/admin/shelters', to: 'admin_shelters#index'
+  get '/admin/shelters/:id', to: 'admin_shelters#show'
 
   #admin application routes
   get '/admin/applications/:id', to: 'admin_applications#show'

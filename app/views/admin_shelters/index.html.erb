@@ -1,7 +1,7 @@
 <h1>Admin Access: Shelters Index</h1>
 
 <% @shelters.each do |shelter| %>
-  <h3><%= shelter.name %></h3>
+  <h3><%= link_to "#{shelter.name}", "/admin/shelters/#{shelter.id}" %></h3>
 <% end %>
 
 <h2>Shelters with Pending Applications</h2>
