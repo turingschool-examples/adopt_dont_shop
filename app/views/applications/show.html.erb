@@ -19,6 +19,14 @@
   <strong>Zip Code:</strong>
   <%= @application.zip_code %>
 </p>
+
+<p>
+  <strong>Pets I would like to adopt:</strong>
+  <% @application.pets.each do |pet| %>
+    <%= link_to pet.name, "/pets/#{pet.id}" %>
+    <% end %>
+</p>
+
 <p>
   <strong>Description: </strong>
   <%= @application.description %>
@@ -43,4 +51,12 @@
         <%= f.submit "Adopt this Pet" %>
         <% end %>
     <% end %>
+    <% if @pet_count > 0 %>
+      <% form_with url: "/applications/#{@application.id}", method: :patch, local: true do |f| %>
+        <p><%= f.label :description, "description" %></p>
+        <p><%= f.text_area :description %></p>
+        <%= f.hidden_field :status, :value => "Pending" %>
+        <p><%= f.submit "Submit Appication" %></p>
+        <% end %>
+      <% end %>
 <% end %>
