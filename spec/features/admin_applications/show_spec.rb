@@ -20,5 +20,11 @@ RSpec.describe 'The admin applications show page' do
     expect(page).to have_link("Approve #{@app_1.name} to adopt #{@pet_2.name}")
   end
 
-  it 'that button succesfully approves the pet adoption'
+  it 'that button succesfully approves the pet adoption' do
+    click_link("Approve #{@app_1.name} to adopt #{@pet_1.name}")
+
+    expect(current_path).to eq("/admin/applications/#{@app_1.id}/?approved=yes")
+    expect(page).to have_content("You approved #{@app_1.name} to adopt #{@pet_2.name}")
+    expect(page).to_not have_link("Approve #{@app_1.name} to adopt #{@pet_1.name}")
+  end
 end
