@@ -47,7 +47,7 @@ RSpec.describe 'applications' do
     save_and_open_page
 
     expect(page).to have_content("Add a Pet to this Application")
-    fill_in :pet_search, with: "Lobster"
+    fill_in :search, with: "Lobster"
     click_button "Submit"
 
     expect(current_path).to eq "/applications/#{@application.id}"
@@ -55,5 +55,22 @@ RSpec.describe 'applications' do
     expect(page).to have_content("adoptable")
 
     expect(page).to_not have_content("sphynx")
+  end
+
+  it "add a pet to an application" do
+  # When I visit an application's show page
+  # And I search for a Pet by name
+  # And I see the names Pets that match my search
+  # Then next to each Pet's name I see a button to "Adopt this Pet"
+  # When I click one of these buttons
+  # Then I am taken back to the application show page
+  # And I see the Pet I want to adopt listed on this application
+
+  visit "/applicaitons/#{@applicaiton.id}"
+  fill_in :search, with: "Lobster"
+  click_button "Submit"
+
+  click_button "Adopt this Pet"
+  expect(page).to have_content("doberman")
   end
 end
