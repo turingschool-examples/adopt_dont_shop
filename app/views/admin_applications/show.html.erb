@@ -1,0 +1,13 @@
+<h1>Application for <%= @applicant.name %></h1>
+
+<h3>Pets requested on application:</h3>
+<% @pets.each do |pet| %>
+  <div class = 'pet' id = "<%= pet.id  %>">
+    <p>* <%= pet.name %> </p>
+    <% if pet.id == @pet_id %>
+      <p>Approved</p>
+    <% else %>
+      <%= link_to 'Approve', "/admin/applications/#{@applicant.id}?pet_id=#{pet.id}" %>
+    <% end %>
+  </div>
+<% end %>

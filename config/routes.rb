@@ -8,6 +8,9 @@ Rails.application.routes.draw do
   #admin shelters routes
   get '/admin/shelters', to: 'admin_shelters#index'
 
+  #admin application routes
+  get '/admin/applications/:id', to: 'admin_applications#show'
+
   #shelters routes
   get '/shelters', to: 'shelters#index'
   get '/shelters/new', to: 'shelters#new'
