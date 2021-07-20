@@ -2,6 +2,11 @@ require 'rails_helper'
 
 RSpec.describe 'Admin Applications Show' do
   before(:each) do
+    PetApplicant.destroy_all
+    Pet.destroy_all
+    Applicant.destroy_all
+    Shelter.destroy_all
+
     @furry = Shelter.create!(name:'Furrry Shelter', foster_program: true, city: 'New Orleans', rank: 5)
 
     @bruce = @furry.pets.create!(name: 'Bruce', age: 3, adoptable: true, breed: 'black lab')
@@ -35,7 +40,7 @@ RSpec.describe 'Admin Applications Show' do
       end
 
       within(:css, "##{@doc.id}") do
-        find_link('Approve').visible?
+        find_button('Approve').visible?
       end
     end
 
@@ -57,8 +62,8 @@ RSpec.describe 'Admin Applications Show' do
       end
 
       within(:css, "##{@doc.id}") do
-        find_link('Reject').visible?
-        find_link('Approve').visible?
+        find_button('Reject').visible?
+        find_button('Approve').visible?
       end
     end
 
@@ -79,18 +84,48 @@ RSpec.describe 'Admin Applications Show' do
       visit "/admin/applications/#{@application2.id}"
 
       within(:css, "##{@lana.id}") do
-        find_link('Reject').visible?
-        find_link('Approve').visible?
+        find_button('Reject').visible?
+        find_button('Approve').visible?
       end
 
       within(:css, "##{@doc.id}") do
-        find_link('Reject').visible?
-        find_link('Approve').visible?
+        find_button('Reject').visible?
+        find_button('Approve').visible?
       end
     end
 
     it 'maintains rejection/approval status on same application' do
-      
+      visit "/admin/applications/#{@application1.id}"
+
+      within(:css, "##{@lana.id}") do
+        click_on('Approve')
+      end
+
+      expect(current_path).to eq("/admin/applications/#{@application1.id}")
+
+      within(:css, "##{@doc.id}") do
+        click_on('Reject')
+      end
+
+      expect(current_path).to eq("/admin/applications/#{@application1.id}")
+
+      within(:css, "##{@lana.id}") do
+        expect(page).to have_content('Approved')
+      end
+
+      within(:css, "##{@doc.id}") do
+        expect(page).to have_content('Rejected')
+      end
+
+      visit "/admin/applications/#{@application1.id}"
+
+      within(:css, "##{@lana.id}") do
+        expect(page).to have_content('Approved')
+      end
+
+      within(:css, "##{@doc.id}") do
+        expect(page).to have_content('Rejected')
+      end
     end
   end
 end
