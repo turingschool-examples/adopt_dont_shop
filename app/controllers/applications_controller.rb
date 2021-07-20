@@ -1,6 +1,11 @@
 class ApplicationsController < ApplicationController
   def show
     @application = Application.find(params[:id])
+    if params[:search]
+      @pets = Pet.adoptable.search(params[:search])
+    else
+      @pets = []
+    end
   end
 
   def create
@@ -15,9 +20,6 @@ class ApplicationsController < ApplicationController
 
   def new
   end
-
-  def search
-  end 
 
   private
   def applications_params
