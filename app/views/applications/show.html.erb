@@ -1,33 +1,42 @@
 <center>
-  <h1>Name: <%= @application.name %></h1>
-  <h3>Street Address: <%= @application.street_address %></h3>
-  <h3>City: <%= @application.city %></h3>
-  <h3>State: <%= @application.state %></h3>
-  <h3>Zip Code: <%= @application.zip_code %></h3>
-  <h3>Why I would make a good home for my pet: <%= @application.description %></h3>
-  <h3>Status: <%= @application.status %></h3>
-  <% @application.pets.each do |pet| %>
-    <%= pet.name %>
-  <% end %>
+  <section>
+    <h1>Name: <%= @application.name %></h1>
+    <h3>Street Address: <%= @application.street_address %></h3>
+    <h3>City: <%= @application.city %></h3>
+    <h3>State: <%= @application.state %></h3>
+    <h3>Zip Code: <%= @application.zip_code %></h3>
+    <h3>Why I would make a good home for my pet: <%= @application.description %></h3>
+    <h3>Status: <%= @application.status %></h3>
+    <div>
+      <h3>Desired Pets: </h3>
+      <% @application.pets.each do |pet| %>
+        <b><%= pet.name %></b>
+      <% end %>
+  </div>
+  <br><br>
+  </section>
 
+  <section>
+    <%= form_with url: "/applications/#{@application.id}", method: :get, local: true do %>
+      <%= label :search, "Add a Pet", "Add a Pet to this Application" %>
+      <%= text_field_tag :search, params[:search] %>
+      <%= submit_tag 'Submit' %>
+    <% end %>
+  </section>
 
-  <%= form_with url: "/applications/#{@application.id}", method: :get, local: true do %>
-    <%= label :search, "Add a Pet", "Add a Pet to this Application" %>
-    <%= text_field_tag :search, params[:search] %>
-    <%= submit_tag 'Submit' %>
-  <% end %>
-
-  <% if params[:search] %>
-    <% @pets.each do |pet| %>
-      <h2>Name: <%= pet.name %></h2>
-      <p>Breed:<%= pet.breed %><br>
-      Age: <%= pet.age %><br>
-      <% if pet.adoptable == true %>
-        Adoptable
-          <%= button_to 'Adopt this Pet', controller => "applications", :action => "adopt", params: { add_pet: pet.id, app: @application.id }  %>
-      <% else %>
-        Not Adoptable </p>
+  <section>
+    <% if params[:search] %>
+      <% @pets.each do |pet| %>
+        <h2>Name: <%= pet.name %></h2>
+        <p>Breed:<%= pet.breed %><br>
+        Age: <%= pet.age %><br>
+        <% if pet.adoptable == true %>
+          Adoptable
+            <%= button_to 'Adopt this Pet', controller => "applications", :action => "adopt", params: { add_pet: pet.id, app: @application.id }  %>
+        <% else %>
+          Not Adoptable </p>
+        <% end %>
       <% end %>
     <% end %>
-  <% end %>
+  </section>
 </center>
