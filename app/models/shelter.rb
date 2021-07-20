@@ -38,7 +38,7 @@ class Shelter < ApplicationRecord
       app.associated_pets(app.id)
     end.map do |pet|
       Shelter.find(pet.shelter_id)
-    end
+    end.uniq
   end
 
   def associated_applications
