@@ -15,12 +15,13 @@
         <p><%= msg %></p>
       </div>
     <% end %>
-    <section>
-      <p><%= link_to "Pets", "/pets" %></p>
-      <p><%= link_to "Shelters", "/shelters" %></p>
+    <nav>
+      <p><%= link_to "Admin", "/admin" %></p>
+      <p><%= link_to "Adopt a Pet", "/pets" %></p>
+      <p><%= link_to "View Shelters", "/shelters" %></p>
       <p><%= link_to "Veterinarians", "/veterinarians" %></p>
       <p><%= link_to "Veterinary Offices", "/veterinary_offices" %></p>
-    </section>
+    </nav>
     <%= yield %>
   </body>
 </html>
