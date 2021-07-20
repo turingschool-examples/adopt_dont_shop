@@ -1,8 +1,62 @@
-
-<%= @application.name  %>
-<%= @application.street  %>
-<%= @application.city  %>
-<%= @application.state  %>
-<%= @application.zip_code  %>
-<%= @application.description  %>
-<%= @application.application_status  %>
+<br/>
+<div class="container-fluid" align="center" style="text-align=center">
+  <div class="col-sm-3">
+    <div class="card" style="background-color: #F0FFFF">
+      <div class="card-block">
+        <br/>
+        <h4 class="card-title"><%= @application.name %></h4>
+      </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item" style="background-color: #FFEBCD">Address: <%= @application.street %>,
+          <%= @application.city %>,
+          <%= @application.state %>
+          <%= @application.zip_code %></li>
+        <li class="list-group-item" style="background-color: #FFEBCD"><%= @application.application_status %></li>
+          <% if params[:submitted].present? %>
+            <li class="list-group-item" style="background-color: #F0FFFF"><%= @application.description %><br/>
+          <% end %>
+          <% if !params[:submitted].present? %>
+            <%= form_with url: "/applications/#{@application.id}/?search=name", method: :get,
+              class: "btn btn-warning btn-outline-primary", local: true do |f| %>
+              <%= f.label :search, "Add a Pet to this Application" %>
+              <%= f.text_field :search %>
+              <br/><br/>
+              <%= f.submit "Search" %>
+            <% end %>
+          <% end %>
+        <br/><br/>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<% if !@found_pets.nil? %>
+  <% @found_pets.each do |pet| %>
+  <h2>Name: <%= pet.name %></h2>
+  <p>Age: <%= pet.age %></p>
+  <p>Breed: <%= pet.breed %></p>
+  <p>Adoptable: <%= pet.adoptable %></p>
+  <%= button_to "Adopt: #{pet.name}", "/applications/#{@application.id}/", method: :get, params: {pet_id: pet.id} %>
+  <% end %>
+<% end %>
+<% if @application.pets.empty? %>
+  <h3>Error: you must add at least 1 pet to submit this form</h3>
+  <% else %>
+<p>Pets Applied For: </p>
+<ul>
+  <% @application.pets.each do |pet| %>
+  <li><%= link_to "#{pet.name}", "/pets/#{pet.id}" %></li>
+</ul>
+<% end %>
+<% end %>
+<% if !params[:submitted].present? %>
+  <% if @application.pets.present? %>
+    <%= form_with url: "/applications/#{@application.id}", method: :patch, local: true do |form| %>
+      <%= form.text_area :description, value: @application.description %>
+      <%= form.label :description, "Why would you be a good fit to adopt?" %>
+      <% form.label :application_status %>
+      <%= form.hidden_field :application_status, value: 'Pending'%>
+      <%= form.submit 'Submit Application' %>
+    <% end %>
+  <% end %>
+<% end %>
