@@ -3,6 +3,8 @@
 <h2>Pending Applications</h2>
 
 <% @applications.each do |application| %>
+<div class="index" id="<%= application.id  %>">
   <h4><%= link_to "#{application.name}", "/admin/applications/#{application.id}"  %></h4>
   <p><%= application.city  %>, <%= application.state %></p>
+</div>
 <% end %>
