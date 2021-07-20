@@ -88,5 +88,9 @@ RSpec.describe 'Admin Applications Show' do
         find_link('Approve').visible?
       end
     end
+
+    it 'maintains rejection/approval status on same application' do
+      
+    end
   end
 end
