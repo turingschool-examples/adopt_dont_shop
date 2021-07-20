@@ -6,6 +6,7 @@ class ApplicationsController < ApplicationController
   def show
     @application = Application.find(params[:id])
     @pet_count = @application.pets.count
+
     if params[:search]
       @pets = Pet.adoptable.partial_search(params[:search])
     else

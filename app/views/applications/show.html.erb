@@ -52,11 +52,11 @@
         <% end %>
     <% end %>
     <% if @pet_count > 0 %>
-      <% form_with url: "/applications/#{@application.id}", method: :patch, local: true do |f| %>
-        <p><%= f.label :description, "description" %></p>
+      <%= form_with url: "/applications/#{@application.id}", method: :patch, local: true do |f| %>
+        <p><%= f.label :description, "What can you offer this soul?" %></p>
         <p><%= f.text_area :description %></p>
         <%= f.hidden_field :status, :value => "Pending" %>
-        <p><%= f.submit "Submit Appication" %></p>
+        <p><%= f.submit "Submit Application" %></p>
         <% end %>
       <% end %>
 <% end %>

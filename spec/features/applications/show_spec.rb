@@ -82,7 +82,7 @@ RSpec.describe 'application show page' do
 
     click_on("Adopt this Pet")
 
-    fill_in 'description', with: "I am very good person"
+    fill_in "What can you offer this soul?", with: "I am very good person"
     click_on "Submit Application"
 
     expect(page).to have_content("I am very good person")
