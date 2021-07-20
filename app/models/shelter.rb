@@ -40,4 +40,12 @@ class Shelter < ApplicationRecord
       Shelter.find(pet.shelter_id)
     end
   end
+
+  def associated_applications
+    pets.flat_map do |pet|
+      pet.pet_applicants
+    end.flat_map do |pet_applicant|
+      Applicant.find(pet_applicant.applicant_id)
+    end
+  end
 end

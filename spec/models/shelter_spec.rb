@@ -32,6 +32,11 @@ RSpec.describe Shelter, type: :model do
   end
 
   describe 'class methods' do
+
+    it 'can return shelters with pending applications' do
+      expect(Shelter.pending).to eq([@shelter_1, @shelter_3])
+    end
+
     describe '#search' do
       it 'returns partial matches' do
         expect(Shelter.search("Fancy")).to eq([@shelter_3])
@@ -76,8 +81,8 @@ RSpec.describe Shelter, type: :model do
       end
     end
 
-    it 'can return shelters with pending applications' do
-      expect(Shelter.pending).to eq([@shelter_1, @shelter_3])
+    it 'can return associated applications' do
+      expect(@shelter_1.associated_applications).to eq([@application1, @application3])
     end
   end
 end
