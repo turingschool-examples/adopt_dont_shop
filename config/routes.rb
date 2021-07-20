@@ -25,6 +25,8 @@ Rails.application.routes.draw do
 
   resources :applications
 
+  get '/admin/shelters', to: 'admin_shelters#index'
+
   get '/veterinary_offices', to: 'veterinary_offices#index'
   get '/veterinary_offices/new', to: 'veterinary_offices#new'
   get '/veterinary_offices/:id', to: 'veterinary_offices#show'
