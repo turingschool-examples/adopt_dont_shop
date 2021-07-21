@@ -10,9 +10,9 @@ class AdminsController < ActionController::Base
   end
 
   def application_approved
+    # binding.pry
     @application = Application.find(params[:application])
-    @pet = Pet.find(params[:pet])
-    @pet_application = PetApplication.find_by(pet_id: @pet.id, application_id: @application.id)
+    @pet_application = PetApplication.find_by(pet_id: params[:pet], application_id: @application.id)
 
     @pet_application.status = "Approved"
     @pet_application.save
