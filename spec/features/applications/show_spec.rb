@@ -78,6 +78,15 @@ RSpec.describe 'applications' do
   expect(page).to have_content("Lobster")
   end
 
+  it "Does not show submit my application with no pets added" do
+    visit "/applications/#{@application.id}"
+    page.should_not have_css('input[type="submit"][value="Submit My Application"]')
+
+    fill_in :search, with: "Lobster"
+    click_button "Submit"
+    page.should_not have_css('input[type="submit"][value="Submit My Application"]')
+  end
+
   describe "Submit Application" do
     before(:each) do
       @shelter = Shelter.create(name: 'Mystery Building', city: 'Irvine CA', foster_program: false, rank: 9)
@@ -88,14 +97,13 @@ RSpec.describe 'applications' do
       fill_in :search, with: "Lobster"
       click_button "Submit"
       click_button "Adopt this Pet"
-
     end
 
     it "Has submit and description area" do
       page.should have_css('input[type="submit"][value="Submit My Application"]')
       page.should have_css('textarea[name="description"][cols="50"]')
     end
-    
+
     it "has Submit Application button and description section" do
       fill_in :description, with: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum lacinia arcu eget nulla. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur sodales ligula in libero. Sed dignissim lacinia nunc. "
 
