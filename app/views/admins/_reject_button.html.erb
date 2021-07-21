@@ -1,0 +1,1 @@
+<%= button_to "Reject", "/admin/applications/#{@application.id}", method: :post, local: :true, params: {pet_id: @pet, application_id: @application, button: :reject} %>

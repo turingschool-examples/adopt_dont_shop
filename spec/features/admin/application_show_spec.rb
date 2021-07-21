@@ -29,7 +29,6 @@ RSpec.describe 'admin application show page' do
   end
 
   it 'can approve an application for a pet' do
-
   # Approving a Pet for Adoption
   #
   # As a visitor
@@ -52,7 +51,7 @@ RSpec.describe 'admin application show page' do
 
   within("#pet_#{@pet1.id}") do
     click_button("Approve")
-    save_and_open_page
+
     expect(current_path).to eq("/admin/applications/#{@app3.id}")
     expect(page).to_not have_button("Approve")
     expect(page).to have_content("Pet application has been approved!")
@@ -61,6 +60,41 @@ RSpec.describe 'admin application show page' do
   within("#pet_#{@pet3.id}") do
     expect(page).to have_button("Approve")
     expect(page).to_not have_content("Pet application has been approved!")
+  end
+
+  end
+
+  it 'can reject an application for a pet' do
+    # Rejecting a Pet for Adoption
+    #
+    # As a visitor
+    # When I visit an admin application show page ('/admin/applications/:id')
+    # For every pet that the application is for, I see a button to reject the application for that specific pet
+    # When I click that button
+    # Then I'm taken back to the admin application show page
+    # And next to the pet that I rejected, I do not see a button to approve or reject this pet
+    # And instead I see an indicator next to the pet that they have been rejected
+  visit "/admin/applications/#{@app3.id}"
+
+  expect(page).to have_content("Admin Application Page")
+  expect(page).to have_content("Applicant: #{@app3.name}")
+  expect(page).to have_content(@pet1.name)
+  expect(page).to have_content(@pet3.name)
+  expect(page).to have_button("Reject")
+
+  within("#pet_#{@pet1.id}") do
+    click_button("Reject")
+
+    expect(current_path).to eq("/admin/applications/#{@app3.id}")
+    expect(page).to_not have_button("Approve")
+    expect(page).to_not have_button("Reject")
+    expect(page).to have_content("Pet application has been rejected!")
+  end
+
+  within("#pet_#{@pet3.id}") do
+    expect(page).to have_button("Approve")
+    expect(page).to have_button("Reject")
+    expect(page).to_not have_content("Pet application has been rejected!")
   end
 
   end

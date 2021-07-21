@@ -10,8 +10,11 @@
   <p>Pet: <%= pet.name %></p>
     <% if @pet_application.status == "Pending" %>
       <%= render 'approval_button' %>
-    <% else @pet_application.status == "Approved" %>
+      <%= render 'reject_button' %>
+    <% elsif @pet_application.status == "Approved" %>
       <p>Pet application has been approved!</p>
+    <% elsif @pet_application.status == "Rejected" %>
+      <p>Pet application has been rejected!</p>
     <% end %>
 </div>
 
