@@ -64,11 +64,13 @@ RSpec.describe 'it can go to the show page of the application table and show its
     
     click_button("Find that Pet!")
 
-    expect(page).to have_content("#{@pet2.name}")
-    expect(page).to have_content("#{@pet2.breed}")
-    expect(page).to have_content("#{@pet2.age}")
+    within "#searched-pets-#{@pet2.id}" do
+      expect(page).to have_content("#{@pet2.name}")
+      expect(page).to have_content("#{@pet2.breed}")
+      expect(page).to have_content("#{@pet2.age}")
 
-    expect(page).to_not have_content("#{@pet4.name}")
+      expect(page).to_not have_content("#{@pet4.name}")
+    end
   end
 
   it 'can fill out the pet finder and click the adopt button to associate the application and that pet' do
@@ -78,8 +80,12 @@ RSpec.describe 'it can go to the show page of the application table and show its
 
     click_button("Adopt #{@pet2.name}")
 
-    expect(page).to_not have_content("#{@pet4.breed}")
-    expect(page).to_not have_content("#{@pet4.age}")
+    within "#associated-pets-#{@pet2.id}" do
+      expect(page).to have_content("#{@pet2.name}")
+    end
+  end
 
+  it 'can visit and have a ' do
+    
   end
 end

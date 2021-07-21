@@ -18,16 +18,20 @@
 </br>
 
 <% @pets.each do |pet| %>
+<section id= "searched-pets-<%= pet.id %>"> 
 <h3> Pets Searched for: </h3>
 <p> Name of the pet: <%= pet.name %> </p>
 <p> Pet breed: <%= pet.breed %> </p>
 <p> Age of the pet: <%= pet.age %> </p>
 <p> <%= button_to "Adopt #{pet.name}❤️", "/applications/#{@application.id}/pets?pet_id=#{pet.id}", method: :post %> </p>
+</section>
 <% end %>
 
 </br>
 
 <h1> Pets Applicant has Applied for </h1>
 <% @applicant_pets.each do |pet| %>
+<section id= "associated-pets-<%= pet.id %>"> 
   <h3> Name of the pet: <%= link_to "#{pet.name}", "/pets/#{pet.id}" %> </h3>
+</section>
 <% end %>
