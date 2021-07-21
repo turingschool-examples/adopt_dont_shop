@@ -49,7 +49,7 @@
                             status: "In Progress"
                           )
 
-@jenifer = Application.create!(name: "Jennifer M Dietz",
+@jennifer = Application.create!(name: "Jennifer M Dietz",
                             street_address: "4079 Stonepot Road",
                             city: "Oldwick",
                             state: "NJ",
