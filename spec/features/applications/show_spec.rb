@@ -56,6 +56,20 @@ RSpec.describe 'applications' do
     expect(page).to_not have_content("sphynx")
   end
 
+  it "can find pets with partial matches" do
+    shelter = Shelter.create(name: 'Mystery Building', city: 'Irvine CA', foster_program: false, rank: 9)
+    pet_1 = Pet.create(adoptable: true, age: 1, breed: 'sphynx', name: 'Bare-y Manilow', shelter_id: shelter.id)
+    pet_2 = Pet.create(adoptable: true, age: 3, breed: 'doberman', name: 'Lobster', shelter_id: shelter.id)
+
+    visit "/applications/#{@application.id}"
+
+    expect(page).to have_content("Add a Pet to this Application")
+    fill_in :search, with: "Lob"
+    click_button "Submit"
+
+    expect(page).to have_content("Loster")
+  end
+
   it "add a pet to an application" do
   # When I visit an application's show page
   # And I search for a Pet by name
@@ -80,11 +94,11 @@ RSpec.describe 'applications' do
 
   it "Does not show submit my application with no pets added" do
     visit "/applications/#{@application.id}"
-    page.should_not have_css('input[type="submit"][value="Submit My Application"]')
+    expect(page).to_not have_css('input[type="submit"][value="Submit My Application"]')
 
     fill_in :search, with: "Lobster"
     click_button "Submit"
-    page.should_not have_css('input[type="submit"][value="Submit My Application"]')
+    expect(page).to_not have_css('input[type="submit"][value="Submit My Application"]')
   end
 
   describe "Submit Application" do
@@ -100,8 +114,8 @@ RSpec.describe 'applications' do
     end
 
     it "Has submit and description area" do
-      page.should have_css('input[type="submit"][value="Submit My Application"]')
-      page.should have_css('textarea[name="description"][cols="50"]')
+      expect(page).to have_css('input[type="submit"][value="Submit My Application"]')
+      expect(page).to  have_css('textarea[name="description"][cols="50"]')
     end
 
     it "has Submit Application button and description section" do
@@ -112,8 +126,8 @@ RSpec.describe 'applications' do
       expect(page).to have_content("dolor sit amet")
       expect(page).to have_content("Pending")
       expect(page).to have_content("Lobster")
-      page.should_not have_css('input[type="submit"][value="Submit My Application"]')
-      page.should_not have_css('textarea[name="description"][cols="50"]')
+      expect(page).to_not  have_css('input[type="submit"][value="Submit My Application"]')
+      expect(page).to_not  have_css('textarea[name="description"][cols="50"]')
     end
   end
 end
