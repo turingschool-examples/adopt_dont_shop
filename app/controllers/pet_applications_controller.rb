@@ -1,2 +1,2 @@
-class PetApplication < ApplicationController
+class PetApplicationsController < ApplicationController
 end
