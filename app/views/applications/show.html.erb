@@ -9,6 +9,24 @@
 <h3> Status: <%= @application.status %> </h3>
 </br>
 
+<%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |form| %>
+  <%= form.label :search, "Pet Finder" %>
+  <p> <%= form.text_field :search %> </p>
+
+  <%= form.submit "Find that Pet!" %>
+<% end %>
+</br>
+
+<% @pets.each do |pet| %>
+<h3> Pets Searched for: </h3>
+<p> Name of the pet: <%= pet.name %> </p>
+<p> Pet breed: <%= pet.breed %> </p>
+<p> Age of the pet: <%= pet.age %> </p>
+<p> <%= button_to "Adopt #{pet.name}❤️", "/applications/#{@application.id}/pets?pet_id=#{pet.id}", method: :post %> </p>
+<% end %>
+
+</br>
+
 <h1> Pets Applicant has Applied for </h1>
 <% @applicant_pets.each do |pet| %>
   <h3> Name of the pet: <%= link_to "#{pet.name}", "/pets/#{pet.id}" %> </h3>

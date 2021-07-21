@@ -57,4 +57,29 @@ RSpec.describe 'it can go to the show page of the application table and show its
 
     expect(current_path).to eq("/pets/#{@pet1.id}")
   end
+
+  it 'can fill out the search bar and pets names show up underneath it' do
+
+    fill_in('Pet Finder', with: 'Paw')
+    
+    click_button("Find that Pet!")
+
+    expect(page).to have_content("#{@pet2.name}")
+    expect(page).to have_content("#{@pet2.breed}")
+    expect(page).to have_content("#{@pet2.age}")
+
+    expect(page).to_not have_content("#{@pet4.name}")
+  end
+
+  it 'can fill out the pet finder and click the adopt button to associate the application and that pet' do
+    fill_in('Pet Finder', with: 'Paw')
+    
+    click_button("Find that Pet!")
+
+    click_button("Adopt #{@pet2.name}")
+
+    expect(page).to_not have_content("#{@pet4.breed}")
+    expect(page).to_not have_content("#{@pet4.age}")
+
+  end
 end
