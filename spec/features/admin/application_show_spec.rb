@@ -61,7 +61,6 @@ RSpec.describe 'admin application show page' do
     expect(page).to have_button("Approve")
     expect(page).to_not have_content("Pet application has been approved!")
   end
-
   end
 
   it 'can reject an application for a pet' do
@@ -96,6 +95,53 @@ RSpec.describe 'admin application show page' do
     expect(page).to have_button("Reject")
     expect(page).to_not have_content("Pet application has been rejected!")
   end
+  end
 
+  it 'does not affect other applications when one application is approved (same pet)' do
+    # Approved Pets on one Application do not affect other Applications
+    #
+    # As a visitor
+    # When there are two applications in the system for the same pet
+    # When I visit the admin application show page for one of the applications
+    # And I approve or reject the pet for that application
+    # When I visit the other application's admin show page
+    # Then I do not see that the pet has been accepted or rejected for that application
+    # And instead I see buttons to approve or reject the pet for this specific application
+
+    visit "/admin/applications/#{@app3.id}"
+
+    within("#pet_#{@pet1.id}") do
+      click_button("Approve")
+
+      expect(page).to have_content("Pet application has been approved!")
+      # save_and_open_page
+    end
+
+    visit "/admin/applications/#{@app1.id}"
+    # save_and_open_page
+
+    within("#pet_#{@pet1.id}") do
+      expect(page).to have_content("Pet: #{@pet1.name}")
+      expect(page).to have_button("Approve")
+      expect(page).to have_button("Reject")
+    end
+  end
+
+  it 'does not affect other applications when one application is rejected (same pet)' do
+    visit "/admin/applications/#{@app3.id}"
+
+    within("#pet_#{@pet1.id}") do
+      click_button("Reject")
+
+      expect(page).to have_content("Pet application has been rejected!")
+    end
+
+    visit "/admin/applications/#{@app1.id}"
+
+    within("#pet_#{@pet1.id}") do
+      expect(page).to have_content("Pet: #{@pet1.name}")
+      expect(page).to have_button("Approve")
+      expect(page).to have_button("Reject")
+    end
   end
 end
