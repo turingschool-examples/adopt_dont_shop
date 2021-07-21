@@ -13,6 +13,8 @@ RSpec.describe Shelter, type: :model do
   end
 
   before(:each) do
+    Shelter.destroy_all
+    Pet.destroy_all
     @shelter_1 = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
     @shelter_2 = Shelter.create(name: 'RGV animal shelter', city: 'Harlingen, TX', foster_program: false, rank: 5)
     @shelter_3 = Shelter.create(name: 'Fancy pets of Colorado', city: 'Denver, CO', foster_program: true, rank: 10)
@@ -66,6 +68,16 @@ RSpec.describe Shelter, type: :model do
       it 'returns the number of pets at the given shelter' do
         expect(@shelter_1.pet_count).to eq(3)
       end
+    end
+
+    it "show only shelters with pending applications" do
+      shelter_1 = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
+      pirate = shelter_1.pets.create!(name: 'Mr. Pirate', breed: 'tuxedo shorthair', age: 5, adoptable: true)
+      megan = Application.create!(name: "Megan", street_address: "12345 E street", city: "Phoenix", state: "AZ", zip_code: "99999", description: "Ipsum", status: "Pending")
+
+      megan.pets << pirate
+
+      expect(Shelter.applications_pending).to eq([shelter_1])
     end
   end
 end
