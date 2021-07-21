@@ -5,7 +5,7 @@
     <h3>City: <%= @application.city %></h3>
     <h3>State: <%= @application.state %></h3>
     <h3>Zip Code: <%= @application.zip_code %></h3>
-    <h3>Why I would make a good home for my pet: <%= @application.description %></h3>
+    <h3>Why I would make a good home for my pet: </h3><p><b><%= @application.description %></b></p>
     <h3>Status: <%= @application.status %></h3>
     <div>
       <h3>Desired Pets: </h3>
@@ -17,10 +17,12 @@
   </section>
 
   <section>
-    <%= form_with url: "/applications/#{@application.id}", method: :get, local: true do %>
-      <%= label :search, "Add a Pet", "Add a Pet to this Application" %>
-      <%= text_field_tag :search, params[:search] %>
-      <%= submit_tag 'Submit' %>
+    <% if @application.status == "In Progress" %>
+      <%= form_with url: "/applications/#{@application.id}", method: :get, local: true do %>
+        <%= label :search, "Add a Pet", "Add a Pet to this Application" %>
+        <%= text_field_tag :search, params[:search] %>
+        <%= submit_tag 'Submit' %>
+      <% end %>
     <% end %>
   </section>
 
@@ -32,10 +34,25 @@
         Age: <%= pet.age %><br>
         <% if pet.adoptable == true %>
           Adoptable
-            <%= button_to 'Adopt this Pet', controller => "applications", :action => "adopt", params: { add_pet: pet.id, app: @application.id }  %>
+            <%= button_to 'Adopt this Pet', controller => "applications", :action => "adopt", params: { add_pet: pet.id, id: @application.id } %>
         <% else %>
           Not Adoptable </p>
         <% end %>
+      <% end %>
+    <% end %>
+  </section>
+
+  <section>
+    <% if @application.pets.count >= 1 && @application.status == "In Progress"%>
+      <%= form_with url: "/applications/#{@application.id}", method: :patch, local: true do |f| %>
+        <br><br>
+        <%= f.label :description, "Why I would make a good owner for these pet(s): " %>
+        <br>
+        <%= f.text_area :description, size: "50x15" %>
+        <br><br>
+        <%= f.hidden_field :status, value: "Pending" %>
+
+        <%= f.submit "Submit My Application"%>
       <% end %>
     <% end %>
   </section>
