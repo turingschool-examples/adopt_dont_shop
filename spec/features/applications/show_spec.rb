@@ -10,15 +10,15 @@ before(:each) do
   @pet1 = @shelter_1.pets.create(name: "Gertie", breed: "Border Collie", adoptable: true, age: 1)
   @pet2 = @shelter_1.pets.create(name: "Millie", breed: "Labrador Retriever", adoptable: true, age: 3)
   @pet3 = @shelter_1.pets.create(name: "Harper", breed: "Lab/Shar Pei/Chow mix", adoptable: false, age: 1)
-  @pet4 = @shelter_1.pets.create(name: "Rock", breed: "Pit Pull", adoptable: true, age: 4)
-  @pet5 = @shelter_2.pets.create(name: "Pebble", breed: "Chihuahua", adoptable: true, age: 2)
+  @pet4 = @shelter_1.pets.create(name: "fluff", breed: "Pit Pull", adoptable: true, age: 4)
+  @pet5 = @shelter_2.pets.create(name: "Mr. Fluff", breed: "Chihuahua", adoptable: true, age: 2)
 
   #applications
   @app1 = Application.create(name: 'Alice Pieszecki', street: '407 Race St', city: 'Denver', state: 'CO', zip_code: 80305, description: 'A reason', status: 'pending')
   @app2 = Application.create(name: 'Bette Porter', street: '777 Corona St', city: 'Denver', state: 'CO', zip_code: 80221, description: 'B reason', status: 'pending')
   @app3 = Application.create(name: 'Shane McCutchen', street: '1234 Pine Ave', city: 'Arvada', state: 'CO', zip_code: 80218, description: 'C reason', status: 'pending')
   @app4 = Application.create(name: 'Jenny Schecter', street: '2043 21st St', city: 'Denver', state: 'CO', zip_code: 80218, description: 'D reason', status: 'rejected')
-  @app5 = Application.create(name: 'Tina Kennard', street: '12 Colorado Blvd', city: 'Denver', state: 'CO', zip_code: 80210, description: 'E reason', status: 'rejected')
+  @app5 = Application.create(name: 'Tina Kennard', street: '12 Colorado Blvd', city: 'Denver', state: 'CO', zip_code: 80210, description: 'E reason', status: 'in progress')
 
   #pet application
   PetApplication.create!(application: @app1, pet: @pet1)
@@ -77,7 +77,23 @@ end
     expect(page).to have_content("Harper")
   end
 
-#ADD CASE INSENSITIVE AND PARTIAL MATCH WHEN SEARCHING TEST
+  it 'can return pets with only partial matches on the search bar' do
+    # Partial Matches for Pet Names
+    #
+    # As a visitor
+    # When I visit an application show page
+    # And I search for Pets by name
+    # Then I see any pet whose name PARTIALLY matches my search
+    # For example, if I search for "fluff", my search would match pets with names "fluffy", "fluff", and "mr. fluff"
+    visit ("/applications/#{@app1.id}")
+
+    fill_in('search', with: 'fLuF')
+
+    click_button("Find this pet!")
+
+    expect(page).to have_content("fluff")
+    expect(page).to have_content("Mr. Fluff")
+  end
 
   it 'has a working adopt this pet button' do
     # Add a Pet to an Application
@@ -126,5 +142,17 @@ end
     expect(page).to have_content("Status: Pending")
     expect(page).to have_link("Gertie")
     expect(page).to_not have_content("Search for Pets by Name:")
+  end
+
+  it 'does not have ability to submit application if no pets have been added' do
+    # No Pets on an Application
+    #
+    # As a visitor
+    # When I visit an application's show page
+    # And I have not added any pets to the application
+    # Then I do not see a section to submit my application
+    visit ("/applications/#{@app5.id}")
+
+    expect(page).to_not have_content("Submit Application!")
   end
 end

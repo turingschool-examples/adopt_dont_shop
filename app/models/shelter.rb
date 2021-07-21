@@ -16,6 +16,10 @@ class Shelter < ApplicationRecord
       .order("pets_count DESC")
   end
 
+  def self.order_by_reverse_alphabetical
+    order(name: :desc)
+  end
+
   def pet_count
     pets.count
   end

@@ -51,4 +51,7 @@ Rails.application.routes.draw do
 
   # PET APPLICATIONS -----------------------------------
   post '/pet_applications', to: 'pet_applications#create'
+
+  # ADMIN ----------------------------------------------
+  get '/admin/shelters', to: 'admins#shelters_index'
 end
