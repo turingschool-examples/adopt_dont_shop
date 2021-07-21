@@ -63,11 +63,28 @@ RSpec.describe 'applications' do
 
     visit "/applications/#{@application.id}"
 
-    expect(page).to have_content("Add a Pet to this Application")
     fill_in :search, with: "Lob"
     click_button "Submit"
 
-    expect(page).to have_content("Loster")
+    expect(page).to have_content("Lobster")
+  end
+
+  it "can return case insensitve matches" do
+    shelter = Shelter.create(name: 'Mystery Building', city: 'Irvine CA', foster_program: false, rank: 9)
+    pet_1 = Pet.create(adoptable: true, age: 1, breed: 'sphynx', name: 'Bare-y Manilow', shelter_id: shelter.id)
+    pet_2 = Pet.create(adoptable: true, age: 3, breed: 'doberman', name: 'Lobster', shelter_id: shelter.id)
+    pet_3 = Pet.create(adoptable: true, age: 3, breed: 'great pyrenees', name: 'Fluffy', shelter_id: shelter.id)
+    pet_4 = Pet.create(adoptable: true, age: 3, breed: 'great pyrenees', name: 'FLUFF', shelter_id: shelter.id)
+    pet_5 = Pet.create(adoptable: true, age: 3, breed: 'great pyrenees', name: 'Mr. FluFf', shelter_id: shelter.id)
+
+    visit "/applications/#{@application.id}"
+
+    fill_in :search, with: "Fluff"
+    click_button "Submit"
+
+    expect(page).to have_content("Fluffy")
+    expect(page).to have_content("FLUFF")
+    expect(page).to have_content("Mr. FluFf")
   end
 
   it "add a pet to an application" do
