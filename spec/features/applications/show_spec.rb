@@ -25,10 +25,8 @@ before(:each) do
   PetApplication.create!(application: @app2, pet: @pet2)
   PetApplication.create!(application: @app3, pet: @pet3)
   PetApplication.create!(application: @app4, pet: @pet4)
-
-
-
 end
+
   it "shows the application and all its attributes" do
     # Application Show Page
     #
