@@ -54,4 +54,6 @@ Rails.application.routes.draw do
 
   # ADMIN ----------------------------------------------
   get '/admin/shelters', to: 'admins#shelters_index'
+  get '/admin/applications/:id', to: 'admins#application_show'
+  post '/admin/applications/:id', to: 'admins#application_approved'
 end
