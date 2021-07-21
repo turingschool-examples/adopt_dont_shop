@@ -1,0 +1,7 @@
+
+  <h3>Now search for your new best friend!</h3>
+  <%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |f| %>
+    <%= f.label :search, "Search by name: " %>
+    <%= f.text_field :search %>
+    <%= f.submit "Give me the fuzz" %>
+  <% end %>

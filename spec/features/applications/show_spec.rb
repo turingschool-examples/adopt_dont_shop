@@ -45,7 +45,7 @@ RSpec.describe 'the application show page' do
   # User Story 2
   it 'displays links to the pets they would like to adopt' do
     visit "/applications/#{@application_1.id}"
-
+    # save_and_open_page
     expect(page).to have_link("#{@pet_1.name}")
     expect(page).to have_link("#{@pet_3.name}")
   end
@@ -58,6 +58,7 @@ RSpec.describe 'the application show page' do
 
     fill_in :search, with: "#{@pet_4.name}"
     click_button "Give me the fuzz"
+    save_and_open_page
 
     expect(page).to have_content("#{@pet_4.name}")
   end
@@ -68,10 +69,7 @@ RSpec.describe 'the application show page' do
 
     fill_in :search, with: "#{@pet_2.name}"
     click_button "Give me the fuzz"
-
     click_button "Adopt Me ❤️ "
-
-    pet_application_3 = PetApplication.create!(pet_id: @pet_2.id, application_id: @application_2.id)
 
     expect(@pet_2.name).to appear_before("Give me the fuzz")
   end
