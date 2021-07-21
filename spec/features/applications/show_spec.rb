@@ -74,8 +74,38 @@ RSpec.describe 'applications' do
 
 
   click_button "Adopt this Pet"
-  save_and_open_page
 
   expect(page).to have_content("Lobster")
+  end
+
+  describe "Submit Application" do
+    before(:each) do
+      @shelter = Shelter.create(name: 'Mystery Building', city: 'Irvine CA', foster_program: false, rank: 9)
+      @pet_1 = Pet.create(adoptable: true, age: 1, breed: 'sphynx', name: 'Bare-y Manilow', shelter_id: @shelter.id)
+      @pet_2 = Pet.create(adoptable: true, age: 3, breed: 'doberman', name: 'Lobster', shelter_id: @shelter.id)
+
+      visit "/applications/#{@application.id}"
+      fill_in :search, with: "Lobster"
+      click_button "Submit"
+      click_button "Adopt this Pet"
+
+    end
+
+    it "Has submit and description area" do
+      page.should have_css('input[type="submit"][value="Submit My Application"]')
+      page.should have_css('textarea[name="description"][cols="50"]')
+    end
+    
+    it "has Submit Application button and description section" do
+      fill_in :description, with: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum lacinia arcu eget nulla. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur sodales ligula in libero. Sed dignissim lacinia nunc. "
+
+      click_button("Submit My Application")
+
+      expect(page).to have_content("dolor sit amet")
+      expect(page).to have_content("Pending")
+      expect(page).to have_content("Lobster")
+      page.should_not have_css('input[type="submit"][value="Submit My Application"]')
+      page.should_not have_css('textarea[name="description"][cols="50"]')
+    end
   end
 end
