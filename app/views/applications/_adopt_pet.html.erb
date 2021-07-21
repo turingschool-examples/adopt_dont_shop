@@ -1,0 +1,7 @@
+<% @pet_search.each do |pet| %>
+<body>
+  <h3>Is this who you're looking for?</h3>
+  <h3 style="color:coral;"><%= pet.name %></h3>
+  <p style="font-family:courier;">A gorgeous <%= pet.breed  %>, just <%= pet.age %> years old!</p>
+  <%= button_to "Adopt Me ❤️ ", "/applications/#{@application.id}", method: :patch, params: {pet_id: pet.id}%>
+<% end %>
