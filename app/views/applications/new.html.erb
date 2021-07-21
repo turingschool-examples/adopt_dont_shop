@@ -1,15 +1,17 @@
 <center><%= form_with url: '/applications', method: :post, local: true do |form| %>
 <h1>Start Application:</h1>
+<br>
 <%= form.label :name, 'Name:' %>
 <%= form.text_field :name, required: true %>
 <%= form.label :street, 'Street:' %>
 <%= form.text_field :street, required: true %>
 <%= form.label :city, 'City:' %>
 <%= form.text_field :city, required: true %>
+<br><br>
 <%= form.label :state, 'State:' %>
 <%= form.text_field :state, required: true %>
 <%= form.label :zip_code, 'Zip Code:' %>
 <%= form.number_field :zip_code, required: true %>
-<br>
+<br><br>
 <%= form.submit "Submit"%>
 <% end %></center>

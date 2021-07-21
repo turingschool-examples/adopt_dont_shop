@@ -7,20 +7,32 @@
     <%= csp_meta_tag %>
 
     <%= stylesheet_link_tag 'application', media: 'all' %>
+    <%= javascript_include_tag 'application' %>
   </head>
 
+  <nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+    </div>
+    <ul class="nav navbar-nav">
+      <li class="active"><a href="http://localhost:3000/">Home</a></li>
+      <li><a href="/pets">Pets</a>
+      <li><a href="/shelters">Shelters</a>
+      <li><a href="/veterinarians">Veterinarians</a>
+      <li><a href="/veterinary_offices">Veterinary Offices</a>
+    </ul>
+  </div>
+</nav>
+
+  <div class="container">
   <body>
     <% flash.each do |type, msg| %>
       <div>
         <%= msg %>
       </div>
     <% end %>
-    <section>
-      <p><%= link_to "Pets", "/pets" %></p>
-      <p><%= link_to "Shelters", "/shelters" %></p>
-      <p><%= link_to "Veterinarians", "/veterinarians" %></p>
-      <p><%= link_to "Veterinary Offices", "/veterinary_offices" %></p>
-    </section>
+
     <%= yield %>
   </body>
+  </div>
 </html>
