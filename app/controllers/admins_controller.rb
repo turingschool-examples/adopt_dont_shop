@@ -9,13 +9,16 @@ class AdminsController < ActionController::Base
     @pets = @application.pets
   end
 
-  def application_approved
-    # binding.pry
-    @application = Application.find(params[:application])
-    @pet_application = PetApplication.find_by(pet_id: params[:pet], application_id: @application.id)
-
-    @pet_application.status = "Approved"
-    @pet_application.save
+  def application_approve_reject_button
+    @application = Application.find(params[:application_id])
+    @pet_application = PetApplication.find_by(pet_id: params[:pet_id], application_id: @application.id)
+    if params[:button] == 'approve'
+      @pet_application.status = "Approved"
+      @pet_application.save
+    elsif params[:button] == 'reject'
+      @pet_application.status = "Rejected"
+      @pet_application.save
+    end
     redirect_to "/admin/applications/#{@application.id}"
   end
 end

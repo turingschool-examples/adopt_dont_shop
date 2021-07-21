@@ -64,7 +64,7 @@ RSpec.describe 'admin application show page' do
 
   end
 
-  xit 'can reject an application for a pet' do
+  it 'can reject an application for a pet' do
     # Rejecting a Pet for Adoption
     #
     # As a visitor
