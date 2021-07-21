@@ -1,0 +1,18 @@
+<h1>Admin Application Page</h1>
+
+<h3>Applicant: <%= @application.name %></h3>
+
+<% @pets.each do |pet| %>
+<div id="pet_<%=pet.id%>">
+  <% @pet = pet %>
+  <% @pet_application = PetApplication.find_by(pet: pet, application: @application) %>
+
+  <p>Pet: <%= pet.name %></p>
+    <% if @pet_application.status == "Pending" %>
+      <%= render 'approval_button' %>
+    <% else @pet_application.status == "Approved" %>
+      <p>Pet application has been approved!</p>
+    <% end %>
+</div>
+
+<% end %>
