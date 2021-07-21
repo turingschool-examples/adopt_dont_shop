@@ -34,7 +34,7 @@
         Age: <%= pet.age %><br>
         <% if pet.adoptable == true %>
           Adoptable
-            <%= button_to 'Adopt this Pet', controller => "applications", :action => "adopt", params: { add_pet: pet.id, id: @application.id } %>
+            <%= button_to 'Adopt this Pet', controller => "applications", :action => "show", params: { add_pet: pet.id, id: @application.id } %>
         <% else %>
           Not Adoptable </p>
         <% end %>

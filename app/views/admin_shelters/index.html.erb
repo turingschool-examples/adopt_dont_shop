@@ -7,4 +7,6 @@
 <% end %>
 
 <h3>Shelters with Pending Applications: </h3>
-  <%= @pending_apps.all %>
+  <% @pending_apps.each do |applicant| %>
+    <%= applicant %>
+  <% end %>

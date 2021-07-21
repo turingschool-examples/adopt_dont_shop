@@ -6,20 +6,12 @@ class ApplicationsController < ApplicationController
   def show
     @application = Application.find(params[:id])
     @pets = Pet.search("%#{params[:search]}%")
-    # if params[:search]
-    #   @pets = Pet.search(params[:search])
-      # @application.pets <<
     if params[:add_pet]
-      @application.pets << Pet.find(params[:add_pet])
-      # @application.adopt_pet(params[:add_pet])
+      # @application.pets << Pet.find(params[:add_pet])
+      ApplicationPet.create!(application_id: params[:id], pet_id: params[:add_pet], status: nil)
     end
   end
 
-  def adopt
-      @application = Application.find(params[:id])
-      @application.pets << Pet.find(params[:add_pet])
-      redirect_to "/applications/#{@application.id}"
-  end
 
   def update
     @application = Application.find(params[:id])
