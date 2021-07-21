@@ -20,6 +20,12 @@ class Shelter < ApplicationRecord
     find_by_sql("SELECT * FROM Shelters ORDER BY Name DESC")
   end
 
+  def self.shelters_with_pending_applications
+    # select("shelters.*, applications.*")
+    #   .joins("LEFT OUTER JOIN pets ON pets.shelter_id = shelters.id")
+    #   .where("status == pending")
+  end
+
   def pet_count
     pets.count
   end
