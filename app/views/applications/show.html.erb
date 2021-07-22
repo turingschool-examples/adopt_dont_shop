@@ -5,8 +5,6 @@
 <p><%= @application.city %>, <%= @application.state %>
    <%= @application.zip_code %></p>
 
-<h3>Reason for adoption: <%= @application.description %></h3>
-
 <h3>Application Status: <%= @application.status %></h3>
 
 <h3>Pets under consideration: </h3>
@@ -19,6 +17,9 @@
   <%= render 'pet_search' %>
   <% if !@pet_search.nil?  %>
     <%= render 'adopt_pet' %>
-    <% end %>
+  <% end %>
+  <% if @application.pets.length > 0 %>
+    <%= render 'submit' %>
+  <% end %>
 <% end %>
 <br>

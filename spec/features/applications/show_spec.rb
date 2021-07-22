@@ -14,7 +14,6 @@ RSpec.describe 'the application show page' do
                                          city: 'Burnaby',
                                          state: 'CA',
                                          zip_code: 88925,
-                                         description: 'Do you like cheese?',
                                          status: 'In Progress')
 
     @application_2 = Application.create!(name: 'Duke Orsino',
@@ -22,7 +21,6 @@ RSpec.describe 'the application show page' do
                                          city: 'Chicago',
                                          state: 'IL',
                                          zip_code: 32557,
-                                         description: 'Word, g-mon',
                                          status: 'In Progress')
 
     @pet_application_1 = PetApplication.create!(pet_id: @pet_1.id, application_id: @application_1.id)
@@ -38,14 +36,13 @@ RSpec.describe 'the application show page' do
     expect(page).to have_content(@application_1.city)
     expect(page).to have_content(@application_1.state)
     expect(page).to have_content(@application_1.zip_code)
-    expect(page).to have_content(@application_1.description)
     expect(page).to have_content(@application_1.status)
   end
 
   # User Story 2
   it 'displays links to the pets they would like to adopt' do
     visit "/applications/#{@application_1.id}"
-    # save_and_open_page
+
     expect(page).to have_link("#{@pet_1.name}")
     expect(page).to have_link("#{@pet_3.name}")
   end
@@ -58,7 +55,6 @@ RSpec.describe 'the application show page' do
 
     fill_in :search, with: "#{@pet_4.name}"
     click_button "Give me the fuzz"
-    save_and_open_page
 
     expect(page).to have_content("#{@pet_4.name}")
   end
@@ -72,5 +68,26 @@ RSpec.describe 'the application show page' do
     click_button "Adopt Me ❤️ "
 
     expect(@pet_2.name).to appear_before("Give me the fuzz")
+  end
+
+  # User Story 6
+  it 'displays a submittal section with a submit button and input area' do
+    visit "/applications/#{@application_1.id}"
+
+    fill_in :description, with: "Do you like cheese?"
+    click_button "Submit"
+    save_and_open_page
+    expect(page).to have_content("Pending")
+    expect(page).to_not have_content("Give me the fuzz")
+  end
+
+  # User Story 7
+  it 'will not display a submittal section if no pets are added to an application' do
+    visit "/applications/#{@application_2.id}"
+
+    fill_in :search, with: "#{@pet_2.name}"
+    click_button "Give me the fuzz"
+
+    expect(page).to_not have_content("Submit")
   end
 end

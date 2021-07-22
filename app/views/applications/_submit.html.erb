@@ -1,0 +1,6 @@
+<h3>Tell us in the space below why you would make a good pet owner.
+    Then, click submit to submit your application!</h3>
+<%= form_with url: "/applications/#{@application.id}/submit", method: :patch, local: true do |f| %>
+  <%= f.text_area :description %>
+  <%= f.submit "Submit application" %>
+<% end %>
