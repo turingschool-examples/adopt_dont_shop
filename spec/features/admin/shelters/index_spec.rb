@@ -28,7 +28,6 @@ RSpec.describe 'Admin Shelters Index' do
     visit "/applications/#{@megan.id}"
 
     visit "/admin/shelters"
-    save_and_open_page
 
     expect(page).to have_content("Aurora shelter")
     expect(page).to have_content("Fancy pets of Colorado")

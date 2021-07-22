@@ -8,19 +8,19 @@ RSpec.describe "admin applications show page" do
     @clawdia = @shelter_1.pets.create!(name: 'Clawdia', breed: 'shorthair', age: 3, adoptable: true)
 
     @megan.pets << @pirate
-    @megan.pets << @clawdia
+    # @megan.pets << @clawdia
 
-    visit "/admin/appliations/#{@megan.id}"
+    visit "/admin/applications/#{@megan.id}"
   end
 
   it "has button to approve" do
-    expect(page).to_not  have_css('input[type="submit"][value="Approve This Pet"]')
+    expect(page).to  have_css('input[type="submit"][value="Approve This Pet"]')
   end
 
-  it "takes me back to show page and shows that pet approved" do
+  xit "takes me back to show page and shows that pet approved" do
     click_button "Approve This Pet"
-    
-    expect(page).to eq("/admin/appliations/#{@megan.id}")
+
+    expect(page).to eq("/admin/applications/#{@megan.id}")
     expect(page).to have_content("Mr. Pirate")
   end
 end

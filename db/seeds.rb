@@ -5,6 +5,10 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+ApplicationPet.destroy_all
+Application.destroy_all
+Pet.destroy_all
+Shelter.destroy_all
 
 @barc = Shelter.create!(name: 'BARC Shelter', city: 'Brookly, NY', foster_program: true, rank: 7)
 @milton = Shelter.create!(name: 'Milton Animal League', city: 'Milton, MA', foster_program: false, rank: 5)
@@ -66,3 +70,9 @@
                             description: '',
                             status: "In Progress"
                           )
+
+@jennifer.pets << @maggie
+@jennifer.pets << @tabitha
+@john.pets << @nala
+@john.pets << @ace
+@janie.pets << @thor
