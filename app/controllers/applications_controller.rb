@@ -3,7 +3,7 @@ class ApplicationsController < ApplicationController
     @application = Application.find(params[:id])
     @pets = @application.pets
     if params.has_key?(:search)
-      @found_pets = Pet.search(params[:search])
+      @found_pets = Pet.adoptable.search(params[:search])
     end
   end
 

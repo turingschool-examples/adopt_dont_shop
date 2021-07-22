@@ -21,9 +21,9 @@ class Shelter < ApplicationRecord
   end
 
   def self.shelters_with_pending_applications
-    # select("shelters.*, applications.*")
-    #   .joins("LEFT OUTER JOIN pets ON pets.shelter_id = shelters.id")
-    #   .where("status == pending")
+    select(:shelters)
+      .joins(pets: [:applications])
+      # binding.pry
   end
 
   def pet_count
