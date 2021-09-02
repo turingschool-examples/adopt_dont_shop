@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<html lang="en">
 <html>
   <head>
     <title>Adopt, Don't Shop</title>
@@ -7,6 +8,7 @@
     <%= csp_meta_tag %>
 
     <%= stylesheet_link_tag 'application', media: 'all' %>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
   </head>
 
   <body>
@@ -15,6 +17,53 @@
         <%= msg %>
       </div>
     <% end %>
+    <nav class="navbar navbar-inverse navbar-static-top">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button
+        type="button"
+        class="navbar-toggle collapsed"
+        data-toggle="collapse"
+        data-target="#bs-example-navbar-collapse-1"
+        aria-expanded="false"
+      >
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">Do Better. Adopt. Don't Shop.</a>
+    </div>
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="/pets">ghsfdjkl</a></li>
+        <li class="dropdown">
+          <a
+            href="#"
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+            >Services<span class="caret"></span
+          ></a>
+          <ul class="dropdown-menu">
+            <p><%= link_to "Pets", "/pets" %></p>
+            <p><%= link_to "Shelters", "/shelters" %></p>
+            <p><%= link_to "Veterinarians", "/veterinarians" %></p>
+            <p><%= link_to "Veterinary Offices", "/veterinary_offices" %></p>
+
+            <li><a href="#">Design</a></li>
+            <li><a href="#">Development</a></li>
+            <li><a href="#">Consulting</a></li>
+          </ul>
+        </li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
     <section>
       <p><%= link_to "Pets", "/pets" %></p>
       <p><%= link_to "Shelters", "/shelters" %></p>
