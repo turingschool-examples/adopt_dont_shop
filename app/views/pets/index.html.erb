@@ -6,6 +6,7 @@
   <%= f.submit "Search" %>
 <% end %>
 
+<%= link_to "Start an Adoption Application", "/applications/new/", method: :get %>
 
 <% @pets.each do |pet| %>
   <h3><%= pet.name %></h3>

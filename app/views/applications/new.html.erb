@@ -1,0 +1,15 @@
+<h1>New Application</h1>
+
+
+<%= form_with url: "/applications", method: :post, local: true do |f| %>
+  <%= f.label :name %>
+  <%= f.text_field :name %><br>
+
+  <%= f.label :wins %>
+  <%= f.number_field :wins %><br>
+
+  <%= f.label :make_playoffs %>
+  <%= f.check_box :make_playoffs %><br>
+
+  <%= f.submit "Submit" %>
+<% end %>
