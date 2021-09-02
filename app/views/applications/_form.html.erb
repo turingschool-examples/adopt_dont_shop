@@ -1,0 +1,31 @@
+<%= form_with model: model, method: method, local: true do |f| %>
+  <p>
+    <%= f.label :applicant_name, "Name: " %>
+    <%= f.text_field :applicant_name %>
+  </p>
+  <p>
+    <%= f.label :applicant_street_address, "Street Address: "%>
+    <%= f.text_field :applicant_street_address %>
+  </p>
+  <p>
+    <%= f.label :applicant_city, "City: "%>
+    <%= f.text_field :applicant_city %>
+  </p>
+  <p>
+    <%= f.label :applicant_state, "State: "%>
+    <%= f.text_field :applicant_state %>
+  </p>
+  <p>
+    <%= f.label :applicant_zipcode, "Zipcode: "%>
+    <%= f.text_field :applicant_zipcode %>
+  </p>
+  <p>
+    <%= f.label :description, "Description: "%>
+    <%= f.text_field :description %>
+  </p>
+  <p>
+    <%= f.label :status, "Status: " %>
+    <%= f.text_field :status%>
+  </p>
+  <%= f.submit "Submit" %>
+<% end %>
