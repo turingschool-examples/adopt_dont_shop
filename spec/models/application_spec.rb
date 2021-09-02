@@ -13,4 +13,14 @@ RSpec.describe Application, type: :model do
     it { should have_many :application_pets }
     it { should have_many(:pets).through(:application_pets) }
   end
+
+  describe 'status' do
+    let(:status) { ['In Progress', 'Pending', 'Accepted', 'Rejectd'] }
+
+    it 'has the right index' do
+      status.each_with_index do |item, index|
+        expect(Application.statuses[item]).to eq(index)
+      end
+    end
+  end
 end
