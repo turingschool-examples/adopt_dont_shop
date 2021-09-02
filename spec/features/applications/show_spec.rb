@@ -6,6 +6,7 @@ RSpec.describe 'the applications show' do
 
     visit "/applications/#{application.id}"
 
+    expect(page).to have_content("Current Application")
     expect(page).to have_content(application.name)
     expect(page).to have_content(application.street_address)
     expect(page).to have_content(application.city)
