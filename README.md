@@ -1,4 +1,7 @@
 # Adopt, don't Shop
+![pesto_img](https://user-images.githubusercontent.com/81711519/131924395-0c4d6ff0-40ce-45b6-ba1b-0ef048e7486b.jpg)
+
+Adopt, Don't Shop is a 7-day, solo project during Mod 2 of 4 for Turing School's Back End Engineering Program. This project builds off an existing Ruby on Rails app and adds functionality to create and review pet adoption applications.
 
 ### Existing database design
 ![visual-schema.png](https://i.postimg.cc/0ywZgQ1W/visual-schema.png)
@@ -32,7 +35,7 @@ During your Check In, you should be prepared to review your database schema for 
 
 ## Evaluation
 
-Before your evaluation, choose 2 user stories to present. Try to pick user stories that you think will deliever the highest value in terms of feedback from the instructor. 
+Before your evaluation, choose 2 user stories to present. Try to pick user stories that you think will deliver the highest value in terms of feedback from the instructor.
 
 During the evaluation, you will present your user story:
 
