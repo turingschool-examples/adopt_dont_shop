@@ -15,8 +15,36 @@ require 'rails_helper'
 RSpec.describe 'Application Show Page' do
 
 
-  xit 'can display application info' do
-    # app = Application.create!(name: 'Billy', )
+  it 'can display application info' do
+     app = Application.create!(name: 'Billy', city: 'Denver', street_address: '123 lion st', state: 'CO', zip: 12345 )
+     shelter = Shelter.create!(foster_program: true,
+      name: 'Bundle park',
+      city: 'Denver',
+      rank: 3
+    )
+     dog1 = shelter.pets.create!(adoptable: true,
+        age: 2,
+        breed: 'yes',
+        name: 'Bob'
+      )
+    dog2 = shelter.pets.create!(adoptable: true,
+       age: 2,
+       breed: 'yes',
+       name: 'Billy'
+     )
+    PetApplication.create!(pet: dog1, application: app)
+    PetApplication.create!(pet: dog2, application: app)
+
+    visit "/applications/#{app.id}"
+
+    expect(page).to have_content(app.name)
+    expect(page).to have_content(app.city)
+    expect(page).to have_content(app.street_address)
+    expect(page).to have_content(app.state)
+    expect(page).to have_content(app.zip)
+    expect(page).to have_content(app.description) #need to add columns
+    expect(page).to have_content(app.status) #need to add columns
+
 
   end
 
