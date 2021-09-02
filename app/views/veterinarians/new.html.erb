@@ -1,4 +1,5 @@
 <h1>New Veterinarian</h1>
+
 <%= form_with url: "/veterinary_offices/#{@vet_office.id}/veterinarians", method: :post, local: true do |f| %>
   <%= f.label :name %>
   <%= f.text_field :name %>
