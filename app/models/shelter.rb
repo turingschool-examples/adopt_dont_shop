@@ -37,4 +37,8 @@ class Shelter < ApplicationRecord
       "SELECT shelters.* FROM shelters ORDER BY shelters.name DESC"
     )
   }
+
+  scope :pending_applications, -> {
+    Shelter.joins(pets: :applications).where('applications.status = ?', 1).distinct
+  }
 end

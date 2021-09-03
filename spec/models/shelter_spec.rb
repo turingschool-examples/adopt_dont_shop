@@ -73,5 +73,32 @@ RSpec.describe Shelter, type: :model do
         expect(Shelter.reverse_alphabetical).to eq([@shelter_2, @shelter_3, @shelter_1])
       end
     end
+
+    describe 'shelters with pending applications' do
+      it '#pending_ap' do
+        app = Application.create!(
+          name: 'Tanner',
+          address: '123',
+          city: 'a',
+          state: 'b',
+          zipcode: 'a',
+          reason: 'pets'
+        )
+        app2 = Application.create!(
+          name: 'Rennat',
+          address: '321',
+          city: 'b',
+          state: 'a',
+          zipcode: 'b',
+          reason: 'step'
+        )
+        app.pets << @pet_1
+        app.pets << @pet_2
+
+        app.set_to_pending
+
+        expect(Shelter.pending_applications).to eq([@shelter_1])
+      end
+    end
   end
 end

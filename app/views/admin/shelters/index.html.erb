@@ -4,3 +4,11 @@
   <h3><%= shelter.name %></h3>
   <p>Created at: <%= shelter.created_at %></p>
 <% end %>
+
+<h2>Shelters with Pending Applications:</h2>
+<div id='pending-apps'>
+  <% @pending_shelters.each do |shelter| %>
+    <h3><%= shelter.name %></h3>
+    <p>Created at: <%= shelter.created_at %></p>
+  <% end %>
+</div>
