@@ -32,7 +32,7 @@ During your Check In, you should be prepared to review your database schema for 
 
 ## Evaluation
 
-Before your evaluation, choose 2 user stories to present. Try to pick user stories that you think will deliever the highest value in terms of feedback from the instructor. 
+Before your evaluation, choose 2 user stories to present. Try to pick user stories that you think will deliever the highest value in terms of feedback from the instructor.
 
 During the evaluation, you will present your user story:
 
@@ -45,7 +45,7 @@ During the evaluation, you will present your user story:
 ## Deploy
 
 ```
-[ ] done
+[x] done
 
 Deploy your application to Heroku
 
