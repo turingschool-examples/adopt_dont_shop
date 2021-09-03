@@ -1,17 +1,56 @@
-<h1>Application</h1>
+<h2>Application</h2><br>
 
-<h3>Applicant Name: <%= @application.applicant_name %></h3>
+<h5>Name: <%= @application.applicant_name %></h5><br>
 
-<h3>Address: <%= @application.applicant_street_address %></h3>
-<h3>City: <%= @application.applicant_city %>, State: <%= @application.applicant_state %></h3>
-<h3>Zipcode: <%= @application.applicant_zipcode %></h3>
+<h5>Address: <%= @application.applicant_street_address %></h5><br>
 
-<h3>Why applicant would have a good home for pets:</h3>
-<p><%= @application.description %></p>
+<h5>City: <%= @application.applicant_city %></h5><br>
 
-<h3>Names of pets applicant wishes to adopt:</h3>
+<h5>State: <%= @application.applicant_state %></h5><br>
+
+<h5>Zipcode: <%= @application.applicant_zipcode %></h5><br>
+
+<h5>Why applicant would have a good home for pets:</h5>
+<p><%= @application.description %></p><br>
+
+<h5>Names of pets applicant wishes to adopt:</h5><br>
   <% @application.pets.each do |pet| %>
     <p><%= pet.name %></p>
-  <% end %>
+  <% end %><br>
 
-<h3>Status: <%= @application.status %></h3>
+<h5>Status: <%= @application.status %></h5><br>
+
+<% if @application.status == "In Progress" %>
+  <h5>Add Pets to Adopt:</h5>
+  <%= render partial: "search", locals: { path: application_path, method: :get } %>
+<% end  %>
+
+<% if params[:search] %>
+  <% @pets.each do |pet| %>
+  <section id="Pet-<%= pet.id %>">
+  <h5>
+    <%= render partial: "link", locals: { name: "#{pet.name}", path: pet_path, method: :get } %>
+    <%= button_to "Adopt this Pet", { controller: "pet_applications", action: :create, pet_id: :pet.id } , method: :post %>
+  </h5>
+    <p><%= pet.age %> years old</p>
+    <p><%= pet.breed %></p>
+    <p><%= pet.adoptable %></p>
+    <p><%= pet.shelter_name %></p>
+  </section>
+  <% end %>
+<% end  %>
+
+<% if @application.pets != [] && @application.status == 'In Progress' %>
+  <%= form_with url: "/applications/#{@application.id}", method: :patch, local: true do |f| %>
+    <h3><%= f.label :description, 'Why I would make a good owner for these pet(s):' %></h3>
+    <p> <%= f.text_field :description %> </p>
+
+    <%= f.hidden_field :applicant_name, value: @application.applicant_name %>
+    <%= f.hidden_field :applicant_street_address, value: @application.applicant_street_address  %>
+    <%= f.hidden_field :applicant_city, value: @application.applicant_city  %>
+    <%= f.hidden_field :applicant_state, value: @application.applicant_state  %>
+    <%= f.hidden_field :applicant_zipcode, value: @application.applicant_zipcode  %>
+    <%= f.hidden_field :status, value: "Pending" %>
+    <%= f.submit "Submit Application" %>
+  <% end %>
+<% end %>

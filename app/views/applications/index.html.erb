@@ -1,6 +1,7 @@
-<h1>All Applications</h1>
+<h3>All Applications</h3><br>
 
 <% @applications.each do |application| %>
-  <%= application.applicant_name %>
-
+  <ol>
+    <li><%= link_to "Name: #{application.applicant_name}", applications_path %></li>
+  </ol>
 <% end %>

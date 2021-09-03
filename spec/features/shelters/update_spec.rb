@@ -6,10 +6,10 @@ RSpec.describe 'the shelter update' do
 
     visit "/shelters/#{shelter.id}/edit"
 
-    expect(find('form')).to have_content('Name')
-    expect(find('form')).to have_content('City')
-    expect(find('form')).to have_content('Rank')
-    expect(find('form')).to have_content('Foster program')
+    expect(page).to have_field('Name')
+    expect(page).to have_field('City')
+    expect(page).to have_field('Rank')
+    expect(page).to have_field('Foster program')
   end
 
   context "given valid data" do
@@ -42,7 +42,7 @@ RSpec.describe 'the shelter update' do
       click_button 'Save'
 
       expect(page).to have_content("Error: Name can't be blank")
-      expect(page).to have_current_path("/shelters/#{shelter.id}/edit")
+      expect(page).to have_current_path(edit_shelter_path(shelter.id))
     end
   end
 end

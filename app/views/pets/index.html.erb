@@ -1,18 +1,18 @@
-<h1>All pets</h1>
+<h1>All Pets</h1><br>
 
-<%= form_with url: "/pets", method: :get, local: true do |f| %>
-  <%= f.label :search %>
-  <%= f.text_field :search %>
-  <%= f.submit "Search" %>
-<% end %>
-
-
+<%= render partial: 'search', locals: { path: pets_path, method: :get } %><br>
 <% @pets.each do |pet| %>
   <h3><%= pet.name %></h3>
-  <p>Age: <%= pet.age %></p>
-  <p>Breed: <%= pet.breed %></p>
-  <p>Adoptable: </p>
-  <p>You can find <%= pet.name %> at <%= pet.shelter_name %>!</p>
-  <%= link_to "Edit #{pet.name}", "/pets/#{pet.id}/edit" %>
-  <%= link_to "Delete #{pet.name}", "/pets/#{pet.id}", method: :delete %>
-<% end %>
+  <p>
+    Age: <%= pet.age %><br>
+    Breed: <%= pet.breed %><br>
+    Adoptable: <%= pet.adoptable %><br>
+    You can find <%= pet.name %> at <%= link_to pet.shelter_name, "/shelters/#{pet.shelter.id}" %>!
+  </p>
+
+  <%= render partial: 'link', locals: { name: "Edit #{pet.name}",path: edit_pet_path(pet.id), method: :get } %><br>
+  <%= render partial: 'link', locals: { name: "Delete #{pet.name}",path: pet_path(pet.id), method: :delete } %>
+  <p></p>
+<% end %><br><br>
+
+<%= render partial: 'link', locals: { name: 'New Application', path: new_application_path, method: :get } %>

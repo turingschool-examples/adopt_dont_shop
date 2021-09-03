@@ -6,10 +6,10 @@ RSpec.describe 'shelter creation' do
       visit '/shelters/new'
 
       expect(page).to have_content('New Shelter')
-      expect(find('form')).to have_content('Name')
-      expect(find('form')).to have_content('City')
-      expect(find('form')).to have_content('Rank')
-      expect(find('form')).to have_content('Foster program')
+      expect(page).to have_field('Name')
+      expect(page).to have_field('City')
+      expect(page).to have_field('Rank')
+      expect(page).to have_field('Foster program')
     end
   end
 

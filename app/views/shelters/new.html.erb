@@ -1,17 +1,17 @@
 <h1>New Shelter</h1>
 
-<%= form_with url: '/shelters', local: true do |f| %>
+<%= form_with url: shelters_path, local: true do |f| %>
   <%= f.label :name %>
-  <%= f.text_field :name %>
+  <%= f.text_field :name %><br>
 
   <%= f.label :city %>
-  <%= f.text_field :city %>
+  <%= f.text_field :city %><br>
 
   <%= f.label :foster_program %>
-  <%= f.check_box :foster_program %>
+  <%= f.check_box :foster_program %><br>
 
   <%= f.label :rank %>
-  <%= f.number_field :rank %>
+  <%= f.number_field :rank %><br>
 
   <%= f.submit %>
 <% end %>

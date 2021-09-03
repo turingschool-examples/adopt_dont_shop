@@ -1,16 +1,5 @@
 require "rails_helper"
 
-# Application Show Page
-#
-# As a visitor
-# When I visit an applications show page
-# Then I can see the following:
-# - Name of the Applicant
-# - Full Address of the Applicant including street address, city, state, and zip code
-# - Description of why the applicant says they'd be a good home for this pet(s)
-# - names of all pets that this application is for (all names of pets should be links to their show page)
-# - The Application's status, either "In Progress", "Pending", "Accepted", or "Rejected"
-
 RSpec.describe "Application Show Page" do
   before :each do
     @shelter = Shelter.create!(name: "Central Park Shelter", address: "333 Central Street",
@@ -26,12 +15,12 @@ RSpec.describe "Application Show Page" do
                                 applicant_zipcode: "56789",
                                 description: "I already have a dog and would love for him to have friends",
                                 status: "In Progress")
+
+    @dean.pets << @crab
+    @dean.pets << @fido
   end
 
   it "can show the application's attributes" do
-    @dean.pets << @crab
-    @dean.pets << @fido
-
     visit "/applications/#{@dean.id}"
 
     expect(page).to have_content(@dean.applicant_name)
@@ -42,5 +31,46 @@ RSpec.describe "Application Show Page" do
     expect(page).to have_content(@dean.status)
     expect(page).to have_content(@crab.name)
     expect(page).to have_content(@fido.name)
+  end
+
+  describe "Search and Add a pet to an application" do
+    it "allows applicant to search for a pet by name" do
+      visit "/applications"
+
+      fill_in "Search", with: "Fido"
+      click_on "Search"
+
+      expect(current_path).to eq("/applications")
+      # expect(page).to have_content(@fido.name)
+    end
+
+   it "allows applicant to click on adopt this pet" do
+      visit "/applications/#{@dean.id}"
+
+      fill_in :search, with: "Fido"
+      click_on "Search", match: :first
+
+      within("#Pet-#{@fido.id}") do
+        click_on "Adopt this Pet"
+      end
+
+      expect(current_path).to eq("/applications/#{@dean.id}")
+      expect(@dean.pets).to eq([@fido])
+
+      expect(page).to have_content(@fido.name)
+    end
+
+    it "only allows applicant to submit when pets have been selected" do
+      visit "/applications/#{@dean.id}"
+
+      fill_in :description, with: "I want to get a dog for my kids"
+      click_on "Submit Application"
+
+      expect(current_path).to eq("/applications/#{@dean.id}")
+      expect(page).to have_content("Pending")
+      expect(page).to have_content(@crab.name)
+      expect(page).to have_content("I want to get a dog for my kids")
+      expect(page).to_not have_content("Add Pets to Adopt:")
+    end
   end
 end

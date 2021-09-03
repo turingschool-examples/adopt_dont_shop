@@ -30,18 +30,19 @@ RSpec.describe 'the shelters pets index' do
   it 'displays a link to create a new pet' do
     visit "/shelters/#{@shelter.id}/pets"
 
-    expect(page).to have_link("Create a Pet")
-    click_on("Create a Pet")
+    expect(page).to have_link("Add a Pet")
+
+    click_on "Add a Pet"
+
     expect(page).to have_current_path("/shelters/#{@shelter.id}/pets/new")
   end
 
   it 'displays a link to edit each pet' do
     visit "/shelters/#{@shelter.id}/pets"
 
-    expect(page).to have_link("Edit #{@pet_1.name}")
-    expect(page).to have_link("Edit #{@pet_2.name}")
+    expect(page).to have_button("Edit")
 
-    click_link("Edit #{@pet_1.name}")
+    click_on "Edit", match: :first
 
     expect(page).to have_current_path("/pets/#{@pet_1.id}/edit")
   end
@@ -49,12 +50,12 @@ RSpec.describe 'the shelters pets index' do
   it 'displays a link to delete each pet' do
     visit "/shelters/#{@shelter.id}/pets"
 
-    expect(page).to have_link("Delete #{@pet_1.name}")
-    expect(page).to have_link("Delete #{@pet_2.name}")
+    expect(page).to have_button("Delete")
+    # expect(page).to have_link("Delete #{@pet_2.name}")
 
-    click_link("Delete #{@pet_1.name}")
+    click_link "Delete"
 
-    expect(page).to have_current_path("/pets")
+    expect(page).to have_current_path("/shelters/#{@shelter.id}/pets")
     expect(page).to_not have_content(@pet_1.name)
   end
 
@@ -70,6 +71,7 @@ RSpec.describe 'the shelters pets index' do
 
     find("#age option[value='3']").select_option
     click_button("Filter")
+
     expect(page).to have_content(@pet_2.name)
     expect(page).to_not have_content(@pet_1.name)
     expect(page).to_not have_content(@pet_3.name)

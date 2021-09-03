@@ -1,4 +1,5 @@
 <%= form_with model: model, method: method, local: true do |f| %>
+
   <p>
     <%= f.label :applicant_name, "Name: " %>
     <%= f.text_field :applicant_name %>
@@ -26,6 +27,16 @@
   <p>
     <%= f.label :status, "Status: " %>
     <%= f.text_field :status%>
+  </p<br><br><br>
+
+  <p>
+  <h5>Add Pet(s) to This Application:</h5><br>
+  <h6>Search Pets by Name:</h6>
+  <%= form_with url: "/applications/#{@application.id}?search=name", method: :get, local: true do %>
+  <%= text_field_tag(:search, params[:search]) %>
+  <%= submit_tag ("Search") %>
+  <% end %>
   </p>
-  <%= f.submit "Submit" %>
+
+  <%= f.submit "Submit Application" %>
 <% end %>

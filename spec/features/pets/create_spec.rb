@@ -10,10 +10,10 @@ RSpec.describe 'pet creation' do
       visit "/shelters/#{@shelter.id}/pets/new"
 
       expect(page).to have_content('New Pet')
-      expect(find('form')).to have_content('Name')
-      expect(find('form')).to have_content('Breed')
-      expect(find('form')).to have_content('Age')
-      expect(find('form')).to have_content('Adoptable')
+      expect(page).to have_field('Name')
+      expect(page).to have_field('Breed')
+      expect(page).to have_field('Age')
+      expect(page).to have_field('Adoptable')
     end
   end
 

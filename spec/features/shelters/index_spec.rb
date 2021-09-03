@@ -56,18 +56,18 @@ RSpec.describe 'the shelters index' do
     visit "/shelters"
 
     within "#shelter-#{@shelter_1.id}" do
-      expect(page).to have_link("Update #{@shelter_1.name}")
+      expect(page).to have_button("Update")
     end
 
     within "#shelter-#{@shelter_2.id}" do
-      expect(page).to have_link("Update #{@shelter_2.name}")
+      expect(page).to have_button("Update")
     end
 
     within "#shelter-#{@shelter_3.id}" do
-      expect(page).to have_link("Update #{@shelter_3.name}")
+      expect(page).to have_button("Update")
     end
 
-    click_on("Update #{@shelter_1.name}")
+    click_on "Update", match: :first
     expect(page).to have_current_path("/shelters/#{@shelter_1.id}/edit")
   end
 
@@ -75,18 +75,19 @@ RSpec.describe 'the shelters index' do
     visit "/shelters"
 
     within "#shelter-#{@shelter_1.id}" do
-      expect(page).to have_link("Delete #{@shelter_1.name}")
+      expect(page).to have_button("Delete")
     end
 
     within "#shelter-#{@shelter_2.id}" do
-      expect(page).to have_link("Delete #{@shelter_2.name}")
+      expect(page).to have_button("Delete")
     end
 
     within "#shelter-#{@shelter_3.id}" do
-      expect(page).to have_link("Delete #{@shelter_3.name}")
+      expect(page).to have_button("Delete")
     end
 
-    click_on("Delete #{@shelter_1.name}")
+    click_on "Delete", match: :first
+    
     expect(page).to have_current_path("/shelters")
     expect(page).to_not have_content(@shelter_1.name)
   end
@@ -99,8 +100,8 @@ RSpec.describe 'the shelters index' do
   it 'lists partial matches as search results' do
     visit "/shelters"
 
-    fill_in 'Search', with: "RGV"
-    click_on("Search")
+    fill_in :search, with: "RGV"
+    click_on "Search", match: :first
 
     expect(page).to have_content(@shelter_2.name)
     expect(page).to_not have_content(@shelter_1.name)

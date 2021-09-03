@@ -124,7 +124,7 @@ RSpec.describe 'the pets index' do
       fill_in "Description", with: "I would love for my dog to have friends"
       fill_in "Status", with: "In Progress"
 
-      click_on "Submit"
+      click_button "Submit", match: :first
 
       expect(current_path).to eq("/applications/#{Application.last.id}")
     end

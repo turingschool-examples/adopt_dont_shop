@@ -1,18 +1,20 @@
-<h1>All Shelters</h1>
+<h1>All Shelters</h1><br>
 
-<%= link_to "Sort by number of pets", "/shelters?sort=pet_count" %>
+<%= link_to "Add a Shelter", new_shelter_path %><br><br>
 
-<%= form_with url: "/shelters", method: :get, local: true do |f| %>
+<%= link_to "Sort by number of pets", "/shelters?sort=pet_count" %><br><br>
+
+<%= form_with url: shelters_path, method: :get, local: true do |f| %>
   <%= f.label :search %>
   <%= f.text_field :search %>
   <%= f.submit "Search" %>
-<% end %>
+<% end %><br>
 
 <% @shelters.each do |shelter| %>
   <div id="shelter-<%= shelter.id %>">
-    <h3><%= shelter.name %></h3>
-    <p>Created at: <%= shelter.created_at %></p>
-    <%= link_to "Update #{shelter.name}", "/shelters/#{shelter.id}/edit" %>
-    <%= link_to "Delete #{shelter.name}", "/shelters/#{shelter.id}", method: :delete %>
-  </div>
-<% end %>
+    <h3><%= link_to shelter.name, "/shelters/#{shelter.id}" %></h3>
+    <p>Created at: <%= shelter.created_at.to_date%></p>
+    <%= button_to "Update", shelters_path %>
+    <%= button_to "Delete", "/shelters/#{shelter.id}", method: :delete, class: "btn btn-danger", confirm: "Are you sure you want to delete this?" %>
+  </div><br>
+<% end %><br>

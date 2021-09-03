@@ -3,6 +3,6 @@
 <p>City: <%= @shelter.city %></p>
 
 <p class="pet-count">Pets at <%= @shelter.name %>: <%= @shelter.pet_count %></p>
-<p><%= link_to "All pets at #{@shelter.name}", "/shelters/#{@shelter.id}/pets" %></p>
+<p><%= button_to "All pets at #{@shelter.name}", "/shelters/#{@shelter.id}/pets" %></p><br>
 
-<p><%= link_to "Delete #{@shelter.name}", "/shelters/#{@shelter.id}", method: :delete %></p>
+<p><%= button_to "Delete #{@shelter.name}", shelter_path, method: :delete %></p>
