@@ -1,0 +1,8 @@
+<h1>Application Details</h1>
+<h4>Name: <%= @application.name %></h4>
+<p>Address: <%= @application.street %>, <%= @application.city %>, <%= @application.state %>, <%= @application.zip_code %></p>
+<p>Description of applicant: <%= @application.description %></p>
+<p>Names of pets applied for and application status:
+  <% @application.pets.each do |pet| %>
+    <%= pet.name %>
+  <% end %></p>
