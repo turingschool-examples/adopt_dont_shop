@@ -5,11 +5,18 @@
 <p>State: <%= @application.state %></p>
 <p>Zipcode: <%= @application.zipcode %></p>
 <p>Status: <%= @application.status %></p>
+<p>Pets:</p>
+<ul>
+  <% @application.pets.each do |pet| %>
+    <li><%= link_to pet.name, "/pets/#{pet.id}", class: 'link-dark' %></li>
+  <% end%>
+</ul>
 
 <%= form_with url: application_path(@application.id), method: :get, local: true do |f|  %>
+  <h3>Search Pets:</h3>
   <div class="form-floating mb-3">
-    <%= f.text_field :name, class: "form-control", id: "floatingInput3" %>
-    <%= f.label :name, for: "floatingInput3" %>
+    <%= f.text_field :name, class: "form-control", id: "floatingInput", placeholder: 'Name' %>
+    <%= f.label :name, for: "floatingInput" %>
     <%= f.submit 'Find', class: 'btn btn-primary' %>
   </div>
 <% end %>
@@ -17,10 +24,14 @@
 <% if @pets %>
   <h3>Matching Pets: </h3>
   <% @pets.each do |pet| %>
-    <p><%= pet.name %></p>
-    <ul>
-      <li>Breed: <%= pet.breed %></li>
-      <li>Age: <%= pet.age %></li>
-    </ul>
+    <div id='<%= pet.name %>'>
+      <p><b><%= pet.name %></b></p>
+      <ul>
+        <li>Breed: <%= pet.breed %></li>
+        <li>Age: <%= pet.age %></li>
+      </ul>
+      <%= button_to 'Adopt this Pet', application_pets_path, method: :post, params: { pet_id: pet.id, application_id: @application.id }, class: 'btn btn-outline-success btn-sm' %>
+      <br/>
+    </div>
   <%end %>
 <% end %>
