@@ -37,7 +37,7 @@ class ApplicationsController < ApplicationController
       redirect_to application_path(app)
     else
       flash[:alert] = 'Reason Must be Provided'
-      redirect_to application_path(current_application)
+      redirect_to application_path(app)
     end
   end
 
