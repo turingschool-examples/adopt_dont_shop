@@ -87,8 +87,8 @@ RSpec.describe 'the pets index' do
 
     expect(page).to have_link('Start an Application')
 
-    click_link
+    click_link 'Start an Application'
 
-    expect(curret_path).to eq('/applications/new')
+    expect(current_path).to eq('/application/new')
   end
 end

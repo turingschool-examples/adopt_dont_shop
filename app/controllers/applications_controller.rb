@@ -4,4 +4,7 @@ class ApplicationsController < ApplicationController
     @applications = Application.all
   end
 
+
+  def new
+  end
 end
