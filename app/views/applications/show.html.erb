@@ -5,3 +5,22 @@
 <p>State: <%= @application.state %></p>
 <p>Zipcode: <%= @application.zipcode %></p>
 <p>Status: <%= @application.status %></p>
+
+<%= form_with url: application_path(@application.id), method: :get, local: true do |f|  %>
+  <div class="form-floating mb-3">
+    <%= f.text_field :name, class: "form-control", id: "floatingInput3" %>
+    <%= f.label :name, for: "floatingInput3" %>
+    <%= f.submit 'Find', class: 'btn btn-primary' %>
+  </div>
+<% end %>
+
+<% if @pets %>
+  <h3>Matching Pets: </h3>
+  <% @pets.each do |pet| %>
+    <p><%= pet.name %></p>
+    <ul>
+      <li>Breed: <%= pet.breed %></li>
+      <li>Age: <%= pet.age %></li>
+    </ul>
+  <%end %>
+<% end %>

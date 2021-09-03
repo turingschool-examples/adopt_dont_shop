@@ -41,4 +41,14 @@ RSpec.describe Pet, type: :model do
       end
     end
   end
+
+  describe '#search_for' do
+    it 'can do an exact match' do
+      expect(Pet.search_for('Clawdia').to_a).to eq([@pet_2])
+    end
+
+    it 'can do a partial match' do
+      expect(Pet.search_for('a').to_a).to eq([@pet_1, @pet_2, @pet_3])
+    end
+  end
 end
