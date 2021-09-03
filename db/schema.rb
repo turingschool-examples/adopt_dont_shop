@@ -18,6 +18,7 @@ ActiveRecord::Schema.define(version: 2021_09_03_010412) do
   create_table "app_pets", force: :cascade do |t|
     t.bigint "app_id"
     t.bigint "pet_id"
+    t.string "status", default: "In Progress"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["app_id"], name: "index_app_pets_on_app_id"
@@ -27,8 +28,11 @@ ActiveRecord::Schema.define(version: 2021_09_03_010412) do
   create_table "apps", force: :cascade do |t|
     t.string "name"
     t.string "address"
-    t.string "description"
-    t.string "status"
+    t.string "city"
+    t.string "state"
+    t.integer "zip"
+    t.string "description", default: ""
+    t.string "status", default: "In Progress"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
