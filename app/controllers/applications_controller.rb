@@ -29,6 +29,16 @@ class ApplicationsController < ApplicationController
   end
 
   def update
+    app = current_application
+    if !params[:application][:reason].blank?
+      app.update!(application_params)
+      app.set_to_pending
+
+      redirect_to application_path(app)
+    else
+      flash[:alert] = 'Reason Must be Provided'
+      redirect_to application_path(current_application)
+    end
   end
 
   def destroy
