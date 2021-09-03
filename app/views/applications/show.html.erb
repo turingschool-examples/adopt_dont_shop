@@ -12,26 +12,38 @@
   <% end%>
 </ul>
 
-<%= form_with url: application_path(@application.id), method: :get, local: true do |f|  %>
-  <h3>Search Pets:</h3>
-  <div class="form-floating mb-3">
-    <%= f.text_field :name, class: "form-control", id: "floatingInput", placeholder: 'Name' %>
-    <%= f.label :name, for: "floatingInput" %>
-    <%= f.submit 'Find', class: 'btn btn-primary' %>
-  </div>
+<% if @application.submittable? %>
+  <%= form_with model: @application, method: :patch, local: true do |f| %>
+    <div class="form-floating mb-3">
+      <%= f.text_field :reason, class: "form-control", id: "floatingInput", placeholder: 'Why I would be a great owner.' %>
+      <%= f.label 'Why I would be a great owner.', for: "floatingInput" %>
+    </div>
+    <%= f.submit 'Submit Application', class: 'btn btn-primary' %>
+  <% end %>
 <% end %>
 
-<% if @pets %>
-  <h3>Matching Pets: </h3>
-  <% @pets.each do |pet| %>
-    <div id='<%= pet.name %>'>
-      <p><b><%= pet.name %></b></p>
-      <ul>
-        <li>Breed: <%= pet.breed %></li>
-        <li>Age: <%= pet.age %></li>
-      </ul>
-      <%= button_to 'Adopt this Pet', application_pets_path, method: :post, params: { pet_id: pet.id, application_id: @application.id }, class: 'btn btn-outline-success btn-sm' %>
-      <br/>
+<% if @application.not_submitted? %>
+  <%= form_with url: application_path(@application.id), method: :get, local: true do |f|  %>
+    <h3>Search Pets:</h3>
+    <div class="form-floating mb-3">
+      <%= f.text_field :name, class: "form-control", id: "floatingInput", placeholder: 'Name' %>
+      <%= f.label :name, for: "floatingInput" %>
     </div>
+    <%= f.submit 'Find', class: 'btn btn-primary' %>
+  <% end %>
+
+  <% if @pets %>
+    <h3>Matching Pets: </h3>
+    <% @pets.each do |pet| %>
+      <div id='<%= pet.name %>'>
+        <p><b><%= pet.name %></b></p>
+        <ul>
+          <li>Breed: <%= pet.breed %></li>
+          <li>Age: <%= pet.age %></li>
+        </ul>
+        <%= button_to 'Adopt this Pet', application_pets_path, method: :post, params: { pet_id: pet.id, application_id: @application.id }, class: 'btn btn-outline-success btn-sm' %>
+        <br/>
+      </div>
+    <%end %>
   <%end %>
 <% end %>
