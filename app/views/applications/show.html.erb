@@ -1,0 +1,15 @@
+<h3><%= @application.name %></h3>
+<ul>
+  <li>Street: <%= @application.street %></li>
+  <li>City: <%= @application.city %></li>
+  <li>State: <%= @application.state %></li>
+  <li>Zipcode: <%= @application.zipcode %></li>
+  <li>Description: <%= @application.description %></li>
+  <li>Pets:</li>
+    <% @application.pets.each do |pet| %>
+      <ul>
+        <li><%= link_to "#{pet.name}", "/pets/#{pet.id}" %></li>
+      </ul>
+    <% end %>
+  <li>Status: <%= @application.status %></li>
+</ul>
