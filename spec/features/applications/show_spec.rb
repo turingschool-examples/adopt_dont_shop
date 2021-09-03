@@ -42,6 +42,8 @@ RSpec.describe 'Application Show Page' do
     expect(page).to have_content(app.street_address)
     expect(page).to have_content(app.state)
     expect(page).to have_content(app.zip)
+    expect(page).to have_content(dog1.name)
+    expect(page).to have_content(dog2.name)
     expect(page).to have_content(app.description) #need to add columns
     expect(page).to have_content(app.status) #need to add columns
 
