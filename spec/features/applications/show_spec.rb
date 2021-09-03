@@ -47,5 +47,16 @@ RSpec.describe 'applications show' do
       expect(page).to have_content(@pet_2.breed)
       expect(page).to have_content(@pet_2.age)
     end
+
+    it 'can add pets to an application' do
+      fill_in 'Name', with: 'claw'
+      click_on 'Find'
+
+      within "div##{@pet_2.name}" do
+        click_button 'Adopt this Pet'
+      end
+
+      expect(@app.pets).to include(@pet_2)
+    end
   end
 end
