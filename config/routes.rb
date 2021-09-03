@@ -38,5 +38,5 @@ Rails.application.routes.draw do
   post '/veterinary_offices/:veterinary_office_id/veterinarians', to: 'veterinarians#create'
 
   resources :applications
-  resources :application_pets, only: [:create, :update, :destroy]
+  resources :application_pets, only: [:create, :destroy]
 end

@@ -6,9 +6,6 @@ class ApplicationPetsController < ApplicationController
     redirect_to application_path(params[:application_id])
   end
 
-  def update
-  end
-
   def destroy
   end
 
