@@ -16,7 +16,7 @@ RSpec.describe 'Application Show Page' do
 
 
   it 'can display application info' do
-     app = Application.create!(name: 'Billy', city: 'Denver', street_address: '123 lion st', state: 'CO', zip: 12345 )
+     app = Application.create!(name: 'Billy', city: 'Denver', street_address: '123 lion st', state: 'CO', zip: 12345, status: "In Progress", description: 'test')
      shelter = Shelter.create!(foster_program: true,
       name: 'Bundle park',
       city: 'Denver',
@@ -32,6 +32,7 @@ RSpec.describe 'Application Show Page' do
        breed: 'yes',
        name: 'Billy'
      )
+
     PetApplication.create!(pet: dog1, application: app)
     PetApplication.create!(pet: dog2, application: app)
 
@@ -44,12 +45,45 @@ RSpec.describe 'Application Show Page' do
     expect(page).to have_content(app.zip)
     expect(page).to have_content(dog1.name)
     expect(page).to have_content(dog2.name)
-    expect(page).to have_content(app.description) #need to add columns
-    expect(page).to have_content(app.status) #need to add columns
-
-
+    expect(page).to have_content(app.description)
+    expect(page).to have_content(app.status)
   end
 
+  it 'can search for pets' do
+    app = Application.create!(name: 'Billy',
+      city: 'Denver',
+      street_address: '123 lion st',
+      state: 'CO',
+      zip: 12345,
+      status: 'In Progress'
+    )
+    shelter = Shelter.create!(foster_program: true,
+     name: 'Bundle park',
+     city: 'Denver',
+     rank: 3
+   )
+    dog1 = shelter.pets.create!(adoptable: true,
+       age: 2,
+       breed: 'yes',
+       name: 'Bob'
+     )
+   dog2 = shelter.pets.create!(adoptable: true,
+      age: 2,
+      breed: 'yes',
+      name: 'Billy'
+    )
 
+    visit "/applications/#{app.id}"
 
+    expect(page).to have_content('Add a Pet to this Application')
+    expect(page).to_not have_content(dog1.name)
+    expect(page).to have_content('In Progress') # And that application has not been submitted. Search bar contingent on application status?
+
+    fill_in 'search', with: dog1.name
+    click_button 'submit'
+
+    expect(current_path).to eq("/applications/#{app.id}")
+    expect(page).to have_content(dog1.name)
+    expect(page).to_not have_content(dog2.name)
+  end
 end
