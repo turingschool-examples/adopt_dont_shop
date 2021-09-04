@@ -11,13 +11,23 @@ RSpec.describe 'new page' do
   end
 
   it 'has an application for a new pet' do
-    visit "applications/new"
+    visit "/applications/new"
     fill_in :name, with: 'Sara Pounds'
-    fill_in :street_address, with: "2200 W Petty Dr"
+    fill_in :street, with: "2200 W Petty Dr"
     fill_in :city, with: 'Muncie'
     fill_in :state, with: 'IN'
     fill_in :zip_code, with: '47304'
     click_on "Submit"
     expect(current_path).to eq("/applications/#{Application.last.id}")
+  end
+
+  it 'displays an error if the application is submitted incomplete' do
+    visit "/applications/new"
+    fill_in :street, with: "2200 W Petty Dr"
+    fill_in :city, with: 'Muncie'
+    fill_in :state, with: 'IN'
+    fill_in :zip_code, with: '47304'
+    click_on "Submit"
+    expect(page).to have_content("Error: Name can't be blank")
   end
 end
