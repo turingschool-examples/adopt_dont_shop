@@ -29,3 +29,12 @@
   </p>
 <% end %>
 </section>
+
+<section id='Submit-Application'>
+   <h2>Submit Application</h2>
+   <%= form_with url: "/applications/#{@application.id}", method: :patch, local: true do |f| %>
+    <%= f.label 'Why would you make a good owner for these pet(s)?' %>
+    <%= f.text_field :description %>
+    <%= f.submit 'submit' %>
+   <% end %>
+</section>

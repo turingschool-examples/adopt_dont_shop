@@ -70,7 +70,7 @@ RSpec.describe 'Application Show Page' do
 
   end
 
-  it 'can add pets to applications' do
+  it 'can add pets to application' do
      visit "/applications/#{@app.id}"
 
     fill_in 'search', with: @dog2.name
@@ -91,35 +91,27 @@ RSpec.describe 'Application Show Page' do
   end
 
   it 'can submit applications' do
-    visit "/applications/#{@app.id}"
+    app = Application.create!(name: 'Hugh', city: 'Aurora', street_address: '300 quebec st', state: 'CO', zip: 12345, status: "In Progress")
+
+    visit "/applications/#{app.id}"
 
    fill_in 'search', with: @dog2.name
    click_button 'search'
 
    click_button "Adopt #{@dog2.name}"
 
-   expect(page).to have_content('Submit Application')
-
    within('#Submit-Application') do
+     expect(page).to have_content('Submit Application')
      expect(page).to have_content('Why would you make a good owner for these pet(s)?')
      expect(page).to have_field('description')
-     click_button 'submit'
+
+     fill_in 'description', with: 'I like dogs and I live on a farm'
    end
 
-   expect(current_path).to eq("/aplications/#{@app.id}")
+   click_button 'submit'
+   expect(current_path).to eq("/applications/#{app.id}")
    expect(page).to have_content('Pending')
    expect(page).to have_content(@dog2.name)
    expect(page).to_not have_content('Why would you make a good owner for these pet(s)?')
   end
 end
-# As a visitor
-# When I visit an application's show page
-# And I have added one or more pets to the application
-# Then I see a section to submit my application
-# And in that section I see an input to enter why I would make a good owner for these pet(s)
-# When I fill in that input
-# And I click a button to submit this application
-# Then I am taken back to the application's show page
-# And I see an indicator that the application is "Pending"
-# And I see all the pets that I want to adopt
-# And I do not see a section to add more pets to this application
