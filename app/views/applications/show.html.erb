@@ -12,7 +12,6 @@
   <% end %>
 </section>
 
-
 <h2>Add a Pet to this Application</h2>
 
 <%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |form| %>
@@ -23,6 +22,10 @@
 
 <% @pets.each do |pet| %>
 <section id="Pet-Search">
-  <p><%= pet.name %></p>
+  <p><%= pet.name %>
+    <%= form_with url: "/applications/#{@application.id}/pets/#{pet.id}", method: :post, local:true do |form| %>
+      <%= form.submit "Adopt #{pet.name}" %>
+    <% end %>
+  </p>
 <% end %>
 </section>
