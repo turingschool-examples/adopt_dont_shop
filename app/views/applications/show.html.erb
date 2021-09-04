@@ -8,3 +8,20 @@
   <% end %>
 </ul>
 <p>Application Status: <%= @application.status %></p>
+
+<h3>Add a Pet to this Application</h3>
+<%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |form| %>
+  <%= form.label      :search %>
+  <%= form.text_field :search %>
+  <%= form.submit "Search" %>
+<% end %>
+
+<% unless @pets.nil? %>
+  <% @pets.each do |pet| %>
+    <h3><%= pet.name %></h3>
+    <p>Age: <%= pet.age %></p>
+    <p>Breed: <%= pet.breed %></p>
+    <p>Adoptable: </p>
+    <p>You can find <%= pet.name %> at <%= pet.shelter_name %>!</p>
+  <% end %>
+<% end %>

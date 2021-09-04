@@ -12,6 +12,8 @@ RSpec.describe 'the app show page' do
     @app_2 = Application.create!(name: "The Grinch", address: "2376 Mountaintop Drive", city: "Whoville", state: "WI", zip: "12345")
     @app_pet_2 = ApplicationPet.create!(pet: @pet_1, application: @app_2)
     @app_pet_3 = ApplicationPet.create!(pet: @pet_2, application: @app_2)
+
+    @app_3 = Application.create!(name: "Horton", address: "7874 Hickory Lane", city: "Whoknows", state: "MA", zip: "48943")
   end
 
   it 'shows an applicants personal info' do
@@ -43,5 +45,25 @@ RSpec.describe 'the app show page' do
 
     click_link("Lobster")
     expect(current_path).to eq("/pets/#{@pet_2.id}")
+  end
+
+  context 'app has not been submitted' do
+    it 'has a section to add pet' do
+      visit "/applications/#{@app_3.id}"
+
+      expect(page).to have_content("Add a Pet to this Application")
+
+      fill_in('Search', with: "Lucille")
+      click_on("Search")
+
+      expect(page).to     have_content(@pet_1.name)
+      expect(page).to_not have_content(@pet_2.name)
+
+      fill_in('Search', with: "l")
+      click_on("Search")
+
+      expect(page).to have_content(@pet_1.name)
+      expect(page).to have_content(@pet_2.name)
+    end
   end
 end
