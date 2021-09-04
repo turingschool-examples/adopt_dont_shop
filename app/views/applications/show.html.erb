@@ -1,11 +1,10 @@
-<% @applications.each do |app| %>
-  <%= app.name %>
-  <%= app.city %>
-  <%= app.street_address %>
-  <%= app.state %>
-  <%= app.zip %>
-  <%= app.status %>
-  <% app.pets.each do |pet| %>
-    <%= pet.name %>
-  <% end %>
+<%= @application.name %>
+<%= @application.city %>
+<%= @application.street_address %>
+<%= @application.state %>
+<%= @application.zip %>
+<%= @application.status %>
+<%= @application.description %>
+<% @application.pets.each do |pet| %>
+  <%= pet.name %>
 <% end %>
