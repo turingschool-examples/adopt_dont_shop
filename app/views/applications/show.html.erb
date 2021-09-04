@@ -17,4 +17,7 @@
   <%= form.submit 'search' %>
 <% end %>
 
-<%= @pets.each { |pet| pet.name } if @pets != nil %>
+<% @pets.each do |pet| %>
+  <%= pet.name %>
+
+<% end %>
