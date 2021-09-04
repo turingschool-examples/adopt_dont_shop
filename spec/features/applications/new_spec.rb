@@ -24,7 +24,7 @@ RSpec.describe 'new application page' do
     expect(page).to have_content(app.city)
     expect(page).to have_content(app.state)
     expect(page).to have_content(app.zip)
-    expect(page).to have_content('In progress')
+    expect(page).to have_content('In Progress')
   end
 
 
