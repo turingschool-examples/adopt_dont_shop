@@ -30,6 +30,8 @@ RSpec.describe 'new application page' do
   it 'can return a failure to fill message' do
     visit '/application/new'
 
+    expect(page).to_not have_content('please fill the form in completely')
+
     click_button 'submit'
 
     expect(current_path).to eq('/application/new')
