@@ -39,15 +39,17 @@ RSpec.describe 'Application Show Page' do
 
     visit "/applications/#{@app.id}"
 
-    expect(page).to have_content(@app.name)
-    expect(page).to have_content(@app.city)
-    expect(page).to have_content(@app.street_address)
-    expect(page).to have_content(@app.state)
-    expect(page).to have_content(@app.zip)
-    expect(page).to have_content(@dog1.name)
-    expect(page).to have_content(@dog2.name)
-    expect(page).to have_content(@app.description)
-    expect(page).to have_content(@app.status)
+    within('#App-Info') do
+      expect(page).to have_content(@app.name)
+      expect(page).to have_content(@app.city)
+      expect(page).to have_content(@app.street_address)
+      expect(page).to have_content(@app.state)
+      expect(page).to have_content(@app.zip)
+      expect(page).to have_content(@dog1.name)
+      expect(page).to have_content(@dog2.name)
+      expect(page).to have_content(@app.description)
+      expect(page).to have_content(@app.status)
+    end
   end
 
   it 'can search for pets' do
@@ -71,9 +73,21 @@ RSpec.describe 'Application Show Page' do
   it 'can add pets to applications' do
      visit "/applications/#{@app.id}"
 
-    fill_in 'search', with: 'Billy'
+    fill_in 'search', with: @dog2.name
+    click_button 'search'
 
+    within('#Pet-Search')do
+      expect(page).to have_content(@dog2.name)
+      expect(page).to have_button("Adopt #{@dog2.name}")
+    end
 
+    click_button "Adopt #{@dog2.name}"
+
+    expect(current_path).to eq("/applications/#{@app.id}")
+
+    within('#App-Info') do
+      expect(page).to have_content(@dog2.name)
+    end
   end
 end
 #

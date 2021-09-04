@@ -1,13 +1,17 @@
-<p><%= @application.name %><p/>
-<p><%= @application.city %><p/>
-<p><%= @application.street_address %><p/>
-<p><%= @application.state %><p/>
-<p><%= @application.zip %><p/>
-<p><%= @application.status %><p/>
-<p><%= @application.description %><p/>
-<% @application.pets.each do |pet| %>
-<p><%= pet.name %></p>
-<% end %>
+
+<section id="App-Info">
+  <p><%= @application.name %><p/>
+  <p><%= @application.city %><p/>
+  <p><%= @application.street_address %><p/>
+  <p><%= @application.state %><p/>
+  <p><%= @application.zip %><p/>
+  <p><%= @application.status %><p/>
+  <p><%= @application.description %><p/>
+  <% @application.pets.each do |pet| %>
+    <p><%= pet.name %></p>
+  <% end %>
+</section>
+
 
 <h2>Add a Pet to this Application</h2>
 
@@ -19,8 +23,6 @@
 
 <% @pets.each do |pet| %>
 <section id="Pet-Search">
-
   <p><%= pet.name %></p>
-
 <% end %>
 </section>
