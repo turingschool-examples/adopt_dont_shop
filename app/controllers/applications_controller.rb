@@ -15,7 +15,9 @@ class ApplicationsController < ApplicationController
   private
 
   def application_params
-    params.permit(:name,:street,:city,:state,:zip_code)
+    params
+      .permit(:name,:street,:city,:state,:zip_code)
+      .with_defaults(status: "In Progress")
   end
 
 end
