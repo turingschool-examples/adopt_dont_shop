@@ -7,7 +7,7 @@ RSpec.describe 'new application page' do
     visit '/application/new'
 
     fill_in :name, with: 'Billy'
-    fill_in :street_address, with: '1234 3rd ave'
+    fill_in :address, with: '1234 3rd ave'
     fill_in :city, with: 'Denver'
     fill_in :state, with: 'Colorado'
     fill_in :zip, with: 12345
@@ -24,7 +24,7 @@ RSpec.describe 'new application page' do
     expect(page).to have_content(app.city)
     expect(page).to have_content(app.state)
     expect(page).to have_content(app.zip)
-    expect(page).to have_content('In progress') #do I want this to be a column?
+    expect(page).to have_content('In progress')
   end
 
 
