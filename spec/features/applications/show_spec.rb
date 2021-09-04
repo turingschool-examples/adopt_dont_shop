@@ -89,13 +89,37 @@ RSpec.describe 'Application Show Page' do
       expect(page).to have_content(@dog2.name)
     end
   end
+
+  it 'can submit applications' do
+    visit "/applications/#{@app.id}"
+
+   fill_in 'search', with: @dog2.name
+   click_button 'search'
+
+   click_button "Adopt #{@dog2.name}"
+
+   expect(page).to have_content('Submit Application')
+
+   within('#Submit-Application') do
+     expect(page).to have_content('Why would you make a good owner for these pet(s)?')
+     expect(page).to have_field('description')
+     click_button 'submit'
+   end
+
+   expect(current_path).to eq("/aplications/#{@app.id}")
+   expect(page).to have_content('Pending')
+   expect(page).to have_content(@dog2.name)
+   expect(page).to_not have_content('Why would you make a good owner for these pet(s)?')
+  end
 end
-#
 # As a visitor
 # When I visit an application's show page
-# And I search for a Pet by name
-# And I see the names Pets that match my search
-# Then next to each Pet's name I see a button to "Adopt this Pet"
-# When I click one of these buttons
-# Then I am taken back to the application show page
-# And I see the Pet I want to adopt listed on this application
+# And I have added one or more pets to the application
+# Then I see a section to submit my application
+# And in that section I see an input to enter why I would make a good owner for these pet(s)
+# When I fill in that input
+# And I click a button to submit this application
+# Then I am taken back to the application's show page
+# And I see an indicator that the application is "Pending"
+# And I see all the pets that I want to adopt
+# And I do not see a section to add more pets to this application
