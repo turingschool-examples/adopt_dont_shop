@@ -34,4 +34,29 @@ RSpec.describe 'the new app page' do
     expect(page).to have_content("Pet(s) Applying For:")
     expect(page).to have_content("Application Status: In Progress")
   end
+
+  it 'requires user to fill out all fields' do
+    visit "/applications/new"
+
+    fill_in("name",    with: "Cindy Lou Who")
+    fill_in("address", with: "123 Some Street")
+    fill_in("state",   with: "WI")
+    fill_in("zip",     with: "12345")
+
+    click_button("Submit")
+
+    expect(current_path).to eq("/applications/new")
+    expect(page).to have_content("Error: City can't be blank")
+
+    visit "/applications/new"
+
+    fill_in("address", with: "123 Some Street")
+    fill_in("state",   with: "WI")
+    fill_in("zip",     with: "12345")
+
+    click_button("Submit")
+save_and_open_page
+    expect(current_path).to eq("/applications/new")
+    expect(page).to have_content("Error: Name can't be blank, City can't be blank")
+  end
 end
