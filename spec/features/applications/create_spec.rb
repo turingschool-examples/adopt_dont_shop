@@ -55,7 +55,7 @@ RSpec.describe 'the new app page' do
     fill_in("zip",     with: "12345")
 
     click_button("Submit")
-save_and_open_page
+
     expect(current_path).to eq("/applications/new")
     expect(page).to have_content("Error: Name can't be blank, City can't be blank")
   end
