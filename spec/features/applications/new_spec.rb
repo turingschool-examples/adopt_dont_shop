@@ -15,6 +15,23 @@ RSpec.describe 'the new app page' do
   end
 
   it 'has a form to start an app' do
+    visit "/applications/new"
 
+    fill_in("name",    with: "Cindy Lou Who")
+    fill_in("address", with: "123 Some Street")
+    fill_in("city",    with: "Whoville")
+    fill_in("state",   with: "WI")
+    fill_in("zip",     with: "12345")
+
+    click_button("Submit")
+
+    app_id = Application.last.id
+
+    expect(current_path).to eq("/applications/#{app_id}")
+    expect(page).to have_content("Applicant Name: Cindy Lou Who")
+    expect(page).to have_content("Address: 123 Some Street, Whoville, WI 12345")
+    expect(page).to have_content("")
+    expect(page).to have_content("Pet(s) Applying For:")
+    expect(page).to have_content("Application Status: In Progress")
   end
 end
