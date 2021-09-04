@@ -50,7 +50,7 @@ RSpec.describe 'Application Show Page' do
   end
 
   it 'can search for pets' do
-    app = Application.create!(name: 'Billy',
+    app = Application.create!(name: 'Joseph',
       city: 'Denver',
       street_address: '123 lion st',
       state: 'CO',
@@ -80,7 +80,7 @@ RSpec.describe 'Application Show Page' do
     expect(page).to have_content('In Progress') # And that application has not been submitted. Search bar contingent on application status?
 
     fill_in 'search', with: dog1.name
-    click_button 'submit'
+    click_button 'search'
 
     expect(current_path).to eq("/applications/#{app.id}")
     expect(page).to have_content(dog1.name)

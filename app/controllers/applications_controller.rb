@@ -1,6 +1,7 @@
 class ApplicationsController < ApplicationController
   def show
     @application = Application.find(params[:id])
+    @pets = Pet.search(params[:search]) if params[:search].present?
   end
 
 
@@ -9,7 +10,6 @@ class ApplicationsController < ApplicationController
   end
 
   def create
-    # require "pry"; binding.pry
     @application = Application.create(name: params[:name],
       street_address: params[:address],
       city: params[:city],
