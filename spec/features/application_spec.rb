@@ -1,4 +1,5 @@
 require 'rails_helper'
+#overall applications layout test
 
 RSpec.describe 'application' do
   it 'displays a link to all pets' do
