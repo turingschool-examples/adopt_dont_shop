@@ -18,10 +18,13 @@
 
 <% unless @pets.nil? %>
   <% @pets.each do |pet| %>
-    <h3><%= pet.name %></h3>
-    <p>Age: <%= pet.age %></p>
-    <p>Breed: <%= pet.breed %></p>
-    <p>Adoptable: </p>
-    <p>You can find <%= pet.name %> at <%= pet.shelter_name %>!</p>
+    <section id="pet-<%= pet.id %>">
+      <h3><%= pet.name %></h3>
+      <p>Age: <%= pet.age %></p>
+      <p>Breed: <%= pet.breed %></p>
+      <p>Adoptable: </p>
+      <p>You can find <%= pet.name %> at <%= pet.shelter_name %>!</p>
+      <%= button_to "Adopt this Pet", "/applications/#{@application.id}/pets/#{pet.id}", method: :post %>
+    </section>
   <% end %>
 <% end %>

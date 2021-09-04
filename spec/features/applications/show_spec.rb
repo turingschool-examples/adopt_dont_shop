@@ -2,9 +2,9 @@ require 'rails_helper'
 
 RSpec.describe 'the app show page' do
   before(:each) do
-    @shelter = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
-    @pet_1 = Pet.create(adoptable: true, age: 1, breed: 'sphynx', name: 'Lucille Bald', shelter_id: @shelter.id)
-    @pet_2 = Pet.create(adoptable: true, age: 3, breed: 'doberman', name: 'Lobster', shelter_id: @shelter.id)
+    @shelter = Shelter.create!(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
+    @pet_1 = Pet.create!(adoptable: true, age: 1, breed: 'sphynx', name: 'Lucille Bald', shelter_id: @shelter.id)
+    @pet_2 = Pet.create!(adoptable: true, age: 3, breed: 'doberman', name: 'Lobster', shelter_id: @shelter.id)
 
     @app_1 = Application.create!(name: "Cindy Lou Who", address: "123 Some Street", city: "Whoville", state: "WI", zip: "12345", description: "I'm a who for crying out loud.")
     @app_pet_1 = ApplicationPet.create!(pet: @pet_1, application: @app_1)
@@ -62,8 +62,60 @@ RSpec.describe 'the app show page' do
       fill_in('Search', with: "l")
       click_on("Search")
 
-      expect(page).to have_content(@pet_1.name)
-      expect(page).to have_content(@pet_2.name)
+      within "#pet-#{@pet_1.id}" do
+        expect(page).to have_content(@pet_1.name)
+      end
+
+      within "#pet-#{@pet_2.id}" do
+        expect(page).to have_content(@pet_2.name)
+      end
+    end
+
+    it 'has a button to adopt each pet added' do
+      visit "/applications/#{@app_3.id}"
+
+      fill_in('Search', with: "l")
+      click_on("Search")
+
+      within "#pet-#{@pet_1.id}" do
+        click_button("Adopt this Pet")
+      end
+
+      expect(current_path).to eq("/applications/#{@app_3.id}")
+      expect(page).to have_content("Pet(s) Applying For:\n#{@pet_1.name}")
+
+      fill_in('Search', with: "l")
+      click_on("Search")
+
+      within "#pet-#{@pet_2.id}" do
+        click_button("Adopt this Pet")
+      end
+
+      expect(current_path).to eq("/applications/#{@app_3.id}")
+      expect(page).to have_content("Pet(s) Applying For:\n#{@pet_1.name} #{@pet_2.name}")
+    end
+
+    it 'cannot add same pet to app twice' do
+      visit "/applications/#{@app_3.id}"
+
+      fill_in('Search', with: "l")
+      click_on("Search")
+
+      within "#pet-#{@pet_1.id}" do
+        click_button("Adopt this Pet")
+      end
+
+      fill_in('Search', with: "l")
+      click_on("Search")
+
+      within "#pet-#{@pet_1.id}" do
+        click_button("Adopt this Pet")
+      end
+
+      expect(page).to     have_content("Error: Pet already added.")
+      expect(page).to_not have_content("Pet(s) Applying For:\n#{@pet_1.name} #{@pet_1.name}")
     end
   end
 end
+
+# save_and_open_page
