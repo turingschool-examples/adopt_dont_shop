@@ -8,3 +8,13 @@
 <% @application.pets.each do |pet| %>
   <%= pet.name %>
 <% end %>
+
+<h2>Add a Pet to this Application</h2>
+
+<%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |form| %>
+  <%= form.label :search %>
+  <%= form.text_field :search %>
+  <%= form.submit 'search' %>
+<% end %>
+
+<%= @pets.each { |pet| pet.name } if @pets != nil %>
