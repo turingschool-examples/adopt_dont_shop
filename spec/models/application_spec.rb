@@ -29,5 +29,13 @@ RSpec.describe Application, type: :model do
         expect(@app_1.full_address).to eq("123 Some Street, Chicago, IL 12345")
       end
     end
+
+    describe '#pending' do
+      it 'updates status to pending' do
+        expect(@app_1.status).to eq("In Progress")
+        @app_1.status_pending
+        expect(@app_1.status).to eq("Pending")
+      end
+    end
   end
 end

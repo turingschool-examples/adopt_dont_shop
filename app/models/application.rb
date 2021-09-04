@@ -11,4 +11,8 @@ class Application < ApplicationRecord
   def full_address
     "#{address}, #{city}, #{state} #{zip}"
   end
+
+  def status_pending
+    self.status = "Pending"
+  end
 end

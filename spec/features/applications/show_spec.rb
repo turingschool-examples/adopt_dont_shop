@@ -47,7 +47,7 @@ RSpec.describe 'the app show page' do
     expect(current_path).to eq("/pets/#{@pet_2.id}")
   end
 
-  context 'app has not been submitted' do
+  context 'app not submitted' do
     it 'has a section to add pet' do
       visit "/applications/#{@app_3.id}"
 
@@ -115,7 +115,34 @@ RSpec.describe 'the app show page' do
       expect(page).to     have_content("Error: Pet already added.")
       expect(page).to_not have_content("Pet(s) Applying For:\n#{@pet_1.name} #{@pet_1.name}")
     end
+
+    it 'has a section to submit the app' do
+      visit "/applications/#{@app_2.id}"
+
+      within "#submit-app" do
+        fill_in("description", with: "I don't need a reason. I'm the Grinch.")
+        click_button("Submit Application")
+      end
+
+      expect(current_path).to eq("/applications/#{@app_2.id}")
+
+      expect(page).to     have_content("Application Status: Pending")
+      expect(page).to     have_content("Pet(s) Applying For:\n#{@pet_1.name} #{@pet_2.name}")
+      expect(page).to_not have_content("Search")
+    end
   end
 end
+
+# When I visit an application's show page
+# And I have added one or more pets to the application
+# Then I see a section to submit my application
+# And in that section I see an input to enter why I would make a good owner for these pet(s)
+# When I fill in that input
+# And I click a button to submit this application
+# Then I am taken back to the application's show page
+# And I see an indicator that the application is "Pending"
+# And I see all the pets that I want to adopt
+# And I do not see a section to add more pets to this application
+
 
 # save_and_open_page
