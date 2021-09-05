@@ -5,3 +5,20 @@
   <%= link_to "#{pet.name}", "/pets/#{pet.id}", method: :get %>
 <% end %></p>
 <p>Status: <%= @application.status %></p>
+<% if @application.status == "In Progress" then %>
+  <section>
+    <p>Add a Pet to this Application</p>
+    <%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |f| %>
+      <%= f.label :search %>
+      <%= f.text_field :search %>
+      <%= f.submit "Search" %>
+    <% end %>
+  </section>
+  <% if @pets != nil %>
+    <section>
+      <% @pets.each do |pet| %>
+        <%= pet.name %>
+      <% end %>
+    </section>
+  <% end %>
+<% end %>
