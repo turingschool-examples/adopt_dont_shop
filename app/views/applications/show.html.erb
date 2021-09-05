@@ -15,10 +15,10 @@
     <% end %>
   </section>
   <% if @pets != nil %>
-    <section>
-      <% @pets.each do |pet| %>
-        <%= pet.name %>
-      <% end %>
-    </section>
+    <% @pets.each do |pet| %>
+      <section id="pet-<%= pet.id %>">
+        <%= pet.name %><%= button_to "Adopt this Pet", "/applications/#{@application.id}?pet=#{pet.id}", method: :patch %>
+      </section>
+    <% end %>
   <% end %>
 <% end %>
