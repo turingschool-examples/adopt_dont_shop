@@ -4,16 +4,24 @@ class ApplicationsController < ApplicationController
 
   def create
     @application = Application.create(application_params)
-
-    redirect_to "/applications/#{@application.id}"
+    if @application.save
+      redirect_to "/applications/#{@application.id}"
+    else
+      flash[:error]
+      redirect_to "/applications/new"
+    end
   end
 
   def show
     @application = Application.find(params[:id])
     @pets = @application.pets
+    if params[:search].present?
+      @pets = Pet.search(params[:search])
+    end
   end
 
   def application_params
     params.permit(:name, :street, :city, :state, :zip, :description, :status)
   end
+
 end

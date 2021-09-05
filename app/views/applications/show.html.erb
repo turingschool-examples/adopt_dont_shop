@@ -10,6 +10,13 @@
   <li><%= "Description: #{@application.description}"%></li>
 </ul>
 
+<h6><%= "Add a Pet to this Application" %></h6>
+<%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |f| %>
+  <%= f.label 'Search for pets by name' %>
+  <%= f.text_field :search  %>
+  <%= f.submit "Submit" %>
+<% end %>
+
 <ul>
 <% @pets.each do |pet| %>
   <div >
