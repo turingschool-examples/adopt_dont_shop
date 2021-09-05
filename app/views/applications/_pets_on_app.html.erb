@@ -1,0 +1,7 @@
+<p>Pets on this Application</p>
+
+<% @application.pets.each do |pet| %>
+  <p>
+    <%= pet.name.capitalize %>
+  </p>
+<% end %>
