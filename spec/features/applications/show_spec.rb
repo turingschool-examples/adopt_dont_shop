@@ -53,13 +53,13 @@ RSpec.describe 'the app show page' do
 
       expect(page).to have_content("Add a Pet to this Application")
 
-      fill_in('Search', with: "Lucille")
+      fill_in('search', with: "LuCiLle")
       click_on("Search")
 
       expect(page).to     have_content(@pet_1.name)
       expect(page).to_not have_content(@pet_2.name)
 
-      fill_in('Search', with: "l")
+      fill_in('search', with: "l")
       click_on("Search")
 
       within "#pet-#{@pet_1.id}" do
@@ -74,7 +74,7 @@ RSpec.describe 'the app show page' do
     it 'has a button to adopt each pet added' do
       visit "/applications/#{@app_3.id}"
 
-      fill_in('Search', with: "l")
+      fill_in('search', with: "l")
       click_on("Search")
 
       within "#pet-#{@pet_1.id}" do
@@ -84,7 +84,7 @@ RSpec.describe 'the app show page' do
       expect(current_path).to eq("/applications/#{@app_3.id}")
       expect(page).to have_content("Pet(s) Applying For:\n#{@pet_1.name}")
 
-      fill_in('Search', with: "l")
+      fill_in('search', with: "l")
       click_on("Search")
 
       within "#pet-#{@pet_2.id}" do
@@ -98,14 +98,14 @@ RSpec.describe 'the app show page' do
     it 'cannot add same pet to app twice' do
       visit "/applications/#{@app_3.id}"
 
-      fill_in('Search', with: "l")
+      fill_in('search', with: "l")
       click_on("Search")
 
       within "#pet-#{@pet_1.id}" do
         click_button("Adopt this Pet")
       end
 
-      fill_in('Search', with: "l")
+      fill_in('search', with: "l")
       click_on("Search")
 
       within "#pet-#{@pet_1.id}" do
@@ -143,7 +143,6 @@ RSpec.describe 'the app show page' do
       visit "/applications/#{@app_2.id}"
 
       expect(page).to have_button("Submit Application")
-      save_and_open_page
 
       within "#submit-app" do
         fill_in("description", with: "I don't need a reason. I'm the Grinch.")
