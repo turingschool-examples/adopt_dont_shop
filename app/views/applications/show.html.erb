@@ -10,6 +10,14 @@
   <li><%= "Description: #{@application.description}"%></li>
 </ul>
 
+<ul>
+<% @application.pets.each do |pet| %>
+  <div >
+    <li><h4><%= link_to "#{pet.name}", "/applications/#{@application.id}" %></h4>
+  </div>
+<% end %>
+</ul>
+
 <h6><%= "Add a Pet to this Application" %></h6>
 <%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |f| %>
   <%= f.label 'Search for pets by name' %>
@@ -17,10 +25,11 @@
   <%= f.submit "Submit" %>
 <% end %>
 
-<ul>
-<% @pets.each do |pet| %>
-  <div >
-    <li><h4><%= link_to "#{pet.name}", "/applications/#{@application.id}" %></h4>
-  </div>
+
+<% if @pets%>
+  <% @pets.each do |pet| %>
+    <div>
+      <%= "#{pet.name}" %>
+    </div>
+  <% end %>
 <% end %>
-</ul>

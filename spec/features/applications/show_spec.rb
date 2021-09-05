@@ -26,6 +26,11 @@ RSpec.describe "the application show" do
 
     visit "/applications/#{application.id}"
 
+
+    fill_in :search, with: 'Dog'
+
+    click_button "Submit"
+
     expect(page).to have_content(pet.name)
     expect(page).to have_content(pet2.name)
     expect(page).to have_content(pet3.name)
@@ -45,16 +50,6 @@ RSpec.describe "the application show" do
 
     expect(page).to have_content('In Progress')
   end
-
-  # As a visitor
-  # When I visit an application's show page
-  # And that application has not been submitted,
-  # Then I see a section on the page to "Add a Pet to this Application"
-  # In that section I see an input where I can search for Pets by name
-  # When I fill in this field with a Pet's name
-  # And I click submit,
-  # Then I am taken back to the application show page
-  # And under the search bar I see any Pet whose name matches my search
 
   it "can visit an appliction that has not been submitted and see a section called Add a Pet to this Aplication" do
     shelter = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
@@ -85,8 +80,39 @@ RSpec.describe "the application show" do
 
     click_button "Submit"
 
+    save_and_open_page
     expect(current_path).to eq("/applications/#{application.id}")
     expect(page).to have_content('Dog')
-    expect(page).not_to have_content('Cat')
+  end
+
+  #   As a visitor
+  # When I visit an application's show page
+  # And I search for a Pet by name
+  # And I see the names Pets that match my search
+  # Then next to each Pet's name I see a button to "Adopt this Pet"
+  # When I click one of these buttons
+  # Then I am taken back to the application show page
+  # And I see the Pet I want to adopt listed on this application
+
+  it "can add a pet to the application" do
+    shelter = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
+    application = Application.create!(name: 'Ted', street: '2335 south Race St.', city: 'Denver', state: 'Colorado', zip: '80210',  description: 'I am awesome')
+    pet = application.pets.create!(adoptable: true, age: 6, breed: 'Golden Retreiver', name: "Dog", shelter_id: shelter.id)
+    pet2 = application.pets.create!(adoptable: true, age: 7, breed: 'Siamese', name: "Cat", shelter_id: shelter.id)
+    pet3 = application.pets.create!(adoptable: true, age: 8, breed: 'No one knows', name: "Moose", shelter_id: shelter.id )
+
+    visit "/applications/#{application.id}"
+
+    fill_in :search, with: 'Dog'
+
+    click_button "Submit"
+
+    expect(page).to have_button("Adopt this Pet")
+
+    click_button "Adopt this Pet"
+
+    expect(current_path).to eq("/applications/#{application.id}")
+
+
   end
 end
