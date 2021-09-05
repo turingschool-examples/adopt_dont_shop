@@ -46,5 +46,15 @@ RSpec.describe 'Application show page' do
       expect(page).to have_content('Ann')
     end
     # application has not been submitted
+
+    it 'add a Pet to an Application' do
+      visit("/applications/#{@app.id}")
+      save_and_open_page
+      fill_in("Add a Pet to this Application", with: 'Ann')
+      click_button("Adopt this Pet")
+
+      expect(current_path).to eq("/applications/#{@app.id}")
+      expect(@app.pets).to eq([@pet_3])
+    end
   end
 end
