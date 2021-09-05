@@ -12,7 +12,7 @@
 <% if @application.status == "In Progress" %>
   <h3>Add a Pet to this Application</h3>
   <%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |form| %>
-    <%= form.label      :search %>
+    <%= form.label "Find a pet by name:" %>
     <%= form.text_field :search %>
     <%= form.submit "Search" %>
   <% end %>
@@ -33,8 +33,9 @@
 
 <% if @application.status == "In Progress" && @application.pets != [] %>
   <section id="submit-app" >
+    <h3>Finalize application</h3>
     <%= form_with url: "/applications/#{@application.id}", method: :patch, local: true do |form| %>
-      <%= form.label      :description %>
+      <%= form.label "Please fill in a description of why you think would you make a good owner for these pet(s):" %>
       <%= form.text_field :description %>
       <%= form.submit "Submit Application" %>
     <% end %>

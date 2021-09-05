@@ -143,6 +143,7 @@ RSpec.describe 'the app show page' do
       visit "/applications/#{@app_2.id}"
 
       expect(page).to have_button("Submit Application")
+      save_and_open_page
 
       within "#submit-app" do
         fill_in("description", with: "I don't need a reason. I'm the Grinch.")
@@ -153,4 +154,3 @@ RSpec.describe 'the app show page' do
     end
   end
 end
-# save_and_open_page
