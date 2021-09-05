@@ -1,0 +1,43 @@
+<h3>Applicant Name: <%= @application.name %></h3>
+<p>Address: <%= @application.full_address %></p>
+<p>Description: <%= @application.description %></p>
+<p>Pet(s) Applying For: </p>
+<ul>
+  <% @application.pets.each do |pet| %>
+    <li><%= link_to pet.name, "/pets/#{pet.id}" %></li>
+  <% end %>
+</ul>
+<p>Application Status: <%= @application.status %></p>
+
+<% if @application.status == "In Progress" %>
+  <h3>Add a Pet to this Application</h3>
+  <%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |form| %>
+    <%= form.label "Find a pet by name:" %>
+    <%= form.text_field :search %>
+    <%= form.submit "Search" %>
+  <% end %>
+<% end %>
+
+<% unless @pets.nil? %>
+  <% @pets.each do |pet| %>
+    <section id="pet-<%= pet.id %>">
+      <h3><%= pet.name %></h3>
+      <p>Age: <%= pet.age %></p>
+      <p>Breed: <%= pet.breed %></p>
+      <p>Adoptable: </p>
+      <p>You can find <%= pet.name %> at <%= pet.shelter_name %>!</p>
+      <%= button_to "Adopt this Pet", "/applications/#{@application.id}/pets/#{pet.id}", method: :post %>
+    </section>
+  <% end %>
+<% end %>
+
+<% if @application.status == "In Progress" && @application.pets != [] %>
+  <section id="submit-app" >
+    <h3>Finalize application</h3>
+    <%= form_with url: "/applications/#{@application.id}", method: :patch, local: true do |form| %>
+      <%= form.label "Please fill in a description of why you think would you make a good owner for these pet(s):" %>
+      <%= form.text_field :description %>
+      <%= form.submit "Submit Application" %>
+    <% end %>
+  </section>
+<% end %>
