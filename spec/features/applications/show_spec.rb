@@ -24,6 +24,7 @@ RSpec.describe "the application show" do
     expect(page).to have_content(application.state)
     expect(page).to have_content(application.zip)
     expect(page).to have_content(application.description)
+    expect(page).to have_content(application.status)
   end
 
   it "can display all of the names of the pets that this application is for and links that go to the show page" do
@@ -36,8 +37,23 @@ RSpec.describe "the application show" do
 
     visit "/applications/#{application.id}"
 
+    expect(page).to have_content(pet.name)
+    expect(page).to have_content(pet2.name)
+    expect(page).to have_content(pet3.name)
     expect(page).to have_link("Dog")
     expect(page).to have_link("Cat")
     expect(page).to have_link("Moose")
+  end
+
+  it "shows the application status" do
+    shelter = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
+    application = Application.create!(name: 'Ted', street: '2335 south Race St.', city: 'Denver', state: 'Colorado', zip: '80210',  description: 'I am awesome')
+    pet = application.pets.create!(adoptable: true, age: 6, breed: 'Golden Retreiver', name: "Dog", shelter_id: shelter.id)
+    pet2 = application.pets.create!(adoptable: true, age: 7, breed: 'Siamese', name: "Cat", shelter_id: shelter.id)
+    pet3 = application.pets.create!(adoptable: true, age: 8, breed: 'No one knows', name: "Moose", shelter_id: shelter.id )
+
+    visit "/applications/#{application.id}"
+
+    expect(page).to have_content('In Progress')
   end
 end
