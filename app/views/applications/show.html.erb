@@ -1,5 +1,6 @@
 <h1><%= "Application ##{@app.id}" %></h1>
 
+<div class='container'>
   <p><%= "Name: #{@app.name}" %></p>
   <p><%= "Address: #{@app.street_address}" %></p>
   <p><%= "City: #{@app.city}" %></p>
@@ -8,14 +9,18 @@
   <p><%= "Description: #{@app.description}" %></p>
   <p><%= "Status: #{@app.status}" %></p>
 
-    <p>Pets: <% @app.pets.each do |pet| %>
+  <p>Pets: <% @app.pets.each do |pet| %>
     <%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
   <% end %></p>
+</div>
 
-  <%= form_with url: "/applications/#{@app.id}", method: :get, local: true do |f| %>
-    <%= f.label :search, "Add a Pet to this Application" %><br/>
-    <%= f.text_field :search %>
-    <%= f.submit "Search" %>
+  <% if params[:status] != "Submitted" %>
+    <%= form_with url: "/applications/#{@app.id}", method: :get, local: true do |f| %>
+      <%= f.label :search, "Add a Pet to this Application" %><br/>
+      <%= f.text_field :search %>
+      <%= f.submit "Search" %>
+    <% end %>
+  <% else %>
   <% end %>
 
   <% @pets.each do |pet| %>
