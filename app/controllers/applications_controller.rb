@@ -4,8 +4,12 @@ class ApplicationsController < ApplicationController
 
   def create
     @application = Application.create(application_params)
-
-    redirect_to "/applications/#{@application.id}"
+    if @application.save
+      redirect_to "/applications/#{@application.id}"
+    else
+      flash[:error] = 'Your form is incomplete! Fill it out!!!'
+      redirect_to "/applications/new"
+    end
   end
 
   def show
@@ -16,4 +20,5 @@ class ApplicationsController < ApplicationController
   def application_params
     params.permit(:name, :street, :city, :state, :zip, :description, :status)
   end
+
 end
