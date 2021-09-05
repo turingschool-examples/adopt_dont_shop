@@ -17,4 +17,13 @@ RSpec.describe 'Applications new page' do
     expect(page).to have_content("664 S Lowell Ave. Denver, Colorado 80227")
     expect(page).to have_content("In Progress")
   end
+
+  it 'cannot create an application without all applicant info' do
+    visit "/applications/new"
+
+    click_on "Submit"
+
+    expect(page).to have_content("Application not created: Required information missing.")
+    expect(page).to have_button("Submit")
+  end
 end
