@@ -7,7 +7,7 @@ class ApplicationsController < ApplicationController
     if @application.save
       redirect_to "/applications/#{@application.id}"
     else
-      flash[:error] = 'Your form is incomplete! Fill it out!!!'
+      flash[:error]
       redirect_to "/applications/new"
     end
   end
