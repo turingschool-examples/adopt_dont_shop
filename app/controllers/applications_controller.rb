@@ -29,4 +29,10 @@ class ApplicationsController < ApplicationController
       render :new
     end
   end
+
+  def update
+    application = Application.find(params[:app_id])
+    application.pets << Pet.find(params[:pet])
+    redirect_to "/applications/#{application.id}"
+  end
 end
