@@ -1,4 +1,4 @@
-<h1>Applicant <%= @app.id %> Information</h1>
+<h1><%= "Applicant #{@app.id} Information" %></h1>
 
   <p><%= "Name: #{@app.name}" %></p>
   <p><%= "Address: #{@app.street_address}" %></p>
@@ -6,4 +6,7 @@
   <p><%= "State: #{@app.state}" %></p>
   <p><%= "Zip Code: #{@app.zip_code}" %></p>
   <p><%= "Description: #{@app.description}" %></p>
-  <p><%= "status: #{@app.status}" %></p>
+  <p><%= "Status: #{@app.status}" %></p>
+  <p>Pets: <% @app.pets.each do |pet| %>
+    <%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
+  <% end %></p>

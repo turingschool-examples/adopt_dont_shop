@@ -25,5 +25,6 @@ RSpec.describe 'Applications new view' do
     expect(page).to have_content('Denver')
     expect(page).to have_content('CO')
     expect(page).to have_content('80025')
+    expect(page).to have_content('In Progress')
   end
 end
