@@ -1,15 +1,24 @@
 class ApplicationsController < ApplicationController
   def new
-    @app = Application.new
   end
 
   def create
-    @app = Application.create!(application_params)
-    redirect_to "/applications/#{@app.id}"
+    @app = Application.new(application_params)
+    if @app.save
+      redirect_to "/applications/#{@app.id}"
+    else
+      flash[:danger] = 'You must fill in all fields'
+      redirect_to "/applications/new", params: stuff
+    end
   end
 
   def show
     @app = Application.find(params[:id])
+    if params[:search].present?
+      @pets = Pet.search(params[:search])
+    else
+      @pets = @app.pets
+    end
   end
 
   private

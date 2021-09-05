@@ -17,14 +17,28 @@ RSpec.describe 'Applications new view' do
     fill_in('City', with: 'Denver')
     fill_in('State', with: 'CO')
     fill_in('Zip code', with: '80025')
+    fill_in('description', with: 'cool dude')
     click_on('Submit')
+
     @app = Application.last.id
+
     expect(current_path).to eq("/applications/#{@app}")
     expect(page).to have_content('Oz')
     expect(page).to have_content('Man')
     expect(page).to have_content('Denver')
     expect(page).to have_content('CO')
     expect(page).to have_content('80025')
+    expect(page).to have_content('cool dude')
     expect(page).to have_content('In Progress')
+  end
+
+  it 'returns to new view when fields are missing with notification' do
+    visit('/applications/new')
+
+    fill_in('Name', with: 'Oz')
+    click_on('Submit')
+
+    expect(current_path).to eq("/applications/new")
+    expect(page).to have_content('You must fill in all fields')
   end
 end

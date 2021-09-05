@@ -21,8 +21,8 @@ class PetsController < ApplicationController
     if pet.save
       redirect_to "/shelters/#{pet_params[:shelter_id]}/pets"
     else
-      redirect_to "/shelters/#{pet_params[:shelter_id]}/pets/new"
       flash[:alert] = "Error: #{error_message(pet.errors)}"
+      redirect_to "/shelters/#{pet_params[:shelter_id]}/pets/new"
     end
   end
 
@@ -35,8 +35,8 @@ class PetsController < ApplicationController
     if pet.update(pet_params)
       redirect_to "/pets/#{pet.id}"
     else
-      redirect_to "/pets/#{pet.id}/edit"
       flash[:alert] = "Error: #{error_message(pet.errors)}"
+      redirect_to "/pets/#{pet.id}/edit"
     end
   end
 
