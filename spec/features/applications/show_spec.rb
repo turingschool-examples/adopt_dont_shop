@@ -48,7 +48,7 @@ RSpec.describe 'the app show page' do
   end
 
   context 'app not submitted' do
-    it 'has a section to add pet' do
+    it 'has a section to search for pet, case-insensive, partial ok' do
       visit "/applications/#{@app_3.id}"
 
       expect(page).to have_content("Add a Pet to this Application")
