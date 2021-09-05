@@ -31,10 +31,12 @@
   <% end %>
 <% end %>
 
-<section id="submit-app" >
-  <%= form_with url: "/applications/#{@application.id}", method: :patch, local: true do |form| %>
-    <%= form.label      :description %>
-    <%= form.text_field :description %>
-    <%= form.submit "Submit Application" %>
-  <% end %>
-</section>
+<% if @application.status == "In Progress" && @application.pets != [] %>
+  <section id="submit-app" >
+    <%= form_with url: "/applications/#{@application.id}", method: :patch, local: true do |form| %>
+      <%= form.label      :description %>
+      <%= form.text_field :description %>
+      <%= form.submit "Submit Application" %>
+    <% end %>
+  </section>
+<% end %>
