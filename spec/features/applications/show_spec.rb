@@ -50,11 +50,12 @@ RSpec.describe 'Applications show page' do
 
     expect(page).to have_content("Add a Pet to this Application")
     expect(page).to have_button("Search")
-    fill_in 'Search', with: "l"
+
+    fill_in 'Search', with: "er"
     click_on "Search"
 
     expect(page).to have_content("Lobster")
-    expect(page).to have_content("Lasagna")
+    expect(page).to have_content("Sylvester")
   end
 
   it 'has no search for applications not in progress' do
@@ -62,5 +63,20 @@ RSpec.describe 'Applications show page' do
 
     expect(page).to_not have_content("Add a Pet to this Application")
     expect(page).to_not have_button("Search")
+  end
+
+  it 'has button to add pets' do
+    visit "/applications/#{@app_1.id}"
+
+    fill_in 'Search', with: "er"
+    click_on "Search"
+
+    within("#pet-#{@pet_2.id}") do
+      expect(page).to have_button("Adopt this Pet")
+      click_on "Adopt this Pet"
+    end
+
+    expect(current_path).to eq("/applications/#{@app_1.id}")
+    expect(page).to have_content(@pet_2.name)
   end
 end
