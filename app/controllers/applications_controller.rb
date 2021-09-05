@@ -8,7 +8,7 @@ class ApplicationsController < ApplicationController
       redirect_to "/applications/#{@app.id}"
     else
       flash[:danger] = 'You must fill in all fields'
-      redirect_to "/applications/new", params: stuff
+      redirect_to "/applications/new"
     end
   end
 
