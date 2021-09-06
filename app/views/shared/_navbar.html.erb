@@ -1,0 +1,16 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <%= link_to 'Home', '/', class: 'navbar-brand' %>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <div class="navbar-nav">
+        <%= link_to "Pets", "/pets", class: 'nav-link' %>
+        <%= link_to "Shelters", "/shelters", class: 'nav-link' %>
+        <%= link_to "Veterinarians", "/veterinarians", class: 'nav-link' %>
+        <%= link_to "Veterinary Offices", "/veterinary_offices", class: 'nav-link' %>
+      </div>
+    </div>
+  </div>
+</nav>
