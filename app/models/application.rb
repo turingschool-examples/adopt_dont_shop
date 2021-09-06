@@ -9,5 +9,7 @@ class Application < ApplicationRecord
   has_many :pets, through: :pet_applications
 
 
-
+  def dogs?
+    pets.count > 0
+  end
 end
