@@ -15,7 +15,13 @@ require 'rails_helper'
 RSpec.describe 'Application Show Page' do
 
   before(:each) do
-    @app = Application.create!(name: 'Billy', city: 'Denver', street_address: '123 lion st', state: 'CO', zip: 12345, status: "In Progress", description: 'test')
+    @app = Application.create!(name: 'Billy',
+       city: 'Denver',
+      street_address: '123 lion st',
+      state: 'CO',
+      zip: 12345,
+      status: "In Progress"
+    )
     @shelter = Shelter.create!(foster_program: true,
      name: 'Bundle park',
      city: 'Denver',
@@ -112,6 +118,6 @@ RSpec.describe 'Application Show Page' do
    expect(current_path).to eq("/applications/#{app.id}")
    expect(page).to have_content('Pending')
    expect(page).to have_content(@dog2.name)
-   expect(page).to_not have_content('Why would you make a good owner for these pet(s)?')
+   expect(page).to_not have_content('Add a Pet to this Application')
   end
 end
