@@ -141,4 +141,23 @@ RSpec.describe 'Application Show Page' do
       expect(page).to have_button("Adopt #{dog3.name}")
     end
   end
+
+  it 'can do case insensitive search' do
+    visit "/applications/#{@app.id}"
+
+    fill_in 'search', with: 'billy'
+
+    click_button 'search'
+
+    within("#Pet-Search") do
+      expect(current_path).to eq("/applications/#{@app.id}")
+      expect(page).to have_content(@dog1.name)
+    end
+  end
 end
+# As a visitor
+# When I visit an application show page
+# And I search for Pets by name
+# Then my search is case insensitive
+# For example, if I search for "fluff", my search would match pets with names "Fluffy", "FLUFF", and "Mr. FlUfF"
+#
