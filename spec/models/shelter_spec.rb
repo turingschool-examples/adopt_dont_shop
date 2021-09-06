@@ -51,14 +51,14 @@ RSpec.describe Shelter, type: :model do
     describe '#pending_applications' do
       it 'fetches all shelters with pending applications' do
 
-        app1 = Application.create!(name: 'Billy',
+        app_1 = Application.create!(name: 'Billy',
           city: 'Denver',
           street_address: '123 lion st',
           state: 'CO',
           zip: 12345,
           status: "Pending"
         )
-        app2 = Application.create!(name: 'Hugh',
+        app_2 = Application.create!(name: 'Hugh',
           city: 'Aurora',
           street_address: '789 maple',
           state: 'CO',
@@ -66,20 +66,18 @@ RSpec.describe Shelter, type: :model do
           status: "In progress"
         )
 
-        @pet1.applications << app1
-        @pet2.applications << app1
+        @pet_1.applications << app_1
+        @pet_2.applications << app_1
                                                   #better to pass up objects or names?
         expect(Shelter.pending_applications).to eq([@shelter_1])
 
-        @pet3.aplications << app2
+        @pet_3.aplications << app_2
 
         expect(Shelter.pending_applications).to eq([@shelter_1])
 
-        @pet3.applications << app1
+        @pet_3.applications << app_1
 
         expect(Shelter.pending_applications).to eq([@shelter_1, @shelter_3])
-
-
     end
 
         # I see the name of every shelter that has a pending application
