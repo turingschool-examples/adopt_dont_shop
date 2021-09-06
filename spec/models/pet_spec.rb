@@ -17,6 +17,7 @@ RSpec.describe Pet, type: :model do
     @pet_1 = @shelter_1.pets.create(name: 'Mr. Pirate', breed: 'tuxedo shorthair', age: 5, adoptable: true)
     @pet_2 = @shelter_1.pets.create(name: 'Clawdia', breed: 'shorthair', age: 3, adoptable: true)
     @pet_3 = @shelter_1.pets.create(name: 'Ann', breed: 'ragdoll', age: 3, adoptable: false)
+    @pet_4 = @shelter_1.pets.create(name: 'Anna', breed: 'ragdoll', age: 3, adoptable: false)
   end
 
   describe 'class methods' do
@@ -24,6 +25,11 @@ RSpec.describe Pet, type: :model do
       it 'returns partial matches' do
         expect(Pet.search("Claw")).to eq([@pet_2])
       end
+
+      it 'is case insensitive' do
+        expect(Pet.search("CLAW")).to eq([@pet_2])
+        expect(Pet.search("claw")).to eq([@pet_2])
+      end 
     end
 
     describe '#adoptable' do
