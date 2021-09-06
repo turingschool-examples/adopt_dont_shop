@@ -12,20 +12,32 @@
   <% end %>
 </section>
 
-<h2>Add a Pet to this Application</h2>
+<% if @application.description == nil %>
 
-<%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |form| %>
-  <%= form.label :search %>
-  <%= form.text_field :search %>
-  <%= form.submit 'search' %>
-<% end %>
+  <h2>Add a Pet to this Application</h2>
 
-<% @pets.each do |pet| %>
-<section id="Pet-Search">
-  <p><%= pet.name %>
-    <%= form_with url: "/applications/#{@application.id}/pets/#{pet.id}", method: :post, local:true do |form| %>
-      <%= form.submit "Adopt #{pet.name}" %>
-    <% end %>
-  </p>
+  <%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |form| %>
+    <%= form.label :search %>
+    <%= form.text_field :search %>
+    <%= form.submit 'search' %>
+  <% end %>
+
+  <% @pets.each do |pet| %>
+  <section id="Pet-Search">
+    <p><%= pet.name %>
+      <%= form_with url: "/applications/#{@application.id}/pets/#{pet.id}", method: :post, local:true do |form| %>
+        <%= form.submit "Adopt #{pet.name}" %>
+      <% end %>
+    </p>
+  <% end %>
+  </section>
+
+  <section id='Submit-Application'>
+       <h2>Submit Application</h2>
+       <%= form_with url: "/applications/#{@application.id}", method: :patch, local: true do |f| %>
+        <%= f.label 'Why would you make a good owner for these pet(s)?' %>
+        <%= f.text_field :description %>
+        <%= f.submit 'submit' %>
+       <% end %>
+  </section>
 <% end %>
-</section>

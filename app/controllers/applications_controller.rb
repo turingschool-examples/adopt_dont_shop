@@ -29,4 +29,10 @@ class ApplicationsController < ApplicationController
       redirect_to '/application/new?error=true'
     end
   end
+
+  def update
+    app = Application.find(params[:id])
+    app.update(description: params[:description], status: 'Pending')
+    redirect_to "/applications/#{params[:id]}"
+  end
 end

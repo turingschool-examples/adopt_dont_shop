@@ -37,9 +37,10 @@ Rails.application.routes.draw do
   get '/veterinary_offices/:veterinary_office_id/veterinarians/new', to: 'veterinarians#new'
   post '/veterinary_offices/:veterinary_office_id/veterinarians', to: 'veterinarians#create'
 
+  get '/application/new', to: 'applications#new' #need to pluralize here and elsewhere to REST
   get '/applications/:id', to: 'applications#show'
-  get '/application/new', to: 'applications#new'
   post '/applications', to: 'applications#create'
+  patch '/applications/:id', to: 'applications#update'
 
   post '/applications/:application_id/pets/:pet_id', to: 'pet_applications#create'
 end

@@ -15,7 +15,13 @@ require 'rails_helper'
 RSpec.describe 'Application Show Page' do
 
   before(:each) do
-    @app = Application.create!(name: 'Billy', city: 'Denver', street_address: '123 lion st', state: 'CO', zip: 12345, status: "In Progress", description: 'test')
+    @app = Application.create!(name: 'Billy',
+       city: 'Denver',
+      street_address: '123 lion st',
+      state: 'CO',
+      zip: 12345,
+      status: "In Progress"
+    )
     @shelter = Shelter.create!(foster_program: true,
      name: 'Bundle park',
      city: 'Denver',
@@ -70,7 +76,7 @@ RSpec.describe 'Application Show Page' do
 
   end
 
-  it 'can add pets to applications' do
+  it 'can add pets to application' do
      visit "/applications/#{@app.id}"
 
     fill_in 'search', with: @dog2.name
@@ -89,13 +95,29 @@ RSpec.describe 'Application Show Page' do
       expect(page).to have_content(@dog2.name)
     end
   end
+
+  it 'can submit applications' do
+    app = Application.create!(name: 'Hugh', city: 'Aurora', street_address: '300 quebec st', state: 'CO', zip: 12345, status: "In Progress")
+
+    visit "/applications/#{app.id}"
+
+   fill_in 'search', with: @dog2.name
+   click_button 'search'
+
+   click_button "Adopt #{@dog2.name}"
+
+   within('#Submit-Application') do
+     expect(page).to have_content('Submit Application')
+     expect(page).to have_content('Why would you make a good owner for these pet(s)?')
+     expect(page).to have_field('description')
+
+     fill_in 'description', with: 'I like dogs and I live on a farm'
+   end
+
+   click_button 'submit'
+   expect(current_path).to eq("/applications/#{app.id}")
+   expect(page).to have_content('Pending')
+   expect(page).to have_content(@dog2.name)
+   expect(page).to_not have_content('Add a Pet to this Application')
+  end
 end
-#
-# As a visitor
-# When I visit an application's show page
-# And I search for a Pet by name
-# And I see the names Pets that match my search
-# Then next to each Pet's name I see a button to "Adopt this Pet"
-# When I click one of these buttons
-# Then I am taken back to the application show page
-# And I see the Pet I want to adopt listed on this application
