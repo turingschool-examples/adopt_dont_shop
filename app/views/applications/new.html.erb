@@ -1,0 +1,23 @@
+<h3>Let's Start An Application!</h3>
+<p>Please fill out the information below!</p>
+
+<%= form_tag "/applications", method: :post do %>
+
+  <%= label_tag :name, 'Whats Your Name?' %>
+  <%= text_field_tag :name%><br><br>
+
+  <%= label_tag :street, "What's Your Street Address?" %>
+  <%= text_field_tag :street%><br><br>
+
+  <%= label_tag :city, "What City Do You Live In?" %>
+  <%= text_field_tag :city%><br><br>
+
+  <%= label_tag :state, "What State Do You Live In?" %>
+  <%= text_field_tag :state%><br><br>
+
+  <%= label_tag :zip_code, "What's Your Zip Code?" %>
+  <%= number_field_tag :zip_code%><br><br>
+
+  <%= submit_tag 'Submit' %>
+
+<% end %>
