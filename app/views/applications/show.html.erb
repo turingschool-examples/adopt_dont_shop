@@ -8,7 +8,7 @@
   <p><%= @application.status %><p/>
   <p><%= @application.description %><p/>
   <% @application.pets.each do |pet| %>
-    <p><%= pet.name %></p>
+    <p><%= link_to "#{pet.name}", "/pets/#{pet.id}" %></p>
   <% end %>
 </section>
 
