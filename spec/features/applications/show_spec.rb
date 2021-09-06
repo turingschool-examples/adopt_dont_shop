@@ -8,6 +8,7 @@ RSpec.describe 'Application show page' do
       @app.pets << @pet_1 = @shelter_1.pets.create(name: 'Mr. Pirate', breed: 'tuxedo shorthair', age: 5, adoptable: true)
       @app.pets << @pet_2 = @shelter_1.pets.create(name: 'Clawdia', breed: 'shorthair', age: 3, adoptable: true)
       @app.pets << @pet_3 = @shelter_1.pets.create(name: 'Ann', breed: 'ragdoll', age: 3, adoptable: false)
+      @pet_4 = @shelter_1.pets.create(name: 'Pesto', breed: 'ragdoll', age: 3, adoptable: true)
     end
 
     it 'returns Application attributes' do
@@ -49,12 +50,17 @@ RSpec.describe 'Application show page' do
 
     it 'add a Pet to an Application' do
       visit("/applications/#{@app.id}")
-      save_and_open_page
-      fill_in("Add a Pet to this Application", with: 'Ann')
-      click_button("Adopt this Pet")
+
+      fill_in("Add a Pet to this Application", with: 'Pes')
+      click_button("Search")
+
+      within '#Pesto' do
+        click_button("Adopt this Pet")
+      end
+      @app_pets = ApplicationPet.last
 
       expect(current_path).to eq("/applications/#{@app.id}")
-      expect(@app.pets).to eq([@pet_3])
+      expect(@app_pets.pet_id).to eq(@pet_4.id)
     end
   end
 end

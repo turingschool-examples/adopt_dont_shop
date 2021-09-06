@@ -9,10 +9,11 @@
   <p><%= "Description: #{@app.description}" %></p>
   <p><%= "Status: #{@app.status}" %></p>
 
-  <p>Pets: <% @app.pets.each do |pet| %>
+<p>Pets: <% @app.pets.each do |pet| %>
+  <div class="container" id= <%= pet.name %>>
     <%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
-  <% end %></p>
-</div>
+  </div>
+<% end %></p>
 
   <% if params[:status] != "Submitted" %>
     <%= form_with url: "/applications/#{@app.id}", method: :get, local: true do |f| %>
@@ -23,10 +24,15 @@
   <% else %>
   <% end %>
 
+
   <% @pets.each do |pet| %>
-    <h3><%= pet.name %></h3>
-    <p>Age: <%= pet.age %></p>
-    <p>Breed: <%= pet.breed %></p>
-    <p>Adoptable: </p>
-    <p>You can find <%= pet.name %> at <%= pet.shelter_name %>!</p>
+    <div class="container" id=<%= pet.name %>>
+
+        <h3><%= pet.name %></h3>
+        <%= button_to "Adopt this Pet", "/application_pets/create", method: :post, params: { :application_id => @app.id, :pet_id => pet.id } %>
+        <p>Age: <%= pet.age %></p>
+        <p>Breed: <%= pet.breed %></p>
+        <p>Adoptable: </p>
+        <p>You can find <%= pet.name %> at <%= pet.shelter_name %>!</p>
+    </div>
   <% end %>
