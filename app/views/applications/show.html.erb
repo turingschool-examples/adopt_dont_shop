@@ -21,10 +21,18 @@
     <%= f.label :search, 'Search for Pet by Name' %>
     <%= f.text_field :search %>
     <%= f.submit "Search" %><br><br>
-    <% end %>
   <% end %>
 
   <% @pets&.each do |pet| %>
       <h4><%= pet.name %></h4>
       <%= button_to "Adopt this Pet", "/applications/#{@application.id}", method: :post, params: {pet_id: pet.id, application_id: @application.id}%><br><br>
   <% end %>
+<% end %>
+
+<% if @application.status == 'In Progress' && @application.pets.length >= 1 %>
+  <%= form_with url: "/applications/#{@application.id}", method: :patch, local: true do |f| %>
+    <%= f.label :message, 'Why I would make a good owner for these pet(s)'%><br>
+    <%= f.text_field :message %><br>
+    <%= f.submit "Submit this Application" %>
+  <%end%>
+<%end%>

@@ -6,7 +6,6 @@ RSpec.describe "application show page" do
     @shelter = Shelter.create!(name: "Charlotte Humane Society", city: 'Charlotte, NC', foster_program: true, rank: 1)
     @pet_1 = Pet.create!(adoptable: true, age: 1, breed: 'sphynx', name: 'Lucille Bald', shelter_id: @shelter.id)
     @pet_2 = Pet.create!(adoptable: true, age: 3, breed: 'doberman', name: 'Lobster', shelter_id: @shelter.id)
-    ApplicationPet.create!(application: @application, pet:  @pet_1)
   end
 
   it "shows all application info" do
@@ -40,7 +39,22 @@ RSpec.describe "application show page" do
     expect(page).to have_content("Lobster")
     click_button "Adopt this Pet"
     expect(current_path).to eq("/applications/#{@application.id}")
-    save_and_open_page
-    expect(page).to have_content("Lobster")
+    expect(page).to have_link("Lobster")
+  end
+
+  it "has a submit section when there is more than 1 pet on the application" do
+    visit "/applications/#{@application.id}"
+
+    fill_in "Search for Pet by Name", with: "Lobster"
+    click_button "Search"
+    click_button "Adopt this Pet"
+
+    fill_in "Why I would make a good owner for these pet(s)", with: "They're so cute!"
+    click_button "Submit this Application"
+
+    expect(page).to have_content("Pending")
+    expect(page).to have_link("Lobster")
+
+    expect(page).to_not have_content("Search for Pet by Name")
   end
 end
