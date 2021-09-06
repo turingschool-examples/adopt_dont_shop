@@ -7,7 +7,7 @@ RSpec.describe 'application creation' do
 
     visit "/applications/new"
 
-    it 'displays a submitable form' do
+    it 'displays and submits a form' do
       fill_in :name, with: "Murph"
       fill_in :street, with: "123 Apple St"
       fill_in :city, with: "Boca Raton"
@@ -18,6 +18,19 @@ RSpec.describe 'application creation' do
       
       expect(current_path).to eq("/applications/#{Application.last.id}")
       expect(page).to have_content("Boca")
+    end
+
+    it 'tells you to fill form out entirely' do
+      fill_in :name, with: "Murph"
+      fill_in :street, with: "123 Apple St"
+      fill_in :city, with: "Boca Raton"
+      fill_in :state, with: "FL"
+      fill_in :zip, with: 33498
+
+      click_button "submit"
+      
+      expect(current_path).to eq("/applications/new")
+      expect(page).to have_content("The one who fills out all the fields, has the greatest chance of getting a pet!")
     end
   end
 end
