@@ -7,7 +7,6 @@ RSpec.describe "application show page" do
     @pet_1 = Pet.create!(adoptable: true, age: 1, breed: 'sphynx', name: 'Lucille Bald', shelter_id: @shelter.id)
     @pet_2 = Pet.create!(adoptable: true, age: 3, breed: 'doberman', name: 'Lobster', shelter_id: @shelter.id)
     ApplicationPet.create!(application: @application, pet:  @pet_1)
-    ApplicationPet.create!(application: @application, pet:  @pet_2)
   end
 
   it "shows all application info" do
@@ -28,8 +27,20 @@ RSpec.describe "application show page" do
     expect(page).to have_content("Add a Pet to this Application")
     fill_in "Search for Pet by Name", with: "Lobster"
     click_button "Search"
-    save_and_open_page
     expect(current_path).to eq("/applications/#{@application.id}")
+    expect(page).to have_content("Lobster")
+  end
+
+  it "adds pets to the application when the button is clicked" do
+    visit "/applications/#{@application.id}"
+
+    expect(page).to have_content("Add a Pet to this Application")
+    fill_in "Search for Pet by Name", with: "Lobster"
+    click_button "Search"
+    expect(page).to have_content("Lobster")
+    click_button "Adopt this Pet"
+    expect(current_path).to eq("/applications/#{@application.id}")
+    save_and_open_page
     expect(page).to have_content("Lobster")
   end
 end
