@@ -29,7 +29,7 @@ RSpec.describe "the application show" do
 
     fill_in :search, with: 'Dog'
 
-    click_button "Submit"
+    click_button "Search"
 
     expect(page).to have_content(pet.name)
     expect(page).to have_content(pet2.name)
@@ -78,20 +78,11 @@ RSpec.describe "the application show" do
 
     fill_in :search, with: 'Dog'
 
-    click_button "Submit"
+    click_button "Search"
 
     expect(current_path).to eq("/applications/#{application.id}")
     expect(page).to have_content('Dog')
   end
-
-  #   As a visitor
-  # When I visit an application's show page
-  # And I search for a Pet by name
-  # And I see the names Pets that match my search
-  # Then next to each Pet's name I see a button to "Adopt this Pet"
-  # When I click one of these buttons
-  # Then I am taken back to the application show page
-  # And I see the Pet I want to adopt listed on this application
 
   it "can add a pet to the application" do
     shelter = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
@@ -104,7 +95,7 @@ RSpec.describe "the application show" do
 
     fill_in :search, with: 'fluf'
 
-    click_button "Submit"
+    click_button "Search"
 
     expect(page).to have_content(pet.name)
     expect(page).to have_content(pet2.name)
@@ -114,8 +105,50 @@ RSpec.describe "the application show" do
     within "#pet-#{pet.id}" do
       click_button "Adopt this Pet"
     end
+
     expect(current_path).to eq("/applications/#{application.id}")
     expect(page).to have_content(pet.name)
 
   end
+
+  #   As a visitor
+  # When I visit an application's show page
+  # And I have added one or more pets to the application
+  # Then I see a section to submit my application
+  # And in that section I see an input to enter why I would make a good owner for these pet(s)
+  # When I fill in that input
+  # And I click a button to submit this application
+  # Then I am taken back to the application's show page
+  # And I see an indicator that the application is "Pending"
+  # And I see all the pets that I want to adopt
+  # And I do not see a section to add more pets to this application
+
+  it "can submit an application" do
+    shelter = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
+    application = Application.create!(name: 'Ted', street: '2335 south Race St.', city: 'Denver', state: 'Colorado', zip: '80210',  description: 'I am awesome', status: 'In Progress')
+    pet = Pet.create!(adoptable: true, age: 6, breed: 'Golden Retreiver', name: "Fluf", shelter_id: shelter.id)
+    pet2 = Pet.create!(adoptable: true, age: 7, breed: 'Siamese', name: "Fluffy", shelter_id: shelter.id)
+    pet3 = Pet.create!(adoptable: true, age: 8, breed: 'No one knows', name: "Moose", shelter_id: shelter.id )
+
+    visit "/applications/#{application.id}"
+
+    # expect(page).not_to have_button('Submit My Application')
+
+    fill_in :search, with: 'Fluf'
+
+    click_button "Search"
+
+    within "#pet-#{pet.id}" do
+      click_button "Adopt this Pet"
+    end
+
+    expect(page).to have_button('Submit My Application')
+
+    fill_in "description", with: "blahblah"
+
+    click_button "Submit My Application"
+    
+    expect(page).to have_content('Pending')
+  end
+
 end
