@@ -7,5 +7,4 @@ class PetApplicationsController < ApplicationController
     app.pets << pet
     redirect_to "/applications/#{params[:application_id]}"
   end
-
 end

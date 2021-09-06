@@ -76,7 +76,7 @@ RSpec.describe 'Application Show Page' do
     fill_in 'search', with: @dog2.name
     click_button 'search'
 
-    within('#Pet-Search')do
+    within('#Pet-Search') do
       expect(page).to have_content(@dog2.name)
       expect(page).to have_button("Adopt #{@dog2.name}")
     end
@@ -119,5 +119,26 @@ RSpec.describe 'Application Show Page' do
     visit "/applications/#{@app.id}"
 
     expect(page).to_not have_content('Submit Application')
+  end
+
+  it 'can do partial search' do
+    dog3 = @shelter.pets.create!(
+      name: 'Billy Bob',
+      breed: 'huntmeister',
+      age: 32
+    )
+
+    visit "/applications/#{@app.id}"
+
+    fill_in 'search', with: 'Billy'
+
+    click_button 'search'
+
+    within('#Pet-Search') do
+      expect(page).to have_content(@dog2.name)
+      expect(page).to have_content(dog3.name)
+      expect(page).to have_button("Adopt #{@dog2.name}")
+      expect(page).to have_button("Adopt #{dog3.name}")
+    end
   end
 end
