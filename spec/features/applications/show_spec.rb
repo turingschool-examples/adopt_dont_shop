@@ -120,4 +120,14 @@ RSpec.describe 'Application Show Page' do
    expect(page).to have_content(@dog2.name)
    expect(page).to_not have_content('Add a Pet to this Application')
   end
+
+  it 'only shows submit application when dogs have been added' do
+    visit "/applications/#{@app.id}"
+
+    expect(page).to_not have_content('Submit Application')
+  end
 end
+#
+# When I visit an application's show page
+# And I have not added any pets to the application
+# Then I do not see a section to submit my application
