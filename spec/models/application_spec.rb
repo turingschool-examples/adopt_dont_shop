@@ -34,5 +34,38 @@ RSpec.describe Application do
 
         expect(app.dogs?).to eq(true)
       end
+
+      it 'can reverse alphabetize in SQL' do
+        app1 = Application.create!(name: 'Hugh',
+          city: 'Aurora',
+          street_address: '300 quebec st',
+          state: 'CO',
+          zip: 12345
+        )
+        app2 = Application.create!(name: 'Zeta',
+          city: 'Aurora',
+          street_address: '300 quebec st',
+          state: 'CO',
+          zip: 12345
+        )
+        app3 = Application.create!(name: 'Alpha',
+          city: 'Aurora',
+          street_address: '300 quebec st',
+          state: 'CO',
+          zip: 12345
+        )
+        app4 = Application.create!(name: 'Emily',
+          city: 'Aurora',
+          street_address: '300 quebec st',
+          state: 'CO',
+          zip: 12345
+        )
+
+        expect(Application.reverse_alpha).to eq([app3, app4, app1, app2,])
+      end
   end
 end
+
+# As a visitor
+# When I visit the admin shelter index ('/admin/shelters')
+# Then I see all Shelters in the system listed in reverse alphabetical order by name
