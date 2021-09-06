@@ -12,4 +12,5 @@ class Application < ApplicationRecord
   def dogs?
     pets.count > 0
   end
+
 end
