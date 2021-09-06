@@ -151,13 +151,7 @@ RSpec.describe 'Application Show Page' do
 
     within("#Pet-Search") do
       expect(current_path).to eq("/applications/#{@app.id}")
-      expect(page).to have_content(@dog1.name)
+      expect(page).to have_content(@dog2.name)
     end
   end
 end
-# As a visitor
-# When I visit an application show page
-# And I search for Pets by name
-# Then my search is case insensitive
-# For example, if I search for "fluff", my search would match pets with names "Fluffy", "FLUFF", and "Mr. FlUfF"
-#
