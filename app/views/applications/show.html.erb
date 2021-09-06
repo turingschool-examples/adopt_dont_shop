@@ -22,7 +22,7 @@
 <%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |f| %>
   <%= f.label 'Search for pets by name' %>
   <%= f.text_field :search  %>
-  <%= f.submit "Submit" %>
+  <%= f.submit "Search" %>
 <% end %>
 
 
@@ -34,4 +34,11 @@
                                                               #payload ^^
     </div>
   <% end %>
+<% end %>
+
+<h6><%= "Add a Description of why you would be an awesome pet owner" %></h6>
+<%= form_with url: "/applications/#{@application.id}", method: :patch, local: true do |f| %>
+  <%= f.label 'Description' %>
+  <%= f.text_field :description  %>
+  <%= f.submit "Submit My Application" %>
 <% end %>

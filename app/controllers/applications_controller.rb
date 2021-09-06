@@ -3,11 +3,11 @@ class ApplicationsController < ApplicationController
   end
 
   def create
-    @application = Application.create(application_params)
+    @application = Application.new(application_params)
     if @application.save
       redirect_to "/applications/#{@application.id}"
     else
-      flash[:error]
+      flash[:alert] = 'Fill out this feild.'
       redirect_to "/applications/new"
     end
   end
@@ -23,4 +23,9 @@ class ApplicationsController < ApplicationController
     params.permit(:name, :street, :city, :state, :zip, :description, :status)
   end
 
+  def update
+    application = Application.find(params[:id])
+    application.update(status: 'Pending', description: params[:description])
+    redirect_to "/applications/#{application.id}"
+  end
 end
