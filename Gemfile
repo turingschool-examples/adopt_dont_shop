@@ -38,12 +38,15 @@ gem 'bootsnap', '>= 1.1.0', require: false
 
 group :development, :test do
   gem 'capybara'
-  gem 'shoulda-matchers'
+  # gem 'shoulda-matchers'
   gem 'launchy'
   gem 'orderly'
   gem 'pry'
   gem 'rspec-rails'
   gem 'simplecov'
+  # gem 'launchy' # save_and_open_page
+  gem 'orderly'
+  gem 'shoulda-matchers', '~> 3.1'
 end
 
 group :development do
