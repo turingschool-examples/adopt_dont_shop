@@ -15,8 +15,6 @@ RSpec.describe 'Admin shelters index' do
   it "lists all the shelters" do
     visit "/admin/shelters"
 
-    save_and_open_page
-
     expect(page).to have_content(@shelter_1.name)
     expect(page).to have_content(@shelter_2.name)
     expect(page).to have_content(@shelter_3.name)

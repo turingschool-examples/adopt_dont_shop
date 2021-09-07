@@ -1,0 +1,20 @@
+<h3> Application Info </h3>
+
+<ul>
+  <li><%= "Applicant Name: #{@application.name}" %></li>
+  <li><%= "Applicant Address: #{@application.street}" %></li>
+  <li><%= "Applicant City: #{@application.city}, #{@application.state}" %></li>
+  <li><%= "Applicant Zip Code: #{@application.zip}" %></li>
+  <li><%= "Applicant Message: #{@application.message}" %></li>
+  <li><%= "Pets Included:" %></li>
+    <ul>
+      <% @application.pets.each_with_index do |pet, index|%>
+        <li><%=pet.name%></li>
+
+         <% if @application.application_pets[index].status == nil %>
+            <%= button_to "Approve Adoption for #{pet.name}", "/admin/applications/#{@application.id}", method: :patch, params:{pet_id: pet.id, status: "Approved"} %>
+          <%end%>
+      <%end%>
+    </ul>
+  <li><%= "Application Status: #{@application.status}" %>
+</ul>
