@@ -2,7 +2,6 @@ class ApplicationsController < ApplicationController
 
    def show
      @application = Application.find(params[:application_id])
-     # require "pry"; binding.pry
      if params[:search]
       @pets = Pet.search(params[:search])
       end
@@ -23,9 +22,8 @@ class ApplicationsController < ApplicationController
 
    def update
      application = Application.find(params[:id])
-     application.update({message: params[:message], status: "Pending"})
+     application.update({message: params[:message], status: params[:status]})
 
-     application.save
      redirect_to "/applications/#{application.id}"
    end
 
@@ -33,7 +31,7 @@ class ApplicationsController < ApplicationController
 private
   def application_params
     params
-    .permit(:name, :street, :city, :state, :zip, )
-    .with_defaults(status:"In Progress", message: "")
+    .permit(:name, :street, :city, :state, :zip, :status)
+    .with_defaults(message: "")
   end
 end

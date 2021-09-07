@@ -87,4 +87,13 @@ RSpec.describe 'Admin application show page' do
     expect(page).to_not have_content("Rejected")
     expect(@application_pet_3.status).to eq(nil)
   end
+
+  it "shows the application is approved when all pets are approved" do
+    visit "/admin/applications/#{@application.id}"
+
+    click_button "Approve Adoption for #{@lucille.name}"
+    click_button "Approve Adoption for #{@buddy.name}"
+
+    expect(page).to have_content("Application Status: Approved")
+  end
 end

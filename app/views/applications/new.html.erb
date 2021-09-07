@@ -18,5 +18,7 @@
   <%= f.label :zip %>
   <%= f.number_field :zip, min: 0 %><br><br>
 
+  <%= f.hidden_field :status, value: "In Progress" %>
+
   <%= f.submit "Submit Application" %>
 <%end%>
