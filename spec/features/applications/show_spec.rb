@@ -111,18 +111,6 @@ RSpec.describe "the application show" do
 
   end
 
-  #   As a visitor
-  # When I visit an application's show page
-  # And I have added one or more pets to the application
-  # Then I see a section to submit my application
-  # And in that section I see an input to enter why I would make a good owner for these pet(s)
-  # When I fill in that input
-  # And I click a button to submit this application
-  # Then I am taken back to the application's show page
-  # And I see an indicator that the application is "Pending"
-  # And I see all the pets that I want to adopt
-  # And I do not see a section to add more pets to this application
-
   it "can submit an application" do
     shelter = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
     application = Application.create!(name: 'Ted', street: '2335 south Race St.', city: 'Denver', state: 'Colorado', zip: '80210',  description: 'I am awesome', status: 'In Progress')
@@ -132,7 +120,7 @@ RSpec.describe "the application show" do
 
     visit "/applications/#{application.id}"
 
-    # expect(page).not_to have_button('Submit My Application')
+    expect(page).not_to have_button('Submit My Application')
 
     fill_in :search, with: 'Fluf'
 
@@ -142,13 +130,14 @@ RSpec.describe "the application show" do
       click_button "Adopt this Pet"
     end
 
-    expect(page).to have_button('Submit My Application')
+    expect(page).to have_content('Submit My Application')
 
     fill_in "description", with: "blahblah"
 
     click_button "Submit My Application"
-    
+
     expect(page).to have_content('Pending')
   end
+
 
 end

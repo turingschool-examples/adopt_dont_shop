@@ -43,5 +43,4 @@ Rails.application.routes.draw do
   patch '/applications/:id', to: 'applications#update'
 
   post '/application_pets', to: 'application_pets#create'
-  # patch '/applications_pets/:id', to: 'applications_pets#update'
 end
