@@ -44,9 +44,9 @@ RSpec.describe Shelter, type: :model do
 
     describe '#reverse_alphabetical_names' do
       it "sorts the index in reverse alphabetical by name" do
-        expect(Shelter.reverse_alphabetical_names).to eq([@shelter_1, @shelter_3, @shelter_2])
+        expect(Shelter.reverse_alphabetical_names).to eq([@shelter_2, @shelter_3, @shelter_1])
       end
-    end 
+    end
   end
 
   describe 'instance methods' do
