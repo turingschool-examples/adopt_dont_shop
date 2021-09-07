@@ -43,8 +43,17 @@ RSpec.describe 'admin shelter index page' do
       expect(page).to have_content(@shelter_3.name)
       expect(page).to_not have_content(@shelter_2.name)
     end
+  end
 
+  it 'admin see all shelters reverse alphabetical order' do
+    visit "/admin/shelters"
 
+    expect(page).to have_content(@shelter_1.name)
+    expect(page).to have_content(@shelter_2.name)
+    expect(page).to have_content(@shelter_3.name)
+    expect(@shelter_2.name).to appear_before(@shelter_1.name)
+    expect(@shelter_3.name).to appear_before(@shelter_1.name)
+    expect(@shelter_2.name).to appear_before(@shelter_3.name)
   end
 
 end
