@@ -14,7 +14,7 @@ RSpec.describe Shelter, type: :model do
 
   before(:each) do
     @shelter_1 = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
-    @shelter_2 = Shelter.create(name: 'RGV animal shelter', city: 'Harlingen, TX', foster_program: false, rank: 5)
+    @shelter_2 = Shelter.create(name: 'Redlands animal shelter', city: 'Harlingen, TX', foster_program: false, rank: 5)
     @shelter_3 = Shelter.create(name: 'Fancy pets of Colorado', city: 'Denver, CO', foster_program: true, rank: 10)
 
     @pet_1 = @shelter_1.pets.create(name: 'Mr. Pirate', breed: 'tuxedo shorthair', age: 5, adoptable: false)
@@ -41,6 +41,12 @@ RSpec.describe Shelter, type: :model do
         expect(Shelter.order_by_number_of_pets).to eq([@shelter_1, @shelter_3, @shelter_2])
       end
     end
+
+    describe '#reverse_alphabetical_names' do
+      it "sorts the index in reverse alphabetical by name" do
+        expect(Shelter.reverse_alphabetical_names).to eq([@shelter_1, @shelter_3, @shelter_2])
+      end
+    end 
   end
 
   describe 'instance methods' do
