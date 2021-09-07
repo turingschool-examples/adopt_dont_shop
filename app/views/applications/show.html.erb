@@ -31,14 +31,14 @@
     <div id="pet-<%= pet.id %>">
       <%= pet.name %>
       <%= button_to "Adopt this Pet", "/application_pets", params: {pet_id: pet.id, application_id: @application.id}  %>
-                                                              #payload ^^
-    </div>
   <% end %>
 <% end %>
 
-<h6><%= "Add a Description of why you would be an awesome pet owner" %></h6>
-<%= form_with url: "/applications/#{@application.id}", method: :patch, local: true do |f| %>
-  <%= f.label 'Description' %>
-  <%= f.text_field :description  %>
-  <%= f.submit "Submit My Application" %>
-<% end %>
+<% if !@application.pets.empty? %>
+  <h6><%= "Add a Description of why you would be an awesome pet owner" %></h6>
+  <%= form_with url: "/applications/#{@application.id}", method: :patch, local: true do |f| %>
+    <%= f.label 'Description' %>
+    <%= f.text_field :description  %>
+    <%= f.submit "Submit My Application" %>
+  <%end%>
+<%end%>
