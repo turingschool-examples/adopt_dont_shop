@@ -13,6 +13,11 @@
 
          <% if @application.application_pets[index].status == nil %>
             <%= button_to "Approve Adoption for #{pet.name}", "/admin/applications/#{@application.id}", method: :patch, params:{pet_id: pet.id, status: "Approved"} %>
+            <%= button_to "Reject Adoption for #{pet.name}", "/admin/applications/#{@application.id}", method: :patch, params:{pet_id: pet.id, status: "Rejected"} %>
+            <% elsif @application.application_pets[index].status == "Approved" %>
+            <%= "Application Approved" %><br><br>
+            <% elsif @application.application_pets[index].status == "Rejected" %>
+            <%= "Application Rejected" %><br><br>
           <%end%>
       <%end%>
     </ul>

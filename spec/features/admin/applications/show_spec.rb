@@ -29,7 +29,28 @@ RSpec.describe 'Admin application show page' do
     click_button("Approve Adoption for #{@lucille.name}")
 
     @application_pet.reload
-    
+
     expect(@application_pet.status).to eq("Approved")
   end
+
+  it 'has a button beside every pet to approve the application for that specific pet' do
+    visit "/admin/applications/#{@application.id}"
+
+    expect(page).to have_button("Reject Adoption for #{@buddy.name}")
+    expect(page).to have_button("Reject Adoption for #{@lucille.name}")
+  end
+
+  it 'has approves the application when the button is clicked' do
+    visit "/admin/applications/#{@application.id}"
+
+    expect(@application_pet.status).to eq(nil)
+
+    click_button("Reject Adoption for #{@lucille.name}")
+
+    @application_pet.reload
+    
+    expect(@application_pet.status).to eq("Rejected")
+  end
+
+
 end
