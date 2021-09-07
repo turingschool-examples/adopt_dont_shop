@@ -79,4 +79,24 @@ RSpec.describe 'Applications show page' do
     expect(current_path).to eq("/applications/#{@app_1.id}")
     expect(page).to have_content(@pet_2.name)
   end
+
+  it 'has submit section for applications with pets' do
+    visit "/applications/#{@app_1.id}"
+    expect(page).to_not have_content("Why would you make a good pet owner?")
+    expect(page).to_not have_button("Submit Application")
+
+    @app_1.pets << @pet_1
+    @app_1.pets << @pet_3
+
+    visit "/applications/#{@app_1.id}"
+    expect(page).to have_content("Why would you make a good pet owner?")
+    fill_in 'Description', with: "Because my house always smells like food and Bare-y and Sylvester would love that."
+    click_on "Submit Application"
+
+    expect(current_path).to eq("/applications/#{@app_1.id}")
+    expect(page).to_not have_content("Why would you make a good pet owner?")
+    expect(page).to_not have_button("Submit Application")
+    expect(page).to have_content("Status: Pending")
+    save_and_open_page
+  end
 end
