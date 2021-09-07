@@ -1,16 +1,24 @@
 class ApplicationsController < ApplicationController
   def show
     @application = Application.find(params[:id])
-  end
+    if params[:pet_name]
+      @pets = Pet.search(params[:pet_name])
+    end
+end
 
   def new
   end
 
   def create
-    application = Application.create(app_params)
+    application = Application.new(app_params)
 
-    application.save
-    redirect_to "/applications/#{application.id}"
+    if application.save
+      flash[:submitted] = 'Application Submitted!'
+      redirect_to "/applications/#{application.id}"
+    else
+      flash[:incomplete] = 'All * fields must be filled in'
+      redirect_to "/applications/new"
+    end
   end
 
   private
