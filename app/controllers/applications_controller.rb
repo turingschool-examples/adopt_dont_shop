@@ -6,7 +6,7 @@ class ApplicationsController < ApplicationController
   def show
     if params[:search].present?
       @application = Application.find(params[:app_id])
-      @pets = Pet.search(params[:search])
+      @search_pets = Pet.search(params[:search])
     else
       @application = Application.find(params[:app_id])
     end
@@ -32,7 +32,15 @@ class ApplicationsController < ApplicationController
 
   def update
     application = Application.find(params[:app_id])
-    application.pets << Pet.find(params[:pet])
-    redirect_to "/applications/#{application.id}"
+    if params[:pet].present?
+      application.pets << Pet.find(params[:pet])
+      redirect_to "/applications/#{application.id}"
+    elsif params[:description].present?
+      application.update({
+                          description: params[:description],
+                          status: "Pending"
+                        })
+      redirect_to "/applications/#{application.id}"
+    end
   end
 end

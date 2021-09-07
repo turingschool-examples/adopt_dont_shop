@@ -14,11 +14,19 @@
       <%= f.submit "Search" %>
     <% end %>
   </section>
-  <% if @pets != nil %>
-    <% @pets.each do |pet| %>
+  <% if @search_pets != nil %>
+    <% @search_pets.each do |pet| %>
       <section id="pet-<%= pet.id %>">
         <%= pet.name %><%= button_to "Adopt this Pet", "/applications/#{@application.id}?pet=#{pet.id}", method: :patch %>
       </section>
+    <% end %>
+  <% end %>
+  <% if @application.pet_count > 0 %>
+    <p>Why would you make a good pet owner?</p>
+    <%= form_with url: "/applications/#{@application.id}", method: :patch, local: true do |f| %>
+      <%= f.label :description %>
+      <%= f.text_area :description %>
+      <%= f.submit "Submit Application" %>
     <% end %>
   <% end %>
 <% end %>
