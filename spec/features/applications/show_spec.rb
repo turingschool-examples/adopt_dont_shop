@@ -97,6 +97,5 @@ RSpec.describe 'Applications show page' do
     expect(page).to_not have_content("Why would you make a good pet owner?")
     expect(page).to_not have_button("Submit Application")
     expect(page).to have_content("Status: Pending")
-    save_and_open_page
   end
 end
