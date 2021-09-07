@@ -1,5 +1,15 @@
 require 'rails_helper'
 
+# SQL Only Story
+#
+# For this story, you should write your queries in raw sql. You can use the ActiveRecord find_by_sql method to execute raw sql queries: https://guides.rubyonrails.org/active_record_querying.html#finding-by-sql
+#
+# Admin Shelters Index
+#
+# As a visitor
+# When I visit the admin shelter index ('/admin/shelters')
+# Then I see all Shelters in the system listed in reverse alphabetical order by name
+
 RSpec.describe 'the admin shelter index' do
   it "shows all of the shelters in the system listed in reverse alphabetical order" do
     @shelter_1 = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
@@ -11,7 +21,7 @@ RSpec.describe 'the admin shelter index' do
 
     visit '/admin/shelters'
 
-    expect(@shelter2.name).to appear_before(@shelter1.name)
+    expect(@shelter1.name).to appear_before(@shelter3.name)
     expect(@shelter3.name).to appear_before(@shelter2.name)
   end
 end
