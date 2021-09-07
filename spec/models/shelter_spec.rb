@@ -69,15 +69,15 @@ RSpec.describe Shelter, type: :model do
         @pet_1.applications << app_1
         @pet_2.applications << app_1
                                                   #better to pass up objects or names?
-        expect(Shelter.pending_applications).to eq([@shelter_1])
+        expect(Shelter.pending_applications).to eq([@shelter_1.name])
 
-        @pet_3.aplications << app_2
+        @pet_3.applications << app_2
 
-        expect(Shelter.pending_applications).to eq([@shelter_1])
+        expect(Shelter.pending_applications).to eq([@shelter_1.name])
 
         @pet_3.applications << app_1
 
-        expect(Shelter.pending_applications).to eq([@shelter_1, @shelter_3])
+        expect(Shelter.pending_applications).to eq([@shelter_1.name, @shelter_3.name])
     end
 
         # I see the name of every shelter that has a pending application
