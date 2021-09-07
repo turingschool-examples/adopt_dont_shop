@@ -33,6 +33,7 @@
   <%= form_with url: "/applications/#{@application.id}", method: :patch, local: true do |f| %>
     <%= f.label :message, 'Why I would make a good owner for these pet(s)'%><br>
     <%= f.text_field :message %><br>
+    <%= f.hidden_field :status, value: "Pending" %>
     <%= f.submit "Submit this Application" %>
   <%end%>
 <%end%>
