@@ -141,4 +141,17 @@ RSpec.describe 'Application Show Page' do
       expect(page).to have_button("Adopt #{dog3.name}")
     end
   end
+
+  it 'can do case insensitive search' do
+    visit "/applications/#{@app.id}"
+
+    fill_in 'search', with: 'billy'
+
+    click_button 'search'
+
+    within("#Pet-Search") do
+      expect(current_path).to eq("/applications/#{@app.id}")
+      expect(page).to have_content(@dog2.name)
+    end
+  end
 end
