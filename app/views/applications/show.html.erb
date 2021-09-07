@@ -31,8 +31,6 @@
     <div id="pet-<%= pet.id %>">
       <%= pet.name %>
       <%= button_to "Adopt this Pet", "/application_pets", params: {pet_id: pet.id, application_id: @application.id}  %>
-                                                              #payload ^^
-    </div>
   <% end %>
 <% end %>
 

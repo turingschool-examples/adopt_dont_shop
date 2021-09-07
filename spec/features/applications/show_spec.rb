@@ -4,9 +4,7 @@ RSpec.describe "the application show" do
   it "can show the applicant information" do
     application = Application.create!(name: 'Ted', street: '2335 south Race St.', city: 'Denver', state: 'Colorado', zip: '80210',  description: 'I am awesome' )
     visit "/applications/#{application.id}"
-    # pet = create(:pet)
-    # application = create(:application)
-    # application_pet = ApplicationPet.create!(pet_id: pet.id, application_id: application.id)
+  
     expect(page).to have_content(application.name)
     expect(page).to have_content(application.street)
     expect(page).to have_content(application.city)
