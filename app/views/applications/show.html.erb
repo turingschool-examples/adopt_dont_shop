@@ -1,5 +1,16 @@
 <h1><%= "Application ##{@app.id}" %></h1>
 
+<div class="container" id='Submit My Application'>
+  <% if !@app.pets.empty? %>
+    <%= form_with model: @app, method: :patch, local: true do |f| %>
+      <%= f.label :description, "Enter why you would make a good owner for these pet(s)" %><br/>
+      <%= f.text_field :description %>
+      <%= f.hidden_field :status, value: 'Pending' %>
+      <%= f.submit "Submit My Application" %>
+    <% end %>
+  <% end %>
+</div>
+
 <div class='container'>
   <p><%= "Name: #{@app.name}" %></p>
   <p><%= "Address: #{@app.street_address}" %></p>
@@ -9,11 +20,12 @@
   <p><%= "Description: #{@app.description}" %></p>
   <p><%= "Status: #{@app.status}" %></p>
 
-<p>Pets: <% @app.pets.each do |pet| %>
-  <div class="container" id= <%= pet.name %>>
-    <%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
-  </div>
-<% end %></p>
+  <p>Pets: <% @app.pets.each do |pet| %></p>
+    <div class="container" id= <%= pet.name %>>
+      <%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
+    </div>
+  <% end %>
+
 
   <% if params[:status] != "Submitted" %>
     <%= form_with url: "/applications/#{@app.id}", method: :get, local: true do |f| %>
@@ -22,6 +34,7 @@
       <%= f.submit "Search" %>
     <% end %>
   <% else %>
+
   <% end %>
 
 
@@ -29,10 +42,10 @@
     <div class="container" id=<%= pet.name %>>
 
         <h3><%= pet.name %></h3>
-        <%= button_to "Adopt this Pet", "/application_pets/create", method: :post, params: { :application_id => @app.id, :pet_id => pet.id } %>
         <p>Age: <%= pet.age %></p>
         <p>Breed: <%= pet.breed %></p>
         <p>Adoptable: </p>
         <p>You can find <%= pet.name %> at <%= pet.shelter_name %>!</p>
+        <%= button_to "Adopt this Pet", "/application_pets/create", method: :post, params: { :application_id => @app.id, :pet_id => pet.id } %>
     </div>
   <% end %>
