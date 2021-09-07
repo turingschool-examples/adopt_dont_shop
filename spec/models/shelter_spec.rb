@@ -44,7 +44,7 @@ RSpec.describe Shelter, type: :model do
 
     describe '#order_by_name_reverse_alphabetical' do
       it 'orders name by reverse alphabetical' do
-        expect(Shelter.order_by_name_reverse_alphabetical).to eq([@shelter_1, @shelter_3, @shelter_2])
+        expect(Shelter.order_by_name_reverse_alphabetical).to eq([@shelter_2, @shelter_3, @shelter_1])
       end
     end
 
@@ -78,9 +78,8 @@ RSpec.describe Shelter, type: :model do
         @pet_3.applications << app_1
 
         expect(Shelter.pending_applications).to eq([@shelter_1.name, @shelter_3.name])
-    end
+      end
 
-        # I see the name of every shelter that has a pending application
     end
   end
 

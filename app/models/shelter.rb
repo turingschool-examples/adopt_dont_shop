@@ -17,12 +17,11 @@ class Shelter < ApplicationRecord
   end
 
   def self.order_by_name_reverse_alphabetical
-    find_by_sql("SELECT shelters.* FROM shelters ORDER BY shelters.name")
+    find_by_sql("SELECT shelters.* FROM shelters ORDER BY shelters.name DESC")
   end
 
   def self.pending_applications
     Pet.joins(:applications).joins(:shelter).where('applications.status = ?', 'Pending').distinct.pluck('shelters.name')
-    # require "pry"; binding.pry
   end
 
   def pet_count
