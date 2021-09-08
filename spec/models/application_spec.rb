@@ -60,7 +60,6 @@ RSpec.describe Application do
       pet_app = PetApplication.create!(application: app, pet: dog1)
       PetApplication.create!(application: app, pet: dog2)
 
-      # require "pry"; binding.pry
       expect(app.find_pet_app(dog1.id)).to eq(pet_app)
     end
   end
