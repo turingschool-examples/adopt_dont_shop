@@ -4,7 +4,7 @@ RSpec.describe "the application show" do
   it "can show the applicant information" do
     application = Application.create!(name: 'Ted', street: '2335 south Race St.', city: 'Denver', state: 'Colorado', zip: '80210',  description: 'I am awesome' )
     visit "/applications/#{application.id}"
-  
+
     expect(page).to have_content(application.name)
     expect(page).to have_content(application.street)
     expect(page).to have_content(application.city)
@@ -128,7 +128,10 @@ RSpec.describe "the application show" do
       click_button "Adopt this Pet"
     end
 
-    expect(page).to have_content('Submit My Application')
+
+
+
+    expect(page).to have_button('Submit My Application')
 
     fill_in "description", with: "blahblah"
 

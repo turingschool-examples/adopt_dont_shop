@@ -7,7 +7,7 @@ class ApplicationsController < ApplicationController
     if @application.save
       redirect_to "/applications/#{@application.id}"
     else
-      flash[:alert] = 'Fill out this feild.'
+      flash[:alert] = @application.errors.full_messages.to_sentence
       redirect_to "/applications/new"
     end
   end
