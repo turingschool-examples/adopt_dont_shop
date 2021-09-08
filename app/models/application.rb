@@ -8,13 +8,15 @@ class Application < ApplicationRecord
   validates :zip, presence: true
 
   def update_status!
-    if all_approved?
+    if all_approved? == true
       update({status: "Approved"})
-    end
+    elsif all_approved? == false
+      update({status: "Rejected"})
+    end 
   end
 
   def all_approved?
     approved = ApplicationPet.where(status: 'Approved', application_id: id)
-    approved.length == pets.length
+    pets.length > 0 && approved.length == pets.length
   end
 end
