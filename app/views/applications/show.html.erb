@@ -2,7 +2,6 @@
 <h1><%= @application.name %></h1>
 <h3><%= @application.address %></h3>
 <h3><%= @application.city %>, <%= @application.state %> <%= @application.zip %></h3>
-<h3>I would be a good pet parent because: <%= @application.description %>
 <h3>Pets applied for:</h3>
 <% @application.pets.each do |pet| %>
   <p><%= link_to "#{pet.name}", "/pets/#{pet.id}" %></p>
@@ -16,15 +15,24 @@
     <%= f.submit 'Search' %>
   <% end %>
 
-  <% @pets&.each do |pet| %>
-      <h3><%= pet.name %></h3>
-      <p>ID: <%= pet.id %>
-      <p>Age: <%= pet.age %> years</p>
-      <p>Breed: <%= pet.breed %></p>
-      <p>Adoptable: </p>
-      <p>Shelter: <%= pet.shelter_name %></p>
-      <%= button_to "Adopt this Pet!", "/applications/#{@application.id}", method: :post, params: {pet_id: "#{pet.id}", application_id: "#{@application.id}"} %>
-    <% end %>
+<% @pets&.each do |pet| %>
+  <div id="<%= pet.name %>_<%= pet.id %>">
+    <h3><%= pet.name %></h3>
+    <p>ID: <%= pet.id %>
+    <p>Age: <%= pet.age %> years</p>
+    <p>Breed: <%= pet.breed %></p>
+    <p>Shelter: <%= pet.shelter_name %></p>
+    <%= button_to "Adopt this Pet!", "/applications/#{@application.id}", method: :post, params: {pet_id: "#{pet.id}", application_id: "#{@application.id}"} %>
+  <% end %></div>
+
+
+<% if @application.pets != [] %>
+  <p>Why would you be a good pet parent?</p>
+  <%= form_with url: "/applications/#{@application.id}", method: :patch, local: true do |f| %>
+    <%= f.text_area :description %><br>
+    <%= f.submit 'Complete Application' %>
+  <% end %>
+<% end %>
 <% end %>
 
 <h3>Application Status: <%= @application.status %></h3>

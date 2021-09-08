@@ -7,8 +7,7 @@ RSpec.describe 'application show page' do
       address: "1108 Ichabod St",
       city: "North Pole",
       state: "Alaska",
-      zip: "99705",
-      description: "I will name him George, and I will hug him, and pet him, and squeeze him")
+      zip: "99705")
     @shelter = Shelter.create!(name: 'Cheyenne Animal Shelter', city: 'Cheyenne', foster_program: false, rank: 2)
     @pet_1 = @shelter.pets.create!(name: 'Cassio', age: 2, breed: 'Akbash', adoptable: true, shelter_id: @shelter.id)
     @pet_2 = @shelter.pets.create!(name: 'Bianca', age: 1, breed: 'Great Pyrenees',  adoptable: true, shelter_id: @shelter.id)
@@ -25,7 +24,6 @@ RSpec.describe 'application show page' do
     expect(find('form')).to have_content('City')
     expect(find('form')).to have_content('State')
     expect(find('form')).to have_content('Zip')
-    expect(find('form')).to have_content('Description')
   end
 
 
@@ -43,5 +41,14 @@ RSpec.describe 'application show page' do
 
     expect(current_path).to eq("/applications/new")
     expect(page).to have_content("All * fields must be filled in")
+
+    fill_in 'Name', with: 'Ida Olson'
+    fill_in 'Address', with: '3009 Ames Court'
+    fill_in 'City', with: 'Cheyenne'
+    fill_in 'State', with: 'Wyoming'
+    fill_in 'Zip', with: '82001'
+    click_button 'Submit'
+
+    expect(page).to have_content("Application Submitted!")
   end
 end

@@ -19,13 +19,10 @@ ApplicationPet.destroy_all
   address: "1108 Ichabod St",
   city: "North Pole",
   state: "Alaska",
-  zip: "99705",
-  description: "I will name him George, and I will hug him, and pet him, and squeeze him")
+  zip: "99705")
 @app_2 = Application.create!(
   name: "Doug Olson",
   address: "2866 Villalobos Ave",
   city: "North Pole",
   state: "Alaska",
-  zip: "99705",
-  description: "Really more of a cat person but dogs are okay...I guess."
-)
+  zip: "99705")
