@@ -1,7 +1,13 @@
 class ApplicationsController < ApplicationController
   def show 
     @application = Application.find(params[:id])
-  end
+    if params[:search].present?
+      @pets = Pet.where("lower(name) like ?", "%#{params[:search].downcase}%")
+    else
+      flash[:alert] = "There is no pet by that name"
+      @pets = []
+    end
+  end 
 
   def new 
   end
@@ -12,7 +18,7 @@ class ApplicationsController < ApplicationController
       redirect_to "/applications/#{@application.id}"
     else
       redirect_to "/applications/new"
-      flash[:alert] = "The one who fills out all the fields, has the greatest chance of getting a pet!"
+      flash[:alert] = "The person who fills out all the fields, has the greatest chance of getting a pet!"
     end
   end
 
