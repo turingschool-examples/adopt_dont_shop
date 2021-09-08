@@ -38,7 +38,7 @@ RSpec.describe 'admin application show page' do
   end
 
 
-  it 'can approve a pet for adoptions' do
+  it 'can approve a pet for adoption' do
     visit "/admin/applications/#{@app_1.id}"
 
     expect(page).to have_button("Approve #{@pet_1.name}")
@@ -54,12 +54,21 @@ RSpec.describe 'admin application show page' do
     expect(page).to have_button("Approve #{@pet_2.name}")
     expect(page).to have_content("#{@pet_1.name} is approved")
   end
-end
 
-# As a visitor
-# When I visit an admin application show page ('/admin/applications/:id')
-# For every pet that the application is for, I see a button to approve the application for that specific pet
-# When I click that button
-# Then I'm taken back to the admin application show page
-# And next to the pet that I approved, I do not see a button to approve this pet
-# And instead I see an indicator next to the pet that they have been approved
+  it 'can reject a pet for adoption' do
+    visit "/admin/applications/#{@app_1.id}"
+
+    expect(page).to have_button("Reject #{@pet_1.name}")
+    expect(page).to have_button("Reject #{@pet_2.name}")
+    expect(page).to have_button("Reject #{@pet_3.name}")
+
+    click_button("Reject #{@pet_1.name}")
+
+    expect(current_path).to eq("/admin/applications/#{@app_1.id}")
+
+    expect(page).to_not have_button("Approve #{@pet_1.name}")
+    expect(page).to_not have_button("Reject #{@pet_1.name}")
+    expect(page).to have_button("Reject #{@pet_2.name}")
+    expect(page).to have_content("#{@pet_1.name} is rejected")
+  end
+end
