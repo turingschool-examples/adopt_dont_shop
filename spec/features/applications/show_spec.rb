@@ -12,12 +12,15 @@ RSpec.describe 'application show page' do
     @shelter = Shelter.create!(name: 'Cheyenne Animal Shelter', city: 'Cheyenne', foster_program: false, rank: 2)
     @pet_1 = @shelter.pets.create!(name: 'Cassio', age: 2, breed: 'Akbash', adoptable: true, shelter_id: @shelter.id)
     @pet_2 = @shelter.pets.create!(name: 'Bianca', age: 1, breed: 'Great Pyrenees',  adoptable: true, shelter_id: @shelter.id)
-    @app_1.pets << @pet_1
-    @app_1.pets << @pet_2
+
   end
 
   it "displays all the applicant params and the app status" do
+    @app_1.pets << @pet_1
+    @app_1.pets << @pet_2
+
     visit "/applications/#{@app_1.id}"
+
     expect(page).to have_content(@app_1.name)
     expect(page).to have_content(@app_1.address)
     expect(page).to have_content(@app_1.city)
@@ -27,7 +30,6 @@ RSpec.describe 'application show page' do
     expect(page).to have_content(@app_1.description)
     expect(page).to have_content(@pet_1.name)
     expect(page).to have_content(@pet_2.name)
-
     expect(page).to have_content("#{@pet_1.name}")
     expect(page).to have_content("#{@pet_2.name}")
 
@@ -62,6 +64,7 @@ RSpec.describe 'application show page' do
   it "can add description and submit application" do
     visit "/applications/#{@app_1.id}"
 
+    expect(page).to have_no_content("Why would you be a good pet parent?")
     expect(page).to have_content("In Progress")
     expect(@app_1.description).to eq(nil)
 
@@ -83,5 +86,25 @@ RSpec.describe 'application show page' do
     expect(page).to have_no_content("Why would you be a good pet parent?")
     expect(page).to have_content("Pending")
     expect(page).to have_content(@pet_2.name)
+  end
+
+  it "can find pets by name on a partial name match and isn't case sensitive" do
+    visit "/applications/#{@app_1.id}"
+
+    fill_in "Search Pet Name:", with: "cass"
+    click_on "Search"
+
+    expect(page).to have_content(@pet_1.name)
+    expect(page).to have_content(@pet_1.age)
+    expect(page).to have_content(@pet_1.breed)
+
+    visit "/applications/#{@app_1.id}"
+
+    fill_in "Search Pet Name:", with: "BIANCA"
+    click_on "Search"
+
+    expect(page).to have_content(@pet_2.name)
+    expect(page).to have_content(@pet_2.age)
+    expect(page).to have_content(@pet_2.breed)
   end
 end
