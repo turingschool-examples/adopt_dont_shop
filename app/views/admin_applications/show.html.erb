@@ -1,0 +1,9 @@
+<% @pets.each do |pet| %>
+  <%= form_with url: "/applications/#{@app.id}/pets/#{pet.id}", method: :patch, local: true do |f|%>
+    <% if pet.adoptable == true %>
+      <%= f.submit "Approve #{pet.name}" %>
+    <% else %>
+      <%= "#{pet.name} is approved" %>
+    <% end %>
+  <% end %>
+<% end %>
