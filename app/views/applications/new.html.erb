@@ -1,0 +1,25 @@
+<h1>New Adoption Form</h1>
+
+<%= form_with url: "/applications", method: :get, local: true do |f| %>
+<%= f.label :name %>
+<%= f.text_field :name %>
+
+<%= f.label :street_address %>
+<%= f.text_field :street_address %>
+
+<%= f.label :city %>
+<%= f.text_field :city %>
+
+<%= f.label :state %>
+<%= f.text_field :state %>
+
+<%= f.label :zip_code %>
+<%= f.text_field :zip_code %>
+
+<h2>Why should we pick you? </h2>
+<%= f.label :description %>
+<%= f.text_field :description %>
+<br>
+<hr>
+<%= f.submit "Submit"%>
+<% end %>
