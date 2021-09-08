@@ -1,9 +1,20 @@
 <% @pets.each do |pet| %>
-  <%= form_with url: "/applications/#{@app.id}/pets/#{pet.id}", method: :patch, local: true do |f|%>
-    <% if pet.adoptable == true %>
+
+  <% if @app.find_pet_app(pet.id).status == nil %>
+
+    <p><%= form_with url: "/applications/#{@app.id}/pets/#{pet.id}?approve=true", method: :patch, local: true do |f|%>
       <%= f.submit "Approve #{pet.name}" %>
-    <% else %>
-      <%= "#{pet.name} is approved" %>
-    <% end %>
+    <% end %></p>
+
+    <p><%= form_with url: "/applications/#{@app.id}/pets/#{pet.id}?reject=true", method: :patch, local: true do |f|  %>
+      <%= f.submit "Reject #{pet.name}" %>
+    <% end %></p>
+
+  <% elsif @app.find_pet_app(pet.id).status != nil %>
+
+    <p><%= "#{pet.name} is #{@app.find_pet_app(pet.id).status}" %></p>
+
   <% end %>
+
+
 <% end %>

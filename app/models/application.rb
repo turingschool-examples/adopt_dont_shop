@@ -13,4 +13,8 @@ class Application < ApplicationRecord
     pets.count > 0
   end
 
+  def find_pet_app(pet_id)
+    PetApplication.where('application_id = ? AND pet_id = ?', id, pet_id).first
+  end
+
 end
