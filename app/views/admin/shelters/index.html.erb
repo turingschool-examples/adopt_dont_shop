@@ -1,0 +1,9 @@
+<h1>Admin Shelters</h1>
+<section id="shelters"><ul><% @shelters.each do |shelter| %>
+  <li><%= shelter.name %></li>
+<% end %></ul></section>
+
+<h1>Shelters with Applications</h1>
+<section id="shelter-apps"> <ul><% @shelters_with_apps.each do |shelter| %>
+  <li><%= shelter.name %></li>
+<% end %></ul></section>
