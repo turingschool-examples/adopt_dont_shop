@@ -4,7 +4,7 @@ class ApplicationsController < ApplicationController
     if params[:pet_name]
       @pets = Pet.search(params[:pet_name])
     end
-end
+  end
 
   def new
   end
