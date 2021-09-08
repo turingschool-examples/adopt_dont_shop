@@ -3,6 +3,9 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.7.2'
 
+gem 'factory_bot_rails'
+gem 'faker'
+
 gem 'bootstrap-sass', '~> 3.3.6'
 # gem 'sass-rails', '>= 3.2'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'

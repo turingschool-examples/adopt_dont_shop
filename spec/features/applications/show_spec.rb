@@ -7,7 +7,7 @@ RSpec.describe 'the application show' do
 
     visit "/applications/#{application.id}"
 
-    expect(current_path).to eq( "/applications/#{application.id}")
+    expect(current_path).to eq("/applications/#{application.id}")
 
     expect(page).to have_content('Matt Holmes')
     expect(page).to have_content(123)
