@@ -67,5 +67,11 @@ RSpec.describe Shelter, type: :model do
         expect(@shelter_1.pet_count).to eq(3)
       end
     end
+
+    describe '#get_all_ordered_by_name_descending' do
+      it 'returns the number of pets at the given shelter' do
+        expect(Shelter.get_all_ordered_by_name_descending).to eq([@shelter_2, @shelter_3, @shelter_1])
+      end
+    end
   end
 end
