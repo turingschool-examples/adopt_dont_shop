@@ -5,11 +5,9 @@ class AdminApplicationsController < ApplicationController
     @pets = @app.pets
     # require "pry"; binding.pry
 
-     if params[:pet_app_id] != nil
-       @pet_app = PetApplication.find(params[:pet_app_id])
-     else
-       @pet_app = []
-     end
+
+    @pet_app = PetApplication.find(params[:pet_app_id]) if params[:pet_app_id] != nil
+
   end
 
 end

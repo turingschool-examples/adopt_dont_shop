@@ -1,6 +1,7 @@
 <% @pets.each do |pet| %>
 
-  <% if @pet_app.class == Array || @pet_app.pet_id != pet.id %>
+  <% if @app.find_pet_app(pet.id).status == nil %>
+
     <%= form_with url: "/applications/#{@app.id}/pets/#{pet.id}?approve=true", method: :patch, local: true do |f|%>
       <%= f.submit "Approve #{pet.name}" %>
     <% end %>
@@ -8,7 +9,7 @@
     <%= form_with url: "/applications/#{@app.id}/pets/#{pet.id}?reject=true", method: :patch, local: true do |f|  %>
       <%= f.submit "Reject #{pet.name}" %>
     <% end %>
-  <% else %>
+  <% elsif @app.find_pet_app(pet.id).status != nil %>
     <%= "#{pet.name} is #{@pet_app.status}" %>
   <% end %>
 
