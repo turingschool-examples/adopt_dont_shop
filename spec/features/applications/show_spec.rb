@@ -1,3 +1,4 @@
+# spec/features/applications/show_spec.rb
 require 'rails_helper'
 
 RSpec.describe 'application show page' do
@@ -18,7 +19,6 @@ RSpec.describe 'application show page' do
 
   it "displays all the applicant params and the app status" do
     visit "/applications/#{@app_1.id}"
-    save_and_open_page
     expect(page).to have_content(@app_1.name)
     expect(page).to have_content(@app_1.address)
     expect(page).to have_content(@app_1.city)
@@ -34,5 +34,27 @@ RSpec.describe 'application show page' do
 
     click_link("#{@pet_1.name}")
     expect(page).to have_current_path("/pets/#{@pet_1.id}")
+  end
+
+  it "can look up a pet by name" do
+    visit "/applications/#{@app_1.id}"
+
+    fill_in "Search Pet Name:", with: "Bianca"
+    click_on "Search"
+
+    expect(page).to have_content(@pet_2.name)
+    expect(page).to have_content(@pet_2.age)
+    expect(page).to have_content(@pet_2.breed)
+  end
+
+  it "can add pet to application" do
+    visit "/applications/#{@app_1.id}"
+
+    fill_in "Search Pet Name:", with: "Bianca"
+    click_on "Search"
+
+    click_button("Adopt this Pet!")
+
+    expect(@app_1.pets).to include(@pet_2)
   end
 end

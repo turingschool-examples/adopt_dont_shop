@@ -27,17 +27,21 @@ RSpec.describe 'application show page' do
     expect(find('form')).to have_content('Zip')
     expect(find('form')).to have_content('Description')
   end
-end
 
-# Then I am taken to the new application page where I see a form
-# When I fill in this form with my:
-#
-# Name
-# Street Address
-# City
-# State
-# Zip Code
-# And I click submit
-# Then I am taken to the new application's show page
-# And I see my Name, address information, and description of why I would make a good home
-# And I see an indicator that this application is "In Progress"
+
+  it 'returns to new application and gives error if fields empty' do
+    visit "/applications/new"
+    click_button 'Submit'
+    expect(current_path).to eq("/applications/new")
+    expect(page).to have_content("All * fields must be filled in")
+
+    fill_in 'Name', with: 'Ida Olson'
+    fill_in 'Address', with: '3009 Ames Court'
+    fill_in 'City', with: 'Cheyenne'
+    fill_in 'State', with: 'Wyoming'
+    click_button 'Submit'
+
+    expect(current_path).to eq("/applications/new")
+    expect(page).to have_content("All * fields must be filled in")
+  end
+end
