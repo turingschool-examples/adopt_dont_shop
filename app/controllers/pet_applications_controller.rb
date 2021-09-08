@@ -11,9 +11,14 @@ class PetApplicationsController < ApplicationController
   def update
     pet_app = PetApplication.where(pet_id: params[:pet_id], application_id: params[:application_id]).first
     pet = Pet.find(params[:pet_id])
+    # require "pry"; binding.pry
 
-    pet_app.update!(status: "true")
-    pet.update!(adoptable: false)
-    redirect_to "/admin/applications/#{params[:application_id]}"
+    if params[:reject] != nil
+      pet_app.update(status: "rejected")
+    else
+      pet_app.update!(status: "approved")
+    end
+
+    redirect_to "/admin/applications/#{params[:application_id]}?pet_app_id=#{pet_app.id}"
   end
 end
