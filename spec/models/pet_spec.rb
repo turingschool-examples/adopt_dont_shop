@@ -17,6 +17,13 @@ RSpec.describe Pet, type: :model do
     @pet_1 = @shelter_1.pets.create(name: 'Mr. Pirate', breed: 'tuxedo shorthair', age: 5, adoptable: true)
     @pet_2 = @shelter_1.pets.create(name: 'Clawdia', breed: 'shorthair', age: 3, adoptable: true)
     @pet_3 = @shelter_1.pets.create(name: 'Ann', breed: 'ragdoll', age: 3, adoptable: false)
+    @app_1 = Application.create!(
+      name: "Sarah Carter",
+      address: "1108 Ichabod St",
+      city: "North Pole",
+      state: "Alaska",
+      zip: "99705")
+    @app_pet = ApplicationPet.create!(application: @app_1, pet: @pet_1, status: 'Approved')
   end
 
   describe 'class methods' do
@@ -38,6 +45,12 @@ RSpec.describe Pet, type: :model do
       it 'returns the shelter name for the given pet' do
         expect(@pet_3.shelter_name).to eq(@shelter_1.name)
       end
+    end
+  end
+
+  describe 'application_pet_status' do
+    it "returns the :status of pet on application" do
+      expect(@pet_1.application_pet_status(@app_1.id)).to eq("Approved")
     end
   end
 end
