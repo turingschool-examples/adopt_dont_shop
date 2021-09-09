@@ -10,7 +10,6 @@ class ApplicationsController < ApplicationController
 
 
   def new
-    @error = 'please fill the form in completely' if params[:error] != nil
   end
 
   def create
@@ -26,7 +25,8 @@ class ApplicationsController < ApplicationController
       @application.save
       redirect_to "/applications/#{@application.id}"
     else
-      redirect_to '/application/new?error=true'
+      redirect_to '/application/new'
+      flash[:alert] = "please fill the form in completely"
     end
   end
 
