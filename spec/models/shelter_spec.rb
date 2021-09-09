@@ -68,7 +68,7 @@ RSpec.describe Shelter, type: :model do
 
         @pet_1.applications << app_1
         @pet_2.applications << app_1
-                                                  #better to pass up objects or names?
+
         expect(Shelter.pending_applications).to eq([@shelter_1.name])
 
         @pet_3.applications << app_2
@@ -77,7 +77,7 @@ RSpec.describe Shelter, type: :model do
 
         @pet_3.applications << app_1
 
-        expect(Shelter.pending_applications).to eq([@shelter_3.name, @shelter_1.name])
+        expect(Shelter.pending_applications.sort).to eq([@shelter_3.name, @shelter_1.name].sort)
       end
 
     end
