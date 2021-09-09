@@ -4,7 +4,6 @@ class ApplicationsController < ApplicationController
     if params[:search].present?
       @pets = Pet.where("lower(name) like ?", "%#{params[:search].downcase}%")
     else
-      flash[:alert] = "There is no pet by that name"
       @pets = []
     end
   end 
