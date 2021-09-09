@@ -1,0 +1,5 @@
+<% @pets.each do |pet| %>
+  <div>
+    <p><%= pet.name %></p> <p><%= button_to 'Adopt This pet', "/apps/#{@application.id}", method: :patch, params: {pet_id: pet.id} %></p><br>
+  </div>
+<% end %>
