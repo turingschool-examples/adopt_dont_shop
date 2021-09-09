@@ -23,6 +23,28 @@ RSpec.describe Shelter, type: :model do
     @pet_4 = @shelter_1.pets.create(name: 'Ann', breed: 'ragdoll', age: 5, adoptable: true)
   end
 
+
+  describe 'order_by_name_reversed' do
+    it '#order_by_name_reversed' do
+       expect(Shelter.order_by_name_reversed).to eq([@shelter_2, @shelter_3, @shelter_1])
+    end
+  end
+
+  describe 'shelters with pending applications' do
+    it '#pending_applications in alphabetical order' do
+      app = Application.create!(
+        name: "Sarah Carter",
+        address: "1108 Ichabod St",
+        city: "North Pole",
+        state: "Alaska",
+        zip: "99705")
+      app.pets << @pet_1
+      app.pets << @pet_3
+
+      expect(Shelter.pending_applications).to eq([@shelter_1, @shelter_3])
+    end
+  end
+
   describe 'class methods' do
     describe '#search' do
       it 'returns partial matches' do
