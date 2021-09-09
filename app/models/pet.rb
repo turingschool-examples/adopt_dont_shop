@@ -12,4 +12,8 @@ class Pet < ApplicationRecord
   def self.adoptable
     where(adoptable: true)
   end
+
+  def application_pet_status(app_id)
+    ApplicationPet.where(pet_id: id, application_id: app_id).first.status
+  end
 end
