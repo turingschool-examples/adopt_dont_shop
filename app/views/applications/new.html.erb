@@ -1,6 +1,6 @@
 <h1>New Adoption Form</h1>
 
-<%= form_with url: "/applications", method: :get, local: true do |f| %>
+<%= form_with url: "/applications/#{@application.id}", method: :post, local: true do |f| %>
 <%= f.label :name %>
 <%= f.text_field :name %>
 

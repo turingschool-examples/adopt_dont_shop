@@ -14,8 +14,22 @@ class ApplicationsController < ApplicationController
   end
 
   def new
+    @application = Application.new
   end
 
+  def create
+    @application = Application.new(app_params)
+    redirect_to "/applications/#{@application.id}"
+  end
+
+  def submit
+   @application = Application.find(params[:id])
+   @application.description = params[:description]
+   @application.status = "Pending"
+   @application.save
+   redirect_to "/applications/#{@application.id}"
+ end
+ 
   private
 
   def error_message(errors)
