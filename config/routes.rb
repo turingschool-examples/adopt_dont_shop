@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 
   namespace :admin do
     resources :shelters
-    resources :applications
+    resources :applications, except: :destroy
   end
 
   get '/applications/new', to: 'applications#new'
