@@ -26,3 +26,7 @@ ApplicationPet.destroy_all
   city: "North Pole",
   state: "Alaska",
   zip: "99705")
+  @app_1.pets << @pet_1
+  @app_1.pets << @pet_2
+  @app_2.pets << @pet_1
+  @app_2.pets << @pet_2
