@@ -1,0 +1,9 @@
+<h3>Application Number #<%=@application.id%></h3>
+<h4>Name: </h4><%=@application.name%>
+<h4>Address: </h4><%=@application.address%>
+<h4>Description: </h4><%=@application.description%>
+<h4>Pets: </h4>
+<% @application.pets.each do |pet| %>
+  <a href="/pets/<%=pet.id%>"><%=pet.name%> </a>
+<% end %>
+<h4>Status: </h4><%=@application.status%>
