@@ -6,6 +6,8 @@ RSpec.describe 'Applications Show Page' do
   
     visit "/application/#{app.id}"
 
+    save_and_open_page
+
     expect(page).to have_content('Jen')
     expect(page).to have_content('123 Street Dr, Pittsburgh PA 15238')
     expect(page).to have_content('I love dogs')
