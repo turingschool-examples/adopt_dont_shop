@@ -5,5 +5,6 @@ FactoryBot.define do
     city { Faker::Address.city }
     state { Faker::Address.state }
     zip_code { Faker::Address.zip_code }
+    description { ['Love Animals', 'Kind', 'Want to Help', 'Loving Home', 'Good People'].sample }
   end
 end
