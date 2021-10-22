@@ -1,4 +1,11 @@
 <h1>Application <%= @application.id %></h1>
+
+<%= form_with url: "/pets", method: :get, local: true do |f| %>
+  <%= f.label :search %>
+  <%= f.text_field :search %>
+  <%= f.submit "Search" %>
+<% end %>
+
 <h3>Name: <%= @application.name %></h3>
 <h3>Address: <%= @application.address %></h3>
 <h3>City: <%= @application.city %></h3>
