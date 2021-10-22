@@ -18,7 +18,7 @@ RSpec.describe 'the application show page' do
       age: 6,
     )}
 
-    let(:application) { fluffy.applications.create!(
+    let(:application) { Application.create!(
       name: 'CatMan',
       address: '123 Main Street',
       city: 'Denver',
@@ -28,6 +28,8 @@ RSpec.describe 'the application show page' do
     ) }
 
     it 'shows the applicant info, description, pet names, and status' do
+      application.pets << fluffy
+      application.pets << buffy
       visit "/applications/#{application.id}"
 
       expect(page).to have_content 'Name: CatMan'
@@ -36,8 +38,17 @@ RSpec.describe 'the application show page' do
       expect(page).to have_content 'State: CO'
       expect(page).to have_content 'Zip: 80204'
       expect(page).to have_content 'I WANT ALL THE CATS!'
-      expect(page).to have_content 'Pets: Fluffy'
-      expect(page).to have_content 'Status: Pending'
+      expect(page).to have_content 'Fluffy'
+      expect(page).to have_content 'Buffy'
+      expect(page).to have_content 'Application Status: Pending'
+    end
+
+    it 'links to each pets show page' do
+      application.pets << fluffy
+      visit "applications/#{application.id}"
+      click_on 'Fluffy'
+
+      expect(current_path).to eq "/pets/#{fluffy.id}"
     end
   end
 end
