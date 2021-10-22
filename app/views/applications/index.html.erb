@@ -1,0 +1,12 @@
+<h1>Application Index</h1>
+
+<%= link_to "New Application", "/applications/new" %>
+
+<% @applications.each do |application| %>
+  <section id="application-<%= application.id %>">
+    <h1><%= application.name %></h1>
+    <% application.pets.each do |pet| %>
+       <p><%= pet.name %></p>
+    <% end %>
+  </section>
+<% end %>

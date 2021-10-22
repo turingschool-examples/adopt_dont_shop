@@ -2,6 +2,8 @@
 <p>Rank: <%= @shelter.rank %></p>
 <p>City: <%= @shelter.city %></p>
 
+<p><%= link_to "Create a Pet", "/shelters/#{@shelter.id}/pets/new" %></p>
+
 <p class="pet-count">Pets at <%= @shelter.name %>: <%= @shelter.pet_count %></p>
 <p><%= link_to "All pets at #{@shelter.name}", "/shelters/#{@shelter.id}/pets" %></p>
 
