@@ -17,7 +17,7 @@ RSpec.describe 'New Application Page' do
 
     describe 'the application create' do
       describe 'given valid data' do
-        xit 'redirects to the new applications show page' do
+        it 'redirects to the new applications show page' do
           visit '/applications/new'
 
           fill_in :name, with: 'George'
@@ -27,7 +27,7 @@ RSpec.describe 'New Application Page' do
           fill_in :zip, with: '80440'
           click_on 'Save'
 
-          expect(current_path).to_not eq "/applications"
+          expect(current_path).to eq "/applications/#{Application.all.last.id}"
         end
       end
 

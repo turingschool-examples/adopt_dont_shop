@@ -23,6 +23,13 @@ class ApplicationsController < ApplicationController
     Pet.search(params[:search])
   end
 
+  def update
+    application = Application.find(params[:id])
+    pet = Pet.find(params[:pet_id])
+    application.pets << pet
+    redirect_to "/applications/#{application.id}"
+  end
+
   private
     def application_params
       params.permit(:id, :name, :address, :city, :state, :zip, :description, :status, :search)

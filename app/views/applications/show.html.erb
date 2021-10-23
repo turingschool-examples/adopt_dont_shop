@@ -10,7 +10,13 @@
 <div>
 <% if @pets %>
   <% @pets.each do |pet| %>
-    <p><%= pet.name %> <%= link_to 'Adopt this Pet', "/applications/#{@application.id}" %></p>
+    <p>
+    <%= pet.name %>
+    <%= form_with method: :patch, local: true do |f| %>
+      <%= f.hidden_field :pet_id, value: pet.id %>
+      <%= f.submit 'Adopt this Pet' %>
+    <% end %>
+    </p>
   <% end %>
 <% end %>
 </div>
@@ -24,6 +30,6 @@
 <p><%= @application.description %></p>
 <h3>Pets included in this application: </h3>
 <% @application.pets.each do |pet| %>
-  <%= link_to pet.name, "/pets/#{pet.id}" %>
+  <p><%= pet.name %></p>
 <% end %>
 <h2>Application Status: <%= @application.status %></h2>

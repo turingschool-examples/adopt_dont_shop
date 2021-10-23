@@ -84,7 +84,7 @@ RSpec.describe 'the pets index' do
 
   it 'displays a link to start a new application' do
     visit '/pets'
-    save_and_open_page
+
     expect(page).to have_content 'Start an Application'
 
     click_link 'Start an Application'
