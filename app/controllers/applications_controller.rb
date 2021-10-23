@@ -21,6 +21,16 @@ class ApplicationsController < ApplicationController
     end
   end
 
+  def update
+    application = Application.find(params[:id])
+    if application.update(app_params)
+      redirect_to application_path(application)
+    else
+      flash[:error] = 'Application could not be submitted'
+      redirect_to application_path(application)
+    end
+  end 
+
   private
 
   def app_params

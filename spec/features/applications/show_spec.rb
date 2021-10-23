@@ -52,6 +52,22 @@ RSpec.describe 'application show page' do
         expect(current_path).to eq(application_path(@application))
         expect(page).to have_content(@pet3.name)
       end
+
+      it 'after i add pets to app i see a section to submit it with description' do
+        fill_in :description, with: @application.description
+        click_button 'Submit'
+
+        expect(current_path).to eq(application_path(@application))
+        expect(page).to have_content 'Pending'
+        expect(page).to_not have_button('Submit')
+      end
+
+      it 'if there are no pets on application I cannot submit it' do
+        application = create :application
+        visit application_path(application)
+
+        expect(page).to_not have_button('Submit')
+      end
     end
   end
 end
