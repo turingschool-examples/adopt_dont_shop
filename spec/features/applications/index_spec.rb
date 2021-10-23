@@ -1,7 +1,7 @@
 require 'rails_helper'
 
-RSpec.describe "the Application show page" do
-  it "should display an application" do
+RSpec.describe 'applications index' do
+  it 'shows all applications' do
     shelter_1 = Shelter.create!(name: "Dumb Friends League",
                                 rank: 2,
                                 city: "Honolulu",
@@ -25,12 +25,24 @@ RSpec.describe "the Application show page" do
                                         pet_names: ["Mochi", "Dango"],
                                         application_status: "pending")
 
+    application_2 = Application.create!(name: "Joe Hashimura",
+                                        street_address: "123 Hawaii Kai Dr.",
+                                        city: "Honolulu",
+                                        state: "HI",
+                                        zip_code: "96825",
+                                        description: "Cats are my life!",
+                                        pet_names: ["Mochi", "Dango"],
+                                        application_status: "pending")
+
     application_1.pets << pet_1
     application_1.pets << pet_2
+    application_2.pets << pet_1
+    application_2.pets << pet_2
 
-    visit "/applications/#{application_1.id}"
+    visit "/applications"
 
-    expect(page).to have_content(pet_1.name)
-    expect(page).to have_content(pet_2.name)
+    expect(page).to have_content(application_1.name)
+    expect(page).to have_content(application_2.name)
+    expect(page).to have_link("New Application")
   end
 end
