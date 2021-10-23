@@ -8,6 +8,6 @@ RSpec.describe "application", type: :feature do
     click_link "Start an Application"
 
     expect(current_path).to eq('/applications/new')
-    expect(page).to have_content("Name:")
+    expect(page).to have_content("Name")
   end
 end

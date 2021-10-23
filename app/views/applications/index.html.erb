@@ -4,9 +4,6 @@
 
 <% @applications.each do |application| %>
   <section id="application-<%= application.id %>">
-    <h1><%= application.name %></h1>
-    <% application.pets.each do |pet| %>
-       <p><%= pet.name %></p>
-    <% end %>
+    <%= link_to "#{application.name}", "/applications/#{application.id}" %>
   </section>
 <% end %>
