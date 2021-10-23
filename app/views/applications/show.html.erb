@@ -1,6 +1,10 @@
-Application
-
-<%= @application.name %><\br>
-<%= @application.full_address %><\br>
-<%= @application.description %><\br>
-<%= @application.status %><\br>
+Application Details<br>
+<br>
+Name: <%= @application.name %><br>
+Full Address: <%= @application.full_address %><br>
+Description: <%= @application.description %><br>
+Status: <%= @application.status %><br><br>
+<u>Pets Applied For:</u><br>
+<% @application.pets.each do |pet| %>
+<%= link_to "#{pet.name}", "/pets/#{pet.id}" %><br>
+<% end %>
