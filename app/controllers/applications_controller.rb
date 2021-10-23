@@ -1,6 +1,12 @@
 class ApplicationsController < ApplicationController
   def show
-    @application = load_application(params[:id])
+    if params[:search].present?
+      @pets = Pet.search(params[:search])
+      @application = load_application(params[:id])
+    else
+      @pets = []
+      @application = load_application(params[:id])
+    end
   end
 
   def new
@@ -16,6 +22,13 @@ class ApplicationsController < ApplicationController
     end
   end
 
+  def adopt
+    application = load_application(params[:id])
+    pet = load_pet(params[:pet_id])
+    application.add_pet_to_application(pet)
+
+    redirect_to "/applications/#{application.id}"
+  end
 
 
 
@@ -35,5 +48,9 @@ class ApplicationsController < ApplicationController
 
       def load_application(id)
         Application.find(id)
+      end
+
+      def load_pet(id)
+        Pet.find(id)
       end
 end

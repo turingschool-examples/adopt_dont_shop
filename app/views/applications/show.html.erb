@@ -6,5 +6,18 @@ Description: <%= @application.description %><br>
 Status: <%= @application.status %><br><br>
 <u>Pets Applied For:</u><br>
 <% @application.pets.each do |pet| %>
-<%= link_to "#{pet.name}", "/pets/#{pet.id}" %><br>
+<p><%= link_to "#{pet.name}", "/pets/#{pet.id}" %></p>
 <% end %>
+<section>
+<h2>Add a Pet to this Application</h2>
+
+<p><%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |f| %>
+  <%= f.label :search_for_pet %>
+  <%= f.text_field :search %>
+  <%= f.submit "Submit"%>
+<% end %></p>
+
+<% @pets.each do |pet| %>
+<p><%= link_to "#{pet.name}", "/pets/#{pet.id}" %> <%= button_to "Adopt this Pet", method: :post, params: { pet_id: pet.id }, action: "adopt" %></p>
+<% end %>
+</section>
