@@ -1,5 +1,9 @@
 class ApplicationsController < ApplicationController
 
+  def index
+    @applications = Application.all
+  end
+
   def show
     @application = Application.find(params[:id])
   end
@@ -20,6 +24,9 @@ class ApplicationsController < ApplicationController
   private
 
     def app_params
-      params.permit(:name, :street_address, :city, :state, :zip_code)
+      if params[:status] == nil || params[:status] == ""
+        params[:status] = 'In Progress'
+      end
+      params.permit(:name, :street_address, :city, :state, :zip_code, :status)
     end
 end
