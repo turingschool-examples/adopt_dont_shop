@@ -70,6 +70,7 @@ RSpec.describe 'the application show page' do
           fill_in 'Search', with: "Ba"
           click_on("Search")
 
+          # how to display search results on this page?
           expect(current_path).to eq "/applications/#{application.id}"
           expect(page).to have_content(pet_1.name)
           expect(page).to have_content(pet_2.name)

@@ -6,22 +6,12 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-@shelter1 = Shelter.create!(
-  name: 'Test Shelter',
-  rank: 1,
-  city: 'Denver'
-)
+shelter = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
+  pet_1 = Pet.create(adoptable: true, age: 7, breed: 'sphynx', name: 'Bare-y Manilow', shelter_id: shelter.id)
+  pet_2 = Pet.create(adoptable: true, age: 3, breed: 'domestic pig', name: 'Babe', shelter_id: shelter.id)
+  pet_3 = Pet.create(adoptable: true, age: 4, breed: 'chihuahua', name: 'Elle', shelter_id: shelter.id)
 
-@pet1 = @shelter1.pets.create!(
-  name: 'Fluffy',
-  age: 2,
-)
-
-@app1 = @pet1.applications.create!(
-  name: 'CatMan',
-  address: '123 Main Street',
-  city: 'Denver',
-  state: 'CO',
-  zip: '80204',
-  description: 'I WANT ALL THE CATS!'
-)
+shelter = Shelter.create(name: 'Maxfund', city: 'Denver, CO', foster_program: true, rank: 8)
+  pet_1 = Pet.create(adoptable: true, age: 1, breed: 'tabby', name: 'Bowie', shelter_id: shelter.id)
+  pet_2 = Pet.create(adoptable: true, age: 6, breed: 'tabby', name: 'Stella', shelter_id: shelter.id)
+  pet_3 = Pet.create(adoptable: true, age: 8, breed: 'daschund', name: 'Dijon', shelter_id: shelter.id)
