@@ -8,8 +8,13 @@ class ApplicationsController < ApplicationController
   end
 
   def create
-    application = Application.create(app_params)
-    redirect_to "/applications/#{application.id}"
+    application = Application.new(app_params)
+    if application.save
+      redirect_to "/applications/#{application.id}"
+    else
+      flash[:notice] = "All fields must be completed before submission"
+      render :new
+    end
   end
 
   private

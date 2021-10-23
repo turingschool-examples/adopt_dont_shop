@@ -21,4 +21,16 @@ RSpec.describe 'Applications New' do
 
     expect(page).to have_content("Chaz Simons")
   end
+
+  it 'will not create an application if fields are left incomplete' do
+    visit "/applications/new"
+    fill_in :name, with: 'Chaz Simons'
+    fill_in :street_address, with: '1234 Cool Guy Rd'
+    fill_in :city, with: 'Las Vegas'
+    click_button "Submit"
+
+    expect(page).to have_content("All fields must be completed before submission")
+    expect(current_path).to eq("/applications")
+    expect(page).to have_button("Submit")
+  end
 end
