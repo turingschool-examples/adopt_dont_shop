@@ -8,6 +8,7 @@ class CreateApplications < ActiveRecord::Migration[5.2]
       t.string :zip
       t.text :description
 
+
       t.timestamps
     end
   end
