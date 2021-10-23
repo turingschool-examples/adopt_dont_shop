@@ -1,6 +1,12 @@
-<%= form_with url: "/applications", method: :post, local: true do |f| %>
-<%= form.label :name %>
+<%= form_with url: "/applications", method: :post, local: true do |form| %>
+<%= form.label :name, "Name:" %>
 <%= form.text_field :name %>
-<%= form.label :address %>
-<%= form.text_area :address %>
-<%= form.label :
+<%= form.label :street_address, "Street Address:" %>
+<%= form.text_field :street_address %>
+<%= form.label :city, "City:" %>
+<%= form.text_field :city %>
+<%= form.label :state, "State:"%>
+<%= form.text_field :state %>
+<%= form.label :zip_code, "Zip Code:"%>
+<%= form.text_field :zip_code %>
+<% end %>

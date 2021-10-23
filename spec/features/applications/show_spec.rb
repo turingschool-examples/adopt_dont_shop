@@ -16,6 +16,9 @@ RSpec.describe 'Applications' do
         visit "/applications/#{@newapp.id}"
 
         expect(page).to have_content(@newapp.name)
+        expect(page).to have_content(@newapp.street_address)
+        expect(page).to have_content(@newapp.zip_code)
+        expect(page).to have_content(@newapp.status)
     end
   end
 end
