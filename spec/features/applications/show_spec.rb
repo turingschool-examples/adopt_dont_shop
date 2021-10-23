@@ -68,6 +68,16 @@ RSpec.describe 'application show page' do
 
         expect(page).to_not have_button('Submit')
       end
+
+      it 'search handles partial matches and is case insensitive' do
+        expect(page).to_not have_content(@pet3.name)
+
+        search = @pet3.name[0..2].upcase
+        fill_in :search, with: search
+        click_button 'Search'
+
+        expect(page).to have_content(@pet3.name)
+      end
     end
   end
 end
