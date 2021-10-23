@@ -8,3 +8,9 @@ Status: <%= @application.status %><br><br>
 <% @application.pets.each do |pet| %>
 <%= link_to "#{pet.name}", "/pets/#{pet.id}" %><br>
 <% end %>
+
+<%= form_with url: "/pets/", method: :post, local: true do |f| %>
+  <%= f.label :search_for_pet %>
+  <%= f.text_field :search %>
+  <%= f.submit "Submit"%>
+<% end %>
