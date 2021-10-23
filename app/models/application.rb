@@ -11,4 +11,8 @@ class Application < ApplicationRecord
     "#{street_address}, #{city}, #{state}, #{zip}"
   end
 
+  def add_pet_to_application(pet)
+    pets << pet
+  end
+
 end
