@@ -18,6 +18,6 @@ Status: <%= @application.status %><br><br>
 <% end %></p>
 
 <% @pets.each do |pet| %>
-<p><%= link_to "#{pet.name}", "/pets/#{pet.id}" %> <%= button_to "New", action: "adopt(#{pet})" %></p>
+<p><%= link_to "#{pet.name}", "/pets/#{pet.id}" %> <%= button_to "Adopt this Pet", method: :post, params: { pet_id: pet.id }, action: "adopt" %></p>
 <% end %>
 </section>
