@@ -58,7 +58,7 @@ RSpec.describe 'application show page' do
         click_button 'Submit'
 
         expect(current_path).to eq(application_path(@application))
-        expect(page).to have_content 'Pending'
+        expect(page).to have_content('Pending')
         expect(page).to_not have_button('Submit')
       end
 
