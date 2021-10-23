@@ -1,0 +1,8 @@
+<h1>Application <%= @application.id %></h1>
+<h3>Name: <%= @application.name %></h3>
+<h3>Lives at <%= @application.street_address %>, <%= @application.city %>, <%= @application.state %>, <%= @application.zip_code %></h3>
+<h3>Why <%= @application.name %> would be a good home for the given pet: They created an application.</h3>
+<h3>Application Status: <%= @application.status %></h3>
+<% @pets.each do |pet| %>
+  <a href="/pets/<%= pet.id %>"><%= pet.name %></a>
+<% end %>
