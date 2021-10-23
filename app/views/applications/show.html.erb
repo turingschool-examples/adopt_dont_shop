@@ -1,0 +1,12 @@
+<h3><%= @application.name %>'s Adoption Application</h3>
+
+Name: <%= @application.name %><br>
+Address: <%= @application.address %><br>
+City: <%= @application.city %><br>
+State: <%= @application.state %><br>
+Zip Code: <%= @application.zip %><br>
+Description: <%= @application.description %><br>
+Pets: <% @application.pets.each do |pet| %>
+        <%= link_to pet.name, "/pets/#{pet.id}" %>
+      <% end %><br>
+Application Status: <%= @application.status %>

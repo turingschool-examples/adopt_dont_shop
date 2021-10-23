@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
   get '/', to: 'application#welcome'
 
+  #look at namespacing and only/except
+  resources :applications
+
   get '/shelters', to: 'shelters#index'
   get '/shelters/new', to: 'shelters#new'
   get '/shelters/:id', to: 'shelters#show'
