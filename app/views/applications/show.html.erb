@@ -1,6 +1,7 @@
 <h1>Name: <%= @application.name %></h1>
 <h3>Address: <%= @application.street_address %> <br> <%= @application.city %>,<%= @application.state %> <%= @application.zip_code %> </h3>
 <h3>Why you'd be a good fit: <%= @application.good_fit %></h3>
-<!-- <h3>Pets:  @application.pets.each do |pet|
-            display pet name, ERB link_to pet.id </h3> -->
+<h3>Pets: <% @application.pets.each do |pet| %>
+            <%= link_to "#{pet.name}", "pets/#{pet.id}" %>
+          <% end %> </h3>
 <h3>Application Status: <%= @application.status %></h3>
