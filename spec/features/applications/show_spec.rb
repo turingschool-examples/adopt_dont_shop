@@ -55,9 +55,43 @@ RSpec.describe 'the application show page' do
         expect(current_path).to eq "/applications/#{application.id}"
         expect(page).to have_content 'Buffy'
       end
+
+      describe 'when no pets have been added' do
+        it 'cannot be submitted' do
+          visit "/applications/#{application.id}"
+
+          expect(page).to_not have_content 'Submit'
+        end
+      end
+
+      describe 'when one or more pets have been added' do
+        it 'can be submitted' do
+          visit "/applications/#{application.id}"
+          fill_in 'Search', with: "buf"
+          click_on("Search")
+          click_on('Adopt this Pet')
+
+          expect(page).to have_button 'Submit'
+
+          click_on 'Submit'
+
+          expect(current_path).to eq "/applications/#{application.id}"
+        end
+      end
     end
 
     describe 'when the application has been submitted' do
+      it 'submitting removes the ability to add more pets' do
+        visit "/applications/#{application.id}"
+        fill_in 'Search', with: "buf"
+        click_on("Search")
+        click_on('Adopt this Pet')
+        click_on 'Submit'
+
+        expect(page).to_not have_content 'Search'
+        expect(page).to have_content 'Buffy'
+        expect(page).to have_content 'Pending'
+      end
     end
   end
 end
