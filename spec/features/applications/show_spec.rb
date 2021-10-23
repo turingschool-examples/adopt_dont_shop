@@ -5,7 +5,10 @@ RSpec.describe 'Applications' do
     it 'will display an applications information' do
       @newapp = Application.create!({
         name: 'Chaz Simons',
-        address: '1234 Cool Guy Rd, Las Vegas, NV 89106',
+        street_address: '1234 Cool Guy Rd',
+        city: 'Las Vegas',
+        state: 'NV',
+        zip_code: 89106,
         good_fit: '',
         status: 'In Progress'
         })
