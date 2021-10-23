@@ -32,6 +32,14 @@ RSpec.describe 'application show page' do
         click_link @pet1.name
         expect(current_path).to eq("/pets/#{@pet1.id}")
       end
+
+      it 'i search for pets by name' do
+        fill_in :search, with: @pet3.name
+        click_button 'Search'
+
+        expect(current_path).to eq(application_path(@application))
+        expect(page).to have_link(@pet3.name)
+      end
     end
   end
 end

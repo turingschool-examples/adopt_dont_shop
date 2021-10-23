@@ -4,6 +4,8 @@ Rails.application.routes.draw do
   #look at namespacing and only/except
   resources :applications
 
+  resources :application_pets
+
   get '/shelters', to: 'shelters#index'
   get '/shelters/new', to: 'shelters#new'
   get '/shelters/:id', to: 'shelters#show'

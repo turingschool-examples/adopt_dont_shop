@@ -5,3 +5,12 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+# Shelter.destroy_all
+# Pet.destroy_all
+# Application.destroy_all
+#
+# @shelter = create :shelter
+# @pet1 = create :pet, { shelter_id: @shelter.id }
+# @pet2 = create :pet, { shelter_id: @shelter.id }
+# @pet3 = create :pet, { shelter_id: @shelter.id }
+# @application = create :application
