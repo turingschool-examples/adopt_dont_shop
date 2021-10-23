@@ -7,7 +7,7 @@ RSpec.describe 'the application show' do
     pet1 = application.pets.create(name: 'Scooby', age: 2, breed: 'Great Dane', adoptable: true, shelter_id: shelter.id)
     pet2 = application.pets.create(name: 'Mia', age: 3, breed: 'cat', adoptable: true, shelter_id: shelter.id)
     visit "/application/#{application.id}"
-
+    save_and_open_page
     expect(page).to have_content(application.name)
     expect(page).to have_content(application.address)
     expect(page).to have_content(application.good_home)
