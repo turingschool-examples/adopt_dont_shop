@@ -15,11 +15,17 @@ class ApplicationsController < ApplicationController
         redirect_to '/applications/new'
         flash[:alert] = "Error: #{error_message(@application.errors)}"
       end
-
   end
 
   def show
     @application = Application.find(params[:id])
+
+    if params[:search].present?
+      # (@application.application_status == "In Progress") &&
+      @pets = Pet.search(params[:search])
+    else
+      flash.alert = "Error: no pets match your search"
+    end
   end
 
   private

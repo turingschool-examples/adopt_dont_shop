@@ -2,5 +2,27 @@
 <p><%= @application.street_address %><br>
 <%= @application.city %>, <%= @application.state%> <%= @application.zip_code%><br>
 Description: <%= @application.description%><br>
-Pet Names: <%= @application.pet_names %><br>
+Pets I want to Adopt: <%= @application.pet_names%><br>
 Application Status: In Progress <%= @application.application_status%>
+
+<hr>
+
+<h4>Add a Pet to this Application</h4>
+
+<%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |f| %>
+  <%= f.label :search %>
+  <%= f.text_field :search %>
+  <%= f.submit "Search" %>
+<% end %>
+
+<%if !@pets.nil?%>
+  <%@pets.each do |pet|%>
+    <%= pet.name %> <%= link_to "Adopt this Pet", "/applications/#{@application.id}"%><br>
+  <%end%>
+<% elsif @pets.nil?%>
+  <% flash.each do |type, msg| %>
+  <div>
+    <%= msg %>
+  </div>
+  <% end %>
+<%end%>
