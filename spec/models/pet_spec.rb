@@ -32,6 +32,13 @@ RSpec.describe Pet, type: :model do
         expect(Pet.adoptable).to eq([@pet_1, @pet_2])
       end
     end
+
+    # describe '#search_for' do
+    #   it 'returns a list of adoptable pets by name' do
+    #     params =
+    #     expect(Pet.search_for('Ann')).to eq([@pet_3])
+    #   end
+    # end
   end
 
   describe 'instance methods' do
