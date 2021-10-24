@@ -1,0 +1,44 @@
+<h1>Application <%= @application.id %></h1>
+
+<% if @application.description == nil %>
+  <h3>Add a Pet to this Application</h3>
+  <%= form_with method: :get, local: true do |f| %>
+    <%= f.label :search %>
+    <%= f.text_field :search %>
+    <%= f.submit "Search" %>
+  <% end %>
+<% end %>
+
+<div>
+<% if @pets %>
+  <% @pets.each do |pet| %>
+    <p>
+    <%= pet.name %>
+    <%= form_with method: :patch, local: true do |f| %>
+      <%= f.hidden_field :pet_id, value: pet.id %>
+      <%= f.submit 'Adopt this Pet' %>
+    <% end %>
+    </p>
+  <% end %>
+<% end %>
+</div>
+
+<h3>Name: <%= @application.name %></h3>
+<h3>Address: <%= @application.address %></h3>
+<h3>City: <%= @application.city %></h3>
+<h3>State: <%= @application.state %></h3>
+<h3>Zip: <%= @application.zip %></h3>
+<p><%= @application.description %></p>
+<h3>Pets included in this application: </h3>
+<% @application.pets.each do |pet| %>
+  <p><%= pet.name %></p>
+<% end %>
+<% if @application.pets.count != 0 %>
+  <h3>Please tell us a bit more about why you'd like to adopt: </h3>
+  <%= form_with method: :patch, local: true do |f| %>
+    <%= f.label :description %>
+    <%= f.text_area :description %>
+    <%= f.submit 'Submit'%>
+  <% end %>
+<% end %>
+<h2>Application Status: <%= @application.status %></h2>
