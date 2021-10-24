@@ -1,27 +1,29 @@
 <h1>Application <%= @application.id %></h1>
 
 <% if @application.description == nil %>
-  <h3>Add a Pet to this Application</h3>
-  <%= form_with method: :get, local: true do |f| %>
-    <%= f.label :search %>
-    <%= f.text_field :search %>
-    <%= f.submit "Search" %>
-  <% end %>
-<% end %>
+  <div>
+    <h3>Add a Pet to this Application</h3>
+      <%= form_with method: :get, local: true do |f| %>
+        <%= f.label :search %>
+        <%= f.text_field :search %>
+        <%= f.submit "Search" %>
+      <% end %>
+  </div>
 
-<div>
-<% if @pets %>
-  <% @pets.each do |pet| %>
-    <p>
-    <%= pet.name %>
-    <%= form_with method: :patch, local: true do |f| %>
-      <%= f.hidden_field :pet_id, value: pet.id %>
-      <%= f.submit 'Adopt this Pet' %>
+  <div>
+  <% if @pets %>
+    <% @pets.each do |pet| %>
+      <p>
+      <%= pet.name %>
+      <%= form_with method: :patch, local: true do |f| %>
+        <%= f.hidden_field :pet_id, value: pet.id %>
+        <%= f.submit 'Adopt this Pet' %>
+      <% end %>
+      </p>
     <% end %>
-    </p>
   <% end %>
+  </div>
 <% end %>
-</div>
 
 <h3>Name: <%= @application.name %></h3>
 <h3>Address: <%= @application.address %></h3>
