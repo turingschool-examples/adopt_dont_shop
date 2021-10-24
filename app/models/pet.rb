@@ -9,6 +9,10 @@ class Pet < ApplicationRecord
     shelter.name
   end
 
+  def has_pending_applications?
+    applications.where(status: 'Pending').exists?
+  end
+
   def self.adoptable
     where(adoptable: true)
   end
