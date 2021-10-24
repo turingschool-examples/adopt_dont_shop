@@ -17,7 +17,7 @@ RSpec.describe 'shelter creation' do
     context 'given valid data' do
       it 'creates the shelter' do
         visit '/shelters/new'
-
+        
         fill_in 'Name', with: 'Houston Shelter'
         fill_in 'City', with: 'Houston'
         check 'Foster program'
