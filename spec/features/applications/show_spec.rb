@@ -5,7 +5,7 @@ RSpec.describe 'the application show page' do
   let!(:fluffy)     { shelter.pets.create(adoptable: true, age: 7, breed: 'sphynx', name: 'Fluffy')}
   let!(:buffy)      { shelter.pets.create(adoptable: true, age: 3, breed: 'domestic pig', name: 'Buffy')}
   let!(:elle)       { shelter.pets.create(adoptable: true, age: 4, breed: 'chihuahua', name: 'Elle') }
-  let(:application) { Application.create(name: 'CatMan', address: '123 Main Street', city: 'Denver', state: 'CO', zip: '80204', description: 'I WANT ALL THE CATS!') }
+  let(:application) { Application.create(name: 'CatMan', address: '123 Main Street', city: 'Denver', state: 'CO', zip: '80204') }
 
   describe 'as a visitor' do
     it 'shows the applicant info, description, pet names, and status' do
@@ -18,7 +18,6 @@ RSpec.describe 'the application show page' do
       expect(page).to have_content 'City: Denver'
       expect(page).to have_content 'State: CO'
       expect(page).to have_content 'Zip: 80204'
-      expect(page).to have_content 'I WANT ALL THE CATS!'
       expect(page).to have_content 'Fluffy'
       expect(page).to have_content 'Buffy'
       expect(page).to have_content 'Application Status: Pending'
@@ -60,6 +59,7 @@ RSpec.describe 'the application show page' do
         it 'cannot be submitted' do
           visit "/applications/#{application.id}"
 
+          expect(page).to_not have_content :description
           expect(page).to_not have_content 'Submit'
         end
       end
@@ -86,6 +86,7 @@ RSpec.describe 'the application show page' do
         fill_in 'Search', with: "buf"
         click_on("Search")
         click_on('Adopt this Pet')
+        fill_in :description, with: 'I WANT ALL THE CATS!'
         click_on 'Submit'
 
         expect(page).to_not have_content 'Search'
