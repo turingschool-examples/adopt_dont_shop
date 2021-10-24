@@ -3,6 +3,11 @@ class ApplicationsController < ApplicationController
     if params[:search].present?
       @pets = Pet.search(params[:search])
       @application = load_application(params[:id])
+    elsif params[:search] == ""
+      @pets = []
+      @application = load_application(params[:id])
+
+      redirect_to "/applications/#{@application.id}"
     else
       @pets = []
       @application = load_application(params[:id])
@@ -30,7 +35,15 @@ class ApplicationsController < ApplicationController
     redirect_to "/applications/#{application.id}"
   end
 
-
+  def update
+    application = load_application(params[:id])
+    if application.update(application_params)
+      redirect_to "/applications/#{application.id}"
+    else
+      redirect_to "/applications/#{application.id}/"
+      flash[:alert] = "Error: #{error_message(application.errors)}"
+    end
+  end
 
 
   private
@@ -40,9 +53,11 @@ class ApplicationsController < ApplicationController
                       :street_address,
                       :city,
                       :state,
-                      :zip
+                      :zip,
+                      :description,
+                      :status
                       )
-        params_hash[:status] = 'In Progress'
+        # params_hash[:status] = 'In Progress'
         params_hash
       end
 
