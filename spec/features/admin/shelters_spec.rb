@@ -29,7 +29,6 @@ RSpec.describe 'the shelters index' do
   end
 
   it 'has a section which lists shelters with pending applications' do
-    visit "admin/shelters"
     application = Application.create!(
                                       name: "Nate Brown",
                             street_address: "2000 35th Avenue",
@@ -39,8 +38,14 @@ RSpec.describe 'the shelters index' do
                                     status: "Pending"
                                         )
 
-    application.pets << @lucille
+    @lucille.applications << application
 
-    expect(page).to have_content("Shelters with Pending Applications")
+    visit "admin/shelters"
+    save_and_open_page
+    within '#pending-shelters' do
+      expect(page).to have_content("Shelters with Pending Applications")
+      expect(page).to have_content(@shelter_3.name)
+      expect(page).to_not have_content(@shelter_1.name)
+    end
   end
   end

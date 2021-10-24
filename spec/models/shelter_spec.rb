@@ -85,7 +85,8 @@ RSpec.describe Shelter, type: :model do
                                         status: "Pending"
                                             )
 
-        application.pets << @pet_3
+        @pet_3.applications << application
+  
         expect(@shelter_1.has_pending_applications?).to eq(false)
         expect(@shelter_3.has_pending_applications?).to eq(true)
       end
