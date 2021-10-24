@@ -14,7 +14,7 @@ RSpec.describe 'admin application show' do
                                          )}
      describe 'the admin application show page' do
        it "has the applicant/'s attributes" do
-         visit 'admin/applicants'
+         visit "admin/applicants/#{application.id}"
 
          expect(page).to have_content(application.name)
          expect(page).to have_content(application.full_address)
@@ -23,9 +23,9 @@ RSpec.describe 'admin application show' do
        end
 
        it "has working button for approving pets" do
-         visit 'admin/applicants'
+         visit "admin/applicants/#{application.id}"
 
-         
+
        end
      end
  end
