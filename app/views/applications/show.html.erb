@@ -1,6 +1,6 @@
 <h1>Application <%= @application.id %></h1>
 
-<% if @application.description == nil %>
+<% if !@application.description %>
   <div>
     <h3>Add a Pet to this Application</h3>
       <%= form_with method: :get, local: true do |f| %>
@@ -35,7 +35,7 @@
 <% @application.pets.each do |pet| %>
   <p><%= pet.name %></p>
 <% end %>
-<% if @application.pets.count != 0 %>
+<% if @application.pets.count != 0 && !@application.description %>
   <h3>Please tell us a bit more about why you'd like to adopt: </h3>
   <%= form_with method: :patch, local: true do |f| %>
     <%= f.label :description %>
