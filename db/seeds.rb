@@ -7,7 +7,7 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 Shelter.destroy_all
 Pet.destroy_all
-# Application.destroy_all
+Application.destroy_all
 ApplicationPet.destroy_all
 
 shelter_1 = Shelter.create(

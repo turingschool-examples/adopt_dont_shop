@@ -9,8 +9,9 @@ class ApplicationsController < ApplicationController
   def create
     application = Application.new(application_params)
 
+
     if application.save
-      redirect_to "/applications/#{application_params[:id]}"
+      redirect_to "/applications/#{application.id}"
       #why didnt the normal params work for this? or interpolation of application.id?
     else
       redirect_to "/applications/new"
@@ -21,6 +22,7 @@ class ApplicationsController < ApplicationController
 
   private
     def application_params
-      params.permit(:id, :name, :address, :city, :state, :zip_code)
+      params.permit(:name, :address, :city, :state, :zip_code, :status, :description)
+
     end
 end

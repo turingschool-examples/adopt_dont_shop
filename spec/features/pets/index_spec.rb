@@ -83,7 +83,7 @@ RSpec.describe 'the pets index' do
   end
 
   it "can start an application" do
-    
+
     visit '/pets'
 
     click_on 'Start an Application'
@@ -98,7 +98,9 @@ RSpec.describe 'the pets index' do
 
     click_on 'Submit'
 
-    expect(current_path).to eq("/applications/:id")
+    application = Application.last
+    
+    expect(current_path).to eq("/applications/#{application.id}")
 
     expect(page).to have_content('Ted')
     expect(page).to have_content('11 revere dr.')
