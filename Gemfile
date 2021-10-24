@@ -46,6 +46,7 @@ group :development, :test do
   gem 'pry'
   gem 'rspec-rails'
   gem 'simplecov'
+  gem 'shoulda-callback-matchers', '~> 1.1.1'
 end
 
 group :development do
