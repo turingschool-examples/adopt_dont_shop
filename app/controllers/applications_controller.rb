@@ -1,6 +1,10 @@
 class ApplicationsController < ApplicationController
   def show
     @application = Application.find(params[:id])
+    @pets = @application.pets
+    if params[:search].present?
+      @pets = Pet.search(params[:search])
+    end
   end
 
   def new
@@ -12,10 +16,9 @@ class ApplicationsController < ApplicationController
 
     if application.save
       redirect_to "/applications/#{application.id}"
-      #why didnt the normal params work for this? or interpolation of application.id?
     else
+      flash[:alert] = "Error: #{error_message(application.errors)}"
       redirect_to "/applications/new"
-      flash[:alert] = "Error #{error_message(application.errors)}"
     end
 
   end
