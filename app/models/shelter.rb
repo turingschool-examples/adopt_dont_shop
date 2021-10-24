@@ -20,10 +20,6 @@ class Shelter < ApplicationRecord
       .order("pets_count DESC")
   end
 
-  def self.has_pending_applications?
-    where()
-  end
-
   def pet_count
     pets.count
   end
@@ -38,5 +34,11 @@ class Shelter < ApplicationRecord
 
   def shelter_pets_filtered_by_age(age_filter)
     adoptable_pets.where('age >= ?', age_filter)
+  end
+
+  def has_pending_applications?
+    pets.any? do |pet|
+      pet.has_pending_applications?
+    end
   end
 end
