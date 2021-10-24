@@ -11,12 +11,27 @@ class ApplicationsController < ApplicationController
   def new
   end
 
-  def create
-    @application = Application.create(name: params[:name],
-                                      full_address: (params[:street_address] + ", " + params[:city] + ", " + params[:state] + " " + params[:zip_code]),
-                                      app_status: "In Progress",
-                                      description: " ")
-    redirect_to "/applications/#{@application.id}"
+  def all_params_present?(params)
+    # (params[:name] != nil) and (params[:street_address] != nil) and (params[:city] != nil) and (params[:state] != nil) and (params[:zip_code] != nil)
+    (params[:name].present?) and (params[:street_address].present?) and (params[:city].present?) and (params[:state].present?) and (params[:zip_code].present?)
+    # params.all?(&:present)
   end
+
+  def create
+    if all_params_present?(app_params)
+      @application = Application.create(app_params)
+      redirect_to "/applications/#{@application.id}"
+    else
+      flash[:error] = "Please fill out ALL application fields!!!!!"
+      redirect_back(fallback_location: "/applications/new")
+      # redirect_to "/applications/new"
+    end
+  end
+
+private
+    def app_params
+      params.permit(:name, :street_address, :city, :state, :zip_code).merge(description: " ", app_status: "In Progress")
+    end
+
 
 end
