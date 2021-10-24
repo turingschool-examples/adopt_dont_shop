@@ -1,4 +1,4 @@
-<h1>"Application #{@application.id}"</h1>
+<h1>Application @application.id}</h1>
 <%= "Name: #{@application.name}" %>
 <%= "Address: #{@application.address}" %>
 <%= "City: #{@application.city}" %>
@@ -6,3 +6,6 @@
 <%= "Zipcode: #{@application.zip_code}" %>
 <%= "Description: #{@application.description}" %>
 <%= "Application Status: #{@application.status}" %>
+<% @application.pets.each do |pet| %>
+  <%= link_to "Pet Name: #{pet.name}", "/pets/#{pet.id}" %>
+<% end %>
