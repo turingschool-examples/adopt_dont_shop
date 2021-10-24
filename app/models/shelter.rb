@@ -5,6 +5,10 @@ class Shelter < ApplicationRecord
 
   has_many :pets, dependent: :destroy
 
+  def self.order_reverse_alphabetically
+    find_by_sql("SELECT * FROM shelters ORDER BY name DESC")
+  end
+
   def self.order_by_recently_created
     order(created_at: :desc)
   end
@@ -14,6 +18,10 @@ class Shelter < ApplicationRecord
       .joins("LEFT OUTER JOIN pets ON pets.shelter_id = shelters.id")
       .group("shelters.id")
       .order("pets_count DESC")
+  end
+
+  def self.has_pending_applications?
+    where()
   end
 
   def pet_count

@@ -54,6 +54,31 @@ RSpec.describe 'application show' do
         expect(page).to have_current_path("/applications/#{Application.last.id}")
       end
     end
+    context 'when partial string entered' do
+      it 'searches for an existing pet using part of string and displays on show page' do
+        pet = Pet.create!(adoptable: true, age: 3, breed: 'doberman', name: 'Jupiter', shelter_id: shelter.id)
+
+        visit "/applications/#{application.id}"
+
+        fill_in 'search', with: 'pit'
+        click_button 'Submit'
+
+        expect(page).to have_content("Jupiter")
+      end
+    end
+
+    context 'when case insensitive string entered' do
+      it 'searches for an existing pet using capitalized string and displays on show page' do
+        pet = Pet.create!(adoptable: true, age: 3, breed: 'doberman', name: 'Jupiter', shelter_id: shelter.id)
+
+        visit "/applications/#{application.id}"
+
+        fill_in 'search', with: 'jUpIter'
+        click_button 'Submit'
+
+        expect(page).to have_content("Jupiter")
+      end
+    end
   end
 
   context 'when the applicant has added pets' do
