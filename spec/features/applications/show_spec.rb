@@ -8,7 +8,6 @@ RSpec.describe 'application show' do
                                     city: "Denver",
                                    state: "CO",
                                      zip: "90210",
-                             description: "I have a big backyard",
                                   status: "In Progress"
                                          )}
   describe 'the application show page' do
@@ -20,7 +19,6 @@ RSpec.describe 'application show' do
 
       expect(page).to have_content(application.name)
       expect(page).to have_content(application.full_address)
-      expect(page).to have_content(application.description)
       expect(page).to have_content(application.status)
       page.has_link?("Lobster")
       page.has_link?("Lucille Bald")
@@ -88,7 +86,7 @@ RSpec.describe 'application show' do
 
       fill_in 'description', with: 'I have a big backyard'
 
-      expect(page).to_not have_content("Pending")
+      expect(page).to have_content("In Progress")
 
       click_button 'Submit Application'
       expect(page).to have_current_path( "/applications/#{application.id}")

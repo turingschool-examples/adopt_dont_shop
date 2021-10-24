@@ -9,8 +9,10 @@ Status: <%= @application.status %><br><br>
 <p><%= link_to "#{pet.name}", "/pets/#{pet.id}" %></p>
 <% end %>
 
-<%if @application.pets.count <= 0 %>
+<% if @application.status == "In Progress" %>
   <%= render 'applications/add_pet'%>
-<%else %>
-<%= render 'applications/submit_application'%>
+  <% end %>
+
+<% if @application.status == "In Progress" && @application.pets.count > 0 %>
+  <%= render 'applications/submit_application'%>
 <% end %>

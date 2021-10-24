@@ -57,7 +57,7 @@ class ApplicationsController < ApplicationController
                       :description,
                       :status
                       )
-        params_hash[:status] = 'In Progress'
+        # params_hash[:status] = 'In Progress'
         params_hash
       end
 
