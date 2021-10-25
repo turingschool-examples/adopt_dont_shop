@@ -6,6 +6,16 @@
 <%= "Description: #{@application.description}" %>
 <%= "Application Status: #{@application.status}" %>
 
+<% @application.pets.each do |pet| %>
+  <%= pet.name %>
+<% end %>
+
+<div id="app-submission">
+  <% if !@application.pets.empty? %>
+  
+  <% end %>
+</div>
+
 <h4><%= "Add a pet to this Application" %></h4>
 
 <%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |f| %>
@@ -14,6 +24,11 @@
   <%= f.submit "Submit" %>
 <% end %>
 
-<% @pets.each do |pet| %>
-  <%= link_to "Pet Name: #{pet.name}", "/pets/#{pet.id}" %>
+<% if @pets %>
+  <% @pets.each do |pet| %>
+    <div id="pet-<%= pet.id %>" >
+      <%= link_to "Pet Name: #{pet.name}", "/pets/#{pet.id}" %>
+      <%= button_to "Adopt this Pet", "/applications/#{@application.id}/pets/#{pet.id}" %>
+    </div>
+  <% end %>
 <% end %>
