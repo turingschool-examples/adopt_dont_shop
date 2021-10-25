@@ -91,3 +91,6 @@ yarn-debug.log*
 # Ignore uploaded files in development
 /storage/*
 !/storage/.keep
+
+#ignore simplecov
+echo "coverage" >> .gitignore
