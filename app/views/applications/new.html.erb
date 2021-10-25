@@ -1,17 +1,16 @@
 <h1>New Application</h1>
 <%= form_with url: '/applications', method: :post, local: true do |form| %>
     <%= form.label :applicant_name %>
-    <%= form.text_field :applicant_name %><br>
+    <%= form.text_field :applicant_name, required: true %><br>
     <%= form.label :street_address %>
-    <%= form.text_field :street_address %><br>
+    <%= form.text_field :street_address, required: true %><br>
     <%= form.label :city %>
-    <%= form.text_field :city %><br>
+    <%= form.text_field :city, required: true %><br>
     <%= form.label :state %>
-    <%= form.text_field :state%><br>
+    <%= form.text_field :state, required: true %><br>
     <%= form.label :zipcode %>
-    <%= form.text_field :zipcode %><br>
+    <%= form.text_field :zipcode, required: true %><br>
     <%= form.label :why, "Expression of Interest" %>
-    <%= form.text_area :why %><br>
-    <% form.hidden_field :application_status, value: "In Progress" %>
+    <%= form.text_area :why, required: true %><br>
     <%= form.submit 'Submit Application' %>
 <% end %>
