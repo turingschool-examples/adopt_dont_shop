@@ -85,8 +85,27 @@ RSpec.describe 'the pets index' do
   it 'has a link to start a new application' do 
     visit "/pets"
 
-    clink_link "Start an Application"
+    click_link "Start an Application"
 
-    expect(current_path).to eq('applications/new')
+    expect(current_path).to eq('/applications/new')
+
+    fill_in "Applicant name", with: "Jacob Yarborough"
+    fill_in "Street address", with: "789 South Street"
+    fill_in "City", with: "Denver"
+    fill_in "State", with: "CO"
+    fill_in "Zipcode", with: '80222'
+    fill_in "Expression of Interest", with: "I love dogs"
+  
+    click_on "Submit Application"
+
+    expect(current_path).to eq("/applications/#{Application.first.id}")
+
+    expect(page).to have_content("Jacob Yarborough")
+    expect(page).to have_content("789 South Street")
+    expect(page).to have_content("Denver")
+    expect(page).to have_content("CO")
+    expect(page).to have_content('80222')
+    expect(page).to have_content("I love dogs")
+    expect(page).to have_content('In Progress')
   end 
 end

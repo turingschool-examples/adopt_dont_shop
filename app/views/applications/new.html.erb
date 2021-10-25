@@ -1,0 +1,17 @@
+<h1>New Application</h1>
+<%= form_with url: '/applications', method: :post, local: true do |form| %>
+    <%= form.label :applicant_name %>
+    <%= form.text_field :applicant_name %><br>
+    <%= form.label :street_address %>
+    <%= form.text_field :street_address %><br>
+    <%= form.label :city %>
+    <%= form.text_field :city %><br>
+    <%= form.label :state %>
+    <%= form.text_field :state%><br>
+    <%= form.label :zipcode %>
+    <%= form.text_field :zipcode %><br>
+    <%= form.label :why, "Expression of Interest" %>
+    <%= form.text_area :why %><br>
+    <% form.hidden_field :application_status, value: "In Progress" %>
+    <%= form.submit 'Submit Application' %>
+<% end %>
