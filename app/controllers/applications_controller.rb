@@ -1,5 +1,4 @@
 class ApplicationsController < ApplicationController
-
   def new
   end
 
@@ -37,6 +36,7 @@ class ApplicationsController < ApplicationController
 
   private
     def application_params
-      params.permit(:id, :name, :address, :city, :state, :zip, :description, :status, :search)
+      params.permit(:id, :name, :address, :city, :state, :zip, :description,
+                    :status, :search)
     end
 end

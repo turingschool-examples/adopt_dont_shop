@@ -1,0 +1,29 @@
+<h1>Application <%= @application.id %></h1>
+
+<h3>Name: <%= @application.name %></h3>
+<h3>Address: <%= @application.address %></h3>
+<h3>City: <%= @application.city %></h3>
+<h3>State: <%= @application.state %></h3>
+<h3>Zip: <%= @application.zip %></h3>
+<h3>Description: </h3>
+  <p><%= @application.description %></p>
+<h3>Pets included in this application: </h3>
+<% @application.pets.each do |pet| %>
+  <p>
+    <%= pet.name %>
+
+    <% if @petapps.find_by(pet_id: pet.id).approved == true %>
+      <%= ': Approved' %>
+    <% elsif @petapps.find_by(pet_id: pet.id).approved == false %>
+      <%= ': Rejected' %>
+    <% else %>
+      <%= form_with url: "/admin/applications/#{@application.id}", method: :patch, local: true do |f| %>
+        <%= f.hidden_field :pet_id, value: pet.id %>
+        <%= f.hidden_field :pet_status, value: nil %>
+        <%= f.submit 'Approve' %>
+        <%= f.submit 'Reject' %>
+      <% end %>
+    <% end %>
+  </p>
+<% end %>
+<h2>Application Status: <%= @application.status %></h2>
