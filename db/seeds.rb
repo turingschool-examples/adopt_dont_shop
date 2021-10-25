@@ -6,9 +6,9 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 shelters = [
-  [true, "Downtown Animal Shelter", "Phoenix", 2],
-  [true, "Mesa Animal Adoption Center", "Mesa", 1],
-  [false, "Chandler Animal Shelter", "Chandler", 4]
+  [true, "Downtown Animal Shelter", "Phoenix, AZ", 2],
+  [true, "Mesa Animal Adoption Center", "Mesa, AZ", 1],
+  [false, "Chandler Animal Shelter", "Chandler, AZ", 4]
 ]
 
 shelters.each do |foster_program, name, city, rank|
