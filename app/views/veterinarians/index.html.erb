@@ -1,8 +1,13 @@
 <h1>All veterinarians</h1>
+
+<br>
+
 <% @veterinarians.each do |vet| %>
   <h3><%= vet.name %></h3>
   <p>Rating: <%= vet.review_rating %></p>
   <p>Practice: <%= vet.office_name %></p>
   <%= link_to "Edit #{vet.name}", "/veterinarians/#{vet.id}/edit" %>
+  <br>
   <%= link_to "Delete #{vet.name}", "/veterinarians/#{vet.id}", method: :delete %>
+  <br><br>
 <% end %>

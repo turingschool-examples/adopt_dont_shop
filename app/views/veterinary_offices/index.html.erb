@@ -1,13 +1,19 @@
 <h1>All Veterinary Offices</h1>
 
+<br>
+
 <%= link_to "Sort by number of veterinarians",
   'veterinary_offices?sort=veterinarian_count' %>
+
+<br><br>
 
 <% @veterinary_offices.each do |office| %>
   <div id="veterinary-office-<%= office.id %>">
     <h3><%= office.name %></h3>
     <p>Created at: <%= office.created_at %></p>
     <%= link_to "Update #{office.name}", "/veterinary_offices/#{office.id}/edit" %>
+    <br>
     <%= link_to "Delete #{office.name}", "/veterinary_offices/#{office.id}", method: :delete %>
   </div>
+  <br><br>
 <% end %>

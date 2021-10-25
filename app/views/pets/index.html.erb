@@ -1,11 +1,14 @@
 <h1>All pets</h1>
 
+<br>
+
 <%= form_with url: "/pets", method: :get, local: true do |f| %>
   <%= f.label :search %>
   <%= f.text_field :search %>
   <%= f.submit "Search" %>
 <% end %>
 
+<br><br>
 
 <% @pets.each do |pet| %>
   <h3><%= pet.name %></h3>
@@ -14,5 +17,7 @@
   <p>Adoptable: </p>
   <p>You can find <%= pet.name %> at <%= pet.shelter_name %>!</p>
   <%= link_to "Edit #{pet.name}", "/pets/#{pet.id}/edit" %>
+  <br>
   <%= link_to "Delete #{pet.name}", "/pets/#{pet.id}", method: :delete %>
+  <br><br><br>
 <% end %>
