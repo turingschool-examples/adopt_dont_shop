@@ -17,13 +17,14 @@
   color: #e8a87c
 }
 
-/* html {
+html {
   height: 100%;
-} */
+}
+
 body {
   height: 100%;
   background-image: linear-gradient(135deg, #2d7d72, #588a88);
-  background-attachment: scroll;
+  background-attachment: fixed;
   margin-left: 10px;
 }
 
