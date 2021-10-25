@@ -28,6 +28,10 @@ body {
   margin-left: 10px;
 }
 
+h1 {
+  text-align: center;
+}
+
 a {
   color: #e8a87c;
 }
