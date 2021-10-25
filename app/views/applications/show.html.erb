@@ -9,5 +9,5 @@
 
 <h3>Pets on Application</h3>
 <% @application.get_pets(@application.id).each do |pet| %>
-    <%= pet.name %><br>
+    <%= link_to pet.name, "/pets/#{pet.id}" %><br>
 <% end %>

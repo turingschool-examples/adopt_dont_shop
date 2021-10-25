@@ -40,5 +40,15 @@ RSpec.describe 'guest applications show page' do
         expect(page).to have_content(pet2.name)
         expect(page).to have_content(application1.why)
         expect(page).to have_content(application1.application_status)
+
+        click_link "#{pet1.name}"
+
+        expect(current_path).to eq("/pets/#{pet1.id}")
+
+        visit "/applications/#{application1.id}"
+
+        click_link "#{pet2.name}"
+
+        expect(current_path).to eq("/pets/#{pet2.id}")
     end 
 end 
