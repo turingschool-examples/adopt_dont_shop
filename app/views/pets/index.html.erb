@@ -6,6 +6,7 @@
   <%= f.submit "Search" %>
 <% end %>
 
+<h2><%= link_to "Start an Application", "/applications/new" %></h2>
 
 <% @pets.each do |pet| %>
   <h3><%= pet.name %></h3>
@@ -14,7 +15,5 @@
   <p>Adoptable: </p>
   <p>You can find <%= pet.name %> at <%= pet.shelter_name %>!</p>
   <%= link_to "Edit #{pet.name}", "/pets/#{pet.id}/edit" %>
-  <%= link_to "Delete #{pet.name}", "/pets/#{pet.id}", method: :delete %>
+  <%= link_to "Delete #{pet.name}", "/pets/#{pet.id}", method: :delete %><br>
 <% end %>
-
-<%= link_to "Start an Application", "/applications/new" %>
