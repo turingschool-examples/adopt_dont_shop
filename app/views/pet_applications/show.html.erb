@@ -8,6 +8,7 @@
 
 <h2>Pets</h2>
 <% @app.pets.each do |pet| %>
-<p>Pet Name: <%= pet.name %></p>
+<p>Pet Name: <%= link_to pet.name, "/pets/#{pet.id}" %></p>
 <% end %>
+<h3>Application Status: <%= @app.status %></h3>
 </main>

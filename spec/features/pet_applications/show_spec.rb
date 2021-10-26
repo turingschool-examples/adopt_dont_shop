@@ -1,12 +1,3 @@
-# As a visitor
-# When I visit an applications show page
-# Then I can see the following:
-#
-# Name of the Applicant
-# Full Address of the Applicant including street address, city, state, and zip code
-# Description of why the applicant says they'd be a good home for this pet(s)
-# names of all pets that this application is for (all names of pets should be links to their show page)
-# The Application's status, either "In Progress", "Pending", "Accepted", or "Rejected"
 require 'rails_helper'
 
 RSpec.describe 'pet application show' do
@@ -24,18 +15,39 @@ RSpec.describe 'pet application show' do
     expect(page).to have_content(app.reason)
   end
 
-  it 'shows pets tied to application' do
+  describe 'pet information' do
+    before(:each) do
+      @app = PetApplication.create!(name: 'Liam', street: '155 Main Street', city: 'Phoenix', state: 'AZ', zip: 85_222,
+                                    reason: 'Pet friendly, loving home looking for a companion')
+
+      shelter = Shelter.create!(foster_program: true, name: 'Phoenix Pet Friends', city: 'Phoenix, AZ', rank: 2)
+
+      @cat = @app.pets.create!(adoptable: true, age: 8, breed: 'Bombay', name: 'Moxie', shelter_id: shelter.id)
+      @dog = @app.pets.create!(adoptable: true, age: 4, breed: 'Mutt', name: 'Daisy', shelter_id: shelter.id)
+    end
+
+    it 'shows pets tied to application' do
+      visit "/applications/#{@app.id}"
+
+      expect(page).to have_content(@cat.name)
+      expect(page).to have_content(@dog.name)
+    end
+
+    it 'has links in pet names' do
+      visit "/applications/#{@app.id}"
+
+      click_on 'Moxie'
+
+      expect(page).to have_current_path("/pets/#{@cat.id}")
+    end
+  end
+
+  it 'shows application status' do
     app = PetApplication.create!(name: 'Liam', street: '155 Main Street', city: 'Phoenix', state: 'AZ', zip: 85_222,
                                  reason: 'Pet friendly, loving home looking for a companion')
 
-    shelter = Shelter.create!(foster_program: true, name: 'Phoenix Pet Friends', city: 'Phoenix, AZ', rank: 2)
-
-    cat = app.pets.create!(adoptable: true, age: 8, breed: 'Bombay', name: 'Moxie', shelter_id: shelter.id)
-    dog = app.pets.create!(adoptable: true, age: 4, breed: 'Mutt', name: 'Daisy', shelter_id: shelter.id)
-
     visit "/applications/#{app.id}"
 
-    expect(page).to have_content(cat.name)
-    expect(page).to have_content(dog.name)
+    expect(page).to have_content("Application Status: #{app.status}")
   end
 end
