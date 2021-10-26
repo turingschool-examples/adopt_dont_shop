@@ -22,11 +22,6 @@ RSpec.describe Application, type: :model do
   end
 
   describe 'class methods' do
-    describe '::search' do
-      it 'returns partial matches' do
-        expect(@application.search_pets("pir")).to eq([@pet_1])
-      end
-    end
   end
 
   describe 'instance methods' do
@@ -44,6 +39,20 @@ RSpec.describe Application, type: :model do
         @application.find_pet_application(@pet_1.id).update(approved: true)
 
         expect(@application.approved(@pet_1.id)).to eq true
+      end
+    end
+
+    describe '#search_pets' do
+      let(:application2) { Application.create(name: 'Sam', address: '123 Main Street', city: 'Denver', state: 'CO', zip: '80204') }
+
+      it 'returns partial matches' do
+        expect(application2.search_pets("pir")).to eq([@pet_1])
+      end
+
+      it 'doesnt return pets that have already been added' do
+        application2.pets << @pet_1
+
+        expect(application2.search_pets("pir")).to eq []
       end
     end
   end

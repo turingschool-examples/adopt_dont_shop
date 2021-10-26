@@ -21,6 +21,6 @@ class Application < ApplicationRecord
   end
 
   def search_pets(query)
-    Pet.search(query)
+    Pet.search(query).reject { |pet| pets.include?(pet) }
   end
 end
