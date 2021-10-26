@@ -8,6 +8,8 @@ Rails.application.routes.draw do
 
   post '/applications/:application_id/pets/:pet_id', to: 'application_pets#create'
 
+  get '/admin/shelters', to: 'admin_shelters#index'
+
   get '/shelters', to: 'shelters#index'
   get '/shelters/new', to: 'shelters#new'
   get '/shelters/:id', to: 'shelters#show'
