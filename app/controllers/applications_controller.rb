@@ -11,8 +11,6 @@ class ApplicationsController < ApplicationController
 
   def create
     application = Application.new(application_params)
-
-
     if application.save
       redirect_to "/applications/#{application.id}"
     else
@@ -22,9 +20,16 @@ class ApplicationsController < ApplicationController
 
   end
 
+  def update
+    application = Application.find(params[:id])
+    if application.status == 'In Progress'
+      application.update(status:'Pending')
+    end
+    redirect_to "/applications/#{application.id}"
+  end
+
   private
     def application_params
       params.permit(:name, :address, :city, :state, :zip_code, :status, :description)
-
     end
 end

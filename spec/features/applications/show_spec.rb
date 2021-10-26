@@ -8,8 +8,6 @@ RSpec.describe 'show page' do
     application = Application.create!(name: 'Ted', address: '11 revere dr.', city: 'salt lake', state: 'Colorado', zip_code: '60010', description: 'I love pets', status: 'In Progress')
     pet_1 = Pet.create!(adoptable: true, age: 1, breed: 'sphynx', name: 'Lucille Bald', shelter_id: shelter.id)
     pet_2 = Pet.create!(adoptable: true, age: 3, breed: 'doberman', name: 'Lobster', shelter_id: shelter.id)
-    ApplicationPet.create!(application_id: application.id, pet_id: pet_1.id, )
-    ApplicationPet.create!(application_id: application.id, pet_id: pet_2.id, )
 
     visit "/applications/#{application.id}"
 
@@ -25,7 +23,7 @@ RSpec.describe 'show page' do
 
     fill_in 'Search', with: "luc"
     click_on('Submit')
-    
+
     click_on "#{pet_1.name}"
 
     expect(current_path).to eq("/pets/#{pet_1.id}")
@@ -40,14 +38,19 @@ RSpec.describe 'show page' do
 
     visit "/applications/#{application.id}"
 
-    expect(page).to have_content("Add a pet to this Application")
 
     fill_in 'Search', with: "luc"
     click_on('Submit')
 
     expect(current_path).to eq("/applications/#{application.id}")
-    expect(page).to have_link("Pet Name: #{pet_1.name}")
-    expect(page).to have_content(pet_1.name)
+
+    within "#pet-#{pet_1.id}" do
+      expect(page).to have_link("Pet Name: #{pet_1.name}")
+      expect(page).to have_content(pet_1.name)
+    end
+
+    expect(page).to have_content("Add a pet to this Application")
+
     expect(page).not_to have_content(pet_2.name)
   end
 
@@ -108,6 +111,10 @@ RSpec.describe 'show page' do
 
     expect(updated_app.status).to eq('Pending')
     expect(updated_app.description).to eq('I love pets')
+
+    expect(page).not_to have_content('Add a pet to this Application')
+    expect(page).to have_content(pet_1.name)
+    expect(page).not_to have_content(pet_2.name)
   end
 # "  [ ] done
 #
