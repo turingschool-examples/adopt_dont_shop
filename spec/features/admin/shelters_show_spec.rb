@@ -17,4 +17,9 @@ RSpec.describe 'the shelters index' do
     expect(page).to have_content(@shelter_1.name)
     expect(page).to have_content(@shelter_1.city)
   end
+
+  it 'lists the shelter average adoptable pet age' do
+    visit "admin/shelters/#{@shelter_1.id}"
+    expect(page).to have_content(@shelter_1.average_adoptable_pet_age)
+  end
 end
