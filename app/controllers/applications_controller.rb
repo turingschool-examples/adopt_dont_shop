@@ -2,7 +2,6 @@ class ApplicationsController < ApplicationController
   def show
     @application = Application.find(params[:id])
     @found_pets = Pet.find_by(name: params[:pet])
-    # require 'pry'; binding.pry
   end
 
   def new
