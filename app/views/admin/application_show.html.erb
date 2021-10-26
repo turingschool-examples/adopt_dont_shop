@@ -9,8 +9,8 @@ Status: <%= @application.status %><br><br>
 <p><%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
   <% state = ApplicationPet.where(application_id: @application.id, pet_id: pet.id).pluck(:state)[0]%>
   <% if state == 'Pending' %></p>
-    <%= button_to "Approve #{pet.name}", "#{@application.id}/pets/#{pet.id}", method: :patch, params: { state: "Approved" } %>
-    <%= button_to "Reject #{pet.name}", "#{@application.id}/pets/#{pet.id}", method: :patch, params: { state: "Rejected" } %>
+    <%= button_to "Approve #{pet.name}", "/admin/applications/#{@application.id}/pets/#{pet.id}", method: :patch, params: { state: "Approved" } %>
+    <%= button_to "Reject #{pet.name}", "/admin/applications/#{@application.id}/pets/#{pet.id}", method: :patch, params: { state: "Rejected" } %>
   <% end %></p>
   <p>State: <%= state %></p>
 <% end %>

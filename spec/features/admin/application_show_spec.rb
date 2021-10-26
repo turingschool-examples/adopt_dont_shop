@@ -75,7 +75,7 @@ RSpec.describe 'admin application show' do
          application_2.pets << pet_2
 
          visit "/admin/applications/#{application.id}"
-
+         
          click_button 'Reject Mr. Pirate'
          has_no_button?('Reject Mr. Pirate')
          expect(page).to have_content("Status: Rejected")
