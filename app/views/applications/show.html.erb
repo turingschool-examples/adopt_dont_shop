@@ -12,8 +12,23 @@
     <%= link_to pet.name, "/pets/#{pet.id}" %><br>
 <% end %>
 
+<p>
 <%= form_with url: "/applications/#{@application[:app][:id]}", method: :get, local: true do |f| %>
   <%= f.label :search, "Search for Pet by Name" %>
   <%= f.text_field :search %>
   <%= f.submit "Search" %>
+<% end %>
+</p>
+
+<% if @application[:pets].present? %>
+  <% @application[:pets].each do |pet| %>
+    <p>
+    <%= pet.name %><br>
+    Age: <%= pet.age %><br>
+    Breed: <%= pet.breed %><br>
+    Adobtable? <%= pet.adoptable %><br>
+    <%= button_to 'Adopt this Pet', {:controller => "application_pets", :action => "create", :pet_id => pet.id, :app_id=> @application[:app][:id]} , :method=>:post  %>
+    <br>
+    </p>
+  <% end %>
 <% end %>
