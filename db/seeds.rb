@@ -61,4 +61,4 @@ app = PetApplication.create!(name: 'Liam', street: '155 Main Street', city: 'Pho
                              reason: 'Pet friendly, loving home looking for a companion')
 
 app.pets.create!(adoptable: true, age: 8, breed: 'Bombay', name: 'Moxie', shelter_id: Shelter.order('RANDOM()').first.id)
-pets.create!(adoptable: true, age: 4, breed: 'Mutt', name: 'Daisy', shelter_id: Shelter.order('RANDOM()').first.id)
+app.pets.create!(adoptable: true, age: 4, breed: 'Mutt', name: 'Daisy', shelter_id: Shelter.order('RANDOM()').first.id)
