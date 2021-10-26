@@ -37,8 +37,13 @@ RSpec.describe 'New Application Page' do
 
           click_on 'Save'
 
-          expect(current_path).to eq '/applications/new'
-          expect(page).to have_content("Error: Name can't be blank")
+          expect(current_path).to eq '/applications'
+          expect(page).to have_content("Error: Name can't be blank, Address can't be blank, City can't be blank, State can't be blank, Zip can't be blank")
+          expect(find('form')).to have_content('Name')
+          expect(find('form')).to have_content('Address')
+          expect(find('form')).to have_content('City')
+          expect(find('form')).to have_content('State')
+          expect(find('form')).to have_content('Zip')
         end
       end
     end

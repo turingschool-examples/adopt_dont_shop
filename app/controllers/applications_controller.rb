@@ -8,8 +8,8 @@ class ApplicationsController < ApplicationController
     if application.save
       redirect_to "/applications/#{application.id}"
     else
-      redirect_to "/applications/new"
       flash[:alert] = "Error: #{error_message(application.errors)}"
+      render :new
     end
   end
 
@@ -22,12 +22,14 @@ class ApplicationsController < ApplicationController
 
   def update
     application = Application.find(params[:id])
+
     if params[:pet_id]
       pet = Pet.find(params[:pet_id])
     end
     if pet
       application.pets << pet
     end
+
     application.update(application_params)
     redirect_to "/applications/#{application.id}"
   end
