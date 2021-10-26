@@ -40,7 +40,20 @@ RSpec.describe 'admin application show' do
 
          expect(page).to have_content("Status: Approved")
          has_no_button?('Approve Clawdia')
+       end
 
+       it "has working reject button for rejecting pets" do
+         shelter_1 = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
+         pet_1 = shelter_1.pets.create(name: 'Mr. Pirate', breed: 'tuxedo shorthair', age: 5, adoptable: true)
+         pet_2 = shelter_1.pets.create(name: 'Clawdia', breed: 'shorthair', age: 3, adoptable: true)
+         application.pets << pet_1
+         application.pets << pet_2
+
+         visit "admin/applications/#{application.id}"
+
+         click_button 'Reject Mr. Pirate'
+         has_no_button?('Reject Mr. Pirate')
+         expect(page).to have_content("Status: Rejected")
        end
      end
  end
