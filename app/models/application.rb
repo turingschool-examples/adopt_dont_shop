@@ -19,4 +19,8 @@ class Application < ApplicationRecord
   def approved(pet_id)
     find_pet_application(pet_id).approved
   end
+
+  def search_pets(query)
+    Pet.search(query)
+  end
 end

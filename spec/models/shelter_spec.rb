@@ -27,7 +27,7 @@ RSpec.describe Shelter, type: :model do
   end
 
   describe 'class methods' do
-    describe '#search' do
+    describe '::search' do
       it 'returns partial matches' do
         expect(Shelter.search("Fancy")).to eq([@shelter_3])
       end
