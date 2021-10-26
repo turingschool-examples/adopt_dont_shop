@@ -1,0 +1,39 @@
+<h1><%= "Name: #{@application.name}" %></h1>
+<%= "Address: #{@application.address}" %>
+<%= "City: #{@application.city}" %>
+<%= "State: #{@application.state}" %>
+<%= "Zipcode: #{@application.zip_code}" %>
+<%= "Description: #{@application.description}" %>
+<%= "Application Status: #{@application.status}" %>
+
+<% @application.pets.each do |pet| %>
+  <%= pet.name %>
+<% end %>
+
+<div id="app-submission">
+  <% if !@application.pets.empty? %>
+    <%= form_with url: "/applications/#{@application.id}", method: :patch, local: true do |f| %>
+      <%= f.label :description %>
+      <%= f.text_field :description %>
+      <%= f.submit "Submit this Application" %>
+    <% end %>
+  <% end %>
+</div>
+
+
+<%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |f| %>
+  <%= f.label :search %>
+  <%= f.text_field :search %>
+  <%= f.submit "Submit" %>
+<% end %>
+
+
+<% if @pets %>
+  <h4><%="Add a pet to this Application"%></h4>
+    <% @pets.each do |pet| %>
+      <div id="pet-<%=pet.id %>" >
+        <%= link_to "Pet Name: #{pet.name}", "/pets/#{pet.id}" %>
+        <%= button_to "Adopt this Pet", "/applications/#{@application.id}/pets/#{pet.id}" %>
+      </div>
+    <% end %>
+<% end %>
