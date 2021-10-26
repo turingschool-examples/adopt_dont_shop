@@ -59,7 +59,10 @@ RSpec.describe Application, type: :model do
       @application_pet_2 = ApplicationPet.create!(application: @application_1, pet: @pet_2)
     end
     context 'when all pets on application are approved' do
-      it 'changes application status to approved' do
+      it 'changes application status to approved and makes pets not adoptable' do
+        expect(@application_1.pets[0].adoptable).to eq(true)
+        expect(@application_1.pets[1].adoptable).to eq(true)
+
 
         @application_pet_1.approve
         @application_pet_2.approve
@@ -67,6 +70,8 @@ RSpec.describe Application, type: :model do
         @application_1.check_status
 
         expect(@application_1.status).to eq("Approved")
+        expect(@application_1.pets[0].adoptable).to eq(false)
+        expect(@application_1.pets[1].adoptable).to eq(false)
       end
     end
     context 'when one pet is approved and one or more other pets are pending' do
@@ -87,4 +92,6 @@ RSpec.describe Application, type: :model do
       end
     end
   end
+
+
 end

@@ -17,11 +17,17 @@ class Application < ApplicationRecord
 
   def check_status
     application_pets = ApplicationPet.where(application_id: self.id)
-    
+
     if application_pets.all? { |application_pet| application_pet.state == "Approved"}
       self.update(status: "Approved")
+      make_pets_not_adoptable
     elsif application_pets.any? { |application_pet| application_pet.state == "Rejected"}
       self.update(status: "Rejected")
     end
   end
+
+  private
+      def make_pets_not_adoptable
+        pets.each { |pet| pet.update(adoptable: false)}
+      end
 end
