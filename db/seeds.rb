@@ -56,3 +56,9 @@ veterinarians.each do |on_call, review_rating, name|
   Veterinarian.create!(on_call: on_call, review_rating: review_rating, name: name,
                        veterinary_office_id: VeterinaryOffice.order('RANDOM()').first.id)
 end
+
+app = PetApplication.create!(name: 'Liam', street: '155 Main Street', city: 'Phoenix', state: 'AZ', zip: 85_222,
+                             reason: 'Pet friendly, loving home looking for a companion')
+
+app.pets.create!(adoptable: true, age: 8, breed: 'Bombay', name: 'Moxie', shelter_id: Shelter.order('RANDOM()').first.id)
+pets.create!(adoptable: true, age: 4, breed: 'Mutt', name: 'Daisy', shelter_id: Shelter.order('RANDOM()').first.id)
