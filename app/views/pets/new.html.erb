@@ -1,3 +1,5 @@
+<main>
+
 <h1>New Pet</h1>
 <%= form_with url: "/shelters/#{@shelter.id}/pets", method: :post, local: true do |f| %>
   <%= f.label :name %>
@@ -14,3 +16,4 @@
 
   <%= f.submit %>
 <% end %>
+</main>

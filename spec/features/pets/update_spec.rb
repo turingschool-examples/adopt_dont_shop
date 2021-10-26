@@ -7,10 +7,10 @@ RSpec.describe 'the veterinarian update' do
 
     visit "/pets/#{pet.id}/edit"
 
-    expect(find('form')).to have_content('Name')
-    expect(find('form')).to have_content('Breed')
-    expect(find('form')).to have_content('Adoptable')
-    expect(find('form')).to have_content('Age')
+    within('main') {expect(find('form')).to have_content('Name')}
+    within('main') {expect(find('form')).to have_content('Breed')}
+    within('main') {expect(find('form')).to have_content('Adoptable')}
+    within('main') {expect(find('form')).to have_content('Age')}
   end
 
   context "given valid data" do

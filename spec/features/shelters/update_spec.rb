@@ -6,10 +6,10 @@ RSpec.describe 'the shelter update' do
 
     visit "/shelters/#{shelter.id}/edit"
 
-    expect(find('form')).to have_content('Name')
-    expect(find('form')).to have_content('City')
-    expect(find('form')).to have_content('Rank')
-    expect(find('form')).to have_content('Foster program')
+    within('main') {expect(find('form')).to have_content('Name')}
+    within('main') {expect(find('form')).to have_content('City')}
+    within('main') {expect(find('form')).to have_content('Rank')}
+    within('main') {expect(find('form')).to have_content('Foster program')}
   end
 
   context "given valid data" do

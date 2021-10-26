@@ -6,9 +6,9 @@ RSpec.describe 'the vet office update' do
 
     visit "/veterinary_offices/#{vet_office.id}/edit"
 
-    expect(find('form')).to have_content('Name')
-    expect(find('form')).to have_content('Max patient capacity')
-    expect(find('form')).to have_content('Boarding services')
+    within('main') {expect(find('form')).to have_content('Name')}
+    within('main') {expect(find('form')).to have_content('Max patient capacity')}
+    within('main') {expect(find('form')).to have_content('Boarding services')}
   end
 
   context "given valid data" do

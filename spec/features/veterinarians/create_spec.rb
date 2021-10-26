@@ -9,10 +9,10 @@ RSpec.describe 'veterinarian creation' do
     it 'renders the new form' do
       visit "/veterinary_offices/#{@vet_office.id}/veterinarians/new"
 
-      expect(page).to have_content('New Veterinarian')
-      expect(find('form')).to have_content('Name')
-      expect(find('form')).to have_content('Review rating')
-      expect(find('form')).to have_content('On call')
+      within('main') {expect(page).to have_content('New Veterinarian')}
+      within('main') {expect(find('form')).to have_content('Name')}
+      within('main') {expect(find('form')).to have_content('Review rating')}
+      within('main') {expect(find('form')).to have_content('On call')}
     end
   end
 

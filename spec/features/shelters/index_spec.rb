@@ -99,7 +99,7 @@ RSpec.describe 'the shelters index' do
   it 'lists partial matches as search results' do
     visit "/shelters"
 
-    fill_in 'Search', with: "RGV"
+    within('main') {fill_in 'Search', with: "RGV"}
     click_on("Search")
 
     expect(page).to have_content(@shelter_2.name)

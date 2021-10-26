@@ -1,3 +1,5 @@
+<main>
+
 <h1>Edit Veterinarian</h1>
 <%= form_with url: "/pets/#{@pet.id}", method: :patch, local: true do |f| %>
   <%= f.label :name %>
@@ -14,3 +16,4 @@
 
   <%= f.submit %>
 <% end %>
+</main>

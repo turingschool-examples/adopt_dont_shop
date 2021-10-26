@@ -6,9 +6,9 @@ RSpec.describe 'vet office creation' do
       visit '/veterinary_offices/new'
 
       expect(page).to have_content('New Vet Office')
-      expect(find('form')).to have_content('Name')
-      expect(find('form')).to have_content('Max patient capacity')
-      expect(find('form')).to have_content('Boarding services')
+      within('main') {expect(find('form')).to have_content('Name')}
+      within('main') {expect(find('form')).to have_content('Max patient capacity')}
+      within('main') {expect(find('form')).to have_content('Boarding services')}
     end
   end
 
