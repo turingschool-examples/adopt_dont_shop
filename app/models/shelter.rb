@@ -38,6 +38,5 @@ class Shelter < ApplicationRecord
 
   def self.pending_applications
     wip = joins(pets: :application_pets)
-    require "pry"; binding.pry
   end
 end
