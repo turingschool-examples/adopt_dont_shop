@@ -17,6 +17,6 @@
   <h1><%= "No pets match your search." %></h1>
 <% else %>
   <% @pets_found.each do |pet| %>
-    <%= pet.name %><%= button_to "Adopt me" %>
+    <%= pet.name %><%= button_to "Adopt me", "/applications/#{@application.id}", method: :patch, params: {pets_id: "#{pet.id}"} %>
   <% end %>
 <% end %>
