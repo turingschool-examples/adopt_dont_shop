@@ -1,13 +1,19 @@
-<h1><%= @application.applicant_name %>'s Application</h1>
+<h1><%= @application[:app][:applicant_name] %>'s Application</h1>
 
 <h2>Applicant Information</h2>
-<p>Applicant Name: <%= @application.applicant_name %><br>
-   Address: <%= @application.street_address %>, <%= @application.city %>, <%= @application.state %> <%= @application.zipcode %><br>
-   Expression of interest: <%= @application.why %><br>
-   Application Status: <%= @application.application_status%><br>
+<p>Applicant Name: <%= @application[:app][:applicant_name] %><br>
+   Address: <%= @application[:app][:street_address] %>, <%= @application[:app][:city] %>, <%= @application[:app][:state] %> <%= @application[:app][:zipcode] %><br>
+   Expression of interest: <%= @application[:app][:why] %><br>
+   Application Status: <%= @application[:app][:application_status] %><br>
 </p>
 
 <h3>Pets on Application</h3>
-<% @application.get_pets(@application.id).each do |pet| %>
+<% @application[:app].get_pets(@application[:app][:id]).each do |pet| %>
     <%= link_to pet.name, "/pets/#{pet.id}" %><br>
+<% end %>
+
+<%= form_with url: "/applications/#{@application[:app][:id]}", method: :get, local: true do |f| %>
+  <%= f.label :search, "Search for Pet by Name" %>
+  <%= f.text_field :search %>
+  <%= f.submit "Search" %>
 <% end %>
