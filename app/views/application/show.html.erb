@@ -10,3 +10,14 @@
                         <p><%= link_to pet.name, "/pets/#{pet.id}" %></p>
                       <% end %>
 <p>Application Status: <%= @application.status %></p>
+
+<%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |f| %>
+  <p><%= f.label "Add a Pet to this Application:" %></p>
+  <p><%= f.text_field :pet %></p>
+
+  <%= f.submit "Submit"%>
+<% end %>
+
+<% if @found_pets != nil%>
+  <p><%= @found_pets.name %></p>
+<% end %>

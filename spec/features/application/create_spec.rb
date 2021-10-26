@@ -32,17 +32,33 @@ RSpec.describe 'the application create' do
 
     click_button "Submit"
     
-    expect(page).to have_current_path("/applications/new")
     expect(page).to have_content("Error: Zip code can't be blank")
+  end
+
+  describe 'pet search' do
+    it 'can search for a pet' do
+      shelter = Shelter.create!(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
+      pet_1 = shelter.pets.create!(adoptable: true, age: 7, breed: 'sphynx', name: 'Fluffy')
+      application = Application.create!(name: 'Jim Jimmerson', street: '123 Fake St', city: 'Denver', state: 'CO', zip_code: '90210')
+
+      visit "/applications/#{application.id}"
+
+      expect(page).to have_content("Add a pet to this application:")
+
+      fill_in 'pet', with: 'Fluffy'
+      click_button 'Submit'
+    end
   end
 end
 
-
-# Starting an Application, Form not Completed
+# Searching for Pets for an Application
 
 # As a visitor
-# When I visit the new application page
-# And I fail to fill in any of the form fields
-# And I click submit
-# Then I am taken back to the new applications page
-# And I see a message that I must fill in those fields.
+# When I visit an application's show page
+# And that application has not been submitted,
+# Then I see a section on the page to "Add a Pet to this Application"
+# In that section I see an input where I can search for Pets by name
+# When I fill in this field with a Pet's name
+# And I click submit,
+# Then I am taken back to the application show page
+# And under the search bar I see any Pet whose name matches my search

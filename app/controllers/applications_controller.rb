@@ -1,6 +1,8 @@
 class ApplicationsController < ApplicationController
   def show
     @application = Application.find(params[:id])
+    @found_pets = Pet.find_by(name: params[:pet])
+    # require 'pry'; binding.pry
   end
 
   def new
@@ -11,7 +13,6 @@ class ApplicationsController < ApplicationController
     @application = Application.all
   end
 
-
   def create
     @application = Application.find_by(id: app_params[:application_id])
     application = Application.new(app_params)
@@ -19,8 +20,8 @@ class ApplicationsController < ApplicationController
     if application.save
       redirect_to "/applications/#{application.id}"
     else
-      redirect_to "/applications/new"
-      flash[:alert] = "Error: #{error_message(application.errors)}"
+      flash[:notice] = "Error: #{error_message(application.errors)}"
+      render :new
     end
   end
 
