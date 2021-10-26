@@ -1,0 +1,10 @@
+<h1>Application</h1>
+
+<p>Name: <%= @app.name %></p>
+<p>Address: <%= @app.street %>, <%= @app.city %>, <%= @app.state %> <%= @app.zip %></p>
+<p>Reason for Application: <%= @app.reason %></p>
+
+<h2>Pets</h2>
+<% @app.pets.each do |pet| %>
+<p>Pet Name: <%= pet.name %></p>
+<% end %>
