@@ -6,7 +6,7 @@ RSpec.describe ApplicationPet, type: :model do
     it { should belong_to :pet }
   end
   before(:each) do
-    @shelter_1 = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
+    @shelter_1 = Shelter.create(name: 'Edgewater shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
     @application_1 = Application.create!(
                                       name: "Nate Brown the 3rd",
                             street_address: "2000 35th Avenue",
