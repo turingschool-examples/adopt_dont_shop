@@ -41,7 +41,7 @@ RSpec.describe 'the shelters index' do
     @lucille.applications << application
 
     visit "admin/shelters"
-    save_and_open_page
+    
     within '#pending-shelters' do
       expect(page).to have_content("Shelters with Pending Applications")
       expect(page).to have_content(@shelter_3.name)

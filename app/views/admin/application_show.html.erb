@@ -1,0 +1,16 @@
+Application Details<br>
+<br>
+Name: <%= @application.name %><br>
+Full Address: <%= @application.full_address %><br>
+Description: <%= @application.description %><br>
+Status: <%= @application.status %><br><br>
+<u>Pets Applied For:</u><br>
+<% @application.pets.each do |pet| %>
+<p><%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
+  <% state = ApplicationPet.where(application_id: @application.id, pet_id: pet.id).pluck(:state)[0]%>
+  <% if state == 'Pending' %></p>
+    <%= button_to "Approve #{pet.name}", "#{@application.id}/pets/#{pet.id}", method: :patch, params: { state: "Approved" } %>
+    <%= button_to "Reject #{pet.name}", "#{@application.id}/pets/#{pet.id}", method: :patch, params: { state: "Rejected" } %>
+  <% end %></p>
+  <p>State: <%= state %></p>
+<% end %>

@@ -15,4 +15,13 @@ class Application < ApplicationRecord
     pets << pet
   end
 
+  def check_status
+    application_pets = ApplicationPet.where(application_id: self.id)
+    
+    if application_pets.all? { |application_pet| application_pet.state == "Approved"}
+      self.update(status: "Approved")
+    elsif application_pets.any? { |application_pet| application_pet.state == "Rejected"}
+      self.update(status: "Rejected")
+    end
+  end
 end
