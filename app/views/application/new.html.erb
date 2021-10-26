@@ -1,6 +1,6 @@
 <h1>Fill out an Application</h1>
 
-<%= form_with url: "/applications", method: :post, local: true do |f| %>
+<%= form_with url: "/applications/", method: :post, local: true do |f| %>
   <p><%= f.label :name %></p>
   <p><%= f.text_field :name %></p>
 
@@ -14,7 +14,7 @@
   <p><%= f.text_field :state %></p>
 
   <p><%= f.label :zip_code %></p>
-  <p><%= f.number_field :zip_code %></p>
+  <p><%= f.text_field :zip_code %></p>
 
   <%= f.submit "Submit"%>
 <% end %>
