@@ -6,5 +6,5 @@ Description: <%= @application.description %><br>
 Status: <%= @application.status %><br><br>
 <u>Pets Applied For:</u><br>
 <% @application.pets.each do |pet| %>
-<p><%= link_to "#{pet.name}", "/pets/#{pet.id}" %> <%= button_to "Approve #{pet.name}", "applications/#{@application.id}/pets/#{pet.id}", action:"update" %></p>
+<p><%= link_to "#{pet.name}", "/pets/#{pet.id}" %> <%= button_to "Approve #{pet.name}", "#{@application.id}/pets/#{pet.id}", method: :patch, params: { state: "Approved" } %></p>
 <% end %>

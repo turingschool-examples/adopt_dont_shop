@@ -3,7 +3,7 @@ class AdminController < ApplicationController
     @shelters = Shelter.order_reverse_alphabetically
   end
 
-  def applicant_show
+  def application_show
     @application = Application.find(params[:id])
   end
 end

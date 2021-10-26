@@ -8,13 +8,13 @@ RSpec.describe 'admin application show' do
                                     city: "Denver",
                                    state: "CO",
                                      zip: "90210",
-                                  status: "In Progress",
+                                  status: "Pending",
                               description: "Big ol' backyard to run around in"
 
                                          )}
      describe 'the admin application show page' do
        it "has the applicant/'s attributes" do
-         visit "admin/applicants/#{application.id}"
+         visit "admin/applications/#{application.id}"
 
          expect(page).to have_content(application.name)
          expect(page).to have_content(application.full_address)
@@ -23,9 +23,21 @@ RSpec.describe 'admin application show' do
        end
 
        it "has working button for approving pets" do
-         visit "admin/applicants/#{application.id}"
+         shelter_1 = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
+         pet_1 = shelter_1.pets.create(name: 'Mr. Pirate', breed: 'tuxedo shorthair', age: 5, adoptable: true)
+         pet_2 = shelter_1.pets.create(name: 'Clawdia', breed: 'shorthair', age: 3, adoptable: true)
+         application.pets << pet_1
+         application.pets << pet_2
 
+         visit "admin/applications/#{application.id}"
 
+         click_button 'Approve Mr. Pirate'
+
+         expect(page).to have_content("Status: Pending")
+
+         click_button 'Approve Clawdia'
+
+         expect(page).to have_content("Status: Approved")
        end
      end
  end
