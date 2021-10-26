@@ -12,9 +12,9 @@
   <p>
     <%= pet.name %>
 
-    <% if @petapps.find_by(pet_id: pet.id).approved == true %>
+    <% if @application.approved(pet.id) == true %>
       <%= ': Approved' %>
-    <% elsif @petapps.find_by(pet_id: pet.id).approved == false %>
+    <% elsif @application.approved(pet.id) == false %>
       <%= ': Rejected' %>
     <% else %>
       <%= form_with url: "/admin/applications/#{@application.id}", method: :patch, local: true do |f| %>

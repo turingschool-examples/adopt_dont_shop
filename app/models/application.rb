@@ -12,4 +12,11 @@ class Application < ApplicationRecord
     application.status = 'Pending' if !application.status
   end
 
+  def find_pet_application(pet_id)
+    PetApplication.all.where(application_id: id).find_by(pet_id: pet_id)
+  end
+
+  def approved(pet_id)
+    find_pet_application(pet_id).approved
+  end
 end

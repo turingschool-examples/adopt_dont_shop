@@ -1,14 +1,13 @@
 class AdminApplicationsController < ApplicationController
   def show
     @application = Application.find(params[:id])
-    @petapps     = PetApplication.all.where(application_id: params[:id])
   end
 
   def update
     application = Application.find(params[:id])
 
     if params[:pet_id]
-      petapp = PetApplication.all.where(pet_id: params[:pet_id]).where(application_id: params[:id])
+      petapp = application.find_pet_application(params[:pet_id])
     end
 
     if petapp && params[:commit] == 'Approve'
