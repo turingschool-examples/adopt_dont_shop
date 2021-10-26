@@ -1,6 +1,7 @@
 class AdminController < ApplicationController
   def shelters_index
     @shelters = Shelter.order_reverse_alphabetically
+    @pending_shelters = Shelter.order_pending_alphabetically
   end
 
   def shelters_show
