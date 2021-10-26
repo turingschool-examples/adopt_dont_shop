@@ -10,7 +10,15 @@ RSpec.describe 'admin application show' do
                                      zip: "90210",
                                   status: "Pending",
                               description: "Big ol' backyard to run around in"
-
+                                         )}
+  let(:application_2) { Application.create!(
+                                    name: "Jon Brown",
+                          street_address: "200 37th Avenue",
+                                    city: "NYC",
+                                   state: "NY",
+                                     zip: "90210",
+                                  status: "Pending",
+                              description: "Lots of scraps at mah house"
                                          )}
      describe 'the admin application show page' do
        it "has the applicant/'s attributes" do
@@ -54,6 +62,29 @@ RSpec.describe 'admin application show' do
          click_button 'Reject Mr. Pirate'
          has_no_button?('Reject Mr. Pirate')
          expect(page).to have_content("Status: Rejected")
+       end
+
+       it "approved applications do not affect other applications" do
+         shelter_1 = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
+         pet_1 = shelter_1.pets.create(name: 'Mr. Pirate', breed: 'tuxedo shorthair', age: 5, adoptable: true)
+         pet_2 = shelter_1.pets.create(name: 'Clawdia', breed: 'shorthair', age: 3, adoptable: true)
+         application.pets << pet_1
+         application.pets << pet_2
+
+         application_2.pets << pet_1
+         application_2.pets << pet_2
+
+         visit "/admin/applications/#{application.id}"
+
+         click_button 'Reject Mr. Pirate'
+         has_no_button?('Reject Mr. Pirate')
+         expect(page).to have_content("Status: Rejected")
+
+         visit "/admin/applications/#{application_2.id}"
+
+         has_button?('Reject Mr. Pirate')
+         expect(page).to have_content("Status: Pending")
+         expect(page).to have_content("State: Pending")
        end
      end
  end

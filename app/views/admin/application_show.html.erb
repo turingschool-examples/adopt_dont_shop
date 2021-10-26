@@ -12,5 +12,5 @@ Status: <%= @application.status %><br><br>
     <%= button_to "Approve #{pet.name}", "#{@application.id}/pets/#{pet.id}", method: :patch, params: { state: "Approved" } %>
     <%= button_to "Reject #{pet.name}", "#{@application.id}/pets/#{pet.id}", method: :patch, params: { state: "Rejected" } %>
   <% end %></p>
-  <%= state %></p>
+  <p>State: <%= state %></p>
 <% end %>
