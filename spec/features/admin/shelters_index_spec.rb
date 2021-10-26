@@ -52,4 +52,12 @@ RSpec.describe 'the shelters index' do
       expect(page.text.index(@shelter_2.name)).to be > page.text.index(@shelter_3.name)
     end
   end
+
+  it 'has working links to admin shelter show page' do
+    visit "admin/shelters"
+
+    click_link "#{@shelter_1.name}"
+
+    expect(page).to have_current_path("/admin/shelters/#{@shelter_1.id}")
   end
+end
