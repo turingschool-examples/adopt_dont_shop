@@ -22,7 +22,7 @@ RSpec.describe 'admin application show' do
          expect(page).to have_content(application.status)
        end
 
-       it "has working button for approving pets" do
+       it "has working approve button for approving pets" do
          shelter_1 = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
          pet_1 = shelter_1.pets.create(name: 'Mr. Pirate', breed: 'tuxedo shorthair', age: 5, adoptable: true)
          pet_2 = shelter_1.pets.create(name: 'Clawdia', breed: 'shorthair', age: 3, adoptable: true)
@@ -34,10 +34,13 @@ RSpec.describe 'admin application show' do
          click_button 'Approve Mr. Pirate'
 
          expect(page).to have_content("Status: Pending")
+         has_no_button?('Approve Mr. Pirate')
 
          click_button 'Approve Clawdia'
 
          expect(page).to have_content("Status: Approved")
+         has_no_button?('Approve Clawdia')
+
        end
      end
  end
