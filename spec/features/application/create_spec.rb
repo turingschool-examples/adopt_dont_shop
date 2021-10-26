@@ -34,21 +34,14 @@ RSpec.describe 'the application create' do
     
     expect(page).to have_content("Error: Zip code can't be blank")
   end
-
-  describe 'pet search' do
-    it 'can search for a pet' do
-      shelter = Shelter.create!(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
-      pet_1 = shelter.pets.create!(adoptable: true, age: 7, breed: 'sphynx', name: 'Fluffy')
-      application = Application.create!(name: 'Jim Jimmerson', street: '123 Fake St', city: 'Denver', state: 'CO', zip_code: '90210')
-
-      visit "/applications/#{application.id}"
-
-      expect(page).to have_content("Add a pet to this application:")
-
-      fill_in 'pet', with: 'Fluffy'
-      click_button 'Submit'
-
-      expect(page).to have_content('Fluffy')
-    end
-  end
 end
+# Add a Pet to an Application
+
+# As a visitor
+# When I visit an application's show page
+# And I search for a Pet by name
+# And I see the names Pets that match my search
+# Then next to each Pet's name I see a button to "Adopt this Pet"
+# When I click one of these buttons
+# Then I am taken back to the application show page
+# And I see the Pet I want to adopt listed on this application

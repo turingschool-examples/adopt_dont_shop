@@ -18,6 +18,8 @@
   <%= f.submit "Submit"%>
 <% end %>
 
-<% if @found_pets != nil%>
-  <p><%= @found_pets.name %></p>
+<% if !@found_pets.empty?%>
+  <% @found_pets.each do |pet| %>
+    <p><%= pet.name %><%= button</p>
+  <% end %>
 <% end %>
