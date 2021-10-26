@@ -22,4 +22,9 @@ RSpec.describe 'the shelters index' do
     visit "admin/shelters/#{@shelter_1.id}"
     expect(page).to have_content(@shelter_1.average_adoptable_pet_age)
   end
+
+  it 'lists the adoptable pet count' do
+    visit "admin/shelters/#{@shelter_1.id}"
+    expect(page).to have_content(@shelter_1.adoptable_pet_count)
+  end
 end
