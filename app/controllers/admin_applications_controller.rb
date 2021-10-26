@@ -1,4 +1,4 @@
-class AdminController < ApplicationController
+class AdminApplicationsController < ApplicationController
   def show
     @application = Application.find(params[:id])
     @petapps     = PetApplication.all.where(application_id: params[:id])
