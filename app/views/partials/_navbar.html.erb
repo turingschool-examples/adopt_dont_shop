@@ -5,10 +5,14 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
-          <%= link_to "Pets", "/pets", :class => 'nav-link' %>
-          <%= link_to "Shelters", "/shelters", :class => 'nav-link' %>
-          <%= link_to "Veterinarians", "/veterinarians", :class => 'nav-link' %>
-          <%= link_to "Veterinary Offices", "/veterinary_offices", :class => 'nav-link' %>
-    </div>
+      <%= link_to "Pets", "/pets", :class => 'nav-link' %>
+      <%= link_to "Shelters", "/shelters", :class => 'nav-link' %>
+      <%= link_to "Veterinarians", "/veterinarians", :class => 'nav-link' %>
+      <%= link_to "Veterinary Offices", "/veterinary_offices", :class => 'nav-link' %>
+      <%= form_tag("/applications", method: :get, :enforce_utf8 => false) do %>
+      <%= text_field_tag :search, params[:search], placeholder: 'Application ID' %>
+      <%= submit_tag "Find Application", :name => nil %>
+    <% end %>
   </div>
+</div>
 </nav>
