@@ -13,4 +13,7 @@
 
 <% @shelter.pets_with_pending_applications.each do |pet| %>
   <h4>Pet Name: <%= pet.name %></h4>
+ <% pet.find_pending_applications.each do |application| %>
+     <h4>Application: <%= link_to "#{application.name}", "/admin/applications/#{application.id}" %></h4>
+     <% end %>
 <% end %>
