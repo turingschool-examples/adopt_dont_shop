@@ -1,10 +1,19 @@
 <h1>Shelters</h1>
 
 <p>
-<% @shelters.each do |shelter| %>
+<% @shelters.desc_order.each do |shelter| %>
     <h3><%= shelter.name %></h3><br>
     City: <%= shelter.city %><br>
     Rank: <%= shelter.rank %><br>
     Foster Program? <%= shelter.foster_program %><br>
 <% end %>
 </p>
+
+<div id="pending_apps">
+</p>
+<h2>Shelters with Pending Applications</h2>
+<% @shelters.pending_apps.each do |shelter| %>
+  <%= shelter.name %><br>
+<% end %>
+</p>
+</div>
