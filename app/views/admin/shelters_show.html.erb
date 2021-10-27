@@ -7,3 +7,13 @@
 <h4>Average Adoptable Pet Age: <%= @shelter.average_adoptable_pet_age %></h4>
 <h4>Adoptable Pet Count: <%= @shelter.adoptable_pet_count %></h4>
 <h4>Adopted Pet Count: <%= @shelter.adopted_pet_count %></h4>
+
+
+<h3>Action Required</h3>
+
+<% @shelter.pets_with_pending_applications.each do |pet| %>
+  <h4>Pet Name: <%= pet.name %></h4>
+ <% pet.find_pending_applications.each do |application| %>
+     <h4>Application: <%= link_to "#{application.name}'s application for #{pet.name}'", "/admin/applications/#{application.id}" %></h4>
+     <% end %>
+<% end %>

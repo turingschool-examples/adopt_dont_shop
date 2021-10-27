@@ -63,5 +63,32 @@ RSpec.describe Pet, type: :model do
         end
       end
     end
+
+    describe '#find_pending_applications' do
+      it 'lists applications pet has that are pending' do
+        application = Application.create!(
+                                          name: "Nate Brown",
+                                street_address: "2000 35th Avenue",
+                                          city: "Denver",
+                                         state: "CO",
+                                           zip: "90210",
+                                        status: "Pending"
+                                            )
+        application_2 = Application.create!(
+                                          name: "James Brown",
+                                street_address: "2000 Train Street",
+                                          city: "San Fran",
+                                         state: "CA",
+                                           zip: "90210",
+                                        status: "Rejected"
+                                            )
+
+        application.add_pet_to_application(@pet_3)
+        application_2.add_pet_to_application(@pet_3)
+
+        expect(@pet_3.find_pending_applications).to include(application)
+        expect(@pet_3.find_pending_applications).to_not include(application_2)
+      end
+    end
   end
 end

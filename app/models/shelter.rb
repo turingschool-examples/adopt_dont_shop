@@ -71,4 +71,10 @@ class Shelter < ApplicationRecord
       pet.has_pending_applications?
     end
   end
+
+  def pets_with_pending_applications
+    pets.select do |pet|
+      pet.has_pending_applications?
+    end
+  end
 end
