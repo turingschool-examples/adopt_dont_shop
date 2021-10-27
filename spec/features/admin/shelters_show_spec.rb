@@ -52,7 +52,7 @@ RSpec.describe 'the shelters index' do
     expect(page).to have_content("Action Required")
     expect(page).to have_content(@pirate.name)
     expect(page).to have_content(@clawdia.name)
-    click_link 'Nate Brown'
-    expect(page).to have_current_path("admin/applications/#{@application.id}")
+    click_link "#{@application.name}'s application for #{@pirate.name}'"
+    expect(page).to have_current_path("/admin/applications/#{@application.id}")
   end
 end
