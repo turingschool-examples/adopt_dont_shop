@@ -20,12 +20,42 @@ class Shelter < ApplicationRecord
       .order("pets_count DESC")
   end
 
+  def self.order_pending_alphabetically
+    select("shelters.*")
+      .joins("LEFT OUTER JOIN pets ON pets.shelter_id = shelters.id")
+      .joins("INNER JOIN application_pets ON application_pets.pet_id = pets.id")
+      .where("application_pets.state = 'Pending'")
+      .group("shelters.id")
+      .order("shelters.name")
+  end
+
   def pet_count
     pets.count
   end
 
   def adoptable_pets
     pets.where(adoptable: true)
+  end
+
+  def average_adoptable_pet_age
+    adoptable_pets.average(:age)
+  end
+
+  def adoptable_pet_count
+    adoptable_pets.count
+  end
+
+  def adopted_pet_count
+    applications = Application.where(status: 'Approved')
+    count = 0
+    pets.each do |pet|
+      pet.applications.each do |application|
+        if applications.include?(application)
+          count += 1
+        end
+      end
+    end
+    count / 2
   end
 
   def alphabetical_pets

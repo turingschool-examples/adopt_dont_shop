@@ -31,11 +31,13 @@ RSpec.describe 'admin application show' do
        end
 
        it "has working approve button for approving pets" do
-         shelter_1 = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
+         shelter_1 = Shelter.create(name: 'Dank shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
          pet_1 = shelter_1.pets.create(name: 'Mr. Pirate', breed: 'tuxedo shorthair', age: 5, adoptable: true)
          pet_2 = shelter_1.pets.create(name: 'Clawdia', breed: 'shorthair', age: 3, adoptable: true)
-         application.pets << pet_1
-         application.pets << pet_2
+
+
+         ApplicationPet.create!(application: application, pet: pet_1)
+         ApplicationPet.create!(application: application, pet: pet_2)
 
          visit "admin/applications/#{application.id}"
 
@@ -65,7 +67,7 @@ RSpec.describe 'admin application show' do
        end
 
        it "approved applications do not affect other applications" do
-         shelter_1 = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
+         shelter_1 = Shelter.create(name: 'Nice shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
          pet_1 = shelter_1.pets.create(name: 'Mr. Pirate', breed: 'tuxedo shorthair', age: 5, adoptable: true)
          pet_2 = shelter_1.pets.create(name: 'Clawdia', breed: 'shorthair', age: 3, adoptable: true)
          application.pets << pet_1
@@ -75,7 +77,7 @@ RSpec.describe 'admin application show' do
          application_2.pets << pet_2
 
          visit "/admin/applications/#{application.id}"
-         
+
          click_button 'Reject Mr. Pirate'
          has_no_button?('Reject Mr. Pirate')
          expect(page).to have_content("Status: Rejected")
@@ -85,6 +87,26 @@ RSpec.describe 'admin application show' do
          has_button?('Reject Mr. Pirate')
          expect(page).to have_content("Status: Pending")
          expect(page).to have_content("State: Pending")
+       end
+
+       it 'ensures pet can only have one approval at a time' do
+         shelter_1 = Shelter.create(name: 'Dope shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
+         pet_1 = shelter_1.pets.create(name: 'Mr. Pirate', breed: 'tuxedo shorthair', age: 5, adoptable: true)
+         pet_2 = shelter_1.pets.create(name: 'Clawdia', breed: 'shorthair', age: 3, adoptable: true)
+         application.pets << pet_1
+         application.pets << pet_2
+
+         application_2.pets << pet_1
+         application_2.pets << pet_2
+
+         visit "/admin/applications/#{application.id}"
+
+         click_button 'Approve Mr. Pirate'
+
+         visit "/admin/applications/#{application_2.id}"
+
+         expect(page).to_not have_button("Approve Mr. Pirate")
+         expect(page).to have_content("#{pet_1.name} has been approved for adoption on someone else's application")
        end
      end
  end

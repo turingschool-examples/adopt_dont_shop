@@ -11,6 +11,9 @@ Status: <%= @application.status %><br><br>
   <% if state == 'Pending' %></p>
     <%= button_to "Approve #{pet.name}", "/admin/applications/#{@application.id}/pets/#{pet.id}", method: :patch, params: { state: "Approved" } %>
     <%= button_to "Reject #{pet.name}", "/admin/applications/#{@application.id}/pets/#{pet.id}", method: :patch, params: { state: "Rejected" } %>
-  <% end %></p>
+  <% elsif state == 'Taken' %>
+<%= button_to "Reject #{pet.name}", "/admin/applications/#{@application.id}/pets/#{pet.id}", method: :patch, params: { state: "Rejected" } %>
+<%= "#{pet.name} has been approved for adoption on someone else's application" %>
+    <% end %></p>
   <p>State: <%= state %></p>
 <% end %>
