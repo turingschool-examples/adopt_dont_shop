@@ -81,4 +81,12 @@ RSpec.describe 'the pets index' do
     expect(page).to have_content(pet_2.name)
     expect(page).to_not have_content(pet_3.name)
   end
+
+  it 'links to new application' do
+    visit '/pets'
+
+    click_link 'Start an Application'
+
+    expect(page).to have_current_path('/applications/new')
+  end
 end

@@ -19,8 +19,8 @@
   <body>
     <%= render 'partials/navbar' %>
     <% flash.each do |type, msg| %>
-      <div>
-        <%= msg %>
+      <div class="alert alert-info" role="alert">
+        <center><%= msg %></center>
       </div>
     <% end %>
     <!-- <section>
