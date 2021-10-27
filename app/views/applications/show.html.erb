@@ -13,10 +13,22 @@
 <% end %>
 
 <p>
-<%= form_with url: "/applications/#{@application[:app][:id]}", method: :get, local: true do |f| %>
-  <%= f.label :search, "Search for Pet by Name" %>
-  <%= f.text_field :search %>
-  <%= f.submit "Search" %>
+<% if @application[:app][:application_status] != "Pending" || "Accepted" %>
+    <%= form_with url: "/applications/#{@application[:app][:id]}", method: :patch, local: true do |f| %>
+    <%= f.label :why, "Expression of Interest" %>
+    <%= f.text_area :why, value: @application[:app][:why], required: true %><br>
+    <%= f.submit "Submit Application" %>
+  <% end %>
+<% end %>
+</p>
+
+<p>
+<% if @application[:app][:application_status].exclude?("Pending", "Accepted") %>
+  <%= form_with url: "/applications/#{@application[:app][:id]}", method: :get, local: true do |f| %>
+    <%= f.label :search, "Search for Pet by Name" %>
+    <%= f.text_field :search %>
+    <%= f.submit "Search" %>
+  <% end %>
 <% end %>
 </p>
 
