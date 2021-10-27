@@ -1,0 +1,10 @@
+<% @application.pets.each do |pet| %>
+    <div id="pet-<%=pet.id %>" >
+      <%= pet.name %>
+      <% if @application.status == 'Pending' %>
+        <%= button_to "Approve this pet", "/admin/applications/#{@application.id}", method: :patch %>
+      <% else %>
+        <p>Approved</p>
+      <% end %>
+    </div>
+<% end %>
