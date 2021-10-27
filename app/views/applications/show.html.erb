@@ -11,6 +11,7 @@ Pets: <% @application.pets.each do |pet| %>
       <% end %><br>
 Application Status: <%= @application.status %>
 
+<%# Refactor status as model method on Application (maybe .in_progress)%>
 <% if @application.status == "In Progress" %>
   <h5>Add a Pet to This Application</h5>
   <%= form_with url: application_path(@application), method: :get, local: true do |f| %>
@@ -30,6 +31,7 @@ Application Status: <%= @application.status %>
   <% end %>
 <% end %>
 
+<%# Refactor status as model method on Application (maybe .submittable) %>
 <% if @application.pets.any? && @application.status == "In Progress" %>
 <div id="submission">
   <h6>Submit Application:</h6>

@@ -6,6 +6,10 @@ Rails.application.routes.draw do
 
   resources :application_pets
 
+  namespace :admin do
+    resources :shelters
+  end
+
   get '/shelters', to: 'shelters#index'
   get '/shelters/new', to: 'shelters#new'
   get '/shelters/:id', to: 'shelters#show'

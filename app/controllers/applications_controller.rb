@@ -10,13 +10,16 @@ class ApplicationsController < ApplicationController
   def new
   end
 
+  #look into refactoring flash messages to use errors.full_messages.to_sentence
   def create
     application = Application.new(app_params)
     if application.save
       flash[:success] = 'Application was successfully created.'
       redirect_to application_path(application)
     else
-      flash[:error] = 'Application could not be created. Do better'
+      error_message = application.errors.full_messages.to_sentence
+      flash[:alert] = 'Application could not be created. Do better'
+      #another option would be render :new
       redirect_to new_application_path
     end
   end
@@ -26,10 +29,10 @@ class ApplicationsController < ApplicationController
     if application.update(app_params)
       redirect_to application_path(application)
     else
-      flash[:error] = 'Application could not be submitted'
+      flash[:alert] = 'Application could not be submitted'
       redirect_to application_path(application)
     end
-  end 
+  end
 
   private
 
