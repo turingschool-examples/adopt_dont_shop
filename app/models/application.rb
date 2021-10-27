@@ -9,7 +9,7 @@ class Application < ApplicationRecord
   has_many :pets, through: :pet_applications
 
   after_initialize do |application|
-    application.status = 'Pending' if !application.status
+    application.status = 'New' if !application.status
   end
 
   def find_pet_application(pet_id)
@@ -21,6 +21,6 @@ class Application < ApplicationRecord
   end
 
   def search_pets(query)
-    Pet.search(query)
+    Pet.search(query).reject { |pet| pets.include?(pet) }
   end
 end

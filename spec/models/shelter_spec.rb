@@ -22,8 +22,14 @@ RSpec.describe Shelter, type: :model do
     @pet_3 = @shelter_3.pets.create(name: 'Lucille Bald', breed: 'sphynx', age: 8, adoptable: true)
     @pet_4 = @shelter_1.pets.create(name: 'Ann', breed: 'ragdoll', age: 5, adoptable: true)
 
-    @application = Application.create(name: 'Sam', address: '123 Main Street', city: 'Denver', state: 'CO', zip: '80204')
-    @application.pets << @pet_1
+    @application1 = Application.create(name: 'Sam', address: '123 Main Street', city: 'Denver', state: 'CO', zip: '80204', status: 'Pending')
+    @application2 = Application.create(name: 'Sam', address: '123 Main Street', city: 'Denver', state: 'CO', zip: '80204', status: 'Pending')
+    @application3 = Application.create(name: 'Sam', address: '123 Main Street', city: 'Denver', state: 'CO', zip: '80204', status: 'New')
+    @application4 = Application.create(name: 'Sam', address: '123 Main Street', city: 'Denver', state: 'CO', zip: '80204', status: 'Approved')
+    @application1.pets << @pet_1
+    @application2.pets << @pet_2
+    @application3.pets << @pet_3
+    @application4.pets << @pet_4
   end
 
   describe 'class methods' do

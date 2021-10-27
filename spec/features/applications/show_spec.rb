@@ -20,7 +20,7 @@ RSpec.describe 'the application show page' do
       expect(page).to have_content 'Zip: 80204'
       expect(page).to have_content 'Fluffy'
       expect(page).to have_content 'Buffy'
-      expect(page).to have_content 'Application Status: Pending'
+      expect(page).to have_content 'Application Status: New'
     end
 
     describe 'when the application has not been submitted' do
