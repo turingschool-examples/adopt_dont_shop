@@ -126,4 +126,6 @@ RSpec.describe 'show page' do
     expect(page).to have_content(pet_1.name)
     expect(page).not_to have_content(pet_2.name)
   end
+
+
 end

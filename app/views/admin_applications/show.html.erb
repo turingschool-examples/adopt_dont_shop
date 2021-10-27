@@ -2,9 +2,13 @@
     <div id="pet-<%=pet.id %>" >
       <%= pet.name %>
       <% if @application.status == 'Pending' %>
-        <%= button_to "Approve this pet", "/admin/applications/#{@application.id}", method: :patch %>
-      <% else %>
+        <%= button_to "Approve this pet", "/admin/applications/#{@application.id}", params: {status: 'Approved'}, method: :patch %>
+        <%= button_to "Reject this pet", "/admin/applications/#{@application.id}", params: {status: 'Rejected'}, method: :patch %>
+
+      <% elsif @application.status == 'Approved'%>
         <p>Approved</p>
+      <% elsif @application.status == 'Rejected'%>
+        <p>Rejected</p>
       <% end %>
     </div>
 <% end %>
