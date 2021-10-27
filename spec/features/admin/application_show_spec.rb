@@ -56,8 +56,8 @@ RSpec.describe 'admin application show' do
          shelter_1 = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
          pet_1 = shelter_1.pets.create(name: 'Mr. Pirate', breed: 'tuxedo shorthair', age: 5, adoptable: true)
          pet_2 = shelter_1.pets.create(name: 'Clawdia', breed: 'shorthair', age: 3, adoptable: true)
-         application.pets << pet_1
-         application.pets << pet_2
+         application.add_pet_to_application(pet_1)
+         application.add_pet_to_application(pet_2)
 
          visit "admin/applications/#{application.id}"
 
@@ -70,11 +70,11 @@ RSpec.describe 'admin application show' do
          shelter_1 = Shelter.create(name: 'Nice shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
          pet_1 = shelter_1.pets.create(name: 'Mr. Pirate', breed: 'tuxedo shorthair', age: 5, adoptable: true)
          pet_2 = shelter_1.pets.create(name: 'Clawdia', breed: 'shorthair', age: 3, adoptable: true)
-         application.pets << pet_1
-         application.pets << pet_2
+         application.add_pet_to_application(pet_1)
+         application.add_pet_to_application(pet_2)
 
-         application_2.pets << pet_1
-         application_2.pets << pet_2
+         application_2.add_pet_to_application(pet_1)
+         application_2.add_pet_to_application(pet_2)
 
          visit "/admin/applications/#{application.id}"
 
@@ -93,11 +93,11 @@ RSpec.describe 'admin application show' do
          shelter_1 = Shelter.create(name: 'Dope shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
          pet_1 = shelter_1.pets.create(name: 'Mr. Pirate', breed: 'tuxedo shorthair', age: 5, adoptable: true)
          pet_2 = shelter_1.pets.create(name: 'Clawdia', breed: 'shorthair', age: 3, adoptable: true)
-         application.pets << pet_1
-         application.pets << pet_2
+         application.add_pet_to_application(pet_1)
+         application.add_pet_to_application(pet_2)
 
-         application_2.pets << pet_1
-         application_2.pets << pet_2
+         application_2.add_pet_to_application(pet_1)
+         application_2.add_pet_to_application(pet_2)
 
          visit "/admin/applications/#{application.id}"
 

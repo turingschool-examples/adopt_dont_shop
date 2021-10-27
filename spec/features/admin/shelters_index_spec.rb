@@ -39,8 +39,9 @@ RSpec.describe 'the shelters index' do
                                     status: "Pending"
                                         )
 
-    @lucille.applications << application
-    @teddy.applications << application
+    application.add_pet_to_application(@lucille)
+    application.add_pet_to_application(@teddy)
+  
     visit "admin/shelters"
 
     within '#pending-shelters' do

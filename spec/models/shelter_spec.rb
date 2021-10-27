@@ -62,8 +62,9 @@ RSpec.describe Shelter, type: :model do
                                         status: "Pending"
                                             )
 
-        @pet_3.applications << application
-        @pet_5.applications << application
+
+        application.add_pet_to_application(@pet_3)
+        application.add_pet_to_application(@pet_5)
 
         expect(Shelter.order_pending_alphabetically).to eq([@shelter_3, @shelter_2])
       end
@@ -106,7 +107,8 @@ RSpec.describe Shelter, type: :model do
                                         status: "Pending"
                                             )
 
-        @pet_3.applications << application
+        application.add_pet_to_application(@pet_3)
+
 
         expect(@shelter_1.has_pending_applications?).to eq(false)
         expect(@shelter_3.has_pending_applications?).to eq(true)

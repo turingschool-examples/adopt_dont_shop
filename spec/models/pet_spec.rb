@@ -53,7 +53,8 @@ RSpec.describe Pet, type: :model do
                                           status: "Pending"
                                               )
 
-          application.pets << @pet_3
+          application.add_pet_to_application(@pet_3)
+          
           expect(@pet_3.has_pending_applications?).to eq(true)
         end
       end
