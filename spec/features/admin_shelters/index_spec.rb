@@ -37,7 +37,8 @@ RSpec.describe 'the admin shelters index' do
       city:        'Denver',
       state:       'CO',
       zip:         '80204',
-      description: 'I WANT ALL THE CATS!'
+      description: 'I WANT ALL THE CATS!',
+      status:      'Pending'
     )
     app1.pets << fluffy
     visit '/admin/shelters'
@@ -55,7 +56,8 @@ RSpec.describe 'the admin shelters index' do
       city:        'Denver',
       state:       'CO',
       zip:         '80204',
-      description: 'I WANT ALL THE CATS!'
+      description: 'I WANT ALL THE CATS!',
+      status:      'Pending'
     )
     app2.pets << buffy
 
