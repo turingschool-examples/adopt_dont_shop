@@ -37,18 +37,14 @@ class ApplicationsController < ApplicationController
 
   def update
     application = load_application(params[:id])
-    if application.update(application_params)
-      redirect_to "/applications/#{application.id}"
-    else
-      redirect_to "/applications/#{application.id}/"
-      flash[:alert] = "Error: #{error_message(application.errors)}"
-    end
+    application.update(application_params)
+    redirect_to "/applications/#{application.id}"
   end
 
 
   private
       def application_params
-        params_hash = params.permit(
+        params.permit(
                       :name,
                       :street_address,
                       :city,
@@ -56,9 +52,7 @@ class ApplicationsController < ApplicationController
                       :zip,
                       :description,
                       :status
-                      )
-        # params_hash[:status] = 'In Progress'
-        params_hash
+                     )
       end
 
       def load_application(id)

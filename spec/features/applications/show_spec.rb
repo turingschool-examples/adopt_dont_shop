@@ -35,7 +35,7 @@ RSpec.describe 'application show' do
   describe 'the pet search' do
     context 'when valid data entered' do
       it 'searches for an existing pet and displays it on the show page' do
-        pet = Pet.create!(adoptable: true, age: 3, breed: 'doberman', name: 'Teddy', shelter_id: shelter.id)
+        Pet.create!(adoptable: true, age: 3, breed: 'doberman', name: 'Teddy', shelter_id: shelter.id)
 
         visit "/applications/#{application.id}"
 
@@ -56,7 +56,7 @@ RSpec.describe 'application show' do
     end
     context 'when partial string entered' do
       it 'searches for an existing pet using part of string and displays on show page' do
-        pet = Pet.create!(adoptable: true, age: 3, breed: 'doberman', name: 'Jupiter', shelter_id: shelter.id)
+        Pet.create!(adoptable: true, age: 3, breed: 'doberman', name: 'Jupiter', shelter_id: shelter.id)
 
         visit "/applications/#{application.id}"
 
@@ -69,7 +69,7 @@ RSpec.describe 'application show' do
 
     context 'when case insensitive string entered' do
       it 'searches for an existing pet using capitalized string and displays on show page' do
-        pet = Pet.create!(adoptable: true, age: 3, breed: 'doberman', name: 'Jupiter', shelter_id: shelter.id)
+        Pet.create!(adoptable: true, age: 3, breed: 'doberman', name: 'Jupiter', shelter_id: shelter.id)
 
         visit "/applications/#{application.id}"
 
@@ -83,7 +83,7 @@ RSpec.describe 'application show' do
 
   context 'when the applicant has added pets' do
     it 'has a working submit application section' do
-      pet = Pet.create!(adoptable: true, age: 3, breed: 'doberman', name: 'Teddy', shelter_id: shelter.id)
+      Pet.create!(adoptable: true, age: 3, breed: 'doberman', name: 'Teddy', shelter_id: shelter.id)
 
       visit "/applications/#{application.id}"
 

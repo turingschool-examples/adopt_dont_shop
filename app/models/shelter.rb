@@ -46,16 +46,9 @@ class Shelter < ApplicationRecord
   end
 
   def adopted_pet_count
-    applications = Application.where(status: 'Approved')
-    count = 0
-    pets.each do |pet|
-      pet.applications.each do |application|
-        if applications.include?(application)
-          count += 1
-        end
-      end
-    end
-    count / 2
+      approved_application_ids = Application.where(status: 'Approved').pluck(:id)
+      application_pet_ids = ApplicationPet.where(application_id: approved_application_ids).pluck(:pet_id)
+      self.pets.where(id: application_pet_ids).size
   end
 
   def alphabetical_pets
