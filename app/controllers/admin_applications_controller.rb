@@ -10,13 +10,14 @@ class AdminApplicationsController < ApplicationController
       petapp = application.find_pet_application(params[:pet_id])
     end
 
-    if petapp && params[:commit] == 'Approve'
+    if params[:commit] == 'Approve'
       petapp.update(approved: true)
-      # check applications method to see if all pets are approved (move this approval check to model)
-      if application.pet_applications.where(approved: false || nil).count == 0
+
+      if application.all_pets_approved?
         application.update(status: 'Approved')
       end
-    elsif petapp && params[:commit] == 'Reject'
+
+    elsif params[:commit] == 'Reject'
       petapp.update(approved: false)
       application.update(status: 'Rejected')
     end

@@ -20,6 +20,10 @@ class Application < ApplicationRecord
     find_pet_application(pet_id).approved
   end
 
+  def all_pets_approved?
+    pet_applications.where(approved: false || nil).count == 0
+  end
+
   def search_pets(query)
     Pet.search(query).reject { |pet| pets.include?(pet) }
   end

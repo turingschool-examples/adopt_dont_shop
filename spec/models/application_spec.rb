@@ -42,6 +42,25 @@ RSpec.describe Application, type: :model do
       end
     end
 
+    describe '#all_pets_approved?' do
+      it 'returns true only if every pet has been approved by an admin' do
+        expect(@application.all_pets_approved?).to eq false
+
+        PetApplication.find_by(pet_id: @pet_1.id).update(approved: true)
+
+        expect(@application.all_pets_approved?).to eq true
+
+        @pet_2 = @shelter_1.pets.create(name: 'Mrs. Pirate', breed: 'tuxedo shorthair', age: 5, adoptable: false)
+        @application.pets << @pet_2
+
+        expect(@application.all_pets_approved?).to eq false
+
+        PetApplication.find_by(pet_id: @pet_2.id).update(approved: true)
+
+        expect(@application.all_pets_approved?).to eq true
+      end
+    end
+
     describe '#search_pets' do
       let(:application2) { Application.create(name: 'Sam', address: '123 Main Street', city: 'Denver', state: 'CO', zip: '80204') }
 

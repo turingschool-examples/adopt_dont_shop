@@ -77,4 +77,24 @@ RSpec.describe 'the admin application show page' do
       expect(page).to have_button 'Reject'
     end
   end
+
+  describe 'when all pets on an application have been approved' do
+    it "the application's status changes to 'Approved'" do
+      application.pets << fluffy
+      visit "/admin/applications/#{application.id}"
+      click_on 'Approve'
+
+      expect(page).to have_content 'Application Status: Approved'
+    end
+  end
+
+  describe 'when one or more pets on an application have been rejected' do
+    it "the application's status changes to 'Rejected'" do
+      application.pets << fluffy
+      visit "/admin/applications/#{application.id}"
+      click_on 'Reject'
+
+      expect(page).to have_content 'Application Status: Rejected'
+    end
+  end
 end
