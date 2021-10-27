@@ -22,6 +22,7 @@ RSpec.describe ApplicationPet, type: :model do
     @application_pet_1 = ApplicationPet.create!(application: @application_1, pet: @pet_1)
     @application_pet_2 = ApplicationPet.create!(application: @application_1, pet: @pet_2)
   end
+
   describe "#approve" do
     it "changes state to Approved" do
       @application_pet_1.approve

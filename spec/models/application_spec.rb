@@ -91,7 +91,12 @@ RSpec.describe Application, type: :model do
         expect(@application_1.status).to eq("Rejected")
       end
     end
-  end
+    it '#lookup_state looks up the state of pet on application' do
+      @application_pet_1.approve
 
 
+      expect(@application_1.lookup_state(@pet_1.id)).to eq("Approved")
+      expect(@application_1.lookup_state(@pet_2.id)).to eq("Pending")
+    end
+end
 end

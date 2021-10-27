@@ -26,6 +26,10 @@ class Application < ApplicationRecord
     end
   end
 
+  def lookup_state(pet_id)
+    ApplicationPet.where(application_id: self.id, pet_id: pet_id).pluck(:state)[0]
+  end
+
   private
       def make_pets_not_adoptable
         pets.each { |pet| pet.update(adoptable: false)}
