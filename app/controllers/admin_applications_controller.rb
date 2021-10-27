@@ -15,6 +15,7 @@ class AdminApplicationsController < ApplicationController
 
       if application.all_pets_approved?
         application.update(status: 'Approved')
+        application.pets.update(adoptable: false)
       end
 
     elsif params[:commit] == 'Reject'

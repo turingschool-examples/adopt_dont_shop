@@ -9,13 +9,15 @@
   <p><%= @application.description %></p>
 <h3>Pets included in this application: </h3>
 <% @application.pets.each do |pet| %>
-  <p>
+  <div id='pet-<%= pet.id %>'>
     <%= pet.name %>
 
     <% if @application.approved(pet.id) == true %>
       <%= ': Approved' %>
     <% elsif @application.approved(pet.id) == false %>
       <%= ': Rejected' %>
+    <% elsif pet.approved_for_adoption? == true %>
+      <%= ': Sorry, this pet has already been approved for adoption!' %>
     <% else %>
       <%= form_with url: "/admin/applications/#{@application.id}", method: :patch, local: true do |f| %>
         <%= f.hidden_field :pet_id, value: pet.id %>
@@ -24,6 +26,6 @@
         <%= f.submit 'Reject' %>
       <% end %>
     <% end %>
-  </p>
+  </div>
 <% end %>
 <h2>Application Status: <%= @application.status %></h2>
