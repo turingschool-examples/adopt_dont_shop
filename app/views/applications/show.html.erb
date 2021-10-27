@@ -13,7 +13,7 @@
 <% end %>
 
 <p>
-<% if @application[:app][:application_status] != "Pending" && @application[:app][:application_status] != "Accepted" %>
+<% if @application[:app][:application_status] != "Pending" && @application[:app][:application_status] != "Accepted" &&  @application[:app].get_pets(@application[:app][:id]).length >= 1 %>
     <%= form_with url: "/applications/#{@application[:app][:id]}", method: :patch, local: true do |f| %>
     <%= f.label :why, "Expression of Interest" %>
     <%= f.text_area :why, value: @application[:app][:why], required: true %><br>

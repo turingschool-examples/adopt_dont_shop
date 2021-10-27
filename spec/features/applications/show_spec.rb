@@ -175,4 +175,18 @@ RSpec.describe 'guest applications show page' do
         expect(page).not_to have_content(pet1.name)
         expect(page).not_to have_content(pet2.name)     
     end 
+
+    it 'has no option to submit an application if no pets have been added' do 
+        application1 = Application.create!(applicant_name: 'Jacob Yarborough', 
+                                          street_address: '123 Main Street', 
+                                          city: 'Denver', 
+                                          state: 'CO',
+                                          zipcode: '80223',
+                                          application_status: 'In Progress',
+                                          why: 'I love dogs')
+        visit "/applications/#{application1.id}"
+
+        expect(current_path).to eq("/applications/#{application1.id}")
+        expect(page).not_to have_content("Submit Application")
+    end 
 end 
