@@ -73,7 +73,7 @@ RSpec.describe 'guest applications show page' do
                                            city: 'Denver', 
                                            state: 'CO',
                                            zipcode: '80223',
-                                           application_status: 'Pending',
+                                           application_status: 'In Progress',
                                            why: 'I love dogs')
 
         visit "/applications/#{application1.id}"
@@ -109,7 +109,7 @@ RSpec.describe 'guest applications show page' do
                                            city: 'Denver', 
                                            state: 'CO',
                                            zipcode: '80223',
-                                           application_status: 'Pending',
+                                           application_status: 'In Progress',
                                            why: 'I love dogs')
 
         visit "/applications/#{application1.id}"
@@ -118,10 +118,61 @@ RSpec.describe 'guest applications show page' do
         
         fill_in "Search for Pet by Name", with: "b"
         click_button "Search"
-
         click_on "Adopt this Pet"
-        save_and_open_page
+
         expect(current_path).to eq("/applications/#{application1.id}")
         expect(page).to have_content(pet1.name)
+    end 
+
+    it 'can submit an application' do 
+        shelter1 = Shelter.create!(foster_program: true,
+                                   name: 'Rocky Mountain Dog Shelter',
+                                   city: 'Denver',
+                                   rank: 1)
+        pet1 = shelter1.pets.create!(adoptable: true,
+                                     age: 3,
+                                     breed: "Labrador Retriever",
+                                     name: 'Bailey')
+        pet2 = shelter1.pets.create!(adoptable: true,
+                                     age: 1,
+                                     breed: "French Bulldog",
+                                     name: 'Bella')
+        pet3 = shelter1.pets.create!(adoptable: false,
+                                     age: 4,
+                                     breed: "German Shepard",
+                                     name: 'Max')
+        application1 = Application.create!(applicant_name: 'Jacob Yarborough', 
+                                           street_address: '123 Main Street', 
+                                           city: 'Denver', 
+                                           state: 'CO',
+                                           zipcode: '80223',
+                                           application_status: 'In Progress',
+                                           why: 'I love dogs')
+
+        visit "/applications/#{application1.id}"
+        expect(current_path).to eq("/applications/#{application1.id}")
+
+        fill_in "Search for Pet by Name", with: "m"
+        click_button "Search"
+        click_on "Adopt this Pet"
+
+        expect(current_path).to eq("/applications/#{application1.id}")
+        expect(page).to have_content(pet3.name)
+
+        expect(page).to have_content("Expression of Interest")
+        click_on "Submit Application"
+
+        expect(current_path).to eq("/applications/#{application1.id}")   
+        expect(page).to have_content("Application Status: Pending")
+        expect(page).to have_content(application1.applicant_name)
+        expect(page).to have_content(application1.street_address)
+        expect(page).to have_content(application1.city)
+        expect(page).to have_content(application1.state)
+        expect(page).to have_content(application1.zipcode)
+        expect(page).to have_content(application1.why)
+        expect(page).to have_content(pet3.name)
+        expect(page).not_to have_content("Adopt this Pet")
+        expect(page).not_to have_content(pet1.name)
+        expect(page).not_to have_content(pet2.name)     
     end 
 end 
