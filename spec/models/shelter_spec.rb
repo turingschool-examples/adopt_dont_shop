@@ -15,18 +15,24 @@ RSpec.describe Shelter, type: :model do
   before(:each) do
     @shelter_1 = Shelter.create!(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
     @pet_1 = @shelter_1.pets.create!(name: 'Mr. Pirate', breed: 'tuxedo shorthair', age: 5, adoptable: false)
-
     @pet_2 = @shelter_1.pets.create!(name: 'Clawdia', breed: 'shorthair', age: 3, adoptable: true)
-    @pet_4 = @shelter_1.pets.create!(name: 'Ann', breed: 'ragdoll', age: 5, adoptable: true)
     @application_1 = Application.create!(name: 'Ted', address: '11 revere', city: 'Chicago', state: 'Illinois', zip_code: '60010', description: 'Love Pets', status: 'Pending')
     ApplicationPet.create!(application_id: @application_1.id, pet_id: @pet_1.id)
+
+    @pet_4 = @shelter_1.pets.create!(name: 'Ann', breed: 'ragdoll', age: 5, adoptable: true)
+
+
 
     @shelter_2 = Shelter.create!(name: 'RGV animal shelter', city: 'Harlingen, TX', foster_program: false, rank: 5)
 
     @shelter_3 = Shelter.create!(name: 'Fancy pets of Colorado', city: 'Denver, CO', foster_program: true, rank: 10)
     @pet_3 = @shelter_3.pets.create!(name: 'Lucille Bald', breed: 'sphynx', age: 8, adoptable: true)
-    @application_2 = @pet_3.applications.create!(name: 'Ted', address: '11 revere', city: 'Chicago', state: 'Illinois', zip_code: '60010', description: 'Love Pets', status: 'Pending')
+    @application_2 = Application.create!(name: 'Bob', address: '11 revere', city: 'Chicago', state: 'Illinois', zip_code: '60010', description: 'Love Pets', status: 'Pending')
+    @application_3 = Application.create!(name: 'Chuck', address: '11 revere', city: 'Chicago', state: 'Illinois', zip_code: '60010', description: 'Love Pets', status: 'In Progress')
+    @pet_5 = @shelter_2.pets.create!(name: 'Ricky', breed: 'shorthair', age: 3, adoptable: true)
+    ApplicationPet.create!(application_id: @application_3.id, pet_id: @pet_5.id)
     ApplicationPet.create!(application_id: @application_2.id, pet_id: @pet_3.id)
+
   end
 
   describe 'class methods' do
@@ -51,13 +57,13 @@ RSpec.describe Shelter, type: :model do
 
     describe '#pending_applications' do
       it "shows shelters with pending applications" do
-        expect(Shelter.pending_applications).to eq([@shelter_3, @shelter_1])
+        expect(Shelter.pending_applications).to eq([@shelter_1, @shelter_3])
       end
     end
 
     describe '#order_by_number_of_pets' do
       it 'orders the shelters by number of pets they have, descending' do
-        expect(Shelter.order_by_number_of_pets).to eq([@shelter_1, @shelter_3, @shelter_2])
+        expect(Shelter.order_by_number_of_pets).to eq([@shelter_1, @shelter_2, @shelter_3])
       end
     end
   end

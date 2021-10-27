@@ -37,6 +37,6 @@ class Shelter < ApplicationRecord
   end
 
   def self.pending_applications
-    wip = joins(pets: :application_pets)
+    joins(pets: :applications).where(applications: {status: "Pending"})
   end
 end
