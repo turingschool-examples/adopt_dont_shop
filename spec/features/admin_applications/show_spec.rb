@@ -82,6 +82,5 @@ RSpec.describe 'show page' do
       expect(page).not_to have_content('Rejected')
       expect(page).not_to have_content('Approved')
     end
-
   end
 end
