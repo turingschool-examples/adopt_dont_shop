@@ -1,0 +1,32 @@
+<h1><%= @application.applicant_name %>'s Application</h1>
+
+<h2>Applicant Information</h2>
+<p>Applicant Name: <%= @application.applicant_name %><br>
+   Address: <%= @application.street_address %>, <%= @application.city %>, <%= @application.state %> <%= @application.zipcode %><br>
+   Expression of interest: <%= @application.why %><br>
+   Application Status: <%= @application.application_status %><br>
+</p>
+
+<h3>Pets on Application</h3>
+<% @application.get_pets(@application.id).each do |pet| %>
+  <%= link_to pet.name, "/pets/#{pet.id}" %><br>
+  <% if pet.application_status(@application.id, pet.id) != "Accepted" && pet.application_status(@application.id, pet.id) != "Rejected" %>
+    <%= form_with url: '/admin/applications', method: :patch, local: true do |form| %>
+      <% form.hidden_field :pet_id, value: pet.id %>
+      <% form.hidden_field :app_id, value: @application.id %>
+      <% form.hidden_field :status, value: "Accepted" %>
+      <%= form.submit 'Accept this Pet' %>
+    <% end %>
+    <p></p>
+    <%= form_with url: '/admin/applications', method: :patch, local: true do |form| %>
+      <% form.hidden_field :pet_id, value: pet.id %>
+      <% form.hidden_field :app_id, value: @application.id %>
+      <% form.hidden_field :status, value: "Rejected" %>
+      <%= form.submit 'Reject this Pet' %><br>
+      <p></p>
+      <p></p>
+    <% end %>
+  <% else %>
+    <%= pet.application_status(@application.id, pet.id) %>
+  <% end %>
+<% end %>

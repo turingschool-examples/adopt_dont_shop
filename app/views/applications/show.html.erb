@@ -38,7 +38,7 @@
     <%= pet.name %><br>
     Age: <%= pet.age %><br>
     Breed: <%= pet.breed %><br>
-    Adobtable? <%= pet.adoptable %><br>
+    Adoptable? <%= pet.adoptable %><br>
     <%= button_to 'Adopt this Pet', {:controller => "application_pets", :action => "create", :pet_id => pet.id, :app_id=> @application[:app][:id]} , :method=>:post  %>
     <br>
     </p>
