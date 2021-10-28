@@ -4,9 +4,12 @@ RSpec.describe 'admin applications show page' do
   describe 'when i visit an admin show page' do
     before :each do
       @application = create(:application)
-      @pet1 = create(:pet, application_id: @application.id)
-      @pet2 = create(:pet, application_id: @application.id)
-      @pet3 = create(:pet, application_id: @application.id)
+      @pet1 = create(:pet)
+      @pet2 = create(:pet)
+      @pet3 = create(:pet)
+      @ap1 = ApplicationPet.create(application_id: @application.id, pet_id: @pet1.id)
+      @ap2 = ApplicationPet.create(application_id: @application.id, pet_id: @pet2.id)
+      @ap3 = ApplicationPet.create(application_id: @application.id, pet_id: @pet3.id)
 
       visit admin_application_path(@application)
     end
