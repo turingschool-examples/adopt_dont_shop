@@ -1,0 +1,23 @@
+<h1>Applicant's Information:</h1>
+
+<h3>Name:           <%= @application.name %></h3>
+<h3>Street Address: <%= @application.street_address %></h3>
+<h3>City:           <%= @application.city %></h3>
+<h3>State:          <%= @application.state %></h3>
+<h3>Zip Code: <%= @application.zip_code %></h3>
+
+<p>
+<h1>Describe why you would make a good pet owner:</h1>
+<h3><%= @application.description %></h3>
+</p>
+
+<p>
+<h1>Pets:</h1>
+<% if @application.pets.count > 0 %>
+  <% @application.pets.each do |pet| %>
+    <%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
+  <% end  %>
+<% end  %>
+</p>
+
+<p><h1><%= "Status: #{@application.status}" %></h1></p>
