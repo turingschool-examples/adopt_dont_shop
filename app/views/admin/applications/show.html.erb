@@ -1,7 +1,16 @@
 <h1>Application <%= @application.id %></h1>
 
-<% @application.pets.each do |pet| %>
-  <div id="pet-<%= pet.id %>">
-    <p><%= pet.id %></p>
+<% @application.application_pets.each do |ap| %>
+  <div id="app_pet-<%= ap.id %>">
+    <% pet = ap.pet %>
+    <%= link_to pet.name, pet_path(pet) %><br>
+    <% if ap.status == 'Pending' %>
+      <%= button_to "Approve #{pet.name}", "/applications/#{@application.id}/#{pet.id}?status=Approve", method: :patch %><br>
+      <%= button_to "Reject #{pet.name}", "/applications/#{@application.id}/#{pet.id}?status=Reject", method: :patch %><br>
+    <% elsif ap.status == 'Approved' %>
+      <%= "#{pet.name} is approved for this application" %>
+    <% else %>
+      <%= "#{pet.name} has been rejected for this application" %>
+    <% end %>
   </div>
 <% end %>

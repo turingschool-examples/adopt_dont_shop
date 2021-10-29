@@ -6,7 +6,10 @@ Rails.application.routes.draw do
 
   resources :application_pets
 
+  # post '/applications', controller: :application_pets, action: :create
+  # patch '/applications', controller: :application_pets, action: :update
   post '/applications/:application_id/:pet_id', to: 'application_pets#create'
+  patch '/applications/:application_id/:pet_id', to: 'application_pets#update'
 
   namespace :admin do
     resources :shelters
@@ -21,11 +24,12 @@ Rails.application.routes.draw do
   patch '/shelters/:id', to: 'shelters#update'
   delete '/shelters/:id', to: 'shelters#destroy'
 
-  get '/pets', to: 'pets#index'
-  get '/pets/:id', to: 'pets#show'
-  get '/pets/:id/edit', to: 'pets#edit'
-  patch '/pets/:id', to: 'pets#update'
-  delete '/pets/:id', to: 'pets#destroy'
+  resources :pets, except: [:new, :create]
+  # get '/pets', to: 'pets#index'
+  # get '/pets/:id', to: 'pets#show'
+  # get '/pets/:id/edit', to: 'pets#edit'
+  # patch '/pets/:id', to: 'pets#update'
+  # delete '/pets/:id', to: 'pets#destroy'
 
   get '/veterinary_offices', to: 'veterinary_offices#index'
   get '/veterinary_offices/new', to: 'veterinary_offices#new'

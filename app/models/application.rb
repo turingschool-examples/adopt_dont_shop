@@ -13,4 +13,5 @@ class Application < ApplicationRecord
   def add_pet(pet_id)
     pets << (Pet.find(pet_id))
   end
+
 end

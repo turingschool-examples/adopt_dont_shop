@@ -3,7 +3,7 @@ module Admin
 
     def show
       @application = Application.find(params[:id])
-      require "pry"; binding.pry
+      @application_pet = ApplicationPet.find_by(application_id: params[:application_id], pet_id: params[:pet_id])
     end
 
 
