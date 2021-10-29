@@ -7,7 +7,7 @@
 Visitors to the site will be able to create applications to adopt pets. An application has many pets. Pets can have many applications.
 
 ```
-[X] done
+1. [X] done
 
 Application Show Page
 
@@ -22,7 +22,7 @@ Then I can see the following:
 ```
 
 ```
-[ ] done
+2. [ ] done
 
 Starting an Application
 
@@ -44,7 +44,7 @@ And I see an indicator that this application is "In Progress"
 ```
 
 ```
-[ ] done
+3. [ ] done
 
 Starting an Application, Form not Completed
 
@@ -57,7 +57,7 @@ And I see a message that I must fill in those fields.
 ```
 
 ```
-[ ] done
+4. [ ] done
 
 Searching for Pets for an Application
 
@@ -73,7 +73,7 @@ And under the search bar I see any Pet whose name matches my search
 ```
 
 ```
-[ ] done
+5. [ ] done
 
 Add a Pet to an Application
 
@@ -88,7 +88,7 @@ And I see the Pet I want to adopt listed on this application
 ```
 
 ```
-[ ] done
+6. [ ] done
 
 Submit an Application
 
@@ -106,7 +106,7 @@ And I do not see a section to add more pets to this application
 ```
 
 ```
-[ ] done
+7. [ ] done
 
 No Pets on an Application
 
@@ -121,7 +121,7 @@ Then I do not see a section to submit my application
 These stories emphasize key database concepts
 
 ```
-[ ] done
+8. [ ] done
 
 Partial Matches for Pet Names
 
@@ -133,7 +133,7 @@ For example, if I search for "fluff", my search would match pets with names "flu
 ```
 
 ```
-[ ] done
+9. [ ] done
 
 Case Insensitive Matches for Pet Names
 
@@ -145,6 +145,8 @@ For example, if I search for "fluff", my search would match pets with names "Flu
 ```
 
 ```
+10. [ ] done
+
 SQL Only Story
 
 For this story, you should write your queries in raw sql. You can use the ActiveRecord find_by_sql method to execute raw sql queries: https://guides.rubyonrails.org/active_record_querying.html#finding-by-sql
@@ -157,6 +159,8 @@ Then I see all Shelters in the system listed in reverse alphabetical order by na
 ```
 
 ```
+11. [ ] done
+
 For this story, you should fully leverage ActiveRecord methods in your query.
 
 Shelters with Pending Applications
@@ -169,12 +173,14 @@ And in this section I see the name of every shelter that has a pending applicati
 
 ## Approving Applications
 
+12. [ ] done
+
 Pets on an application can either be accepted or rejected.
 
 For this set of stories, we will be making routes that begin with '/admin'. This is to indicate that only a user with special privileges should be able to accept or reject pets on an application. Normally, we would want to make sure that a user is logged into an admin account before being able complete any of this workflow, but we will not add any log in or authorization functionality to this project.
 
 ```
-[ ] done
+13. [ ] done
 
 Approving a Pet for Adoption
 
@@ -188,7 +194,7 @@ And instead I see an indicator next to the pet that they have been approved
 ```
 
 ```
-[ ] done
+14. [ ] done
 
 Rejecting a Pet for Adoption
 
