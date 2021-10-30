@@ -7,11 +7,10 @@
    Application Status: <%= @application.application_status %><br>
 </p>
 
-<div id="petsonapp">
+<div id="pets_on_app">
 <h3>Pets on Application</h3>
 <% @application.get_pets(@application.id).each do |pet| %>
   <%= link_to pet.name, "/pets/#{pet.id}" %><br>
-  <% binding.pry %>
   <% if pet.app_stat(@application.id, pet.id) != "Approved" && pet.app_stat(@application.id, pet.id) != "Rejected" %>
     <%= form_with url: '/admin/applications', method: :patch, local: true do |form| %>
       <%= form.hidden_field :pet_id, value: pet.id %>
