@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="UTF-8">
+
+<title>class Shelter - RDoc Documentation</title>
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "./";
+  var index_rel_prefix = "./";
+</script>
+
+<script src="./js/navigation.js" defer></script>
+<script src="./js/search.js" defer></script>
+<script src="./js/search_index.js" defer></script>
+<script src="./js/searcher.js" defer></script>
+<script src="./js/darkfish.js" defer></script>
+
+<link href="./css/fonts.css" rel="stylesheet">
+<link href="./css/rdoc.css" rel="stylesheet">
+
+
+
+
+<body id="top" role="document" class="class">
+<nav role="navigation">
+  <div id="project-navigation">
+    <div id="home-section" role="region" title="Quick navigation" class="nav-section">
+  <h2>
+    <a href="./index.html" rel="home">Home</a>
+  </h2>
+
+  <div id="table-of-contents-navigation">
+    <a href="./table_of_contents.html#pages">Pages</a>
+    <a href="./table_of_contents.html#classes">Classes</a>
+    <a href="./table_of_contents.html#methods">Methods</a>
+  </div>
+</div>
+
+    <div id="search-section" role="search" class="project-section initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <div id="search-field-wrapper">
+      <input id="search-field" role="combobox" aria-label="Search"
+             aria-autocomplete="list" aria-controls="search-results"
+             type="text" name="search" placeholder="Search" spellcheck="false"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </div>
+
+    <ul id="search-results" aria-label="Search Results"
+        aria-busy="false" aria-expanded="false"
+        aria-atomic="false" class="initially-hidden"></ul>
+  </form>
+</div>
+
+  </div>
+
+  
+
+  <div id="class-metadata">
+    
+    <div id="parent-class-section" class="nav-section">
+  <h3>Parent</h3>
+
+  
+  <p class="link"><a href="ApplicationRecord.html">ApplicationRecord</a>
+  
+</div>
+
+    
+    
+    <!-- Method Quickref -->
+<div id="method-list-section" class="nav-section">
+  <h3>Methods</h3>
+
+  <ul class="link-list" role="directory">
+    
+    <li ><a href="#method-c-desc_order">::desc_order</a>
+    
+    <li ><a href="#method-c-order_by_number_of_pets">::order_by_number_of_pets</a>
+    
+    <li ><a href="#method-c-order_by_recently_created">::order_by_recently_created</a>
+    
+    <li ><a href="#method-c-pending_apps">::pending_apps</a>
+    
+    <li ><a href="#method-i-adoptable_pets">#adoptable_pets</a>
+    
+    <li ><a href="#method-i-alphabetical_pets">#alphabetical_pets</a>
+    
+    <li ><a href="#method-i-pet_count">#pet_count</a>
+    
+    <li ><a href="#method-i-shelter_pets_filtered_by_age">#shelter_pets_filtered_by_age</a>
+    
+  </ul>
+</div>
+
+  </div>
+</nav>
+
+<main role="main" aria-labelledby="class-Shelter">
+  <h1 id="class-Shelter" class="class">
+    class Shelter
+  </h1>
+
+  <section class="description">
+    
+  </section>
+
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+
+    
+
+    
+     <section id="public-class-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Class Methods</h3>
+       </header>
+
+    
+      <div id="method-c-desc_order" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">desc_order</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="desc_order-source">
+            <pre><span class="ruby-comment"># File app/models/shelter.rb, line 19</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier ruby-title">desc_order</span>
+  <span class="ruby-identifier">find_by_sql</span>(<span class="ruby-string">&quot;SELECT * FROM shelters ORDER BY shelters.name desc&quot;</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-c-order_by_number_of_pets" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">order_by_number_of_pets</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="order_by_number_of_pets-source">
+            <pre><span class="ruby-comment"># File app/models/shelter.rb, line 12</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier ruby-title">order_by_number_of_pets</span>
+  <span class="ruby-identifier">select</span>(<span class="ruby-string">&quot;shelters.*, count(pets.id) AS pets_count&quot;</span>)
+    .<span class="ruby-identifier">joins</span>(<span class="ruby-string">&quot;LEFT OUTER JOIN pets ON pets.shelter_id = shelters.id&quot;</span>)
+    .<span class="ruby-identifier">group</span>(<span class="ruby-string">&quot;shelters.id&quot;</span>)
+    .<span class="ruby-identifier">order</span>(<span class="ruby-string">&quot;pets_count DESC&quot;</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-c-order_by_recently_created" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">order_by_recently_created</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="order_by_recently_created-source">
+            <pre><span class="ruby-comment"># File app/models/shelter.rb, line 8</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier ruby-title">order_by_recently_created</span>
+  <span class="ruby-identifier">order</span>(<span class="ruby-value">created_at:</span> <span class="ruby-value">:desc</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-c-pending_apps" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">pending_apps</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="pending_apps-source">
+            <pre><span class="ruby-comment"># File app/models/shelter.rb, line 23</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier ruby-title">pending_apps</span>
+  <span class="ruby-constant">Shelter</span>.<span class="ruby-identifier">find</span>(<span class="ruby-constant">Application</span>.<span class="ruby-identifier">where</span>(<span class="ruby-value">application_status:</span> <span class="ruby-string">&#39;Pending&#39;</span>).<span class="ruby-identifier">joins</span>(<span class="ruby-value">:pets</span>).<span class="ruby-identifier">pluck</span>(<span class="ruby-value">:shelter_id</span>))
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Instance Methods</h3>
+       </header>
+
+    
+      <div id="method-i-adoptable_pets" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">adoptable_pets</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="adoptable_pets-source">
+            <pre><span class="ruby-comment"># File app/models/shelter.rb, line 31</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">adoptable_pets</span>
+  <span class="ruby-identifier">pets</span>.<span class="ruby-identifier">where</span>(<span class="ruby-value">adoptable:</span> <span class="ruby-keyword">true</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-alphabetical_pets" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">alphabetical_pets</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="alphabetical_pets-source">
+            <pre><span class="ruby-comment"># File app/models/shelter.rb, line 35</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">alphabetical_pets</span>
+  <span class="ruby-identifier">adoptable_pets</span>.<span class="ruby-identifier">order</span>(<span class="ruby-value">name:</span> <span class="ruby-value">:asc</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-pet_count" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">pet_count</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="pet_count-source">
+            <pre><span class="ruby-comment"># File app/models/shelter.rb, line 27</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">pet_count</span>
+  <span class="ruby-identifier">pets</span>.<span class="ruby-identifier">count</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-shelter_pets_filtered_by_age" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">shelter_pets_filtered_by_age</span><span
+            class="method-args">(age_filter)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="shelter_pets_filtered_by_age-source">
+            <pre><span class="ruby-comment"># File app/models/shelter.rb, line 39</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">shelter_pets_filtered_by_age</span>(<span class="ruby-identifier">age_filter</span>)
+  <span class="ruby-identifier">adoptable_pets</span>.<span class="ruby-identifier">where</span>(<span class="ruby-string">&#39;age &gt;= ?&#39;</span>, <span class="ruby-identifier">age_filter</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+  </section>
+
+</main>
+
+
+<footer id="validator-badges" role="contentinfo">
+  <p><a href="https://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="https://ruby.github.io/rdoc/">RDoc</a> 6.2.1.
+  <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
+</footer>
+

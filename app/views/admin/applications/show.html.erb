@@ -7,26 +7,20 @@
    Application Status: <%= @application.application_status %><br>
 </p>
 
+<div id="petsonapp">
 <h3>Pets on Application</h3>
 <% @application.get_pets(@application.id).each do |pet| %>
   <%= link_to pet.name, "/pets/#{pet.id}" %><br>
-  <% if pet.application_status(@application.id, pet.id) != "Accepted" && pet.application_status(@application.id, pet.id) != "Rejected" %>
+  <% binding.pry %>
+  <% if pet.app_stat(@application.id, pet.id) != "Approved" && pet.app_stat(@application.id, pet.id) != "Rejected" %>
     <%= form_with url: '/admin/applications', method: :patch, local: true do |form| %>
-      <% form.hidden_field :pet_id, value: pet.id %>
-      <% form.hidden_field :app_id, value: @application.id %>
-      <% form.hidden_field :status, value: "Accepted" %>
-      <%= form.submit 'Accept this Pet' %>
-    <% end %>
-    <p></p>
-    <%= form_with url: '/admin/applications', method: :patch, local: true do |form| %>
-      <% form.hidden_field :pet_id, value: pet.id %>
-      <% form.hidden_field :app_id, value: @application.id %>
-      <% form.hidden_field :status, value: "Rejected" %>
-      <%= form.submit 'Reject this Pet' %><br>
-      <p></p>
-      <p></p>
+      <%= form.hidden_field :pet_id, value: pet.id %>
+      <%= form.hidden_field :app_id, value: @application.id %>
+      <%= form.submit "Approve #{pet.name}" %>
+      <%= form.submit "Reject #{pet.name}" %>
     <% end %>
   <% else %>
-    <%= pet.application_status(@application.id, pet.id) %>
+    <p><%= pet.name %> <%= pet.app_stat(@application.id, pet.id) %></p>
   <% end %>
 <% end %>
+</div>
