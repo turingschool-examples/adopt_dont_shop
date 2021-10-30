@@ -1,6 +1,9 @@
 class ApplicationsController < ApplicationController
   def show
     @application = Application.find(params[:id])
+    if params[:pet_name]
+      @pets_found = Pet.search(params[:pet_name])
+    end
   end
 
   def index
@@ -17,6 +20,7 @@ class ApplicationsController < ApplicationController
       flash[:alert] = "Error: Please fill out all required information"
       redirect_to "/applications/new"
     end
+
   end
 
   private
