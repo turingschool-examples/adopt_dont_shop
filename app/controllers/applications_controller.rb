@@ -10,12 +10,12 @@ class ApplicationsController < ApplicationController
   end
 
   def create
-    if (app_params[:name] != nil) and (app_params[:street_address] != nil) and (app_params[:city] != nil) and (app_params[:state] != nil) and (app_params[:zip_code] != nil)
-      application = Application.create(app_params)
+    application = Application.new(app_params)
+    if application.save
       redirect_to "/applications/#{application.id}"
     else
       flash[:alert] = "Error: Please fill out all required information"
-      render :new
+      redirect_to "/applications/new"
     end
   end
 
