@@ -26,7 +26,7 @@ RSpec.describe "applications show page", type: :feature do
     it "displays description and pets associated if exist" do
       expect(page).to have_content("Describe why you would make a good pet owner:")
       expect(page).to have_content("Empty")
-      expect(page).to have_content("Pets:")
+      expect(page).to have_content("Pets Under Consideration:")
       expect(page).to have_content("Status: In Progress")
     end
 
@@ -42,6 +42,20 @@ RSpec.describe "applications show page", type: :feature do
       click_on "Smokie"
       expect(current_path).to eq("/pets/#{@pet3.id}")
       expect(current_path).to_not eq("/pets/#{@pet2.id}")
+    end
+
+    it "adds a pet to an Application" do
+
+      fill_in :pet_name, with: "smok"
+      click_on "Submit Search"
+      click_on "Adopt Smokie"
+
+      expect(current_path).to eq("/applications/#{@application1.id}")
+
+      within("#associated-pets-section") do
+        expect(page).to have_content("#{@pet3.name}")
+      end
+      save_and_open_page
     end
   end
 end

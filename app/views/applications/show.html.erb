@@ -24,6 +24,7 @@
   <h3>Search Result: </h3>
   <% @pets_found.each do |pet| %>
     <%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
+    <%= button_to "Adopt #{pet.name}", "/applications/#{@application.id}/#{pet.id}", method: :post %>
   <% end %>
 <% end %>
 
@@ -31,13 +32,14 @@
 </section>
 
 
-<p>
-<h1>Pets:</h1>
+<div id="associated-pets-section">
+<h1>Pets Under Consideration:</h1>
 <% if @application.pets.count > 0 %>
   <% @application.pets.each do |pet| %>
-    <%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
+    <%= link_to "#{pet.name}", "/pets/#{pet.id} " %>
+
   <% end  %>
 <% end  %>
-</p>
+</div>
 
 <p><h1><%= "Status: #{@application.status}" %></h1></p>
