@@ -1,0 +1,14 @@
+<div class = "app">
+  <p>Applicant name: <%= @applicant.name %></p>
+  <p>Applicant Address: <%= @applicant.address["street"] %>
+    <%= @applicant.address["city"] %>
+    <%= @applicant.address["state"] %>
+    <%= @applicant.address["zip"] %></p>
+  <p>Why they're adopting: <%= @applicant.description %></p>
+  <p>Application Status: <%= @applicant.status %></p>
+</div>
+<div class ="pets" >
+  <% @applicant.pets.each do |pet| %>
+    <%= link_to pet.name, "/pets/#{pet.id}" %>
+  <% end %>
+</div>
