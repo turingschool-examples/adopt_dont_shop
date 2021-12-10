@@ -4,4 +4,7 @@
 <%= @application.state %>
 <%= @application.zip_code %></p>
 <p><%= @application.description %></p>
+<% @application.pets.each do |pet| %>
+<%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
+<% end  %>
 <p><%= @application.status %></p>
