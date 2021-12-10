@@ -17,4 +17,15 @@ RSpec.describe Application, type: :model do
     it { should have_many(:pets).through(:application_pets)}
   end
 
+  describe "default params" do
+    it "creates an application with default description" do
+    application_1 = Application.create!(name: "Chris",
+                                        street_address: "19072",
+                                        city: "Exeter",
+                                        state: "CA",
+                                        zip: 93221,
+                                        status: "Pending")
+    expect(application_1.description).to eq("I like turtles")
+    end
+  end
 end
