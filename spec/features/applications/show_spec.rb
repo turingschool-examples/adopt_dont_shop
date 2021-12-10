@@ -46,6 +46,6 @@ RSpec.describe "the applications show page" do
     visit "/applications/#{@application_1.id}"
     click_link("Cribonis")
     expect(current_path).to eq("/pets/#{@pet_1.id}")
-  end 
+  end
 
 end
