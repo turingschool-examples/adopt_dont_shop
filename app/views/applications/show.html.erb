@@ -5,3 +5,8 @@
    <%=@application.zip%></p>
    <p>Description: <%=@application.description%></p>
    <p>Status: <%=@application.status%></p>
+   <p>Pets in this application:
+     <% @application.pets.each do |pet| %>
+      <%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
+      <% end %></p>
+
