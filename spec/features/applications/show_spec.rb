@@ -15,8 +15,6 @@ RSpec.describe 'Application show page' do
         @application1 = @max.applications.create!(name: "John Doe", address: "123 Main Street", city: "Brooklyn", state: "NY", zip: "11205", reason: "I grew up with large dogs and want to bring the same joy into my home.", status: "in progress")
 
         @application1.pets << @josie
-
-        # how to then create another row in pet_applications with the same application id and another pet id?
         
         @application2 = @josie.applications.create!(name: "Jeff Daniels", address: "456 Orderly Way", city: "Seattle", state: "WA", zip: "65412", reason: "I want to help as many innocent animals as I can.", status: "pending")
 
@@ -24,7 +22,7 @@ RSpec.describe 'Application show page' do
 
     it 'displays applicant information for an application' do
         visit "/applications/#{@application1.id}"
-        save_and_open_page
+
         expect(page).to have_content(@application1.name)
         expect(page).to have_content(@application1.address)
         expect(page).to have_content(@application1.reason)
@@ -32,11 +30,8 @@ RSpec.describe 'Application show page' do
         expect(page).to have_content(@max.name)
         expect(page).to have_content(@application1.status)
 
-        # click_link "Max"
-        # expect(current_path).to eq("/pets/#{@max.id}")
-
-        # click_link "Josie"
-        # expect(current_path).to eq("/pets/#{@josie.id}")
+        click_link "Max"
+        expect(current_path).to eq("/pets/#{@max.id}")
 
         expect(page).to_not have_content(@application2.name)
         expect(page).to_not have_content(@application2.address)
