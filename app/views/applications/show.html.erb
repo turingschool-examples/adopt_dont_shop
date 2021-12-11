@@ -5,3 +5,13 @@
 <h3><%= @application.zip %></h3>
 <h3><%= @application.description %></h3>
 <h3><%= @application.status %></h3>
+<h2> Add a Pet to this Application: </h2>
+<%= form_with url: "/applications/#{@application.id}", method: :patch, local: true do |f| %>
+  <%= f.label :search_pets %>
+  <%= f.text_field :search_pets %>
+  <%= f.submit "Submit" %>
+<% end %>
+<% @pets.each do |pet| %>
+  <%= pet.name %>
+  <%= pet.id %>
+<% end %>
