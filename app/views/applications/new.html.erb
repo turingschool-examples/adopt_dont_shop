@@ -1,0 +1,39 @@
+
+<%=form_with(model: @application, local: true, :html=> {class: 'new-application'}) do |form| %>
+ <div>
+      <div>
+          <%=form.label :name %>
+          <%=form.text_field :name, id: :name %>
+      </div>
+</div>
+  <div class="four wide field">
+      <%=form.label :description %>
+      <%=form.text_field :description, id: :description %>
+  </div>
+
+<div>
+    <%=form.fields_for :address do |a| %>
+        <div>
+            <label>Street address </label>
+            <%= a.text_field :street, id: :street %>
+        </div>
+        <div>
+            <label>City </label>
+            <%= a.text_field :city, id: :city %>
+        </div>
+        <div class="two wide field">
+            <label>State </label>
+            <%=a .text_field :state, id: :state %>
+        </div>
+
+        <div class="field">
+            <label>Zip </label>
+            <%= a.number_field :zip, id: :zip %>
+        </div>
+</div>
+<%end%>
+
+<div class="actions">
+    <%=form.submit 'Submit', class: 'ui primary button' %>
+</div>
+<% end %>
