@@ -1,0 +1,18 @@
+<%= form_with url: '/applications', method: :post, local: true do |form| %>
+  <%= form.label :name %>
+
+  <p>Enter your name:</p>
+  <%= form.text_field :name %>
+  <p>Enter your address:</p>
+  <%= form.text_field :address %>
+  <p>Enter your city:</p>
+  <%= form.text_field :city %>
+  <p>Enter your state:</p>
+  <%= form.text_field :state %>
+  <p>Enter your five digit ZIP code:</p>
+  <%= form.text_field :zip %>
+
+  <input type="hidden" name='application_id' value="<%= @application_id %>">
+
+  <%= form.submit 'Create new application' %>
+<% end %>

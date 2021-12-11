@@ -1,0 +1,20 @@
+
+<h1><%= @application.name %></h1>
+<h3><%= @application.address %></h3>
+<h3><%= @application.city %></h3>
+<h3><%= @application.state %></h3>
+<h3><%= @application.zip %></h3>
+
+
+<h1>"Add a Pet to this Application"</h1>
+
+<%= form_with url: '/applications', method: :post, local: true do |form| %>
+  <%= form.label :pet_name %>
+
+  <p>Enter pet's name:</p>
+  <%= form.text_field :pet_name %>
+
+  <input type="hidden" name='application_id' value="<%= @application_id %>">
+
+  <%= form.submit 'Search pets by name' %>
+<% end %>
