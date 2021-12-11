@@ -5,4 +5,6 @@
 <p>State: <%= @application.state %></p>
 <p>Description: <%= @application.description %></p>
 <p>Status: <%= @application.status %></p>
-<%= link_to "#{@pet.name}", "/pets/#{@pet.id}"  %>
+<% @pets.each do |pet| %>
+  <%= link_to "#{pet.name}", "/pets/#{pet.id}"  %>
+<% end %>
