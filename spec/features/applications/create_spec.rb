@@ -31,40 +31,25 @@ RSpec.describe 'Create Application' do
         end
     end
 
-    it 'accepts submission of a new application' do
-        # As a visitor
-        # When I visit the pet index page
-        # Then I see a link to "Start an Application"
-        # When I click this link
-        # Then I am taken to the new application page where I see a form
-        # When I fill in this form with my:
-        
-        # Name
-        # Street Address
-        # City
-        # State
-        # Zip Code
-        # And I click submit
-        # Then I am taken to the new application's show page
-        # And I see my Name, address information, and description of why I would make a good home
-        # And I see an indicator that this application is "In Progress"
+    describe 'for submission' do 
+        it 'accepts submission of a new application' do
+            visit '/applications/new'
 
-        visit '/applications/new'
+            fill_in :name, with: "Jane Doe"
+            fill_in :address, with: "894 Slate Lick Road"
+            fill_in :city, with: "Kittanning"
+            fill_in :state, with: "PA"
+            fill_in :zip, with: "15674"
 
-        fill_in :name, with: "Jane Doe"
-        fill_in :address, with: "894 Slate Lick Road"
-        fill_in :city, with: "Kittanning"
-        fill_in :state, with: "PA"
-        fill_in :zip, with: "15674"
-
-        click_button "Save"
-        expect(page).to have_content("Thanks for applying to save a life!")
-        expect(page).to have_content("Jane Doe")
-        expect(page).to have_content("894 Slate Lick Road")
-        expect(page).to have_content("Kittanning")
-        expect(page).to have_content("PA")
-        expect(page).to have_content("15674")
-        expect(page).to have_content("in progress")
-        # how else to test that this redirected to the show page...?
+            click_button "Save"
+            expect(page).to have_content("Thanks for applying to save a life!")
+            expect(page).to have_content("Jane Doe")
+            expect(page).to have_content("894 Slate Lick Road")
+            expect(page).to have_content("Kittanning")
+            expect(page).to have_content("PA")
+            expect(page).to have_content("15674")
+            expect(page).to have_content("in progress")
+            # how else to test that this redirected to the show page...?
+        end
     end
 end
