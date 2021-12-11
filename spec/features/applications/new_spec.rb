@@ -44,4 +44,29 @@ RSpec.describe 'New Application' do
     expect(current_path).to eq("/applications/#{new_application_id}")
     expect(page).to have_content("Kerri Hoffmann")
   end
+
+  it 'can instruct a user to fill out the form completely' do
+    visit '/applications/new'
+
+    fill_in('Name', with: "")
+    fill_in('street_address', with: '1234 N Mongomery St')
+    fill_in('City', with: 'Aurora')
+    fill_in('State', with: "CO")
+    fill_in("zip_code", with: 80014)
+    fill_in("Description", with: "I love all animals")
+
+    click_on("Submit Application")
+
+    expect(page).to have_content("Please fill form out completely")
+    expect(current_path).to eq('/applications/new')
+  end
 end
+
+# Starting an Application, Form not Completed
+#
+# As a visitor
+# When I visit the new application page
+# And I fail to fill in any of the form fields
+# And I click submit
+# Then I am taken back to the new applications page
+# And I see a message that I must fill in those fields.
