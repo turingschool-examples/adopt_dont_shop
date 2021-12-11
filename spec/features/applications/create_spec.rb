@@ -40,6 +40,7 @@ RSpec.describe 'Create Application' do
             fill_in :city, with: "Kittanning"
             fill_in :state, with: "PA"
             fill_in :zip, with: "15674"
+            fill_in :reason, with: "He's just so pretty."
 
             click_button "Save"
             expect(page).to have_content("Thanks for applying to save a life!")
@@ -48,8 +49,19 @@ RSpec.describe 'Create Application' do
             expect(page).to have_content("Kittanning")
             expect(page).to have_content("PA")
             expect(page).to have_content("15674")
+            expect(page).to have_content("He's just so pretty.")
             expect(page).to have_content("in progress")
             # how else to test that this redirected to the show page...?
+        end
+    end
+
+    context 'given invalid data' do
+        it 're-renders the new form' do
+            visit "/applications/new"
+
+            click_button 'Save'
+            expect(page).to have_current_path("/applications/new")
+            expect(page).to have_content("Error: Name can't be blank, Address can't be blank, City can't be blank, State can't be blank, Zip can't be blank, Reason can't be blank")
         end
     end
 end

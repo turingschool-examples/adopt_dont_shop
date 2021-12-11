@@ -21,8 +21,8 @@ class ApplicationsController < ApplicationController
             flash[:success] = "Thanks for applying to save a life!"
             redirect_to "/applications/#{@application.id}"
         else 
-            flash[:alert] = "Error"
-            render 'new'
+            flash[:alert] = "Error: #{error_message(@application.errors)}"
+            redirect_to "/applications/new"
         end
     end
 
