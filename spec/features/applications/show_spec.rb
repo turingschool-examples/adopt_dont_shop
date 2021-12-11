@@ -25,6 +25,9 @@ RSpec.describe 'Application show page' do
 
         expect(page).to have_content(@application1.name)
         expect(page).to have_content(@application1.address)
+        expect(page).to have_content(@application1.city)
+        expect(page).to have_content(@application1.state)
+        expect(page).to have_content(@application1.zip)
         expect(page).to have_content(@application1.reason)
         expect(page).to have_content(@josie.name)
         expect(page).to have_content(@max.name)
@@ -35,6 +38,9 @@ RSpec.describe 'Application show page' do
 
         expect(page).to_not have_content(@application2.name)
         expect(page).to_not have_content(@application2.address)
+        expect(page).to_not have_content(@application2.city)
+        expect(page).to_not have_content(@application2.state)
+        expect(page).to_not have_content(@application2.zip)
         expect(page).to_not have_content(@application2.reason)
         expect(page).to_not have_content(@rambo.name)
         expect(page).to_not have_content(@application2.status)
