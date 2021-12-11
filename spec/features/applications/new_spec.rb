@@ -26,7 +26,7 @@ RSpec.describe 'new application from' do
       fill_in :description, with: "I Love Pets"
       click_button 'Submit'
     end
-    save_and_open_page
+
       within '.app' do
         expect(page).to have_content("Applicant name: Derek")
         expect(page).to have_content("Why they're adopting: I Love Pets")
@@ -34,4 +34,26 @@ RSpec.describe 'new application from' do
         expect(page).to have_content("Applicant Address: 1309 Delaware St Denver CO 80332")
       end
     end
-  end
+    it 'returns error messages if form isnt completed' do
+      visit "/applications/new"
+
+      within ".new-application" do
+
+        fill_in :name, with: nil
+        fill_in :city, with: nil
+        fill_in :zip, with: nil
+        fill_in :state, with: nil
+        fill_in :street, with: nil
+        fill_in :description, with: nil
+        click_button 'Submit'
+      end
+      save_and_open_page
+      expect(current_path).to eq('/applications')
+        within '.error-msgs' do
+        expect(page).to have_content("Name can't be blank")
+        expect(page).to have_content("Zip can't be blank")
+        expect(page).to have_content("Street can't be blank")
+        expect(page).to have_content("Description can't be blank")
+        end
+      end
+    end
