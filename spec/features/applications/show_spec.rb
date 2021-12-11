@@ -4,7 +4,10 @@ RSpec.describe 'the applications show page' do
   before :each do
     @application = Application.create!(
       name: "Joel Grant",
-      address: "1234 Grant Road",
+      street_address: "1234 Grant Road",
+      city: "Littleton",
+      state: "Colorado",
+      zip: "80120",
       description: "I love dogs",
       status: "In Progress"
     )
@@ -21,7 +24,7 @@ RSpec.describe 'the applications show page' do
   end
 
   it 'has the full address of the applicant' do
-    expect(page).to have_content("#{@application.address}")
+    expect(page).to have_content("#{@application.street_address}")
   end
 
   it 'has the description why the applicant wants to adopt' do
