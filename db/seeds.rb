@@ -18,7 +18,6 @@ application_1 = Application.create!(name: "Chris",
                                     city: "Exeter",
                                     state: "CA",
                                     zip: 93221,
-                                    description: "I love llamas",
                                     status: "Pending")
 pet_1 = application_1.pets.create!(adoptable: true,
                             age: 5,
