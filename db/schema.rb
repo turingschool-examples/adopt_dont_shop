@@ -36,7 +36,7 @@ ActiveRecord::Schema.define(version: 2021_12_10_033250) do
     t.string "name"
     t.hstore "address"
     t.text "description"
-    t.string "status", default: "Pending"
+    t.string "status", default: "In Progress"
   end
 
   create_table "pets", force: :cascade do |t|
