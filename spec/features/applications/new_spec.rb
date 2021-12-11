@@ -28,8 +28,20 @@ RSpec.describe "the application new page" do
     expect(page).to have_content("CA")
     expect(page).to have_content("93221")
     expect(page).to have_content("I like turtles")
-
-
-
   end
+
+  it "returns error for unfilled form" do
+    #filling in form w/out name
+    visit "/pets"
+    click_link('Start an Application')
+    fill_in "Street address", with: "19072"
+    fill_in "City", with: "Exeter"
+    fill_in "State", with: "CA"
+    fill_in "Zip", with: "93221"
+    # expect(page).to have_content("Name can't be blank")
+    expect(current_path).to eq("/applications/new")
+    save_and_open_page
+    expect(Application.all.count).to eq(0)
+  end
+
 end
