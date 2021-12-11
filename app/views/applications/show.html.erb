@@ -1,4 +1,4 @@
-<h3><%=@application.name%></h3>
+<h3>Applicant Name: <%=@application.name%></h3>
    <p>Address: <%=@application.street_address%>
    <%=@application.city%>
    <%=@application.state%>
@@ -9,4 +9,22 @@
      <% @application.pets.each do |pet| %>
       <%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
       <% end %></p>
+
+<% if @application.status == "Pending" %>
+  <p><%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |f| %>
+  <%= f.label :search_for_pets_by_name %>
+  <%= f.text_field :search %>
+  <%= f.submit "Submit"%>
+  <% end %></p>
+
+  <% @pets.each do |pet| %>
+  <p><%= pet.name %></p>
+  <% end %>
+<% end %>
+
+
+
+
+
+
 

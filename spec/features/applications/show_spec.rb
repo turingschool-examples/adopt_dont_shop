@@ -18,7 +18,7 @@ RSpec.describe "the applications show page" do
                                 breed: "Llama",
                                 name: "Cribonis",
                                 shelter_id: @shelter_1.id)
-    @pet_2 = @application_1.pets.create!(adoptable: true,
+    @pet_2 = Pet.create!(adoptable: true,
                                           age: 7,
                                           breed: "Dog",
                                           name: "Luke",
@@ -39,7 +39,6 @@ RSpec.describe "the applications show page" do
   it "displays links to each pet name" do
     visit "/applications/#{@application_1.id}"
     expect(page).to have_link("Cribonis")
-    expect(page).to have_link("Luke")
   end
 
   it "links to the pet show page when its link is clicked" do
@@ -47,5 +46,20 @@ RSpec.describe "the applications show page" do
     click_link("Cribonis")
     expect(current_path).to eq("/pets/#{@pet_1.id}")
   end
+
+  it "displays a form to add pet if the application has not been submitted" do
+    visit "/applications/#{@application_1.id}"
+
+    expect(page).to have_content("Search for pets by name")
+  end
+
+  it "routes to filtered pet index searched by name" do
+    visit "/applications/#{@application_1.id}"
+    fill_in :search, with: "Luke"
+    click_button("Submit")
+    expect(current_path).to eq("/applications/#{@application_1.id}")
+    expect(page).to have_content("Luke")
+  end
+
 
 end

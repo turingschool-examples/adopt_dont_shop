@@ -25,7 +25,7 @@ pet_1 = application_1.pets.create!(adoptable: true,
                             breed: "Llama",
                             name: "Cribonis",
                             shelter_id: shelter_1.id)
-pet_2 = application_1.pets.create!(adoptable: true,
+pet_2 = Pet.create!(adoptable: true,
                                       age: 7,
                                       breed: "Dog",
                                       name: "Luke",
