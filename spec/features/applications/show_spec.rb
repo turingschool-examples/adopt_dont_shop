@@ -28,4 +28,26 @@ RSpec.describe 'the application show' do
     expect(current_path).to eq("/pets/#{@pet_1.id}")
 
   end
+
+  describe 'visits an applications show page' do
+    describe 'has a section to add a pet' do
+      it 'can search for a pet by name and submit' do
+
+        visit "/applications/#{@application.id}"
+
+
+
+        expect(page).to have_button("Submit")
+
+        fill_in 'Search', with: "Clawdia"
+        click_on("Submit")
+
+        expect(current_path).to eq("/applications/#{@application.id}")
+
+        expect(page).to have_content(@pet_2.name)
+        expect(page).to_not have_content(@pet_3.name)
+      end
+    end
+  end
+
 end
