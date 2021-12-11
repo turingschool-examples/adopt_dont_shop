@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Application, type: :model do
+RSpec.describe Survey, type: :model do
   describe 'validations' do 
     it { should validate_presence_of(:name) }
     it { should validate_presence_of(:street_address) }
@@ -12,7 +12,7 @@ RSpec.describe Application, type: :model do
   end
 
   describe 'relationships' do 
-    it { should have_many(:application_pets) }
-    it { should have_many(:pets).through(:application_pets) }
+    it { should have_many(:survey_pets) }
+    it { should have_many(:pets).through(:survey_pets) }
   end
 end

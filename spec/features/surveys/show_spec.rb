@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'applications view' do
+RSpec.describe 'surveys view' do
   before(:each) do
     @shelter_1 = Shelter.create!(
       foster_program: true, 
@@ -8,7 +8,7 @@ RSpec.describe 'applications view' do
       city: "Fort Collins", 
       rank: 1)
 
-    @application_1 = Application.create!(
+    @survey_1 = Survey.create!(
       name: "John Napier", 
       street_address: "936 Akin Ave.", 
       city: "Fort Collins", 
@@ -17,14 +17,14 @@ RSpec.describe 'applications view' do
       description: "Good Owner", 
       status: "Pending")
 
-   @pet_1 = @application_1.pets.create!(
+   @pet_1 = @survey_1.pets.create!(
      adoptable: true, 
      age: 1, 
      breed: "Boston Terrier", 
      name: "Zelma", 
      shelter_id: @shelter_1.id)
 
-   @pet_2 = @application_1.pets.create!(
+   @pet_2 = @survey_1.pets.create!(
      adoptable: true, 
      age: 13, 
      breed: "Tabby Cat", 
@@ -33,21 +33,21 @@ RSpec.describe 'applications view' do
   end
 
   it 'can show the application attributes in a form' do 
-    visit "/applications/#{@application_1.id}"
+    visit "/surveys/#{@survey_1.id}"
 
-    expect(page).to have_content(@application_1.name)
-    expect(page).to have_content(@application_1.street_address)
-    expect(page).to have_content(@application_1.city)
-    expect(page).to have_content(@application_1.state)
-    expect(page).to have_content(@application_1.zip_code)
-    expect(page).to have_content(@application_1.description)
-    expect(page).to have_content(@application_1.status)
+    expect(page).to have_content(@survey_1.name)
+    expect(page).to have_content(@survey_1.street_address)
+    expect(page).to have_content(@survey_1.city)
+    expect(page).to have_content(@survey_1.state)
+    expect(page).to have_content(@survey_1.zip_code)
+    expect(page).to have_content(@survey_1.description)
+    expect(page).to have_content(@survey_1.status)
     expect(page).to have_link(@pet_1.name)
     expect(page).to have_link(@pet_2.name)
   end
 
   it 'can click the pet link and be taken to the pet show page' do 
-    visit "/applications/#{@application_1.id}"
+    visit "/surveys/#{@survey_1.id}"
 
     click_link "#{@pet_1.name}"
 

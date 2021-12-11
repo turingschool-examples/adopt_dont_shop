@@ -1,6 +1,6 @@
-class CreateApplication < ActiveRecord::Migration[5.2]
+class CreateSurvey < ActiveRecord::Migration[5.2]
   def change
-    create_table :applications do |t|
+    create_table :surveys do |t|
       t.string :name
       t.string :street_address
       t.string :city
@@ -8,8 +8,6 @@ class CreateApplication < ActiveRecord::Migration[5.2]
       t.integer :zip_code
       t.string :description
       t.string :status
-
-      t.timestamps
     end
   end
 end
