@@ -18,11 +18,14 @@
 <p>
   <%= @application.description %>
 </p>
+
+
 <p>
   <% @pets.each do |pet|%>
   <%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
   <% end %>
 </p>
+
 <p>
   <%= @application.status %>
 </p>

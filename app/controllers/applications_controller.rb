@@ -1,4 +1,7 @@
 class ApplicationsController < ApplicationController
+  def index
+  end
+
   def show
     @application = Application.find(params[:id])
     @pets = @application.pets
@@ -8,9 +11,9 @@ class ApplicationsController < ApplicationController
   end
 
   def create
-    application = Application.new(application_params)
+    application = Application.create(application_params)
 
-      redirect_to "/applications"
+    redirect_to "/applications/#{application.id}"
   end
 
 private

@@ -18,13 +18,23 @@ RSpec.describe 'application creation' do
       click_link("Start an Application")
 
       expect(current_path).to eq("/applications/new")
-      save_and_open_page
       expect(page).to have_content('New Application')
       expect(page).to have_content('Name')
       expect(page).to have_content('Street')
       expect(page).to have_content('City')
       expect(page).to have_content('State')
       expect(page).to have_content('Zip')
+
+      fill_in 'Name', with: "Kathy Y"
+      fill_in 'Street', with: '434 W. Roscoe'
+      fill_in 'City', with: 'Chicago'
+      fill_in 'State', with: 'IL'
+      fill_in 'Zip', with: '60657'
+
+      click_button 'Save'
+      application = Application.find_by(name:'Kathy Y')
+      expect(page).to have_current_path("/applications/#{application.id}")
+
     end
   end
 end
