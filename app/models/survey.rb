@@ -1,6 +1,12 @@
-class Application < ApplicationRecord 
-  has_many :application_pets 
-  has_many :pets, through: :application_pets
+class Survey < ApplicationRecord 
+  after_initialize :set_defaults 
+
+  def set_defaults 
+    self.description ||= ""
+  end
+  
+  has_many :survey_pets 
+  has_many :pets, through: :survey_pets
 
   validates_presence_of :name 
   validates_presence_of :street_address
