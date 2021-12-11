@@ -12,7 +12,7 @@ RSpec.describe "the applications show page" do
                                         state: "CA",
                                         zip: 93221,
                                         description: "I love llamas",
-                                        status: "Pending")
+                                        )
     @pet_1 = @application_1.pets.create!(adoptable: true,
                                 age: 5,
                                 breed: "Llama",
@@ -60,6 +60,26 @@ RSpec.describe "the applications show page" do
     expect(current_path).to eq("/applications/#{@application_1.id}")
     expect(page).to have_content("Luke")
   end
+
+  it "has button to adopt after filtering by name" do
+    visit "/applications/#{@application_1.id}"
+    fill_in :search, with: "Luke"
+    click_button("Submit")
+    save_and_open_page
+    expect(page).to have_button("Adopt This Pet")
+  end
+
+  xit "button to adopt a pet routes back to show page" do
+    visit "/applications/#{@application_1.id}"
+    fill_in :search, with: "Luke"
+    click_button("Submit")
+    click_button("Adopt This Pet")
+    expect(current_path).to eq("/applications/#{@application_1.id}")
+
+  xit "adopt pet through adopt button" do
+  end
+  end
+
 
 
 end

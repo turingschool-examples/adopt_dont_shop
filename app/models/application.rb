@@ -3,8 +3,9 @@ class Application < ApplicationRecord
 
   def set_defaults
     self.description ||= "I like turtles"
+    self.status ||= "In Progress"
   end
-  
+
   validates :name, presence: true
   validates :street_address, presence: true
   validates :city, presence: true
