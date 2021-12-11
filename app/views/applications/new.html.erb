@@ -1,12 +1,24 @@
 
 <%=form_with(model: @application, local: true, :html=> {class: 'new-application'}) do |form| %>
+<div>
+    <div class ="error-msgs">
+      <% if @application.errors.any? %>
+    <ul>
+    <% @application.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+    </ul>
+  <% end %>
+    </div>
+</div>
+
  <div>
       <div>
           <%=form.label :name %>
           <%=form.text_field :name, id: :name %>
       </div>
 </div>
-  <div class="four wide field">
+  <div>
       <%=form.label :description %>
       <%=form.text_field :description, id: :description %>
   </div>
