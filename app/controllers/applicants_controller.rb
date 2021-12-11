@@ -15,6 +15,13 @@ class ApplicantsController < ApplicationController
 
   def show
     @applicant = Applicant.find(params[:id])
+    if params[:search]
+      @pets = Pet.by_name(params[:search])
+    else
+      @pets = []
+    end
+
+    @applicant.status = @applicant.get_status
   end
 
   private

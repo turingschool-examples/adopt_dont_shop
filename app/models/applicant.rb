@@ -8,4 +8,10 @@ class Applicant < ApplicationRecord
   validates :state, presence: true
   validates :zip, presence: true, numericality: true
 
+  def get_status
+    if self.description == nil || self.pets.empty?
+      return 'In Progress'
+    end
+  end
+
 end

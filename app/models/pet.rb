@@ -12,4 +12,9 @@ class Pet < ApplicationRecord
   def self.adoptable
     where(adoptable: true)
   end
+
+  def self.by_name(name)
+    Pet.where("name ilike ?", "%#{name}%")
+  end
+
 end

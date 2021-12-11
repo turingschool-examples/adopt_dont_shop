@@ -5,5 +5,20 @@
 <h3><%= @applicant.zip %></h3>
 <h3><%= @applicant.status %></h3>
 
+<hr><br>
+<h2>Add Pets To This Application</h2>
+<%= form_with url: "/applicants/#{@applicant.id}", method: :get, local: true do |f| %>
+  <%= f.label :search %>
+  <%= f.text_field :search %>
+  <%= f.submit "Search" %>
+<% end %>
+
+<% @pets.each do |pet| %>
+  <h4><%= link_to "#{pet.name}", "/pets/#{pet.id}"%></h4>
+  <p>Age: <%= pet.age %></p>
+  <p>Breed: <%= pet.breed %></p>
+<% end %>
+<br><hr>
+
 <p><%= link_to "Update", "applicants/#{@applicant.id}/edit" %></p>
 <p><%= link_to "Delete", "/applicants/#{@applicant.id}", method: :delete %></p>
