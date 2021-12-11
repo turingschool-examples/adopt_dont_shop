@@ -29,6 +29,8 @@ Rails.application.routes.draw do
   patch '/veterinarians/:id', to: 'veterinarians#update'
   delete '/veterinarians/:id', to: 'veterinarians#destroy'
 
+
+
   get '/shelters/:shelter_id/pets', to: 'shelters#pets'
   get '/shelters/:shelter_id/pets/new', to: 'pets#new'
   post '/shelters/:shelter_id/pets', to: 'pets#create'
@@ -36,4 +38,6 @@ Rails.application.routes.draw do
   get '/veterinary_offices/:veterinary_office_id/veterinarians', to: 'veterinary_offices#veterinarians'
   get '/veterinary_offices/:veterinary_office_id/veterinarians/new', to: 'veterinarians#new'
   post '/veterinary_offices/:veterinary_office_id/veterinarians', to: 'veterinarians#create'
+
+  get '/applications/:id', to: 'applications#show'
 end
