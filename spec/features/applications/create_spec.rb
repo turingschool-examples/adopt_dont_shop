@@ -24,17 +24,36 @@ RSpec.describe 'application creation' do
       expect(page).to have_content('City')
       expect(page).to have_content('State')
       expect(page).to have_content('Zip')
+    end
+  end
+  describe 'application create' do
+    context 'given valid data' do
+      it 'create the application and redirect to application show page' do
+        visit "/applications/new"
+        fill_in 'Name', with: "Kathy Y"
+        fill_in 'Street', with: '434 W. Roscoe'
+        fill_in 'City', with: 'Chicago'
+        fill_in 'State', with: 'IL'
+        fill_in 'Zip', with: '60657'
 
-      fill_in 'Name', with: "Kathy Y"
-      fill_in 'Street', with: '434 W. Roscoe'
-      fill_in 'City', with: 'Chicago'
-      fill_in 'State', with: 'IL'
-      fill_in 'Zip', with: '60657'
+        click_button 'Save'
+        application = Application.find_by(name:'Kathy Y')
+        expect(page).to have_current_path("/applications/#{application.id}")
+      end
+    end
 
-      click_button 'Save'
-      application = Application.find_by(name:'Kathy Y')
-      expect(page).to have_current_path("/applications/#{application.id}")
+    context 'given invalid data' do
+      it 're-renders the new form' do
+        visit "/applications/new"
 
+        fill_in 'Name', with: 'Jimmy J'
+        click_button 'Save'
+
+        application_2 = Application.find_by(name:'Jimmy J')
+        
+        expect(page).to have_current_path("/applications/new")
+        expect(page).to have_content("Error: Name can't be blank, Steet can't be blank, City can't be blank, State can't be blank, Zipcode can't be blank")
+      end
     end
   end
 end
