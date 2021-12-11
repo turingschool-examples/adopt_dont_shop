@@ -69,17 +69,20 @@ RSpec.describe "the applications show page" do
     expect(page).to have_button("Adopt This Pet")
   end
 
-  xit "button to adopt a pet routes back to show page" do
+  it "button to adopt a pet routes back to show page" do
     visit "/applications/#{@application_1.id}"
     fill_in :search, with: "Luke"
     click_button("Submit")
     click_button("Adopt This Pet")
     expect(current_path).to eq("/applications/#{@application_1.id}")
-
-  xit "adopt pet through adopt button" do
-  end
   end
 
-
+  it "adopt pet through adopt button" do
+    visit "/applications/#{@application_1.id}"
+    fill_in :search, with: "Luke"
+    click_button("Submit")
+    click_button("Adopt This Pet")
+    expect(@application_1.pets).to eq([@pet_1,@pet_2])
+  end 
 
 end

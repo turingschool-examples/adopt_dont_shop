@@ -24,8 +24,25 @@ RSpec.describe Application, type: :model do
                                         city: "Exeter",
                                         state: "CA",
                                         zip: 93221,
-                                        status: "Pending")
+                                      )
     expect(application_1.description).to eq("I like turtles")
+    expect(application_1.status).to eq("In Progress")
     end
   end
+
+  describe "instance methods" do
+    it "add_pet" do
+      shelter_1 = Shelter.create!(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
+      pet_1 = shelter_1.pets.create!(name: 'Mr. Pirate', breed: 'tuxedo shorthair', age: 5, adoptable: true)
+      application_1 = Application.create!(name: "Chris",
+                                          street_address: "19072",
+                                          city: "Exeter",
+                                          state: "CA",
+                                          zip: 93221,
+                                          status: "Pending")
+      application_1.add_pet(pet_1)
+      expect(application_1.pets).to eq([pet_1])
+    end
+  end
+
 end
