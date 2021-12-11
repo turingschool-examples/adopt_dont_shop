@@ -9,7 +9,7 @@ RSpec.describe 'application' do
     expect(page).to have_current_path('/pets')
   end
 
-  it 'displays a link to all shelters' do
+  xit 'displays a link to all shelters' do
     visit '/'
 
     expect(page).to have_link("Shelters")
@@ -21,7 +21,7 @@ RSpec.describe 'application' do
     expect(page).to have_link("Veterinary Offices")
   end
 
-  it 'displays a link to all veterinary offices' do
+  xit 'displays a link to all veterinary offices' do
     visit '/'
 
     expect(page).to have_link("Veterinary Offices")
@@ -33,7 +33,7 @@ RSpec.describe 'application' do
     expect(page).to have_link("Veterinary Offices")
   end
 
-  it 'displays a link to all veterinarians' do
+  xit 'displays a link to all veterinarians' do
     visit '/'
 
     expect(page).to have_link("Veterinarians")

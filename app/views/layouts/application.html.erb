@@ -6,6 +6,7 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <%= stylesheet_link_tag 'application', media: 'all' %>
   </head>
 
@@ -16,10 +17,20 @@
       </div>
     <% end %>
     <section>
-      <p><%= link_to "Pets", "/pets" %></p>
-      <p><%= link_to "Shelters", "/shelters" %></p>
-      <p><%= link_to "Veterinarians", "/veterinarians" %></p>
-      <p><%= link_to "Veterinary Offices", "/veterinary_offices" %></p>
+      <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
+        <a class="navbar-brand" href="/">Home</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+          <div class="navbar-nav">
+        <a class="nav-item nav-link" href="/pets">Pets</a>
+        <a class="nav-item nav-link" href="/applications">Applications</a>
+
+        </div>
+      </div>
+    </nav>
+
     </section>
     <%= yield %>
   </body>
