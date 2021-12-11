@@ -9,4 +9,26 @@ class ApplicationsController < ApplicationController
         @pets_applied_for = @application.pets
     end
 
+    def new
+
+    end
+
+    def create
+        @application = Application.create(application_params)
+        @application.status = "in progress"
+
+        if @application.save
+            flash[:success] = "Thanks for applying to save a life!"
+            redirect_to "/applications/#{@application.id}"
+        else 
+            flash[:alert] = "Error"
+            render 'new'
+        end
+    end
+
+private
+    def application_params
+        params.permit(:name, :address, :city, :state, :zip, :reason, :status)
+    end
+
 end
