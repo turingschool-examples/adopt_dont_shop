@@ -1,0 +1,9 @@
+<h1><%= @applicant.name %></h1>
+<h3><%= @applicant.address %></h3>
+<h3><%= @applicant.city %></h3>
+<h3><%= @applicant.state %></h3>
+<h3><%= @applicant.zip %></h3>
+<h3><%= @applicant.status %></h3>
+
+<p><%= link_to "Update", "applicants/#{@applicant.id}/edit" %></p>
+<p><%= link_to "Delete", "/applicants/#{@applicant.id}", method: :delete %></p>
