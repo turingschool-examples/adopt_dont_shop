@@ -4,8 +4,13 @@ class AppsController < ApplicationController
   end
 
   def create
-    @app = App.create(app_params)
-    redirect_to "/apps/#{@app.id}"
+    @app = App.new(app_params)
+    if @app.save
+      redirect_to "/apps/#{@app.id}"
+    else 
+      flash[:error] = "Application Not Created, Required Information Missing"
+      redirect_to "/apps/new"
+    end 
   end
   
   def show
