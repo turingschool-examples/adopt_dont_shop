@@ -21,9 +21,9 @@ RSpec.describe 'application creation' do
 
       # expect(current_path).to eq("/applications/:id")
       expect(page).to have_content("John Deere")
-    end
-
-    it 'has the default status as In Progress' do
-      visit
+      expect(page).to have_content("In Progress")
+      expect(page).to_not have_content("Rejected")
+      expect(page).to_not have_content("Pending")
+      expect(page).to_not have_content("Accepted")
     end
 end
