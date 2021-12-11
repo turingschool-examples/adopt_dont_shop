@@ -18,7 +18,7 @@
   <% end %></p>
 
   <% @pets.each do |pet| %>
-  <h3><%=link_to "#{pet.name}", "/pets/#{pet.id}"%><%=button_to "Adopt this Pet", method: :post%></h3>
+  <h3><%=link_to "#{pet.name}", "/pets/#{pet.id}"%><%=button_to "Adopt This Pet", method: :post, params: { pet_id: pet.id }, action: "adopt" %></h3>
   <% end %>
 <% end %>
 
