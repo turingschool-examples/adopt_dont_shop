@@ -41,7 +41,6 @@ RSpec.describe "the application new page" do
     click_button("Submit")
     expect(page).to have_content("Name can't be blank")
     expect(current_path).to eq("/applications/new")
-    save_and_open_page
     expect(Application.all.count).to eq(0)
   end
 
