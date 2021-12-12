@@ -77,7 +77,7 @@ RSpec.describe 'application show page', type: :feature do
 
       fill_in 'Search', with: "fluf"
       click_on("Search")
-      save_and_open_page
+      
       within '.pets-s' do
 
         expect(page).to have_content(pet_1.name)
