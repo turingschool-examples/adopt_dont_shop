@@ -2,10 +2,21 @@
 <h3><%= "Address: #{@application.address}, #{@application.city} #{@application.state}, #{@application.zip}" %></h3>
 <h3><%= "Reason For Applying: #{@application.description}" %></h3>
 <h3>Dogs Applied For: </h3>
-
-<% @application.pets.each do |pet| %>
-  <div class="pet", id = "#{pet.id}">
-    <h3><%= link_to "#{pet.name}", "/pets/#{pet.id}" %></h3>
-  </div>
+<% if @application.status == "In Progress" %>
+  <fieldset>
+    <legend>Add a Pet to this Application</legend>
+    <%= form_with url: "", method: :get, loacl: true do |form| %>
+      <%= form.label :search, "Search for Pets" %>
+      <%= form.text_field :search %>
+      <%= form.submit "Search" %>
+    <% end %>
+  </fieldset>
+<% else %>
+  <% @application.pets.each do |pet| %>
+    <div class="pet", id = "#{pet.id}">
+      <h3><%= link_to "#{pet.name}", "/pets/#{pet.id}" %></h3>
+    </div>
+  <% end %>
 <% end %>
+
 <h3><%= "Application Status: #{@application.status}" %></h3>

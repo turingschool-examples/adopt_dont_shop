@@ -70,7 +70,7 @@ RSpec.describe 'Application show page' do
 
     within(div.search) do
       fill_in "Search for Pets", with: "Newton"
-      click_button "Submit"
+      click_button "Search"
       expect(current_path).to eq("/applications/#{@application_1.id}")
       expect(page).to have_content("Newton")
       expect(page).to have_content("Newton Curtis")
