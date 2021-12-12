@@ -33,9 +33,15 @@ RSpec.describe 'Application show page' do
 
   it "has links to the show page of each pet being applied for" do
     visit "/applications/#{@application_1.id}"
+    click_link("#{@pet_1.name}")
+    expect(current_path).to eq("/pets/#{@pet_1.id}")
 
-    expect(page).to have_link("/pets/#{@pet_1.id}")
-    expect(page).to have_link("/pets/#{@pet_2.id}")
-    expect(page).to have_link("/pets/#{@pet_3.id}")
+    visit "/applications/#{@application_1.id}"
+    click_link("#{@pet_2.name}")
+    expect(current_path).to eq("/pets/#{@pet_2.id}")
+
+    visit "/applications/#{@application_1.id}"
+    click_link("#{@pet_3.name}")
+    expect(current_path).to eq("/pets/#{@pet_3.id}")
   end
 end

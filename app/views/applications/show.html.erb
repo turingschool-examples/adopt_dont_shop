@@ -2,6 +2,7 @@
 <h3><%= "Address: #{@application.address}, #{@application.city} #{@application.state}, #{@application.zip}" %></h3>
 <h3><%= "Reason For Applying: #{@application.description}" %></h3>
 <h3>Dogs Applied For: </h3>
+
 <% @application.pets.each do |pet| %>
   <div class="pet", id = "#{pet.id}">
     <h3><%= link_to "#{pet.name}", "/pets/#{pet.id}" %></h3>
