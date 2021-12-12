@@ -29,7 +29,9 @@ class ApplicationsController < ApplicationController
   def add
     application = Application.find(params[:id])
     pet = Pet.find(params[:pet_id])
-    application.pets << pet
+    if !application.pets.include?(pet)
+      application.pets << pet
+    end
     redirect_to "/applications/#{application.id}"
   end
 
