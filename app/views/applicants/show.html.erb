@@ -38,7 +38,7 @@
 
 <h2>Selected Pets</h2>
 <% @selected_pets.each do |pet| %>
-  <h4><%= pet.name%></h4>
+  <h4><%= link_to "#{pet.name}", "/pets/#{pet.id}"%></h4>
   <p>Age: <%= pet.age %></p>
   <p>Breed: <%= pet.breed %></p>
 <% end %>
