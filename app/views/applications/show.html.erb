@@ -3,8 +3,15 @@
 <p>Address: <%= @application.address %></p>
 <p>City: <%= @application.city %></p>
 <p>State: <%= @application.state %></p>
+<p>Zip: <%= @application.zip %></p>
 <p>Description: <%= @application.description %></p>
 <p>Status: <%= @application.status %></p>
+<h3>Add a Pet to this Application</h3>
+<%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |f| %>
+  <%= f.label :pet_name %>
+  <%= f.text_field :pet_name %>
+  <%= f.submit "Submit" %>
+<% end %>
 <% @pets.each do |pet| %>
   <%= link_to "#{pet.name}", "/pets/#{pet.id}"  %>
 <% end %>
