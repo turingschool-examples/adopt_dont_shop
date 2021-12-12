@@ -1,4 +1,16 @@
+<section id="Application_details">
+<h2>Application Details</h2>
+<p>Name: <%= @application.name %></p>
+<p>Address: <%= @application.address %>, <%= @application.city %>, <%= @application.state %> <%= @application.zip %></p>
+<p>Description of applicant: <%= @application.description %></p>
+<p>Names of pets applied:
+  <% @application.pets.each do |pet| %>
+    <%= pet.name %>
+  <% end %>
+</p>
 
+<p>Application status: <%= @application.status %></p><br>
+</section>
 
 <section id="Add_pet">
 <% if @application.in_progress? %>
