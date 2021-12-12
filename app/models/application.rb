@@ -14,4 +14,8 @@ class Application < ApplicationRecord
   def has_pets
     pets.count >= 1
   end
+
+  def self.pending_applications
+    joins(:pets).where(status: "Pending")
+  end
 end
