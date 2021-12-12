@@ -88,6 +88,5 @@ RSpec.describe 'the pets index' do
     click_link("Start an Application")
     expect(current_path).to eq("/applications/new")
 
-
   end
 end
