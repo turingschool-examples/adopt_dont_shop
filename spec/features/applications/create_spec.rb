@@ -27,7 +27,8 @@ RSpec.describe 'application creation' do
         fill_in 'Zip', with: '80016'
         fill_in 'Description', with: 'A description'
         click_button 'Save'
-        expect(page).to have_current_path("/applications/:id")
+        application = Application.find_by(name: 'Kelly')
+        expect(page).to have_current_path("/applications/#{application.id}")
         expect(page).to have_content('Kelly')
       end
     end
@@ -35,10 +36,10 @@ RSpec.describe 'application creation' do
     context 'given invalid data' do
       it 're-renders the new form' do
         visit "/applications/new"
-
+        fill_in "Name", with: "Kara"
         click_button 'Save'
         expect(page).to have_current_path("/applications/new")
-        expect(page).to have_content("Error: Name can't be blank, Address can't be blank")
+        expect(page).to have_content("Error: Name can't be blank, Address can't be blank, City can't be blank, State can't be blank, Zip can't be blank, Description can't be blank")
       end
     end
   end

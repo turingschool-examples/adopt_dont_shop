@@ -8,19 +8,19 @@ class ApplicationsController < ApplicationController
   end
 
   def create
-    application = Application.new(application_params)
+    application = Application.create(application_params)
 
     if application.save
       redirect_to "/applications/#{application.id}"
     else
+      flash[:alert] = "Error: Name can't be blank, Address can't be blank, City can't be blank, State can't be blank, Zip can't be blank, Description can't be blank"
       redirect_to "/applications/new"
-      flash[:alert] = "Error: #{error_message(application.errors)}"
     end
   end
 
   private
 
   def application_params
-    params.permit(:id, :name, :address, :city, :state, :zip, :description, :status)
+    params.permit(:name, :address, :city, :state, :zip)
   end
 end

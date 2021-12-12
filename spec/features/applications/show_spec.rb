@@ -26,7 +26,7 @@ describe 'application show page' do
     expect(current_path).to eq("/pets/#{@pet1.id}")
   end
 
-  xit 'I can search for pets to add to the application' do
+  it 'I can search for pets to add to this application' do
     expect(page).to have_content("Add a Pet to this Application")
     fill_in 'Pet name', with: "#{@pet1.name}"
     click_button "Submit"
