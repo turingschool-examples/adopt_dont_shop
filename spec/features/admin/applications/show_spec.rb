@@ -18,6 +18,9 @@ describe 'Admin Application Show' do
           click_button("Approve Application for #{@pet1.name}")
 
           expect(page).to have_content("Carson - APPROVED")
+        end
+
+        within('#Application_details') do 
           expect(page).to have_content("Pending")
         end
       end

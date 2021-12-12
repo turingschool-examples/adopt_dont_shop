@@ -22,4 +22,7 @@ class Application < ApplicationRecord
   def pending?
     status == "Pending"
   end
+
+  def update_status
+  end 
 end

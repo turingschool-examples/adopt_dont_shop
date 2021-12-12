@@ -9,7 +9,7 @@
         <%= button_to "Approve Application for #{pet_application.pet.name}", "/admin/applications/#{pet_application.id}", method: :patch, params: { application_status: "Approved" } %>
         <%= button_to "Reject Application for #{pet_application.pet.name}", "/admin/applications/#{pet_application.id}", method: :patch, params: { application_status: "Rejected" } %>
       <% else %>
-        <%= "#{pet_application.pet.name} - #{pet_application.applcation_status.upcase}" %>
+        <%= "#{pet_application.pet.name} - #{pet_application.application_status.upcase}" %>
       <% end %>
     <% end %>
   <% end %>
