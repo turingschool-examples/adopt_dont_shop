@@ -8,5 +8,5 @@ class Application < ApplicationRecord
   validates :state, presence: true
   validates :description, presence: true
   validates :status, presence: true
-
+  attribute :status, :string, default: "In Progress"
 end
