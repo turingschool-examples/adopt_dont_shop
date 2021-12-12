@@ -49,10 +49,10 @@ RSpec.describe 'the shelters pets index' do
   it 'displays a link to delete each pet' do
     visit "/shelters/#{@shelter.id}/pets"
 
-    expect(page).to have_link("Delete #{@pet_1.name}")
-    expect(page).to have_link("Delete #{@pet_2.name}")
+    expect(page).to have_button("Delete #{@pet_1.name}")
+    expect(page).to have_button("Delete #{@pet_2.name}")
 
-    click_link("Delete #{@pet_1.name}")
+    click_on("Delete #{@pet_1.name}")
 
     expect(page).to have_current_path("/pets")
     expect(page).to_not have_content(@pet_1.name)

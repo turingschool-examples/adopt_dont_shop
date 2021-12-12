@@ -4,5 +4,5 @@
   <p>Rating: <%= vet.review_rating %></p>
   <p>Practice: <%= vet.office_name %></p>
   <%= link_to "Edit #{vet.name}", "/veterinarians/#{vet.id}/edit" %>
-  <%= link_to "Delete #{vet.name}", "/veterinarians/#{vet.id}", method: :delete %>
+  <%= button_to "Delete #{vet.name}", "/veterinarians/#{vet.id}", method: :delete %>
 <% end %>

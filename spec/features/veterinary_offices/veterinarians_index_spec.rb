@@ -41,10 +41,10 @@ RSpec.describe 'the veterinary offices veterinarians index' do
   it 'displays a link to delete each veterinarian' do
     visit "/veterinary_offices/#{@vet_office_1.id}/veterinarians"
 
-    expect(page).to have_link("Delete #{@vet_1.name}")
-    expect(page).to have_link("Delete #{@vet_2.name}")
+    expect(page).to have_button("Delete #{@vet_1.name}")
+    expect(page).to have_button("Delete #{@vet_2.name}")
 
-    click_link("Delete #{@vet_1.name}")
+    click_button("Delete #{@vet_1.name}")
 
     expect(page).to have_current_path("/veterinarians")
     expect(page).to_not have_content(@vet_1.name)
