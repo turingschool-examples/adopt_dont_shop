@@ -68,7 +68,7 @@ RSpec.describe 'Application show page' do
     pet_v1 = Pet.create!(adoptable: false, age: 3, breed: "GSP", name: "newton", shelter_id: @shelter.id)
     visit "/applications/#{@application_1.id}"
 
-    within(div.search) do
+    within('div.search') do
       fill_in "Search for Pets", with: "Newton"
       click_button "Search"
       expect(current_path).to eq("/applications/#{@application_1.id}")
