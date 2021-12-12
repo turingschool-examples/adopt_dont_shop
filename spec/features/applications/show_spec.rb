@@ -44,4 +44,17 @@ RSpec.describe 'Application show page' do
     click_link("#{@pet_3.name}")
     expect(current_path).to eq("/pets/#{@pet_3.id}")
   end
+
+  it 'has a form to add pets to the application using a search bar by pet name' do
+    visit "/applications/#{@application_1.id}"
+    within(div.search) do
+      fill_in "Search for Pets", with: "Newton"
+      click_button "Submit"
+    end
+
+    expect(current_path).to eq("/applications/#{@application_1.id}")
+    within(div.search) do
+      expect(page).to have_content("Newton")
+    end
+  end
 end
