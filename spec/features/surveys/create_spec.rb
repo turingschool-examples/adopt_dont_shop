@@ -33,6 +33,5 @@ RSpec.describe 'survey creation page' do
     click_button 'Submit'
     
     expect(current_path).to eq("/surveys/#{Survey.last.id}")
-save_and_open_page
   end
 end
