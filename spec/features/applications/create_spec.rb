@@ -27,6 +27,7 @@ RSpec.describe 'create an application' do
 
     fill_in "Name", with: 'Steve'
     fill_in "Street Address", with: '135 Waddle Road'
+    fill_in "City", with: "Dallas"
     fill_in "State", with: 'TX'
     fill_in "Zip Code", with: 75001
     click_button "Submit"

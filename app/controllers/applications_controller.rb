@@ -16,7 +16,9 @@ class ApplicationsController < ApplicationController
                       zip: params[:zip_code],
                       description: params[:description],
                       status: params[:status])
-    redirect_to "/applications/#{params[:id]}"
+
+    new_application = Application.last
+    redirect_to "/applications/#{new_application.id}"
   end
 
 end
