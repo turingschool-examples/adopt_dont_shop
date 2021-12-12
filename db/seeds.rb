@@ -47,17 +47,17 @@ pet_applications = [
 ]
 
 shelters.each do |foster_program, name, city, rank|
-  Shelter.new(foster_program: foster_program, name: name, city: city, rank: rank)
+  Shelter.create(foster_program: foster_program, name: name, city: city, rank: rank)
 end
 
 pets.each do |adoptable, age, breed, name, shelter_id|
-  Pet.new(adoptable: adoptable, age: age, breed: breed, name: name, shelter_id: shelter_id)
+  Pet.create(adoptable: adoptable, age: age, breed: breed, name: name, shelter_id: shelter_id)
 end
 
 applications.each do |name, address, city, state, zip, description, status|
-  Application.new(name: name, address: address, city: city, state: state, zip: zip, description: description, status: status)
+  Application.create(name: name, address: address, city: city, state: state, zip: zip, description: description, status: status)
 end
 
 pet_applications.each do |pet_id, application_id|
-  PetApplication.new(pet_id: pet_id, application_id: application_id)
+  PetApplication.create(pet_id: pet_id, application_id: application_id)
 end
