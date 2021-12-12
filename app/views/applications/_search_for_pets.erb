@@ -1,0 +1,8 @@
+<%= form_with url:"/pets", method: :get, local: true do |f| %>
+<h2> Add A Pet to this Application</h2>
+    <%- if @application.status == "in progress" %>
+        <%= f.label :search_pets %>
+        <%= f.text_field :search %>
+        <%= f.submit "Search" %>
+    <% end %>
+<% end %>

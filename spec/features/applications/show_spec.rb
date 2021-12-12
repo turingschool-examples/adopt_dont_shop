@@ -44,6 +44,34 @@ RSpec.describe 'Application show page' do
         expect(page).to_not have_content(@application2.reason)
         expect(page).to_not have_content(@rambo.name)
         expect(page).to_not have_content(@application2.status)
-
     end
+
+    it 'only displays search when application statatus is in progress' do
+        application3 = Application.create(name: "Jeff Daniels", address: "456 Orderly Way", city: "Seattle", state: "WA", zip: "65412", reason: "I want to help as many innocent animals as I can.", status: "in progress")
+        application4 = Application.create(name: "James Young", address: "647 Freeport Road", city: "Seattle", state: "WA", zip: "65412", reason: "I have a big fenced in yard and no children.", status: "undefined")
+
+        visit "/applications/#{application3.id}"
+        expect(page).to have_content("Search")
+
+        visit "/applications/#{application4.id}"
+        expect(page).to_not have_content("Search")
+    end
+    
+    it 'lists partial matches as search results' do
+        shelter = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
+        pet_1 = Pet.create(adoptable: true, age: 7, breed: 'sphynx', name: 'Bare-y Manilow', shelter_id: shelter.id)
+        pet_2 = Pet.create(adoptable: true, age: 3, breed: 'domestic pig', name: 'Babe', shelter_id: shelter.id)
+        pet_3 = Pet.create(adoptable: true, age: 4, breed: 'chihuahua', name: 'Elle', shelter_id: shelter.id)
+        application3 = Application.create(name: "Jeff Daniels", address: "456 Orderly Way", city: "Seattle", state: "WA", zip: "65412", reason: "I want to help as many innocent animals as I can.", status: "in progress")
+    
+        visit "/applications/#{application3.id}"
+        expect(page).to have_content("Add A Pet to this Application")
+
+        fill_in :search, with: "Ba"
+        click_on("Search")
+    
+        expect(page).to have_content(pet_1.name)
+        expect(page).to have_content(pet_2.name)
+        expect(page).to_not have_content(pet_3.name)
+      end
 end

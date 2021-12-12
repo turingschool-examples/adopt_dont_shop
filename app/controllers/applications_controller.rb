@@ -7,6 +7,9 @@ class ApplicationsController < ApplicationController
     def show 
         @application = Application.find(params[:id])
         @pets_applied_for = @application.pets
+
+        # if params[:status] == "in progress"
+
     end
 
     def new
