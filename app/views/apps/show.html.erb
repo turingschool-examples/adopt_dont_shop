@@ -9,6 +9,11 @@
 <p>Description: <%= @app.description %></p>
 <p>Application Status: <%= @app.status %></p>
 
+<p>Pets: <% @app.pets.each do |pet| %></p>
+  <div id="James">
+    <%= pet.name %>
+  </div>
+<% end %>
 
 <p><%= form_with url: "/apps/#{@app.id}", method: :get, local: true do |form| %>
   <h3><%= form.label :search, "Add a Pet to this Application" %>:</h3>

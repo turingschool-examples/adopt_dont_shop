@@ -28,7 +28,7 @@ RSpec.describe 'the application show' do
     expect(page).to have_content("James")
   end 
 
-  it 'can add pets to an application' do 
+  it 'can search for pets for an application' do 
     fill_in("Add a Pet to this Application", with: "James")
     click_button("Search")
 
@@ -37,11 +37,7 @@ RSpec.describe 'the application show' do
       expect(current_path).to eq("/apps/#{@application_1.id}")
     end 
 
-    # @app_pets = AppPet.last
-
-    # expect(@app_pets.pet_id).to eq(@pet_1.id)
     expect(current_path).to eq("/apps/#{@application_1.id}")
-    save_and_open_page
     expect(page).to have_button("Adopt this Pet")
     expect(page).to have_content("James")
   end 
