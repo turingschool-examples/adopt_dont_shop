@@ -1,7 +1,6 @@
 class PetApplicationsController < ApplicationController
   def create
-    pet = params[:pet]
-    PetApplication.create(pet_id: pet.id, application_id: pet.shelter.id)
+    PetApplication.create(pet_id: :pet_id, application_id: :application_id)
   end
 
   private
