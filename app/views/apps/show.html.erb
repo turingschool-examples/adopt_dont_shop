@@ -16,6 +16,10 @@
   <%= form.submit "Search" %></p>
 <% end %>
 
-<p> Pets: <% @pets.each do |p| %>
+Pets: 
+<div id="James">
+<% @pets.each do |p| %>
   <%= p.name %>
+  <%= button_to "Adopt this Pet", "/app_pets/create", method: :post, params: { :app_id => @app.id, :pet_id => p.id}  %>
+</div>
 <% end %>
