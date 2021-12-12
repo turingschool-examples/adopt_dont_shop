@@ -3,6 +3,12 @@
 <h3><%= "Reason For Applying: #{@application.description}" %></h3>
 <h3>Dogs Applied For: </h3>
 
+<% @application.pets.each do |pet| %>
+  <div class="pet", id = "#{pet.id}">
+    <p><%= link_to "#{pet.name}", "/pets/#{pet.id}" %></p>
+  </div>
+<% end %>
+
 <% if @application.status == "In Progress" %>
   <div class="search">
     <fieldset>
@@ -20,17 +26,13 @@
           <p>Breed: <%= pet.breed %></p>
           <p>Adoptable: </p>
           <p>You can find <%= pet.name %> at <%= pet.shelter_name %>!</p>
-          
+
         <% end %>
       <% end %>
     </fieldset>
   </div>
 <% end %>
 
-<% @application.pets.each do |pet| %>
-  <div class="pet", id = "#{pet.id}">
-    <p><%= link_to "#{pet.name}", "/pets/#{pet.id}" %></p>
-  </div>
-<% end %>
+
 
 <h3><%= "Application Status: #{@application.status}" %></h3>
