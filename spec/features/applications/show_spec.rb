@@ -8,6 +8,7 @@ RSpec.describe 'Application show page' do
     @pet_2 = Pet.create!(adoptable: false, age: 3, breed: "GSP", name: "Newton", shelter_id: @shelter.id)
     @pet_3 = Pet.create!(adoptable: false, age: 13, breed: "German Shepard", name: "Molly", shelter_id: @shelter.id)
 
+
     @application_1 = Application.create(name: 'Steve', address: '135 Waddle Road', city: 'Dallas', state: 'TX', zip: 75001, description: "I really want a dog", status: "In Progress")
 
     @pet_application_1 = PetApplication.create!(pet_id: @pet_1.id, application_id: @application_1.id)
@@ -43,5 +44,40 @@ RSpec.describe 'Application show page' do
     visit "/applications/#{@application_1.id}"
     click_link("#{@pet_3.name}")
     expect(current_path).to eq("/pets/#{@pet_3.id}")
+  end
+
+  it "if application is In Progress, it has a search form for adding pets" do
+    application_no_seach_1 = Application.create!(name: 'Steve', address: '135 Waddle Road', city: 'Dallas', state: 'TX', zip: 75001, description: "I really want a dog", status: "Submitted")
+    application_no_seach_2 = Application.create!(name: 'Steve', address: '135 Waddle Road', city: 'Dallas', state: 'TX', zip: 75001, description: "I really want a dog", status: "Accepted")
+    application_no_seach_3 = Application.create!(name: 'Steve', address: '135 Waddle Road', city: 'Dallas', state: 'TX', zip: 75001, description: "I really want a dog", status: "Rejected")
+
+    visit "/applications/#{application_no_seach_1.id}"
+    expect(page).to_not have_content("Search for Pets")
+    visit "/applications/#{application_no_seach_2.id}"
+    expect(page).to_not have_content("Search for Pets")
+    visit "/applications/#{application_no_seach_3.id}"
+    expect(page).to_not have_content("Search for Pets")
+    visit "/applications/#{@application_1.id}"
+    expect(page).to have_content("Search for Pets")
+  end
+
+  it 'has a form to add pets to the application using a search bar by pet name' do
+    pet_v1 = Pet.create!(adoptable: false, age: 3, breed: "GSP", name: "Newton Curtis", shelter_id: @shelter.id)
+    pet_v1 = Pet.create!(adoptable: false, age: 3, breed: "GSP", name: "Curtis Newton", shelter_id: @shelter.id)
+    pet_v1 = Pet.create!(adoptable: false, age: 3, breed: "GSP", name: "McNewtons", shelter_id: @shelter.id)
+    pet_v1 = Pet.create!(adoptable: false, age: 3, breed: "GSP", name: "newton", shelter_id: @shelter.id)
+    visit "/applications/#{@application_1.id}"
+
+    within('div.search') do
+      fill_in "Search for Pets", with: "Newton"
+      click_button "Search"
+      expect(current_path).to eq("/applications/#{@application_1.id}")
+      expect(page).to have_content("Newton")
+      expect(page).to have_content("Newton Curtis")
+      expect(page).to have_content("Curtis Newton")
+      expect(page).to have_content("McNewtons")
+      expect(page).to have_content("newton")
+      expect(page).to_not have_content("Pete")
+    end
   end
 end
