@@ -1,15 +1,15 @@
 <fieldset>
   <legend>Create New Application</legend>
-  <% form_with url: '/applications', method: :post, local: true do |form|%>
+  <%= form_with url: '/applications', method: :post, local: true do |form|%>
     <%= form.label :name %>
     <%= form.text_field :name %><br>
-    <%= form.label :street_address %>
+    <%= form.label :street_address, "Street Address"%>
     <%= form.text_field :street_address %><br>
     <%= form.label :city %>
     <%= form.text_field :city %><br>
     <%= form.label :state %>
     <%= form.text_field :state %><br>
-    <%= form.label :zip_code %>
+    <%= form.label :zip_code, "Zip Code" %>
     <%= form.number_field :zip_code %><br>
     <% form.hidden_field :status, :value => "In Progress"  %>
     <%= form.submit "Submit" %><br>

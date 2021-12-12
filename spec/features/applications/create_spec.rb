@@ -24,6 +24,7 @@ RSpec.describe 'create an application' do
 
   it 'has form that creates a new application' do
     visit '/applications/new'
+    
     fill_in "Name", with: 'Steve'
     fill_in "Street Address", with: '135 Waddle Road'
     fill_in "State", with: 'TX'
