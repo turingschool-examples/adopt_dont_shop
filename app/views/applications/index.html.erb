@@ -1,15 +1,4 @@
 <h1>Applications</h1>
-<% @applications.each do |app| %>
-  <h3>Application Number: <%= app.id %></h3>
-  <ul>
-    <li>Applpicant Name: <%= app.applicant_name %></li>
-    <li>Applpicant Address: <%= app.street_address %>, <%= app.city %>, <%= app.state %>, <%= app.zip_code %></li>
-    <li>Description: <%= app.description %></li>
-    <li>Pet Name(s): <% app.pets.each do |pet| %></li>
-      <ol>
-        <li><%= pet.name %></li>
-      </ol>
-    <% end %>
-    <li>Application Status: <%= app.application_status %> </li>
-  </ul>
+<% @applications.each do |application| %>
+  <h3>Application Number: <%= link_to "#{application.id}", "/applications/#{application.id}" %></h3>
 <% end %>
