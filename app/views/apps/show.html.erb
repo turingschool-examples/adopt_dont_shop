@@ -1,14 +1,21 @@
 <h1><%= @app.name %>'s Page</h1>
 
-<p>Address</p> 
+
+<h3>Address:</h3>
 <p>Street: <%= @app.address %></p>
 <p>City: <%= @app.city %></p>
 <p>State: <%= @app.state %> </p>
 <p>Zip Code: <%= @app.zip %></p>
-
 <p>Description: <%= @app.description %></p>
+<p>Application Status: <%= @app.status %></p>
+
+
+<p><%= form_with url: "/apps/#{@app.id}", method: :get, local: true do |form| %>
+  <h3><%= form.label :search, "Add a Pet to this Application" %>:</h3>
+  <%= form.text_field :search %>
+  <%= form.submit "Search" %></p>
+<% end %>
+
 <p> Pets: <% @pets.each do |p| %>
   <%= p.name %>
 <% end %>
-
-<p>Application Status: <%= @app.status %></p>

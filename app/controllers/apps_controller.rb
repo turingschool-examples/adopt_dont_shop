@@ -15,11 +15,15 @@ class AppsController < ApplicationController
   
   def show
     @app = App.find(params[:id])
-    @pets = @app.pets
+    if params[:search]
+      @pets = Pet.search(params[:search])
+    else 
+      @pets = @app.pets
+    end 
   end
 
   private 
   def app_params
-    params.permit(:name, :address, :city, :state, :zip)    
+    params.permit(:name, :address, :city, :state, :zip, :description, :status)    
   end
 end 
