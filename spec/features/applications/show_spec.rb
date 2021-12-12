@@ -111,4 +111,13 @@ RSpec.describe 'application show page', type: :feature do
     expect(page).to have_content("Lucille Bald")
     expect(page).to have_no_button("Search")
   end
+  it 'wont let you submit an app without pets' do
+    shelter = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
+    pet_1 = Pet.create(adoptable: true, age: 1, breed: 'sphynx', name: 'Lucille Bald', shelter_id: shelter.id)
+    pet_2 = Pet.create(adoptable: true, age: 3, breed: 'doberman', name: 'Lobster', shelter_id: shelter.id)
+    derek = Application.create!(name: "Derek", description: "I love dogs", address: {city: "Denver", state: "CO", street: "Kalamath", zip: 80223 })
+    visit "/applications/#{derek.id}"
+    
+    expect(page).to have_no_button("Submit this Application")
+  end
 end
