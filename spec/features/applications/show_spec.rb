@@ -47,4 +47,19 @@ RSpec.describe 'the applications show page' do
     expect(page).to have_content("#{@pet_3.name}")
     expect(page).to_not have_content("#{@pet_2.name}")
   end
+
+  it 'has a button to select which pet to adopt' do
+    
+    fill_in(:search_pets, with: "Bust")
+    click_button "Submit"
+
+    expect(page).to have_content("#{@pet_1.name}")
+    expect(page).to have_content("#{@pet_3.name}")
+    expect(page).to_not have_content("#{@pet_2.name}")
+
+    click_link "Adopt #{@pet_1.name}"
+    expect(page).to have_content("#{@pet_1.name}")
+    expect(page).to_not have_content("#{@pet_2.name}")
+    expect(page).to_not have_content("#{@pet_3.name}")
+  end
 end
