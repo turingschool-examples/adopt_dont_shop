@@ -48,6 +48,13 @@ RSpec.describe 'the applications show page' do
     expect(page).to_not have_content("#{@pet_2.name}")
   end
 
+  it 'has a search that can return partial searches and is not case-sensitive' do
+    fill_in(:search_pets, with: "minn")
+    click_button "Submit"
+
+    expect(page).to have_content("#{@pet_2.name}")
+  end
+
   it 'has a button to select which pet to adopt' do
 
     fill_in(:search_pets, with: "Bust")
@@ -92,4 +99,5 @@ RSpec.describe 'the applications show page' do
     expect(page).to have_field(:description, disabled: true)
     expect(page).to have_button("Submit Application", disabled: true)
   end
+
 end
