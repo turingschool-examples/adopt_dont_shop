@@ -1,0 +1,9 @@
+<h1><%= @application.name %></h1>
+<h3><%= "#{@application.address}, #{@application.city}, #{@application.state}, #{@application.zip}" %></h3>
+<h3><%= @application.description %></h3>
+<% @application.pets.each do |pet| %>
+  <div class="pet", id => "#{pet.id}">
+    <h3><%= "#{pet.name}" %></h3>
+  </div>
+<% end %>
+<h3><%= @application.status %></h3>
