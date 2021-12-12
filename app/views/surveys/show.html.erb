@@ -1,0 +1,10 @@
+<h3><%= @survey.name %></h3>
+<p><%= @survey.street_address %>
+<%= @survey.city %>,
+<%= @survey.state %>
+<%= @survey.zip_code %></p>
+<p><%= @survey.description %></p>
+<% @survey.pets.each do |pet| %>
+<%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
+<% end  %>
+<p><%= @survey.status %></p>
