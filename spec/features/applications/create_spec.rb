@@ -22,7 +22,7 @@ RSpec.describe 'create an application' do
     expect(current_path).to eq('/applications/new')
   end
 
-  it 'has form that creates a new application' do
+  it 'has form that creates a new application with default status : in progress' do
     visit '/applications/new'
 
     fill_in "Name", with: 'Steve'
@@ -34,6 +34,7 @@ RSpec.describe 'create an application' do
 
     application = Application.last
     expect(current_path).to eq("/applications/#{application.id}")
-    expect(current_path).to have_content("In Progress")
+    expect(page).to have_content("In Progress")
+
   end
 end
