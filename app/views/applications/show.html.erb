@@ -19,9 +19,6 @@
   <%= @application.description %>
 </p>
 
-
-
-
 <p>
   <%= @application.status %>
 </p>
@@ -35,6 +32,9 @@
 
 <p>
   <% @pets.each do |pet|%>
+  <span>
   <%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
+  <%= button_to "Adopt this Pet", "/applications/#{@application.id}", method: :get %>
+  </span>
   <% end %>
 </p>
