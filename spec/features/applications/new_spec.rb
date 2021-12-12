@@ -20,6 +20,17 @@ RSpec.describe 'New Application' do
 
         expect(page).to have_content("Status: In Progress")
       end
+
+      it "Will not let a user not complete the form" do
+        visit "/applications/new"
+
+        fill_in('name', with: 'Harry')
+
+        click_button("Submit")
+
+        expect(page).to have_content("Application not complete: Please fill out all sections")
+        expect(page).to have_button("Submit")
+      end
     end
   end
 end
