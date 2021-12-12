@@ -18,4 +18,8 @@ class Application < ApplicationRecord
   def self.pending_applications
     joins(:pets).where(status: "Pending")
   end
+
+  def pending?
+    status == "Pending"
+  end
 end
