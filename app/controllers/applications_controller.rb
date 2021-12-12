@@ -1,6 +1,6 @@
 class ApplicationsController < ApplicationController
   def index
-
+    @applications = Application.all
   end
 
   def show
@@ -19,16 +19,18 @@ class ApplicationsController < ApplicationController
   def new
   end
   def create
-    application = Application.new({
-      name: params[:name],
-      street_address: params[:street_address],
-      city: params[:city],
-      state: params[:state],
-      zipcode: params[:zipcode],
-      description: params[:description],
-      status: params[:status]
-      })
-    application.save
-    redirect_to "/applications/#{application.id}"
+    adoption = Application.new(app_params)
+    if adoption.save
+      redirect_to "/applications/#{adoption.id}"
+    else
+      flash[:notice] = "Application not complete: Please fill out all sections"
+      render :new
+    end
+  end
+
+  private
+
+  def app_params
+    params.permit(:name, :street_address, :city, :state, :zipcode, :description, :status)
   end
 end
