@@ -17,6 +17,18 @@ class ApplicationsController < ApplicationController
   end
 
   def new
-
+  end
+  def create
+    application = Application.new({
+      name: params[:name],
+      street_address: params[:street_address],
+      city: params[:city],
+      state: params[:state],
+      zipcode: params[:zipcode],
+      description: params[:description],
+      status: params[:status]
+      })
+    application.save
+    redirect_to "/applications/#{application.id}"
   end
 end
