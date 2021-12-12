@@ -29,8 +29,12 @@ class ApplicantsController < ApplicationController
         pet_applicant.save
     end
 
+    if params[:description]
+      @applicant.update({description: params[:description]})
+      @applicant.save
+    end
+    @applicant.update_status
     @selected_pets = @applicant.pets
-    @applicant.status = @applicant.get_status
   end
 
   private

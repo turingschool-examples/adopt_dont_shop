@@ -8,9 +8,13 @@ class Applicant < ApplicationRecord
   validates :state, presence: true
   validates :zip, presence: true, numericality: true
 
-  def get_status
+  def update_status
     if self.description == nil || self.pets.empty?
-      return 'In Progress'
+      self.update({status: 'In Progress'})
+      self.save
+    elsif self.description != nil && !self.pets.empty?
+      self.update({status: 'Pending'})
+      self.save
     end
   end
 

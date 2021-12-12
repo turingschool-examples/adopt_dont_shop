@@ -45,6 +45,25 @@ RSpec.describe 'applicant show' do
     click_button("Adopt")
 
     expect(page).to have_field("description")
-    expect(page).to have_selector(:link_or_button, 'Submit')
+    expect(page).to have_selector(:link_or_button, 'Submit Application')
   end
+#   And I click a button to submit this application
+# Then I am taken back to the application's show page
+# And I see an indicator that the application is "Pending"
+# And I see all the pets that I want to adopt
+# And I do not see a section to add more pets to this application
+  it 'renders correct info for pending application' do
+    visit "/applicants/#{@applicant.id}"
+
+    fill_in 'Search', with: "Dixie"
+    click_on("Search")
+    click_button("Adopt")
+    fill_in 'description', with: "I get along with this dog."
+    click_button("Submit Application")
+
+    expect(page).to have_content("Pending")
+    expect(page).to have_content("Dixie")
+    expect(page).to_not have_field(:search)
+  end
+
 end

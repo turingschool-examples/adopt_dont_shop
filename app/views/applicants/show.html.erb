@@ -3,16 +3,25 @@
 <h3><%= @applicant.city %></h3>
 <h3><%= @applicant.state %></h3>
 <h3><%= @applicant.zip %></h3>
-<h3><%= @applicant.status %></h3>
+<h3>Application Status: <%= @applicant.status %></h3>
 <hr><br>
 
+<% if @selected_pets.length > 0 && @applicant.description == nil%>
+  <%= form_with url: "/applicants/#{@applicant.id}", method: :get, local: true do |f| %>
+    <h4>Why I would make a good owner for these pet(s)?</h4>
+    <%= f.text_area :description %><br>
+    <%= f.submit "Submit Application" %>
+  <% end %>
+<% end %>
 
-<hr><br>
-<h2>Add Pets To This Application</h2>
-<%= form_with url: "/applicants/#{@applicant.id}", method: :get, local: true do |f| %>
-  <%= f.label :search %>
-  <%= f.text_field :search %>
-  <%= f.submit "Search" %>
+<% if @applicant.status == "In Progress" %>
+  <hr><br>
+  <h2>Add Pets To This Application</h2>
+  <%= form_with url: "/applicants/#{@applicant.id}", method: :get, local: true do |f| %>
+    <%= f.label :search %>
+    <%= f.text_field :search %>
+    <%= f.submit "Search" %>
+  <% end %>
 <% end %>
 
 <% @pets.each do |pet| %>
