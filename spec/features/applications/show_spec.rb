@@ -7,8 +7,8 @@ RSpec.describe 'the applications show page' do
       street_address: "1234 Grant Road",
       city: "Littleton",
       state: "Colorado",
-      zip: "80120",
-      description: "I love dogs"
+      zip: "80120"
+      # description: "I love dogs"
     )
     @shelter = Shelter.create!(name: "Love Dogs Shelter", city: "Denver", rank: 10, foster_program: true)
     @pet_1 = @shelter.pets.create!(name: "Buster", adoptable: true, age: 2, breed: "Black Lab")
@@ -49,7 +49,7 @@ RSpec.describe 'the applications show page' do
   end
 
   it 'has a button to select which pet to adopt' do
-    
+
     fill_in(:search_pets, with: "Bust")
     click_button "Submit"
 
@@ -61,5 +61,35 @@ RSpec.describe 'the applications show page' do
     expect(page).to have_content("#{@pet_1.name}")
     expect(page).to_not have_content("#{@pet_2.name}")
     expect(page).to_not have_content("#{@pet_3.name}")
+  end
+
+  it 'has a section to input a description and a button to submit the application' do # could be split up?
+    fill_in(:search_pets, with: "Bust")
+    click_button "Submit"
+
+    expect(page).to have_content("#{@pet_1.name}")
+    expect(page).to have_content("#{@pet_3.name}")
+    expect(page).to_not have_content("#{@pet_2.name}")
+
+    click_link "Adopt #{@pet_1.name}"
+
+    expect(page).to have_content("#{@pet_1.name}")
+    expect(page).to_not have_content("#{@pet_2.name}")
+    expect(page).to_not have_content("#{@pet_3.name}")
+
+    fill_in(:search_pets, with: "Minnie")
+    click_button "Submit"
+
+    expect(page).to have_content("#{@pet_2.name}")
+
+    click_link "Adopt #{@pet_2.name}"
+
+    fill_in(:description, with: "Cuz I love animals")
+    click_button "Submit Application"
+  end
+
+  it 'will not have a description field if the user hasnt added any pets to the application' do
+    expect(page).to have_field(:description, disabled: true)
+    expect(page).to have_button("Submit Application", disabled: true)
   end
 end
