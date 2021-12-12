@@ -66,6 +66,25 @@ RSpec.describe 'application show page', type: :feature do
       expect(page).to have_content(pet_1.name)
     end
   end
+    it 'returns partial matches for pet names' do
+      shelter = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
+      pet_1 = Pet.create!(adoptable: true, age: 1, breed: 'fluffy', name: 'fluffy', shelter_id: shelter.id)
+      pet_2 = Pet.create!(adoptable: true, age: 3, breed: 'fluff', name: 'fluff', shelter_id: shelter.id)
+      pet_3 = Pet.create!(adoptable: true, age: 3, breed: 'mr.fluff', name: 'mr.fluff', shelter_id: shelter.id)
+      derek = Application.create!(name: "Derek", description: "I love dogs", address: {city: "Denver", state: "CO", street: "Kalamath", zip: 80223 })
+
+      visit "/applications/#{derek.id}"
+
+      fill_in 'Search', with: "fluf"
+      click_on("Search")
+      save_and_open_page
+      within '.pets-s' do
+
+        expect(page).to have_content(pet_1.name)
+        expect(page).to have_content(pet_2.name)
+        expect(page).to have_content(pet_3.name)
+    end
+  end
   it 'has a button that adds a pet to the application' do
     shelter = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
     pet_1 = Pet.create(adoptable: true, age: 1, breed: 'sphynx', name: 'Lucille Bald', shelter_id: shelter.id)
@@ -117,7 +136,7 @@ RSpec.describe 'application show page', type: :feature do
     pet_2 = Pet.create(adoptable: true, age: 3, breed: 'doberman', name: 'Lobster', shelter_id: shelter.id)
     derek = Application.create!(name: "Derek", description: "I love dogs", address: {city: "Denver", state: "CO", street: "Kalamath", zip: 80223 })
     visit "/applications/#{derek.id}"
-    
+
     expect(page).to have_no_button("Submit this Application")
   end
 end
