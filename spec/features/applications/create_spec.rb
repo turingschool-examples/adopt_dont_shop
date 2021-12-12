@@ -35,6 +35,51 @@ RSpec.describe 'create an application' do
     application = Application.last
     expect(current_path).to eq("/applications/#{application.id}")
     expect(page).to have_content("In Progress")
+  end
+
+  it 'returns to the new applications page after submit clicked if any fields are not filled in' do
+    visit '/applications/new'
+
+    # #no name
+    # fill_in "Street Address", with: '135 Waddle Road'
+    # fill_in "City", with: "Dallas"
+    # fill_in "State", with: 'TX'
+    # fill_in "Zip Code", with: 75001
+    # click_button "Submit"
+    # expect(current_path).to eq("/applications/new")
+    #
+    # #no address
+    # fill_in "Name", with: 'Steve'
+    # fill_in "City", with: "Dallas"
+    # fill_in "State", with: 'TX'
+    # fill_in "Zip Code", with: 75001
+    # click_button "Submit"
+    # expect(current_path).to eq("/applications/new")
+    #
+    # #no city
+    # fill_in "Name", with: 'Steve'
+    # fill_in "Street Address", with: '135 Waddle Road'
+    # fill_in "State", with: 'TX'
+    # fill_in "Zip Code", with: 75001
+    # click_button "Submit"
+    # expect(current_path).to eq("/applications/new")
+    #
+    # #no state
+    # fill_in "Name", with: 'Steve'
+    # fill_in "Street Address", with: '135 Waddle Road'
+    # fill_in "City", with: "Dallas"
+    # fill_in "Zip Code", with: 75001
+    # click_button "Submit"
+    # expect(current_path).to eq("/applications/new")
+    #
+    # #no zip code
+    # fill_in "Name", with: 'Steve'
+    # fill_in "Street Address", with: '135 Waddle Road'
+    # fill_in "City", with: "Dallas"
+    # fill_in "State", with: 'TX'
+    # click_button "Submit"
+    # expect(current_path).to eq("/applications/new")
+
 
   end
 end
