@@ -21,6 +21,15 @@ class ApplicantsController < ApplicationController
       @pets = []
     end
 
+    if params[:selected_pet_id]
+      pet_applicant = PetApplicant.new({
+        applicant_id: @applicant.id,
+        pet_id: params[:selected_pet_id]
+        })
+        pet_applicant.save
+    end
+
+    @selected_pets = @applicant.pets
     @applicant.status = @applicant.get_status
   end
 
