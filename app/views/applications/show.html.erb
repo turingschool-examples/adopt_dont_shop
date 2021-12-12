@@ -20,11 +20,7 @@
 </p>
 
 
-<p>
-  <% @pets.each do |pet|%>
-  <%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
-  <% end %>
-</p>
+
 
 <p>
   <%= @application.status %>
@@ -36,3 +32,9 @@
   <%= f.text_field :search  %>
   <%= f.submit "Submit" %>
 <% end %>
+
+<p>
+  <% @pets.each do |pet|%>
+  <%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
+  <% end %>
+</p>
