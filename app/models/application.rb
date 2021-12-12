@@ -7,7 +7,6 @@ class Application < ApplicationRecord
   validates :city, presence: true
   validates :state, presence: true
   validates :zip, presence: true
-  validates :description, presence: true
   # added to allow a default entry for all new rows created.
   def set_defaults
     self.status ||= "In Progress"
