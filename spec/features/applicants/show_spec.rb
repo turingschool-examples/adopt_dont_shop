@@ -36,4 +36,15 @@ RSpec.describe 'applicant show' do
     expect(page).to_not have_content(@pet2.name)
     expect(page).to_not have_content(@pet3.name)
   end
+
+  it 'renders submit button and reason for adoption text field' do
+    visit "/applicants/#{@applicant.id}"
+
+    fill_in 'Search', with: "Dixie"
+    click_on("Search")
+    click_button("Adopt")
+
+    expect(page).to have_field("description")
+    expect(page).to have_selector(:link_or_button, 'Submit')
+  end
 end
