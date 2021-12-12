@@ -24,9 +24,10 @@ RSpec.describe 'application creation' do
         fill_in 'Address', with: '123 test st'
         fill_in 'City', with: 'Aurora'
         fill_in 'State', with: 'CO'
+        fill_in 'Zip', with: '80016'
         fill_in 'Description', with: 'A description'
         click_button 'Save'
-        expect(page).to have_current_path("/applications/")
+        expect(page).to have_current_path("/applications/:id")
         expect(page).to have_content('Kelly')
       end
     end
