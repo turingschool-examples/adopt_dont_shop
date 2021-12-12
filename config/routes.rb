@@ -19,6 +19,8 @@ Rails.application.routes.draw do
   get '/apps/:id', to: 'apps#show'
   post '/apps/:id', to: 'apps#create'
 
+  post '/app_pets/create', to: 'app_pets#create'
+
   get '/veterinary_offices', to: 'veterinary_offices#index'
   get '/veterinary_offices/new', to: 'veterinary_offices#new'
   get '/veterinary_offices/:id', to: 'veterinary_offices#show'
