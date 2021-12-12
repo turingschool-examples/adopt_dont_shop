@@ -3,11 +3,12 @@
 <h3><%= "Reason For Applying: #{@application.description}" %></h3>
 <h3>Dogs Applied For: </h3>
 
-<% @application.pets.each do |pet| %>
-  <div class="pets", id = "#{pet.id}">
+<div class="pets">
+  <% @application.pets.each do |pet| %>
     <p><%= link_to "#{pet.name}", "/pets/#{pet.id}" %></p>
-  </div>
-<% end %>
+  <% end %>
+</div>
+
 
 <% if @application.status == "In Progress" %>
   <div class="search">
