@@ -2,7 +2,8 @@ class Survey < ApplicationRecord
   after_initialize :set_defaults 
 
   def set_defaults 
-    self.description ||= ""
+    self.description ||= "No Description"
+    self.status ||= "In Progress"
   end
   
   has_many :survey_pets 
