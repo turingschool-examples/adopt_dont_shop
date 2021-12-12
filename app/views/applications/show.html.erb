@@ -3,11 +3,12 @@
 <h3><%= "Reason For Applying: #{@application.description}" %></h3>
 <h3>Dogs Applied For: </h3>
 
-<% @application.pets.each do |pet| %>
-  <div class="pet", id = "#{pet.id}">
+<div class="pets">
+  <% @application.pets.each do |pet| %>
     <p><%= link_to "#{pet.name}", "/pets/#{pet.id}" %></p>
-  </div>
-<% end %>
+  <% end %>
+</div>
+
 
 <% if @application.status == "In Progress" %>
   <div class="search">
@@ -21,12 +22,16 @@
 
       <% if @pets != nil %>
         <% @pets.each do |pet| %>
-          <h3><%= pet.name %></h3>
-          <p>Age: <%= pet.age %></p>
-          <p>Breed: <%= pet.breed %></p>
-          <p>Adoptable: </p>
-          <p>You can find <%= pet.name %> at <%= pet.shelter_name %>!</p>
-
+          <div class=<%= "pet_#{pet.id}" %>>
+            <h3><%= pet.name %></h3>
+            <p>Age: <%= pet.age %></p>
+            <p>Breed: <%= pet.breed %></p>
+            <p>Adoptable: </p>
+            <p>You can find <%= pet.name %> at <%= pet.shelter_name %>!</p>
+            <%= form_with url: "/pet_applications?pet_id=#{pet.id}&application_id=#{@application.id}", method: :post, local: true do |form| %>
+              <%= form.submit "Adopt this Pet" %>
+            <% end %>
+          </div>
         <% end %>
       <% end %>
     </fieldset>

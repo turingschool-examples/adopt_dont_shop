@@ -80,4 +80,22 @@ RSpec.describe 'Application show page' do
       expect(page).to_not have_content("Pete")
     end
   end
+
+  it 'has an adopt this pet button next to each pet found through search' do
+    pet_v1 = Pet.create!(adoptable: false, age: 3, breed: "GSP", name: "Newton Curtis", shelter_id: @shelter.id)
+    visit "/applications/#{@application_1.id}"
+
+    within('div.search') do
+      fill_in "Search for Pets", with: "Newton"
+      click_button "Search"
+    end
+    within("div.pet_#{@pet_2.id}") do
+      expect(page).to have_button("Adopt this Pet")
+      click_button "Adopt this Pet"
+      expect(current_path).to eq("/applications/#{@application_1.id}")
+    end
+    within("div.pets") do
+      expect(page).to have_content("Newton")
+    end
+  end
 end

@@ -3,14 +3,14 @@
   <%= form_with url: '/applications', method: :POST, local: true do |form|%>
     <%= form.label :name %>
     <%= form.text_field :name, required: true %><br>
-    <%= form.label :street_address, "Street Address"%>
-    <%= form.text_field :street_address, required: true %><br>
+    <%= form.label :address, "Street Address"%>
+    <%= form.text_field :address, required: true %><br>
     <%= form.label :city %>
     <%= form.text_field :city, required: true %><br>
     <%= form.label :state %>
     <%= form.text_field :state, required: true %><br>
-    <%= form.label :zip_code, "Zip Code" %>
-    <%= form.number_field :zip_code, required: true %><br>
+    <%= form.label :zip, "Zip Code" %>
+    <%= form.number_field :zip, required: true %><br>
     <%= form.label :description, "Why would you make a good owner?"%>
     <%= form.text_field :description, required: true  %><br>
     <%= form.hidden_field :status, :value => "In Progress"  %>

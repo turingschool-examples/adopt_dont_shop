@@ -9,20 +9,25 @@ class ApplicationsController < ApplicationController
   end
 
   def new
-
   end
 
   def create
-    Application.create(name: params[:name],
-                      address: params[:street_address],
-                      city: params[:city],
-                      state: params[:state],
-                      zip: params[:zip_code],
-                      description: params[:description],
-                      status: params[:status])
+    Application.create(application_params)
 
     new_application = Application.last
     redirect_to "/applications/#{new_application.id}"
   end
 
+
+  private
+
+  def application_params
+    params.permit(:name,
+                  :address,
+                  :city,
+                  :state,
+                  :zip_code,
+                  :description,
+                  :status)
+  end
 end
