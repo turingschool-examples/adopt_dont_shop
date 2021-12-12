@@ -78,7 +78,7 @@ RSpec.describe 'application show page', type: :feature do
     within '.pets-s' do
 
       click_on ("Adopt this Pet")
-      save_and_open_page
+
       expect(current_path).to eq("/applications/#{derek.id}")
     end
     expect(derek.pets).to eq([pet_1])
@@ -87,5 +87,28 @@ RSpec.describe 'application show page', type: :feature do
 
       expect(page).to have_content(pet_1.name)
     end
+  end
+  it 'has a button to submit an application' do
+    shelter = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
+    pet_1 = Pet.create(adoptable: true, age: 1, breed: 'sphynx', name: 'Lucille Bald', shelter_id: shelter.id)
+    pet_2 = Pet.create(adoptable: true, age: 3, breed: 'doberman', name: 'Lobster', shelter_id: shelter.id)
+    derek = Application.create!(name: "Derek", description: "I love dogs", address: {city: "Denver", state: "CO", street: "Kalamath", zip: 80223 })
+    visit "/applications/#{derek.id}"
+
+    expect(page).to have_no_button("Submit Application")
+    fill_in 'Search', with: "Lucille"
+    click_on("Search")
+    within '.pets-s' do
+
+      click_on ("Adopt this Pet")
+    end
+    within '.submit-app' do
+      find(".description", visible: true).set "I have raised dogs my whole life"
+      click_button "Submit this Application"
+    end
+
+    expect(page).to have_content("Status: Pending")
+    expect(page).to have_content("Lucille Bald")
+    expect(page).to have_no_button("Search")
   end
 end
