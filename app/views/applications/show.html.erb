@@ -1,0 +1,7 @@
+<%= @applications.each do |application| %>
+  <h3>Application Number: <%= application.id %></h3>
+  <ul>
+    <li><%= application.applicant_name %></li>
+  </ul>
+
+<% end %>
