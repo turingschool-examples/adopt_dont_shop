@@ -6,6 +6,10 @@ class ApplicationsController < ApplicationController
 
   def show
     @applicant = Application.find(params[:id])
+    @pets = []
+    if params.include?(:search)
+      @pets = Pet.search(params[:search])
+    end
   end
 
   def new
@@ -17,7 +21,7 @@ class ApplicationsController < ApplicationController
     if @application.save
       redirect_to "/applications/#{@application.id}"
     else
-      flash[:notice] = "Application not created: Required information missing."
+      flash.now[:notice] = "Application not created: Required information missing."
       render 'new'
     end
   end

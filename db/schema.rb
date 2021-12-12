@@ -16,15 +16,6 @@ ActiveRecord::Schema.define(version: 2021_12_10_033250) do
   enable_extension "hstore"
   enable_extension "plpgsql"
 
-  create_table "addresses", force: :cascade do |t|
-    t.string "city"
-    t.string "state"
-    t.integer "zip"
-    t.string "street"
-    t.bigint "application_id"
-    t.index ["application_id"], name: "index_addresses_on_application_id"
-  end
-
   create_table "application_pets", force: :cascade do |t|
     t.bigint "application_id"
     t.bigint "pet_id"
@@ -77,7 +68,6 @@ ActiveRecord::Schema.define(version: 2021_12_10_033250) do
     t.datetime "updated_at", null: false
   end
 
-  add_foreign_key "addresses", "applications"
   add_foreign_key "application_pets", "applications"
   add_foreign_key "application_pets", "pets"
   add_foreign_key "pets", "shelters"
