@@ -1,0 +1,37 @@
+
+
+<section id="Add_pet">
+<% if @application.in_progress? %>
+  <h3>Add a Pet to this Application</h3>
+  <%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |form| %>
+    <%= form.label :search_by_pet_name %>
+    <%= form.text_field :search_by_pet_name %>
+    <%= form.submit "Submit" %>
+  <% end %>
+
+    <p><% @pets.each do |pet|%></p>
+    <p><%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
+    <%= button_to "Adopt this Pet", pet_applications_path, method: :post, params: {:application_id => @application.id, :pet_id => pet.id} %></p>
+  <% end  %>
+<% end %>
+</section>
+
+<section id="Submit_application">
+<% if @application.has_pets && @application.in_progress? %>
+  <h3>Submit Application</h3>
+  <p> Please describe why you would be a good pet owner</p>
+  <%= form_with url: "/applications/#{@application.id}", method: :patch, local: true do |form| %>
+    <%= form.label :description %>
+    <%= form.text_field :description %>
+    <%= form.submit "Submit My Application" %>
+  <% end %>
+<% end %>
+</section>
+
+
+
+<h1>Application to Adopt</h1>
+<hr>
+<h2>Name of applicant: <%= @application.name %></h2>
+<h3>Full Address: <%= @application.address %> <%= @application.city %>, <%= @application.state %> <%= @application.zip %></h3>
+<h4>Application Status: <%= @application.status %></h4>
