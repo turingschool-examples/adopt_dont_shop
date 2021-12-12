@@ -1,5 +1,5 @@
 <%= form_with url: '/applications', method: :post, local: true do |form| %>
-  <%= form.label :name %>
+  <%# <%= form.label :name %> %>
 
   <p>Enter your name:</p>
   <%= form.text_field :name %>
@@ -11,8 +11,12 @@
   <%= form.text_field :state %>
   <p>Enter your five digit ZIP code:</p>
   <%= form.text_field :zip %>
+  <p>Enter description:</p>
+  <%= form.text_field :description %>
+  <p>Enter status:</p>
+  <%= form.text_field :status %>
 
-  <input type="hidden" name='application_id' value="<%= @application_id %>">
+  <%# <input type="hidden" name='application_id' value="<%= @application_id %>"> %>
 
   <%= form.submit 'Create new application' %>
 <% end %>

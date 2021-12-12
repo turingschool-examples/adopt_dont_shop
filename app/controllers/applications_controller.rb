@@ -8,13 +8,28 @@ class ApplicationsController < ApplicationController
   end
 
   def show
-     # binding.pry
     @application = Application.find(params[:id])
+
+    if params[:search].present?
+      @pets = Pet.search(params[:search])
+    else
+      @pets = @application.pets
+      
+      # @pets = Pet.search(params[:search])
+    end
   end
 
   def create
     application = Application.create(application_params)
-    redirect_to "/applications/#{application.id}"
+
+    if application.save
+      redirect_to "/applications/#{application.id}"
+    else
+      flash[:alert] = "Error"
+      redirect_to "/applications/new"
+    end
+    # binding.pry
+
   end
 
 private
