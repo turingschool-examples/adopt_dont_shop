@@ -1,6 +1,5 @@
 class Admin::SheltersController < ApplicationController
   def index
-    @shelters = Shelter.all
-#   #   # organized_shelters = shelters.
+    @shelters = Admin::Shelter.all.admin_display
   end
 end
