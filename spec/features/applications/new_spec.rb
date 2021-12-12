@@ -17,7 +17,7 @@ RSpec.describe 'application creation' do
     fill_in(:city, with: "Denver")
     fill_in(:state, with: "Colorado")
     fill_in(:zip, with: "80120")
-    fill_in(:description, with: "Cuz sooooo fwuffy")
+    # fill_in(:description, with: "Cuz sooooo fwuffy")
     click_button "Submit"
 
     # expect(current_path).to eq("/applications/:id")
@@ -35,7 +35,7 @@ RSpec.describe 'application creation' do
     fill_in(:street_address, with: "5678 Colorado Road")
     fill_in(:city, with: "Denver")
     fill_in(:state, with: "Colorado")
-    fill_in(:zip, with: "80120")
+    # fill_in(:zip, with: "80120")
     # fill_in(:description, with: "Cuz sooooo fwuffy")
     click_button "Submit"
 
@@ -46,7 +46,7 @@ RSpec.describe 'application creation' do
     fill_in(:city, with: "Denver")
     fill_in(:state, with: "Colorado")
     fill_in(:zip, with: "80120")
-    fill_in(:description, with: "Cuz sooooo fwuffy")
+    # fill_in(:description, with: "Cuz sooooo fwuffy")
     click_button "Submit"
 
     expect(page).to have_content("John Deere")
@@ -54,7 +54,7 @@ RSpec.describe 'application creation' do
     expect(page).to have_content("Denver")
     expect(page).to have_content("Colorado")
     expect(page).to have_content("80120")
-    expect(page).to have_content("Cuz sooooo fwuffy")
+    # expect(page).to have_content("Cuz sooooo fwuffy")
     expect(page).to have_content("In Progress")
     expect(page).to_not have_content("Rejected")
     expect(page).to_not have_content("Pending")
@@ -68,12 +68,12 @@ RSpec.describe 'application creation' do
     fill_in(:street_address, with: "5678 Colorado Road")
     fill_in(:city, with: "Denver")
     fill_in(:state, with: "Colorado")
-    fill_in(:zip, with: "80120")
+    # fill_in(:zip, with: "80120")
     # fill_in(:description, with: "Cuz sooooo fwuffy")
     click_button "Submit"
 
     # expect(current_path).to eq("/applications/new")
-    expect(page).to have_content("Error: Description can't be blank")
+    expect(page).to have_content("Error: Zip can't be blank")
   end
 
 
