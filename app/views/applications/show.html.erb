@@ -5,13 +5,18 @@
 <h3><%= @application.zip %></h3>
 <h3><%= @application.description %></h3>
 <h3><%= @application.status %></h3>
+<%= @application.pets.each do |pet| %>
+  <%= pet.name %>
+<% end %>
 <h2> Add a Pet to this Application: </h2>
-<%= form_with url: "/applications/#{@application.id}", method: :patch, local: true do |f| %>
+<%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |f| %>
   <%= f.label :search_pets %>
   <%= f.text_field :search_pets %>
   <%= f.submit "Submit" %>
 <% end %>
+
 <% @pets.each do |pet| %>
-  <%= pet.name %>
-  <%= pet.id %>
+  <p><%= pet.name %></p>
+  <p><%= pet.id %></p>
+  <%= link_to "Adopt #{pet.name}", "/applications/#{@application.id}?adopt=#{pet.id}", method: :get , local: true %>
 <% end %>
