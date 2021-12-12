@@ -10,6 +10,12 @@ class ApplicationsController < ApplicationController
     adopts.each do |pet|
       @pets.push(Pet.find(pet.pet_id))
     end
+    if params[:search_by_name].present?
+      @application
+      @pets = @application.search_by_name_threshold(params[:search_by_name])
+    else
+      @application
+    end
   end
 
   def edit
