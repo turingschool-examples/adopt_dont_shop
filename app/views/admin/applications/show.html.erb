@@ -1,0 +1,16 @@
+<section id="Application_details">
+  <%= render 'layouts/appinfo' %>
+</section>
+
+<section id="Approve_pets">
+  <% if @application.pending? %>
+    <% @application.pet_applications.each do |pet_application| %>
+      <% if pet_application.application_status.nil? %>
+        <%= button_to "Approve Application for #{pet_application.pet.name}", "/admin/applications/#{pet_application.id}", method: :patch, params: { application_status: "Approved" } %>
+        <%= button_to "Reject Application for #{pet_application.pet.name}", "/admin/applications/#{pet_application.id}", method: :patch, params: { application_status: "Rejected" } %>
+      <% else %>
+        <%= "#{pet_application.pet.name} - #{pet_application.application_status.upcase}" %>
+      <% end %>
+    <% end %>
+  <% end %>
+</section>
