@@ -12,11 +12,13 @@ class SurveysController < ApplicationController
   end
 
   def create 
-    
     survey = Survey.new(survey_params)
-    survey.save
-
-    redirect_to "/surveys/#{survey.id}"
+    if survey.save
+      redirect_to "/surveys/#{survey.id}"
+    else 
+      redirect_to "/surveys/new"
+      flash[:alert] = "Error: #{error_message(survey.errors)}"
+    end 
   end
 
   private 

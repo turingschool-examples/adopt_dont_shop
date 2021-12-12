@@ -15,10 +15,10 @@ RSpec.describe 'survey creation page' do
 
     expect(page).to have_content("New Application")
     expect(find('form')).to have_content('Name')
-    expect(find('form')).to have_content('Street Address')
+    expect(find('form')).to have_content('Street address')
     expect(find('form')).to have_content('City')
     expect(find('form')).to have_content('State')
-    expect(find('form')).to have_content('Zip Code')
+    expect(find('form')).to have_content('Zip code')
   end
 
   it 'submits the application' do 
@@ -33,5 +33,14 @@ RSpec.describe 'survey creation page' do
     click_button 'Submit'
     
     expect(current_path).to eq("/surveys/#{Survey.last.id}")
+  end
+
+  it 'rerenders form with flash message when given incomplete data' do 
+    visit visit "/surveys/new"
+
+    click_button 'Submit'
+
+    expect(current_path).to eq("/surveys/new")
+    expect(page).to have_content("Error: Name can't be blank, Street address can't be blank, City can't be blank, State can't be blank, Zip code can't be blank")
   end
 end
