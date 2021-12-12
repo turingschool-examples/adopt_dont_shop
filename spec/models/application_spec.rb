@@ -65,5 +65,27 @@ describe Application do
         expect(application2.pending?).to be false
       end
     end
+
+    describe '.update_status' do
+       it 'changes status of application based on the pet applications statuses' do
+         shelter = Shelter.create(name: 'Rescue Shelter', city: 'Denver, CO', foster_program: false, rank: 3)
+         application1 = Application.create(name: 'Devin', address: '123 Easy St', state: "Colorado", city: "Denver", zip: "80911", description: "Degs??", status: "Pending")
+         application2 = Application.create(name: 'Cruella', address: '123 S Leasy St', state: "Colorado", city: "Denver", zip: "80911", description: "Oh, dogs.. yeah", status: "Pending")
+         application3 = Application.create(name: 'Mr. Rogers', address: '123 SW Easy St', state: "Colorado", city: "Denver", zip: "80911", description: "I like degs", status: "In Progress")
+         pet1 = Pet.create(adoptable: true, age: 4, breed: 'doberman', name: 'Carson', shelter_id: shelter.id)
+         pet2 = Pet.create(adoptable: true, age: 2, breed: 'heeler', name: 'Larry', shelter_id: shelter.id)
+         PetApplication.create(pet_id: pet1.id, application_id: application1.id, application_status: "Rejected")
+         PetApplication.create(pet_id: pet1.id, application_id: application2.id, application_status: "Approved")
+         PetApplication.create(pet_id: pet2.id, application_id: application3.id, application_status: "Pending")
+
+         application2.update_status
+         application1.update_status
+         application3.update_status
+
+         expect(application2.status).to eq("Approved")
+         expect(application1.status).to eq("Rejected")
+         expect(application3.status).to eq("Pending")
+       end
+    end
   end
 end
