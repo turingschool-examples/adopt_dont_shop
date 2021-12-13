@@ -3,7 +3,7 @@
 <%= form_with url: "/applications/new", method: :post, local: true do |f| %>
   <%= f.hidden_field :application_status, value: 'In Progress' %>
 
-  <%= f.label :applicant_name %>
+  <%= f.label :applicant_name, "Name (First Last)"%>
   <%= f.text_field :applicant_name %><br><br>
 
   <%= f.label :street_address, "Street Address" %>
