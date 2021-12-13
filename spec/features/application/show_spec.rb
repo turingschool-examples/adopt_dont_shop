@@ -78,7 +78,7 @@ describe 'application show page' do
     @application1 = Application.create!(name:'Name1', address: '123 test st', city: 'Bear', state: 'Delaware', zip: '19701' )
 
     visit "/applications/#{@application1.id}"
-
+    expect(page).to_not have_content("Submit Application")
     expect(page).to have_button("Search")
     fill_in('Pet name', with: "#{@pet1.name}")
     click_button "Search"
