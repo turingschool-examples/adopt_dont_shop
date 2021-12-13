@@ -2,9 +2,11 @@ require 'rails_helper'
 
 RSpec.describe 'the application show', type: :feature do
   before :each do
-    @application_1 = Application.create!(applicant_name: "Mike Sloan", street_address: "134 Willow Lane", city: "Boulder", state: "CO", zip_code: "80034", description: "I'd be good because I love pets", application_status: "pending")
+    @application_1 = Application.create!(applicant_name: "Mike Sloan", street_address: "134 Willow Lane", city: "Boulder", state: "CO", zip_code: "80034", application_status: "In Progress")
 
-    @application_2 = Application.create!(applicant_name: "Ben Spiegel", street_address: "6625 Main, Apt. 9", city: "Denver", state: "CO", zip_code: "80026", description: "I'd be good because I already have many pets", application_status: "Submitted")
+    @application_2 = Application.create!(applicant_name: "Ben Spiegel", street_address: "6625 Main, Apt. 9", city: "Denver", state: "CO", zip_code: "80026", application_status: "Pending")
+
+    @application_3 = Application.create!(applicant_name: "Ben Spiegel", street_address: "6625 Main, Apt. 9", city: "Denver", state: "CO", zip_code: "80026", application_status: "In Progress")
 
     @shelter_1 = Shelter.create!(foster_program: 'true', name: "Shelter 1", city: "Denver", rank: "5")
 
@@ -25,7 +27,7 @@ RSpec.describe 'the application show', type: :feature do
     expect(page).to have_content(@application_1.city)
     expect(page).to have_content(@application_1.state)
     expect(page).to have_content(@application_1.zip_code)
-    expect(page).to have_content(@application_1.description)
+    expect(page).to have_content("Applicant Description: Incomplete")
     expect(page).to have_content(@application_1.application_status)
     expect(page).to have_content(@pet_1.name)
     expect(page).to have_link("#{@pet_1.name}", href: "/pets/#{@pet_1.id}")
@@ -37,7 +39,7 @@ RSpec.describe 'the application show', type: :feature do
     expect(page).to have_content(@application_2.city)
     expect(page).to have_content(@application_2.state)
     expect(page).to have_content(@application_2.zip_code)
-    expect(page).to have_content(@application_2.description)
+    expect(page).to have_content("Applicant Description: Incomplete")
     expect(page).to have_content(@application_2.application_status)
     expect(page).to have_no_content(@pet_1.name)
   end
@@ -88,10 +90,53 @@ RSpec.describe 'the application show', type: :feature do
       expect(page).to have_link("#{@pet_2.name}", href: "/pets/#{@pet_2.id}")
     end
 
-    it 'does not display when application has been submitted' do
+    it 'does not display when application status is pending' do
       visit "/applications/#{@application_2.id}"
       expect(page).to have_no_content("Add a Pet to this Application:")
       expect(page).to_not have_field("Pet Name")
+    end
+  end
+
+  describe 'submission' do
+    it 'has a button to submit when a pet has been added for adoption' do
+      visit "/applications/#{@application_3.id}"
+
+      expect(page).to have_no_content("Please describe why you would be a good home for these pets.")
+      expect(page).to_not have_field(:description)
+      expect(page).to_not have_button('Submit Application')
+
+      expect(page).to have_button("Search")
+      expect(page).to have_field(:pet_name)
+
+      fill_in 'pet_name', with: "#{@pet_2.name}"
+      click_button "Search"
+
+      expect("Add a Pet to this Application:").to appear_before(@pet_2.name, only_text: true)
+
+      within("#search#{@pet_2.id}") do
+        expect(page).to have_button('Adopt this Pet')
+        click_button "Adopt this Pet"
+      end
+
+      expect(@pet_2.name).to appear_before("Add a Pet to this Application:", only_text: true)
+
+      expect(page).to have_link("#{@pet_2.name}", href: "/pets/#{@pet_2.id}")
+      expect(page).to have_content("Please describe why you would be a good home for these pets.")
+      expect(page).to have_field(:description)
+      expect(page).to have_button('Submit Application')
+      fill_in :description, with: "I'm a good trainer."
+
+      click_button 'Submit Application'
+
+      expect(current_path).to eq("/applications/#{@application_3.id}")
+      expect(page).to have_content("Application Status: Pending")
+      expect("Pet Name(s):").to appear_before(@pet_2.name, only_text: true)
+
+      expect(page).to have_no_content("Please describe why you would be a good home for these pets.")
+      expect(page).to_not have_field(:description)
+      expect(page).to_not have_button('Submit Application')
+      expect(page).to_not have_button("Search")
+      expect(page).to_not have_field(:pet_name)
     end
   end
 end
