@@ -14,8 +14,6 @@ RSpec.describe 'the applications show page' do
     expect(page).to have_content(application.street_address)
     expect(page).to have_content(application.description)
     expect(page).to have_content(application.status)
-    find_link("#{pet_1.name}")
-    find_link("#{pet_2.name}")
   end
 
   it "Has a section to add a pet to the application and search for a pet" do
@@ -27,5 +25,18 @@ RSpec.describe 'the applications show page' do
     click_on("Submit")
     expect(current_path).to eq("/applications/#{application.id}")
     expect(page).to have_content("Lobster")
+  end
+
+  it "has an adopt me button next to the searched pet name" do
+    application = Application.create!(name: 'Frank', street_address: '123 Main St', city: 'Long Beach', state: 'CA', zipcode: '90712', description: 'I have a fully fenced in acre property', status: 'In Progress')
+
+    visit "/applications/#{application.id}"
+    expect(page).to have_content("Add a Pet to this Application")
+    fill_in('search_by_name', with: "Lobster")
+    click_on("Submit")
+ 
+    click_on("Adopt this Pet")
+    expect(page).to have_content("Pet/s wanting to adopt: Lobster")
+
   end
 end
