@@ -66,12 +66,12 @@ RSpec.describe "the applications show page" do
   end
 
   it "displays filtered pet index searched by name that contains the correct name" do
-    @pet_2 = Pet.create!(adoptable: true,
+    @pet_3 = Pet.create!(adoptable: true,
                                           age: 7,
                                           breed: "Dog",
                                           name: "Mr.Luke",
                                           shelter_id: @shelter_1.id)
-    fill_in :search, with: "Luke"
+    fill_in :search, with: "Lu"
     click_button("Search")
     expect(current_path).to eq("/applications/#{@application_1.id}")
     expect(page).to have_content("Luke")
@@ -140,13 +140,6 @@ end
     expect(page).to have_link("Luke")
     expect(page).to have_link("Cribonis")
     expect(page).to have_content("Status: Pending")
-
   end
-
-
-    #add tests for filling in form and expectations
   end
-
-
-
 end

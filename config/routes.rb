@@ -8,6 +8,8 @@ Rails.application.routes.draw do
   patch '/applications/:id/', to: 'applications#update'
   #pets that match search must be on new page?
 
+  get '/admin/shelters', to: "admin_shelters#index"
+
   get '/shelters', to: 'shelters#index'
   get '/shelters/new', to: 'shelters#new'
   get '/shelters/:id', to: 'shelters#show'
