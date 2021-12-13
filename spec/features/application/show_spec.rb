@@ -40,4 +40,14 @@ describe 'application show page' do
     expect(page).to have_content(@pet2.name)
     expect(page).to_not have_content(@pet3.name)
   end
+
+  it "I see a button to Adopt this Pet When I click one of these buttons" do
+    expect(page).to have_content("Add a Pet to this Application")
+    expect(page).to have_button("Search")
+    fill_in('Pet name', with: "#{@pet2.name}")
+    click_button "Search"
+    click_button "Adopt this Pet"
+    expect(current_path).to eq("/applications/#{@application1.id}")
+    expect(page).to have_content(@pet2.name)
+  end
 end
