@@ -13,24 +13,39 @@
 
 
 <% if @application.status == "In Progress" && @application.pets.count > 0 %>
-<p><%= form_with url: "/applications/#{@application.id}", method: :patch, local: true do |f| %>
+  <p><%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |f| %>
+  <%= f.label :search_for_pets_by_name %>
+  <%= f.text_field :search %>
+  <%= f.submit "Search"%></p>
+  <% end %>
+
+  <p><%= form_with url: "/applications/#{@application.id}", method: :patch, local: true do |f| %>
   <%= f.label :what_makes_you_a_good_owner? %>
   <%= f.text_field :description%>
   <%= f.hidden_field :status, value: "Pending" %>
   <%= f.submit "Submit"%></p>
-  <% end %>
-<% elsif @application.status == "In Progress" && @application.pets.count == 0 %>
-  <p><%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |f| %>
-  <%= f.label :search_for_pets_by_name %>
-  <%= f.text_field :search %>
-  <%= f.submit "Submit"%>
-<% end %></p>
 
   <% if @pets != nil %>
     <% @pets.each do |pet| %>
     <h3><%=link_to "#{pet.name}", "/pets/#{pet.id}"%><%=button_to "Adopt This Pet", method: :post, params: { pet_id: pet.id }, action: "adopt" %></h3>
     <% end %>
   <% end %>
+  <% end %>
+
+<% elsif @application.status == "In Progress" && @application.pets.count == 0 #cant be @pets.count, unless we put that in controller somehow? Can't be zero or cannot adopt multiple pets. %>
+  <p><%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |f| %>
+  <%= f.label :search_for_pets_by_name %>
+  <%= f.text_field :search %>
+  <%= f.submit "Search"%>
+<% end %></p>
+
+<% if @pets != nil %>
+  <% @pets.each do |pet| %>
+  <h3><%=link_to "#{pet.name}", "/pets/#{pet.id}"%><%=button_to "Adopt This Pet", method: :post, params: { pet_id: pet.id }, action: "adopt" %></h3>
+  <% end %>
+<% end %>
+
+
 
 <% end %>
 
