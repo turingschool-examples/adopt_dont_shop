@@ -25,7 +25,6 @@ RSpec.describe 'Application show page' do
     expect(page).to have_content(@application_1.city)
     expect(page).to have_content(@application_1.state)
     expect(page).to have_content(@application_1.zip)
-    expect(page).to have_content(@application_1.description)
     expect(page).to have_content(@application_1.status)
     expect(page).to have_content(@pet_1.name)
     expect(page).to have_content(@pet_2.name)
@@ -97,5 +96,32 @@ RSpec.describe 'Application show page' do
     within("div.pets") do
       expect(page).to have_content("Newton")
     end
+  end
+
+  it "has buttom to submit application only if 1 or more pet has been added" do
+    app = Application.create!(name: 'Steve', address: '135 Waddle Road', city: 'Dallas', state: 'TX', zip: 75001, description: "I really want a dog", status: "In Progress")
+    visit "/applications/#{app.id}"
+    expect(page).to_not have_content("Submit Application")
+    expect(page).to_not have_content(app.description)
+
+    within('div.search') do
+      fill_in "Search for Pets", with: "Newton"
+      click_button "Search"
+    end
+    within("div.pet_#{@pet_2.id}") do
+      click_button "Adopt this Pet"
+    end
+
+    within("div.submit") do
+      fill_in "Why would you make a good owner?", with: "I really like dogs a lot"
+      click_button "Submit"
+
+      expect(current_path).to eq("/applications/#{app.id}")
+    end
+    
+    expect(page).to have_content("I really like dogs a lot")
+    expect(page).to_not have_content("In Progress")
+    expect(page).to have_content("Pending")
+    expect(page).to_not have_content("Adopt this Pet")
   end
 end

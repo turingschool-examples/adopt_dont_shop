@@ -1,6 +1,8 @@
 <h1><%= @application.name %></h1>
 <h3><%= "Address: #{@application.address}, #{@application.city} #{@application.state}, #{@application.zip}" %></h3>
-<h3><%= "Reason For Applying: #{@application.description}" %></h3>
+<% if @application.status != "In Progress" %>
+  <h3><%= "Reason For Applying: #{@application.description}" %></h3>
+<% end %>
 <h3>Dogs Applied For: </h3>
 
 <div class="pets">
@@ -8,7 +10,6 @@
     <p><%= link_to "#{pet.name}", "/pets/#{pet.id}" %></p>
   <% end %>
 </div>
-
 
 <% if @application.status == "In Progress" %>
   <div class="search">
@@ -38,6 +39,18 @@
   </div>
 <% end %>
 
-
+<% if @application.status == "In Progress" %>
+  <div class="submit">
+    <fieldset>
+      <legend>Submit this Application</legend>
+      <%= form_with url: "/applications/#{@application.id}", method: :patch, local: true do |form| %>
+        <%= form.label :description, "Why would you make a good owner?" %>
+        <%= form.text_area :description, required: true %>
+        <%= form.hidden_field :status, value: "Pending" %>
+        <%= form.submit "Submit"%>
+      <% end %>
+    </fieldset>
+  </div>
+<% end %>
 
 <h3><%= "Application Status: #{@application.status}" %></h3>
