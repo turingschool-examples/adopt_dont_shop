@@ -1,0 +1,2 @@
+class PetApp < ApplicationRecord
+end
