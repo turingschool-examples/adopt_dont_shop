@@ -61,10 +61,25 @@ RSpec.describe 'the application show' do
 
         expect(current_path).to eq("/applications/#{@application.id}")
         within ("#pet-#{@pet_2.id}") do
-
-
           expect(page).to have_content(@pet_2.name)
         end
+      end
+    end
+
+    describe 'after adding a pet on an application show page' do
+      it 'has a submit application section that has form for a description' do
+        visit "/applications/#{@application.id}"
+        fill_in 'Pet name', with: "#{@pet_2.name}"
+        click_on("Submit")
+        expect(page).to have_content(@pet_2.name)
+
+        expect(page).to have_button("Adopt this Pet")
+        click_on("Adopt this Pet")
+
+        expect(page).to have_content('Submit my application')
+        expect(page).to have_button("Submit this application")
+        expect(page).to have_content('Pending')
+        expect(page).to_not have_content('Add a Pet to this Application')
 
       end
     end
