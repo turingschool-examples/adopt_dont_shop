@@ -5,10 +5,8 @@
 </div>
 
 <div class = "pending-app" >
-  <h2>"Shelter's with Pending Applications"</h2>
-  <% @applications.each do |application| %>
-    <% application.pets.each do |pet| %>
-    <p><%= pet.shelter.name %><p>
-    <% end.uniq %>
+  <h2>Shelter's with Pending Applications</h2>
+  <% @pending_shelters.each do |shelter| %>
+    <%= shelter.name %>
   <% end %>
 </div>
