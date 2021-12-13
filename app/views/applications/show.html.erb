@@ -3,10 +3,27 @@
   <li>Applicant Name: <%= @application.applicant_name %></li>
   <li>Applicant Address: <%= @application.street_address %>, <%= @application.city %>, <%= @application.state %>, <%= @application.zip_code %></li>
   <li>Description: <%= @application.description %></li>
-  <li>Pet Name(s): <% @pets.each do |pet| %></li>
+  <li>Pet Name(s): <% @application.pets.each do |pet| %></li>
     <ol>
       <li><%= link_to "#{pet.name}", "/pets/#{pet.id}" %></li>
     </ol>
+  <% end %>
+
+  <% if @application.application_status != "Submitted" %>
+    <li>Add a Pet to this Application:</li>
+    <%= form_with url: "/applications/#{@application.id}?search=pet_name", method: :get, local: true do |f| %>
+      <%= f.label :pet_name, "Pet Name" %>
+      <%= f.text_field :pet_name %>
+      <%= f.submit "Search" %><br><br>
+    <% end %>
+  <% end %>
+
+  <% if @pets.present? %>
+    <% @pets.each do |pet| %>
+    <section id="<%= pet.id %>">
+      <%= pet.name %><br><br>
+    </section>
+    <% end %>
   <% end %>
   <li>Application Status: <%= @application.application_status %> </li>
 </ul>
