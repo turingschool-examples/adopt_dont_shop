@@ -31,4 +31,22 @@ class Shelter < ApplicationRecord
   def shelter_pets_filtered_by_age(age_filter)
     adoptable_pets.where('age >= ?', age_filter)
   end
+
+  def self.reverse_alphabetical
+    Shelter.find_by_sql('SELECT  shelters.* FROM shelters ORDER BY name DESC')
+  end
+
+  def self.pending_applications
+    shelters = Shelter.all
+    shelters_with_applications = []
+    shelters.each do |shelter|
+      shelter.pets.each do |pet|
+        if !pet.applicants.empty?
+          shelters_with_applications << shelter
+        end
+      end
+    end
+    shelters_with_applications.uniq
+  end
+
 end

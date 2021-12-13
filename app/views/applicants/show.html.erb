@@ -25,16 +25,18 @@
   <% end %>
 <% end %>
 
-<% @pets.each do |pet| %>
-  <h4><%= link_to "#{pet.name}", "/pets/#{pet.id}"%></h4>
-  <p>Age: <%= pet.age %></p>
-  <p>Breed: <%= pet.breed %></p>
-  <%= form_with url: "/applicants/#{@applicant.id}", method: :get, local: true do |f| %>
-    <%= hidden_field_tag 'selected_pet_id', pet.id  %>
+<div id="pet_search">
+  <% @pets.each do |pet| %>
+    <h4><%= link_to "#{pet.name}", "/pets/#{pet.id}"%></h4>
+    <p>Age: <%= pet.age %></p>
+    <p>Breed: <%= pet.breed %></p>
+    <%= form_with url: "/applicants/#{@applicant.id}", method: :get, local: true do |f| %>
+      <%= hidden_field_tag 'selected_pet_id', pet.id  %>
     <%= f.submit "Adopt"%><br><hr>
+    <% end %>
+    <br><hr>
   <% end %>
-  <br><hr>
-<% end %>
+</div>
 
 <h2>Selected Pets</h2>
 <% @selected_pets.each do |pet| %>

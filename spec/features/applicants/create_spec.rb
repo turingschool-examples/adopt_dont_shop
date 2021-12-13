@@ -1,10 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe 'applicant creation' do
-  # before(:each) do
-  #   @applicant = Applicant.create(name: 'Russell Rockwood', address: '1065 Walnut St' city: 'Bremerton', state: 'WA', zip: 98310, description: 'This dog looks cool.')
-  # end
-
   describe 'the applicant new' do
     it 'renders the new form' do
       visit "/applicants/new"

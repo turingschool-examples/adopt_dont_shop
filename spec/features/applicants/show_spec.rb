@@ -28,9 +28,11 @@ RSpec.describe 'applicant show' do
   it 'adds adobtable pet to application' do
     visit "/applicants/#{@applicant.id}"
 
-    fill_in 'Search', with: "oby"
+    fill_in 'Search', with: "oBy"
     click_on("Search")
-    click_button("Adopt", :match => :first)
+    within '#pet_search' do
+      click_button("Adopt", :match => :first)
+    end
 
     expect(page).to have_content(@pet1.name)
     expect(page).to_not have_content(@pet2.name)
