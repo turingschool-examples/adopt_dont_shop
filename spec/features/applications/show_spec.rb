@@ -32,11 +32,21 @@ RSpec.describe "the applications show page" do
     expect(page).to have_content(@application_1.status)
   end
 
+
   it "displays a form to add pet if the application has not been submitted" do
     visit "/applications/#{@application_1.id}"
 
     expect(page).to have_content("Search for pets by name")
   end
+
+  it "does not allow for submission if no pets exist on the application" do
+    visit "/applications/#{@application_1.id}"
+    save_and_open_page
+    expect(page).to_not have_content("What mkaes you a good owner?")
+    expect(page).to_not have_content("Submit?")
+  end
+
+
 
   it "routes to filtered pet index searched by name" do
     visit "/applications/#{@application_1.id}"
