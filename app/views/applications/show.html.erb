@@ -6,9 +6,9 @@
 <p><%= @application.description  %></p>
 <p><%= @application.status  %></p>
 
-<% @pet_application.each do |app| %>
-  <p><%= app.pet.name %></p>
-  <% end %>
+<p>Pets on this Application: <% @application.pets.each do |pet| %>
+  <%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
+  <% end %></p>
 
 <%= "Add a Pet to this Application" %>
  <%= form_with url: "/applications/#{@application.id}?search=pet_name", method: :get, local: true do |f| %>
@@ -17,7 +17,9 @@
    <%= f.submit "Search" %>
  <% end %>
 
+<% if @pets.present? %>
  <% @pets.each do |pet| %>
- <%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
- <%= button_to "Adopt this Pet", "/pet_applications/create", method: :post, params: {:application_id => @application.id, :pet_id => pet.id} %>
+  <%= pet.name %>
+  <%= button_to "Adopt this Pet", "/pet_applications/new", method: :post, params: {:application_id => @application.id, :pet_id => pet.id} %>
+  <% end %>
  <% end %>
