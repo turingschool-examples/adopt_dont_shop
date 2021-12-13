@@ -31,7 +31,7 @@ RSpec.describe Shelter, type: :model do
       end
     end
     describe '::pending_applications' do
-      xit 'returns shelters with pending applications' do
+      it 'returns shelters with pending applications' do
         derek = Application.create!(name: "Derek", description: "I love dogs", address: {city: "Denver", state: "CO", street: "Kalamath", zip: 80223 }, status: "Pending")
         jim = Application.create!(name: "Derek", description: "I love dogs", address: {city: "Denver", state: "CO", street: "Kalamath", zip: 80223 }, status: "Pending")
         billy = Application.create!(name: "Derek", description: "I love dogs", address: {city: "Denver", state: "CO", street: "Kalamath", zip: 80223 })

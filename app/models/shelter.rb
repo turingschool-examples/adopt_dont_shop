@@ -20,8 +20,9 @@ class Shelter < ApplicationRecord
   end
 
   def self.pending_applications
-    
-    Shelter.joins(:pets).joins(:application_pets).joins(:applications).where(status: "Pending")
+    apps = Application.pending
+    require "pry"; binding.pry
+
   end
 
   def pet_count

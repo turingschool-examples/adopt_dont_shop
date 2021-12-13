@@ -12,4 +12,7 @@ class Pet < ApplicationRecord
   def self.adoptable
     where(adoptable: true)
   end
+  def self.shelters_unique
+    Shelter.select(:name).joins(:pets).distinct.pluck(:name)
+  end
 end

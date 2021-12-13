@@ -25,10 +25,10 @@ RSpec.describe 'admin shelts index page' do
       @pet_4 = @shelter_1.pets.create(name: 'Ann', breed: 'ragdoll', age: 5, adoptable: true)
       derek = Application.create!(name: "Derek", description: "I love dogs", address: {city: "Denver", state: "CO", street: "Kalamath", zip: 80223 }, status: "Pending")
       jim = Application.create!(name: "Jim", description: "I love all animals", address: {city: "Denver", state: "CO", street: "Kalamath", zip: 80223}, status: "Pending" )
-      billy = Application.create!(name: "Derek", description: "I love dogs", address: {city: "Denver", state: "CO", street: "Kalamath", zip: 80223 })
+      billy = Application.create!(name: "Derek", description: "I love dogs", address: {city: "Denver", state: "CO", street: "Kalamath", zip: 80223 }, status: "Pending")
       derek.pets << @pet_1
       jim.pets << @pet_3
-
+      billy.pets << @pet_4
       visit "/admin/shelters"
       save_and_open_page
       within ".pending-app" do
