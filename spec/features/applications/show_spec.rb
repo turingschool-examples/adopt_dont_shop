@@ -12,7 +12,7 @@ RSpec.describe 'the application show', type: :feature do
 
     @pet_2 = Pet.create!(adoptable: "true", age: "1", breed: "Black Lab", name: "Spot", shelter_id: "#{@shelter_1.id}")
     @pet_3 = Pet.create!(adoptable: "true", age: "6", breed: "Yellow Lab", name: "Bow Wow", shelter_id: "#{@shelter_1.id}")
-    # @pet_4 = Pet.create!(adoptable: "true", age: "3", breed: "Terrier", name: "Sparky", shelter_id: "#{@shelter_1.id}")
+    @pet_4 = Pet.create!(adoptable: "true", age: "11", breed: "Bulldog", name: "Spot", shelter_id: "#{@shelter_1.id}")
     # @pet_5 = Pet.create!(adoptable: "true", age: "3", breed: "Terrier", name: "Sparky", shelter_id: "#{@shelter_1.id}")
     #
   end
@@ -69,6 +69,23 @@ RSpec.describe 'the application show', type: :feature do
       page.has_current_path?("/applications/#{@application_1.id}?search=pet_name")
 
       expect(page).to have_content("Spot")
+    end
+
+    it 'has a link next to pet name to adopt them which adds them to pets to adopt list' do
+      fill_in 'pet_name', with: "#{@pet_2.name}"
+      click_button "Search"
+
+      expect(page).to have_content(@pet_2.name)
+      expect(page).to have_content(@pet_4.name)
+      expect(@pet_2.name).to eq(@pet_4.name)
+
+      within("#search#{@pet_2.id}") do
+        expect(page).to have_button('Adopt this Pet')
+        click_button "Adopt this Pet"
+      end
+
+      expect("Sparky").to appear_before("#{@pet_2.name}", only_text: true)
+      expect(page).to have_link("#{@pet_2.name}", href: "/pets/#{@pet_2.id}")
     end
 
     it 'does not display when application has been submitted' do
