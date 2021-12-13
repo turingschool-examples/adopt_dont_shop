@@ -39,7 +39,8 @@
   </div>
 <% end %>
 
-<% if @application.status == "In Progress" %>
+
+<% if @application.status == "In Progress" && @application.pets.count > 0 %>
   <div class="submit">
     <fieldset>
       <legend>Submit this Application</legend>
@@ -52,5 +53,6 @@
     </fieldset>
   </div>
 <% end %>
+
 
 <h3><%= "Application Status: #{@application.status}" %></h3>

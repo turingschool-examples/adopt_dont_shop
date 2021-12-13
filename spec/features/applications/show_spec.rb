@@ -108,6 +108,7 @@ RSpec.describe 'Application show page' do
       fill_in "Search for Pets", with: "Newton"
       click_button "Search"
     end
+
     within("div.pet_#{@pet_2.id}") do
       click_button "Adopt this Pet"
     end
@@ -124,5 +125,4 @@ RSpec.describe 'Application show page' do
     expect(page).to have_content("Pending")
     expect(page).to_not have_content("Adopt this Pet")
   end
-
 end
