@@ -38,34 +38,24 @@ RSpec.describe 'the application show' do
 
     expect(current_path).to eq("/apps/#{@application_1.id}")
     expect(page).to have_content("James")
+
+    fill_in :description, with: "Because I'm a good human"
+    
+    within "#Submit" do 
+      click_button "Submit"
+    end 
+
+    expect(current_path).to eq("/apps/#{@application_1.id}")
+
+    expect(page).to have_content("Pending")
+    expect(page).to have_content("James")
+    expect(page).to have_content("Rick")
+    expect(page).to_not have_content("Adopt this Pet")
   end 
 
-  context 'when i visit the show page' do 
-    describe 'it has a section to submit the application' do 
-      it 'has a form for why i would be a good owner' do
-        fill_in :description, with: "Because I'm a good human"
-        
-        within "#Submit" do 
-          click_button "Submit"
-        end 
-        expect(current_path).to eq("/apps/#{@application_1.id}")
-
-        expect(page).to have_content("Pending")
-        expect(page).to have_content("James")
-        expect(page).to have_content("Rick")
-        expect(page).to_not have_content("Adopt this Pet")
-      end 
+  describe 'if i have not added pets to application' do 
+    it 'does not have a section to submit my app' do 
+      expect(page).to_not have_content("Submit")
     end 
   end 
-end 
-# As a visitor
-# When I visit an application's show page
-# And I have added one or more pets to the application
-# Then I see a section to submit my application
-# And in that section I see an input to enter why I would make a good owner for these pet(s)
-# When I fill in that input
-# And I click a button to submit this application
-# Then I am taken back to the application's show page
-# And I see an indicator that the application is "Pending"
-# And I see all the pets that I want to adopt
-# And I do not see a section to add more pets to this application
+end
