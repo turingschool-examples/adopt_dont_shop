@@ -41,6 +41,7 @@ Rails.application.routes.draw do
   get '/applications/new', to: 'applications#new'
   get '/applications/:application_id', to: 'applications#show'
   post '/applications/new', to: 'applications#create'
+  patch 'applications/update', to: 'applications#update'
 
   post '/pet_applications/new', to: 'pet_applications#new'
 
