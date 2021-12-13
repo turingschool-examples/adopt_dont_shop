@@ -38,7 +38,7 @@ RSpec.describe Shelter, type: :model do
         derek.pets << @pet_1
         jim.pets << @pet_3
         billy.pets <<@pet_3
-        expect(Shelter.pending_applications).to eq([@shelter_1, @shelter_3])
+        expect(Shelter.pending_applications).to eq([@shelter_3, @shelter_1])
       end
     end
     describe '#search' do
