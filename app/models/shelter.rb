@@ -38,4 +38,8 @@ class Shelter < ApplicationRecord
       ORDER BY name DESC"
     )
   end
+
+  def self.with_pending_applications
+
+  end
 end
