@@ -12,8 +12,10 @@ RSpec.describe 'admin shelter index page' do
 
   it 'lists all the shelters in reverse alphabetical order when in admin mode' do
     visit '/admin/shelters'
-    expect(@shelter_2.name).to appear_before(@shelter_1.name)
-    expect(@shelter_3.name).to appear_before(@shelter_1.name)
+    within('div.shelters') do
+      expect(@shelter_2.name).to appear_before(@shelter_1.name)
+      expect(@shelter_3.name).to appear_before(@shelter_1.name)
+    end
   end
 
   it 'has a section that lists only shelters with pending applications' do
@@ -26,7 +28,8 @@ RSpec.describe 'admin shelter index page' do
     pet_application_2 = PetApplication.create!(pet_id: pet_2.id, application_id: application_1.id)
 
     visit '/admin/shelters'
-    expect(page).to have_content("Shelter's with Pending Applications")
+    expect(page).to have_content("Shelters with Pending Applications")
+    save_and_open_page
     within('div.pending') do
       expect(page).to have_content(@shelter_1.name)
       expect(page).to have_content(@shelter_2.name)
