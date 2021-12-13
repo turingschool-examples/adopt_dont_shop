@@ -1,0 +1,11 @@
+<h2><%= @applicant.name %></h2>
+
+
+<% @applicant.pets.each do |pet| %>
+  <h3><%= pet.name %></h3>
+  <p>Age: <%= pet.age %></p>
+  <p>Breed: <%= pet.breed %></p>
+  <p>Shelter: <%= pet.shelter_name %></p>
+  <%= button_to "Approve", "/admin/applicants/#{@applicant.id}", method: :get, params: {:approved_pet_id => pet.id} %>
+
+<% end %>
