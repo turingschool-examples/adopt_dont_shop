@@ -62,5 +62,28 @@ RSpec.describe 'new application form', type: :feature do
      select "District of Columbia", :from => "state"
      select "Arkansas", :from => "state"
    end
+
+   it 'displays a flash message when forms are not filled out correctly and returns to form page' do
+     visit '/applications/new'
+
+     fill_in 'applicant_name', with: 'Bryan Oleary'
+
+     click_button 'Save'
+
+     expect(current_path).to eq("/applications/new")
+     expect(page).to have_content("Error: Street address can't be blank, City can't be blank, Zip code can't be blank, Zip code is not a number, Description can't be blank")
+
+     fill_in 'applicant_name', with: 'Bryan Oleary'
+     fill_in 'street_address', with: '1356 west ave'
+     fill_in 'city', with: 'Boulder'
+     select "Colorado", :from => "state"
+     fill_in 'zip_code', with: '13326'
+     fill_in 'description', with: 'This is a description'
+
+     click_button 'Save'
+
+     expect(current_path).to_not eq('/applications/new')
+     expect(page).to have_no_content("Error")
+   end
  end
 end
