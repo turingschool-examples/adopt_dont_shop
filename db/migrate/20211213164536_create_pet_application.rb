@@ -1,8 +1,9 @@
 class CreatePetApplication < ActiveRecord::Migration[5.2]
   def change
     create_table :pet_applications do |t|
-      t.pet :references
-      t.application :references
+      t.references :pet, foreign_key: true
+      t.references :application, foreign_key: true
+
 
       t.timestamps
     end
