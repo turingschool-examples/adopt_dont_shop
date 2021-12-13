@@ -31,6 +31,12 @@ RSpec.describe Pet, type: :model do
         expect(Pet.adoptable).to eq([@pet_1, @pet_2])
       end
     end
+
+    describe '#shelters_unique' do
+      it 'returns adoptable pets' do
+        expect(Pet.shelters_unique).to eq([@shelter_1.name])
+      end
+    end
   end
 
   describe 'instance methods' do

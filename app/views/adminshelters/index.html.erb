@@ -3,3 +3,12 @@
   <%= shelter.name %>
 <% end %>
 </div>
+
+<div class = "pending-app" >
+  <h2>"Shelter's with Pending Applications"</h2>
+  <% @applications.each do |application| %>
+    <% application.pets.each do |pet| %>
+    <p><%= pet.shelter.name %><p>
+    <% end.uniq %>
+  <% end %>
+</div>

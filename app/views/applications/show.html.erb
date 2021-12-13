@@ -37,7 +37,7 @@
     <% @pets.each do |pet| %>
       <%= link_to pet.name, "/pets/#{pet.id}" %>
 
-      <%= button_to "Adopt this Pet", "/applications/#{@applicant.id}/#{pet.id}/add", method: :get %>
+      <%= button_to "Adopt this Pet", "/applications/#{@applicant.id}/#{pet.id}", method: :get %>
 
       <% end %>
 <% end %>

@@ -23,14 +23,19 @@ RSpec.describe 'admin shelts index page' do
       @pet_2 = @shelter_1.pets.create(name: 'Clawdia', breed: 'shorthair', age: 3, adoptable: true)
       @pet_3 = @shelter_3.pets.create(name: 'Lucille Bald', breed: 'sphynx', age: 8, adoptable: true)
       @pet_4 = @shelter_1.pets.create(name: 'Ann', breed: 'ragdoll', age: 5, adoptable: true)
-      derek = Application.create!(name: "Derek", description: "I love dogs", address: {city: "Denver", state: "CO", street: "Kalamath", zip: 80223 })
-      derek.pets << pet_1
-      derek.pets << pet_2
-      require "pry"; binding.pry
+
+      derek = Application.create!(name: "Derek", description: "I love dogs", address: {city: "Denver", state: "CO", street: "Kalamath", zip: 80223 }, status: "Pending")
+      jim = Application.create!(name: "Jim", description: "I love all animals", address: {city: "Denver", state: "CO", street: "Kalamath", zip: 80223}, status: "Pending" )
+      billy = Application.create!(name: "Derek", description: "I love dogs", address: {city: "Denver", state: "CO", street: "Kalamath", zip: 80223 }, status: "Pending")
+      derek.pets << @pet_1
+      jim.pets << @pet_3
+      billy.pets << @pet_4
       visit "/admin/shelters"
+
       within ".pending-app" do
         expect(page).to have_content("Shelter's with Pending Applications")
-        expect(page).to have_content("Shelter's with Pending Applications")
+        expect(page).to have_content(@shelter_3.name)
+        expect(page).to have_content(@shelter_1.name)
       end
     end
   end

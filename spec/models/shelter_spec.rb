@@ -30,6 +30,17 @@ RSpec.describe Shelter, type: :model do
         expect(Shelter.reverse_alphabetical).to eq([@shelter_2, @shelter_3, @shelter_1])
       end
     end
+    describe '::pending_applications' do
+      it 'returns shelters with pending applications' do
+        derek = Application.create!(name: "Derek", description: "I love dogs", address: {city: "Denver", state: "CO", street: "Kalamath", zip: 80223 }, status: "Pending")
+        jim = Application.create!(name: "Derek", description: "I love dogs", address: {city: "Denver", state: "CO", street: "Kalamath", zip: 80223 }, status: "Pending")
+        billy = Application.create!(name: "Derek", description: "I love dogs", address: {city: "Denver", state: "CO", street: "Kalamath", zip: 80223 })
+        derek.pets << @pet_1
+        jim.pets << @pet_3
+        billy.pets <<@pet_3
+        expect(Shelter.pending_applications).to eq([@shelter_1, @shelter_3])
+      end
+    end
     describe '#search' do
       it 'returns partial matches' do
         expect(Shelter.search("Fancy")).to eq([@shelter_3])
