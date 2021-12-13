@@ -3,14 +3,15 @@
 <p><%= @application.city  %></p>
 <p><%= @application.state  %></p>
 <p><%= @application.zip %></p>
-<p><%= @application.description  %></p>
+<p><%= @application.description %></p>
 <p><%= @application.status  %></p>
 
 <p>Pets on this Application: <% @application.pets.each do |pet| %>
   <%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
   <% end %></p>
 
-<%= "Add a Pet to this Application" %>
+<% if @application.status == "In Progress" %>
+<%= "Add a Pet to This Application" %>
  <%= form_with url: "/applications/#{@application.id}?search=pet_name", method: :get, local: true do |f| %>
    <%= f.label :pet_name %>
    <%= f.text_field :pet_name %>
@@ -23,3 +24,13 @@
   <%= button_to "Adopt this Pet", "/pet_applications/new", method: :post, params: {:application_id => @application.id, :pet_id => pet.id} %>
   <% end %>
  <% end %>
+<% end %>
+
+ <% if @selected_pets.length > 0 && @application.description == "" %>
+  <%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |f| %>
+  <p>Why would I be a good owner?</p>
+  <%= f.label :description %>
+  <%= f.text_area :description %>
+  <%= f.submit "Submit Application" %>
+  <% end %>
+<% end %>
