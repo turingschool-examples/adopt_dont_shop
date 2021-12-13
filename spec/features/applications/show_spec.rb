@@ -62,13 +62,19 @@ RSpec.describe 'the application show', type: :feature do
 
     it ' returns pets when searched by name' do
       expect(page).to have_no_content("Spot")
-      
+
       fill_in 'pet_name', with: "#{@pet_2.name}"
       click_button "Search"
 
       page.has_current_path?("/applications/#{@application_1.id}?search=pet_name")
 
       expect(page).to have_content("Spot")
+    end
+
+    it 'does not display when application has been submitted' do
+      visit "/applications/#{@application_2.id}"
+      expect(page).to have_no_content("Add a Pet to this Application:")
+      expect(page).to_not have_field("Pet Name")
     end
   end
 end
