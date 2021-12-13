@@ -7,9 +7,16 @@ class Application < ApplicationRecord
   validates :city, presence: true
   validates :state, presence: true
   validates :zip, presence: true
-  validates :description, presence: true
   validates :status, presence: true
 
   attribute :status, :string, default: "In Progress"
-  # attribute :description, :string, default: "I am a lovely person. Ask my mom."
+  attribute :description, :string, default: ""
+
+  def update_status
+    if description == "" || pets.empty?
+      update({status: 'In Progress'})
+    elsif description.length > 1 && !pets.empty?
+      update({status: 'Pending'})
+    end
+  end
 end
