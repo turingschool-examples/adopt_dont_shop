@@ -4,11 +4,12 @@
   <%= form.text_field :search_by_name %>
   <%= form.submit 'Submit' %>
 <% end %>
-<h3>
-  <% @pets.each do |pet| %>
-  <%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
-  <% end %>
-</h3>
+<% @pets.each do |pet| %>
+  <h3>
+    <span><%= link_to "#{pet.name}", "/pets/#{pet.id}" %></span>
+    <span><%= button_to "Adopt this Pet", "/applications/#{@application.id}/pets", params: {:adoption => pet.id}, local: true %></span>
+  </h3>
+<% end %>
 
 <h1>Applicant Name: <%= @application.name %></h1>
 <h3>Street Address: <%= @application.street_address %></h3>
@@ -18,7 +19,7 @@
 <h3>Description: <%= @application.description %></h3>
 <h3>Status: <%= @application.status %></h3>
 <h3>Pet/s wanting to adopt:
-  <% @pets.each do |pet| %>
+  <% @adoption_pet.each do |pet| %>
   <%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
   <% end %>
 </h3>

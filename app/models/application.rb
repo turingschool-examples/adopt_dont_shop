@@ -10,5 +10,9 @@ class Application < ApplicationRecord
 
  def search_by_name_threshold(search)
    Pet.where("name = ?", search)
- end 
+ end
+ def adoption_threshold(active_app, pet)
+   target_pet = Pet.find(pet)
+   AdoptablePet.create!(application: active_app, pet: target_pet)
+ end
 end

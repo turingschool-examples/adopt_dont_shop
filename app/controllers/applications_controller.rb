@@ -4,17 +4,21 @@ class ApplicationsController < ApplicationController
   end
 
   def show
+    @adoption_pet = []
     @pets = []
     @application = Application.find(params[:id])
-    adopts = AdoptablePet.all
-    adopts.each do |pet|
-      @pets.push(Pet.find(pet.pet_id))
-    end
     if params[:search_by_name].present?
       @application
       @pets = @application.search_by_name_threshold(params[:search_by_name])
     else
       @application
+    end
+    if params[:adoption].present?
+      @adoption_pet = @adoption_pet.push(Pet.find(params[:adoption]))
+      @application.adoption_threshold(@application, params[:adoption])
+
+    else
+      @adoption_pet
     end
   end
 
