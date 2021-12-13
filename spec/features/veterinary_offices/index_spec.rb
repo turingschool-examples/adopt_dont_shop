@@ -18,7 +18,7 @@ RSpec.describe 'the veterinary offices index' do
     expect(page).to have_content(@vet_office_3.name)
   end
 
-  it 'lists the veterinary offices by most recently created first' do
+  xit 'lists the veterinary offices by most recently created first' do
     visit "/veterinary_offices"
 
     oldest = find("#veterinary-office-#{@vet_office_1.id}")
@@ -41,7 +41,7 @@ RSpec.describe 'the veterinary offices index' do
     end
   end
 
-  it 'has a link to sort offices by the number of vets they have' do
+  xit 'has a link to sort offices by the number of vets they have' do
     visit '/veterinary_offices'
 
     expect(page).to have_link("Sort by number of veterinarians")

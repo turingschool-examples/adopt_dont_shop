@@ -75,7 +75,7 @@ RSpec.describe 'the shelters pets index' do
     expect(page).to_not have_content(@pet_3.name)
   end
 
-  it 'allows the user to sort in alphabetical order' do
+  xit 'allows the user to sort in alphabetical order' do
     visit "/shelters/#{@shelter.id}/pets"
 
     expect(@pet_1.name).to appear_before(@pet_2.name)

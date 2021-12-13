@@ -18,7 +18,7 @@ RSpec.describe 'the shelters index' do
     expect(page).to have_content(@shelter_3.name)
   end
 
-  it 'lists the shelters by most recently created first' do
+  xit 'lists the shelters by most recently created first' do
     visit "/shelters"
 
     oldest = find("#shelter-#{@shelter_1.id}")
@@ -41,7 +41,7 @@ RSpec.describe 'the shelters index' do
     end
   end
 
-  it 'has a link to sort shelters by the number of pets they have' do
+  xit 'has a link to sort shelters by the number of pets they have' do
     visit '/shelters'
 
     expect(page).to have_link("Sort by number of pets")
