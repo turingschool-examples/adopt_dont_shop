@@ -1,0 +1,22 @@
+<h3><%= @survey.name %></h3>
+<p><%= @survey.street_address %>
+<%= @survey.city %>,
+<%= @survey.state %>
+<%= @survey.zip_code %></p>
+<p><%= @survey.description %></p>
+<% @survey.pets.each do |pet| %>
+<%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
+<% end  %>
+<p><%= @survey.status %></p>
+
+<%= form_with url: "/surveys/#{@survey.id}", method: :get, local: true do |form| %>
+<%= form.label :search, "Add a Pet to this Application" %>
+<%= form.text_field :search %>
+<%= form.submit "Search" %>
+<% end %>
+
+<% if @pets.present? %>
+  <% @pets.each do |pet| %>
+  <%= pet.name %>
+  <% end %>
+<% end  %>
