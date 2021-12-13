@@ -6,7 +6,21 @@
 <p> <%= @application.state %></p>
 <p> <%= @application.zip_code  %> </p>
 <p>Applicant description: <%= @application.description %></p>
-<% @application.pets.each do |pet| %>
-<p>Pets applied for: <%= pet.name %> </p>
-<% end %>
 <p>Status of application: <%= @application.status %></p>
+
+<% @application.pets.each do |pet| %>
+  <p>Pets applied for: <%= pet.name %> </p>
+<% end %>
+
+<h2>Add a pet to this application:</h2>
+<%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |f| %>
+  <%= f.label :search %>
+  <%= f.text_field :search %>
+  <%= f.submit "Search" %>
+<% end %>
+
+<% if @pets %>
+  <% @pets.each do |pet| %>
+    <%= pet.name %>
+  <% end %>
+<% end %>
