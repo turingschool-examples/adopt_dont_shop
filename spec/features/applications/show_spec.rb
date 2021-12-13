@@ -41,7 +41,7 @@ RSpec.describe "the applications show page" do
   it "routes to filtered pet index searched by name" do
     visit "/applications/#{@application_1.id}"
     fill_in :search, with: "Luke"
-    click_button("Submit")
+    click_button("Search")
     expect(current_path).to eq("/applications/#{@application_1.id}")
     expect(page).to have_content("Luke")
   end
@@ -49,14 +49,14 @@ RSpec.describe "the applications show page" do
   it "has button to adopt after filtering by name" do
     visit "/applications/#{@application_1.id}"
     fill_in :search, with: "Luke"
-    click_button("Submit")
+    click_button("Search")
     expect(page).to have_button("Adopt This Pet")
   end
 
   it "button to adopt a pet routes back to show page" do
     visit "/applications/#{@application_1.id}"
     fill_in :search, with: "Luke"
-    click_button("Submit")
+    click_button("Search")
     click_button("Adopt This Pet")
     expect(current_path).to eq("/applications/#{@application_1.id}")
   end
@@ -64,7 +64,7 @@ RSpec.describe "the applications show page" do
   it "adopt pet through adopt button" do
     visit "/applications/#{@application_1.id}"
     fill_in :search, with: "Luke"
-    click_button("Submit")
+    click_button("Search")
     click_button("Adopt This Pet")
     expect(@application_1.pets).to eq([@pet_2])
   end
@@ -74,7 +74,7 @@ RSpec.describe "the applications show page" do
     before(:each) do
       visit "/applications/#{@application_1.id}"
       fill_in :search, with: "Luke"
-      click_button("Submit")
+      click_button("Search")
       click_button("Adopt This Pet")
     end
 
@@ -87,7 +87,28 @@ RSpec.describe "the applications show page" do
       visit "/applications/#{@application_1.id}"
       click_link("Luke")
       expect(current_path).to eq("/pets/#{@pet_2.id}")
-    end
+  end
+
+  it "can adopt multiple pets and submit" do
+    @pet_1 = Pet.create!(adoptable: true,
+                                          age: 7,
+                                          breed: "Llama",
+                                          name: "Cribonis",
+                                          shelter_id: @shelter_1.id)
+    fill_in :search, with: "Cribonis"
+    click_button("Search")
+    click_button("Adopt This Pet")
+    fill_in :description, with: "I love llamas"
+    click_button("Submit")
+    expect(current_path).to eq("/applications/#{@application_1.id}")
+    expect(@application_1.pets.count).to eq(2)
+    expect(@application_1.pets).to eq([@pet_2, @pet_1])
+    expect(page).to have_link("Luke")
+    expect(page).to have_link("Cribonis")
+    expect(page).to have_content("Status: Pending")
+
+  end
+
 
     #add tests for filling in form and expectations
   end
