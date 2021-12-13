@@ -7,7 +7,7 @@ RSpec.describe 'the application show' do
     @pet_2 = @shelter_1.pets.create(name: 'Clawdia', breed: 'shorthair', age: 3, adoptable: true)
     @pet_3 = @shelter_1.pets.create(name: 'Ann', breed: 'ragdoll', age: 3, adoptable: false)
     @application = Application.create!(name: 'David',street: '1023 Makeup',city: 'Chicago', state: 'IL', zip: '60657', description: 'greate person', status: 'pending')
-    @pet_application = ApplicationPet.create!(pet_id: @pet_1.id, application_id: @application.id)
+    @pet_application = ApplicationPet.create!(pet_id: @pet_2.id, application_id: @application.id)
   end
 
   it 'shows all of the applicants' do
@@ -23,9 +23,9 @@ RSpec.describe 'the application show' do
     expect(page).to have_content(@application.description)
     expect(page).to have_content(@application.status)
 
-    expect(page).to have_link("#{@pet_1.name}")
-    click_link "#{@pet_1.name}"
-    expect(current_path).to eq("/pets/#{@pet_1.id}")
+    expect(page).to have_link("#{@pet_2.name}")
+    click_link "#{@pet_2.name}"
+    expect(current_path).to eq("/pets/#{@pet_2.id}")
 
   end
 
@@ -39,7 +39,7 @@ RSpec.describe 'the application show' do
 
         expect(page).to have_button("Submit")
 
-        fill_in 'Search', with: "Clawdia"
+        fill_in 'Pet name', with: "Clawdia"
         click_on("Submit")
 
         expect(current_path).to eq("/applications/#{@application.id}")
@@ -51,14 +51,20 @@ RSpec.describe 'the application show' do
       it 'has a button next to a pet name to add to application' do
 
         visit "/applications/#{@application.id}"
-        fill_in 'Search', with: "Clawdia"
+        fill_in 'Pet name', with: "#{@pet_2.name}"
         click_on("Submit")
         expect(page).to have_content(@pet_2.name)
 
         expect(page).to have_button("Adopt this Pet")
         click_on("Adopt this Pet")
 
+
         expect(current_path).to eq("/applications/#{@application.id}")
+        within ("#pet-#{@pet_2.id}") do
+
+
+          expect(page).to have_content(@pet_2.name)
+        end
 
       end
     end
