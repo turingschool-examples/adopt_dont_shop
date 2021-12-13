@@ -1,25 +1,14 @@
 class ApplicationPetsController < ApplicationController
 
-  def index
-  end
-
-  def new
-    @application_id = params[:application_id]
-  end
-
-
-
   def create
-    @application_id = params[:application_id]
-    pet = Pet.create(pet_params)
-    redirect_to "/applications/#{application_id}/pets"
+    @application_pets = ApplicationPet.create(application_pet_params)
+    redirect_to "/applications/#{@application_pets.application_id}"
   end
-
 
   private
 
-  def pet_params
-    params.permit(:id, :name, :age, :breed, :adoptable, :shelter_id)
+  def application_pet_params
+    params.permit(:application_id, :pet_id)
   end
 
 end

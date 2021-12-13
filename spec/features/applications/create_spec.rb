@@ -5,7 +5,6 @@ RSpec.describe 'application creation' do
   it 'create application' do
     @application_joe = Application.create!(name: 'Joe', address: '5555 Pine St', city: 'Boulder', state: 'Colorado', zip: '80304', description: 'animal lover', status: 'In Progress')
     visit "/applications/#{@application_joe.id}"
-
   end
 
 
@@ -26,9 +25,6 @@ RSpec.describe 'application creation' do
     # binding.pry
     application = Application.find_by(name: 'Croix')
     expect(page).to have_current_path("/applications/#{application.id}")
-
-
-
   end
 
 end

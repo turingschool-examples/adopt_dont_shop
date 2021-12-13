@@ -8,15 +8,18 @@ class ApplicationsController < ApplicationController
   end
 
   def show
+    # binding.pry
     @application = Application.find(params[:id])
-
-    if params[:search].present?
-      @pets = Pet.search(params[:search])
-    else
-      @pets = @application.pets
-      
-      # @pets = Pet.search(params[:search])
+    if params[:pet_name].present?
+      @pets = Pet.search(params[:pet_name])
     end
+
+    @selected_pets = @application.pets
+    if params[:description]
+      @applications.update({description: params[:desription]})
+      @application.save
+    end
+    @application.status_update
   end
 
   def create
@@ -28,8 +31,10 @@ class ApplicationsController < ApplicationController
       flash[:alert] = "Error"
       redirect_to "/applications/new"
     end
-    # binding.pry
+  end
 
+  def update
+    application = Application.update(application_params)
   end
 
 private

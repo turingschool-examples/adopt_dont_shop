@@ -44,8 +44,15 @@ Rails.application.routes.draw do
   get '/applications', to: 'applications#index'
   get '/applications/new', to: 'applications#new'
   get '/applications/:id', to: 'applications#show'
+  # should this be applications/:id
   post '/applications', to: 'applications#create'
+  # what to do for this?
+  patch '/applications/:id', to: 'applications#update'
+  patch '/applications', to: 'applications#update'
 
+  post '/application_pets/new', to:'application_pets#create'
+  # get '/application_pets/:id', to: 'application_pets#new'
+  # get '/application'
 
 
 end
