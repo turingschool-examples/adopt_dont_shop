@@ -46,13 +46,39 @@ RSpec.describe "the applications show page" do
     expect(page).to_not have_content("Submit?")
   end
 
-  it "routes to filtered pet index searched by name" do
+  describe "the search feature" do
+    before(:each) do
     visit "/applications/#{@application_1.id}"
+    end
+
+  it "displays filtered pet index searched by name" do
     fill_in :search, with: "Luke"
     click_button("Search")
     expect(current_path).to eq("/applications/#{@application_1.id}")
     expect(page).to have_content("Luke")
   end
+
+  it "displays filtered pet index searched by name that is in the incorrect case" do
+    fill_in :search, with: "luke"
+    click_button("Search")
+    expect(current_path).to eq("/applications/#{@application_1.id}")
+    expect(page).to have_content("Luke")
+  end
+
+  it "displays filtered pet index searched by name that contains the correct name" do
+    @pet_3 = Pet.create!(adoptable: true,
+                                          age: 7,
+                                          breed: "Dog",
+                                          name: "Mr.Luke",
+                                          shelter_id: @shelter_1.id)
+    fill_in :search, with: "Lu"
+    click_button("Search")
+    expect(current_path).to eq("/applications/#{@application_1.id}")
+    expect(page).to have_content("Luke")
+    expect(page).to have_content("Mr.Luke")
+
+  end
+end
 
   it "has button to adopt after filtering by name" do
     visit "/applications/#{@application_1.id}"
@@ -114,13 +140,6 @@ RSpec.describe "the applications show page" do
     expect(page).to have_link("Luke")
     expect(page).to have_link("Cribonis")
     expect(page).to have_content("Status: Pending")
-
   end
-
-
-    #add tests for filling in form and expectations
   end
-
-
-
 end
