@@ -7,11 +7,11 @@ RSpec.describe 'the application show' do
     @pet_2 = @shelter_1.pets.create(name: 'Clawdia', breed: 'shorthair', age: 3, adoptable: true)
     @pet_3 = @shelter_1.pets.create(name: 'Ann', breed: 'ragdoll', age: 3, adoptable: false)
     @application = Application.create!(name: 'David',street: '1023 Makeup',city: 'Chicago', state: 'IL', zip: '60657')
-    @pet_application = ApplicationPet.create!(pet_id: @pet_1.id, application_id: @application.id)
+
   end
 
   it 'shows all of the applicants' do
-
+    pet_application = ApplicationPet.create!(pet_id: @pet_1.id, application_id: @application.id)
 
     visit "/applications/#{@application.id}"
     expect(page).to have_content(@application.name)
@@ -89,6 +89,15 @@ RSpec.describe 'the application show' do
 
       end
     end
+
+    describe 'when I visit an application the applications show page' do
+      it 'does not have a submit button if no pets are added' do
+        visit "/applications/#{@application.id}"
+        
+        expect(page).to_not have_button('Submit this application')
+      end
+    end
+
   end
 
 end
