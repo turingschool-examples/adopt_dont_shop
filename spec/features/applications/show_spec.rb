@@ -27,7 +27,7 @@ describe 'application show page' do
     expect(current_path).to eq("/pets/#{@pet1.id}")
   end
 
-  it 'I can search for pets to add to this application' do
+  xit 'I can search for pets to add to this application' do
     expect(page).to have_content("Add a Pet to this Application")
     fill_in 'Pet name', with: "#{@pet1.name}"
     click_button "Submit"
@@ -40,11 +40,12 @@ describe 'application show page' do
   end
 
   it 'Add a Pet to an Application' do
-    fill_in 'Pet name', with: "#{@pet1.name}"
+    fill_in 'Pet name', with: "#{@pet2.name}"
     click_button "Submit"
     expect(page).to have_button("Adopt this Pet")
     click_button "Adopt this Pet"
+    save_and_open_page
     expect(current_path).to eq("/applications/#{@application1.id}")
-    expect(page).to have_content("#{@pet1.name}")
+    expect(page).to have_content("Pets on this Application: #{@pet2.name}")
   end
 end
