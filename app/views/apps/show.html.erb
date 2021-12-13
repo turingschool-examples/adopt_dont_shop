@@ -23,11 +23,11 @@
     <%= form_with url: "/apps/#{@app.id}", method: :patch, local: true do |form| %>
       <%= form.label :description, "Why do you think you'll be a good pet owner?"%>
       <%= form.text_field :description %>
-      <%= form.hidden_field :status, value: 'Pending' %>
-      <%= form.submit "Submit" %>
+      <%= form.hidden_field :status, value: 'Pending', disabled: @app.pets.empty? %>
+      <%= form.submit "Submit", disabled: @app.pets.empty? %>
     <% end %>
   </div>
-
+  
   Pets: 
   <% if params[:search] %>
     <div id="james">
