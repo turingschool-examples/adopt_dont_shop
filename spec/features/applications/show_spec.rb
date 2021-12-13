@@ -6,15 +6,14 @@ RSpec.describe 'the application show' do
     @pet_1 = @shelter_1.pets.create(name: 'Mr. Pirate', breed: 'tuxedo shorthair', age: 5, adoptable: true)
     @pet_2 = @shelter_1.pets.create(name: 'Clawdia', breed: 'shorthair', age: 3, adoptable: true)
     @pet_3 = @shelter_1.pets.create(name: 'Ann', breed: 'ragdoll', age: 3, adoptable: false)
-    @application = Application.create!(name: 'David',street: '1023 Makeup',city: 'Chicago', state: 'IL', zip: '60657', description: 'greate person', status: 'pending')
-    @pet_application = ApplicationPet.create!(pet_id: @pet_2.id, application_id: @application.id)
+    @application = Application.create!(name: 'David',street: '1023 Makeup',city: 'Chicago', state: 'IL', zip: '60657')
+    @pet_application = ApplicationPet.create!(pet_id: @pet_1.id, application_id: @application.id)
   end
 
   it 'shows all of the applicants' do
 
 
     visit "/applications/#{@application.id}"
-
     expect(page).to have_content(@application.name)
     expect(page).to have_content(@application.street)
     expect(page).to have_content(@application.city)
@@ -23,9 +22,9 @@ RSpec.describe 'the application show' do
     expect(page).to have_content(@application.description)
     expect(page).to have_content(@application.status)
 
-    expect(page).to have_link("#{@pet_2.name}")
-    click_link "#{@pet_2.name}"
-    expect(current_path).to eq("/pets/#{@pet_2.id}")
+    expect(page).to have_link("#{@pet_1.name}")
+    click_link "#{@pet_1.name}"
+    expect(current_path).to eq("/pets/#{@pet_1.id}")
 
   end
 
@@ -60,6 +59,7 @@ RSpec.describe 'the application show' do
 
 
         expect(current_path).to eq("/applications/#{@application.id}")
+
         within ("#pet-#{@pet_2.id}") do
           expect(page).to have_content(@pet_2.name)
         end
@@ -71,13 +71,19 @@ RSpec.describe 'the application show' do
         visit "/applications/#{@application.id}"
         fill_in 'Pet name', with: "#{@pet_2.name}"
         click_on("Submit")
-        expect(page).to have_content(@pet_2.name)
+
 
         expect(page).to have_button("Adopt this Pet")
         click_on("Adopt this Pet")
+        expect(current_path).to eq("/applications/#{@application.id}")
 
-        expect(page).to have_content('Submit my application')
+        expect(page).to have_content('Submit my Application')
         expect(page).to have_button("Submit this application")
+        fill_in 'Description', with: "I'm Incredible"
+        click_on("Submit this application")
+        save_and_open_page
+        expect(current_path).to eq("/applications/#{@application.id}")
+
         expect(page).to have_content('Pending')
         expect(page).to_not have_content('Add a Pet to this Application')
 
