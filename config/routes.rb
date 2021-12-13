@@ -1,13 +1,12 @@
 Rails.application.routes.draw do
   get '/', to: 'application#welcome'
 
-
-  post '/applications/', to: 'applications#create'
+  post '/applications', to: 'applications#create'
   get '/applications/new', to: 'applications#new'
   get '/applications/:id', to: 'applications#show'
   post '/applications/:id/', to: 'applications#adopt'
-
-
+  patch '/applications/:id/', to: 'applications#update'
+  #pets that match search must be on new page?
 
   get '/shelters', to: 'shelters#index'
   get '/shelters/new', to: 'shelters#new'

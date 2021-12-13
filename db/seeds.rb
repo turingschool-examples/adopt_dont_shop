@@ -18,11 +18,11 @@ application_1 = Application.create!(name: "Chris",
                                     city: "Exeter",
                                     state: "CA",
                                     zip: 93221,)
-pet_1 = application_1.pets.create!(adoptable: true,
-                            age: 5,
-                            breed: "Llama",
-                            name: "Cribonis",
-                            shelter_id: shelter_1.id)
+# pet_1 = application_1.pets.create!(adoptable: true,
+#                             age: 5,
+#                             breed: "Llama",
+#                             name: "Cribonis",
+#                             shelter_id: shelter_1.id)
 pet_2 = Pet.create!(adoptable: true,
                                       age: 7,
                                       breed: "Dog",
