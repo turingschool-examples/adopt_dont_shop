@@ -81,7 +81,7 @@ RSpec.describe 'the application show' do
         expect(page).to have_button("Submit this application")
         fill_in 'Description', with: "I'm Incredible"
         click_on("Submit this application")
-        
+
         expect(current_path).to eq("/applications/#{@application.id}")
 
         expect(page).to have_content('Pending')
