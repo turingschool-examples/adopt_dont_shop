@@ -7,6 +7,13 @@ class ApplicationsController < ApplicationController
     if params[:pet_name].present?
       @pets = Pet.search(params[:pet_name])
     end
+
+    # if params[:description]
+    #   @application.update({description: params[description]})
+    #   @application.save
+    # end
+    @application.status_update
+
   end
 
   def new
@@ -23,9 +30,18 @@ class ApplicationsController < ApplicationController
     end
   end
 
+
+  def update
+
+    application = Application.all[0]
+    application.update(application_params)
+
+    redirect_to "/applications/#{application.id}"
+  end
+
 private
 
   def application_params
-    params.permit(:name, :street, :city, :state, :zip)
+    params.permit(:name, :street, :city, :state, :zip, :description, :status)
   end
 end
