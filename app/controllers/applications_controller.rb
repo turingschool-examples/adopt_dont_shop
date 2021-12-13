@@ -18,6 +18,12 @@ class ApplicationsController < ApplicationController
     redirect_to "/applications/#{new_application.id}"
   end
 
+  def edit
+    @application = Application.find(params[:id])
+    @application.update(application_params)
+    redirect_to "/applications/#{@application.id}"
+  end
+
 
   private
 
