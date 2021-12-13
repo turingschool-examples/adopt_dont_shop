@@ -22,5 +22,6 @@
 <% if @pets %>
   <% @pets.each do |pet| %>
     <%= pet.name %>
+    <%= button_to "Adopt this Pet", "/pet_applications", method: :post, params: {pet: pet.id, application: @application.id}%>
   <% end %>
 <% end %>
