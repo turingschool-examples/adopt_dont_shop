@@ -101,7 +101,7 @@ RSpec.describe 'Application show page' do
   it "has buttom to submit application only if 1 or more pet has been added" do
     app = Application.create!(name: 'Steve', address: '135 Waddle Road', city: 'Dallas', state: 'TX', zip: 75001, description: "I really want a dog", status: "In Progress")
     visit "/applications/#{app.id}"
-    expect(page).to_not have_content("Submit Application")
+    expect(page).to_not have_content("Submit this Application")
     expect(page).to_not have_content(app.description)
 
     within('div.search') do
@@ -118,10 +118,11 @@ RSpec.describe 'Application show page' do
 
       expect(current_path).to eq("/applications/#{app.id}")
     end
-    
+
     expect(page).to have_content("I really like dogs a lot")
     expect(page).to_not have_content("In Progress")
     expect(page).to have_content("Pending")
     expect(page).to_not have_content("Adopt this Pet")
   end
+
 end
