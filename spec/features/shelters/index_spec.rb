@@ -105,10 +105,4 @@ RSpec.describe 'the shelters index' do
     expect(page).to have_content(@shelter_2.name)
     expect(page).to_not have_content(@shelter_1.name)
   end
-
-  it 'lists all the shelters in reverse alphabetical order when in admin mode' do
-    visit '/admin/shelters'
-    expect(@shelter_2.name).to appear_before(@shelter_1.name)
-    expect(@shelter_3.name).to appear_before(@shelter_1.name)
-  end
 end
