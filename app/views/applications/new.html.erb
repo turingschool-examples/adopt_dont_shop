@@ -11,8 +11,6 @@
     <%= form.text_field :state, required: true %><br>
     <%= form.label :zip, "Zip Code" %>
     <%= form.number_field :zip, required: true %><br>
-    <%= form.label :description, "Why would you make a good owner?"%>
-    <%= form.text_field :description, required: true  %><br>
     <%= form.hidden_field :status, :value => "In Progress"  %>
     <%= form.submit "Submit" %><br>
   <% end %>

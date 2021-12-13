@@ -1,0 +1,8 @@
+<h1>Applications</h1>
+<% @applications.each do |app| %>
+  <div class=<%= "app_#{app.id}" %>>
+    <h3><%= link_to "Application #{app.id}", "/applications/#{app.id}" %></h3>
+    <p><%= "Applicant: #{app.name}" %></p>
+    <p><%= "Status: #{app.status}" %></p>
+  </div>
+<% end %>
