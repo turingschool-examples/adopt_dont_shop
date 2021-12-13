@@ -1,0 +1,14 @@
+<h1>Application :<%= @application.name %></h1>
+<% if @pets != nil && @pets.count > 0 %>
+  <% @pets.each do |pet| %>
+    <p>Approved Pets <%= pet.name %></p>
+  <% end %>
+<% end %>
+<div class = 'applicant-pets'>
+<% @application.pets.each do |pet| %>
+  <% if @pets != nil && !@pets.include?(pet) %>
+    <%= link_to pet.name, "/pets/#{pet.id}" %>
+    <%= button_to "Approve Pet", "/admin/applications/#{@application.id}", method: :get, class: "approve-#{pet.id}", params: {pet_id: pet.id} %>
+  <% end %>
+<% end %>
+</div>

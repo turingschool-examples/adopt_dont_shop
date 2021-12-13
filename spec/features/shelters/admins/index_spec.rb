@@ -30,8 +30,9 @@ RSpec.describe 'admin shelts index page' do
       derek.pets << @pet_1
       jim.pets << @pet_3
       billy.pets << @pet_4
+
       visit "/admin/shelters"
-      save_and_open_page
+
       within ".pending-app" do
         expect(page).to have_content("Shelter's with Pending Applications")
         expect(page).to have_content(@shelter_3.name)
