@@ -4,6 +4,7 @@ class CreateApplications < ActiveRecord::Migration[5.2]
       t.string :name
       t.hstore :address
       t.text :description
+      t.timestamps
     end
   end
 end

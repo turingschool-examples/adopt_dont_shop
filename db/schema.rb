@@ -27,6 +27,8 @@ ActiveRecord::Schema.define(version: 2021_12_10_033250) do
     t.string "name"
     t.hstore "address"
     t.text "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.string "status", default: "In Progress"
   end
 
