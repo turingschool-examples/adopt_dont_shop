@@ -3,11 +3,15 @@
   <li>Applicant Name: <%= @application.applicant_name %></li>
   <li>Applicant Address: <%= @application.street_address %>, <%= @application.city %>, <%= @application.state %>, <%= @application.zip_code %></li>
   <li>Description: <%= @application.description %></li>
-  <li>Pet Name(s): <% @application.pets.each do |pet| %></li>
+  <li>Pet Name(s):</li>
     <ol>
-      <li><%= link_to "#{pet.name}", "/pets/#{pet.id}" %></li>
+      <% @application.pets.each do |pet| %>
+        <section id="adopt<%= pet.id %>">
+          <li><%= link_to "#{pet.name}", "/pets/#{pet.id}" %></li>
+        </section>
+      <% end %>
     </ol>
-  <% end %>
+
 
   <% if @application.application_status != "Submitted" %>
     <li>Add a Pet to this Application:</li>
@@ -20,8 +24,9 @@
 
   <% if @pets.present? %>
     <% @pets.each do |pet| %>
-    <section id="<%= pet.id %>">
-      <%= pet.name %><br><br>
+    <section id="search<%= pet.id %>">
+      <%= pet.name %>
+      <%= button_to 'Adopt this Pet', "/pet_applications/new", method: :post, params: { application_id: @application.id, pet_id: pet.id} %><br><br>
     </section>
     <% end %>
   <% end %>
