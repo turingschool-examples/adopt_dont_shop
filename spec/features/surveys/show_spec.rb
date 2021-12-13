@@ -2,6 +2,15 @@ require 'rails_helper'
 
 RSpec.describe 'surveys view' do
 
+  # before(:each) do 
+  #   pet_3 = .create!(
+  #   adoptable: true, 
+  #   age: 14, 
+  #   breed: "Chihuahua", 
+  #   name: "Eleanor", 
+  #   shelter_id: shelter_1.id)
+  # end
+
   let(:shelter_1) {Shelter.create!(
     foster_program: true, 
     name: "Aspen Grove", 
@@ -31,6 +40,13 @@ RSpec.describe 'surveys view' do
     name: "Mazzy", 
     shelter_id: shelter_1.id)}
 
+  let!(:pet_3) {Pet.create!(
+    adoptable: true, 
+    age: 14, 
+    breed: "Chihuahua", 
+    name: "Eleanor", 
+    shelter_id: shelter_1.id)}
+
   it 'can show the application attributes in a form' do 
     visit "/surveys/#{survey_1.id}"
 
@@ -51,5 +67,25 @@ RSpec.describe 'surveys view' do
     click_link "#{pet_1.name}"
 
     expect(current_path).to eq("/pets/#{pet_1.id}")
+  end
+
+  it 'can search for a pet on an application' do
+    # pet_3 = Pet.create!(
+    # adoptable: true, 
+    # age: 14, 
+    # breed: "Chihuahua", 
+    # name: "Eleanor", 
+    # shelter_id: shelter_1.id)
+
+    visit "/surveys/#{survey_1.id}"
+
+    expect(page).to have_content("Add a Pet to this Application")
+
+    fill_in :search, with: "Eleanor"
+    click_button "Search"
+
+    expect(current_path).to eq("/surveys/#{survey_1.id}")
+    expect(page).to have_content("#{pet_3.name}")
+    save_and_open_page
   end
 end

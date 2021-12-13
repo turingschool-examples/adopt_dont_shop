@@ -4,8 +4,11 @@ class SurveysController < ApplicationController
     @survey = Survey.all
   end
 
-  def show 
+  def show
     @survey = Survey.find(params[:id])
+    if params[:search].present?
+      @pets = Pet.search(params[:search])
+    end
   end
 
   def new
