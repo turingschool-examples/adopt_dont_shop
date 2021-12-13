@@ -1,0 +1,25 @@
+<h1>New Application Form</h1>
+
+<%= form_with url: "/applications/new", method: :post, local: true do |f| %>
+  <%= f.hidden_field :application_status, value: 'In Progress' %>
+
+  <%= f.label :applicant_name %>
+  <%= f.text_field :applicant_name %><br><br>
+
+  <%= f.label :street_address, "Street Address" %>
+  <%= f.text_field :street_address %><br>
+
+  <%= f.label :city %>
+  <%= f.text_field :city %>
+
+  <%= f.label :state %>
+  <%= select_tag :state, options_for_select(@states) %><br>
+
+  <%= f.label :zip_code, "Zip Code" %>
+  <%= f.text_field :zip_code, maxlength: 5, size: 5 %><br><br>
+
+  <%= f.label :description, "Please explain why you would be a good fit for the pet(s) listed." %><br>
+  <%= f.text_area :description, rows: 10 %>
+
+  <%= f.submit %>
+<% end %>
