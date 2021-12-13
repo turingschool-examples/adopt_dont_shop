@@ -16,10 +16,6 @@ class Application < ApplicationRecord
     pets.present?
   end
 
-  def in_progress?
-    self.status == "In Progress"
-  end
-
   def status_update
     if description.length > 1
       update({status: 'Pending'})
