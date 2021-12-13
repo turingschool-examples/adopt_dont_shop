@@ -1,36 +1,74 @@
 require 'rails_helper'
 
 RSpec.describe 'the application show', type: :feature do
+  before :each do
+    @application_1 = Application.create!(applicant_name: "Mike Sloan", street_address: "134 Willow Lane", city: "Boulder", state: "CO", zip_code: "80034", description: "I'd be good because I love pets", application_status: "pending")
+
+    @application_2 = Application.create!(applicant_name: "Ben Spiegel", street_address: "6625 Main, Apt. 9", city: "Denver", state: "CO", zip_code: "80026", description: "I'd be good because I already have many pets", application_status: "Submitted")
+
+    @shelter_1 = Shelter.create!(foster_program: 'true', name: "Shelter 1", city: "Denver", rank: "5")
+
+    @pet_1 = @application_1.pets.create!(adoptable: "true", age: "3", breed: "Terrier", name: "Sparky", shelter_id: "#{@shelter_1.id}")
+
+    @pet_2 = Pet.create!(adoptable: "true", age: "1", breed: "Black Lab", name: "Spot", shelter_id: "#{@shelter_1.id}")
+    @pet_3 = Pet.create!(adoptable: "true", age: "6", breed: "Yellow Lab", name: "Bow Wow", shelter_id: "#{@shelter_1.id}")
+    # @pet_4 = Pet.create!(adoptable: "true", age: "3", breed: "Terrier", name: "Sparky", shelter_id: "#{@shelter_1.id}")
+    # @pet_5 = Pet.create!(adoptable: "true", age: "3", breed: "Terrier", name: "Sparky", shelter_id: "#{@shelter_1.id}")
+    #
+  end
+
   it "shows application and it's attributes" do
-    application_1 = Application.create!(applicant_name: "Mike Sloan", street_address: "134 Willow Lane", city: "Boulder", state: "CO", zip_code: "80034", description: "I'd be good because I love pets", application_status: "pending")
+    visit "/applications/#{@application_1.id}"
 
-    application_2 = Application.create!(applicant_name: "Ben Spiegel", street_address: "6625 Main, Apt. 9", city: "Denver", state: "CO", zip_code: "80026", description: "I'd be good because I already have many pets", application_status: "pending")
+    expect(page).to have_content(@application_1.applicant_name)
+    expect(page).to have_content(@application_1.street_address)
+    expect(page).to have_content(@application_1.city)
+    expect(page).to have_content(@application_1.state)
+    expect(page).to have_content(@application_1.zip_code)
+    expect(page).to have_content(@application_1.description)
+    expect(page).to have_content(@application_1.application_status)
+    expect(page).to have_content(@pet_1.name)
+    expect(page).to have_link("#{@pet_1.name}", href: "/pets/#{@pet_1.id}")
 
-    shelter_1 = Shelter.create!(foster_program: 'true', name: "Shelter 1", city: "Denver", rank: "5")
+    visit "/applications/#{@application_2.id}"
 
-    pet_1 = application_1.pets.create!(adoptable: "true", age: "3", breed: "Terrier", name: "Sparky", shelter_id: "#{shelter_1.id}")
+    expect(page).to have_content(@application_2.applicant_name)
+    expect(page).to have_content(@application_2.street_address)
+    expect(page).to have_content(@application_2.city)
+    expect(page).to have_content(@application_2.state)
+    expect(page).to have_content(@application_2.zip_code)
+    expect(page).to have_content(@application_2.description)
+    expect(page).to have_content(@application_2.application_status)
+    expect(page).to have_no_content(@pet_1.name)
+  end
 
-    visit "/applications/#{application_1.id}"
+  describe 'add pet to application' do
+    before :each do
+      visit "/applications/#{@application_1.id}"
+    end
 
-    expect(page).to have_content(application_1.applicant_name)
-    expect(page).to have_content(application_1.street_address)
-    expect(page).to have_content(application_1.city)
-    expect(page).to have_content(application_1.state)
-    expect(page).to have_content(application_1.zip_code)
-    expect(page).to have_content(application_1.description)
-    expect(page).to have_content(application_1.application_status)
-    expect(page).to have_content(pet_1.name)
-    expect(page).to have_link("#{pet_1.name}", href: "/pets/#{pet_1.id}")
+    it 'has heading for add pet' do
+      expect(page).to have_content("Add a Pet to this Application:")
+    end
 
-    visit "/applications/#{application_2.id}"
+    it 'has a form to search pet names' do
+      expect(page).to have_field("Pet Name")
+      expect(page).to have_content("Pet Name")
+    end
 
-    expect(page).to have_content(application_2.applicant_name)
-    expect(page).to have_content(application_2.street_address)
-    expect(page).to have_content(application_2.city)
-    expect(page).to have_content(application_2.state)
-    expect(page).to have_content(application_2.zip_code)
-    expect(page).to have_content(application_2.description)
-    expect(page).to have_content(application_2.application_status)
-    expect(page).to have_no_content(pet_1.name)
+    it 'has a search button' do
+      expect(page).to have_button("Search")
+    end
+
+    it ' returns pets when searched by name' do
+      expect(page).to have_no_content("Spot")
+      
+      fill_in 'pet_name', with: "#{@pet_2.name}"
+      click_button "Search"
+
+      page.has_current_path?("/applications/#{@application_1.id}?search=pet_name")
+
+      expect(page).to have_content("Spot")
+    end
   end
 end
