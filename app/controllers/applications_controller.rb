@@ -16,8 +16,14 @@ class ApplicationsController < ApplicationController
     application = Application.new(application_params)
 
     application.save
-    
+
     redirect_to "/applications/#{application.id}"
+  end
+
+  private
+
+  def application_params
+    params.permit(:applicant_name, :street_address, :city, :state, :zip_code, :description, :application_status)
   end
 
   def us_states
@@ -75,11 +81,5 @@ class ApplicationsController < ApplicationController
       ['Wisconsin', 'WI'],
       ['Wyoming', 'WY']
     ]
-  end
-
-  private
-
-  def application_params
-    params.permit(:applicant_name, :street_address, :city, :state, :zip_code, :description, :application_status)
   end
 end
