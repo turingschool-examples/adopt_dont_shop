@@ -37,7 +37,7 @@ RSpec.describe Shelter, type: :model do
         billy = Application.create!(name: "Derek", description: "I love dogs", address: {city: "Denver", state: "CO", street: "Kalamath", zip: 80223 })
         derek.pets << @pet_1
         jim.pets << @pet_3
-
+        billy.pets <<@pet_3
         expect(Shelter.pending_applications).to eq([@shelter_1, @shelter_3])
       end
     end
