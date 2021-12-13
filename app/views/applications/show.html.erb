@@ -13,7 +13,7 @@
     </ol>
 
 
-  <% if @application.application_status != "Submitted" %>
+  <% if @application.application_status != "Pending" %>
     <li>Add a Pet to this Application:</li>
     <%= form_with url: "/applications/#{@application.id}?search=pet_name", method: :get, local: true do |f| %>
       <%= f.label :pet_name, "Pet Name" %>
@@ -31,4 +31,21 @@
     <% end %>
   <% end %>
   <li>Application Status: <%= @application.application_status %> </li>
+  <li>Applicant Description:
+    <% if @application.description != nil %>
+      <%= @application.description %>
+    <% else %>
+      Incomplete
+    <% end %>
+  </li>
 </ul>
+
+<% if @application.pets.count >= 1 && @application.application_status != 'Pending' %>
+  <%= form_with url: '/applications/update', method: :patch, local: true do |f| %>
+    <%= f.hidden_field :application_status, value: 'Pending' %>
+    <%= f.hidden_field :id, value: "#{@application.id}" %>
+    <%= f.label :description, "Please describe why you would be a good home for these pets." %><br>
+    <%= f.text_area :description, rows: 10, required: true %><br>
+    <%= f.submit 'Submit Application' %>
+  <% end %>
+<% end %>
