@@ -4,8 +4,6 @@ class ApplicationsController < ApplicationController
     @application = Application.find(params[:id])
     if params[:search].present?
       @pets = Pet.search(params[:search])
-    elsif !params[:search].present?
-      @pets = []
     end
   end
 
@@ -28,6 +26,13 @@ class ApplicationsController < ApplicationController
     application.add_pet(pet)
     redirect_to "/applications/#{application.id}"
   end
+
+  def update
+    application = Application.find(params[:id])
+    application.update(application_params)
+    redirect_to "/applications/#{application.id}"
+  end
+
 
   private
     def application_params

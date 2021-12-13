@@ -13,11 +13,7 @@ RSpec.describe "the applications show page" do
                                         zip: 93221,
                                         description: "I love llamas",
                                         )
-    @pet_1 = @application_1.pets.create!(adoptable: true,
-                                age: 5,
-                                breed: "Llama",
-                                name: "Cribonis",
-                                shelter_id: @shelter_1.id)
+
     @pet_2 = Pet.create!(adoptable: true,
                                           age: 7,
                                           breed: "Dog",
@@ -34,17 +30,6 @@ RSpec.describe "the applications show page" do
     expect(page).to have_content(@application_1.zip)
     expect(page).to have_content(@application_1.description)
     expect(page).to have_content(@application_1.status)
-  end
-
-  it "displays links to each pet name" do
-    visit "/applications/#{@application_1.id}"
-    expect(page).to have_link("Cribonis")
-  end
-
-  it "links to the pet show page when its link is clicked" do
-    visit "/applications/#{@application_1.id}"
-    click_link("Cribonis")
-    expect(current_path).to eq("/pets/#{@pet_1.id}")
   end
 
   it "displays a form to add pet if the application has not been submitted" do
@@ -65,7 +50,6 @@ RSpec.describe "the applications show page" do
     visit "/applications/#{@application_1.id}"
     fill_in :search, with: "Luke"
     click_button("Submit")
-    save_and_open_page
     expect(page).to have_button("Adopt This Pet")
   end
 
@@ -82,7 +66,32 @@ RSpec.describe "the applications show page" do
     fill_in :search, with: "Luke"
     click_button("Submit")
     click_button("Adopt This Pet")
-    expect(@application_1.pets).to eq([@pet_1,@pet_2])
-  end 
+    expect(@application_1.pets).to eq([@pet_2])
+  end
+
+
+  describe "submit application" do
+    before(:each) do
+      visit "/applications/#{@application_1.id}"
+      fill_in :search, with: "Luke"
+      click_button("Submit")
+      click_button("Adopt This Pet")
+    end
+
+  it "links to submit application is status is in progress and the application has pets" do
+    expect(current_path).to eq("/applications/#{@application_1.id}")
+    expect(page).to have_content("What makes you a good owner?")
+  end
+
+  it "links to the pet show page when its link is clicked" do
+      visit "/applications/#{@application_1.id}"
+      click_link("Luke")
+      expect(current_path).to eq("/pets/#{@pet_2.id}")
+    end
+
+    #add tests for filling in form and expectations
+  end
+
+
 
 end
