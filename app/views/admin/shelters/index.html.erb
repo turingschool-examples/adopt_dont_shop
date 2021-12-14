@@ -1,3 +1,9 @@
 <% @shelters.each do |shelter| %>
 <p>Shelter Name: <%= shelter.name %></p>
 <% end %>
+
+<p>"Shelters with pending applications:
+<% @shelters_pending.each do |shelter| %>
+<%= shelter.name%>
+<% end %>
+</p>
