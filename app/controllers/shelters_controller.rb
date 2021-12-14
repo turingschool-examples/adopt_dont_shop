@@ -11,6 +11,11 @@ class SheltersController < ApplicationController
 
   def admin_index
     @shelters = Shelter.admin_display
+    if Shelter.pending_apps.empty?
+      @pending_apps = []
+    else
+      @pending_apps = Shelter.pending_apps.uniq
+    end
   end
 
   def pets

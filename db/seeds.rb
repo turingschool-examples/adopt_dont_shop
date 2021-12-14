@@ -34,3 +34,5 @@ Application.destroy_all
 )
 ApplicationPet.create!(pet_id: @pet_1.id, application_id: @application.id)
 ApplicationPet.create!(pet_id: @pet_2.id, application_id: @application_2.id)
+@application[:status] = "Pending"
+@application_2[:status] = "Pending"

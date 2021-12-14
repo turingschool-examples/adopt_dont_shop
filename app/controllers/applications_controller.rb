@@ -4,6 +4,9 @@ class ApplicationsController < ApplicationController
     if params[:adopt]
       ApplicationPet.create!(pet_id: params[:adopt], application_id: @application.id)
     end
+    if params[:commit]
+      @application.status = "Pending"
+    end
     if params[:search_pets]
       @pets = Pet.search(params[:search_pets])
     else
@@ -26,7 +29,7 @@ class ApplicationsController < ApplicationController
   end
 
   def update
-    
+
   end
 
   private

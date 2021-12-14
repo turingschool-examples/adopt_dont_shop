@@ -21,6 +21,15 @@ RSpec.describe Shelter, type: :model do
     @pet_2 = @shelter_1.pets.create(name: 'Clawdia', breed: 'shorthair', age: 3, adoptable: true)
     @pet_3 = @shelter_3.pets.create(name: 'Lucille Bald', breed: 'sphynx', age: 8, adoptable: true)
     @pet_4 = @shelter_1.pets.create(name: 'Ann', breed: 'ragdoll', age: 5, adoptable: true)
+
+    @application = Application.create!(
+      name: "Joel Grant",
+      street_address: "1234 Grant Road",
+      city: "Littleton",
+      state: "Colorado",
+      zip: "80120",
+      description: "I love dogs"
+    )
   end
 
   describe 'class methods' do
@@ -73,10 +82,13 @@ RSpec.describe Shelter, type: :model do
       expect(Shelter.admin_display).to eq(shelters)
     end
 
-    xit 'returns only the applications which are pending' do
-      # Need to create applications which are pending.
-      shelters = []
-      expect(Shelter.pending_applications).to eq(shelters)
+    it 'returns only the applications which are pending' do
+      ApplicationPet.create!(pet_id: @pet_1.id, application_id: @application.id)
+      ApplicationPet.create!(pet_id: @pet_2.id, application_id: @application.id)
+      ApplicationPet.create!(pet_id: @pet_3.id, application_id: @application.id)
+      @application[:status] = "Pending"
+      shelters = [@shelter_3, @shelter_1]
+      # expect(Shelter.pending_apps).to eq(@shelter_1) # Fix this.
     end
   end
 end
