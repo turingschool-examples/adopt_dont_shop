@@ -12,7 +12,8 @@ describe "Application show page" do
     @shelter1 = Shelter.create!(name: "Humane Society", rank: 8, city: "Atlanta")
     @pet1     = @shelter1.pets.create!(name: "Marley", age: 2, shelter_id: @shelter1.id)
     @pet2     = @shelter1.pets.create!(name: "Mack", age: 3, shelter_id: @shelter1.id)
-
+    @pet_application1 = @application1.pet_applications.create!(pet_id: @pet1.id)
+    @pet_application2 = @application1.pet_applications.create!(pet_id: @pet2.id)
     visit "/applications/#{@application1.id}"
   end
 
@@ -20,9 +21,9 @@ describe "Application show page" do
     it "has application info" do
       expect(page).to have_content(@application1.name)
       expect(page).to have_content(@application1.address) #possible full_address method
-      expect(page).to have_content(@application1.city) #possible full_address method
-      expect(page).to have_content(@application1.state) #possible full_address method
-      expect(page).to have_content(@application1.zip) #possible full_address method
+      expect(page).to have_content(@application1.city)
+      expect(page).to have_content(@application1.state)
+      expect(page).to have_content(@application1.zip)
       expect(page).to have_content(@application1.description)
       expect(page).to have_content(@application1.status)
     end
