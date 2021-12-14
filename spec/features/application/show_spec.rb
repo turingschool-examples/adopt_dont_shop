@@ -97,7 +97,7 @@ describe 'application show page' do
 
   it "returns all pet names that match with partial search" do
     @shelter1 = Shelter.create!(foster_program: true, name:"wade shelter", city: "Bear", rank: 2)
-    @pet1 = @shelter1.pets.create!(adoptable: true, age: 5, breed:"golden", name:"gus")
+    @pet1 = @shelter1.pets.create!(adoptable: true, age: 5, breed:"golden", name:"Gus")
     @pet2 = @shelter1.pets.create!(adoptable: true, age: 3, breed:"lab", name:"wade")
     @pet3 = @shelter1.pets.create!(adoptable: true, age: 3, breed:"lab", name:"bob")
     @application1 = Application.create!(name:'Name1', address: '123 test st', city: 'Bear', state: 'Delaware', zip: '19701' )
@@ -106,7 +106,7 @@ describe 'application show page' do
 
     fill_in 'Pet name', with: "gu"
     click_button "Search"
-    
+
 
     expect(page).to have_content(@pet1.name)
 
