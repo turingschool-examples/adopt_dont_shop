@@ -1,0 +1,8 @@
+<h1 style="text-decoration:underline;">Welcome to the Adminstration Page</h1><br><br>
+<h2>Below you will find all of the shelters located within the system</h2>
+
+<% @shelters.each do |shelter| %>
+  <h3>
+    <span><%= link_to "#{shelter.name}", "/shelters/#{shelter.id}" %></span>
+  </h3>
+<% end %>
