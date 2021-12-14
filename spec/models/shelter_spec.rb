@@ -67,5 +67,16 @@ RSpec.describe Shelter, type: :model do
         expect(@shelter_1.pet_count).to eq(3)
       end
     end
+
+    it 'lists all the shelters in reverse alphabetical order' do
+      shelters = [@shelter_2, @shelter_3, @shelter_1]
+      expect(Shelter.admin_display).to eq(shelters)
+    end
+
+    xit 'returns only the applications which are pending' do
+      # Need to create applications which are pending.
+      shelters = []
+      expect(Shelter.pending_applications).to eq(shelters)
+    end
   end
 end
