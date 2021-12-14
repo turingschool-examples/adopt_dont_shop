@@ -26,12 +26,12 @@ describe Application, type: :model do
                                         status: "Pending")
   end
 
-  describe 'model methods' do
+  describe 'model methods' do  #abandoned full_address method for now
     decribe 'instance methods' do
-      describe 'full_address' do
-        it "adds attributes to make a full address" do
-
-        end
+      # describe 'full_address' do
+      #   it "adds attributes to make a full address" do
+      #     expect(@application1.full_address).to eq("123 Smiley St. A")
+      #   end
       end
     end
   end
