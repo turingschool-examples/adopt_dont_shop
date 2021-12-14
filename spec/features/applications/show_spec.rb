@@ -108,6 +108,17 @@ RSpec.describe 'the application show' do
       expect(page).to_not have_content(@pet_3.name)
     end
 
+    it 'lists no case sensitive matches matches as search results' do
+      visit "/applications/#{@application.id}"
+
+      fill_in 'Pet name', with: "CLA"
+      click_on("Submit")
+
+      expect(page).to have_content(@pet_2.name)
+      expect(page).to_not have_content(@pet_3.name)
+    end
+
+
   end
 
 end
