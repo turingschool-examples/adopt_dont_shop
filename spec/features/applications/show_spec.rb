@@ -93,10 +93,31 @@ RSpec.describe 'the application show' do
     describe 'when I visit an application the applications show page' do
       it 'does not have a submit button if no pets are added' do
         visit "/applications/#{@application.id}"
-        
+
         expect(page).to_not have_button('Submit this application')
       end
     end
+
+    it 'lists partial matches as search results' do
+      visit "/applications/#{@application.id}"
+
+      fill_in 'Pet name', with: "Claw"
+      click_on("Submit")
+
+      expect(page).to have_content(@pet_2.name)
+      expect(page).to_not have_content(@pet_3.name)
+    end
+
+    it 'lists no case sensitive matches matches as search results' do
+      visit "/applications/#{@application.id}"
+
+      fill_in 'Pet name', with: "CLA"
+      click_on("Submit")
+
+      expect(page).to have_content(@pet_2.name)
+      expect(page).to_not have_content(@pet_3.name)
+    end
+
 
   end
 
