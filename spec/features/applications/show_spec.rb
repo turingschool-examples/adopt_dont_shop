@@ -27,12 +27,12 @@ RSpec.describe 'the applications show page' do
     expect(page).to have_content("Lobster")
   end
 
-  it "has an adopt me button next to the searched pet name" do
+  it "has an adopt me button next to the searched pet name and search works for partials and is case insensitive" do
     application = Application.create!(name: 'Frank', street_address: '123 Main St', city: 'Long Beach', state: 'CA', zipcode: '90712', description: '', status: 'In Progress')
 
     visit "/applications/#{application.id}"
     expect(page).to have_content("Add a Pet to this Application")
-    fill_in('search_by_name', with: "Lobster")
+    fill_in('search_by_name', with: "lob")
     click_on("Submit")
 
     click_on("Adopt this Pet")
@@ -46,6 +46,7 @@ RSpec.describe 'the applications show page' do
     visit "/applications/#{application.id}"
     fill_in('search_by_name', with: "Lobster")
     click_on("Submit")
+    # save_and_open_page
 
     click_on("Adopt this Pet")
     expect(page).to have_content("Pet/s wanting to adopt: Lobster")
@@ -54,7 +55,6 @@ RSpec.describe 'the applications show page' do
     within("#descrypter") do
       click_on("Submit")
     end
-    # save_and_open_page
     expect(page).to_not have_content("Add a Pet")
     expect(page).to have_content("Status: Pending")
     expect(page).to have_content("Pet/s wanting to adopt: Lobster")
