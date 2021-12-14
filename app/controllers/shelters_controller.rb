@@ -2,10 +2,12 @@ class SheltersController < ApplicationController
   def index
     if params[:sort].present? && params[:sort] == "pet_count"
       @shelters = Shelter.order_by_number_of_pets
+    elsif params[:sort].present? && params[:sort] == 'most_recent'
+      @shelters = Shelter.order_by_recently_created
     elsif params[:search].present?
       @shelters = Shelter.search(params[:search])
     else
-      @shelters = Shelter.order_by_recently_created
+      @shelters = Shelter.reverse_alphabetical_by_name
     end
   end
 
