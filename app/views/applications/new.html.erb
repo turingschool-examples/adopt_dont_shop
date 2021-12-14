@@ -16,8 +16,7 @@
   <%= f.label :zipcode %>
   <%= f.text_field :zipcode%><br><br>
 
-  <%= f.label "Reason why you would be a good fit to adopt?" %><br>
-  <%= f.text_area :description%>
+  <%= f.hidden_field :description, value: " "%>
 
   <%= f.hidden_field :status, value: "In Progress"%><br><br>
 

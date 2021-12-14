@@ -6,7 +6,6 @@ class Application < ApplicationRecord
  validates :city, presence: true
  validates :state, presence: true
  validates :zipcode, presence: true
- validates :description, presence: true
 
  def search_by_name_threshold(search)
    Pet.where("name = ?", search)
