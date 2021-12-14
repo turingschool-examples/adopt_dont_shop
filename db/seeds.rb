@@ -18,4 +18,4 @@ pet_2 = Pet.create!(adoptable: "true", age: "1", breed: "Black Lab", name: "Spot
 
 pet_3 = Pet.create!(adoptable: "true", age: "6", breed: "Yellow Lab", name: "Bow Wow", shelter_id: "#{shelter_1.id}")
 
-pet_4 = Pet.create!(adoptable: "true", age: "11", breed: "Bulldog", name: "Sprechen", shelter_id: "#{shelter_1.id}")
+pet_4 = Pet.create!(adoptable: "true", age: "11", breed: "Bulldog", name: "Sprechen", shelter_id: "#{shelter_2.id}")
