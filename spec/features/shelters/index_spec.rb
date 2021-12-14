@@ -18,23 +18,8 @@ RSpec.describe 'the shelters index' do
     expect(page).to have_content(@shelter_3.name)
   end
 
-  it 'lists shelter names by name reverse alphabetical order by default' do
-    visit "/shelters"
-
-    first = find("#shelter-#{@shelter_2.id}")
-    second = find("#shelter-#{@shelter_3.id}")
-    third = find("#shelter-#{@shelter_1.id}")
-
-    expect(first).to appear_before(second)
-    expect(second).to appear_before(third)
-  end
-
   it 'has link to sort the shelters by most recently created first' do
     visit "/shelters"
-
-    expect(page).to have_link("Sort by most recently created")
-
-    click_link "Sort by most recently created"
 
     oldest = find("#shelter-#{@shelter_1.id}")
     mid = find("#shelter-#{@shelter_2.id}")
