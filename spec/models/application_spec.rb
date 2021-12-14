@@ -25,14 +25,15 @@ describe Application, type: :model do
                                         description: "Single guy, 3 bedroom house on 7 acres.  Lots of love to give!",
                                         status: "Pending")
   end
-
-  describe 'model methods' do  #abandoned full_address method for now
-    decribe 'instance methods' do
-      # describe 'full_address' do
-      #   it "adds attributes to make a full address" do
-      #     expect(@application1.full_address).to eq("123 Smiley St. A")
-      #   end
-      end
-    end
-  end
 end
+
+#   describe 'model methods' do  #abandoned full_address method for now
+#     describe 'instance methods' do
+#       describe 'full_address' do
+#         # it "adds attributes to make a full address" do
+#         #   expect(@application1.full_address).to eq("123 Smiley St. A")
+#         # end
+#
+#     end
+#   end
+# end
