@@ -105,20 +105,4 @@ RSpec.describe 'the shelters index' do
     expect(page).to have_content(@shelter_2.name)
     expect(page).to_not have_content(@shelter_1.name)
   end
-
-  describe 'section for pending applications' do
-    it 'has heading for section' do
-      visit '/shelters'
-      expect(page).to have_content("Shelters with Pending Applications:")
-    end
-
-    it 'lists all shelters with pending application' do
-      application_1 = Application.create!(applicant_name: "Mike Sloan", street_address: "134 Willow Lane", city: "Boulder", state: "CO", zip_code: "80034", application_status: "In Progress")
-
-      application_2 = Application.create!(applicant_name: "Ben Spiegel", street_address: "6625 Main, Apt. 9", city: "Denver", state: "CO", zip_code: "80026", application_status: "Pending")
-
-      application_3 = Application.create!(applicant_name: "Ben Spiegel", street_address: "6625 Main, Apt. 9", city: "Denver", state: "CO", zip_code: "80026", application_status: "In Progress")
-
-    end
-  end
 end
