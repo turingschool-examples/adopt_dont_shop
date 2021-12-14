@@ -3,7 +3,7 @@ require 'rails_helper'
 describe Application, type: :model do
   describe 'relationships' do
     it { should have_many(:pet_applications) }
-    it { should have_many(:pets).through(:pet_applications)}
+    it { should have_many(:pets).through(:pet_applications) }
   end
 
   describe 'validations' do
@@ -14,5 +14,25 @@ describe Application, type: :model do
     it { should validate_presence_of(:zip) }
     it { should validate_presence_of(:description) }
     it { should validate_presence_of(:status) }
+  end
+
+  before do
+    @application1 = Application.create!(name: "Paul Leonard",
+                                        address: "123 Smiley St.",
+                                        city: "Atlanta",
+                                        state: "Georgia",
+                                        zip: "31768",
+                                        description: "Single guy, 3 bedroom house on 7 acres.  Lots of love to give!",
+                                        status: "Pending")
+  end
+
+  describe 'model methods' do
+    decribe 'instance methods' do
+      describe 'full_address' do
+        it "adds attributes to make a full address" do
+
+        end
+      end
+    end
   end
 end
