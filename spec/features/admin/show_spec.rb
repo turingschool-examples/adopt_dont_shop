@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "the admin shelter index page" do
+RSpec.describe "The admin applications show page" do
   before(:each) do
     @shelter_1 = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
     @shelter_2 = Shelter.create(name: 'RGV animal shelter', city: 'Harlingen, TX', foster_program: false, rank: 5)
@@ -18,24 +18,18 @@ RSpec.describe "the admin shelter index page" do
                                         zip: 93221,
                                         status: "Pending")
     @application_1.add_pet(@pet_1)
+    end
 
-    @application_2 = Application.create!(name: "Raed",
-     street_address: "1640 Burwood",
-     city: "Melbourne",
-     state: "CA",
-     zip: 93221,
-     status: "Pending")
-    # for terminal foolin
-  end
-  it "displays all the shelters in reverse alphabetical order" do
-    visit "/admin/shelters"
-    expect(@shelter_2.name).to appear_before(@shelter_3.name)
-    expect(@shelter_2.name).to appear_before(@shelter_3.name)
-    expect(@shelter_2.name).to appear_before(@shelter_1.name)
+  it "displays every pet the application is for" do
+    visit "/admin/applications/#{@application_1.id}"
+    save_and_open_page
+    expect(page).to have_content('Mr. Pirate')
   end
 
-  it "displays all shelters with pending applications" do
-    visit "/admin/shelters"
-    expect(page).to have_content("Shelters with Pending Applications")
+  it "approves an adoption" do
+    visit "/admin/applications/#{@application_1.id}"
+    click_button("Approve this adoption")
+    expect(current_path).to eq("/admin/applications/#{@application_1.id}")
   end
-end
+
+  end
