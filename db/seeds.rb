@@ -11,3 +11,9 @@ application_1 = Application.create!(applicant_name: "Mike Sloan", street_address
 shelter_1 = Shelter.create!(foster_program: 'true', name: "Shelter 1", city: "Denver", rank: "5")
 
 pet_1 = application_1.pets.create!(adoptable: "true", age: "3", breed: "Terrier", name: "Sparky", shelter_id: "#{shelter_1.id}")
+
+pet_2 = Pet.create!(adoptable: "true", age: "1", breed: "Black Lab", name: "Spot", shelter_id: "#{shelter_1.id}")
+
+pet_3 = Pet.create!(adoptable: "true", age: "6", breed: "Yellow Lab", name: "Bow Wow", shelter_id: "#{shelter_1.id}")
+
+pet_4 = Pet.create!(adoptable: "true", age: "11", breed: "Bulldog", name: "Sprechen", shelter_id: "#{shelter_1.id}")
