@@ -8,7 +8,7 @@ class Application < ApplicationRecord
  validates :zipcode, presence: true
 
  def search_by_name_threshold(search)
-   Pet.where("name = ?", search)
+   Pet.where("name iLIKE ?","%" + search + "%")
  end
  def adoption_threshold(active_app, pet)
    target_pet = Pet.find(pet)
