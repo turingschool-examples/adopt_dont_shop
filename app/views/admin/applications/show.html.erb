@@ -1,0 +1,4 @@
+<p>Pets: <% @application.pets.each do |pet| %>
+  <%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
+  <%= button_to "Approve #{pet.name}", "/admin/applications/#{@application.id}", method: :post %>
+<% end %></p>
