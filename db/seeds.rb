@@ -9,6 +9,8 @@
 application_1 = Application.create!(applicant_name: "Mike Sloan", street_address: "134 Willow Lane", city: "Boulder", state: "CO", zip_code: "80034", description: "I'd be good because I love pets", application_status: "pending")
 
 shelter_1 = Shelter.create!(foster_program: 'true', name: "Shelter 1", city: "Denver", rank: "5")
+shelter_2 = Shelter.create!(foster_program: 'true', name: "Bradburn Shelter", city: "Denver", rank: "1")
+shelter_3 = Shelter.create!(foster_program: 'true', name: "Home 4 Cats", city: "Denver", rank: "1")
 
 pet_1 = application_1.pets.create!(adoptable: "true", age: "3", breed: "Terrier", name: "Sparky", shelter_id: "#{shelter_1.id}")
 
