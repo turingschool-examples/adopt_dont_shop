@@ -1,0 +1,7 @@
+<h1>Admin Shelters Index</h1>
+
+<% @shelters.each do |shelter| %>
+  <div id="shelter-<%= shelter.id %>">
+    <h3><%= shelter.name %></h3>
+  </div>
+<% end %>
