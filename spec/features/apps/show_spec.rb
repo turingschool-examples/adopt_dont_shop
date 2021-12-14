@@ -3,6 +3,7 @@ RSpec.describe 'the application show' do
   before :each do 
     @shelter = Shelter.create!(name: 'Mystery Building', city: 'Irvine CA', foster_program: false, rank: 9)
     @pet_1 = @shelter.pets.create!(adoptable: true, age: 5, breed: "Pug", name: "James")
+    @pet_2 = @shelter.pets.create!(adoptable: true, age: 5, breed: "Pug", name: "Clawdia")
     @application_1 = App.create!(name: "Rick James", address: "124 South Jefferson", city: "Goliad", state: "TX", zip: 72936, description: "Because I care for pets", status: 0)
     visit "/apps/#{@application_1.id}"
   end 
@@ -57,5 +58,11 @@ RSpec.describe 'the application show' do
     it 'does not have a section to submit my app' do 
       expect(page).to_not have_content("Submit")
     end 
+  end 
+
+  it ' has a partial match for pet names' do 
+    fill_in("Add a Pet to this Application", with: "Cla")
+    click_button "Search"
+    expect(page).to have_content("Clawdia")
   end 
 end
