@@ -109,6 +109,36 @@ RSpec.describe 'the application show', type: :feature do
       expect(page).to have_content(@pet_2.name)
       expect(page).to have_content(@pet_1.name)
     end
+
+    it 'searches names case insensitive' do
+      pet_1 = Pet.create!(adoptable: "true", age: "3", breed: "Terrier", name: "SPARKY", shelter_id: "#{@shelter_1.id}")
+      pet_2 = Pet.create!(adoptable: "true", age: "1", breed: "Black Lab", name: "SpArKy", shelter_id: "#{@shelter_1.id}")
+      pet_3 = Pet.create!(adoptable: "true", age: "6", breed: "Yellow Lab", name: "sparky", shelter_id: "#{@shelter_1.id}")
+      pet_4 = Pet.create!(adoptable: "true", age: "11", breed: "Bulldog", name: "SPArky", shelter_id: "#{@shelter_1.id}")
+
+      fill_in 'pet_name', with: "sp"
+      click_button "Search"
+
+      expect(page).to have_content(pet_1.name)
+      expect(page).to have_content(pet_2.name)
+      expect(page).to have_content(pet_3.name)
+      expect(page).to have_content(pet_4.name)
+    end
+
+    it 'returns names regardless of case in search' do
+      pet_1 = Pet.create!(adoptable: "true", age: "3", breed: "Terrier", name: "SPARKY", shelter_id: "#{@shelter_1.id}")
+      pet_2 = Pet.create!(adoptable: "true", age: "1", breed: "Black Lab", name: "SpArKy", shelter_id: "#{@shelter_1.id}")
+      pet_3 = Pet.create!(adoptable: "true", age: "6", breed: "Yellow Lab", name: "sparky", shelter_id: "#{@shelter_1.id}")
+      pet_4 = Pet.create!(adoptable: "true", age: "11", breed: "Bulldog", name: "SPArky", shelter_id: "#{@shelter_1.id}")
+
+      fill_in 'pet_name', with: "SPAR"
+      click_button "Search"
+
+      expect(page).to have_content(pet_1.name)
+      expect(page).to have_content(pet_2.name)
+      expect(page).to have_content(pet_3.name)
+      expect(page).to have_content(pet_4.name)
+    end
   end
 
   describe 'submission' do
