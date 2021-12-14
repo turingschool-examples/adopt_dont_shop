@@ -17,7 +17,7 @@ class AppsController < ApplicationController
   def show
     @app = App.find(params[:id])
     return @search_pets = Pet.search(params[:search]) if params[:search]
-    @pets = @app.pets
+    @pets = Pet.search(params[:search])
   end
 
   def update
