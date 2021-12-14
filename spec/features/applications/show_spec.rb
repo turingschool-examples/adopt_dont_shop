@@ -15,8 +15,7 @@ RSpec.describe 'the application show', type: :feature do
     @pet_2 = Pet.create!(adoptable: "true", age: "1", breed: "Black Lab", name: "Spot", shelter_id: "#{@shelter_1.id}")
     @pet_3 = Pet.create!(adoptable: "true", age: "6", breed: "Yellow Lab", name: "Bow Wow", shelter_id: "#{@shelter_1.id}")
     @pet_4 = Pet.create!(adoptable: "true", age: "11", breed: "Bulldog", name: "Spot", shelter_id: "#{@shelter_1.id}")
-    # @pet_5 = Pet.create!(adoptable: "true", age: "3", breed: "Terrier", name: "Sparky", shelter_id: "#{@shelter_1.id}")
-    #
+    @pet_5 = Pet.create!(adoptable: "true", age: "11", breed: "Bulldog", name: "Sally", shelter_id: "#{@shelter_1.id}")
   end
 
   it "shows application and it's attributes" do
@@ -94,6 +93,21 @@ RSpec.describe 'the application show', type: :feature do
       visit "/applications/#{@application_2.id}"
       expect(page).to have_no_content("Add a Pet to this Application:")
       expect(page).to_not have_field("Pet Name")
+    end
+
+    it 'searches names based on near matches' do
+      fill_in 'pet_name', with: "s"
+      click_button "Search"
+
+      expect(page).to have_content(@pet_2.name)
+      expect(page).to have_content(@pet_1.name)
+      expect(page).to have_content(@pet_5.name)
+
+      fill_in 'pet_name', with: "sp"
+      click_button "Search"
+
+      expect(page).to have_content(@pet_2.name)
+      expect(page).to have_content(@pet_1.name)
     end
   end
 
