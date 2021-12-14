@@ -14,7 +14,7 @@ RSpec.describe 'the applications show' do
     applicant_1 = Application.create!(name: 'John Smith', street: '123 Oak Lane', city: 'Anytown', state: 'CO', zip: 12345, description: 'I love dogs', status: 'In Progress')
 
     visit "/applications/#{applicant_1.id}"
-    
+
     expect(page).to have_content(applicant_1.name)
     expect(page).to have_content(applicant_1.street)
     expect(page).to have_content(applicant_1.city)
@@ -22,5 +22,15 @@ RSpec.describe 'the applications show' do
     expect(page).to have_content(applicant_1.zip)
     expect(page).to have_content(applicant_1.description)
     expect(page).to have_content(applicant_1.status)
+  end
+
+  xit 'shows the names of all the pets that this application is for' do
+    applicant_1 = Application.create!(name: 'John Smith', street: '123 Oak Lane', city: 'Anytown', state: 'CO', zip: 12345, description: 'I love dogs', status: 'In Progress')
+    shelter_1 = Shelter.create!(foster_program: true, name: 'Good Shelter', city: 'Anytown', rank: 20)
+    pet_1 = shelter_1.pets.create!(adoptable: true, age: 5, name: 'Champ')
+    # pet_app_1 = pet_1.applicant_1.create!(pet_id: pet_1.id, application_id: applicant_1.id)
+    visit "/applications/#{applicant_1.id}"
+
+    expect(current_path).to have_link("Pet",:href=>"/pets/#{pet_1.id}")
   end
 end

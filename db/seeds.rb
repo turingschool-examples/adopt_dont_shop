@@ -7,9 +7,9 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 Application.destroy_all
-applicant_1 = Application.create!(name: 'John Smith', street: '123 Oak Lane', city: 'Anytown', state: 'CO', zip: 12345, description: 'I love dogs', status: 'In Progress')
-applicant_2 = Application.create!(name: 'Mike Jones', street: '345 Peach Street', city: 'Thistown', state: 'PA', zip: 23456, description: 'Dogs love me', status: 'Pending')
-applicant_3 = Application.create!(name: 'Lisa Wilson', street: '567 Main Lane', city: 'Thattown', state: 'MA', zip: 34567, description: 'Dogs are my best friends', status: 'In Progress')
-applicant_4 = Application.create!(name: 'Mary Wells', street: '789 Park Ave', city: 'Thetown', state: 'MO', zip: 87654, description: 'pets are amazing', status: 'Pending')
-applicant_5 = Application.create!(name: 'Isaac Hayes', street: '912 Market Blvd', city: 'Motown', state: 'MI', zip: 98765, description: 'Who would not want a pet', status: 'In Progress')
+@applicant_1 = Application.create!(name: 'John Smith', street: '123 Oak Lane', city: 'Anytown', state: 'CO', zip: 12345, description: 'I love dogs', status: 'In Progress')
+@applicant_2 = Application.create!(name: 'Mike Jones', street: '345 Peach Street', city: 'Thistown', state: 'PA', zip: 23456, description: 'Dogs love me', status: 'Pending')
+@applicant_3 = Application.create!(name: 'Lisa Wilson', street: '567 Main Lane', city: 'Thattown', state: 'MA', zip: 34567, description: 'Dogs are my best friends', status: 'In Progress')
+@applicant_4 = Application.create!(name: 'Mary Wells', street: '789 Park Ave', city: 'Thetown', state: 'MO', zip: 87654, description: 'pets are amazing', status: 'Pending')
+@applicant_5 = Application.create!(name: 'Isaac Hayes', street: '912 Market Blvd', city: 'Motown', state: 'MI', zip: 98765, description: 'Who would not want a pet', status: 'In Progress')
 
