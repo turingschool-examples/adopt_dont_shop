@@ -10,3 +10,10 @@
 <h4>Description:</h4>
 <hr>
 <p> <%= @application.description %></p>
+<hr>
+<h4>Pets Applied For:</h4>
+<hr>
+<p> <%= @application.pets.each do |pet| %></p>
+  <%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
+  <hr>
+<% end %>

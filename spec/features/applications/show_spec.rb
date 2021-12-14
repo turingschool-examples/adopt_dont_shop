@@ -36,7 +36,7 @@ describe "Application show page" do
     it "the names of pets are links to their show page" do
       click_link "#{@pet1.name}"
 
-      expect(current_page).to eq("/pets/#{@pet1.id}")
+      expect(current_path).to eq("/pets/#{@pet1.id}")
     end
   end
 end
