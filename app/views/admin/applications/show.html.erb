@@ -1,0 +1,22 @@
+<h1>Admin Application Show Page</h1>
+<h3>Application Number: <%= @application.id %></h3>
+<ul>
+  <li>Applicant Name: <%= @application.applicant_name %></li>
+  <li>Applicant Address: <%= @application.street_address %>, <%= @application.city %>, <%= @application.state %>, <%= @application.zip_code %></li>
+  <li>Application Status: <%= @application.application_status %></li>
+  <li>Applicant Description: <%= @application.description %></li>
+</ul>
+
+<h3>Pet(s):</h3>
+
+<% @application.pet_applications.each do |pet_application| %>
+  <div id="pet<%= pet_application.pet.id %>">
+    <p><%= link_to "#{pet_application.pet.name}", "/pets/#{pet_application.pet.id}" %></p>
+
+    <% if pet_application.approved == "Approved" %>
+      Application: Approved
+    <% else %>
+      <%= button_to "Approve Adoption", "/admin/applications/#{pet_application.id}", method: :patch, params: { approved: "Approved"} %>
+    <% end %>
+  </div>
+<% end %>
