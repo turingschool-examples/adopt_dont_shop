@@ -15,8 +15,11 @@
 
     <% if pet_application.approved == "Approved" %>
       Application: Approved
+    <% elsif pet_application.approved == "Denied" %>
+      Application: Denied
     <% else %>
       <%= button_to "Approve Adoption", "/admin/applications/#{pet_application.id}", method: :patch, params: { approved: "Approved"} %>
+      <%= button_to "Deny Adoption", "/admin/applications/#{pet_application.id}", method: :patch, params: { approved: "Denied"} %>
     <% end %>
   </div>
 <% end %>
