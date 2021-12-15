@@ -9,6 +9,7 @@ class Application < ApplicationRecord
   validates :zip, presence: true
   # added to allow a default entry for all new rows created.
   def set_defaults
+    # require 'pry'; binding.pry
     self.status ||= "In Progress"
   end
 end

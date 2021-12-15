@@ -1,0 +1,9 @@
+<h2><%= @application.name %></h2>
+<%= @application.pets.each do |pet| %>
+  <%= pet.name %>
+  <% if pet.adoption_status == nil %>
+    <%= button_to "Approve #{pet.name}", "/admin/applications/#{@application.id}", method: :patch, params: { :pet_id => pet.id, :approved => "Approved" } %>
+  <% else %>
+    <p><%= "#{pet.name} Approved" %></p>
+    <% end %>
+  <% end %>
