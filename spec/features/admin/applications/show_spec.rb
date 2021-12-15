@@ -41,10 +41,12 @@ RSpec.describe 'admin application show page' do
 
       within("#pet#{@pet_1.id}") do
         expect(page).to have_button("Approve Adoption")
+        expect(page).to have_button("Deny Adoption")
       end
 
       within("#pet#{@pet_2.id}") do
         expect(page).to have_button("Approve Adoption")
+        expect(page).to have_button("Deny Adoption")
       end
     end
 
@@ -64,6 +66,27 @@ RSpec.describe 'admin application show page' do
         expect(current_path).to eq("/admin/applications/#{@application_1.id}")
         expect(page).to have_content("Application: Approved")
         expect(page).to_not have_button("Approve Adoption")
+      end
+    end
+
+    it 'changes status of pet to denieded and removes button' do
+      visit "/admin/applications/#{@application_1.id}"
+
+      within("#pet#{@pet_1.id}") do
+        click_button "Deny Adoption"
+        expect(current_path).to eq("/admin/applications/#{@application_1.id}")
+        expect(page).to have_content("Application: Denied")
+        expect(page).to_not have_button("Approve Adoption")
+        expect(page).to_not have_button("Deny Adoption")
+      end
+
+      within("#pet#{@pet_2.id}") do
+        expect(page).to have_button("Approve Adoption")
+        click_button "Deny Adoption"
+        expect(current_path).to eq("/admin/applications/#{@application_1.id}")
+        expect(page).to have_content("Application: Denied")
+        expect(page).to_not have_button("Approve Adoption")
+        expect(page).to_not have_button("Deny Adoption")
       end
     end
   end
