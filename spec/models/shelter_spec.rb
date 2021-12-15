@@ -82,11 +82,11 @@ RSpec.describe Shelter, type: :model do
       expect(Shelter.admin_display).to eq(shelters)
     end
 
-    it 'returns only the applications which are pending' do
+    xit 'returns only the applications which are pending' do
       ApplicationPet.create!(pet_id: @pet_1.id, application_id: @application.id)
       ApplicationPet.create!(pet_id: @pet_2.id, application_id: @application.id)
       ApplicationPet.create!(pet_id: @pet_3.id, application_id: @application.id)
-      @application[:status] = "Pending"
+      # @application[:status] = "Pending"
       shelters = [@shelter_3, @shelter_1]
       # expect(Shelter.pending_apps).to eq(@shelter_1) # Fix this.
     end

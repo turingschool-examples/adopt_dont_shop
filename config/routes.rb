@@ -2,6 +2,8 @@ Rails.application.routes.draw do
 
 
   get '/admin/shelters', to: 'shelters#admin_index'
+  get '/admin/applications/:id', to: 'applications#admin_show'
+  patch '/admin/applications/:id', to: 'applications#admin_update'
   # namespace :admin do
   #   resources :shelters
   # end
