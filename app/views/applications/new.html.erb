@@ -1,13 +1,17 @@
-<%= form_with url: "/applications/:id", method: :post, local: true do |form| %>
-  <%= form.label :Name %>
-  <%= form.text_field :Name %>
-  <%= form.label :Street_Address %>
-  <%= form.text_field :Street_Address %>
-  <%= form.label :City %>
-  <%= form.text_field :City %>
-  <%= form.label :State %>
-  <%= form.text_field :State %>
-  <%= form.label :Zip_Code %>
-  <%= form.text_field :Zip_Code %>
+<%= form_with url: "/applications", method: :post, local: true do |form| %>
+  <%= form.label :name %>
+  <%= form.text_field :name %>
+  <%= form.label :street %>
+  <%= form.text_field :street %>
+  <%= form.label :city %>
+  <%= form.text_field :city %>
+  <%= form.label :state %>
+  <%= form.text_field :state %>
+  <%= form.label :zip %>
+  <%= form.text_field :zip %>
+  <%= form.label :description %>
+  <%= form.text_field :description, :value => "I am a good person" %>
+  <%= form.label :status %>
+  <%= form.text_field :status, :value => "In Progress" %>
   <%= form.submit "submit" %>
 <% end %>

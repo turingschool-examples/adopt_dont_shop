@@ -12,16 +12,17 @@ require 'rails_helper'
 
 RSpec.describe 'New application page' do
   it 'I see a form' do
-
     visit '/applications/new'
+    fill_in(:name, with:'Ernest Glover')
+    fill_in(:street, with:'5555 W Landsdown Ave')
+    fill_in(:city, with:'Phila')
+    fill_in(:state, with:'PA')
+    fill_in(:zip, with:'19131')
 
-    fill_in("Name", with:'Ernest Glover')
-    fill_in("Street_Address", with:'5555 W Landsdown Ave')
-    fill_in("City", with:'Phila')
-    fill_in("State", with:'PA')
-    fill_in("Zip", with:'19131')
+    # require "pry"; binding.pry
     click_button('submit')
+    new_app = Application.last
 
-    expect(current_path).to eq("/applications/:id")
+    expect(current_path).to eq("/applications/#{new_app.id}")
   end
 end
