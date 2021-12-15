@@ -1,4 +1,25 @@
-<p>Pets: <% @application.pets.each do |pet| %>
-  <%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
-  <%= button_to "Approve #{pet.name}", "/admin/applications/#{@application.id}", method: :post %>
+<p><%= @application.name  %></p>
+<p><%= @application.address  %></p>
+<p><%= @application.city  %></p>
+<p><%= @application.state  %></p>
+<p><%= @application.zip %></p>
+<p><%= @application.description %></p>
+<p><%= @application.status  %></p>
+
+<p>Pets: <% @application.pet_applications.each do |pet_app| %>
+  <%= pet_app.pet.name %>
+  <% if pet_app.approved == "Pending" %>
+  <%= button_to "Approve #{pet_app.pet.name}", "/admin/applications/#{pet_app.id}", method: :patch, params: { approved: "Approved"} %>
+  <%= button_to "Reject #{pet_app.pet.name}", "/admin/applications/#{pet_app.id}", method: :patch, params: { approved: "Rejected"} %>
+  <% end %>
+  <p>Approved:
+    <% if pet_app.approved == "Approved" %>
+    <%= pet_app.pet.name %>
+    <% end %>
+  </p>
+  <p>Rejected:
+    <% if pet_app.approved == "Rejected"  %>
+    <%= pet_app.pet.name %>
+    <% end %>
+  </p>
 <% end %></p>
