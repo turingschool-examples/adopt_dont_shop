@@ -13,6 +13,7 @@ shelter_1 = Shelter.create!(foster_program: true,
                             city: "Visalia, CA",
                             rank: 10
                             )
+                            
 application_1 = Application.create!(name: "Chris",
                                     street_address: "19072",
                                     city: "Exeter",
@@ -23,3 +24,10 @@ pet_1 = Pet.create!(adoptable: true,
                             breed: "Llama",
                             name: "Cribonis",
                             shelter_id: shelter_1.id)
+
+pet_2 = Pet.create!(adoptable: true,
+                            age: 7,
+                            breed: "Dog",
+                            name: "Luke",
+                            shelter_id: shelter_1.id)
+

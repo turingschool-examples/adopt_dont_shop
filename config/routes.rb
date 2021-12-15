@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   patch '/admin/applications/:id', to: 'admin_shelters#update'
 
 
+
   get '/shelters', to: 'shelters#index'
   get '/shelters/new', to: 'shelters#new'
   get '/shelters/:id', to: 'shelters#show'

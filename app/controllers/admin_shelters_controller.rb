@@ -13,7 +13,6 @@ class AdminSheltersController < ApplicationController
     @pet = Pet.find(params[:pet_id])
     @pet.update(pet_params)
 
-    redirect_to "/admin/applications/#{@application_1.id}"
   end
 
 end
