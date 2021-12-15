@@ -9,6 +9,8 @@ RSpec.describe Pet, type: :model do
     it { should validate_presence_of(:name) }
     it { should validate_presence_of(:age) }
     it { should validate_numericality_of(:age) }
+    it { should have_many :pet_applications}
+    it { should have_many(:application_forms).through(:pet_applications)}
   end
 
   before(:each) do
