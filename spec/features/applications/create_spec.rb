@@ -42,5 +42,15 @@ describe "Application Create" do
       expect(page).to have_content("In Progress")
       expect(page).to_not have_content(application1.name)
     end
+
+    it "impartial form redirects to application new and flashes message" do
+      fill_in "Name", with: "Robin D."
+      fill_in "Address", with: "CrackHouse Lane"
+      fill_in "City", with: "Bellingham"
+      click_button "Submit"
+
+      expect(current_path).to eq("/applications/new")
+      expect(page).to have_content("Application not created: Fields can't be left blank.")
+    end
   end
 end
