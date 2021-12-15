@@ -4,6 +4,9 @@ class ApplicationPet < ApplicationRecord
   # after_create :update_status
 
   # def update_status
-  #   self.application.status = "Pending"
+
+    # self.application.update!(:status => "Pending")
+
+    # self.application.status = "Pending"
   # end
 end

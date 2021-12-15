@@ -5,8 +5,6 @@ class ApplicationsController < ApplicationController
       ApplicationPet.create!(pet_id: params[:adopt], application_id: @application.id)
     end
     if params[:commit]
-      # require 'pry'; binding.pry
-      # ApplicationPet.save(pet_id: params[:adopt], application_id: @application.id)
       @application.status = "Pending"
     end
     if params[:search_pets]
@@ -35,7 +33,9 @@ class ApplicationsController < ApplicationController
   end
 
   def update
-
+    application = Application.find(params[:id])
+    application.update!(:description => params[:description])
+    redirect_to "/applications/#{params[:id]}"
   end
 
   def admin_update
