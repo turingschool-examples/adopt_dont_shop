@@ -1,11 +1,21 @@
 <h2><%= @applicant.name %></h2>
+<h3>Status: <%= @applicant.status %></h3>
 
 
-<% @applicant.pets.each do |pet| %>
-  <h3><%= pet.name %></h3>
-  <p>Age: <%= pet.age %></p>
-  <p>Breed: <%= pet.breed %></p>
-  <p>Shelter: <%= pet.shelter_name %></p>
-  <%= button_to "Approve", "/admin/applicants/#{@applicant.id}", method: :get, params: {:approved_pet_id => pet.id} %>
+<% if @applicant.status == 'Pending' %>
+  <%= form_with url: "/admin/applicants/#{@applicant.id}", method: :get, local: true do |f| %>
 
+    <% @applicant.pets.each do |pet| %>
+      <h2><%= pet.name %></h2>
+      <p>Age: <%= pet.age %></p>
+      <p>Breed: <%= pet.breed %></p>
+      <p>Shelter: <%= pet.shelter_name %></p>
+
+
+      <%= check_box("#{pet.id}", "approved", {}, "yes", "no") %>Approve <br>
+      <%= check_box("#{pet.id}", "rejected", {}, "yes", "no") %>Reject <br>
+    <% end %>
+
+  <%= f.submit "Submit" %>
+  <% end %>
 <% end %>
