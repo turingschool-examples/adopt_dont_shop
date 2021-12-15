@@ -38,5 +38,30 @@ describe "Application show page" do
 
       expect(current_path).to eq("/pets/#{@pet1.id}")
     end
+
+    it "has a section where you can add pets to the application" do
+      expect(page).to have_content("Add a Pet to this Application")
+      fill_in("Search", with: "#{@pet2.name}")
+
+      click_button('Submit')
+
+      expect(current_path).to eq("/applications/#{@application1.id}")
+    end
+
+    it "adds pets to the application if it is found in search" do
+      fill_in("Search", with: "#{@pet2.name}")
+
+      click_button('Submit')
+      expect(page).to have_content(@pet2.name)
+      expect(page).to_not have_content(@pet1.name)
+    end
+
+
+    it 'if the pet is not found it will flash a fail message' do
+      visit "/applications/#{@application1.id}"
+
+      click_button('Submit')
+      expect(page).to have_content("No results found. Please try again.")
+    end
   end
 end
