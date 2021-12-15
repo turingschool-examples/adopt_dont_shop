@@ -7,7 +7,7 @@ describe "Application Create" do
 
   describe "it renders a new application form" do
     it "has all specifications" do
-      expect(page).to have_content('New Pet')
+      expect(page).to have_content('New Application')
       expect(find('form')).to have_content('Name')
       expect(find('form')).to have_content('Address')
       expect(find('form')).to have_content('City')
