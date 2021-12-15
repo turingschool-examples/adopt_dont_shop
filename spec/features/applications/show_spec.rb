@@ -12,8 +12,8 @@ describe "Application show page" do
     @shelter1 = Shelter.create!(name: "Humane Society", rank: 8, city: "Atlanta")
     @pet1     = @shelter1.pets.create!(name: "Marley", age: 2, shelter_id: @shelter1.id)
     @pet2     = @shelter1.pets.create!(name: "Mack", age: 3, shelter_id: @shelter1.id)
-    @pet_application1 = @application1.pet_applications.create!(pet_id: @pet1.id)
-    @pet_application2 = @application1.pet_applications.create!(pet_id: @pet2.id)
+    pet_application1 = @application1.pet_applications.create!(pet_id: @pet1.id)
+    pet_application2 = @application1.pet_applications.create!(pet_id: @pet2.id)
     visit "/applications/#{@application1.id}"
   end
 
@@ -37,6 +37,31 @@ describe "Application show page" do
       click_link "#{@pet1.name}"
 
       expect(current_path).to eq("/pets/#{@pet1.id}")
+    end
+
+    it "has a section where you can add pets to the application" do
+      expect(page).to have_content("Add a Pet to this Application")
+      fill_in("Search", with: "#{@pet2.name}")
+
+      click_button('Submit')
+
+      expect(current_path).to eq("/applications/#{@application1.id}")
+    end
+
+    xit "adds pets to the application if it is found in search" do
+      fill_in("Search", with: "#{@pet2.name}")
+
+      click_button('Submit')
+      expect(page).to have_content(@pet2.name)
+      expect(page).to_not have_content(@pet1.name)
+    end
+
+
+    xit 'if the pet is not found it will flash a fail message' do
+      visit "/applications/#{@application1.id}"
+
+      click_button('Submit')
+      expect(page).to have_content("No results found. Please try again.")
     end
   end
 end
