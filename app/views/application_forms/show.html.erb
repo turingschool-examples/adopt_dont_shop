@@ -35,7 +35,7 @@
 <% if @application_form.pets.count > 0 %>
   <%= form_with url: "/application_forms/#{@application_form.id}", method: :patch, local: true do |form| %>
   <%= form.hidden_field :status, value: "Pending" %>
-  <%= button_to "Submit Application", action: "update", data: {disable_wih: "no mas"}%>
+  <%= button_to "Submit Application"%>
 <% end %>
 <% end %>
 <% end %>
