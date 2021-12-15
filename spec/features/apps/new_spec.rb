@@ -1,11 +1,6 @@
 require 'rails_helper'
 RSpec.describe "New Application Page" do 
-  #   before :each do 
-  #   @shelter = Shelter.create!(name: 'Mystery Building', city: 'Irvine CA', foster_program: false, rank: 9)
-  #   @pet_1 = @shelter.pets.create!(adoptable: true, age: 5, breed: "Pug", name: "James")
-  #   @application_1 = @pet_1.apps.create!(name: "Karan", address: "124 South Jefferson", city: "Goliad", state: "TX", zip: 72936, description: "Because I care for pets", status: 0)
-  # end 
-
+  
   describe "When I visit the Pet Index Page" do 
     it 'has a link that takes me to the new app form' do 
       visit "/pets"

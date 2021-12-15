@@ -21,6 +21,12 @@ RSpec.describe Shelter, type: :model do
     @pet_2 = @shelter_1.pets.create(name: 'Clawdia', breed: 'shorthair', age: 3, adoptable: true)
     @pet_3 = @shelter_3.pets.create(name: 'Lucille Bald', breed: 'sphynx', age: 8, adoptable: true)
     @pet_4 = @shelter_1.pets.create(name: 'Ann', breed: 'ragdoll', age: 5, adoptable: true)
+    
+    @application_1 = @pet_1.apps.create!(name: "Rick James", address: "124 South Jefferson", city: "Goliad", state: "TX", zip: 72936, description: "Because I care for pets", status: 1)
+    @application_2 = @pet_2.apps.create!(name: "Charlie Murphy", address: "124 South Jefferson", city: "Goliad", state: "TX", zip: 72936, description: "Because I care for pets", status: 1)
+    @application_3 = @pet_4.apps.create!(name: "Prince", address: "124 South Jefferson", city: "Goliad", state: "TX", zip: 72936, description: "Because I care for pets", status: 1)
+    @application_3 = @pet_3.apps.create!(name: "Prince", address: "124 South Jefferson", city: "Goliad", state: "TX", zip: 72936, description: "Because I care for pets", status: 0)
+
   end
 
   describe 'class methods' do
@@ -47,6 +53,13 @@ RSpec.describe Shelter, type: :model do
         expect(Shelter.reverse_alfa).to eq([@shelter_2, @shelter_3, @shelter_1])
       end 
     end 
+
+    describe '#pending_status' do 
+      it 'shows only Pending Applications' do 
+        expect(Shelter.pending_status).to eq([@shelter_1.name])
+      end 
+    end 
+
   end
 
   describe 'instance methods' do

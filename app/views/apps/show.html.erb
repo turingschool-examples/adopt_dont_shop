@@ -9,7 +9,7 @@
 <p>Application Status: <%= @app.status %></p>
 
 <p>Pets: <% @app.pets.each do |pet| %></p>
-    <%= pet.name %>
+    <%= link_to "{pet.name}", "/pet/#{pet.id}" %>
 <% end %>
 
 <% if @app.status == "In Progress" %>

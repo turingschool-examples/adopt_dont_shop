@@ -3,6 +3,7 @@ class App < ApplicationRecord
   validates :address, presence: true
   validates :city, presence: true
   validates :state, presence: true
+  validates :status, presence: true
   validates :zip, presence: true, numericality: true
 
   enum status: {
