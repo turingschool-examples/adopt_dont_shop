@@ -89,6 +89,55 @@ RSpec.describe 'admin application show page' do
         expect(page).to_not have_button("Deny Adoption")
       end
     end
+
+    it 'does not change pet application status on other applications' do
+      test_pet_1 = Pet.create!(adoptable: "true", age: "3", breed: "Terrier", name: "Sparky", shelter_id: "#{@shelter_1.id}")
+
+      test_app_1 = test_pet_1.applications.create(applicant_name: "Mike Sloan", street_address: "134 Willow Lane", city: "Boulder", state: "CO", zip_code: "80034", application_status: "Pending")
+      test_app_2 = test_pet_1.applications.create(applicant_name: "Ben Spiegel", street_address: "6625 Main, Apt. 9", city: "Denver", state: "CO", zip_code: "80026", application_status: "Pending")
+
+      visit "/admin/applications/#{test_app_1.id}"
+      save_and_open_page
+      within("#pet#{test_pet_1.id}") do
+        expect(page).to have_button("Approve Adoption")
+        expect(page).to have_button("Deny Adoption")
+      end
+
+      visit "/admin/applications/#{test_app_2.id}"
+
+      within("#pet#{test_pet_1.id}") do
+        expect(page).to have_button("Approve Adoption")
+        expect(page).to have_button("Deny Adoption")
+
+        click_button "Deny Adoption"
+
+        expect(current_path).to eq("/admin/applications/#{test_app_2.id}")
+        expect(page).to have_content("Application: Denied")
+        expect(page).to_not have_button("Approve Adoption")
+        expect(page).to_not have_button("Deny Adoption")
+      end
+
+      visit "/admin/applications/#{test_app_1.id}"
+
+      within("#pet#{test_pet_1.id}") do
+        expect(page).to have_button("Approve Adoption")
+        expect(page).to have_button("Deny Adoption")
+
+        click_button "Approve Adoption"
+        save_and_open_page
+        expect(page).to have_content("Application: Approved")
+        expect(page).to_not have_button("Approve Adoption")
+        expect(page).to_not have_button("Deny Adoption")
+      end
+
+      visit "/admin/applications/#{test_app_2.id}"
+
+      within("#pet#{test_pet_1.id}") do
+        expect(page).to have_content("Application: Denied")
+        expect(page).to_not have_button("Approve Adoption")
+        expect(page).to_not have_button("Deny Adoption")
+      end
+    end
   end
 end
 # When I visit an admin application show page ('/admin/applications/:id')
