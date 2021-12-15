@@ -1,11 +1,41 @@
 <h1>Applicant Info</h1>
 
-
-
 <%= @application_form.name %>
 
-<p>Full Address: <%= @application_form.street_address %>, <%= @application_form.city %>, <%= @application_form.zip_code %></p>
+<p>Full Address:
+  <%= @application_form.street_address %>,
+  <%= @application_form.city %>,
+  <%= @application_form.zip_code %></p>
 
-<p>Description: <%= @application_form.description %></p>
+<p>Description:
+  <%= @application_form.description %></p>
 
-<p>Status: </p>
+<p>Status:
+  <%= @application_form.status %></p>
+
+<h2>pets attached</h2>
+<% @application_form.pets.each do |pet| %>
+  <p><%= pet.name %></p>
+<% end %>
+
+<% if @application_form.status == "In Progress" %>
+  <h2>Add a Pet to this Application</h2>
+  <%= form_with url: "/application_forms/#{@application_form.id}", method: :get, local: true do |f| %>
+  <p>Enter pet name:
+    <%= f.text_field :pet_name %></p>
+  <%= f.submit "Search by pet's name" %>
+<% end %>
+
+<% @pets.each do |pet| %>
+  <%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
+  <%= button_to 'Adopt this Pet', action: "edit", data: {pet_id: pet.id}%>
+
+<% end %>
+
+<% if @application_form.pets.count > 0 %>
+  <%= form_with url: "/application_forms/#{@application_form.id}", method: :patch, local: true do |form| %>
+  <%= form.hidden_field :status, value: "Pending" %>
+  <%= button_to "Submit Application", action: "update", data: {disable_wih: "no mas"}%>
+<% end %>
+<% end %>
+<% end %>

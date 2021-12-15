@@ -44,5 +44,12 @@ Rails.application.routes.draw do
   get '/application_forms', to: 'application_forms#index'
   get '/application_forms/new', to: 'application_forms#new'
   get '/application_forms/:id', to: 'application_forms#show'
+  post '/application_forms/:id', to: 'application_forms#edit'
   post '/application_forms', to: 'application_forms#create'
+  patch '/application_forms/:id', to: 'application_forms#update'
+
+
+  # admins
+  get '/admins', to: 'admins#index'
+  get '/admins/shelters', to: 'admins#show'
 end

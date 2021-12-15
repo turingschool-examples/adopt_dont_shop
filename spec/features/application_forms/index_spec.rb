@@ -17,8 +17,9 @@ RSpec.describe 'application show' do
                                          street_address: '123 Commerce St',
                                          city: "Bridgeton",
                                          state: "NJ",
-                                         zip_code: 08302,
-                                         description: "I don't know")
+                                         zip_code: "08302",
+                                         description: "I don't know",
+                                         status: "IDK")
   visit "/application"
   expect(page).to have_content('Applicant')
 
