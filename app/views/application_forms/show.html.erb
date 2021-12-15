@@ -25,6 +25,7 @@
     <%= f.text_field :pet_name %></p>
   <%= f.submit "Search by pet's name" %>
 <% end %>
+<% end %>
 
 <% @pets.each do |pet| %>
   <%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
@@ -36,6 +37,6 @@
   <%= form_with url: "/application_forms/#{@application_form.id}", method: :patch, local: true do |form| %>
   <%= form.hidden_field :status, value: "Pending" %>
   <%= button_to "Submit Application"%>
-<% end %>
+
 <% end %>
 <% end %>
