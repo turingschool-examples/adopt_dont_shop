@@ -4,7 +4,6 @@ class ApplicationFormsController < ApplicationController
   end
 
   def show
-    # require "pry"; binding.pry
     @application_form = ApplicationForm.find(params[:id])
     if params[:pet_name].present?
       @pets = Pet.search(params[:pet_name])
