@@ -9,7 +9,7 @@ class AppsController < ApplicationController
       flash[:success] = "Application Created!"
       redirect_to "/apps/#{@app.id}"
     else 
-      flash[:error] = "Application Not Created, Required Information Missing"
+      flash[:error] = "Application Not Created, Required Information Missing" # use errors.full_messages
       redirect_to "/apps/new"
     end 
   end
