@@ -18,7 +18,5 @@ PetApplication.destroy_all
                                     description: "Single guy, 3 bedroom house on 7 acres. Lots of love to give!",
                                     status: "Pending")
 @shelter1 = Shelter.create!(name: "Humane Society", rank: 8, city: "Atlanta")
-@pet1     = @shelter1.pets.create!(name: "Marley", age: 2, shelter_id: @shelter1.id)
 @pet2     = @shelter1.pets.create!(name: "Mack", age: 3, shelter_id: @shelter1.id)
-@pet_application1 = @application1.pet_applications.create!(pet_id: @pet1.id)
 @pet_application2 = @application1.pet_applications.create!(pet_id: @pet2.id)
