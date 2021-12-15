@@ -20,9 +20,10 @@ RSpec.describe 'admin shelters index page' do
       status: "Pending"
     )
 
-    ApplicationPet.create!(pet_id: @pet_1.id, application_id: @application.id)
     ApplicationPet.create!(pet_id: @pet_2.id, application_id: @application.id)
+    ApplicationPet.create!(pet_id: @pet_1.id, application_id: @application.id)
     ApplicationPet.create!(pet_id: @pet_3.id, application_id: @application.id)
+
   end
 
   describe 'when I go to the admin shelters index page' do
@@ -32,5 +33,29 @@ RSpec.describe 'admin shelters index page' do
       expect(@shelter_2.name).to appear_before(@shelter_3.name)
       expect(@shelter_3.name).to appear_before(@shelter_1.name)
     end
+
+    it 'has a section for pending applications' do
+      visit "/admin/shelters"
+
+      expect(page).to have_content("Shelters with Pending Applications")
+    end
+
+    it 'has a section where the pending applications are listed' do
+      visit "/admin/shelters"
+
+      within "#pending" do
+        expect(page).to have_content("#{@shelter_1.name}")
+        expect(page).to have_content("#{@shelter_3.name}")
+      end
+    end
+
+    # it 'does not return any shelter names if none have pending apps' do
+    #   visit "/admin/shelters"
+    #
+    #   within "#pending" do
+    #     expect(page).to_not have_content("#{@shelter_1.name}")
+    #     expect(page).to_not have_content("#{@shelter_3.name}")
+    #   end
+    # end
   end
 end

@@ -2,11 +2,11 @@
 
 <%= link_to "Sort by number of pets", "/shelters?sort=pet_count" %>
 
-<%= form_with url: "/shelters", method: :get, local: true do |f| %>
-  <%= f.label :search %>
-  <%= f.text_field :search %>
-  <%= f.submit "Search" %>
-<% end %>
+<%= render partial: 'form', locals: {
+  path: "/shelters",
+  method: :get,
+  button_text: "Search" } %>
+
 
 <% @shelters.each do |shelter| %>
   <div id="shelter-<%= shelter.id %>">
