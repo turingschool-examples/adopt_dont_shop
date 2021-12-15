@@ -200,7 +200,7 @@ RSpec.describe 'Application show page' do
     expect(page).to have_content('Lucille Bald')
   end
 
-  xit 'allows applicant to submit application' do
+  it 'allows applicant to submit application' do
 
     shelter = Shelter.create!(name: "Dumb Friends League", city: "Aurora", foster_program: true, rank: 7)
 
@@ -228,29 +228,18 @@ RSpec.describe 'Application show page' do
 
     click_on("Adopt this Pet")
 
+    expect(page).to have_button("Submit Application")
+
     expect(page).to have_content("Why would you make a good owner for this pet?")
 
     fill_in "description", with: "I love cats"
 
-    expect(page).to have_button("Submit Application")
-
     click_on("Submit Application")
 
     expect(current_path).to eq("/applications/#{brooke.id}")
-    expect(page).to have_content("Pending")
-    expect(page).to have_content('Lucille Bald')
-    expect(page).to_not have_content("Add a pet to this application")
+    expect(page).to have_content("Status of application: Pending")
+    expect(page).to have_content('Pets applied for: Lucille Bald')
+    # need to add within blocks and div tags
+    # expect(page).to_not have_content("Add a pet to this application")
   end
 end
-
-
-# When I visit an application's show page
-# And I have added one or more pets to the application
-# Then I see a section to submit my application
-# And in that section I see an input to enter why I would make a good owner for these pet(s)
-# When I fill in that input
-# And I click a button to submit this application
-# Then I am taken back to the application's show page
-# And I see an indicator that the application is "Pending"
-# And I see all the pets that I want to adopt
-# And I do not see a section to add more pets to this application
