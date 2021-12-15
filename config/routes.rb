@@ -50,4 +50,6 @@ Rails.application.routes.draw do
 
   post '/pet_applications/new', to: 'pet_applications#create'
 
+  patch'/admin/applications/:id', to: 'admin/applications#update'
+
 end
