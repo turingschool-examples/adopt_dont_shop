@@ -1,5 +1,5 @@
 <h1>All Shelters</h1>
 
-<% @shelters.each do |shelter| %>
-<%= shelter.name %>
+<% @shelters.order_by_reverse_alphabet.each do |shelter| %>
+<p><%= shelter.name %></p>
 <% end %>

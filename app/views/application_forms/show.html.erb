@@ -25,7 +25,7 @@
     <%= f.text_field :pet_name %></p>
   <%= f.submit "Search by pet's name" %>
 <% end %>
-<% end %>
+
 
 <% @pets.each do |pet| %>
   <%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
@@ -38,5 +38,6 @@
   <%= form.hidden_field :status, value: "Pending" %>
   <%= button_to "Submit Application"%>
 
+<% end %>
 <% end %>
 <% end %>
