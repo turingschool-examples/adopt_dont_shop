@@ -25,4 +25,25 @@ RSpec.describe 'New application page' do
 
     expect(current_path).to eq("/applications/#{new_app.id}")
   end
+
+  # When I visit the new application page
+  # And I fail to fill in any of the form fields
+  # And I click submit
+  # Then I am taken back to the new applications page
+  # And I see a message that I must fill in those fields.
+
+  xit 'and I fail to fill any of the form fields' do
+    visit '/applications/new'
+    fill_in(:name, with: "")
+    fill_in(:street, with: "")
+    fill_in(:city, with: "")
+    fill_in(:state, with: "")
+    fill_in(:zip, with: " ")
+
+    click_button('submit')
+    # visit '/applications/new'
+
+    expect(current_path).to eq("/applications/new")
+    expect(page).to have_content("Error: You must fill in all fields")
+  end
 end
