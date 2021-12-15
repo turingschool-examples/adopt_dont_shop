@@ -1,18 +1,20 @@
-<h3><%= @application.name %></h3>
-<h3><%= @application.street_address %></h3>
-<h3><%= @application.city %></h3>
-<h3><%= @application.state %></h3>
-<h3><%= @application.zip %></h3>
-<h3><%= @application.description %></h3>
-<h3><%= @application.status %></h3>
+<h3>Name: <%= @application.name %></h3>
+<h3>Street Address: <%= @application.street_address %></h3>
+<h3>City: <%= @application.city %></h3>
+<h3>State: <%= @application.state %></h3>
+<h3>Zip Code: <%= @application.zip %></h3>
+<h3>Description: <%= @application.description %></h3>
+<h3>Application Status: <%= @application.status %></h3>
+<p>Pets:</p>
 <%= @application.pets.each do |pet| %>
   <%= pet.name %>
 <% end %>
-
-<%= form_with url: "/applications/#{@application.id}", method: :patch, local: true do |f| %>
-  <%= f.label :description %>
-  <%= f.text_field :description, disabled: @application.pets.empty? %>
-  <%= f.submit "Submit Application", disabled: @application.pets.empty? %>
+<% if @application.description == nil %>
+  <%= form_with url: "/applications/#{@application.id}", method: :patch, local: true do |f| %>
+    <%= f.label :description %>
+    <%= f.text_field :description, disabled: @application.pets.empty? %>
+    <%= f.submit "Submit Application", disabled: @application.pets.empty? %>
+  <% end %>
 <% end %>
 
 <h2> Add a Pet to this Application: </h2>
@@ -23,7 +25,9 @@
 <% end %>
 
 <% @pets.each do |pet| %>
+<div id="pets-<%= pet.id %>">
   <p><%= pet.name %></p>
   <p><%= pet.id %></p>
-  <%= link_to "Adopt #{pet.name}", "/applications/#{@application.id}?adopt=#{pet.id}", method: :get , local: true %>
+  <%= link_to "Adopt #{pet.name}", "/applications/#{@application.id}?adopt=#{pet.id}", method: :get, local: true %>
+<div>
 <% end %>
