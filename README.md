@@ -47,6 +47,8 @@ During the evaluation, you will present your user story:
 ```
 [ ] done
 
+1. User Story
+
 Deploy your application to Heroku
 
 As a visitor of the site
@@ -65,6 +67,8 @@ Visitors to the site will be able to create applications to adopt pets. An appli
 ```
 [ ] done
 
+2. User Story
+
 Application Show Page
 
 As a visitor
@@ -79,6 +83,8 @@ Then I can see the following:
 
 ```
 [ ] done
+
+3. User Story
 
 Starting an Application
 
@@ -102,6 +108,8 @@ And I see an indicator that this application is "In Progress"
 ```
 [ ] done
 
+4. User Story
+
 Starting an Application, Form not Completed
 
 As a visitor
@@ -114,6 +122,8 @@ And I see a message that I must fill in those fields.
 
 ```
 [ ] done
+
+5. User Story
 
 Searching for Pets for an Application
 
@@ -131,6 +141,8 @@ And under the search bar I see any Pet whose name matches my search
 ```
 [ ] done
 
+6. User Story
+
 Add a Pet to an Application
 
 As a visitor
@@ -145,6 +157,8 @@ And I see the Pet I want to adopt listed on this application
 
 ```
 [ ] done
+
+7. User Story
 
 Submit an Application
 
@@ -164,6 +178,8 @@ And I do not see a section to add more pets to this application
 ```
 [ ] done
 
+8. User Story
+
 No Pets on an Application
 
 As a visitor
@@ -179,6 +195,8 @@ These stories emphasize key database concepts
 ```
 [ ] done
 
+9. User Story
+
 Partial Matches for Pet Names
 
 As a visitor
@@ -190,6 +208,8 @@ For example, if I search for "fluff", my search would match pets with names "flu
 
 ```
 [ ] done
+
+10. User Story
 
 Case Insensitive Matches for Pet Names
 
@@ -205,7 +225,10 @@ SQL Only Story
 
 For this story, you should write your queries in raw sql. You can use the ActiveRecord find_by_sql method to execute raw sql queries: https://guides.rubyonrails.org/active_record_querying.html#finding-by-sql
 
+
 Admin Shelters Index
+
+1. SQL 
 
 As a visitor
 When I visit the admin shelter index ('/admin/shelters')
@@ -216,6 +239,8 @@ Then I see all Shelters in the system listed in reverse alphabetical order by na
 For this story, you should fully leverage ActiveRecord methods in your query.
 
 Shelters with Pending Applications
+
+2. SQL
 
 As a visitor
 When I visit the admin shelter index ('/admin/shelters')
@@ -232,6 +257,8 @@ For this set of stories, we will be making routes that begin with '/admin'. This
 ```
 [ ] done
 
+11. User Story
+
 Approving a Pet for Adoption
 
 As a visitor
@@ -245,6 +272,8 @@ And instead I see an indicator next to the pet that they have been approved
 
 ```
 [ ] done
+
+12. User Story
 
 Rejecting a Pet for Adoption
 
@@ -276,6 +305,8 @@ Once all pets on an application have been marked either accepted or rejected, th
 ```
 [ ] done
 
+13. User Story
+
 All Pets Accepted on an Application
 
 As a visitor
@@ -287,6 +318,8 @@ And I see the application's status has changed to "Approved"
 
 ```
 [ ] done
+
+14. User Story
 
 One or More Pets Rejected on an Application
 
@@ -312,6 +345,8 @@ Then I see that those pets are no longer "adoptable"
 Pets can only have one approved application on them at any time
 
 [ ] done
+
+15. User Story
 
 As a visitor
 When a pet has an "Approved" application on them
