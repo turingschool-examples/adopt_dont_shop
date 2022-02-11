@@ -8,6 +8,6 @@
 <h3>Why owner woud be a good home: <br><br> -<%= @application.description %></h3>
 <h3>Pets Wanted: </h3>
 <% @pets.each do |pet| %>
-  <%= link_to "#{pet.name}", "pets/#{pet.id}/show" %>
+  <%= link_to "#{pet.name}", "pets/#{pet.id}" %>
 <% end %>
 <h3>Application Status: <%= @application.status %></h3>
