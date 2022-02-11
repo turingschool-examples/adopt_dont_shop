@@ -32,4 +32,9 @@ RSpec.describe 'The application Show page' do
         expect(page).to have_content(@mantis.name)
         expect(page).to have_no_content(@bo.name)
     end 
+
+    it 'shows the user the current status of their application' do 
+        visit "/application/#{@application_1.id}"
+        expect(page).to have_content(@application_1.status)
+    end 
 end 
