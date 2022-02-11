@@ -1,0 +1,12 @@
+<h1>Application Show Page</h1>
+<h2>Application Information</h2>
+<p>Name: <%= @application.name %></p>
+<p>Address: <%= @full_address %></p>
+<p>Description: <%= @application.description %></p>
+
+<p>"Application Status: need to figure out. Maybe status will be an attribute? Maybe a method"</p>
+
+<h3>Pet(s) Application Is For:</h3>
+<% @pets.each do |pet| %>
+    <p><%= pet.name %></p>
+<% end %>
