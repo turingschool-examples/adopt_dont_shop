@@ -1,0 +1,8 @@
+<h1>Name: <%=  @application.name %></h1>
+<h3>Address: <%= @application.address  %></h3>
+<h3>Why they'd make a great home: <%= @application.description  %></h3>
+<h3>Status: <%= @application.status  %></h3>
+<h3>Interested in adopting:
+<% @application.pets.each do |pet| %>
+   <%= link_to pet.name, "/pets/#{pet.id}" %>
+<% end %></h3>
