@@ -23,6 +23,5 @@ RSpec.describe Application, type: :model do
         application = Application.create!(name: "Aedan", street_address: "3425 Mansfield", city: "Denver", state: "CO", zipcode: "80236", description: "I love dogs")
         expect(Application.statuses).to eq({"In Progress"=>0, "Pending"=>1, "Accepted"=>2, "Rejected"=>3})
         expect(application.status).to eq("In Progress")
-
     end 
 end 

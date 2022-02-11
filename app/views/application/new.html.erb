@@ -1,5 +1,15 @@
-<%= form_with url:'/pets', method: :post, local: :true do |form| %>
+<%= form_with url:'/application/', method: :post, local: :true do |form| %>
     <%= form.label :name %> 
-    <%= form.text_field :name %> 
-    <%= form.submit "Create Application" %> 
+    <%= form.text_field :name %>
+    <%= form.label :street_address %> 
+    <%= form.text_field :street_address %>
+    <%= form.label :city %> 
+    <%= form.text_field :city %> 
+    <%= form.label :state %> 
+    <%= form.text_field :state %>
+    <%= form.label :zipcode %> 
+    <%= form.text_field :zipcode %>
+    <%= form.label :description %> 
+    <%= form.text_field :description %>
+    <%= form.submit "Submit Application" %> 
 <% end %> 
