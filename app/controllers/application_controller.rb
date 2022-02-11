@@ -4,8 +4,11 @@ class ApplicationController < ActionController::Base
 
   def show 
     @application = Application.find(params[:id])
-    @pets = @application.pets.all
     @full_address = "#{@application.street_address} #{@application.city}, #{@application.state} #{@application.zipcode}"
+    @applied_pets = @application.pets.all
+    if params[:search]
+      @pets = Pet.search(params[:search])
+    end 
   end
 
   def new 

@@ -15,6 +15,7 @@ RSpec.describe 'The application Show page' do
         @mushu = @application_1.pets.create!(adoptable: true, age: "5", breed: "Dog", name:"Mushu", shelter: dumb_friends_league )
         @mantis = @application_1.pets.create!(adoptable: true, age: "2", breed: "cat", name:"Mantis", shelter: dumb_friends_league )
         @bo = @application_2.pets.create!(adoptable: false, age: "5", breed: "Dog", name:"Bo", shelter: dumb_friends_league )
+        @moe = Pet.create!(adoptable: true, age: "6", breed: "Dog", name:"Moe", shelter: dumb_friends_league )
     end 
     it 'shows the user applicant attributes' do 
         visit "/application/#{@application_1.id}"
@@ -36,5 +37,27 @@ RSpec.describe 'The application Show page' do
     it 'shows the user the current status of their application' do 
         visit "/application/#{@application_1.id}"
         expect(page).to have_content(@application_1.status)
-    end 
+    end
+    
+# As a visitor
+# When I visit an application's show page
+# And that application has not been submitted,
+# Then I see a section on the page to "Add a Pet to this Application"
+# In that section I see an input where I can search for Pets by name
+# When I fill in this field with a Pet's name
+# And I click search,
+# Then I am taken back to the application show page
+# And under the search bar I see any Pet whose name matches my search
+
+    it 'has a pet search field where the user can search for pets to add to application' do 
+        visit "/application/#{@application_1.id}"
+        fill_in "search", with: "Moe"
+        # Application must not be pending(fully submitted)
+
+        expect(page).to have_content("Application Status: In Progress")
+        click_button("Search")
+        expect(current_path).to eq("/application/#{@application_1.id}")
+        expect(page).to have_content("Moe")
+
+    end
 end 
