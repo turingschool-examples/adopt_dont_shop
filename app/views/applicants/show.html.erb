@@ -6,5 +6,10 @@
   <li><%= @applicant.state %></li>
   <li><%= @applicant.zipcode %></li>
   <li><%= @applicant.description %></li>
-  <li><%= @applicant.status %></li>
 </ul>
+
+<h2>Pets Applied For</h2>
+<p><% @applicant.pets.each do |pet| %></p>
+  <%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
+<% end %>
+<li><%= @applicant.status %></li>
