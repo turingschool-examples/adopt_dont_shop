@@ -1,6 +1,35 @@
 require 'rails_helper'
 
 RSpec.describe 'Applicants' do
+  describe 'Subit link to show page' do
+    it 'the submit link takes me to that applicants page' do
+      app = Applicant.create!(
+        name: 'Jerry',
+        address_line_1: '123 First Street',
+        city: 'Temecula',
+        state: 'CA',
+        zipcode: '12345',
+        description: 'I want more pets.'
+      )
+      visit '/pets'
+      expect(page).to have_link('Start Application')
+      click_link('Start Application')
+
+      expect(page).to have_current_path('/applicants/new')
+
+      fill_in 'applicant_name', with: 'Jerry'
+      fill_in 'applicant_address_line_1', with: '123 First Street'
+      fill_in 'applicant_city', with: 'Temecula'
+      fill_in 'applicant_state', with: 'CA'
+      fill_in 'applicant_zipcode', with: '12345'
+      fill_in 'applicant_description', with: 'I want more pets'
+
+      click_on 'Submit'
+
+      expect(page).to have_content('Jerry')
+      expect(page).to have_content('In Progress')
+    end
+  end
   describe 'GET /show' do
     it 'displays an applicant' do
       app = Applicant.create!(
