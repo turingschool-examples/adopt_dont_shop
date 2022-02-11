@@ -1,0 +1,21 @@
+<%= form_with url: "/applicants", method: :post, local: true, model: @applicant do |f| %>
+  <p><%= f.label :name %>
+  <%= f.text_field :name %></p>
+<p><%= f.label :address_line_1 %>
+<%= f.text_field :address_line_1 %></p>
+
+<p><%= f.label :city %>
+<%= f.text_field :city %></p>
+
+<p><%= f.label :state %>
+<%= f.text_field :state %></p>
+
+<p><%= f.label :zipcode %>
+<%= f.text_field :zipcode %></p>
+
+<p><%= f.label :description %>
+<%= f.text_field :description %></p>
+
+
+  <%= f.submit 'Submit' %>
+<% end %>
