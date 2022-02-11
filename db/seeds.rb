@@ -2,6 +2,7 @@ Shelter.destroy_all
 Pet.destroy_all
 VeterinaryOffice.destroy_all
 Veterinarian.destroy_all
+Application.destroy_all
 
 
 @shelter_1 = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
@@ -28,3 +29,6 @@ application = Application.create!(name: "Chaz Carmichael",
   description: "I like pets",
   pet_names: "#{pet_1.id}, #{pet_2.id}",
   status: "In Progress")
+
+application.id = 1
+application.save!
