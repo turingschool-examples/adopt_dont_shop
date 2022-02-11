@@ -4,4 +4,11 @@ class Application < ApplicationRecord
     validates :address, presence: true 
     validates :description, presence: true 
     validates :status, presence: true 
+
+    def pets_on_application
+        
+    end
+    
+    
+    
 end
