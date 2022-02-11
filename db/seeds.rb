@@ -19,3 +19,12 @@ pet_3 = Pet.create(adoptable: false, age: 2, breed: 'saint bernard', name: 'Beet
 
 vet_1 = Veterinarian.create(name: 'Taylor', review_rating: 10, on_call: true, veterinary_office_id: @vet_office_1.id)
 vet_2 = Veterinarian.create(name: 'Jim', review_rating: 8, on_call: true, veterinary_office_id: @vet_office_2.id)
+
+application = Application.create!(name: "Chaz Carmichael",
+  street_address: "10 lane",
+  city: "Sandy Springs",
+  state: "CO",
+  zipcode: 12345,
+  description: "I like pets",
+  pet_names: "#{pet_1.id}, #{pet_2.id}",
+  status: "In Progress")
