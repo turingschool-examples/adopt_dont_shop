@@ -1,0 +1,3 @@
+class ApplicantController < ApplicationController
+
+end
