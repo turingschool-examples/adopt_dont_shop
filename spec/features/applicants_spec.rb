@@ -29,6 +29,7 @@ RSpec.describe 'Applicants' do
       fill_in 'applicant_city', with: 'Temecula'
       fill_in 'applicant_state', with: 'CA'
       fill_in 'applicant_zipcode', with: '12345'
+      fill_in 'applicant_description', with: 'I want more pets'
 
       click_on 'Submit'
 
