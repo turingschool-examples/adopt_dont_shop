@@ -5,7 +5,7 @@ RSpec.describe 'the applicant show' do
     @greg = Applicant.create!(name: 'Greg Flaherty', street_address: '123 MyStreet St.', city: "Dallas", state: "TX", zipcode: '12345', description: "Love dogs", status: "In progress")
     @no_dog_left_behind = Shelter.create!(name: 'No Dog Left Behind', rank: 1, foster_program: true, city: 'Dallas')
     @jax = @no_dog_left_behind.pets.create!(name: "Jax", age: 1, breed: 'Golden Retriever', adoptable: true)
-
+  end
   it "shows the applicant and all it's attributes" do
 
     visit "/applicants/#{@greg.id}"
