@@ -28,7 +28,6 @@ RSpec.describe 'The application Show page' do
 
     it 'shows the user the names of all pets this application is for' do 
         visit "/application/#{@application_1.id}"
-        save_and_open_page
         expect(page).to have_content(@mushu.name)
         expect(page).to have_content(@mantis.name)
         expect(page).to have_no_content(@bo.name)
