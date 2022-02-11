@@ -8,6 +8,9 @@ class ApplicationController < ActionController::Base
     @full_address = "#{@application.street_address} #{@application.city}, #{@application.state} #{@application.zipcode}"
   end
 
+  def new 
+  end 
+
   private
 
   def error_message(errors)
