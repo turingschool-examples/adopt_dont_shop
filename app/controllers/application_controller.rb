@@ -9,11 +9,16 @@ class ApplicationController < ActionController::Base
   end
 
   def new 
+    @application = Application.new
   end 
 
   def create
-      applicant = Application.create!(applicant_params)
-      redirect_to "/application/#{applicant.id}"
+    @application = Application.new(applicant_params)
+    if @application.save
+      redirect_to "/application/#{@application.id}"
+    else 
+      render :new
+    end 
   end 
 
   private

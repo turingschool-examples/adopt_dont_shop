@@ -1,15 +1,23 @@
-<%= form_with url:'/application/', method: :post, local: :true do |form| %>
-    <%= form.label :name %> 
-    <%= form.text_field :name %>
-    <%= form.label :street_address %> 
-    <%= form.text_field :street_address %>
-    <%= form.label :city %> 
-    <%= form.text_field :city %> 
-    <%= form.label :state %> 
-    <%= form.text_field :state %>
-    <%= form.label :zipcode %> 
-    <%= form.text_field :zipcode %>
-    <%= form.label :description %> 
-    <%= form.text_field :description %>
-    <%= form.submit "Submit Application" %> 
+<center><h1>Application Form</h1></center>
+
+<%= form_with url:'/application/new', method: :post, local: :true do |form| %>
+    <% if @application.errors.any? %>
+        <% @application.errors.full_messages.each do |message| %>
+            <div><%= message %></div>
+        <% end %>
+    <% end %>
+    <br>
+    <p><%= form.label :name %></p> 
+    <p><%= form.text_field :name %></p>
+    <p><%= form.label :street_address %></p> 
+    <p><%= form.text_field :street_address %> </p>
+    <%= form.label :city %>
+    <p><%= form.text_field :city %></p>
+    <p><%= form.label :state %></p> 
+    <p><%= form.text_field :state %></p>
+    <p><%= form.label :zipcode %></p> 
+    <p><%= form.text_field :zipcode %></p>
+    <p><%= form.label :description %></p> 
+    <p><%= form.text_field :description %></p>
+    <center><p><%= form.submit "Submit Application" %></p></center>
 <% end %> 
