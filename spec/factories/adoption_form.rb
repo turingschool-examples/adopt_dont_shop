@@ -1,5 +1,5 @@
 FactoryBot.define do
-  factory :application do
+  factory :adoption_form do
     client
 
     first_name      { Faker::Name.first_name }

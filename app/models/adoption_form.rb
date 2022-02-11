@@ -1,4 +1,4 @@
-class Application < ApplicationRecord
+class AdoptionForm < ApplicationRecord
   belongs_to :client
 
   validates_presence_of :first_name

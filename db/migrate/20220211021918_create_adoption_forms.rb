@@ -1,6 +1,6 @@
-class CreateApplications < ActiveRecord::Migration[5.2]
+class CreateAdoptionForms < ActiveRecord::Migration[5.2]
   def change
-    create_table :applications do |t|
+    create_table :adoption_forms do |t|
       t.string :first_name
       t.string :last_name
       t.string :street_address

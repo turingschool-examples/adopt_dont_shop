@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Application, type: :model do
+RSpec.describe AdoptionForm, type: :model do
   describe 'relationship' do
     it { should belong_to(:client)}
   end
@@ -16,9 +16,9 @@ RSpec.describe Application, type: :model do
   end
 
   it 'exists' do
-    application = create(:application)
+    form = create(:adoption_form)
 
-    expect(application).to be_an(Application)
-    expect(application).to be_valid
+    expect(form).to be_an(AdoptionForm)
+    expect(form).to be_valid
   end
 end

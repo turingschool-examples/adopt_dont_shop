@@ -1,3 +1,3 @@
 class Client < ApplicationRecord
-  has_many :applications
+  has_many :adoption_forms
 end
