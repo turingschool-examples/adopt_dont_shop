@@ -1,5 +1,5 @@
 class Application < ApplicationRecord
-    
+    enum status: {"In Progress": 0, "Pending": 1, "Accepted": 2, "Rejected": 3}
     validates_presence_of :name
     validates_presence_of :street_address
     validates_presence_of :city
