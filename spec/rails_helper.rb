@@ -38,7 +38,10 @@ Shoulda::Matchers.configure do |config|
   end
 end
 
-config.include FactoryBot::Syntax::Methods
+RSpec.configure do |config|
+    config.include FactoryBot::Syntax::Methods
+  end
+
 
 RSpec.configure do |config|
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
