@@ -8,7 +8,6 @@ RSpec.describe 'pet creation' do
   describe 'the pet new' do
     it 'renders the new form' do
       visit "/shelters/#{@shelter.id}/pets/new"
-
       expect(page).to have_content('New Pet')
       expect(find('form')).to have_content('Name')
       expect(find('form')).to have_content('Breed')
