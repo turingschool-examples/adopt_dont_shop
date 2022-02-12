@@ -1,5 +1,4 @@
 class Application < ApplicationRecord
-
     validates :name, presence: true
     validates :street, presence: true
     validates :city, presence: true
@@ -9,7 +8,7 @@ class Application < ApplicationRecord
     attribute :description, :string, default: "TBFI later"
     attribute :status, :string, default: "In progress"
 
-    has_many :pet_applications, dependent: :destroy
+    has_many :pet_applications
     has_many :pets, through: :pet_applications
 
 
