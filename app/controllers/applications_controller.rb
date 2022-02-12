@@ -1,10 +1,21 @@
 class ApplicationsController < ApplicationController
+
   def show
     #binding.pry
     @app = Application.find(params[:id])
   end
 
+  def new
+  end
+
   def create
+    app = Application.new(app_params)
+    if app.save
+      redirect_to "/applications/#{app.id}"
+    else
+      flash[:alert] = 'Fill out the form completely.'
+      redirect_to "/applications/new"
+    end
   end
 
   private
