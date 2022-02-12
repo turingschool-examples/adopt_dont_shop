@@ -1,8 +1,11 @@
 <h1>First name: <%= @application.first_name %></h1>
-<h2>Last name: <%= @application.first_name %></h2>
+<h2>Last name: <%= @application.last_name %></h2>
 <h3>Street address: <%= @application.street_address %> </h3>
 <h3>City: <%= @application.city %> </h3>
 <h3>Post code <%= @application.post_code %> </h3>
 <h3>Why I would make an excellent pet owner: <%= @application.good_owner %> </h3>
-<h3>My pet matches: <%= @application.pet_matches %> </h3>
-<h3>Application Status: <%= @application.application_status %> </h3>
+<h2>My pet matches:</h2>
+<% @application.pets.each do |pet| %>
+<h3><%= link_to "Potential pet: #{pet.name}", "/pets/#{pet.id}" %></h3>
+<% end %>
+<h3>Application Status: <%= @application.status %> </h3>
