@@ -3,7 +3,7 @@ VeterinaryOffice.destroy_all
 Veterinarian.destroy_all
 Shelter.destroy_all
 Pet.destroy_all
-# Application.destroy_all
+Application.destroy_all
 
 ruffn_tuff = VeterinaryOffice.create!(name: "Ruffn Tuff", max_patient_capacity: 20, boarding_services: true)
 jo = ruffn_tuff.veterinarians.create!(name: "Jo", review_rating: 9, on_call: true)
@@ -28,3 +28,9 @@ charlie = club_cuddles.pets.create!(name: "Charlie", breed: "Ridgback", adoptabl
 carol = club_cuddles.pets.create!(name: "Carol", breed: "Lab", adoptable: true, age: 4)
 chester = club_cuddles.pets.create!(name: "Chester", breed: "Shih Tzu", adoptable: true, age: 3)
 clyde = club_cuddles.pets.create!(name: "Clyde", breed: "Bernese", adoptable: true, age: 10)
+
+murph = Application.create!(name: "Murph", street_address: "456 Acres Ln", city: "Boca Rotan", state: "FL", zip_code: "33481", description: "Jack would have a brother", status: "In Progress")
+cyle = Application.create!(name: "Cyle", street_address: "139 Corvette St", city: "Inman", state: "SC", zip_code: "29349", description: "I would take him disc'n", status: "In Progress")
+drew = Application.create!(name: "Drew", street_address: "975 Mountain Rd", city: "Salt Lake City", state: "UT", zip_code: "84044", description: "I love puppies", status: "Accepted")
+gordon = Application.create!(name: "Gordon", street_address: "222 Wildcat Way", city: "St. Marys", state: "OH", zip_code: "45885", description: "I live close to a road", status: "Rejected")
+alex = Application.create!(name: "Alex", street_address: "728 Adventure Cir", city: "Seattle", state: "WA", zip_code: "98101", description: "We would go hiking", status: "In Progress")
