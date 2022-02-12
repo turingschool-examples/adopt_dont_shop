@@ -44,4 +44,5 @@ RSpec.describe 'application' do
     expect(page).to have_link("Veterinarians")
     expect(page).to have_link("Veterinary Offices")
   end
+
 end
