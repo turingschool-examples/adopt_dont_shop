@@ -1,4 +1,9 @@
-<h1> Name: <%= @application.name %> </h1>
-<h2> Full Address: <%= @application.full_address %> </h2>
-<h2> Description: <%= @application.description %> </h2>
-<h2> Status: <%= @application.status %> </h2>
+<h1> Your Application </h1>
+<h2> Name: <%= @application.name %> </h2>
+<h3> Full Address: <%= @application.full_address %> </h3>
+<h3> Description: <%= @application.description %> </h3>
+<h3> Status: <%= @application.status %> </h3>
+<h2> Your Pets </h2>
+<% @application.pets.each do |pet| %>
+<h3> <%= link_to "#{pet.name}", "/pets/#{pet.id}" %> </h3>
+<% end %>
