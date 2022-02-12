@@ -65,4 +65,31 @@ RSpec.describe 'Applicants' do
       expect(page).to_not have_content(pig.name)
     end
   end
+
+  describe 'not completed form' do
+    it 'shows an error message for incomplete forms' do
+      app = Applicant.create!(
+        name: 'Jerry',
+        address_line_1: '123 First Street',
+        city: 'Temecula',
+        state: 'CA',
+        zipcode: '12345',
+        description: 'I want more pets.'
+      )
+
+      visit('/applicants/new')
+
+      fill_in 'applicant_name', with: 'Jerry'
+      fill_in 'applicant_address_line_1', with: '123 First Street'
+      fill_in 'applicant_city', with: 'Temecula'
+      fill_in 'applicant_state', with: 'CA'
+      fill_in 'applicant_zipcode', with: '12345'
+      fill_in 'applicant_description', with: nil
+
+      click_on 'Submit'
+
+      expect(page).to have_current_path('/applicants/new')
+      expect(page).to have_content('Error, all fields must be completed')
+    end
+  end
 end
