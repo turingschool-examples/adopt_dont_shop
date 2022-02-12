@@ -6,7 +6,7 @@ describe 'application' do
                   name: "frankie's friendly felines",
                   city: "westminster",
                   rank: 10)
-    @application = Petapplication.create!(name: "Frank",
+    @application = Application.create!(name: "Frank",
                   street: "123 blaine st",
                   city: "Sioux falls",
                   state: "SD",
@@ -22,7 +22,7 @@ describe 'application' do
   end
   it 'displays a link to applicant info' do
     binding.pry
-    visit "/petapplications/#{@application.id}"
+    visit "/applications/#{@application.id}"
     save_and_open_page
     expect(page).to have_content(@application.name)
     expect(page).to have_content(@application.street)
