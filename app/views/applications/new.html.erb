@@ -1,0 +1,23 @@
+<center><h1>Application Form</h1></center>
+
+<%= form_with url:'/applications/new', method: :post, local: :true do |form| %>
+    <% if @application.errors.any? %>
+        <% @application.errors.full_messages.each do |message| %>
+            <div><%= message %></div>
+        <% end %>
+    <% end %>
+    <br>
+    <p><%= form.label :name %></p> 
+    <p><%= form.text_field :name %></p>
+    <p><%= form.label :street_address %></p> 
+    <p><%= form.text_field :street_address %> </p>
+    <%= form.label :city %>
+    <p><%= form.text_field :city %></p>
+    <p><%= form.label :state %></p> 
+    <p><%= form.text_field :state %></p>
+    <p><%= form.label :zipcode %></p> 
+    <p><%= form.text_field :zipcode %></p>
+    <p><%= form.label :description %></p> 
+    <p><%= form.text_field :description %></p>
+    <center><p><%= form.submit "Submit" %></p></center>
+<% end %> 
