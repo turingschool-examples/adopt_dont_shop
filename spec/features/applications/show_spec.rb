@@ -7,28 +7,29 @@ RSpec.describe 'the applications show page' do
     @pet_1 = Pet.create(adoptable: true, age: 2, breed: 'domestic short hair', name: 'Mundungous', shelter_id: "#{@shelter.id}")
     @pet_2 = Pet.create(adoptable: true, age: 1, breed: 'sphynx', name: 'Captain Pants', shelter_id: "#{@shelter.id}")
 
-    @pet_app = PetApplication.create!(pet_id: pet_1.id, application_id: @application_1.id)
-    @pet_app = PetApplication.create!(pet_id: pet_2.id, application_id: @application_1.id)
+    @pet_app = PetApplication.create!(pet: @pet_1, application: @application_1)
+    @pet_app_2 = PetApplication.create!(pet: @pet_2, application: @application_1)
   end
 
   it "shows the application and all it's attributes" do
-    visit "/applications/#{application_1.id}"
 
-    expect(page).to have_content(application_1.name)
-    expect(page).to have_content(application_1.street_address)
-    expect(page).to have_content(application_1.city)
-    expect(page).to have_content(application_1.state)
-    expect(page).to have_content(application_1.zipcode)
-    expect(page).to have_content(pet_1.name)
-    expect(page).to have_content(pet_2.name)
-    expect(page).to have_content(application_1.status)
+    visit "/applications/#{@application_1.id}"
+
+    expect(page).to have_content(@application_1.name)
+    expect(page).to have_content(@application_1.street_address)
+    expect(page).to have_content(@application_1.city)
+    expect(page).to have_content(@application_1.state)
+    expect(page).to have_content(@application_1.zipcode)
+    expect(page).to have_content(@pet_1.name)
+    expect(page).to have_content(@pet_2.name)
+    expect(page).to have_content(@application_1.status)
   end
 
   it 'includes a link to each pet page' do
-    visit "/applications/#{application.id}"
+    visit "/applications/#{@application_1.id}"
 
-    click_on("#{pet_1.name}")
+    click_on("#{@pet_1.name}")
 
-    expect(current_path).to eq("/pets/#{pet_1.id}")
+    expect(current_path).to eq("/pets/#{@pet_1.id}")
   end
 end
