@@ -224,7 +224,7 @@ PLATFORMS
   x86_64-darwin-19
 
 DEPENDENCIES
-  bootsnap
+  bootsnap (>= 1.1.0)
   capybara
   coffee-rails (~> 4.2)
   jbuilder (~> 2.5)

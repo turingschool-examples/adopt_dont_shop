@@ -12,7 +12,7 @@ class ApplicantsController < ApplicationController
       redirect_to "/applicants/#{@applicant.id}"
     else
       redirect_to '/applicant/new'
-      flash[:alert] = "Error: We will figure this out later"
+      # flash[:alert] = "Error: We will figure this out later"
     end
   end
 
