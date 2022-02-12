@@ -1,22 +1,22 @@
 <h3> New Application </h3>
 <%= form_with url: "/applicants", method: :post do |form| %>
   <%= form.label :name, "Name: " %>
-  <%= form.text_field :name %>
+  <%= form.text_field :name %><br>
 
   <%= form.label :street_address, "Street Address: " %>
-  <%= form.text_field :street_address %>
+  <%= form.text_field :street_address %><br>
 
   <%= form.label :city, "City: " %>
-  <%= form.text_field :city %>
+  <%= form.text_field :city %><br>
 
   <%= form.label :state, "State: " %>
-  <%= form.text_field :state %>
+  <%= form.text_field :state %><br>
 
   <%= form.label :zipcode, "Zipcode: " %>
-  <%= form.text_field :zipcode %>
+  <%= form.text_field :zipcode %><br>
 
   <%= form.label :description, "Description: " %>
-  <%= form.text_area :description %>
+  <%= form.text_area :description %><br>
 
   <%= form.submit "Submit Application" %>
 <% end %>

@@ -43,4 +43,16 @@ RSpec.describe 'New applicant' do
     expect(page).to have_content('Laura Guerra')
     expect(page).to have_content('In Progress')
   end
+
+  it 'requires certain entries in the application' do
+    visit '/applicants/new'
+
+    fill_in 'Street Address:', with: '987 Her Rd.'
+    fill_in 'City:', with: 'Miami'
+
+    click_button 'Submit Application'
+    save_and_open_page
+    expect(page).to have_content("Error: Name can't be blank, State can't be blank, Zipcode can't be blank")
+    expect(page).to have_current_path('/applicants/new')
+  end
 end
