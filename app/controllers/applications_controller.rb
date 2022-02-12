@@ -4,7 +4,13 @@ class ApplicationsController < ApplicationController
     @app = Application.find(params[:id])
   end
 
+  def new
+  end
+  
   def create
+    app = Application.new(app_params)
+
+    redirect_to "/applications/#{app.id}"
   end
 
   private

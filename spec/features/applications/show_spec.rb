@@ -23,7 +23,7 @@ describe 'application' do
   it 'displays a link to applicant info' do
     # binding.pry
     visit "/applications/#{@application.id}"
-    save_and_open_page
+    #save_and_open_page
     expect(page).to have_content(@application.name)
     expect(page).to have_content(@application.street)
     expect(page).to have_content(@application.city)

@@ -20,9 +20,11 @@ describe 'Creates a new application' do
                   breed: "cat",
                   shelter_id: @shelter.id)
   end
+
   it "has a link on pet index page" do
     visit '/pets'
-    click_link 'Start an Application'
-    expect(current_path).to eq('/applications')
+    click_link 'Start a new application'
+    save_and_open_page
+    expect(current_path).to eq('/applications/new')
   end
 end

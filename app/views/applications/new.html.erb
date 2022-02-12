@@ -1,0 +1,16 @@
+<%= form_with url: '/applications/', method: :post, local: true do |form|%>
+<h3> Fill out the form below to start the adoption process.</h3>
+    <%= form.label "Name" %>
+    <%= form.text_field :name %><br>
+    <%= form.label "Street" %>
+    <%= form.text_field :street %><br>
+    <%= form.label "City" %>
+    <%= form.text_field :City %><br>
+    <%= form.label "State" %>
+    <%= form.text_field :State %><br>
+    <%= form.label "Zipcode" %>
+    <%= form.text_field :Zipcode %><br>
+
+
+    <%= form.submit "Submit"%>
+<% end %>
