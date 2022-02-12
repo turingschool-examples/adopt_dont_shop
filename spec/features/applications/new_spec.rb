@@ -27,4 +27,23 @@ describe 'Creates a new application' do
     save_and_open_page
     expect(current_path).to eq('/applications/new')
   end
+
+  it "fills in the form, submits and goes to show page." do
+    visit '/applications/new'
+
+    fill_in('name', with: 'Groucho')
+    fill_in('street', with: '987 real street')
+    fill_in('city', with: 'Greendale')
+    fill_in('state', with: 'CO')
+    fill_in('zipcode', with: '09876')
+    click_link 'Submit'
+
+    expect(current_path).to eq("/applications/#{Application.last.id}")
+    expect(page).to have_content('Groucho')
+    expect(page).to have_content('987 real street')
+    expect(page).to have_content('Greendale')
+    expect(page).to have_content('CO')
+    expect(page).to have_content('09876')
+    expect(page).to have_content('In progress')
+  end
 end
