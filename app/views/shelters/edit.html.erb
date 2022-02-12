@@ -1,4 +1,7 @@
-<h1>Edit Shelter</h1>
+<div class="d-flex align-items-center justify-content-center">
+  <h1>Edit Shelter</h1>
+</div>
+
 <%= form_with url: "/shelters/#{@shelter.id}", method: :patch, local: true do |f| %>
   <%= f.label :name %>
   <%= f.text_field :name %>

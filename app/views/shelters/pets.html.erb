@@ -1,4 +1,7 @@
-<h1>All pets at <%= @shelter.name %></h1>
+<div class="d-flex align-items-center justify-content-center">
+  <h1>All pets at <%= @shelter.name %></h1>
+</div>
+
 
 <%= link_to "Sort alphabetically", "/shelters/#{@shelter.id}/pets?sort=alphabetical" %>
 
