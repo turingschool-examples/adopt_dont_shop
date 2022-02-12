@@ -9,4 +9,8 @@ class Applicant < ApplicationRecord
 
   has_many :pet_applications
   has_many :pets, through: :pet_applications
+
+  # def find_pet
+  #   pets.where('name LIKE ?', '?%'.titleize)
+  # end
 end
