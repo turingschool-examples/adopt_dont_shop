@@ -1,12 +1,23 @@
-<h1>New Application</h1>
+<div class="d-flex align-items-center justify-content-center">
+  <h1>New Application</h1>
+</div>
 
-<%= form_with url: '/application/new', method: :post, local: true do |f| %>
+
+<%= form_with model: @application, url: '/application/new', method: :post, local: true do |f| %>
+  <% if @application.errors.any? %>
+    <div class="alert alert-danger">
+      <% @application.errors.full_messages.each do |message| %>
+        <div> <%= message %></div>
+      <% end %>
+    </div>
+  <% end %>
+
   <%= f.label :name, "Name:" %>
   <%= f.text_field :name %>
-
+  <br>
   <%= f.label :street_address, "Street Address:" %>
   <%= f.text_field :street_address %>
-
+  
   <%= f.label :city, "City:" %>
   <%= f.text_field :city %>
 
