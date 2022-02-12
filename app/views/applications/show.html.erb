@@ -18,6 +18,9 @@
 <% end %>
 <% if @application.pet_search(params[:search]).count >= 1 %>
    <% @application.pet_search(params[:search]).each do |pet| %>
-      <%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
+    <p>  
+      <%= link_to "#{pet.name}", "/pets/#{pet.id}" %> 
+      <%= button_to "Adopt this Pet", "/applications/applicationpets/create", method: :post, params: {pet_id: pet.id, application_id: @application.id}%>
+   </p>
    <% end %>
 <% end %>
