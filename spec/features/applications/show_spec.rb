@@ -5,6 +5,8 @@ RSpec.describe 'the application show' do
     shelter = Shelter.create(name: 'Mystery Building', city: 'Irvine CA', foster_program: false, rank: 9)
     pet = Pet.create(name: 'Scooby', age: 2, breed: 'Great Dane', adoptable: true, shelter_id: shelter.id)
 
+
+############3##############################
     lemon= Application.create(name: )
 
     visit "/pets/#{pet.id}"
