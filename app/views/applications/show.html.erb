@@ -1,23 +1,45 @@
 <h1>Application Show Page</h1>
 
+<section>
 <center>
 <h2>Application Information</h2>
 <p>Name: <%= @application.name %></p>
 <p>Address: <%= @full_address %></p>
+<% if @application.description.nil? == false %>
 <p>Description: <%= @application.description %></p>
+<% end %>
 
 <p>Application Status: <%= @application.status %></p>
 </center>
+</section>
 
 <br>
+
+<section>
 <center>
 <h3>Pet(s) Application Is For:</h3>
 <% @applied_pets.each do |pet| %>
     <%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
 <% end %> 
 </center>
+</section>
+
 <br> 
-<br>
+
+<section>
+<center>
+<% if @applied_pets.count >= 1 && @application.status == "In Progress" %> 
+    <%= form_with url: "/applications/#{@application.id}/update", method: :patch, local: true do |f| %>
+        <p><%= f.label :description, "Please describe why you would make a good owner: " %></p>
+        <p><%= f.text_field :description %></p>
+        <p><%= f.submit "Submit Application" %></p>
+    <% end%>
+<% end %>
+</center>
+</section>
+
+<section>
+<% if @application.status == "In Progress" %>
 <center><h3>Add a Pet to this Application</h3>
 <%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |f| %>
     <%= f.label :search, "search" %>
@@ -25,17 +47,20 @@
     <%= f.text_field :id, value: @application.id, hidden: true %> 
     <%= f.submit "Search" %>
     <% end %>
+<% end %>
 </center> 
-<center>
+</section>
+
+<section>
 <% if @pets.nil? == false %>
     <% @pets.each do |pet| %>
         <h3><%= pet.name %> <%= button_to "Adopt #{pet.name}!", "/applications/#{@application.id}/update?pet=#{pet.id}" %></h3>
         <p>Age: <%= pet.age %></p>
         <p>Breed: <%= pet.breed %></p>
         <p>Adoptable: </p>
-        <p>You can find <%= pet.name %> at <%= pet.shelter_name %>!</p>
+        <p>You can find <%= pet.name %> at <%= pet.shelter_name %></p>
         <%= link_to "Edit #{pet.name}", "/pets/#{pet.id}/edit" %>
         <%= link_to "Delete #{pet.name}", "/pets/#{pet.id}", method: :delete %>
     <% end %>
  <% end %>
- </center>
+</section>
