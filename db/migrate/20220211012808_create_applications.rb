@@ -7,8 +7,9 @@ class CreateApplications < ActiveRecord::Migration[5.2]
       t.string :state
       t.integer :zipcode
       t.text :description
-      t.string :pet_names
       t.string :status
+
+      t.timestamps
     end
   end
 end
