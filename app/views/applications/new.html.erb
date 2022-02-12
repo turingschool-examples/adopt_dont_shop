@@ -1,0 +1,18 @@
+<center><h1> New Application </h1></center?
+<h3> Applicants please fill out this form with your information</h3>
+<p><%= form_with url: "/pets", method: :post, local: true do |f| %></p>
+  <p><%= f.label :name %></p>
+  <p><%= f.text_field :name %></p>
+  <p><%= f.label :street_address %></p>
+  <p><%= f.text_field :street_address %></p>
+  <p><%= f.label :city %></p>
+  <p><%= f.text_field :city %></p>
+  <p><%= f.label :state %></p>
+  <p><%= f.text_field :state %></p>
+  <p><%= f.label :zip_code %></p>
+  <p><%= f.text_field :zip_code %></p>
+  <p><%= f.label :description %></p>
+  <p><%= f.text_field :description %></p>
+  <p><%= f.submit "Submit" %></p>
+
+<% end %>
