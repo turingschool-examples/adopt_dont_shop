@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe 'the applications show page' do
   before :each do
     @shelter = Shelter.create(name: 'Maxfund', city: 'Denver CO', foster_program: false, rank: 9)
-    @application_1 = Application.create!(name: "Holden Caulfield", street_address: "123 Main St", city: "New York", state: "NY", zipcode: 12345, description: "I wouldn't be a good pet owner", status: "Pending")
+    @application_1 = Application.create!(name: "Holden Caulfield", street_address: "123 Main St", city: "New York", state: "NY", zipcode: 12345, description: "I wouldn't be a good pet owner", status: "In Progress")
     @pet_1 = Pet.create(adoptable: true, age: 2, breed: 'domestic short hair', name: 'Mundungous', shelter_id: "#{@shelter.id}")
     @pet_2 = Pet.create(adoptable: true, age: 1, breed: 'sphynx', name: 'Captain Pants', shelter_id: "#{@shelter.id}")
 
@@ -29,10 +29,30 @@ RSpec.describe 'the applications show page' do
     visit "/applications/#{@application_1.id}"
 
     click_on("#{@pet_1.name}")
-
     expect(current_path).to eq("/pets/#{@pet_1.id}")
   end
 
+  it 'in progress application - has Add Pets section' do
+    visit "/applications/#{@application_1.id}"
+
+    expect(page).to have_content("In Progress")
+    expect(page).to have_content("Add Pet to this Application")
+  end
+
+  it 'search for pets by name' do
+    visit "/applications/#{@application_1.id}"
+
+    expect(find('form')).to have_content('Search for Pets')
+
+    fill_in(:search, with: 'Captain Pants')
+
+    click_button("Search")
+
+    expect(current_path).to eq("/applications/#{@application_1.id}")
+    within('div.pet_search') do
+      expect(page).to have_content('Captain Pants')
+    end
+  end
 
 
 end
