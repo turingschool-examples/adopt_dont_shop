@@ -1,5 +1,5 @@
 class Application < ApplicationRecord
-  class Petapplication < ApplicationRecord
+
 
     validates :name, presence: true
     validates :street, presence: true
@@ -12,5 +12,3 @@ class Application < ApplicationRecord
     has_many :pet_petapplications, dependent: :destroy
     has_many :pets, through: :pet_petapplications
   end
-
-end
