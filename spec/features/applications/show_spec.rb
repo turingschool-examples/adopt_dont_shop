@@ -29,10 +29,26 @@ RSpec.describe 'the applications show page' do
     visit "/applications/#{@application_1.id}"
 
     click_on("#{@pet_1.name}")
-
     expect(current_path).to eq("/pets/#{@pet_1.id}")
   end
 
+  it 'in progress application - has Add Pets section' do
+    # As a visitor // When I visit an application's show page
+    visit "/applications/#{@application_1.id}"
+    # And that application has not been submitted,
+    expect(page).to have_content("In Progress")
+    expect(page).to have_content("Add Pet to this Application")
+    # Then I see a section on the page to "Add a Pet to this Application"
+  end
+
+  xit 'search for pets by name' do
+    visit "/applications/#{@application_1.id}"
+    # In that section I see an input where I can search for Pets by name
+    # When I fill in this field with a Pet's name
+    # And I click submit,
+    # Then I am taken back to the application show page
+    # And under the search bar I see any Pet whose name matches my search
+  end
 
 
 end
