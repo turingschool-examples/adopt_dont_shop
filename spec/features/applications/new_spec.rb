@@ -12,7 +12,7 @@ describe 'Creates a new application' do
                   state: "SD",
                   zip: 80342,
                   description: "I'm a meat popsicle looking for a companion.",
-                  status: "looking")
+                  status: "In progress")
     @bean = Pet.create!(
                   name: "Bean",
                   adoptable: true,
@@ -59,4 +59,6 @@ describe 'Creates a new application' do
     expect(page).to have_content('Fill out the form completely.')
 
   end
+
+  
 end

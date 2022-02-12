@@ -12,7 +12,7 @@ describe 'application' do
                   state: "SD",
                   zip: 80342,
                   description: "I'm a meat popsicle looking for a companion.",
-                  status: "looking")
+                  status: "In progress")
     @bean = Pet.create!(
                   name: "Bean",
                   adoptable: true,
@@ -30,5 +30,18 @@ describe 'application' do
     expect(page).to have_content(@application.state)
     expect(page).to have_content(@application.description)
     expect(page).to have_content(@application.status)
+  end
+
+  it "has 'add a pet' to the application form on the show page" do
+    visit "/applications/#{@application.id}"
+    #save_and_open_page
+    expect(page).to have_content("Add a pet")
+  end
+
+  it "has a search form that populates when application is in progress" do
+    visit "/applications/#{@application.id}"
+    fill_in('pet_name', with: "#{@bean.name}")
+    click_button("Search")
+    expect(page).to have_content("Bean")
   end
 end
