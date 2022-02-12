@@ -1,7 +1,9 @@
-<h1><%= @application.name %></h1>
-<h3><%= @application.street_address%></h3>
-<h3><%= @application.city %>,<%= @application.state %><%= @application.zipcode %></h3>
-<h3><%= @application.status %></h3>
+<h1>Application Info<%= @application.name %></h1>
+<h3>Applicant: <%= @application.name %></h3>
+<h3>Address:</h3>
+<h4><%= @application.street_address%></h4>
+<h4><%= @application.city %>, <%= @application.state %> <%= @application.zipcode %></h4>
+<h3>Status: <%= @application.status %></h3>
 
 <% @application.pets.each do |pet| %>
   <div>

@@ -32,4 +32,7 @@ RSpec.describe 'the applications show page' do
 
     expect(current_path).to eq("/pets/#{@pet_1.id}")
   end
+
+
+  
 end
