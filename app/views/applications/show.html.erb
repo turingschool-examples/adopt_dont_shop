@@ -1,6 +1,7 @@
 <h1>Application</h1>
 <p>Name: <%= @application.name %></p>
-<p>Address: <%= @application.address %></p>
+<p>Address: <%= @application.street_address %>, <%= @application.city %>,
+<%= @application.state %>, <%= @application.zipcode %></p>
 <p>Reason that this is a good home: <%= @application.description %></p>
 <p>Pet Name(s): <%= @application.pet_names %></p>
 <p>Application Status: <%= @application.status %></p>
