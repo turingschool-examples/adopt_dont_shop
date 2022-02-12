@@ -18,7 +18,7 @@ RSpec.describe 'The application Show page' do
         @moe = Pet.create!(adoptable: true, age: "6", breed: "Dog", name:"Moe", shelter: dumb_friends_league )
     end 
     it 'shows the user applicant attributes' do 
-        visit "/application/#{@application_1.id}"
+        visit "/applications/#{@application_1.id}"
         expect(page).to have_content(@application_1.name)
         expect(page).to have_content(@application_1.street_address)
         expect(page).to have_content(@application_1.city)
@@ -28,14 +28,14 @@ RSpec.describe 'The application Show page' do
     end
 
     it 'shows the user the names of all pets this application is for' do 
-        visit "/application/#{@application_1.id}"
+        visit "/applications/#{@application_1.id}"
         expect(page).to have_content(@mushu.name)
         expect(page).to have_content(@mantis.name)
         expect(page).to have_no_content(@bo.name)
     end 
 
     it 'has links to show page for all pets this application is for' do 
-        visit "/application/#{@application_1.id}"
+        visit "/applications/#{@application_1.id}"
         expect(page).to have_content("Mushu")
         click_link("Mushu")
         expect(current_path).to eq("/pets/#{@mushu.id}")
@@ -43,7 +43,7 @@ RSpec.describe 'The application Show page' do
     end 
 
     it 'shows the user the current status of their application' do 
-        visit "/application/#{@application_1.id}"
+        visit "/applications/#{@application_1.id}"
         expect(page).to have_content(@application_1.status)
     end
     
@@ -58,22 +58,22 @@ RSpec.describe 'The application Show page' do
 # And under the search bar I see any Pet whose name matches my search
 
     it 'has a pet search field where the user can search for pets to add to application' do 
-        visit "/application/#{@application_1.id}"
+        visit "/applications/#{@application_1.id}"
         fill_in "search", with: "Moe"
         # Application must not be pending(fully submitted)
         expect(page).to have_content("Application Status: In Progress")
         click_button("Search")
-        expect(current_path).to eq("/application/#{@application_1.id}")
+        expect(current_path).to eq("/applications/#{@application_1.id}")
         expect(page).to have_content("Moe")
     end
 
     it 'has a button that allows the user to add a pet from the search bar to their application' do 
-        visit "/application/#{@application_1.id}"
+        visit "/applications/#{@application_1.id}"
         expect(page).to have_no_content("Moe")
         fill_in "search", with: "Moe"
         click_button("Search")
         click_button("Adopt Moe!")
-        expect(current_path).to eq("/application/#{@application_1.id}")
+        expect(current_path).to eq("/applications/#{@application_1.id}")
         expect(page).to have_content("Moe")
     end
 end 

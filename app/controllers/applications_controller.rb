@@ -16,7 +16,7 @@ def show
   def create
     @application = Application.new(applicant_params)
     if @application.save
-      redirect_to "/application/#{@application.id}"
+      redirect_to "/applications/#{@application.id}"
     else 
       render :new
     end 
@@ -27,7 +27,7 @@ def show
     if params[:pet]
         pet = Pet.find(params[:pet])
         application.adopt(pet)
-        redirect_to "/application/#{application.id}"
+        redirect_to "/applications/#{application.id}"
     end 
   end 
 

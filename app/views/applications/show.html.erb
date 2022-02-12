@@ -19,7 +19,7 @@
 <br> 
 <br>
 <center><h3>Add a Pet to this Application</h3>
-<%= form_with url: "/application/#{@application.id}", method: :get, local: true do |f| %>
+<%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |f| %>
     <%= f.label :search, "search" %>
     <%= f.text_field :search %>
     <%= f.text_field :id, value: @application.id, hidden: true %> 
