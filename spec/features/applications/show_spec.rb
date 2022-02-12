@@ -12,7 +12,7 @@ describe 'application' do
                   state: "SD",
                   zip: 80342,
                   description: "I'm a meat popsicle looking for a companion.",
-                  status: "Single")
+                  status: "looking")
     @bean = Pet.create!(
                   name: "Bean",
                   adoptable: true,
@@ -21,7 +21,7 @@ describe 'application' do
                   shelter_id: @shelter.id)
   end
   it 'displays a link to applicant info' do
-    binding.pry
+    # binding.pry
     visit "/applications/#{@application.id}"
     save_and_open_page
     expect(page).to have_content(@application.name)
