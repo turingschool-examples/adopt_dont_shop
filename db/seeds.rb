@@ -10,14 +10,14 @@ Pet.destroy_all
 Shelter.destroy_all
 Application.destroy_all
 
-@application_1 = Application.create!(name: "Sedan Turtle", street_address: "3425 Gransfield ave", city: "Denver", state: "CO", zipcode: "80219", description: "I love dogs")
-@application_2 = Application.create!(name: "Roman Reigns", street_address: "2354 Narwal ct", city: "Littleton", state: "CO", zipcode: "23785", description: "I'd love to have a new best friend")
-@application_3 = Application.create!(name: "Denet Lament", street_address: "1987 Orange Tree st", city: "Lakewood", state: "CO", zipcode: "12343", description: "My dog needs a new friend")
-@application_4 = Application.create!(name: "Riley Wiley", street_address: "8974 Witch blvd", city: "Lone Tree", state: "CO", zipcode: "98765", description: "I've always wanted a cat")
-@application_5 = Application.create!(name: "Pabu Strong", street_address: "771 Ditch ave", city: "Frederick", state: "CO", zipcode: "80543", description: "I'd like a guard dog for my property.")
-@application_6 = Application.create!(name: "Theresa Ann", street_address: "09092 Blossom st", city: "Huntington Beach", state: "CA", zipcode: "98765", description: "My dog passed away and I'm ready to love again.")
-@application_7 = Application.create!(name: "Gretchen Grump", street_address: "67890 Bog st", city: "Castle Rock", state: "CO", zipcode: "98765", description: "None of your business")
-@application_8 = Application.create!(name: "Harry Potter", street_address: "81274 Hogwarts ct", city: "Hogwarts", state: "KS", zipcode: "83754", description: "I would like a new owl")
+@application_1 = Application.create!(name: "Sedan Turtle", street_address: "3425 Gransfield ave", city: "Denver", state: "CO", zipcode: "80219")
+@application_2 = Application.create!(name: "Roman Reigns", street_address: "2354 Narwal ct", city: "Littleton", state: "CO", zipcode: "23785")
+@application_3 = Application.create!(name: "Denet Lament", street_address: "1987 Orange Tree st", city: "Lakewood", state: "CO", zipcode: "12343")
+@application_4 = Application.create!(name: "Riley Wiley", street_address: "8974 Witch blvd", city: "Lone Tree", state: "CO", zipcode: "98765")
+@application_5 = Application.create!(name: "Pabu Strong", street_address: "771 Ditch ave", city: "Frederick", state: "CO", zipcode: "80543")
+@application_6 = Application.create!(name: "Theresa Ann", street_address: "09092 Blossom st", city: "Huntington Beach", state: "CA", zipcode: "98765")
+@application_7 = Application.create!(name: "Gretchen Grump", street_address: "67890 Bog st", city: "Castle Rock", state: "CO", zipcode: "98765")
+@application_8 = Application.create!(name: "Harry Potter", street_address: "81274 Hogwarts ct", city: "Hogwarts", state: "KS", zipcode: "83754")
 
 
 dumb_friends_league = Shelter.create!(foster_program: true, name: "Dumb Friends League", city: "Englewood", rank: "1")

@@ -25,9 +25,13 @@ def show
   def update 
     application = Application.find(params[:id])
     if params[:pet]
-        pet = Pet.find(params[:pet])
-        application.adopt(pet)
-        redirect_to "/applications/#{application.id}"
+      pet = Pet.find(params[:pet])
+      application.adopt(pet)
+      redirect_to "/applications/#{application.id}"
+    elsif params[:commit] == "Submit Application"
+      application.update(applicant_params)
+      application.Pending!
+      redirect_to "/applications/#{application.id}"
     end 
   end 
 
