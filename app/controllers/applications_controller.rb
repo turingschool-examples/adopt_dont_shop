@@ -5,7 +5,7 @@ def show
     @full_address = "#{@application.street_address} #{@application.city}, #{@application.state} #{@application.zipcode}"
     @applied_pets = @application.pets.all
     if params[:search]
-      @pets = Pet.search(params[:search])
+      @pets = Pet.match(params[:search])
     end 
   end
 
@@ -33,7 +33,7 @@ def show
       application.Pending!
       redirect_to "/applications/#{application.id}"
     end 
-  end 
+  end
 
 private
   def applicant_params
