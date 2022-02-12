@@ -1,27 +1,34 @@
 require 'rails_helper'
 
 RSpec.describe 'the applications show page' do
-  it "shows the application and all it's attributes" do
-    application = Application.create!(name: "Holden Caulfield", street_address: "123 Main St", city: "New York", state: "NY", zipcode: "12345", description: "I wouldn't be a good pet owner", status: "Pending")
-    # When I visit an applications show page
-    visit "/applications/#{application.id}"
-    # Then I can see the following:
-# Name of the Applicant // Full Address of the Applicant including street address, city, state, and zip code
-# Description of why the applicant says they'd be a good home for this pet(s)
-# names of all pets that this application is for (all names of pets should be links to their show page)
-# The Application's status, either "In Progress", "Pending", "Accepted", or "Rejected"
-    expect(page).to have_content(application.name)
-    expect(page).to have_content(application.street_address)
-    expect(page).to have_content(application.city)
-    expect(page).to have_content(application.state)
-    expect(page).to have_content(application.zipcode)
-    expect(page).to have_content(application.pets)
-    expect(page).to have_content(application.status)
+  before :each do
+    @shelter = Shelter.create(name: 'Maxfund', city: 'Denver CO', foster_program: false, rank: 9)
+    @application_1 = Application.create!(name: "Holden Caulfield", street_address: "123 Main St", city: "New York", state: "NY", zipcode: "12345", description: "I wouldn't be a good pet owner", status: "Pending")
+    @pet_1 = Pet.create(adoptable: true, age: 2, breed: 'domestic short hair', name: 'Mundungous', shelter_id: "#{@shelter.id}")
+    @pet_2 = Pet.create(adoptable: true, age: 1, breed: 'sphynx', name: 'Captain Pants', shelter_id: "#{@shelter.id}")
+
+    @pet_app = PetApplication.create!(pet_id: pet_1.id, application_id: @application_1.id)
+    @pet_app = PetApplication.create!(pet_id: pet_2.id, application_id: @application_1.id)
   end
 
-  xit 'includes a link to each pet page' do
+  it "shows the application and all it's attributes" do
+    visit "/applications/#{application_1.id}"
+
+    expect(page).to have_content(application_1.name)
+    expect(page).to have_content(application_1.street_address)
+    expect(page).to have_content(application_1.city)
+    expect(page).to have_content(application_1.state)
+    expect(page).to have_content(application_1.zipcode)
+    expect(page).to have_content(pet_1.name)
+    expect(page).to have_content(pet_2.name)
+    expect(page).to have_content(application_1.status)
+  end
+
+  it 'includes a link to each pet page' do
     visit "/applications/#{application.id}"
 
-    click_on("Hogan")
+    click_on("#{pet_1.name}")
+
+    expect(current_path).to eq("/pets/#{pet_1.id}")
   end
 end
