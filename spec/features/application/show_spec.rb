@@ -34,6 +34,14 @@ RSpec.describe 'The application Show page' do
         expect(page).to have_no_content(@bo.name)
     end 
 
+    it 'has links to show page for all pets this application is for' do 
+        visit "/application/#{@application_1.id}"
+        expect(page).to have_content("Mushu")
+        click_link("Mushu")
+        expect(current_path).to eq("/pets/#{@mushu.id}")
+        expect(page).to have_content("Mushu")
+    end 
+
     it 'shows the user the current status of their application' do 
         visit "/application/#{@application_1.id}"
         expect(page).to have_content(@application_1.status)
@@ -53,11 +61,19 @@ RSpec.describe 'The application Show page' do
         visit "/application/#{@application_1.id}"
         fill_in "search", with: "Moe"
         # Application must not be pending(fully submitted)
-
         expect(page).to have_content("Application Status: In Progress")
         click_button("Search")
         expect(current_path).to eq("/application/#{@application_1.id}")
         expect(page).to have_content("Moe")
+    end
 
+    it 'has a button that allows the user to add a pet from the search bar to their application' do 
+        visit "/application/#{@application_1.id}"
+        expect(page).to have_no_content("Moe")
+        fill_in "search", with: "Moe"
+        click_button("Search")
+        click_button("Adopt Moe!")
+        expect(current_path).to eq("/application/#{@application_1.id}")
+        expect(page).to have_content("Moe")
     end
 end 

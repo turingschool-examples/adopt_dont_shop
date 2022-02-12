@@ -1,29 +1,35 @@
 <h1>Application Show Page</h1>
-<center><h2>Application Information</h2></center>
+
+<center>
+<h2>Application Information</h2>
 <p>Name: <%= @application.name %></p>
 <p>Address: <%= @full_address %></p>
 <p>Description: <%= @application.description %></p>
 
 <p>Application Status: <%= @application.status %></p>
+</center>
 
 <br>
-
+<center>
 <h3>Pet(s) Application Is For:</h3>
 <% @applied_pets.each do |pet| %>
-    <%= pet.name %>
+    <%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
 <% end %> 
+</center>
 <br> 
 <br>
+<center><h3>Add a Pet to this Application</h3>
 <%= form_with url: "/application/#{@application.id}", method: :get, local: true do |f| %>
     <%= f.label :search, "search" %>
     <%= f.text_field :search %>
     <%= f.text_field :id, value: @application.id, hidden: true %> 
     <%= f.submit "Search" %>
-  <% end %>
-
+    <% end %>
+</center> 
+<center>
 <% if @pets.nil? == false %>
     <% @pets.each do |pet| %>
-        <h3><%= pet.name %></h3>
+        <h3><%= pet.name %> <%= button_to "Adopt #{pet.name}!", "/applications/#{@application.id}/update?pet=#{pet.id}" %></h3>
         <p>Age: <%= pet.age %></p>
         <p>Breed: <%= pet.breed %></p>
         <p>Adoptable: </p>
@@ -32,3 +38,4 @@
         <%= link_to "Delete #{pet.name}", "/pets/#{pet.id}", method: :delete %>
     <% end %>
  <% end %>
+ </center>
