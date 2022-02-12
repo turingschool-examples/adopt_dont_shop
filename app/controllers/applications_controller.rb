@@ -4,15 +4,30 @@ class ApplicationsController < ApplicationController
     @pets = @application.pets
   end
 
+  def new
+    @application = Application.new
+  end
+
   def create
-    application = Application.create(applicant_params)
-    redirect_to "/application/#{application.id}"
+    @application = Application.new(applicant_params)
+    if @application.save
+      redirect_to "/application/#{@application.id}"
+    else
+      render :new
+    end
   end
 
 
   private
 
   def applicant_params
-    params.permit(:name, :street_address, :city, :state, :zipcode)
+    params.required(:application).permit(:name, :street_address, :city, :state, :zipcode)
   end
 end
+#
+# if application.save
+#   redirect_to "/application/#{application.id}"
+# else
+#   flash[:alert] = "Please fill in all information"
+#   render :new
+# end
