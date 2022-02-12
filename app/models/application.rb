@@ -6,7 +6,7 @@ class Application < ApplicationRecord
   validates :zip_code, presence: true
   validates :description, presence: true
   validates :full_address, presence: true
-  validates :pending, presence: true
+  enum status: [:in_progress, :pending, :rejected, :approved]
   has_many :pet_application
   has_many :pet, through: :pet_application
 end
