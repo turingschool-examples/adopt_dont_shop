@@ -17,7 +17,15 @@
 <% end %> 
 </center>
 <br> 
-<br>
+<center>
+<% if @applied_pets.count >= 1 && @application.status == "In Progress" %> 
+    <%= form_with url: "/applications/#{@application.id}/update", method: :patch, local: true do |form| %>
+        <p><%= form.label :description, "Please describe why you would make a good owner: " %></p>
+        <p><%= form.text_field :description %></p>
+        <p><%= form.submit "Submit Application" %></p>
+    <% end%>
+<% end %>
+</center>
 <center><h3>Add a Pet to this Application</h3>
 <%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |f| %>
     <%= f.label :search, "search" %>

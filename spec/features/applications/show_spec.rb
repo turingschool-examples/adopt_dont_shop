@@ -1,12 +1,5 @@
 require 'rails_helper'
-# As a visitor
-# When I visit an applications show page
-# Then I can see the following:
-# - Name of the Applicant
-# - Full Address of the Applicant including street address, city, state, and zip code
-# - Description of why the applicant says they'd be a good home for this pet(s)
-# - names of all pets that this application is for (all names of pets should be links to their show page)
-# - The Application's status, either "In Progress", "Pending", "Accepted", or "Rejected"
+
 RSpec.describe 'The application Show page' do 
     before :each do 
         @application_1 = Application.create!(name: "Sedan", street_address: "3425 Fansfield", city: "Denver", state: "CO", zipcode: "80219", description: "I love dogs")
@@ -46,16 +39,6 @@ RSpec.describe 'The application Show page' do
         visit "/applications/#{@application_1.id}"
         expect(page).to have_content(@application_1.status)
     end
-    
-# As a visitor
-# When I visit an application's show page
-# And that application has not been submitted,
-# Then I see a section on the page to "Add a Pet to this Application"
-# In that section I see an input where I can search for Pets by name
-# When I fill in this field with a Pet's name
-# And I click search,
-# Then I am taken back to the application show page
-# And under the search bar I see any Pet whose name matches my search
 
     it 'has a pet search field where the user can search for pets to add to application' do 
         visit "/applications/#{@application_1.id}"
@@ -75,5 +58,31 @@ RSpec.describe 'The application Show page' do
         click_button("Adopt Moe!")
         expect(current_path).to eq("/applications/#{@application_1.id}")
         expect(page).to have_content("Moe")
+    end
+# Submit an Application
+# As a visitor
+# When I visit an application's show page
+# And I have added one or more pets to the application
+# Then I see a section to submit my application
+# And in that section I see an input to enter why I would make a good owner for these pet(s)
+# When I fill in that input
+# And I click a button to submit this application
+# Then I am taken back to the application's show page
+# And I see an indicator that the application is "Pending"
+# And I see all the pets that I want to adopt
+# And I do not see a section to add more pets to this application
+
+    it 'has a submission button once pets have been added to application' do 
+        visit "/applications/#{@application_1.id}"
+        expect(page).to have_no_content("Submit Application")
+        fill_in "search", with: "Moe"
+        click_button("Search")
+        click_button("Adopt Moe!")
+        expect(page).to have_content("Submit Application")
+        fill_in("Please describe why you would make a good owner: "), with: "Gimme Moe"
+        click_button("Submit Application")
+        expect(current_path).to eq("/applications/#{@application_1.id}")
+        expect(page).to have_content("Pending")
+        end
     end
 end 
