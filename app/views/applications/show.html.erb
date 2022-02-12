@@ -7,3 +7,18 @@
   <a>Zip    : <%=@app.zip %></a><br>
   <a>Status : <%=@app.status %></a><br>
   <p>description: <%=@app.description %></p>
+
+<%if @app.status == "In progress" %>
+  <%= "Add a pet to the application, search by name" %>
+  <%= form_with url: "/applications/#{@app.id}?search=pet_name", method: :get, local: true do |form| %>
+  <%=form.label :pet_name %>
+  <%=form.text_field :pet_name%>
+  <%=form.submit "Search"%>
+
+  <%end%>
+  <% if @pets.present? %>
+    <%@pets.each do |pet|%>
+      <%=pet.name%>
+    <%end%>
+  <%end%>
+<%end%>
