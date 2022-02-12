@@ -7,4 +7,8 @@ class Application < ApplicationRecord
     validates :zip_code, presence: true
     validates :description, presence: true 
     validates :status, presence: true 
+
+    def pet_search(pet_name)
+        Pet.where("name = ?", pet_name)
+    end
 end

@@ -11,3 +11,13 @@
       <%= link_to pet.name, "/pets/#{pet.id}" %>
    <% end %></h3>
 <% end %>
+<%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |f| %>
+  <%= f.label :search, "Add a Pet to this Application" %>
+  <%= f.text_field :search %>
+  <%= f.submit "Search" %>
+<% end %>
+<% if @application.pet_search(params[:search]).count >= 1 %>
+   <% @application.pet_search(params[:search]).each do |pet| %>
+      <%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
+   <% end %>
+<% end %>
