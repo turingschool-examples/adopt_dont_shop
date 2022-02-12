@@ -24,6 +24,17 @@ RSpec.describe 'new application page' do
   end
 
   it 'takes one back to the new applications page if a field is not filled in' do
+    visit "/applications/new"
+    #leaving address blank intentionally
+    fill_in('Name', with: 'Sam Asghari')
+    fill_in('City', with: 'Los Angeles')
+    fill_in('State', with: 'CA')
+    fill_in('Zipcode', with: 90027)
+    fill_in('Description', with: 'Britney wants a pet')
+    click_button('Submit')
+
+    expect(current_path).to eq("/applications/new")
     
+    expect(page).to have_content("Error: Address can't be blank")
   end
 end
