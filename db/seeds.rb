@@ -8,6 +8,7 @@
 Shelter.destroy_all 
 Pet.destroy_all
 Application.destroy_all
+ApplicationPet.destroy_all 
 
 shelter_1 = Shelter.create!(name: 'Dumb Friends League', city: 'Aurora, CO', foster_program: false, rank: 9)
 shelter_2 = Shelter.create!(name: 'Hollywood Shelter', city: 'Irvine, CA', foster_program: false, rank: 7)
@@ -18,9 +19,9 @@ application_2 = Application.create(name: "Bruce Banner", street_address: "16 Bay
 application_3 = Application.create(name: "Tony Stark", street_address: "3265 St Paul St", city: "Denver", state: "CO", zip_code: "80205", description: "I'm a billionaire....", status: "In Progress")
 application_4 = Application.create(name: "Peter Parker", street_address: "2401 15th St", city: "Denver", state: "CO", zip_code: "80202", description: "Friendly neighborhood dog-walking man", status: "In Progress")
 
-pet_1 = Pet.create(adoptable: true, age: 1, breed: 'sphynx', name: 'George Hairlesson', shelter_id: shelter_1.id, application_id: application_1.id)
-pet_2 = Pet.create(adoptable: true, age: 3, breed: 'GSD', name: 'Charlie', shelter_id: shelter_1.id, application_id: application_1.id)
-pet_3 = Pet.create(adoptable: true, age: 3, breed: 'Whippet', name: 'Annabelle', shelter_id: shelter_1.id, application_id: application_1.id)
+pet_1 = Pet.create(adoptable: true, age: 1, breed: 'sphynx', name: 'George Hairlesson', shelter_id: shelter_1.id)
+pet_2 = Pet.create(adoptable: true, age: 3, breed: 'GSD', name: 'Charlie', shelter_id: shelter_1.id)
+pet_3 = Pet.create(adoptable: true, age: 3, breed: 'Whippet', name: 'Annabelle', shelter_id: shelter_1.id)
 pet_4 = Pet.create(adoptable: false, age: 8, breed: 'Lab', name: 'Trek', shelter_id: shelter_2.id)
 pet_5 = Pet.create!(adoptable: false, age: 6, breed: 'Cattle Dog', name: 'Otis', shelter_id: shelter_2.id)
 pet_6 = Pet.create!(adoptable: true, age: 4, breed: 'Husky', name: 'Bruce', shelter_id: shelter_3.id)
@@ -34,3 +35,8 @@ pet_13 = Pet.create!(adoptable: true, age: 1, breed: 'Border Collie', name: 'Lou
 pet_14 = Pet.create!(adoptable: false, age: 4, breed: 'Terrier', name: 'Clark', shelter_id: shelter_4.id)
 pet_15 = Pet.create!(adoptable: true, age: 4, breed: 'Great Dane', name: 'Buff', shelter_id: shelter_4.id)
 
+ApplicationPet.create!(application: application_1, pet: pet_1)
+ApplicationPet.create!(application: application_1, pet: pet_2)
+ApplicationPet.create!(application: application_1, pet: pet_3)
+# ApplicationPet.create!(application: application_2, pet: pet_3)
+# ApplicationPet.create!(application: application_2, pet: pet_4)
