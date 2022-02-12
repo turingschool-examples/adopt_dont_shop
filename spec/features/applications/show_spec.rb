@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe 'the applications show page' do
   before :each do
     @shelter = Shelter.create(name: 'Maxfund', city: 'Denver CO', foster_program: false, rank: 9)
-    @application_1 = Application.create!(name: "Holden Caulfield", street_address: "123 Main St", city: "New York", state: "NY", zipcode: "12345", description: "I wouldn't be a good pet owner", status: "Pending")
+    @application_1 = Application.create!(name: "Holden Caulfield", street_address: "123 Main St", city: "New York", state: "NY", zipcode: 12345, description: "I wouldn't be a good pet owner", status: "Pending")
     @pet_1 = Pet.create(adoptable: true, age: 2, breed: 'domestic short hair', name: 'Mundungous', shelter_id: "#{@shelter.id}")
     @pet_2 = Pet.create(adoptable: true, age: 1, breed: 'sphynx', name: 'Captain Pants', shelter_id: "#{@shelter.id}")
 
@@ -34,5 +34,5 @@ RSpec.describe 'the applications show page' do
   end
 
 
-  
+
 end
