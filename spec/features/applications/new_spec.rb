@@ -24,7 +24,7 @@ describe 'Creates a new application' do
   it "has a link on pet index page" do
     visit '/pets'
     click_link 'Start a new application'
-    save_and_open_page
+    # save_and_open_page
     expect(current_path).to eq('/applications/new')
   end
 
@@ -36,7 +36,8 @@ describe 'Creates a new application' do
     fill_in('city', with: 'Greendale')
     fill_in('state', with: 'CO')
     fill_in('zipcode', with: '09876')
-    click_link 'Submit'
+    save_and_open_page
+    click_on('Submit')
 
     expect(current_path).to eq("/applications/#{Application.last.id}")
     expect(page).to have_content('Groucho')

@@ -11,6 +11,11 @@ class Application < ApplicationRecord
 
     has_many :pet_petapplications, dependent: :destroy
     has_many :pets, through: :pet_petapplications
+
+    def set_defaults
+      self.description ||= "TBFI later"
+      self.status ||= "In progress"
+    end
   end
 
 end

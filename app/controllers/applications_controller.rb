@@ -6,10 +6,10 @@ class ApplicationsController < ApplicationController
 
   def new
   end
-  
+
   def create
     app = Application.new(app_params)
-
+    app.save
     redirect_to "/applications/#{app.id}"
   end
 
