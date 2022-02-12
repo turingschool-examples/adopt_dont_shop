@@ -5,6 +5,7 @@ class ApplicantsController < ApplicationController
 
   def show
     @applicant = Applicant.find(params[:id])
+    @applied_pets = @applicant.pets.all
     @pets = Pet.search(params[:search]) if params[:search]
   end
 
@@ -19,6 +20,18 @@ class ApplicantsController < ApplicationController
     else
       redirect_to '/applicants/new'
       flash[:alert] = 'Error, all fields must be completed'
+    end
+  end
+
+  def update
+    applicant = Applicant.find(params[:id])
+    if params[:pet]
+      pet = Pet.find(params[:pet])
+      applicant.adopt(pet)
+      redirect_to "/applicants/#{applicant.id}"
+    elsif params[:commit] == 'Submit Application'
+      applicant.Pending!
+      redirect_to "/applicants/#{applicant.id}"
     end
   end
 

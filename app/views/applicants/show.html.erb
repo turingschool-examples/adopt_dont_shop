@@ -21,12 +21,15 @@
 
   </div>
 
+<% if @applicant.status == "In Progress" %>
 <h2><p>Find your bestfriend!</p></h2>
 <%= form_with url: "/applicants/#{@applicant.id}", method: :get, local: true do |f| %>
-<%= f.label :search%>
-<%= f.text_field :search %>
-<%= f.submit "Search" %>
+  <%= f.label :search%>
+  <%= f.text_field :search %>
+  <%= f.submit "Search" %>
+  <% end %>
 <% end %>
+
 
 <% if @pets.nil? == false %>
 <% @pets.each do |pet| %>
@@ -38,5 +41,12 @@
         <%= form.submit "Adopt this Pet!" %>
         <% end %>
 <% end %>
+<% end %>
+
+
+<% if @applied_pets.count >= 1 && @applicant.status == "In Progress" %>
+<%= form_with url: "/applicants/#{@applicant.id}/update", method: :patch, local: true do |f| %>
+<p><%= f.submit "Submit Application" %></p>
+<% end%>
 <% end %>
 </center>
