@@ -10,12 +10,12 @@ RSpec.describe 'the applicant show' do
 
     visit "/applicants/#{@greg.id}"
 
-    expect(page).to have_content(greg.name)
-    expect(page).to have_content(greg.street_address)
-    expect(page).to have_content(greg.city)
-    expect(page).to have_content(greg.state)
-    expect(page).to have_content(greg.zipcode)
-    expect(page).to have_content(greg.description)
-    expect(page).to have_content(greg.status)
+    expect(page).to have_content(@greg.name)
+    expect(page).to have_content(@greg.street_address)
+    expect(page).to have_content(@greg.city)
+    expect(page).to have_content(@greg.state)
+    expect(page).to have_content(@greg.zipcode)
+    expect(page).to have_content(@greg.description)
+    expect(page).to have_content(@greg.status)
   end
 end

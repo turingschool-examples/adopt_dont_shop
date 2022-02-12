@@ -1,0 +1,23 @@
+<%= form_with url: "/applicants/#{@applicant.id}", method: :get do |form| %>
+  <%= form.label :name, "Name: " %>
+  <%= form.text_field :name %>
+
+  <%= form.label :street_address, "Street Address: " %>
+  <%= form.text_field :street_address %>
+
+  <%= form.label :city, "City: " %>
+  <%= form.text_field :city %>
+
+  <%= form.label :state, "State: " %>
+  <%= form.text_field :state %>
+
+  <%= form.label :zipcode, "Zipcode: " %>
+  <%= form.text_field :zipcode %>
+
+  <%= form.label :description, "Why you would make a good pet owner: " %>
+  <%= form.text_area :description %>
+
+  <%= "Application #{@applicant.status}" %>
+
+  <%= form.submit "Submit Application" %>
+<% end %>
