@@ -35,8 +35,8 @@ describe 'Creates a new application' do
     fill_in('street', with: '987 real street')
     fill_in('city', with: 'Greendale')
     fill_in('state', with: 'CO')
-    fill_in('zipcode', with: '09876')
-    save_and_open_page
+    fill_in('zip', with: '09876')
+    #save_and_open_page
     click_on('Submit')
 
     expect(current_path).to eq("/applications/#{Application.last.id}")
@@ -46,5 +46,17 @@ describe 'Creates a new application' do
     expect(page).to have_content('CO')
     expect(page).to have_content('09876')
     expect(page).to have_content('In progress')
+  end
+
+  it "if form not completed redirect back to form." do
+    visit '/applications/new'
+    fill_in('name', with: 'Groucho')
+    fill_in('street', with: '987 real street')
+    fill_in('city', with: 'Greendale')
+
+    click_on('Submit')
+
+    expect(page).to have_content('Fill out the form completely.')
+
   end
 end
