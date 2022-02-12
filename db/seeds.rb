@@ -21,9 +21,9 @@ pet_4 = Pet.create!(adoptable: true, age: 4, breed: 'domestic long hair', name: 
 pet_5 = Pet.create!(adoptable: true, age: 4, breed: 'domestic long hair', name: 'Bloopie', shelter_id: shelter_2.id)
 pet_6 = Pet.create!(adoptable: true, age: 1, breed: 'mainecoon', name: 'Sullivan', shelter_id: shelter_2.id)
 
-application_1 = Application.create!(name: "Holden Caulfield", street_address: "123 Main St", city: "Denver", state: "CO", zipcode: "80216", description: "I wouldn't be a good pet owner", status: "Pending")
-application_2 = Application.create!(name: "Hermione Granger", street_address: "987 Broadway", city: "Denver", state: "CO", zipcode: "80203", description: "I love animals.", status: "Pending")
-application_3 = Application.create!(name: "Dr. Dolittle", street_address: "456 Colorado", city: "Denver", state: "CO", zipcode: "80211", description: "I am a great caretaker of many animals and have a great home for more!", status: "Pending")
+application_1 = Application.create!(name: "Holden Caulfield", street_address: "123 Main St", city: "Denver", state: "CO", zipcode: 80216, description: "I wouldn't be a good pet owner", status: "Pending")
+application_2 = Application.create!(name: "Hermione Granger", street_address: "987 Broadway", city: "Denver", state: "CO", zipcode: 80203, description: "I love animals.", status: "Pending")
+application_3 = Application.create!(name: "Dr. Dolittle", street_address: "456 Colorado", city: "Denver", state: "CO", zipcode: 80211, description: "I am a great caretaker of many animals and have a great home for more!", status: "Pending")
 
 PetApplication.create!(pet: pet_1, application: application_1)
 PetApplication.create!(pet: pet_2, application: application_2)
