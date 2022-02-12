@@ -34,6 +34,16 @@ RSpec.describe Pet, type: :model do
     end
   end
 
+  describe 'class methods' do 
+    describe 'self.match' do 
+      it 'allows for partial matches for pet names' do
+        expect(Pet.match("pirate")).to eq([@pet_1])
+        expect(Pet.match("clAw")).to eq([@pet_2])
+        expect(Pet.match("an")).to eq([@pet_3])
+      end 
+    end 
+  end 
+
   describe 'instance methods' do
     describe '.shelter_name' do
       it 'returns the shelter name for the given pet' do

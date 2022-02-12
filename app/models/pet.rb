@@ -10,6 +10,11 @@ class Pet < ApplicationRecord
     shelter.name
   end
 
+  def self.match(search_name)
+    formatted_name = search_name.downcase
+    where("name ILIKE ?", "%#{formatted_name}%")
+  end 
+
   def self.adoptable
     where(adoptable: true)
   end
