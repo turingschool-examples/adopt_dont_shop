@@ -27,7 +27,6 @@ application = Application.create!(name: "Chaz Carmichael",
   state: "CO",
   zipcode: 12345,
   description: "I like pets",
-  pet_names: "#{pet_1.id}, #{pet_2.id}",
   status: "In Progress")
 
 application.id = 1
