@@ -5,6 +5,7 @@ class ApplicantsController < ApplicationController
 
   def show
     @applicant = Applicant.find(params[:id])
+    @pets = Pet.search(params[:search]) if params[:search]
   end
 
   def new
@@ -12,9 +13,13 @@ class ApplicantsController < ApplicationController
   end
 
   def create
-    app_params
-    applicant = Applicant.create!(app_params)
-    redirect_to "/applicants/#{applicant.id}"
+    applicant = Applicant.new(app_params)
+    if applicant.save
+      redirect_to "/applicants/#{applicant.id}"
+    else
+      redirect_to '/applicants/new'
+      flash[:alert] = 'Error, all fields must be completed'
+    end
   end
 
   def app_params
