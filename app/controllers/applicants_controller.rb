@@ -7,11 +7,11 @@ class ApplicantsController < ApplicationController
   end
 
   def create
-    @applicant = Applicant.new(applicant_params)
+    @applicant = Applicant.create!(applicant_params)
     if @applicant.save
       redirect_to "/applicants/#{@applicant.id}"
     else
-      redirect_to '/applicant/new'
+      redirect_to '/applicants/new'
       # flash[:alert] = "Error: We will figure this out later"
     end
   end
