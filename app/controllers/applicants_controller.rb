@@ -1,6 +1,7 @@
 class ApplicantsController < ApplicationController
   def show
     @applicant = Applicant.find(params[:id])
+    @pets = Pet.where(["name LIKE ?", params[:search]])
   end
 
   def new
@@ -17,7 +18,9 @@ class ApplicantsController < ApplicationController
   end
 
   private
-
+  def search_params
+    params.permit[:search]
+  end
   def applicant_params
     params.permit(:id, :name, :street_address, :city, :state, :zipcode)
   end
