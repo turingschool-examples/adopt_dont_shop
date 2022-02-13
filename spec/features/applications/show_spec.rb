@@ -62,3 +62,142 @@ RSpec.describe 'the application show' do
 
   end
 end
+
+RSpec.describe 'Adding pets to an application' do
+  describe 'US 23: Searching for Pets' do
+    before :each do
+      @app_1 = Application.create!(
+        name: "Jerry Blank",
+        street_address: "246 DumDum Ave.",
+        city: "Melbourne",
+        state: "IL",
+        zip_code: 53262,
+        description: "I have lots of money and a big fenced-in yard and kids who are willing to walk a dog every day!",
+        status: "In Progress"
+      )
+
+      @shelter = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
+      @pirate = @shelter.pets.create(name: 'Mr. Pirate', breed: 'tuxedo shorthair', age: 5, adoptable: true)
+      @gaspir = @shelter.pets.create(name: 'Gaspir', breed: 'shorthair', age: 3, adoptable: true)
+      @joey = @shelter.pets.create(name: 'Joey', breed: 'rottweiler', age: 13, adoptable: true)
+    end
+
+    it 'has a search field on applications that have not been submitted' do
+
+      app_2 = Application.create!(
+        name: "Jeff Jippers",
+        street_address: "123 Affirmative Ave.",
+        city: "Claytown",
+        state: "AL",
+        zip_code: 34567,
+        description: "I'm a good doggie daddy!",
+        status: "Pending"
+      )
+
+      visit "/applications/#{@app_1.id}"
+      expect(page).to have_content("Add a Pet to this Application")
+      expect(page).to have_button("Search")
+
+      visit "/applications/#{app_2.id}"
+      expect(page).to_not have_content("Add a Pet to this Application")
+      expect(page).to_not have_button("Search")
+    end
+
+    it 'searches for animals by name' do
+
+      visit "/applications/#{@app_1.id}"
+      fill_in("Lookup by Name", with: "pir")
+      click_button("Submit")
+
+      expect(current_path).to be("applications/#{@app_1.id}")
+
+      expect(page).to have_content("#{@pirate.name}")
+      expect(page).to have_content("#{@gaspir.name}")
+      expect(page).to_not have_content("#{@joey.name}")
+    end
+  end
+
+  describe 'US 22: Adding pets' do
+    before :each do
+      @app_1 = Application.create!(
+        name: "Jerry Blank",
+        street_address: "246 DumDum Ave.",
+        city: "Melbourne",
+        state: "IL",
+        zip_code: 53262,
+        description: "I have lots of money and a big fenced-in yard and kids who are willing to walk a dog every day!",
+        status: "In Progress"
+      )
+
+      @shelter = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
+      @pirate = @shelter.pets.create(name: 'Mr. Pirate', breed: 'tuxedo shorthair', age: 5, adoptable: true)
+      @gaspir = @shelter.pets.create(name: 'Gaspir', breed: 'shorthair', age: 3, adoptable: true)
+      @joey = @shelter.pets.create(name: 'Joey', breed: 'rottweiler', age: 13, adoptable: true)
+
+
+      visit "/applications/#{@app_1.id}"
+      fill_in("Lookup by Name", with: "pir")
+      click_button("Submit")
+
+      within("#result-#{@pirate.name}") do
+        click_link "Adopt Me"
+      end
+    end
+
+    it 'shows the pet as being added to the application' do
+
+      expect(current_path).to eq("applications/#{@app_1.id}")
+
+      within("#added_pets") do
+        expect(page).to have_content(@pirate.name)
+      end
+
+      expect(page).to_not have_content("#{@gaspir.name}")
+    end
+
+    it 'model test: pet is actually added to application'
+
+    it 'can have multiple pets added' do
+
+      within("#added_pets") do
+        expect(page).to have_content(@pirate.name)
+      end
+
+      fill_in("Lookup by Name", with: "pir")
+      click_button("Submit")
+
+      within("#result-#{@gaspir.name}") do
+        click_link "Adopt Me"
+      end
+      expect(current_path).to eq("applications/#{@app_1.id}")
+      within("#added_pets") do
+        expect(page).to have_content(@pirate.name)
+        expect(page).to have_content(@gaspir.name)
+      end
+
+      fill_in("Lookup by Name", with: "Joey")
+      click_button("Submit")
+
+      within("#result-#{@joey.name}") do
+        click_link "Adopt Me"
+      end
+
+      expect(current_path).to eq("applications/@#{@app_1.id}")
+      within("#added_pets") do
+        expect(page).to have_content(@pirate.name)
+        expect(page).to have_content(@gaspir.name)
+        expect(page).to have_content(@joey.name)
+      end
+    end
+
+    it 'removes added pets from search results' do
+      fill_in("Lookup by Name", with: "pir")
+      click_button("Submit")
+
+      within("#results") do
+        expect(page).to_not have_content(@pirate.name)
+        expect(page).to have_content(@gaspir.name)
+      end
+    end
+  end
+end
