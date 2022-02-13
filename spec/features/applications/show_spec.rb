@@ -88,4 +88,23 @@ RSpec.describe 'the application show' do
     expect(page).to_not have_content("Add a Pet to this Application")
     expect(page).to_not have_content("Why would you make a good pet owner?")
   end
+  
+  it 'must have pets added to submit application' do 
+    application = Application.create(name: "Steve Rogers", street_address: "990 Logan St", city: "Denver", state: "CO", zip_code: "80203")    
+    shelter = Shelter.create(name: 'Mystery Building', city: 'Irvine CA', foster_program: false, rank: 9)
+    pet_1 = Pet.create(name: 'Scooby', age: 2, breed: 'Great Dane', adoptable: true, shelter_id: shelter.id)
+    
+    visit "/applications/#{application.id}"
+    
+    expect(page).to_not have_button("Submit Application")
+    expect(page).to_not have_content("Interested in adopting:")
+    
+    fill_in 'Add a Pet to this Application', with: "Scooby"
+    click_button("Search")
+    click_button("Adopt this Pet")
+    fill_in 'Why would you make a good pet owner?', with: "Lover of dogs and avid poo-picker-upper."
+    click_button("Submit Application")
+    
+    expect(page).to have_content("Interested in adopting:")
+  end
 end 
