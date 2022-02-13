@@ -10,7 +10,7 @@ Pet.destroy_all
 Shelter.destroy_all
 Application.destroy_all
 
-application_1 = Application.create!(name: "Sedan Turtle", street_address: "3425 Gransfield ave", city: "Denver", state: "CO", zipcode: "80219")
+application_1 = Application.create!(name: "Sedan Turtle", street_address: "3425 Gransfield ave", city: "Denver", state: "CO", zipcode: "80219", status: "Pending")
 application_2 = Application.create!(name: "Roman Reigns", street_address: "2354 Narwal ct", city: "Littleton", state: "CO", zipcode: "23785")
 application_3 = Application.create!(name: "Denet Lament", street_address: "1987 Orange Tree st", city: "Lakewood", state: "CO", zipcode: "12343")
 application_4 = Application.create!(name: "Riley Wiley", street_address: "8974 Witch blvd", city: "Lone Tree", state: "CO", zipcode: "98765")
