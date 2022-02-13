@@ -19,8 +19,8 @@ dat = fat_catz.veterinarians.create!(name: "Dat", review_rating: 3, on_call: fal
 
 homing_homies = Shelter.create!(name: "Homing Homies", city: "Houston", rank: 1, foster_program: true)
 hank = homing_homies.pets.create!(name: "Hank", breed: "Aussie", adoptable: true, age: 6)
-honus = homing_homies.pets.create!(name: "Honus", breed: "Blood Hound", adoptable: false, age: 2)
 happy = homing_homies.pets.create!(name: "Happy", breed: "Pit Bull", adoptable: true, age: 1)
+honus = homing_homies.pets.create!(name: "Honus", breed: "Blood Hound", adoptable: false, age: 2)
 harry = homing_homies.pets.create!(name: "Harry", breed: "Golden", adoptable: true, age: 8)
 
 club_cuddles = Shelter.create!(name: "Club Cuddles", city: "Colorado Springs", rank: 2, foster_program: true)
