@@ -1,0 +1,22 @@
+<h1>New Application</h1>
+<%= form_with url: "/applications/", method: :post, local: true do |f| %>
+  <%= f.label :name %>
+  <%= f.text_field :name %><br>
+
+  <%= f.label :street %>
+  <%= f.text_field :street %><br>
+
+  <%= f.label :city %>
+  <%= f.text_field :city %><br>
+
+  <%= f.label :state %>
+  <%= f.text_field :state %><br>
+
+  <%= f.label :zip %>
+  <%= f.text_field :zip %><br>
+
+  <%= f.label :description %>
+  <%= f.text_field :description %>
+
+  <%= f.submit "Submit"%>
+<% end %>
