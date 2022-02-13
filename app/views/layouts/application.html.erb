@@ -2,7 +2,7 @@
 <html>
   <head>
     <div class="d-flex align-items-center justify-content-center">
-      <title>Adopt, Don't Shop</title>
+      <h1>Adopt, Don't Shop</h1>
     </div>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
@@ -16,17 +16,12 @@
   </head>
 
   <body>
+    <%= render partial: "shared/navbar" %>
     <% flash.each do |type, msg| %>
       <div>
         <%= msg %>
       </div>
     <% end %>
-    <section>
-      <p><%= link_to "Pets", "/pets" %></p>
-      <p><%= link_to "Shelters", "/shelters" %></p>
-      <p><%= link_to "Veterinarians", "/veterinarians" %></p>
-      <p><%= link_to "Veterinary Offices", "/veterinary_offices" %></p>
-    </section>
     <%= yield %>
   </body>
 </html>
