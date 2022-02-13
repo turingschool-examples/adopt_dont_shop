@@ -1,4 +1,3 @@
-
 VeterinaryOffice.destroy_all
 Veterinarian.destroy_all
 Shelter.destroy_all
