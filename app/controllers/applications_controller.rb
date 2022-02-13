@@ -29,6 +29,14 @@ class ApplicationsController < ApplicationController
     end
   end
 
+  def update
+    @app = Application.find(params[:id])
+    @app.update(app_params)
+    @app.save
+    # binding.pry
+    # @app.status_update
+    redirect_to "/applications/#{@app.id}"
+  end
 
   private
     def app_params
