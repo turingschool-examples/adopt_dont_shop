@@ -23,16 +23,11 @@ class ApplicationsController <  ApplicationController
     end
   end
 
-  def edit
-     @application = Application.find(params[:id])
-     @application.update(application_params)
-     redirect_to "/applications/#{@application.id}"
-   end
-
   def update
     application = Application.find(params[:id])
-    application.update
-
+    application.update(application_params)
+    application.save
+    redirect_to "/applications/#{application.id}"
   end
 
   private
