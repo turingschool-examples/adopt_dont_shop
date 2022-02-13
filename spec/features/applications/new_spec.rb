@@ -44,8 +44,6 @@ RSpec.describe 'Application Creation' do
     fill_in('Description', with: 'Need Companion')
     click_button('Submit')
 
-    save_and_open_page
-
     expect(current_path).to eq("/applications/new")
 
     expect(page).to have_content("Error: State can't be blank")
