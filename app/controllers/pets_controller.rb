@@ -5,7 +5,7 @@ class PetsController < ApplicationController
     else
       @pets = Pet.adoptable
     end
-  end
+  end 
 
   def show
     @pet = Pet.find(params[:id])

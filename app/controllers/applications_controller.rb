@@ -9,14 +9,17 @@ class ApplicationsController < ApplicationController
   def create
     app = Application.create(app_params)
 
-    app.update(status: "In Progress")
-
-    redirect_to "/applications/#{app.id}"
+    if app.save
+      app.update(status: "In Progress")
+      redirect_to "/applications/#{app.id}"
+    else
+      redirect_to "/applications/new"
+      flash[:alert] = "Error: #{error_message(app.errors)}"
+    end
   end
 
   private
     def app_params
-
       param_list = []
 
       param_list << :name unless params[:name] == ""
