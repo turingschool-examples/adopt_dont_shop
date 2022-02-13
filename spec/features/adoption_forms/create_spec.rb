@@ -45,4 +45,19 @@ describe 'application / adoption form' do
     expect(page).to have_content(joe.state)
     expect(page).to have_content(joe.description)
   end
+
+  it 'Displays an error when form is incomplete' do
+    visit new_adoption_form_path
+
+    fill_in "First name", with: "Joe"
+    fill_in "Last name", with: "Average"
+    fill_in "Street address", with: "356 Willow Creek"
+    fill_in "City", with: "Evergreen"
+    fill_in "Describe your home", with: "Spacious, smoke free, pet free"
+
+    click_button "Save"
+
+    expect(page).to have_current_path(new_adoption_form_path)
+    expect(page).to have_content("Error: State can't be blank, Zip code can't be blank")
+  end
 end
