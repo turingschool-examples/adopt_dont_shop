@@ -8,7 +8,8 @@
 <%= "Zipcode: #{@applicant.zipcode}" %><br>
 <%= "Description: #{@applicant.description}" %><br>
 <%= "Application Status: #{@applicant.status}" %><br>
-<%= "Application Status: #{@applicant.status}" %><br>
+<%= render partial: "applicants/selected_pets"%>
 
 
-<%= render "applicants/form"%>
+
+<%= render partial: "applicants/form"%>
