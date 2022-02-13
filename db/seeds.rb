@@ -1,15 +1,18 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
-
 form1 = AdoptionForm.find_or_create_by!(first_name: "Miranda",
-                                                 last_name: "Bailey",
-                                                 street_address: "15000 Centennial Drive",
-                                                 city: "Seattle",
-                                                 state: "Washington",
-                                                 zip_code: "98109",
-                                                 description: "A large complex with friendly residents desiring a fuzzy friend")
+                                        last_name: "Bailey",
+                                        street_address: "15000 Centennial Drive",
+                                        city: "Seattle",
+                                        state: "Washington",
+                                        zip_code: "98109",
+                                        description: "A large complex with friendly residents desiring a fuzzy friend")
+
+rainbow = Shelter.find_or_create_by!(name: "Rainbow paws",
+                                    foster_program: true,
+                                    city: "Denver",
+                                    rank: 5)
+
+spike = rainbow.pets.find_or_create_by!(name: "Spike",
+                                        age: 5,
+                                        breed: "Pitbull-Lab",
+                                        adoptable: true
+                              )

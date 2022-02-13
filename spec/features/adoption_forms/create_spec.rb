@@ -6,11 +6,11 @@ describe 'application / adoption form' do
 
     click_link "Start an Application"
 
-    expect(current_path).to eq('/adoption_forms/new')
+    expect(current_path).to eq(new_adoption_form_path)
   end
 
   it 'has fields for applicant info' do
-    visit '/adoption_forms/new'
+    visit new_adoption_form_path
 
     expect(page).to have_field("First name")
     expect(page).to have_field("Last name")
@@ -22,7 +22,7 @@ describe 'application / adoption form' do
   end
 
   it 'creates a new application when click submit' do
-    visit '/adoption_forms/new'
+    visit new_adoption_form_path
 
     fill_in "First name", with: "Joe"
     fill_in "Last name", with: "Average"

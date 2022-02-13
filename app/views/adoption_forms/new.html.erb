@@ -19,7 +19,7 @@
   <%= f.text_field :zip_code %><br><br>
 
   <%= f.label :description, "Describe your home" %><br>
-  <%= f.text_field :description %><br><br>
+  <%= f.text_area :description, :cols => "30", :rows => "10" %><br>
 
   <%= f.submit %>
 <% end %>
