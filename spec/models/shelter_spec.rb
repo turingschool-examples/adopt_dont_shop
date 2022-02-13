@@ -55,6 +55,12 @@ RSpec.describe Shelter, type: :model do
         expect(Shelter.reverse_alphabetical_shelters).to eq([@shelter_2, @shelter_3, @shelter_1])
       end 
     end
+
+    describe '#shelters_with_pending_apps' do 
+      it 'retrieves all shelters with pending applications' do
+        expect(Shelter.shelters_with_pending_apps).to eq([@shelter_1])
+      end 
+    end 
   end 
 
   describe 'instance methods' do
