@@ -3,19 +3,26 @@
 <h3>City: <%= @application.city  %></h3>
 <h3>State: <%= @application.state  %></h3>
 <h3>Zip Code: <%= @application.zip_code  %></h3>
-<h3>Why they'd make a great home: <%= @application.description  %></h3>
+<% if @application.description != "Incomplete" %>
+   <h3>Why they'd make a great home: <%= @application.description  %></h3>
+<% end %>
 <h3>Status: <%= @application.status  %></h3>
-<% if @application.pets.count > 0 %>
+
+<% if @application.has_pets? %>
    <h3>Interested in adopting:
    <% @application.pets.each do |pet| %>
       <%= link_to pet.name, "/pets/#{pet.id}" %>
    <% end %></h3>
 <% end %>
-<%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |f| %>
-  <%= f.label :search, "Add a Pet to this Application" %>
-  <%= f.text_field :search %>
-  <%= f.submit "Search" %>
+
+<% if @application.status == "In Progress" %>
+   <%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |f| %>
+      <%= f.label :search, "Add a Pet to this Application" %>
+      <%= f.text_field :search %>
+      <%= f.submit "Search" %>
+   <% end %>
 <% end %>
+
 <% if @application.pet_search(params[:search]).count >= 1 %>
    <% @application.pet_search(params[:search]).each do |pet| %>
     <p>  
@@ -23,4 +30,13 @@
       <%= button_to "Adopt this Pet", "/applications/applicationpets/create", method: :post, params: {pet_id: pet.id, application_id: @application.id}%>
    </p>
    <% end %>
+<% end %>
+
+<% if (@application.has_pets?) && (@application.status == "In Progress") %>
+   <%= form_with url: "/applications/#{@application.id}", method: :patch, local: true do |f| %>
+      <%= f.label :description, "Why would you make a good pet owner?" %>
+      <%= f.text_field :description %>
+      <%= f.submit "Submit Application" %>
+   <% end %>
+   
 <% end %>
