@@ -25,15 +25,13 @@ RSpec.describe 'applications new page' do
     expect(page).to have_content("555 Blueberry Run")
     expect(page).to have_content("In Progress")
   end
-end
-# As a visitor
-# When I visit the pet index page
-# Then I see a link to "Start an Application"
-# When I click this link
-# Then I am taken to the new application page where I see a form
-# When I fill in this form with my:
 
-# And I click submit
-# Then I am taken to the new applicatio
-# And I see my Name, address information, and description of why I would make a good home
-# And I see an indicator that this application is "In Progress
+  it 'gives an error if not filled out correctly' do
+    visit "/applications/new"
+
+    click_button 'Submit'
+
+    expect(current_path).to eq("/applications/new")
+    expect(page).to have_content("Error:")   
+  end
+end
