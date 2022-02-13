@@ -19,9 +19,13 @@ class ApplicationsController < ApplicationController
       zip_code: params[:zip_code],
       description: params[:description],
       full_address: params[:full_address],
-      status: params[:status]  
+      status: params[:status]
     )
-    @application.save
-    redirect_to "/applications/#{@application.id}"
+    if @application.save
+      redirect_to "/applications/#{@application.id}"
+    else
+      redirect_to "/applications/new"
+      flash[:alert] = "Error: #{error_message(@application.errors)}"
+    end
   end
 end
