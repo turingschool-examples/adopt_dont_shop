@@ -15,10 +15,17 @@ RSpec.describe 'The admin applications show page' do
     end
     
     it 'shows the admin user one appliciation and all of the pets on that application' do 
-
+        visit "/admin/applications/#{@application_1.id}"
+        expect(page).to have_content(@application_1.description)
+        expect(page).to have_content(@application_1.status)
+        expect(page).to have_content(@mushu.name)
+        expect(page).to have_content(@mantis.name)
     end 
 
     it 'has a button next to each pet on an application that allows the admin user to approve that specific pet' do 
-        
+        visit "/admin/applications/#{@application_1.id}"
+        click_button("Approve #{@mushu.name}")
+        expect(current_path).to eq("/admin/applications/#{@application_1.id}")
+        expect(page).to have_content("#{@mushu.name} has been approved")
     end 
 end 

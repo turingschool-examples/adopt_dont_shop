@@ -45,7 +45,7 @@ RSpec.describe PetApplication, type: :model do
             expect(application.pet_applications.last.id).to eq(oddish.pet_applications.first.id)
             application.pet_applications.first.Accepted!
             expect(application.pet_applications.first.status).to eq("Accepted")
-            expect(PetApplication.find_approved_pet_ids(application)).to eq([mantis.id])
+            expect(PetApplication.find_approved_pets(application)).to eq([mantis])
         end 
       end 
 

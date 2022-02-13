@@ -9,9 +9,10 @@ class PetApplication < ApplicationRecord
         where(pet_id: a_pet_id, application_id: app_id)
     end 
 
-    def self.find_approved_pet_ids(application)
+    def self.find_approved_pets(application)
         app_id = application.id
-        where(application_id: app_id, status: "Accepted").pluck(:pet_id)
+        ids = where(application_id: app_id, status: "Accepted").pluck(:pet_id)
+        Pet.find(ids)
     end
 
     def self.find_nil_pets(application)
