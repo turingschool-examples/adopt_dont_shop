@@ -7,3 +7,13 @@
 <% @application.pets.each do |pet| %>
 <h3> <%= link_to "#{pet.name}", "/pets/#{pet.id}" %> </h3>
 <% end %>
+
+<h2> Add a Pet to this Application </h2>
+<%= form_with url: "/applications/#{@application.id}?search=query", method: :get do |form| %>
+  <%= form.label :query %>
+  <%= form.text_field :query %>
+  <%= form.submit "Search" %>
+<% end %>
+<% @pets_found.each do |pet| %>
+  <%= pet.name %>
+<% end %>

@@ -5,6 +5,11 @@ class ApplicationsController < ApplicationController
 
   def show
     @application = Application.find(params[:id])
+    if params[:query] != nil
+      @pets_found = Pet.search(params[:query])
+    else
+      @pets_found = []
+    end
   end
 
   def new
