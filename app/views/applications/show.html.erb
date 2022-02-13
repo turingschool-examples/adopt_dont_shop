@@ -2,6 +2,23 @@
   <h1>Applicant Information</h1>
 </div>
 
+<h3>Add a Pet to this Application</h3>
+<br>
+<%= form_with url: "/application/#{@application.id}", method: :get, local: true do |f| %>
+  <%= f.label :search, "Enter Pet Name:"%>
+  <%= f.search_field :search %>
+  <%= f.submit "Search" %>
+<% end %>
+<br>
+<% @pets.each do |pet| %>
+  <h3><%= pet.name %></h3>
+  <h2>Age: <%= pet.age %></h2>
+  <h2>Breed: <%= pet.breed %></h2>
+  <h2>Adoptable: <%= pet.adoptable %></h2>
+  <h2>You can find <%= pet.name %> at <%= pet.shelter_name %>!</h2>
+<% end %>
+
+<br>
 <h3>Name: <%= @application.name %></h3>
 <h3>Street Address: <%= @application.street_address %></h3>
 <h3>City: <%= @application.city %></h3>
