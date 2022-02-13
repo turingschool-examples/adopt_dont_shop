@@ -114,7 +114,7 @@ click_on('Start an Application')
 
 expect(current_path).to eq('/applications/new')
 expect(page).to have_field('name')
-expect(page).to have_field('address')
+expect(page).to have_field('street_address')
 expect(page).to have_field('city')
 expect(page).to have_field('state')
 expect(page).to have_field('zip_code')
@@ -123,10 +123,12 @@ end
 
 
 
-xit 'can create a new form' do
-  shelter = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
-  pet_1 = Pet.create(adoptable: true, age: 7, breed: 'sphynx', name: 'Bare-y Manilow', shelter_id: shelter.id)
-  application = Application.create!(name: 'Becky Nisttahuz', street_address: '1471 King St', city: 'Denver', state: 'CO', zip_code: '80204', status: 'In Progress', description: 'Looking for a cat')
+it 'can create a new form' do
+   #shelter = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
+  # pet_1 = Pet.create(adoptable: true, age: 7, breed: 'sphynx', name: 'Bare-y Manilow', shelter_id: shelter.id)
+  #application_1 = Application.create!(name: 'tere', street_address: '1471 King St', city: 'Denver', state: 'CO', zip_code: '80204', status: 'In Progress', description: 'Looking for a cat')
+
+  visit '/applications/new'
 
   fill_in('name', with: 'Becky Nisttahuz')
   fill_in('street_address', with: '1471 King St')
@@ -136,13 +138,35 @@ xit 'can create a new form' do
   fill_in('description', with: 'I want a cat')
 
   click_button('Submit')
+  application_2 = Application.last
 
-  expect(current_path).to eq("/applications/#{application.id}")
+  expect(current_path).to eq("/applications/#{application_2.id}")
   expect(page).to have_content("Becky Nisttahuz")
   expect(page).to have_content("1471 King St")
   expect(page).to have_content("Denver")
   expect(page).to have_content("CO")
   expect(page).to have_content("80204")
-  expect(page).to have_content("I have a cat")
+  expect(page).to have_content("I want a cat")
+
+  expect(application_2.status).to eq("In Progress")
+
  end
+ describe 'if fail to fill in all boxes, cant submit application' do
+  it 'user is taken back to new application' do
+    visit '/applications/new'
+
+    fill_in('name', with: "Becky Nisttahuz")
+    fill_in('street_address', with: '1471 King St')
+    fill_in('city', with: 'Denver')
+    fill_in('state', with: 'CO')
+    # fill_in('zip_code', with: '80204')
+    # fill_in('description', with: 'I want a cat')
+
+    click_button('Submit')
+
+    expect(current_path).to eq("/applications/new")
+    expect(page).to have_content("Error: You have not filled out all necessary fields")
+
+    end
+  end
 end
