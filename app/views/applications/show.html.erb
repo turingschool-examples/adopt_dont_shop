@@ -8,4 +8,14 @@
 <% @application.pets.each do |pet| %>
 <h3><%= link_to "Potential pet: #{pet.name}", "/pets/#{pet.id}" %></h3>
 <% end %>
+
+<section>
+  <h2>Add a Pet to this Application</h2>
+  <%= link_to 'Search for pets by name', "/pets?search=pet_name"  %>
+  <%= form_with url: 'applications:id', method: :get, local: true do |f| %>
+  <%= f.label :search %>
+  <%= f.text_field :search %>
+  <%= f.submit %>
+  <% end %>
+</section>
 <h3>Application Status: <%= @application.status %> </h3>

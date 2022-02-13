@@ -30,8 +30,8 @@ RSpec.describe 'the shelter show' do
     click_on("Delete #{shelter.name}")
 
     expect(page).to have_current_path('/shelters')
-    expect(page).to_not have_content(shelter.name)
-  end
+    expect(page).to_not have_content(shelter.name
+)  end
 
   it 'displays a link to the shelters pets index' do
     shelter = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: true, rank: 9)

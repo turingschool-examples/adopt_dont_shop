@@ -1,0 +1,23 @@
+<h1>Adopt, don't shop!</h1>
+<%= form_with url: '/applications/:id', method: :post, local: true do |f| %>
+
+<%= f.label :first_name, 'First name' %>
+<%= f.text_field :first_name %>
+
+<%= f.label :last_name, 'Last name' %>
+<%= f.text_field :last_name %>
+
+<%= f.label :street_address, 'Street address' %>
+<%= f.text_field :street_address %>
+
+<%= f.label :city, 'City' %>
+<%= f.text_field :city %>
+
+<%= f.label :post_code, 'Post code' %>
+<%= f.text_field :post_code %>
+
+<%= f.label :good_owner, 'What makes me a good pet owner', hidden: true %>
+<%= f.text_field :good_owner, hidden: true %>
+
+<%= f.submit 'Submit Application' %>
+<% end %>
