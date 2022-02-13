@@ -11,8 +11,9 @@ require 'rails_helper'
 # - The Application's status, either "In Progress", "Pending", "Accepted", or "Rejected"
 RSpec.describe 'application show page' do
 
-  xit 'visits application show page and sees attributtes' do
-    application = Application.create!(name: 'Ana Maria', street_address: '8900 Colfax Ave', city: 'Denver', state: 'CO', zip_code: '80204', status: 'pending', description: 'Looking for a cat')
+  it 'visits application show page and sees attributtes' do
+    # application = Application.create!(name: 'Ana Maria', street_address: '8900 Colfax Ave', city: 'Denver', state: 'CO', zip_code: '80204', status: 'pending', description: 'Looking for a cat')
+    application = Application.last
     visit "/applications/#{application.id}"
 
     expect(page).to have_content(application.name)
