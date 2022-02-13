@@ -49,8 +49,10 @@ describe 'application' do
     visit "/applications/#{@application.id}"
     fill_in('pet_name', with: "#{@bean.name}")
     click_button("Search")
+    #binding.pry
     click_button("Adopt Bean")
-    save_and_open_page
-    expect(current_path).to eq("/applications/#{@app.id}")
+    #save_and_open_page
+    expect(current_path).to eq("/applications/#{@application.id}")
+    expect(page).to have_content("Bean")
   end
 end
