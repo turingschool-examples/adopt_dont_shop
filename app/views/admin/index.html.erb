@@ -7,9 +7,13 @@
 <% end %>
 </center>
 
+<br>
+
+<center>
 <h2> Shelters With Pending Applications </h2>
 <section>
-
-
-
+<% @shelters_pending_apps.each do |shelter| %>
+   <%= shelter.name %>
+<% end %>
 </section>
+</center>
