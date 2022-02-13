@@ -1,7 +1,11 @@
 class ApplicationsController < ApplicationController
   def show
     @application = Application.find(params[:id])
-    @pets = @application.pets
+    if params[:search].present?
+      @pets = Pet.search(params[:search])
+    else
+      @pets = @application.pets
+    end
   end
 
   def new
@@ -24,10 +28,3 @@ class ApplicationsController < ApplicationController
     params.required(:application).permit(:name, :street_address, :city, :state, :zipcode)
   end
 end
-#
-# if application.save
-#   redirect_to "/application/#{application.id}"
-# else
-#   flash[:alert] = "Please fill in all information"
-#   render :new
-# end
