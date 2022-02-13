@@ -98,4 +98,8 @@ RSpec.describe 'the applications show page' do
     expect(page).to_not have_content('div.pet_search')
     expect(page).to have_content("Pending")
   end
+
+  it 'submit button hidden if no pets are added' do
+    expect(page).to_not have_content("#app_submit")
+  end
 end
