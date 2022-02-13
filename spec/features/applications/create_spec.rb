@@ -18,7 +18,6 @@ RSpec.describe 'application creation' do
     end
   end
 
-
   describe 'new application' do
     it 'creates the application' do
       visit '/applications/new'

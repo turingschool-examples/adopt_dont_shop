@@ -8,4 +8,8 @@
 <% @application.pets.each do |pet| %>
 <h3><%= link_to "Potential pet: #{pet.name}", "/pets/#{pet.id}" %></h3>
 <% end %>
+
+<section>
+  <h3>Add a Pet to this Application</h3>
+</section>
 <h3>Application Status: <%= @application.status %> </h3>
