@@ -23,7 +23,6 @@ RSpec.describe 'applications new page' do
 
     expect(page).to have_content("Helen")
     expect(page).to have_content("555 Blueberry Run")
-    expect(page).to have_content("In Progress")
   end
 
   it 'gives an error if not filled out correctly' do

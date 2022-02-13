@@ -28,6 +28,7 @@ RSpec.describe 'application show' do
     click_button 'Submit'
 
     expect(current_path).to eq("/applications/#{murph.id}")
-    expect(page).to have_content(hank.name)
+
+    expect(page).to have_content(happy.name)
   end
 end
