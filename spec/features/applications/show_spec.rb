@@ -47,6 +47,14 @@ RSpec.describe 'The application Show page' do
         expect(page).to have_content("Moe")
     end
 
+    it 'returns all matches to partial searches' do 
+        visit "/applications/#{@application_1.id}"
+        expect(page).to have_no_content("Moe")
+        fill_in "search", with: "oE"
+        click_button("Search")
+        expect(page).to have_content("Moe")
+    end 
+
     it 'has a button that allows the user to add a pet from the search bar to their application' do 
         visit "/applications/#{@application_1.id}"
         expect(page).to have_no_content("Moe")

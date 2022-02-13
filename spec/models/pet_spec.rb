@@ -14,10 +14,17 @@ RSpec.describe Pet, type: :model do
   end
 
   before(:each) do
+    PetApplication.destroy_all
+    Shelter.destroy_all
+    Pet.destroy_all
     @shelter_1 = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
+    @shelter_2 = Shelter.create(name: 'Englewood shelter', city: 'Englewood, CO', foster_program: true, rank: 4)
+    @application_1 = Application.create!(name: "Sedan Turtle", street_address: "3425 Gransfield ave", city: "Denver", state: "CO", zipcode: "80219", status: "Pending")
     @pet_1 = @shelter_1.pets.create(name: 'Mr. Pirate', breed: 'tuxedo shorthair', age: 5, adoptable: true)
     @pet_2 = @shelter_1.pets.create(name: 'Clawdia', breed: 'shorthair', age: 3, adoptable: true)
     @pet_3 = @shelter_1.pets.create(name: 'Ann', breed: 'ragdoll', age: 3, adoptable: false)
+    @pet_4 = @shelter_2.pets.create(name: 'Henry', breed: 'doggo', age: 7, adoptable: false)
+    @application_1.pets << @pet_1
   end
 
   describe 'class methods' do
@@ -32,7 +39,15 @@ RSpec.describe Pet, type: :model do
         expect(Pet.adoptable).to eq([@pet_1, @pet_2])
       end
     end
-  end
+ 
+    describe '#match' do 
+      it 'allows for partial matches for pet names' do
+        expect(Pet.match("pirate")).to eq([@pet_1])
+        expect(Pet.match("clAw")).to eq([@pet_2])
+        expect(Pet.match("an")).to eq([@pet_3])
+      end 
+    end 
+  end 
 
   describe 'instance methods' do
     describe '.shelter_name' do

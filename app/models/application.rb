@@ -12,5 +12,5 @@ class Application < ApplicationRecord
 
     def adopt(pet)
         self.pets << pet
-    end 
+    end
 end
