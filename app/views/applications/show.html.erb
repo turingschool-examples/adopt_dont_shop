@@ -14,7 +14,7 @@
        <%= form.label :search, "Search for Pets" %>
        <%= form.text_field :search %>
        <%= form.submit "Search" %>
-     <% end %>
+    <% end %>
 
     <% if @pets != nil %>
       <% @pets.each do |pet| %>
@@ -35,7 +35,18 @@
   <div id="pets_on_app">
     <% @application.pets.each do |pet| %>
       <div>
-        <h3><%= link_to "#{pet.name}", "/pets/#{pet.id}" %></h3>
+        <h4><%= link_to "#{pet.name}", "/pets/#{pet.id}" %></h4>
       </div>
     <% end %>
   </div>
+
+<% if @application.status == "In Progress" && @application.pets.count > 0 %>
+  <div id="app_submit">
+    <%= form_with url: "/applications/#{@application.id}", method: :patch, local: true do |form| %>
+       <%= form.label :description, "Why are you wanting to Adopt?" %>
+       <%= form.text_field :description, required: true %>
+       <%= form.hidden_field :status, :value => "Pending" %>
+       <%= form.submit "Submit Application" %>
+    <% end %>
+  </div>
+<% end %>

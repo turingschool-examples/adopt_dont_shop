@@ -28,7 +28,6 @@ RSpec.describe 'application creation' do
     fill_in(:city, with: "Denver" )
     fill_in(:state, with: "CO")
     fill_in(:zipcode, with: 80111)
-    fill_in(:description, with: "I love cats!")
 
     click_button("Submit")
 
@@ -50,7 +49,6 @@ RSpec.describe 'application creation' do
     fill_in(:city, with: "Denver" )
     fill_in(:state, with: "CO")
     fill_in(:zipcode, with: "a80111")
-    fill_in(:description, with: "I love cats!")
 
     click_button("Submit")
 
