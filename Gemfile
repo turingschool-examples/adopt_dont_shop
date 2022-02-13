@@ -35,8 +35,6 @@ gem 'jbuilder', '~> 2.5'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
-gem 'irbtools'
-
 
 group :development, :test do
   gem 'capybara'
@@ -46,7 +44,6 @@ group :development, :test do
   gem 'pry'
   gem 'rspec-rails'
   gem 'simplecov'
-
 end
 
 group :development do
