@@ -10,12 +10,16 @@
   <%= f.submit "Search" %>
 <% end %>
 <br>
-<% @pets.each do |pet| %>
-  <h3><%= pet.name %></h3>
-  <h2>Age: <%= pet.age %></h2>
-  <h2>Breed: <%= pet.breed %></h2>
-  <h2>Adoptable: <%= pet.adoptable %></h2>
-  <h2>You can find <%= pet.name %> at <%= pet.shelter_name %>!</h2>
+
+<% if @search == true %>
+  <% @pets.each do |pet| %>
+    <h3><%= pet.name %></h3>
+    <h2>Age: <%= pet.age %></h2>
+    <h2>Breed: <%= pet.breed %></h2>
+    <h2>Adoptable: <%= pet.adoptable %></h2>
+    <h2>You can find <%= pet.name %> at <%= pet.shelter_name %>!</h2>
+    <%= link_to "Adopt this Pet", "/application/#{@application.id}/?petid=#{pet.id}" %>
+  <% end  %>
 <% end %>
 
 <br>
@@ -26,7 +30,10 @@
 <h3>Zipcode: <%= @application.zipcode %></h3>
 <h3>Why owner woud be a good home: <br><br> -<%= @application.description %></h3>
 <h3>Pets Wanted: </h3>
-<% @pets.each do |pet| %>
-  <%= link_to "#{pet.name}", "pets/#{pet.id}" %>
+<% if @application.status != "In Progress" %>
+  <% @pets.each do |pet| %>
+    <%= link_to "#{pet.name}", "pets/#{pet.id}" %>
+  <% end %>
 <% end %>
+
 <h3>Application Status: <%= @application.status %></h3>
