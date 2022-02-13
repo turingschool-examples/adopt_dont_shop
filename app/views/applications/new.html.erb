@@ -1,6 +1,6 @@
 <center><h1> New Application </h1></center?
-<h3> Applicants please fill out this form with your information</h3>
-<p><%= form_with url: "/pets", method: :post, local: true do |f| %></p>
+<h3> Submit the following information:</h3>
+<p><%= form_with url: "/applications", method: :post, local: true do |f| %></p>
   <p><%= f.label :name %></p>
   <p><%= f.text_field :name %></p>
   <p><%= f.label :street_address %></p>
@@ -15,4 +15,10 @@
   <p><%= f.text_field :description %></p>
   <p><%= f.submit "Submit" %></p>
 
+<% end %>
+
+<%= form_with url: "/applications", method: :get, local: true do |f| %>
+  <%= f.label :search %>
+  <%= f.text_field :search %>
+  <%= f.submit "Add a Pet to this application" %>
 <% end %>
