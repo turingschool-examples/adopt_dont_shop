@@ -45,9 +45,9 @@ During the evaluation, you will present your user story:
 ## Deploy
 
 ```
-[ ] done
+[x] done
 
-Deploy your application to Heroku
+1. Deploy your application to Heroku
 
 As a visitor of the site
 I will perform all user stories
@@ -63,9 +63,9 @@ Use these guides: https://devcenter.heroku.com/articles/getting-started-with-rai
 Visitors to the site will be able to create applications to adopt pets. An application has many pets. Pets can have many applications.
 
 ```
-[ ] done
+[x] done
 
-Application Show Page
+2. Application Show Page
 
 As a visitor
 When I visit an applications show page
@@ -78,9 +78,9 @@ Then I can see the following:
 ```
 
 ```
-[ ] done
+[!] done
 
-Starting an Application
+3. Starting an Application
 
 As a visitor
 When I visit the pet index page
