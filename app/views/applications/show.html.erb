@@ -6,4 +6,7 @@
 <p>State: <%= @application.state %></p>
 <p>Zip Code: <%= @application.zip_code %></p>
 <p>Why do you want to Adopt?: <%= @application.description %></p>
-<p>Desired Pet:  <%= link_to @pet.name, "/pets/#{@pet.id}" %></p>
+<p>Status: <%= @application.status %></p>
+<% @application.pets.each do |pet| %>
+<p>Desired Pet:  <%= link_to pet.name, "/pets/#{pet.id}" %></p>
+<% end %>
