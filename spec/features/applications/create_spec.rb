@@ -14,7 +14,7 @@ RSpec.describe 'application creation' do
       expect(find('form')).to have_content('Street address')
       expect(find('form')).to have_content('City')
       expect(find('form')).to have_content('Post code')
-      expect(find('form')).to have_content('What makes me a good pet owner')
+
     end
   end
 
@@ -28,7 +28,6 @@ RSpec.describe 'application creation' do
       fill_in 'Street address', with: '367 CBTIS Overton St.'
       fill_in 'City', with: 'Washington DC'
       fill_in 'Post code', with: 12647
-      fill_in 'What makes me a good pet owner', with: 'Long walks on the beach'
 
       click_button 'Submit Application'
       sammy = Application.last
@@ -36,7 +35,6 @@ RSpec.describe 'application creation' do
       expect(page).to have_current_path("/applications/#{sammy.id}")
       expect(page).to have_content('Sammy')
       expect(page).to have_content('In Progress')
-
     end
   end
 
@@ -51,7 +49,7 @@ RSpec.describe 'application creation' do
       click_button 'Submit Application'
 
       expect(page).to have_current_path('/applications/new')
-      expect(page).to have_content("Error: City can't be blank, Post code can't be blank, Good owner can't be blank")
+      expect(page).to have_content("Error: City can't be blank, Post code can't be blank")
     end
   end
 

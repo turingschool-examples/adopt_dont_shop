@@ -16,8 +16,8 @@
 <%= f.label :post_code, 'Post code' %>
 <%= f.text_field :post_code %>
 
-<%= f.label :good_owner, 'What makes me a good pet owner' %>
-<%= f.text_field :good_owner %>
+<%= f.label :good_owner, 'What makes me a good pet owner', hidden: true %>
+<%= f.text_field :good_owner, hidden: true %>
 
 <%= f.submit 'Submit Application' %>
 <% end %>
