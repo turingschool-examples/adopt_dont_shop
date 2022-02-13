@@ -11,8 +11,6 @@ RSpec.describe 'the application show' do
     @pet_4 = Pet.create!(adoptable: true, age: 1, breed: 'orange tabby shorthair', name: 'Lasagna', shelter_id: @shelter.id)
     @pet_application = PetApplication.create!(pet: @pet_1, application: @application, approved: true)
     @pet_application = PetApplication.create!(pet: @pet_2, application: @application, approved: true)
-    @pet_application = PetApplication.create!(pet: @pet_3, application: @application, approved: true)
-    @pet_application = PetApplication.create!(pet: @pet_4, application: @application, approved: true)
   end
 
   it "shows the application and all it's attributes" do
@@ -29,8 +27,8 @@ RSpec.describe 'the application show' do
 
     expect(page).to have_link(@pet_1.name)
     expect(page).to have_link(@pet_2.name)
-    expect(page).to have_link(@pet_3.name)
-    expect(page).to have_link(@pet_4.name)
+    expect(page).to_not have_link(@pet_3.name)
+    expect(page).to_not have_link(@pet_4.name)
   end
 
   it "clicks a pets name and is brought to that pet's show page" do
@@ -39,5 +37,16 @@ RSpec.describe 'the application show' do
     expect(page).to have_link(@pet_1.name)
     click_link('Bare-y Manilow')
     expect(page).to have_current_path("/pets/#{@pet_1.id}")
+  end
+
+  it "enters a name and returns matching pets" do
+    visit "/applications/#{@application.id}"
+
+    expect(page).to have_content("Add a Pet to this Application")
+    fill_in('query', with: 'Sylvester')
+    click_on('Search')
+
+    expect(page).to have_content(@pet_3.name)
+    expect(page).to_not have_content(@pet_4.name)
   end
 end
