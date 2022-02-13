@@ -1,0 +1,25 @@
+<h1>Pet Adoption Application</h1>
+<%= form_with url: "/adoption_forms", method: :post, local: true do |f| %>
+  <%= f.label :first_name %><br>
+  <%= f.text_field :first_name %><br><br>
+
+  <%= f.label :last_name %><br>
+  <%= f.text_field :last_name %><br><br>
+
+  <%= f.label :street_address %><br>
+  <%= f.text_field :street_address %><br><br>
+
+  <%= f.label :city %><br>
+  <%= f.text_field :city %><br><br>
+
+  <%= f.label :state %><br>
+  <%= f.text_field :state %><br><br>
+
+  <%= f.label :zip_code %><br>
+  <%= f.text_field :zip_code %><br><br>
+
+  <%= f.label :description, "Describe your home" %><br>
+  <%= f.text_field :description %><br><br>
+
+  <%= f.submit %>
+<% end %>

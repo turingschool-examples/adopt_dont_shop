@@ -5,3 +5,11 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+form1 = AdoptionForm.find_or_create_by!(first_name: "Miranda",
+                                                 last_name: "Bailey",
+                                                 street_address: "15000 Centennial Drive",
+                                                 city: "Seattle",
+                                                 state: "Washington",
+                                                 zip_code: "98109",
+                                                 description: "A large complex with friendly residents desiring a fuzzy friend")
