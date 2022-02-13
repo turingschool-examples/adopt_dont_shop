@@ -23,6 +23,7 @@ RSpec.describe 'the application show' do
 
       ApplicationPet.create!(pet_id:@scooby.id, application_id: @a_1.id)
       ApplicationPet.create!(pet_id:@mango.id, application_id: @a_1.id)
+
       ApplicationPet.create!(pet_id:@scruffy.id, application_id: @a_2.id)
       ApplicationPet.create!(pet_id:@pineapple.id, application_id: @a_2.id)
     end
@@ -50,16 +51,15 @@ RSpec.describe 'the application show' do
 
     it 'displays a link to search for pets from app #show' do
 
-      visit "/applications/#{app_2.id}"
+      visit "/applications/#{@a_2.id}"
 
       expect(page).to have_content('Add a Pet to this Application')
       expect(page).to have_link('Search for pets by name')
-      fill_in 'Pet name', with: 'Onion'
-      click_button 'Submit'
+      fill_in :search, with: 'Onion'
+      click_link 'Search for pets by name'
 
-      expect(page).to have_current_path("/applications/#{app_2.id}")
+      expect(page).to have_current_path("/pets?search=pet_name")
 
-      expect('Submit').to appear_before(@onion.name)
+      expect('Search for pets by name').to appear_before(@onion.name)
     end
-
 end
