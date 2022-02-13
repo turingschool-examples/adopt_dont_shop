@@ -1,24 +1,41 @@
+<section id="app-attributes">
+  <h1>Name: <%= @application.name %></h1>
+  <p>Address: <%= @application.address %></p>
+  <p>City: <%= @application.city %></p>
+  <p>State: <%= @application.state %></p>
+  <p>Zipcode: <%= @application.zipcode %></p>
+  <p>Description: <%= @application.description %></p>
+  <p>Status: <%= @application.status %></p>
 
-  <h1>Name: <%= @applicant.name %></h1>
-  <p>Address: <%= @applicant.address %></p>
-  <p>City: <%= @applicant.city %></p>
-  <p>State: <%= @applicant.state %></p>
-  <p>Zipcode: <%= @applicant.zipcode %></p>
-  <p>Description: <%= @applicant.description %></p>
-  <p>Status: <%= @applicant.status %></p>
-
-  <% @applicant.pets.each do |pet| %>
-    <p>Pet Name: <%= link_to pet.name, "/pets/#{pet.id}"%></p>
+  <% @application.pets.each do |pet| %>
+  <p>Pet Name: <%= link_to pet.name, "/pets/#{pet.id}"%></p>
   <% end %>
+</section>
 
-<p>Add a Pet to this Application:</p>
-<%= form_tag("/applications/#{@applicant.id}?query=search", method: :get) do %>
-  <%= text_field_tag :search, params[:search] %>
-  <%= submit_tag "Search" %>
-<% end %>
+<section id="adding-pets">
+  <p>Add a Pet to this Application:</p>
+  <%= form_tag("/applications/#{@application.id}?query=search", method: :get) do %>
+    <%= text_field_tag :search, params[:search] %>
+    <%= submit_tag "Search" %>
+  <% end %>
+</section>
 
 <div id="pet-results">
   <% @pets.each do |pet| %>
-  <p><%= pet.name %></p>
+    <%= pet.name %>
+    <%= button_to "Adopt this Pet",
+      "/applications/#{@application.id}",
+      method: :patch,
+      params: {:application_id => @application.id, :pet_id => pet.id}
+    %>
   <% end %>
 </div>
+
+<% unless @application.pets.empty? %>
+<section id="application-submission">
+  <%= form_tag("/applications/#{@application.id}", method: :patch) do %>
+    <%= text_field_tag :reason %>
+    <%= submit_tag "Submit" %>
+  <% end %>
+</section>
+<% end %>
