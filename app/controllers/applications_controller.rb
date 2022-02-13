@@ -33,4 +33,11 @@ class ApplicationsController < ApplicationController
       flash[:alert] = "Error: #{error_message(@application.errors)}"
     end
   end
+
+  def update
+    @application = Application.find(params[:id])
+    @new_pet = Pet.find(params[:search])
+    @pet_application = PetApplication.create!(pet: @new_pet, application: @application, approved: true)
+    redirect_to "/applications/#{@application.id}"
+  end
 end
