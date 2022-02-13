@@ -40,11 +40,29 @@ RSpec.describe PetApplication, type: :model do
             Application.destroy_all
             application = Application.create!(name: "Sedan Turtle", street_address: "3425 Gransfield ave", city: "Denver", state: "CO", zipcode: "80219", description: "I love me some animals.", status: "Accepted")
             mantis = application.pets.create!(adoptable: true, age: "5", breed: "cat", name:"Mantis", shelter: @dumb_friends_league)
-            expect(application.pet_applications).to eq(mantis.pet_applications)
+            oddish = application.pets.create!(adoptable: true, age: "9", breed: "mouse", name:"Oddish", shelter: @dumb_friends_league)
+            expect(application.pet_applications.first.id).to eq(mantis.pet_applications.first.id)
+            expect(application.pet_applications.last.id).to eq(oddish.pet_applications.first.id)
             application.pet_applications.first.Accepted!
             expect(application.pet_applications.first.status).to eq("Accepted")
             expect(PetApplication.find_approved_pet_ids(application)).to eq([mantis.id])
         end 
       end 
+
+      describe '#find_nil_pets' do 
+      it 'finds all pet ids that have are have been neither accepted nor rejected for a particular application' do 
+          PetApplication.destroy_all
+          Application.destroy_all
+          application = Application.create!(name: "Sedan Turtle", street_address: "3425 Gransfield ave", city: "Denver", state: "CO", zipcode: "80219", description: "I love me some animals.", status: "Accepted")
+          mantis = application.pets.create!(adoptable: true, age: "5", breed: "cat", name:"Mantis", shelter: @dumb_friends_league)
+          oddish = application.pets.create!(adoptable: true, age: "9", breed: "mouse", name:"Oddish", shelter: @dumb_friends_league)
+          expect(application.pet_applications.first.id).to eq(mantis.pet_applications.first.id)
+          expect(application.pet_applications.last.id).to eq(oddish.pet_applications.first.id)
+          expect(application.pet_applications.first.status).to eq(nil)
+          expect(application.pet_applications.last.status).to eq(nil)
+          expect(PetApplication.find_nil_pets(application)).to eq([mantis, oddish])
+      end 
+    end 
+
     end
 end

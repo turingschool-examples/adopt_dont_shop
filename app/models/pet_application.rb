@@ -13,4 +13,10 @@ class PetApplication < ApplicationRecord
         app_id = application.id
         where(application_id: app_id, status: "Accepted").pluck(:pet_id)
     end
+
+    def self.find_nil_pets(application)
+        app_id = application.id
+        ids = where(application_id: app_id, status: nil).pluck(:pet_id)
+        Pet.find(ids)
+    end 
 end 
