@@ -35,4 +35,14 @@ RSpec.describe 'new application' do
     expect(current_path).to eq("/applications/#{new_application.id}")
     expect(page).to have_content('Noel Sitnick')
   end
+
+  it 'given incomplete form it re-renders the new application form' do
+    visit '/applications/new'
+
+    fill_in 'Name', with: ''
+    click_button 'Submit'
+
+    expect(page).to have_content("Error: Name can't be blank")
+    expect(page).to have_current_path("/applications/new")
+  end
 end
