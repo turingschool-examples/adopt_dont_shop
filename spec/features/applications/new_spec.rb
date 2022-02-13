@@ -29,9 +29,6 @@ RSpec.describe 'new application' do
     fill_in('City', with: 'Baltimore')
     fill_in('State', with: 'MD')
     fill_in('zip_code', with: '00001')
-    fill_in('description', with: 'dummy value')
-    fill_in('full_address', with: 'dummy value')
-    fill_in('status', with: :pending)
     click_on 'Submit'
     new_application = Application.last
 

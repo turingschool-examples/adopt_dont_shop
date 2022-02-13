@@ -9,11 +9,8 @@
 <%= form.text_field :state %>
 <%= form.label :zip_code %>
 <%= form.text_field :zip_code %>
-<%= form.label :description %>
-<%= form.text_field :description %>
-<%= form.label :full_address %>
-<%= form.text_field :full_address %>
-<%= form.label :status %>
-<%= form.text_field :status %>
+<%= form.hidden_field :description, :value => "TBD" %>
+<%= form.hidden_field :full_address, :value => "TBD" %>
+<%= form.hidden_field :status, :value => :in_progress %>
 <%= form.submit 'Submit' %>
 <% end %>
