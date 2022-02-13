@@ -1,7 +1,11 @@
 class ApplicationsController < ApplicationController
 
+  def new
+  end
+
   def create
-    application = Application.new(application_params)
+    new_app = Application.create(application_params)
+    redirect_to "/applications/#{new_app.id}"
   end
 
   def show
@@ -11,7 +15,7 @@ class ApplicationsController < ApplicationController
   private
 
   def application_params
-    params.permit(:first_name, :last_name, :street_address, :city, :post_code, :good_owner)
+    params.permit(:id, :first_name, :last_name, :street_address, :city, :post_code, :good_owner)
   end
 
 end

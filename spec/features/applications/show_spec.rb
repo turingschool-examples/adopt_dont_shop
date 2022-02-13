@@ -22,7 +22,7 @@ RSpec.describe 'the application show' do
       @a_3= Application.create(first_name: 'Funky', last_name: 'Platypus', street_address: '15 Overpath Pkwy.', city: 'Shenzhen, OH', post_code: '97627', good_owner: 'Give the best walks!')
 
       ApplicationPet.create!(pet_id:@scooby.id, application_id: @a_1.id)
-      ApplicationPet.create!(pet_id:@mangie.id, application_id: @a_1.id)
+      ApplicationPet.create!(pet_id:@mango.id, application_id: @a_1.id)
     end
 
       it "shows the all of the applicants and their details" do
@@ -36,7 +36,7 @@ RSpec.describe 'the application show' do
       expect(page).to have_content(@a_1.good_owner)
       expect(page).to have_content(@a_1.status)
       expect(page).to have_content(@scooby.name)
-      expect(page).to have_content(@mangie.name)
+      expect(page).to have_content(@mango.name)
 
       expect(page).not_to have_content(@a_2.first_name)
       expect(page).not_to have_content(@a_3.first_name)
