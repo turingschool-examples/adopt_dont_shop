@@ -1,11 +1,23 @@
 <% if @undetermined_pets.nil? == false %>
     <% @undetermined_pets.each do |pet| %>
-        <p><%= pet.name %></p> <%= button_to "Approve #{pet.name}", "/admin/applications/#{@application.id}/update?approve=#{pet.id}", method: :patch %>
+        <p><%= pet.name %></p> 
+        <%= button_to "Approve #{pet.name}", "/admin/applications/#{@application.id}/update?approve=#{pet.id}", method: :patch %>
+        <%= button_to "Reject #{pet.name}", "/admin/applications/#{@application.id}/update?reject=#{pet.id}", method: :patch %>
     <% end %>
 <% end %>
 
+<br>
+
 <% if @approved_pets.nil? == false %>
     <% @approved_pets.each do |pet| %>
-        <p> <%= pet.name %> <%= "has been approved" %> </p>
+        <p><%= pet.name %> <%= "has been approved" %></p>
+    <% end %>
+<% end %>
+
+<br>
+
+<% if @rejected_pets.nil? == false %>
+    <% @rejected_pets.each do |pet| %>
+        <p><%= pet.name %> <%= "has been rejected" %></p>
     <% end %>
 <% end %>

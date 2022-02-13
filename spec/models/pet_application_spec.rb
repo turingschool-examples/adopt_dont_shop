@@ -63,6 +63,21 @@ RSpec.describe PetApplication, type: :model do
           expect(PetApplication.find_nil_pets(application)).to eq([mantis, oddish])
       end 
     end 
-
+    describe '#find_rejected_pets' do 
+      it 'finds all pet ids that have are have been neither accepted nor rejected for a particular application' do 
+          PetApplication.destroy_all
+          Application.destroy_all
+          application = Application.create!(name: "Sedan Turtle", street_address: "3425 Gransfield ave", city: "Denver", state: "CO", zipcode: "80219", description: "I love me some animals.", status: "Accepted")
+          mantis = application.pets.create!(adoptable: true, age: "5", breed: "cat", name:"Mantis", shelter: @dumb_friends_league)
+          oddish = application.pets.create!(adoptable: true, age: "9", breed: "mouse", name:"Oddish", shelter: @dumb_friends_league)
+          expect(application.pet_applications.first.id).to eq(mantis.pet_applications.first.id)
+          expect(application.pet_applications.last.id).to eq(oddish.pet_applications.first.id)
+          expect(application.pet_applications.first.status).to eq(nil)
+          expect(application.pet_applications.last.status).to eq(nil)
+          application.pet_applications.last.Rejected!
+          expect(application.pet_applications.last.status).to eq("Rejected")
+          expect(PetApplication.find_rejected_pets(application)).to eq([oddish])
+      end 
+    end 
     end
 end
