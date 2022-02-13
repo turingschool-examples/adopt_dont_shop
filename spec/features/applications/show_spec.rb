@@ -49,10 +49,21 @@ describe 'application' do
     visit "/applications/#{@application.id}"
     fill_in('pet_name', with: "#{@bean.name}")
     click_button("Search")
-    #binding.pry
     click_button("Adopt Bean")
     #save_and_open_page
     expect(current_path).to eq("/applications/#{@application.id}")
     expect(page).to have_content("Bean")
+  end
+
+  it "has a section to fill out description" do
+    visit "/applications/#{@application.id}"
+    fill_in('pet_name', with: "#{@bean.name}")
+    click_button("Search")
+    click_button("Adopt Bean")
+    #save_and_open_page
+    expect(page).to have_content("Tell us about why you'd be a good home.")
+    fill_in('description', with: "I am a meat popsicle.")
+    click_button("Submit")
+    expect(current_path).to eq("/applications/#{@application.id}")
   end
 end
