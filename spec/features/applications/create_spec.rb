@@ -28,7 +28,6 @@ RSpec.describe 'application creation' do
                 fill_in 'City', with: "Denver"
                 fill_in 'State', with: "CO"
                 fill_in 'Zip code', with: "80203"
-                fill_in 'Why would you make a good home', with: "test"
                 click_button 'Submit'
                 expect(page).to have_current_path("/applications/#{@application.id + 1}")
                 expect(page).to have_content("Steve Rogers")
@@ -40,7 +39,7 @@ RSpec.describe 'application creation' do
                 visit "/applications/new"
                 click_button 'Submit'
                 expect(page).to have_current_path("/applications/new")
-                expect(page).to have_content("Error: Name can't be blank, Street address can't be blank, City can't be blank, State can't be blank, Zip code can't be blank, Description can't be blank")
+                expect(page).to have_content("Error: Name can't be blank, Street address can't be blank, City can't be blank, State can't be blank, Zip code can't be blank")
             end
         end
     end
