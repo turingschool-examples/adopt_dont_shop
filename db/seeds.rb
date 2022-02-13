@@ -10,13 +10,13 @@ Pet.destroy_all
 Shelter.destroy_all
 Application.destroy_all
 
-application_1 = Application.create!(name: "Sedan Turtle", street_address: "3425 Gransfield ave", city: "Denver", state: "CO", zipcode: "80219", status: "Pending")
+application_1 = Application.create!(name: "Sedan Turtle", street_address: "3425 Gransfield ave", city: "Denver", state: "CO", zipcode: "80219", description: "I really love animals.", status: "Pending")
 application_2 = Application.create!(name: "Roman Reigns", street_address: "2354 Narwal ct", city: "Littleton", state: "CO", zipcode: "23785")
 application_3 = Application.create!(name: "Denet Lament", street_address: "1987 Orange Tree st", city: "Lakewood", state: "CO", zipcode: "12343")
 application_4 = Application.create!(name: "Riley Wiley", street_address: "8974 Witch blvd", city: "Lone Tree", state: "CO", zipcode: "98765")
 application_5 = Application.create!(name: "Pabu Strong", street_address: "771 Ditch ave", city: "Frederick", state: "CO", zipcode: "80543")
 application_6 = Application.create!(name: "Theresa Ann", street_address: "09092 Blossom st", city: "Huntington Beach", state: "CA", zipcode: "98765")
-application_7 = Application.create!(name: "Gretchen Grump", street_address: "67890 Bog st", city: "Castle Rock", state: "CO", zipcode: "98765")
+application_7 = Application.create!(name: "Gretchen Grump", street_address: "67890 Bog st", city: "Castle Rock", state: "CO", zipcode: "98765", description: "None of your business.", status: "Pending")
 application_8 = Application.create!(name: "Harry Potter", street_address: "81274 Hogwarts ct", city: "Hogwarts", state: "KS", zipcode: "83754")
 
 

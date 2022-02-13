@@ -44,4 +44,7 @@ Rails.application.routes.draw do
   post '/applications/new', to: 'applications#create'
 
   get '/admin/shelters', to: 'admin#index'
+  # maybe needs to be patch? Check if params are delivered in controller
+  get '/admin/applications/:id', to: 'admin#show'
+  patch '/admin/applications/:id/update', to: 'admin#update'
 end

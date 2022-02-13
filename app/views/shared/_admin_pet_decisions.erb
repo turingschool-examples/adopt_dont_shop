@@ -1,0 +1,11 @@
+<% if @undetermined_pets.nil? == false %>
+    <% @undetermined_pets.each do |pet| %>
+        <p><%= pet.name %></p> <%= button_to "Approve #{pet.name}", "/admin/applications/#{@application.id}/update?approve=#{pet.id}", method: :patch %>
+    <% end %>
+<% end %>
+
+<% if @approved_pets.nil? == false %>
+    <% @approved_pets.each do |pet| %>
+        <p> <%= pet.name %> <%= "has been approved" %> </p>
+    <% end %>
+<% end %>
