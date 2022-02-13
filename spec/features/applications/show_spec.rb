@@ -24,7 +24,7 @@ RSpec.describe 'the application show' do
   end
   
   it 'can search for pets for an application' do 
-    application = Application.create(name: "Steve Rogers", street_address: "990 Logan St", city: "Denver", state: "CO", zip_code: "80203", description: "Lover of dogs and avid poo-picker-upper.")    
+    application = Application.create(name: "Steve Rogers", street_address: "990 Logan St", city: "Denver", state: "CO", zip_code: "80203")    
     shelter = Shelter.create(name: 'Mystery Building', city: 'Irvine CA', foster_program: false, rank: 9)
     pet_1 = Pet.create(name: 'Scooby', age: 2, breed: 'Great Dane', adoptable: true, shelter_id: shelter.id)
     pet_2 = Pet.create(adoptable: true, age: 4, breed: 'Husky', name: 'Bruce', shelter_id: shelter.id)
@@ -50,9 +50,9 @@ RSpec.describe 'the application show' do
     pet_1 = Pet.create(name: 'Scooby', age: 2, breed: 'Great Dane', adoptable: true, shelter_id: shelter.id)
     pet_2 = Pet.create(adoptable: true, age: 4, breed: 'Husky', name: 'Bruce', shelter_id: shelter.id)
     ApplicationPet.create(pet: pet_2, application: application)
-
+    
     visit "/applications/#{application.id}"
-
+    
     fill_in 'Add a Pet to this Application', with: "Scooby"
     click_button("Search")
     expect(page).to have_content("Scooby")
@@ -75,7 +75,7 @@ RSpec.describe 'the application show' do
     click_button("Search")
     click_button("Adopt this Pet")
     expect(application.pets).to eq([pet_1, pet_2])
-
+    
     expect(page).to have_button("Submit Application")
     expect(page).to have_content("Why would you make a good pet owner?")
     fill_in 'Why would you make a good pet owner?', with: "Lover of dogs and avid poo-picker-upper."
@@ -106,5 +106,32 @@ RSpec.describe 'the application show' do
     click_button("Submit Application")
     
     expect(page).to have_content("Interested in adopting:")
+  end
+  
+  it 'can take partial names for pet search' do 
+    application = Application.create(name: "Steve Rogers", street_address: "990 Logan St", city: "Denver", state: "CO", zip_code: "80203")    
+    shelter = Shelter.create(name: 'Mystery Building', city: 'Irvine CA', foster_program: false, rank: 9)
+    pet_1 = Pet.create(name: 'Scooby', age: 2, breed: 'Great Dane', adoptable: true, shelter_id: shelter.id)
+    pet_3 = Pet.create(name: 'Scooba Steve', age: 1, breed: 'Great Dane', adoptable: true, shelter_id: shelter.id)
+    pet_4 = Pet.create(name: 'Scooby Doo', age: 3, breed: 'Great Dane', adoptable: true, shelter_id: shelter.id)
+    pet_5 = Pet.create(name: 'Scoob', age: 5, breed: 'Great Dane', adoptable: true, shelter_id: shelter.id)
+    pet_2 = Pet.create(adoptable: true, age: 4, breed: 'Husky', name: 'Bruce', shelter_id: shelter.id)
+    ApplicationPet.create(pet: pet_2, application: application)
+    
+    visit "/applications/#{application.id}"
+    
+    expect(page).to have_content("Add a Pet to this Application")
+    fill_in 'Add a Pet to this Application', with: "scoob"
+    click_button("Search")
+    expect(current_path).to eq("/applications/#{application.id}")
+    
+    expect(page).to have_content("Scooby")
+    expect(page).to have_content(pet_1.name)
+    expect(page).to have_content("Scooba Steve")
+    expect(page).to have_content(pet_3.name)
+    expect(page).to have_content("Scooby Doo")
+    expect(page).to have_content(pet_4.name)
+    expect(page).to have_content("Scoob")
+    expect(page).to have_content(pet_5.name)
   end
 end 

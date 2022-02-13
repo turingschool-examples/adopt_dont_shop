@@ -11,7 +11,7 @@ class Application < ApplicationRecord
     validates :status, presence: true 
 
     def pet_search(pet_name)
-        Pet.where("name = ?", pet_name)
+        Pet.where("name ILIKE ?", "%#{pet_name}%")
     end
 
     def has_pets?
