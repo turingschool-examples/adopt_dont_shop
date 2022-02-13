@@ -44,4 +44,13 @@ describe 'application' do
     click_button("Search")
     expect(page).to have_content("Bean")
   end
+
+  it "adds a pet to the application." do
+    visit "/applications/#{@application.id}"
+    fill_in('pet_name', with: "#{@bean.name}")
+    click_button("Search")
+    click_button("Adopt Bean")
+    save_and_open_page
+    expect(current_path).to eq("/applications/#{@app.id}")
+  end
 end
