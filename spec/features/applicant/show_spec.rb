@@ -82,6 +82,28 @@ RSpec.describe 'Applicants' do
       expect(page).to have_content('Kirby')
       expect(page).to_not have_content(pig.name)
     end
+
+    it 'adds the searched name to pets applied for' do
+      dfl = Shelter.create!(name: 'Dumb Friends Leauge', rank: 12, city: 'Denver', foster_program: true)
+      jerry = Applicant.create!(name: 'Jerry', address_line_1: '123 First Street', city: 'Temecula', state: 'CA',
+                                zipcode: '12345', description: 'I want more pets.')
+      kirby = Pet.create!(name: 'Kirby', age: 4, breed: 'Maine Coon', adoptable: true, shelter_id: dfl.id)
+      pig = Pet.create!(name: 'Pig', age: 7, breed: 'Lab', adoptable: true, shelter_id: dfl.id)
+
+      visit "/applicants/#{jerry.id}"
+
+      fill_in 'Search', with: 'K'
+      click_button 'Search'
+      expect(page).to have_content('Kirby')
+
+      expect(page).to have_button('Adopt this Pet!')
+
+      click_button 'Adopt this Pet'
+
+      within('div.add_pet') do
+        expect(page).to have_content('Kirby')
+      end
+    end
   end
 
   describe 'not completed form' do
@@ -108,6 +130,46 @@ RSpec.describe 'Applicants' do
 
       expect(page).to have_current_path('/applicants/new')
       expect(page).to have_content('Error, all fields must be completed')
+    end
+  end
+
+  describe 'submit' do
+    it 'can submit an application' do
+      dfl = Shelter.create!(name: 'Dumb Friends Leauge', rank: 12, city: 'Denver', foster_program: true)
+      jerry = Applicant.create!(name: 'Jerry', address_line_1: '123 First Street', city: 'Temecula', state: 'CA',
+                                zipcode: '12345', description: 'I want more pets.')
+      kirby = jerry.pets.create!(name: 'Kirby', age: 4, breed: 'Maine Coon', adoptable: true, shelter_id: dfl.id)
+      pig = Pet.create!(name: 'Pig', age: 7, breed: 'Lab', adoptable: true, shelter_id: dfl.id)
+
+      visit "/applicants/#{jerry.id}"
+      expect(page).to have_button('Submit Application')
+
+      click_button 'Submit Application'
+
+      expect(page).to have_current_path("/applicants/#{jerry.id}")
+      expect(page).to have_content('Pending')
+    end
+
+    it 'submit procees once more' do
+      dfl = Shelter.create!(name: 'Dumb Friends Leauge', rank: 12, city: 'Denver', foster_program: true)
+      jerry = Applicant.create!(name: 'Jerry', address_line_1: '123 First Street', city: 'Temecula', state: 'CA',
+                                zipcode: '12345', description: 'I want more pets.')
+      kirby = jerry.pets.create!(name: 'Kirby', age: 4, breed: 'Maine Coon', adoptable: true, shelter_id: dfl.id)
+      pig = Pet.create!(name: 'Pig', age: 7, breed: 'Lab', adoptable: true, shelter_id: dfl.id)
+
+      visit "/applicants/#{jerry.id}"
+
+      fill_in 'Search', with: 'pig'
+      click_button('Search')
+      click_button('Adopt this Pet')
+
+      expect(page).to have_button('Submit Application')
+
+      click_button('Submit Application')
+
+      expect(current_path).to eq("/applicants/#{jerry.id}")
+      expect(page).to have_no_content('Add a Pet to this Application')
+      expect(page).to have_content('Pending')
     end
   end
 end

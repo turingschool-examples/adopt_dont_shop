@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
   resources :applicants
+  patch '/applicants/:id/update', to: 'applicants#update'
+
+  post '/pet_applications', to: 'pet_applications#create'
   get '/', to: 'application#welcome'
 
   get '/shelters', to: 'shelters#index'
