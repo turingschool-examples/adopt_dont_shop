@@ -10,6 +10,7 @@ RSpec.describe 'The admin applications show page' do
         @application_3 = Application.create!(name: "Doman Dens", street_address: "2354 Bart ct", city: "Middleton", state: "CO", zipcode: "23785", status: "In Progress")
 
         @mushu = @application_1.pets.create!(adoptable: true, age: "5", breed: "dog", name:"Mushu", shelter: @dumb_friends_league)
+        @application_2.pets << @mushu
         @mantis = @application_1.pets.create!(adoptable: true, age: "2", breed: "cat", name:"Mantis", shelter: @dumb_friends_league)
         @tesla = @application_3.pets.create!(adoptable: true, age: "9", breed: "cat", name:"Tesla", shelter: @smart_friends_league)
     end
@@ -28,4 +29,19 @@ RSpec.describe 'The admin applications show page' do
         expect(current_path).to eq("/admin/applications/#{@application_1.id}")
         expect(page).to have_content("#{@mushu.name} has been approved")
     end 
+
+    it 'has a button next to each pet on an application that allows the admin user to reject that specific pet' do 
+        visit "/admin/applications/#{@application_1.id}"
+        click_button("Reject #{@mushu.name}")
+        expect(current_path).to eq("/admin/applications/#{@application_1.id}")
+        expect(page).to have_content("#{@mushu.name} has been rejected")
+    end
+
+    it 'Rejecting a pet on one application does not affect its status on another application' do 
+        visit "/admin/applications/#{@application_2.id}"
+        expect(current_path).to eq("/admin/applications/#{@application_2.id}")
+        expect(page).to have_no_content("#{@mushu.name} has been rejected")
+        expect(page).to have_button("Approve #{@mushu.name}")
+        expect(page).to have_button("Reject #{@mushu.name}")
+    end
 end 
