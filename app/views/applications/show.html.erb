@@ -3,13 +3,21 @@
   <a>Address: <%=@app.street %></a><br>
   <a>City   : <%=@app.city %></a><br>
   <a>State  : <%=@app.state %></a><br>
-  <%#binding.pry %>
+
   <a>Zip    : <%=@app.zip %></a><br>
   <a>Status : <%=@app.status %></a><br>
   <p>description: <%=@app.description %></p>
 <h4>Pets attached to this application</h4>
   <% @app.pets.each do |pet| %>
   <%=link_to "#{pet.name}","/pets/#{pet.id}"%><br>
+  <%end%>
+
+<%=form_with url: "/applications/#{@app.id}", method: :patch, local: true do |form|%>
+  <h4><%="Tell us why you'd be a good forever home."%></h4>
+  <%=form.label :description%>
+  <%=form.text_field :description%>
+  <%=form.hidden_field :status, value: "pending"%>
+  <%=form.submit "Submit"%>
   <%end%>
 
 
@@ -19,7 +27,6 @@
   <%=form.label :pet_name %>
   <%=form.text_field :pet_name%>
   <%=form.submit "Search"%>
-
   <%end%>
 
   <% if @pets.present? %>
