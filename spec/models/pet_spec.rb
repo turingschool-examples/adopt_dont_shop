@@ -47,12 +47,6 @@ RSpec.describe Pet, type: :model do
         expect(Pet.match("an")).to eq([@pet_3])
       end 
     end 
-
-    describe '#pending_pets' do 
-      it 'returns pets that have pending applications' do 
-        expect(Pet.pending_pets).to eq([@pet_1])
-      end 
-    end 
   end 
 
   describe 'instance methods' do
