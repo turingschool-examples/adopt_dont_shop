@@ -1,6 +1,9 @@
 class AdoptionFormsController < ApplicationController
   def show
     @pet_form = AdoptionForm.find(params[:id])
+    if (params[:search]).present?
+      @searched_pets = Pet.search(params[:search])
+    end
   end
 
   def new
@@ -18,7 +21,7 @@ class AdoptionFormsController < ApplicationController
   end
 
   private
-  def form_params
-    params.permit(:id, :first_name, :last_name, :street_address, :state, :city, :zip_code, :description)
-  end
+    def form_params
+      params.permit(:id, :first_name, :last_name, :street_address, :state, :city, :zip_code, :description)
+    end
 end

@@ -1,5 +1,18 @@
-<h1>Application Info</h1>
+<%= form_with url: "/adoption_forms/#{@pet_form.id}?search=search", method: :get, local: true do |f| %>
+  <%= f.label :search, "Add a pet to this application"%>
+  <%= f.text_field :search %>
+  <%= f.submit "Search" %>
+<% end %>
 
+
+<% if @searched_pets.present? %>
+  <% @searched_pets.each do |pet| %>
+    <h4>Pet name: <%= pet.name %></h4>
+  <% end  %>
+<% end %>
+
+<br><br>
+<h3>Application Info</h3>
 <p>First name: <%= @pet_form.first_name %></p>
 <p>Last name: <%= @pet_form.last_name %></p>
 <p>Street address: <%= @pet_form.street_address %></p>
