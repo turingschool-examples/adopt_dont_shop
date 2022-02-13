@@ -17,19 +17,25 @@
      <% end %>
 
     <% if @pets != nil %>
-      <div>
-        <% @pets.each do |pet| %>
+      <% @pets.each do |pet| %>
+        <div id="pet_search_results-<%= pet.id %>">
           <%= pet.name %>
-         <% end %>
-      <div>
+          <div id="app_pet_link-<%= pet.id %>">
+            <%= form_with url: "/pet_applications?pet_id=#{pet.id}&application_id=#{@application.id}", method: :post, local: true do |form| %>
+                <%= form.submit "Adopt this Pet" %>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
     <% end %>
-
   </div>
 <% end %>
 
 <h3>Pets Already Added to this Application:</h3>
-  <% @application.pets.each do |pet| %>
-    <div>
-      <h3><%= link_to "#{pet.name}", "/pets/#{pet.id}" %></h3>
-    </div>
-  <% end %>
+  <div id="pets_on_app">
+    <% @application.pets.each do |pet| %>
+      <div>
+        <h3><%= link_to "#{pet.name}", "/pets/#{pet.id}" %></h3>
+      </div>
+    <% end %>
+  </div>

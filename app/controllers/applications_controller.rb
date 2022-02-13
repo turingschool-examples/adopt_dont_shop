@@ -1,4 +1,8 @@
 class ApplicationsController <  ApplicationController
+  def index
+    @applications = Application.all
+  end
+
   def show
     @application = Application.find(params[:id])
     if params[:search] != nil
@@ -17,6 +21,18 @@ class ApplicationsController <  ApplicationController
       redirect_to "/applications/new"
       flash[:alert] = "Error: #{error_message(application.errors)}"
     end
+  end
+
+  def edit
+     @application = Application.find(params[:id])
+     @application.update(application_params)
+     redirect_to "/applications/#{@application.id}"
+   end
+
+  def update
+    application = Application.find(params[:id])
+    application.update
+
   end
 
   private
