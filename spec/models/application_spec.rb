@@ -17,8 +17,13 @@ RSpec.describe Application, type: :model do
   end
 
   describe 'adding pets' do
-    it 'adds pets to an application' do
-      app = Application.create!(
+    before :each do
+      @shelter = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
+      @pirate = @shelter.pets.create(name: 'Mr. Pirate', breed: 'tuxedo shorthair', age: 5, adoptable: true)
+      @gaspir = @shelter.pets.create(name: 'Gaspir', breed: 'shorthair', age: 3, adoptable: true)
+      @joey = @shelter.pets.create(name: 'Joey', breed: 'rottweiler', age: 13, adoptable: true)
+
+      @app_1 = Application.create!(
         name: "Jerry Blank",
         street_address: "246 DumDum Ave.",
         city: "Melbourne",
@@ -27,23 +32,18 @@ RSpec.describe Application, type: :model do
         description: "I have lots of money and a big fenced-in yard and kids who are willing to walk a dog every day!",
         status: "In Progress"
       )
+    end
 
-      shelter = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
-      pirate = shelter.pets.create(name: 'Mr. Pirate', breed: 'tuxedo shorthair', age: 5, adoptable: true)
-      gaspir = shelter.pets.create(name: 'Gaspir', breed: 'shorthair', age: 3, adoptable: true)
-      joey = shelter.pets.create(name: 'Joey', breed: 'rottweiler', age: 13, adoptable: true)
+    it 'adds a pet to an application' do
+      @app_1.add_pet(@pirate)
+      expect(@app_1.pets).to eq([@pirate])
+    end
 
-      expect(app.pets).to eq([])
-
-      app.add_pet(pirate)
-      expect(app.pets).to eq([pirate])
-
-      app.add_pet(gaspir)
-      expect(app.pets).to eq([pirate, gaspir])
-
-      app.add_pet(joey)
-      expect(app.pets).to eq([pirate, gaspir, joey])
-
+    it 'adds multiple pets to an application' do
+      @app_1.add_pet(@pirate)
+      @app_1.add_pet(@gaspir)
+      @app_1.add_pet(@joey)
+      expect(@app_1.pets).to eq([@pirate, @gaspir, @joey])
     end
   end
 end

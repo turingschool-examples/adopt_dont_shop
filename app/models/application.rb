@@ -8,4 +8,9 @@ class Application < ApplicationRecord
 
   has_many :pet_applications
   has_many :pets, through: :pet_applications
+
+  def add_pet(pet)
+    PetApplication.create!(pet_id: pet.id, application_id: self.id)
+  end
+
 end

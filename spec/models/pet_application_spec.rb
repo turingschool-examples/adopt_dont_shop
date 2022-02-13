@@ -63,6 +63,9 @@ RSpec.describe PetApplication, type: :model do
       expect(pirate.applications).to eq([app_1, app_2])
       expect(claw.applications).to eq([app_1])
       expect(joey.applications).to eq([app_2])
+
+      expect(app_1.pets).to eq([pirate, claw])
+      expect(app_2.pets).to eq([pirate, joey])
     end
   end
 end
