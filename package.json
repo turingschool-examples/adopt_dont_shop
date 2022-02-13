@@ -4,10 +4,19 @@
   "dependencies": {
     "@rails/actioncable": "^6.0.0",
     "@rails/activestorage": "^6.0.0",
-    "@rails/ujs": "^6.0.0"
+    "@rails/ujs": "^6.0.0",
+    "serve": "^13.0.2"
   },
   "version": "0.1.0",
   "devDependencies": {
     "webpack-dev-server": "^3.11.2"
+  },
+  "scripts": {
+  "dev": "react-scripts start",
+  "start": "serve -s build",
+  "build": "react-scripts build",
+  "test": "react-scripts test --env=jsdom",
+  "eject": "react-scripts eject",
+  "heroku-postbuild": "npm run build"
   }
 }
