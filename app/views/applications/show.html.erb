@@ -11,14 +11,16 @@
   <% @app.pets.each do |pet| %>
   <%=link_to "#{pet.name}","/pets/#{pet.id}"%><br>
   <%end%>
-
-<%=form_with url: "/applications/#{@app.id}", method: :patch, local: true do |form|%>
-  <h4><%="Tell us why you'd be a good forever home."%></h4>
-  <%=form.label :description%>
-  <%=form.text_field :description%>
-  <%=form.hidden_field :status, value: "pending"%>
-  <%=form.submit "Submit"%>
+<% if @app.status == "In progress" && @app.pets_present > 0%>
+  <%=form_with url: "/applications/#{@app.id}", method: :patch, local: true do |form|%>
+    <h4><%="Tell us why you'd be a good forever home."%></h4>
+    <%=form.label :description%>
+    <%=form.text_field :description%>
+    <%=form.hidden_field :status, value: "pending"%><br>
+    <%= "When Application is complete, click the Submit button."%><br>
+    <%=form.submit "Submit"%>
   <%end%>
+<%end%>
 
 
 <%if @app.status == "In progress"%>
@@ -31,8 +33,9 @@
 
   <% if @pets.present? %>
     <%@pets.each do |pet|%>
-
       <%=link_to "#{pet.name}","/pets/#{pet.id}"%><%=button_to "Adopt #{pet.name}", method: :post, params: {:application_id=> @app.id, :pet_id => pet.id} %>
     <%end%>
   <%end%>
+
+
 <%end%>

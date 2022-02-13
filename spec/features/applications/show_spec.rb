@@ -67,4 +67,5 @@ describe 'application' do
     # binding.pry
     expect(page).to have_content("pending")
   end
+
 end
