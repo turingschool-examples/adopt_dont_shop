@@ -32,4 +32,23 @@ RSpec.describe 'Application Creation' do
     expect(page).to have_content(new_applicant.status)
   end
 
+  it "error message pops up when one or more fields are empty" do
+
+    visit '/applications/new'
+
+    fill_in('Name', with: 'John Stewart')
+    fill_in('Street address', with: '123 Fake St')
+    fill_in('City', with: 'Denver')
+    #fill_in('State', with: 'Colorado')
+    fill_in('Zip code', with: 80233)
+    fill_in('Description', with: 'Need Companion')
+    click_button('Submit')
+
+    save_and_open_page
+
+    expect(current_path).to eq("/applications/new")
+
+    expect(page).to have_content("Error: State can't be blank")
+  end
+
 end
