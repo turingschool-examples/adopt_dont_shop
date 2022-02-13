@@ -47,7 +47,7 @@ During the evaluation, you will present your user story:
 ```
 [ ] done
 
-1. User Story
+27. User Story
 
 Deploy your application to Heroku
 
@@ -67,7 +67,7 @@ Visitors to the site will be able to create applications to adopt pets. An appli
 ```
 [ ] done
 
-2. User Story
+26. User Story
 
 Application Show Page
 
@@ -84,7 +84,7 @@ Then I can see the following:
 ```
 [ ] done
 
-3. User Story
+25. User Story
 
 Starting an Application
 
@@ -108,7 +108,7 @@ And I see an indicator that this application is "In Progress"
 ```
 [ ] done
 
-4. User Story
+24. User Story
 
 Starting an Application, Form not Completed
 
@@ -123,7 +123,7 @@ And I see a message that I must fill in those fields.
 ```
 [ ] done
 
-5. User Story
+23. User Story
 
 Searching for Pets for an Application
 
@@ -141,7 +141,7 @@ And under the search bar I see any Pet whose name matches my search
 ```
 [ ] done
 
-6. User Story
+22. User Story
 
 Add a Pet to an Application
 
@@ -158,7 +158,7 @@ And I see the Pet I want to adopt listed on this application
 ```
 [ ] done
 
-7. User Story
+21. User Story
 
 Submit an Application
 
@@ -178,7 +178,7 @@ And I do not see a section to add more pets to this application
 ```
 [ ] done
 
-8. User Story
+20. User Story
 
 No Pets on an Application
 
@@ -195,7 +195,7 @@ These stories emphasize key database concepts
 ```
 [ ] done
 
-9. User Story
+19. User Story
 
 Partial Matches for Pet Names
 
@@ -209,7 +209,7 @@ For example, if I search for "fluff", my search would match pets with names "flu
 ```
 [ ] done
 
-10. User Story
+18. User Story
 
 Case Insensitive Matches for Pet Names
 
@@ -225,6 +225,7 @@ SQL Only Story
 
 For this story, you should write your queries in raw sql. You can use the ActiveRecord find_by_sql method to execute raw sql queries: https://guides.rubyonrails.org/active_record_querying.html#finding-by-sql
 
+17. User Story
 
 Admin Shelters Index
 
@@ -237,6 +238,8 @@ Then I see all Shelters in the system listed in reverse alphabetical order by na
 
 ```
 For this story, you should fully leverage ActiveRecord methods in your query.
+
+16. User Story
 
 Shelters with Pending Applications
 
@@ -257,7 +260,7 @@ For this set of stories, we will be making routes that begin with '/admin'. This
 ```
 [ ] done
 
-11. User Story
+15. User Story
 
 Approving a Pet for Adoption
 
@@ -273,7 +276,7 @@ And instead I see an indicator next to the pet that they have been approved
 ```
 [ ] done
 
-12. User Story
+14. User Story
 
 Rejecting a Pet for Adoption
 
@@ -287,6 +290,9 @@ And instead I see an indicator next to the pet that they have been rejected
 ```
 
 ```
+13. User Story
+
+
 Approved/Rejected Pets on one Application do not affect other Applications
 
 As a visitor
@@ -305,7 +311,7 @@ Once all pets on an application have been marked either accepted or rejected, th
 ```
 [ ] done
 
-13. User Story
+12. User Story
 
 All Pets Accepted on an Application
 
@@ -319,7 +325,7 @@ And I see the application's status has changed to "Approved"
 ```
 [ ] done
 
-14. User Story
+11. User Story
 
 One or More Pets Rejected on an Application
 
@@ -332,6 +338,7 @@ And I see the application's status has changed to "Rejected"
 ```
 
 ```
+10. User Story
 Application Approval makes Pets not adoptable
 
 As a visitor
@@ -346,7 +353,7 @@ Pets can only have one approved application on them at any time
 
 [ ] done
 
-15. User Story
+9. User Story
 
 As a visitor
 When a pet has an "Approved" application on them
@@ -368,6 +375,8 @@ For this story, you should write your queries in raw sql. You can use the Active
 
 Admin Shelters Show Page
 
+8. User Story
+
 As a visitor
 When I visit an admin shelter show page
 Then I see that shelter's name and full address
@@ -382,6 +391,8 @@ For the following stories, you should fully leverage ActiveRecord methods in you
 ```
 Shelters with Pending Applications Listed Alphabetically
 
+7. User Story
+
 As a visitor
 When I visit the admin shelter index ('/admin/shelters')
 And I look in the section for shelters with pending applications
@@ -390,6 +401,8 @@ Then I see all those shelters are listed alphabetically
 
 ```
 Admin Shelters Show Page Links
+
+6. User Story
 
 As a visitor
 When I visit the admin shelter index ('/admin/shelters')
@@ -401,6 +414,8 @@ Then I am taken to that shelter's admin show page
 ```
 Average Pet Age
 
+5. User Story
+
 As a visitor
 When I visit an admin shelter show page
 Then I see a section for statistics
@@ -410,6 +425,8 @@ And in that section I see the average age of all adoptable pets for that shelter
 ```
 Count of Adoptable Pets
 
+4. User Story
+
 As a visitor
 When I visit an admin shelter show page
 Then I see a section for statistics
@@ -418,6 +435,8 @@ And in that section I see the number of pets at that shelter that are adoptable
 
 ```
 Count of Pets that have been Adopted
+
+3. User Story
 
 As a visitor
 When I visit an admin shelter show page
@@ -430,6 +449,8 @@ Note: A Pet has been adopted from a shelter if they are part of an approved appl
 ```
 Action Required
 
+2. User Story
+
 As a visitor
 When I visit an admin shelter show page
 Then I see a section titled "Action Required"
@@ -438,6 +459,8 @@ In that section, I see a list of all pets for this shelter that have a pending a
 
 ```
 Action Required Links to Application Show Page
+
+1. User Story
 
 As a visitor
 When I visit an admin shelter show page
