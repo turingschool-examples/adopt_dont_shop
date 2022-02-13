@@ -20,6 +20,6 @@
 
 <div id="pet-results">
   <% @pets.each do |pet| %>
-  <p> <%= pet.name %> </p>
+  <p> <%= pet.name %> <%= link_to "Adopt this Pet", "/pet_applications/#{pet.id}/#{@application.id}/create" %> </p>
   <% end %>
 </div>

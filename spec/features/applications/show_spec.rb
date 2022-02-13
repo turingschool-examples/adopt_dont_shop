@@ -22,7 +22,6 @@ RSpec.describe 'application' do
     expect(page).to have_content(@jim.status)
 
     expect(page).to have_content(@spike.name)
-
   end
 
   it 'pet name is a link to pet show page' do
@@ -34,7 +33,6 @@ RSpec.describe 'application' do
     click_link("#{@spike.name}")
 
     expect(current_path).to eq("/pets/#{@spike.id}")
-
   end
 
   it 'pet name is a link to pet show page' do
@@ -46,10 +44,9 @@ RSpec.describe 'application' do
     click_link("#{@spike.name}")
 
     expect(current_path).to eq("/pets/#{@spike.id}")
-
   end
 
-  it 'can add pet to this application' do
+  it 'can show pets to add to this application' do
 
     visit "/applications/#{@jim.id}"
 
@@ -63,6 +60,22 @@ RSpec.describe 'application' do
     within('#pet-results') do
       expect(page).to have_content("#{@meow.name}")
     end
+  end
+
+  it 'can add pets to this application' do
+
+    visit "/applications/#{@jim.id}"
+
+    fill_in :search, with: "Meow"
+    click_button("Search")
+
+    expect(page).to have_link("Adopt this Pet")
+
+    click_link("Adopt this Pet")
+
+    expect(current_path).to eq("/applications/#{@jim.id}")
+
+    expect(page).to have_content("Meow")
   end
 
 end
