@@ -10,17 +10,15 @@ RSpec.describe "Application Show Page" do
       city: "Sandy Springs",
       state: "CO",
       zipcode: 12345,
-      description: "I like pets",
-      status: "In Progress")
+      description: "I like pets")
     @application2 = Application.create!(name: "Kirby",
       street_address: "15 street",
       city: "Jacob Drive",
       state: "DE",
       zipcode: 64523,
-      description: "Cheese is the best",
-      status: "In Progress")
-    @pet_application = PetApplication.create!(pet_id: @pet_1.id, application_id: @application.id)
-    @pet_application2 = PetApplication.create!(pet_id: @pet_2.id, application_id: @application.id)
+      description: "Cheese is the best")
+    @pet_application_test = PetApplication.create!(pet_id: @pet_1.id, application_id: @application.id)
+    @pet_application2_test = PetApplication.create!(pet_id: @pet_2.id, application_id: @application.id)
   end
 
   it "should show applicant information" do
@@ -32,6 +30,12 @@ RSpec.describe "Application Show Page" do
     expect(page).to have_content(@application.zipcode)
     expect(page).to have_content(@application.description)
     expect(page).to have_content(@application.status)
+  end
+
+  it "can display links to pet show page" do
+    @application.status = 1
+    @application.save
+    visit "/application/#{@application.id}"
     click_on('Lucille Bald')
     expect(current_path).to eq("/application/pets/#{@pet_1.id}")
     visit "/application/#{@application.id}"
@@ -59,4 +63,15 @@ RSpec.describe "Application Show Page" do
     end
   end
 
+  describe "Add a pet to an application" do
+    it 'has a button to "Adopt this Pet"' do
+      visit "/application/#{@application2.id}"
+      fill_in "Enter Pet Name:", with: "l"
+      click_on("Search")
+      expect(page).to have_link("Adopt this Pet")
+      click_on("Adopt this Pet", match: :first)
+      expect(current_path).to eq("/application/#{@application2.id}/")
+      expect(page).to have_content(@pet_1.name)
+    end
+  end
 end
