@@ -4,17 +4,18 @@ class ApplicationsController < ApplicationController
     if params[:search].present?
       @search = true
       @pets = Pet.search(params[:search])
-    elsif params[:petid].present?
-      @pet_application = PetApplication.create(pet_id: params[:petid], application_id: @application.id)
-      @pets = @application.pets
-      @application.status = 1
-    else
-      @pets = @application.pets
     end
   end
 
   def new
     @application = Application.new
+  end
+
+  def update
+    @application = Application.find(params[:id])
+    @application.update(update_params)
+    @application.save
+    redirect_to "/application/#{@application.id}"
   end
 
   def create
@@ -31,5 +32,9 @@ class ApplicationsController < ApplicationController
 
   def applicant_params
     params.required(:application).permit(:name, :street_address, :city, :state, :zipcode)
+  end
+
+  def update_params
+    params.permit(:description, :status)
   end
 end
