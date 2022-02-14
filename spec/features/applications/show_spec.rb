@@ -7,6 +7,8 @@ RSpec.describe 'the applications show page' do
     @pet_1 = Pet.create(adoptable: true, age: 2, breed: 'domestic short hair', name: 'Mundungous', shelter_id: "#{@shelter.id}")
     @pet_2 = Pet.create(adoptable: true, age: 1, breed: 'sphynx', name: 'Captain Pants', shelter_id: "#{@shelter.id}")
     @pet_3 = Pet.create(adoptable: true, age: 4, breed: 'domestic long hair', name: 'Hogan', shelter_id: "#{@shelter.id}")
+    @pet_4 = Pet.create(adoptable: true, age: 1, breed: 'sphynx', name: 'Hulk Hogan', shelter_id: "#{@shelter.id}")
+    @pet_4 = Pet.create(adoptable: true, age: 1, breed: 'sphynx', name: 'Hoggle', shelter_id: "#{@shelter.id}")
 
     @pet_app = PetApplication.create!(pet: @pet_1, application: @application_1)
     @pet_app_2 = PetApplication.create!(pet: @pet_2, application: @application_1)
@@ -49,6 +51,17 @@ RSpec.describe 'the applications show page' do
     expect(current_path).to eq("/applications/#{@application_1.id}")
     within('div.pet_search') do
       expect(page).to have_content('Captain Pants')
+    end
+  end
+
+  it 'search for pets by name - partials work' do
+    fill_in(:search, with: 'Hog')
+    click_button("Search")
+
+    within('div.pet_search') do
+      expect(page).to have_content('Hogan')
+      expect(page).to have_content('Hulk Hogan')
+      expect(page).to have_content('Hoggle')
     end
   end
 
