@@ -11,10 +11,14 @@
 <p>Desired Pet:  <%= link_to pet.name, "/pets/#{pet.id}" %></p>
 <% end %>
 
-<p>Why I would make a good owner for these pet(s): </p>
+<% if @application.pets.count > 0 %>
+<p>Why I would make a good owner for these pet(s):</p>
 <%= form_tag("/applications/#{@application.id}?query=submit", method: :get) do %>
 <%= text_field_tag :submit, params[:submit] %>
 <%= submit_tag "Submit Application" %>
+<% end %>
+<% else  %>
+<p>Select a Pet to Finish Application:</p>
 <% end %>
 
 <p>Add a Pet to this Application: </p>

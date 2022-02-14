@@ -109,4 +109,16 @@ RSpec.describe 'application' do
     expect(page).to have_content("Pending")
   end
 
+  it "submit application doesn't show if there are no pets" do
+    mark = Application.create!(name: "Mark", street_address: "123 Test Street", city: "Makebelivevill", state: "Florida", zip_code: 80233, description: "Need Companion")
+
+    visit "/applications/#{mark.id}"
+
+    expect(mark.pets).to eq([])
+
+    expect(page).to_not have_content("Why I would make a good owner for these pet(s)")
+
+    expect(page).to_not have_link("Why I would make a good owner for these pet(s)")
+  end
+
 end
