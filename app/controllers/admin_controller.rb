@@ -10,6 +10,7 @@ class AdminController < ApplicationController
         @undetermined_pets = PetApplication.find_nil_pets(@application)
         @approved_pets = PetApplication.find_approved_pets(@application)
         @rejected_pets = PetApplication.find_rejected_pets(@application)
+        @unadoptable_pets = @application.pets.find_unadoptable_pets
     end 
 
     def update 
@@ -24,6 +25,7 @@ class AdminController < ApplicationController
             approved_pets = PetApplication.find_approved_pets(application)
             if application.pets == approved_pets
              application.Accepted!
+             application.pets.approved_for_adoption
             end
         end 
         if params[:reject]

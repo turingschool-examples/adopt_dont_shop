@@ -23,7 +23,7 @@ class Pet < ApplicationRecord
     where(adoptable: true).update(adoptable: false)
   end 
 
-  def self.find_unadoptable_pets 
+  def self.find_unadoptable_pets
     where(adoptable: false)
   end 
 end
