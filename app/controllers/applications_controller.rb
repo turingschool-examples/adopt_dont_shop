@@ -21,7 +21,7 @@ class ApplicationsController < ApplicationController
     else
       flash[:alert] = "Error: #{error_message(application.errors)}"
       redirect_to "/applications/new"
-      # render :new
+      
     end
 
   end
