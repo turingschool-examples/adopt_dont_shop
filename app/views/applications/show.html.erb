@@ -1,10 +1,6 @@
-<h2>Application Status: <%= @application.status %> </h2>
-
-<h2>First name: <%= @application.first_name %></h2><br>
-<h2>Last name: <%= @application.last_name %></h2><br>
-<h3>Street address: <%= @application.street_address %> </h3><br>
-<h3>City: <%= @application.city %> </h3><br>
-<h3>Post code <%= @application.post_code %> </h3><br>
+<h2>Application Status: <%= @application.status %> </h2><br>
+<h2>Applicant's name: <%= @application.first_name %> <%= @application.last_name %> </h2><br>
+<h3>Address: <%= @application.street_address %> <%= @application.city %> <%= @application.post_code %> </h3>
 <br>
 
 <div>
@@ -20,19 +16,19 @@
 
 <h2>Pets added to my application:</h2>
 <% @application.pets.each do |pet| %>
-<h3><%= link_to "Potential pet: #{pet.name}", "/pets/#{pet.id}" %></h3>
+<h3><%= link_to "#{pet.name} #{pet.breed}", "/pets/#{pet.id}" %></h3>
 <% end %>
 <br>
 
-<% if @pets != nil %>
-<div>
-    <h2>Pet search results</h2>
-  <% @pets.each do |pet| %>
-    <%= pet.name %>
-    <%= pet.age %>
-    <%= pet.breed %>
-    <%= pet.shelter.name %>
-    <% end %>
-</div>
-
-<% end %>
+  <% if @pets != nil %>
+<section class='pet adoption'>
+  <h2>Pet search results</h2>
+<% @pets.each do |pet| %>
+  <p>Name: <%= pet.name %></p>
+  <p>Age: <%= pet.age %></p>
+  <p>Breed: <%= pet.breed %></p>
+  <p>At shelter: <%= pet.shelter.name %></p>
+  <p><%= link_to "Adopt #{pet.name}", "/application_pets?pet_id=#{pet.id}&application_id=#{@application.id}", method: :post, local:true  %></p>
+  <% end %>
+</section>
+  <% end %>

@@ -60,4 +60,22 @@ RSpec.describe 'the application show' do
 
       expect('Pet search results').to appear_before(@onion.name)
     end
+
+    it 'add pet to application' do
+
+      visit "/applications/#{@app_3.id}"
+
+
+      expect(page).to have_content('Add a Pet to this Application')
+      expect(page).to have_content('Search by pet name')
+
+      fill_in 'Search', with: "Apollo"
+      click_on("Search")
+
+      expect('Pet search results').to appear_before(@apollo.name)
+
+      click_on "Adopt #{@apollo.name}"
+
+      expect('Pets added to my application:').to appear_before(@apollo.name)
+    end
 end
