@@ -1,4 +1,6 @@
-<h1>First name: <%= @application.first_name %></h1><br>
+<h2>Application Status: <%= @application.status %> </h2>
+
+<h2>First name: <%= @application.first_name %></h2><br>
 <h2>Last name: <%= @application.last_name %></h2><br>
 <h3>Street address: <%= @application.street_address %> </h3><br>
 <h3>City: <%= @application.city %> </h3><br>
@@ -16,6 +18,12 @@
 </div>
 <br>
 
+<h2>Pets added to my application:</h2>
+<% @application.pets.each do |pet| %>
+<h3><%= link_to "Potential pet: #{pet.name}", "/pets/#{pet.id}" %></h3>
+<% end %>
+<br>
+
 <% if @pets != nil %>
 <div>
     <h2>Pet search results</h2>
@@ -27,12 +35,4 @@
     <% end %>
 </div>
 
-
-<h2>Pets added to my application:</h2>
-<% @application.pets.each do |pet| %>
-<h3><%= link_to "Potential pet: #{pet.name}", "/pets/#{pet.id}" %></h3>
-<% end %>
-<br>
-
-<h2>Application Status: <%= @application.status %> </h2>
 <% end %>
