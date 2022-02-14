@@ -138,7 +138,7 @@ RSpec.describe 'Adding pets to an application' do
       fill_in("Lookup by Name", with: "Pirate")
       click_button("Submit")
 
-      click_link "Adopt Me"
+      click_button "Adopt Me"
     end
 
     it 'shows the pet as being added to the application' do
@@ -156,7 +156,7 @@ RSpec.describe 'Adding pets to an application' do
       fill_in("Lookup by Name", with: "Gaspir")
       click_button("Submit")
 
-      click_link "Adopt Me"
+      click_button "Adopt Me"
 
       expect(current_path).to eq("/applications/#{@app_1.id}")
       within("#added_pets") do
@@ -167,7 +167,7 @@ RSpec.describe 'Adding pets to an application' do
       fill_in("Lookup by Name", with: "Joey")
       click_button("Submit")
 
-      click_link "Adopt Me"
+      click_button "Adopt Me"
 
       expect(current_path).to eq("/applications/#{@app_1.id}")
 
