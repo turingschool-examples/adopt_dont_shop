@@ -1,7 +1,7 @@
 class ApplicationsController < ApplicationController
 
  def index
-   @application = Application.all
+   @applications = Application.all
  end
 
   def new
