@@ -1,0 +1,10 @@
+<h1>Shelters</h1>
+
+<div id="admin_shelter_list">
+  <% @shelters.each_with_index do |shelter, index| %>
+    <div id="shelter_name-<%= index %>">
+      <%= shelter.name %>
+    </div>
+  <% end %>
+
+</div>
