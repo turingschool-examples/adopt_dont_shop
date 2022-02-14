@@ -1,7 +1,7 @@
 <h1>Application #<%= @application.id %></h1>
 <br>
 <h2>Name: <%= @application.name %></h2>
-<p>Description: <%= @application.description %></p>
+<p><%= "Description: #{@application.description}" unless @application.description == nil%></p>
 <br>
 <p>Street Address: <%= @application.street_address %></p>
 <p>City: <%= @application.city %></p>
@@ -17,7 +17,6 @@
 <% end %>
 </div>
 <br>
-
 <% if @application.status == "In Progress" %>
 
   <h2>Add a Pet to this Application</h2>
@@ -35,4 +34,14 @@
     <% end %>
   <% end %>
 
+<% end %>
+
+<% if !@application.pets.empty? && @application.status == "In Progress"%>
+  <h2>Complete your Application</h2>
+  <%= form_with url: "/applications/#{@application.id}", method: :patch, local: true do |form| %>
+    <%= form.label :description, "Tell us why you would be a good owner for this/these pet(s): " %>
+    <%= form.text_field :description %>
+    <br>
+    <%= form.submit "Submit Application" %>
+  <% end %>
 <% end %>

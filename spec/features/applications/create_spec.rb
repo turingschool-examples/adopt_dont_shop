@@ -9,7 +9,6 @@ RSpec.describe 'adding a new application' do
     fill_in('City', with: "Tuscaloosa")
     fill_in('State', with: "ID")
     fill_in('Zip Code', with: "86753")
-    fill_in('Tell us why you would be a good home for one of our pets', with: "Because I am Jelly Boy!")
 
     click_button('Submit')
 
@@ -22,7 +21,7 @@ RSpec.describe 'adding a new application' do
     expect(page).to have_content("Tuscaloosa")
     expect(page).to have_content("ID")
     expect(page).to have_content("86753")
-    expect(page).to have_content("Because I am Jelly Boy!")
+    # expect(page).to have_content("Because I am Jelly Boy!")
     expect(page).to have_content("In Progress")
   end
 
@@ -40,7 +39,6 @@ RSpec.describe 'adding a new application' do
       expect(page).to have_content("Error")
       expect(page).to have_content("Street address can't be blank")
       expect(page).to have_content("State can't be blank")
-      expect(page).to have_content("Description can't be blank")
     end
 
     it 'does not allow non-numeric zip codes' do
@@ -51,7 +49,6 @@ RSpec.describe 'adding a new application' do
       fill_in('City', with: "Tuscaloosa")
       fill_in('State', with: "ID")
       fill_in('Zip Code', with: "ABCDE")
-      fill_in('Tell us why you would be a good home for one of our pets', with: "Because I am Jelly Boy!")
 
       click_button('Submit')
 
