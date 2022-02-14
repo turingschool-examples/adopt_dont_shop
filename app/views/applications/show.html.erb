@@ -30,7 +30,7 @@
 
   <% if @results != nil %>
     <% @results.each do |result| %>
-      <h3><%= result.name %> - <%= link_to "Adopt Me", "/applications/#{@application.id}/#{result.id}", method: :get %></h3>
+      <h3><%= result.name %> - <%= button_to "Adopt Me", "/pet_applications/#{@application.id}/#{result.id}", method: :post %></h3>
     <% end %>
   <% end %>
 

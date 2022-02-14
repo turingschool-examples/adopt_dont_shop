@@ -19,12 +19,12 @@ class ApplicationsController < ApplicationController
     end
   end
 
-  def add_pet_to_app
-    application = Application.find(params[:id])
-    pet = Pet.find(params[:pet_id])
-    application.add_pet(pet)
-    redirect_to "/applications/#{params[:id]}"
-  end
+  # def add_pet_to_app
+  #   application = Application.find(params[:id])
+  #   pet = Pet.find(params[:pet_id])
+  #   application.add_pet(pet)
+  #   redirect_to "/applications/#{params[:id]}"
+  # end
 
   private
     def app_params
