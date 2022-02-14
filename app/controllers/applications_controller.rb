@@ -8,6 +8,10 @@ class ApplicationsController < ApplicationController
     else
       @pets = []
     end
+
+    if params[:submit].present?
+      @application.update(status: "Pending")
+    end
   end
 
   def new
@@ -22,7 +26,6 @@ class ApplicationsController < ApplicationController
       redirect_to "/applications/new"
       flash[:alert] = "Error: #{error_message(application.errors)}"
     end
-
   end
 
   private
