@@ -24,12 +24,9 @@ RSpec.describe 'the application show' do
 
       ApplicationPet.create!(pet_id:@scooby.id, application_id: @app_1.id)
       ApplicationPet.create!(pet_id:@mango.id, application_id: @app_1.id)
-
-      ApplicationPet.create!(pet_id:@scruffy.id, application_id: @app_2.id)
-      ApplicationPet.create!(pet_id:@pineapple.id, application_id: @app_2.id)
     end
 
-      it "shows the all of the applicants and their details" do
+      xit "shows the all of the applicants and their details" do
       visit "/applications/#{@app_1.id}"
 
       expect(page).to have_content(@app_1.first_name)
@@ -54,13 +51,13 @@ RSpec.describe 'the application show' do
 
       visit "/applications/#{@app_2.id}"
 
+
       expect(page).to have_content('Add a Pet to this Application')
-      expect(page).to have_link('Search for pets by name')
-      fill_in :search, with: 'Onion'
-      click_link 'Search for pets by name'
+      expect(page).to have_content('Search by pet name')
 
-      expect(page).to have_current_path("/pets?search=pet_name")
-
-      expect('Search for pets by name').to appear_before(@onion.name)
+      fill_in 'Search', with: "Onion"
+      click_on("Search")
+save_and_open_page
+      expect('Pet search results').to appear_before(@onion.name)
     end
 end

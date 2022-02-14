@@ -2,6 +2,7 @@ class PetsController < ApplicationController
   def index
     if params[:search].present?
       @pets = Pet.search(params[:search])
+      redirect_to "/applications/#{params[:id]}"
     else
       @pets = Pet.adoptable
     end
