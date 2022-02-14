@@ -134,7 +134,7 @@ RSpec.describe 'the application show' do
 
     end
 
-  it 'Case Insensitive Matches for Pet Names'do
+  it 'Case Insensitive and partial Matches for Pet Names'do
 
     visit "/applications/#{@app_2.id}"
 
@@ -142,7 +142,7 @@ RSpec.describe 'the application show' do
     expect(page).to have_content('Add a Pet to this Application')
     expect(page).to have_content('Search by pet name')
 
-    fill_in 'Search', with: "piNE"
+    fill_in 'Search', with: "NEap"
     click_button("Search")
 
     expect('Pet search results').to appear_before(@pineapple.name)
