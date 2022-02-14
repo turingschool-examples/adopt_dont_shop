@@ -55,8 +55,17 @@ RSpec.describe 'The admin applications show page' do
         expect(@application_1.status).to eq("Pending")
         click_button("Approve #{@mantis.name}")
         expect(page).to have_content("#{@mantis.name} has been approved")
-        # variable stored in has a copy of the old version (reload method)
-        # expect(@application_1.status).to eq("Accepted")
-        # expect(page).to have content("Status: Accepted")
+        expect(page).to have_content("Accepted")
+    end
+
+    it 'updates an applications status to rejected if any pets have been rejected' do 
+        visit "/admin/applications/#{@application_1.id}"
+        expect(@application_1.status).to eq("Pending")
+        click_button("Reject #{@mushu.name}")
+        expect(page).to have_content("#{@mushu.name} has been rejected")
+        expect(@application_1.status).to eq("Pending")
+        click_button("Reject #{@mantis.name}")
+        expect(page).to have_content("#{@mantis.name} has been rejected")
+        expect(page).to have_content("Rejected")
     end
 end 
