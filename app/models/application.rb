@@ -5,7 +5,7 @@ class Application < ApplicationRecord
   validates_presence_of :address
   validates_presence_of :city
   validates_presence_of :state
-  validates_presence_of :zipcode
+  validates_presence_of :zipcode, numericality: true, length: { is: 5 }
 
   enum status: {
     "In Progress" => 0,
@@ -16,5 +16,10 @@ class Application < ApplicationRecord
 
   def add_pet?(pet)
     PetApplication.new(pet_id: pet.id, application_id: self.id).save
+  end
+
+  def self.search(search_params)
+    require "pry"; binding.pry
+    where("name ILIKE ?", "%#{search_params}%")
   end
 end

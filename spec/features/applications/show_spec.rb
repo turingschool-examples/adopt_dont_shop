@@ -104,6 +104,22 @@ RSpec.describe 'application show page' do
     end
   end
 
+  it 'displays pet names which partially match the search' do
+    visit "/applications/#{@application_1.id}"
+    within('#adding-pets') do
+      expect(page).to have_content("Add a Pet to this Application")
+
+      fill_in :search, with: "Por"
+      click_button('Search')
+      save_and_open_page
+      expect(current_path).to eq("/applications/#{@application_1.id}")
+    end
+
+    within('#pet-results') do
+      expect(page).to have_content("Pork Chop")
+    end
+  end
+
   # describe 'submitting an application' do
   #   context 'without pets on the application' do
   #     it 'does not allow submission' do
