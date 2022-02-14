@@ -5,7 +5,7 @@
   <%= f.text_field :search %>
   <%= f.submit "Search" %>
 <% end %>
- 
+
 
 <% @pets.each do |pet| %>
   <h3><%= pet.name %></h3>
@@ -17,5 +17,6 @@
   <%= link_to "Delete #{pet.name}", "/pets/#{pet.id}", method: :delete %>
 
 <% end %>
+<br>
 <br>
 <%= button_to "Start an Application", "/applications/new", method: :get %>
