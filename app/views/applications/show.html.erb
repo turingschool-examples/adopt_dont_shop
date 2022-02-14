@@ -1,0 +1,37 @@
+<h1>Application #<%= @application.id %></h1>
+<br>
+<h2>Name: <%= @application.name %></h2>
+<p>Description: <%= @application.description %></p>
+<br>
+<p>Street Address: <%= @application.street_address %></p>
+<p>City: <%= @application.city %></p>
+<p>State: <%= @application.state %></p>
+<p>Zip: <%= @application.zip_code %></p>
+<br>
+<h2>Application Status: <%= @application.status %></h2>
+<br>
+<h3>Pets Applied for:</h3>
+<div id="added_pets">
+<% @application.pets.each do |pet| %>
+  <p><%= link_to "#{pet.name}", "/pets/#{pet.id}" %></p>
+<% end %>
+</div>
+<br>
+
+<% if @application.status == "In Progress" %>
+
+  <h2>Add a Pet to this Application</h2>
+  <%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |form| %>
+    <%= form.label :name, "Lookup by Name: " %>
+    <%= form.text_field :name %>
+    <br>
+    <%= form.submit "Submit" %>
+  <% end %>
+
+  <% if @results != nil %>
+    <% @results.each do |result| %>
+      <h3><%= result.name %> - <%= link_to "Adopt Me", "/applications/#{@application.id}/#{result.id}", method: :patch %></h3>
+    <% end %>
+  <% end %>
+
+<% end %>
