@@ -43,7 +43,7 @@ RSpec.describe 'the application show' do
     visit "/applications/#{@application.id}"
 
     expect(page).to have_content("Add a Pet to this Application")
-    fill_in('query', with: 'Sylvester')
+    fill_in('query', with: 'sYlV')
     click_on('Search')
 
     expect(page).to have_content(@pet_3.name)
