@@ -4,7 +4,7 @@ class Application <ApplicationRecord
   validates :street_address, presence: true
   validates :city, presence: true
   validates :post_code, presence: true
-  # validates :good_owner, presence: true
+  validates :status, presence: true
 
   attribute :status, :string, default: "In Progress"
 

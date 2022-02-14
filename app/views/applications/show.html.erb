@@ -3,32 +3,43 @@
 <h3>Address: <%= @application.street_address %> <%= @application.city %> <%= @application.post_code %> </h3>
 <br>
 
-<div>
-  <h2>Add a Pet to this Application</h2>
-  <%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |f| %>
-  <%= f.label :search, 'Search by pet name' %>
-  <%= f.text_field :search %>
-  <%= f.text_field :id, value: @application.id, hidden: true %>
-  <%= f.submit "Search" %>
-  <% end %>
-</div>
-<br>
+<% if @application.status == "In Progress" %>
+  <div class='search pet by name and add'>
+    <h2>Add a Pet to this Application</h2>
+      <%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |f| %>
+      <%= f.label :search, 'Search by pet name' %>
+      <%= f.text_field :search %>
+      <%= f.text_field :id, value: @application.id, hidden: true %>
+      <%= f.submit "Search" %>
+      <br>
+      <% if @pets != nil %>
+          <section id='pet adoption'>
+            <h2>Pet search results</h2>
+            <% @pets.each do |pet| %>
+            <p>Name: <%= pet.name %></p>
+            <p>Age: <%= pet.age %></p>
+            <p>Breed: <%= pet.breed %></p>
+            <p>At shelter: <%= pet.shelter.name %></p>
+            <p><%= link_to "Adopt #{pet.name}", "/application_pets?pet_id=#{pet.id}&application_id=#{@application.id}", method: :post, local:true  %></p>
+            <% end %>
+          </section>
+        <% end %>
+      </div>
+    <% end %>
 
-<h2>Pets added to my application:</h2>
-<% @application.pets.each do |pet| %>
-<h3><%= link_to "#{pet.name} #{pet.breed}", "/pets/#{pet.id}" %></h3>
-<% end %>
-<br>
-
-  <% if @pets != nil %>
-<section class='pet adoption'>
-  <h2>Pet search results</h2>
-<% @pets.each do |pet| %>
-  <p>Name: <%= pet.name %></p>
-  <p>Age: <%= pet.age %></p>
-  <p>Breed: <%= pet.breed %></p>
-  <p>At shelter: <%= pet.shelter.name %></p>
-  <p><%= link_to "Adopt #{pet.name}", "/application_pets?pet_id=#{pet.id}&application_id=#{@application.id}", method: :post, local:true  %></p>
-  <% end %>
+      <% if @application.application_pets != nil %>
+        <section id='submit application'>
+          <h2>Pets added to my application:</h2>
+          <% @application.pets.each do |pet| %>
+          <h3><%= link_to "Name: #{pet.name} Breed: #{pet.breed}", "/pets/#{pet.id}" %></h3>
+            <% end %>
+  <h2>Why would you make an excellent owner for these pets?</h2>
+    <%= form_with url: "/applications/#{@application.id}", method: :patch, local: true do |f| %>
+    <%= f.label :good_owner, 'Please describe' %>
+    <%= f.text_field  :good_owner %>
+    <%= f.submit "Submit my application" %>
+    <% end %>
+  <br>
 </section>
-  <% end %>
+<% end %>
+<% end %>

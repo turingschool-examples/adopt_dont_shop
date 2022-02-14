@@ -7,6 +7,9 @@ class ApplicationsController < ApplicationController
   def new
   end
 
+  def status
+  end
+
   def create
     new_app = Application.new(application_params)
 
@@ -16,6 +19,12 @@ class ApplicationsController < ApplicationController
     redirect_to '/applications/new'
     flash[:alert] = "Error: #{error_message(new_app.errors)}"
   end
+  end
+
+  def update
+    app = Application.find(params[:id])
+    app.update(application_params)
+      redirect_to "/applications/#{app.id}"
   end
 
 

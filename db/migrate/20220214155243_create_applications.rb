@@ -7,6 +7,7 @@ class CreateApplications < ActiveRecord::Migration[5.2]
       t.string :city
       t.string :post_code
       t.string :good_owner
+      t.string :status
 
       t.timestamps
     end
