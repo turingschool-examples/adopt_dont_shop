@@ -1,7 +1,11 @@
 class ApplicantsController < ApplicationController
   def show
-    @applicant = Applicant.find(params[:id])
-    @pets = Pet.where(["name LIKE ?", params[:search]])
+    if params[:search]
+      @applicant = Applicant.find(params[:id])
+      @pets = Pet.where(["name LIKE ?", "%#{params[:search]}%"])
+    else
+      @applicant = Applicant.find(params[:id])
+    end
   end
 
   def new

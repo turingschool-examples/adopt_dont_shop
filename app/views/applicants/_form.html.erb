@@ -9,7 +9,7 @@
 <% end %>
 
 
-<% if @pets.any? %>
+<% if @pets %>
 <% @pets.each do |pet| %>
   <div id="pet-<%= pet.id %>">
     <h4><%= pet.name %></h4>
