@@ -74,8 +74,8 @@ RSpec.describe 'the application show' do
 
       expect('Pet search results').to appear_before(@apollo.name)
 
-      click_on 'Adopt this pet'
+      click_on "Adopt #{@apollo.name}"
 
-      expect(@apollo.name).to appear_before('Pet search results')
+      expect('Pets added to my application:').to appear_before(@apollo.name)
     end
 end
