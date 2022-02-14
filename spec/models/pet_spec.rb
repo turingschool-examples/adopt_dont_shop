@@ -47,6 +47,18 @@ RSpec.describe Pet, type: :model do
         expect(Pet.match("an")).to eq([@pet_3])
       end 
     end 
+
+    describe '#approved_for_adoption' do 
+      it 'changes adoptable status to false' do 
+        pet_1 = @shelter_1.pets.create(name: 'Mr. Pirate', breed: 'tuxedo shorthair', age: 5, adoptable: true)
+        pet_2 = @shelter_1.pets.create(name: 'Clawdia', breed: 'shorthair', age: 3, adoptable: true)
+        pet_3 = @shelter_1.pets.create(name: 'Ann', breed: 'ragdoll', age: 3, adoptable: false)
+        expect(pet_1.adoptable).to eq(true)
+        Pet.approved_for_adoption
+        pet_1.reload
+        expect(pet_1.adoptable).to eq(false)
+      end 
+    end 
   end 
 
   describe 'instance methods' do
