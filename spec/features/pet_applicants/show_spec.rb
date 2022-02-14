@@ -33,9 +33,54 @@ RSpec.describe 'add pet to application' do
     end
 
     expect(current_path).to eq("/applicants/#{@greg.id}")
-    save_and_open_page
     expect(page).to have_content("Pets on application: ")
     expect(page).to have_content("Jax")
     expect(page).to_not have_content("Lady")
+  end
+
+
+
+  it 'submits application' do
+    visit "/applicants/#{@greg.id}"
+    expect(page).to_not have_button("Submit Final Application")
+
+    fill_in 'Add a Pet to this Application', with: "Jax"
+    click_on("Search")
+    expect(current_path).to eq("/applicants/#{@greg.id}")
+
+    within "#pet-#{@jax.id}" do
+      expect(page).to have_button("Adopt this Pet")
+      click_on "Adopt this Pet"
+    end
+
+    expect(current_path).to eq("/applicants/#{@greg.id}")
+    expect(page).to have_button("Submit Final Application")
+    click_on "Submit Final Application"
+  end
+
+  it 'Submits application, adds description & changes status to pending ' do
+    visit "/applicants/#{@greg.id}"
+    expect(page).to_not have_button("Submit Final Application")
+
+    fill_in 'Add a Pet to this Application', with: "Jax"
+    click_on("Search")
+    expect(current_path).to eq("/applicants/#{@greg.id}")
+
+    within "#pet-#{@jax.id}" do
+      expect(page).to have_button("Adopt this Pet")
+      click_on "Adopt this Pet"
+    end
+
+    expect(page).to have_content("In Progress")
+    expect(current_path).to eq("/applicants/#{@greg.id}")
+    expect(page).to have_button("Submit Final Application")
+    fill_in :description, with: "I love dogs"
+    click_on "Submit Final Application"
+
+
+    expect(current_path).to eq("/applicants/#{@greg.id}")
+    expect(page).to have_content("Pending")
+    expect(page).to have_content("I love dogs")
+    expect(page).to_not have_content("In Progress")
   end
 end

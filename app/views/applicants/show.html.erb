@@ -1,15 +1,23 @@
-
-<h3> Application for <%= @applicant.name  %> </h3>
+<h5>
+  Application for
+  <%= @applicant.name %>
+</h5>
 
 <%= "Applicant Name: #{@applicant.name}" %><br>
 <%= "Street Address: #{@applicant.street_address}" %><br>
 <%= "City: #{@applicant.city}" %><br>
 <%= "State: #{@applicant.state}" %><br>
 <%= "Zipcode: #{@applicant.zipcode}" %><br>
-<%= "Description: #{@applicant.description}" %><br>
+<%= "Why I would make a good owner for these pet(s): #{@applicant.description}" %><br>
 <%= "Application Status: #{@applicant.status}" %><br>
-<%= render partial: "applicants/selected_pets"%>
+<%= "Pets on application: " %>
+<% if @applicant.pets.any? %>
+  <% @applicant.pets.each do |pet| %>
+    <%= pet.name %>
+  <% end %>
+<% end %>
+
+<%= render partial: "applicants/form" %>
 
 
-
-<%= render partial: "applicants/form"%>
+<%= render(partial: 'applicants/submit_form') if @applicant.pets.any? && @applicant.status == "In Progress" %>

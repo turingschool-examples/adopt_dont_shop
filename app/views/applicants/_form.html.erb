@@ -10,7 +10,7 @@
 
 
 <% if @pets.any? %>
-<%@pets.each do |pet| %>
+<% @pets.each do |pet| %>
   <div id="pet-<%= pet.id %>">
     <h4><%= pet.name %></h4>
     <%= button_to "Adopt this Pet", "/applicants/#{@applicant.id}?pet_id=#{pet.id}", method: :post %>

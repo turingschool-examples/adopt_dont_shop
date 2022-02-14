@@ -17,11 +17,21 @@ class ApplicantsController < ApplicationController
     end
   end
 
+  def update
+    @applicant = Applicant.find(params[:id])
+    @applicant.update({
+      description: params[:description],
+      status: "Pending"
+      })
+    flash[:notice] = "Your application is now pending"
+    redirect_to "/applicants/#{@applicant.id}"
+  end
+
   private
   def search_params
     params.permit[:search]
   end
   def applicant_params
-    params.permit(:id, :name, :street_address, :city, :state, :zipcode)
+    params.permit(:id, :name, :street_address, :city, :state, :zipcode, :status)
   end
 end

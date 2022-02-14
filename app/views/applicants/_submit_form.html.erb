@@ -1,0 +1,6 @@
+
+<%= form_with url: "/applicants/#{@applicant.id}", method: :patch do |form| %>
+    <%= form.label :description, "Why would you make a good owner for these pet(s):" %><br>
+    <%= form.text_field :description %><br>
+    <%= form.submit "Submit Final Application" %>
+<% end %>
