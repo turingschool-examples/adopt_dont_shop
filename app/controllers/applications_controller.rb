@@ -19,11 +19,6 @@ class ApplicationsController < ApplicationController
     end
   end
 
-  # def search_pets
-  #   @results = Pet.search(params[:name])
-  #   redirect_to "/applications/#{params[:id]}"
-  # end
-
   def add_pet_to_app
     application = Application.find(params[:id])
     pet = Pet.find(params[:pet_id])

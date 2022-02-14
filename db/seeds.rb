@@ -5,3 +5,7 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+shelter = Shelter.create!(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
+shelter.pets.create!(name: 'Mr. Pirate', breed: 'tuxedo shorthair', age: 5, adoptable: true)
+shelter.pets.create!(name: 'Gaspir', breed: 'shorthair', age: 3, adoptable: true)
+shelter.pets.create!(name: 'Joey', breed: 'rottweiler', age: 13, adoptable: true)
