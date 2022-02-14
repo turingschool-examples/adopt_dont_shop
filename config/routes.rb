@@ -2,6 +2,10 @@ Rails.application.routes.draw do
   get '/', to: 'application#welcome'
   get '/home', to: 'application#welcome'
 
+  namespace :admin do
+    resources :shelters
+  end
+
   get '/shelters', to: 'shelters#index'
   get '/shelters/new', to: 'shelters#new'
   get '/shelters/:id', to: 'shelters#show'

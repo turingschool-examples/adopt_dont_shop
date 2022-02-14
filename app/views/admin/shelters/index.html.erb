@@ -1,0 +1,12 @@
+<div class="d-flex align-items-center justify-content-center">
+  <h1>Admin Shelters Index</h1>
+</div>
+
+<h2>Shelters</h2>
+
+<br>
+
+<% @shelters.each do |shelter| %>
+  <h4>Shelter: <%= shelter.name %></h4>
+  <br>
+<% end %>
