@@ -54,10 +54,10 @@ RSpec.describe 'the applications show page' do
     end
   end
 
-  it 'search for pets by name - partials work' do
-    fill_in(:search, with: 'Hog')
+  it 'search for pets by name - partials work - case insensitive' do
+    fill_in(:search, with: 'hog')
     click_button("Search")
-
+    
     within('div.pet_search') do
       expect(page).to have_content('Hogan')
       expect(page).to have_content('Hulk Hogan')
