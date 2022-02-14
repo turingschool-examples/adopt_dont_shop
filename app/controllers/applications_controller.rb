@@ -11,6 +11,7 @@ class ApplicationsController < ApplicationController
 
   def create
     # application = Application.create(application_params)
+    # require "pry"; binding.pry
     application = Application.create(application_params)
     # application.status = "In Progress"
     # application.update(status: "In Progress")
