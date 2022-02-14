@@ -1,6 +1,7 @@
 class ApplicationsController < ApplicationController
   def show
     @application = Application.find(params[:id])
+    @results = Pet.search(params[:name]) unless params[:name] == nil
   end
 
   def new
@@ -16,6 +17,18 @@ class ApplicationsController < ApplicationController
       redirect_to "/applications/new"
       flash[:alert] = "Error: #{error_message(app.errors)}"
     end
+  end
+
+  # def search_pets
+  #   @results = Pet.search(params[:name])
+  #   redirect_to "/applications/#{params[:id]}"
+  # end
+
+  def add_pet_to_app
+    application = Application.find(params[:id])
+    pet = Pet.find(params[:pet_id])
+    application.add_pet(pet)
+    redirect_to "/applications/#{params[:id]}"
   end
 
   private
