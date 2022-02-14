@@ -78,4 +78,35 @@ RSpec.describe 'application' do
     expect(page).to have_content("Meow")
   end
 
+  it 'Can submit an application' do
+
+    visit "/applications/#{@jim.id}"
+
+    fill_in :search, with: "Meow"
+    click_button("Search")
+
+    click_link("Adopt this Pet")
+
+    expect(page).to have_content("Why I would make a good owner for these pet(s)")
+    expect(page).to have_button("Submit Application")
+  end
+
+  it 'Once Submitted I see Pending Status ' do
+
+    visit "/applications/#{@jim.id}"
+
+    fill_in :search, with: "Meow"
+    click_button("Search")
+
+    click_link("Adopt this Pet")
+
+    fill_in :submit, with: "Cuz I will"
+
+    click_button("Submit Application")
+
+    expect(current_path).to eq("/applications/#{@jim.id}")
+
+    expect(page).to have_content("Pending")
+  end
+
 end
