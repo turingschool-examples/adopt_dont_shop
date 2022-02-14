@@ -11,7 +11,6 @@ RSpec.describe 'new application page' do
     fill_in('City', with: 'Los Angeles')
     fill_in('State', with: 'CA')
     fill_in('Zipcode', with: 90027)
-    fill_in('Description', with: 'Britney wants a pet')
     click_button('Submit')
 
     new_application_id = Application.last.id
@@ -30,11 +29,10 @@ RSpec.describe 'new application page' do
     fill_in('City', with: 'Los Angeles')
     fill_in('State', with: 'CA')
     fill_in('Zipcode', with: 90027)
-    fill_in('Description', with: 'Britney wants a pet')
     click_button('Submit')
 
     expect(current_path).to eq("/applications/new")
-    
+
     expect(page).to have_content("Error: Address can't be blank")
   end
 end

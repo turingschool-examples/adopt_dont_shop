@@ -1,4 +1,4 @@
-<h1>hello</h1>
+<center><h1>Start an Application!</h1></center>
 <%= form_with url: "/applications/new", method: :post, local: true do |form| %>
   <%= form.label :name %>
   <%= form.text_field :name %>
@@ -10,7 +10,5 @@
   <%= form.text_field :state %>
   <%= form.label :zipcode %>
   <%= form.number_field :zipcode %>
-  <%= form.label :description %>
-  <%= form.text_field :description %>
   <%= form.submit "Submit" %>
 <% end %>
