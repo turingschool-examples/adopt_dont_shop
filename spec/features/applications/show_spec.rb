@@ -57,6 +57,7 @@ RSpec.describe 'the applications show page' do
   it 'search for pets by name - partials work - case insensitive' do
     fill_in(:search, with: 'hog')
     click_button("Search")
+
     
     within('div.pet_search') do
       expect(page).to have_content('Hogan')
