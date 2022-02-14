@@ -17,7 +17,7 @@ RSpec.describe "Application Show Page" do
       zipcode: 64523)
   end
 
-  xit "should show applicant information" do
+  it "should show applicant information" do
     visit "/application/#{@application.id}"
 
     expect(page).to have_content(@application.name)
@@ -27,23 +27,23 @@ RSpec.describe "Application Show Page" do
     expect(page).to have_content(@application.status)
   end
 
-  xit "can display links to pet show page" do
+  it "can display links to pet show page" do
     visit "/application/#{@application.id}"
     fill_in "Enter Pet Name:", with: "Lucille"
     click_on("Search")
     expect(current_path).to eq("/application/#{@application.id}")
     click_on("Adopt this Pet")
-    expect(current_path).to eq("/application/#{@application.id}/")
+    expect(current_path).to eq("/application/#{@application.id}")
     expect(page).to have_content("Lucille")
   end
 
   describe "Add a pet section" do
-    xit 'has a text box to search pets by name' do
+    it 'has a text box to search pets by name' do
       visit "/application/#{@application2.id}"
       expect(page).to have_button("Search")
     end
 
-    xit "searches for a pet by name and returns to show page with pets who match search" do
+    it "searches for a pet by name and returns to show page with pets who match search" do
       visit "/application/#{@application2.id}"
       fill_in "Enter Pet Name:", with: "Lucille"
       click_on('Search')
@@ -58,7 +58,7 @@ RSpec.describe "Application Show Page" do
   end
 
   describe "Add a pet to an application" do
-    xit 'has a button to "Adopt this Pet"' do
+    it 'has a button to "Adopt this Pet"' do
       visit "/application/#{@application2.id}"
       fill_in "Enter Pet Name:", with: "l"
       click_on("Search")
@@ -72,23 +72,28 @@ RSpec.describe "Application Show Page" do
   describe "Submit an application" do
     it 'has a button to submit an application' do
       visit "/application/#{@application2.id}"
-      #Searching for pet
+
       fill_in "Enter Pet Name:", with: "l"
       click_on("Search")
       expect(page).to have_link("Adopt this Pet")
       click_on("Adopt this Pet", match: :first)
       expect(current_path).to eq("/application/#{@application2.id}")
-      #Pet has been added and redirected to show page
-      #Expect section to add why owner would make a good home
+
       expect(page).to have_content("Pets Wanted:\n#{@pet_1.name}")
       expect(page).to have_button("Submit Application")
       fill_in "Why you woud be a good home for these pets:", with: "Cats are cool"
       click_on("Submit Application")
-      #Application submitted and redirected to show page
+
       expect(current_path).to eq("/application/#{@application2.id}")
       expect(page).to have_content("Pending")
       expect(page).to_not have_content("Enter Pet Name:")
       expect(page).to_not have_content("Add a Pet to this Application")
+    end
+
+    it "does not appear when pets have not been added" do
+      visit "/application/#{@application2.id}"
+      expect(page).to_not have_content("Why you woud be a good home for these pets:")
+      expect(page).to_not have_content("Submit Application")
     end
   end
 end

@@ -20,12 +20,14 @@
 
 <br>
 
-
-<%= form_with url: "/application/#{@application.id}/?status=1", method: :patch, local: true do |f| %>
-  <%= f.label :description, "Why you woud be a good home for these pets:"%>
-  <%= f.text_field :description%>
-  <%= f.submit "Submit Application" %>
+<% if @application.pets.present? && @application.status != "Pending" %>
+  <%= form_with url: "/application/#{@application.id}/?status=1", method: :patch, local: true do |f| %>
+    <%= f.label :description, "Why you woud be a good home for these pets:"%>
+    <%= f.text_field :description%>
+    <%= f.submit "Submit Application" %>
+  <% end %>
 <% end %>
+
 <br>
 
 <% if @application.status == "In Progress" %>
