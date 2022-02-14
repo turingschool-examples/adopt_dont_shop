@@ -66,6 +66,6 @@ RSpec.describe 'The admin applications show page' do
         expect(@application_1.status).to eq("Pending")
         click_button("Reject #{@mantis.name}")
         expect(page).to have_content("#{@mantis.name} has been rejected")
-        expect(page).to have_content("Rejected")
+        expect(page).to have_content("Status: Rejected")
     end
 end 

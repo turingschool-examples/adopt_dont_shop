@@ -15,6 +15,8 @@ class AdminController < ApplicationController
     def update 
         application = Application.find(params[:id])
         approved_pets = PetApplication.find_approved_pets(application)
+        # rejected_pets = PetApplication.find_rejected_pets(application)
+        # undetermined_pets = PetApplication.find_nil_pets(application)
         if params[:approve]
             pet = Pet.find(params[:approve])
             accepted_joins_row = (PetApplication.find_joins_row(application, pet)).first
@@ -23,14 +25,17 @@ class AdminController < ApplicationController
             if application.pets == approved_pets
              application.Accepted!
             end
-        redirect_to "/admin/applications/#{application.id}" 
         end 
-
         if params[:reject]
             pet = Pet.find(params[:reject])
             rejected_joins_row = (PetApplication.find_joins_row(application, pet)).first
             rejected_joins_row.Rejected!
-            redirect_to "/admin/applications/#{application.id}"
+            rejected_pets = PetApplication.find_rejected_pets(application)
+            undetermined_pets = PetApplication.find_nil_pets(application)
+            if undetermined_pets.empty? && rejected_pets.empty? == false
+                application.Rejected!
+            end 
         end 
+        redirect_to "/admin/applications/#{application.id}" 
     end 
 end
