@@ -2,14 +2,42 @@
   <h1>Applicant Information</h1>
 </div>
 
-<h3>Add a Pet to this Application</h3>
+<h3>Application Status: <%= @application.status %></h3>
+
 <br>
-<%= form_with url: "/application/#{@application.id}", method: :get, local: true do |f| %>
-  <%= f.label :search, "Enter Pet Name:"%>
-  <%= f.search_field :search %>
-  <%= f.submit "Search" %>
+<h3>Name: <%= @application.name %></h3>
+<h3>Street Address: <%= @application.street_address %></h3>
+<h3>City: <%= @application.city %></h3>
+<h3>State: <%= @application.state %></h3>
+<h3>Zipcode: <%= @application.zipcode %></h3>
+<h3>Pets Wanted: </h3>
+<% if @application.pets.present? %>
+  <% @application.pets.each do |pet| %>
+    <%= link_to "#{pet.name}", "pets/#{pet.id}" %>
+  <% end %>
+  <br>
+<% end %>
+
+<br>
+
+
+<%= form_with url: "/application/#{@application.id}/?status=1", method: :patch, local: true do |f| %>
+  <%= f.label :description, "Why you woud be a good home for these pets:"%>
+  <%= f.text_field :description%>
+  <%= f.submit "Submit Application" %>
 <% end %>
 <br>
+
+<% if @application.status == "In Progress" %>
+  <h3>Add a Pet to this Application</h3>
+
+  <%= form_with url: "/application/#{@application.id}", method: :get, local: true do |f| %>
+    <%= f.label :search, "Enter Pet Name:"%>
+    <%= f.search_field :search %>
+    <%= f.submit "Search" %>
+  <% end %>
+<br>
+<% end %>
 
 <% if @search == true %>
   <% @pets.each do |pet| %>
@@ -18,22 +46,6 @@
     <h2>Breed: <%= pet.breed %></h2>
     <h2>Adoptable: <%= pet.adoptable %></h2>
     <h2>You can find <%= pet.name %> at <%= pet.shelter_name %>!</h2>
-    <%= link_to "Adopt this Pet", "/application/#{@application.id}/?petid=#{pet.id}" %>
+    <%= link_to "Adopt this Pet", "/application/#{@application.id}/adopt/?petid=#{pet.id}" %>
   <% end  %>
 <% end %>
-
-<br>
-<h3>Name: <%= @application.name %></h3>
-<h3>Street Address: <%= @application.street_address %></h3>
-<h3>City: <%= @application.city %></h3>
-<h3>State: <%= @application.state %></h3>
-<h3>Zipcode: <%= @application.zipcode %></h3>
-<h3>Why owner woud be a good home: <br><br> -<%= @application.description %></h3>
-<h3>Pets Wanted: </h3>
-<% if @application.status != "In Progress" %>
-  <% @pets.each do |pet| %>
-    <%= link_to "#{pet.name}", "pets/#{pet.id}" %>
-  <% end %>
-<% end %>
-
-<h3>Application Status: <%= @application.status %></h3>
