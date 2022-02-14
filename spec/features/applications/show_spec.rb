@@ -105,4 +105,16 @@ RSpec.describe 'the application show' do
     expect('Pets added to my application:').to appear_before(@scooby.name)
     expect('Pets added to my application:').to appear_before(@mango.name)
   end
+
+  it 'will not show submit application button if no pets added to app' do
+
+    visit "/applications/#{@app_3.id}"
+
+
+    expect(page).to have_content('Add a Pet to this Application')
+    expect(page).to have_content('Search by pet name')
+
+    expect(page).not_to have_content('Why would you make an excellent owner for these pets?')
+    expect(page).not_to have_content('Submit my application')
+  end 
 end

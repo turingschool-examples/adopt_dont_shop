@@ -24,19 +24,25 @@
             <% end %>
           </section>
         <% end %>
+        <% end %>
+  </div>
+  <% end %>
     <br>
+
+<% if @application.application_pets.count > 0 && @application.status == "In Progress" %>
+  <div class="submit application">
     <h2>Why would you make an excellent owner for these pets?</h2>
       <%= form_with url: "/applications/#{@application.id}", method: :patch, local: true do |f| %>
       <%= f.label :good_owner, 'Please describe' %>
         <%= f.text_field  :good_owner %>
         <%= f.text_field :status, value: "Pending", hidden: true %>
         <%= f.submit "Submit my application" %>
-        <% end %>
-        <% end %>
+      <% end %>
   </div>
 <% end %>
+
 <br>
-<% if @application.application_pets != nil %>
+<% if @application.application_pets.count > 0 %>
   <section id='submit application'>
     <h2>Pets added to my application:</h2>
     <% @application.pets.each do |pet| %>
