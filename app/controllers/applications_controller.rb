@@ -23,17 +23,21 @@ class ApplicationsController < ApplicationController
   end
 
   def search
-    # @pet = Pet.search(params[:search_pet_by_name])
+    @pet = Pet.search(params[:search_pet_by_name])
     redirect_to action: :show
   end
 
   def update
-    application = Application.find(params[:application_id])
-    pet = Pet.find(params[:pet_id])
-    if application.add_pet?(pet)
-    # pet_application = PetApplication.new(pet_id: @pet.id, application_id: @application.id)
-    # if pet_application.save
-      redirect_to action: :show
+    if params[:pet_id]
+      application = Application.find(params[:application_id])
+      pet = Pet.find(params[:pet_id])
+      application.add_pet?(pet)
+      redirect_to "/applications/#{application.id}"
+    elsif params[:description]
+      application = Application.find(params[:id])
+      application.update(application_params)
+      application.Pending!
+      redirect_to "/applications/#{application.id}"
     else
       flash[:alert] = "Error: you are already adopting this pet"
       redirect_to action: :show
