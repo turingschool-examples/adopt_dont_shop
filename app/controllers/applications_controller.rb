@@ -35,17 +35,16 @@ class ApplicationsController < ApplicationController
   end
 
   def update
-    # binding.pry
-    if params[:search] != nil
-      @application = Application.find(params[:id])
-      @new_pet = Pet.find(params[:search])
-      @pet_application = PetApplication.create!(pet: @new_pet, application: @application, approved: true)
-      redirect_to "/applications/#{@application.id}"
-    elsif params[:description] != nil
+    # if params[:search] != nil
+    #   @application = Application.find(params[:id])
+    #   @new_pet = Pet.find(params[:search])
+    #   @pet_application = PetApplication.create!(pet: @new_pet, application: @application, approved: true)
+    #   redirect_to "/applications/#{@application.id}"
+    # elsif params[:description] != nil
       @application = Application.update(app_params)
       @application = Application.find(params[:id])
       redirect_to "/applications/#{@application.id}"
-    end
+    # end
   end
 
   private

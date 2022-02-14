@@ -20,7 +20,7 @@
 
     <% @pets_found.each do |pet| %>
       <h3><%= pet.name %></h3>
-      <h3> <%= link_to "Adopt #{pet.name}", "/applications/#{@application.id}?search=#{pet.id}", method: :patch %> </h3>
+      <h3> <%= link_to "Adopt #{pet.name}", "/applications/#{@application.id}?search=#{pet.id}", method: :post %> </h3>
     <% end %>
   </div>
 
