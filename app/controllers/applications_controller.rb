@@ -1,11 +1,8 @@
 class ApplicationsController < ApplicationController
 
-  def index
-    @applications = Application.all
-    if params[:search].present?
-      @pets = Pet.search(params[:search])
-    end
-  end
+ def index
+   @application = Application.all
+ end
 
   def new
   end
@@ -24,10 +21,12 @@ class ApplicationsController < ApplicationController
 
   def show
     @application = Application.find(params[:id])
+    if params[:search].present?
+      @pets = Pet.search(params[:search])
+    end
   end
 
   private
-
   def application_params
     params.permit(:id, :first_name, :last_name, :street_address, :city, :post_code, :good_owner)
   end

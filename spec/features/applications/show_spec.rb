@@ -26,7 +26,7 @@ RSpec.describe 'the application show' do
       ApplicationPet.create!(pet_id:@mango.id, application_id: @app_1.id)
     end
 
-      xit "shows the all of the applicants and their details" do
+      it "shows the all of the applicants and their details" do
       visit "/applications/#{@app_1.id}"
 
       expect(page).to have_content(@app_1.first_name)
@@ -57,7 +57,7 @@ RSpec.describe 'the application show' do
 
       fill_in 'Search', with: "Onion"
       click_on("Search")
-save_and_open_page
+
       expect('Pet search results').to appear_before(@onion.name)
     end
 end
