@@ -37,7 +37,7 @@
 <%= form_with url: "/applications/#{@application.id}?apply=pet", method: :patch, local: true do |form| %>
   <%= form.label :description %>
   <%= form.text_field :description %>
-  <%= form.submit "Submit" %>
+  <%= form.submit "Submit Application" %>
   <% end %>
 <% end %>
 </section>

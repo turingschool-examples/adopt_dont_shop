@@ -21,7 +21,6 @@ RSpec.describe 'application show page' do
       expect(page).to have_content(@application_1.city)
       expect(page).to have_content(@application_1.state)
       expect(page).to have_content(@application_1.zipcode)
-      # expect(page).to have_content(@application_1.description)
       expect(page).to have_content(@application_1.status)
       expect(page).to have_link(@pet_1.name)
     end
@@ -97,10 +96,11 @@ RSpec.describe 'application show page' do
       expect(page).to have_content("Submit Your Application")
 
       fill_in('Description', with: 'Pork Chop seems nice')
-      click_button('Submit')
-      # require "pry"; binding.pry
+      click_button('Submit Application')
 
       expect(current_path).to eq("/applications/#{@application_1.id}")
+      expect(page).to_not have_content("Submit Application")
+      # expect(page).to_not have_content()
     end
   end
 
