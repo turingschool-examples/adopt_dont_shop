@@ -9,12 +9,23 @@
     <% if PetApplication.pet_app(@application.id,pet.id).status == "Open" %>
 
         <%= form_with url: "/admin/applications/#{@application.id}/?status=1", method: :patch, local: true do |f| %>
-          <button class="btn btn-success btn-secondary btn-sm" type="submit">Approve for Adoption</button>
+          <button class="btn btn-success btn-secondary btn-sm" type="submit">Approve</button>
           <%= f.text_field :petid, value: pet.id, hidden: true %>
-      <% end %>
-    <% else %>
+        <% end %>
+
+        <%= form_with url: "/admin/applications/#{@application.id}/?status=2", method: :patch,  local: true do |f| %>
+          <button class="btn btn-danger btn-secondary btn-sm" type="submit">Reject</button>
+          <%= f.text_field :petid, value: pet.id, hidden: true %>
+        <% end %>
+
+    <% elsif PetApplication.pet_app(@application.id,pet.id).status == "Approved" %>
       <ul>
         <h5><%= "This application has been approved!" %></h5>
+      </ul>
+
+    <% elsif PetApplication.pet_app(@application.id,pet.id).status == "Rejected" %>
+      <ul>
+        <h5><%= "This application has been rejected!" %></h5>
       </ul>
     <% end %>
 
