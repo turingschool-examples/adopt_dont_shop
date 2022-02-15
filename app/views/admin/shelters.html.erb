@@ -1,0 +1,7 @@
+<h1>Shelters in Reverse Order:</h1>
+
+
+<% @shelters.find_by_sql("SELECT * FROM shelters ORDER BY name DESC;").each do |shelter| %>
+<h3><%= shelter.name %></h3>
+<p>Created at: <%= shelter.created_at %></p>
+<% end %>
