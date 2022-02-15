@@ -38,7 +38,6 @@ describe 'Pet adoption application show page', type: :feature do
       click_button("Adopt this pet")
     end
     expect(current_path). to eq(adoption_form_path(@form))
-    save_and_open_page
     expect(page).to have_content("Pets on this application:\n#{fluffy.name}")
     expect(@form.pets).to eq([fluffy])
   end
