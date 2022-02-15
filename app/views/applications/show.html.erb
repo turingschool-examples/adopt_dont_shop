@@ -3,11 +3,11 @@
 <p>Why would you make a good pet parent?: <%= @application.description %></p>
 <div class="pets">
   <p>Pets for this application: </p>
-  <div class="pet">
-    <% @pets.each do |pet| %>
-      <%= pet.name %>
-  </div>
-  <% end %>
+    <div class="pet">
+      <% @pets.each do |name| %>
+        <%= name %><br>
+    </div>
+    <% end %>
 </div>
 <p>Status: <%= @application.status %></p>
 <%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |f| %>
@@ -17,6 +17,7 @@
   <% end %>
 <% if @pet %> 
   <div class="pet-<%= @pet.id %>">
+    <%= @pet.name %>
     <%= button_to 'Adopt this Pet', "/applications/#{@application.id}/#{@pet.id}", method: :post %>
   </div>
 <% end %>

@@ -1,8 +1,8 @@
-VeterinaryOffice.destroy_all
-Veterinarian.destroy_all
-Shelter.destroy_all
-Pet.destroy_all
 Application.destroy_all
+Pet.destroy_all
+Shelter.destroy_all
+Veterinarian.destroy_all
+VeterinaryOffice.destroy_all
 
 ruffn_tuff = VeterinaryOffice.create!(name: "Ruffn Tuff", max_patient_capacity: 20, boarding_services: true)
 jo = ruffn_tuff.veterinarians.create!(name: "Jo", review_rating: 9, on_call: true)

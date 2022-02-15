@@ -14,4 +14,10 @@ RSpec.describe Application, type: :model do
     it { should have_many :pet_applications }
     it { should have_many(:pets).through(:pet_applications) }
   end
+
+  # describe '#add_new_pet' do
+  #   it 'adds a new pet to the application' do
+  #     require "pry"; binding.pry
+  #   end
+  # end
 end
