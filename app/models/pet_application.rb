@@ -15,10 +15,10 @@ class PetApplication < ApplicationRecord
         Pet.find(ids)
     end
 
-    def self.find_nil_pets(application)
+    def self.find_undetermined_pets(application)
         app_id = application.id
         ids = where(application_id: app_id, status: nil).pluck(:pet_id)
-        Pet.find(ids)
+        Pet.where(id:ids, adoptable: true)
     end 
 
     def self.find_rejected_pets(application)
