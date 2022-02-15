@@ -8,7 +8,6 @@
   <p>Pets on this application: </p>
   <% @pet_form.pets.each do |pet| %>
     <%= pet.name %>
-    <%= button_to "Adopt this pet", "/adoption_forms/#{@pet_form.id}/pets/#{pet.id}" %>
   <% end %>
 <% end %>
 
