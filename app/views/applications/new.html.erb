@@ -2,7 +2,7 @@
 <center><h1> New Application </h1></center?
 <h3> Submit the following information:</h3>
 
-<p><%= form_with url: "/applications/new", method: :post, local: true do |f| %></p>
+<p><%= form_with url: "/applications", method: :post, local: true do |f| %></p>
 
   <p><%= f.label :name %></p>
   <p><%= f.text_field :name %></p>
