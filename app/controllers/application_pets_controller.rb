@@ -1,6 +1,6 @@
-# class ApplicationPetsController < ApplicationController
-#
-#   def create
-#     application = Application.find(params[:id])
-#   end
-# end
+class ApplicationPetsController < ApplicationController
+
+  def create
+      application = Application.find(params[:application_id])
+  end
+end
