@@ -8,6 +8,11 @@ RSpec.describe AdoptionForm, type: :model do
     expect(form).to be_valid
   end
 
+  describe 'relationships' do
+    it {should have_many(:pet_adoption_forms) }
+    it {should have_many(:pets).through(:pet_adoption_forms) }
+  end
+
   describe 'validations' do
     it { should validate_presence_of :first_name }
     it { should validate_presence_of :last_name }
