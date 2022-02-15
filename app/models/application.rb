@@ -8,7 +8,11 @@ class Application < ApplicationRecord
   validates :description, presence: true
 
   # attribute :status, :string, deafult: "In Progress"
-  has_many :application_pets
+  has_many :application_pets, dependent: :destroy
   has_many :pets, through: :application_pets
 
+
+  def add_pet(pet)
+    self.pets << pet
+  end
 end
