@@ -31,5 +31,6 @@ vet_2 = Veterinarian.find_or_create_by!(name: 'Jim', review_rating: 8, on_call: 
 @pet_application = PetApplication.find_or_create_by!(application_id: @application.id, pet_id: @pet_1.id)
 @pet_application1 = PetApplication.find_or_create_by!(application_id: @application.id, pet_id: @pet_2.id)
 
+@application.id = 1
 @application.status = "1"
-@application.save 
+@application.save
