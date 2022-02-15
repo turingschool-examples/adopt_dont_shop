@@ -3,7 +3,16 @@
 <% @shelters.each_with_index do |shelter, index| %>
   <div id="index-<%= index + 1 %>">
     <h3><%= shelter.name %></h3>
-    <p><%= link_to "Update #{shelter.name}", "/shelters/#{shelter.id}/edit" %> - 
+    <p><%= link_to "Update #{shelter.name}", "/shelters/#{shelter.id}/edit" %> -
     <%= link_to "Delete #{shelter.name}", "/shelters/#{shelter.id}", method: :delete %></p>
+  </div>
+<% end %>
+
+<% if !Shelter.with_pending_applications.empty? %>
+  <div class="pending-apps">
+    <h2> Shelter's(sic) with Pending Applications </h2>
+    <% Shelter.with_pending_applications.each do |shelter| %>
+      <%= link_to "#{shelter.name}", "/shelters/#{shelter.id}" %>
+    <% end %>
   </div>
 <% end %>
