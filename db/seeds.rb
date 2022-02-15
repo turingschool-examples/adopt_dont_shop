@@ -10,7 +10,10 @@ Application.destroy_all
 Pet.destroy_all
 Shelter.destroy_all
 
-shelter = Shelter.create!(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
-shelter.pets.create!(name: 'Mr. Pirate', breed: 'tuxedo shorthair', age: 5, adoptable: true)
-shelter.pets.create!(name: 'Gaspir', breed: 'shorthair', age: 3, adoptable: true)
-shelter.pets.create!(name: 'Joey', breed: 'rottweiler', age: 13, adoptable: true)
+shelter_1 = Shelter.create!(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
+shelter_2 = Shelter.create!(name: 'RGV animal shelter', city: 'Harlingen, TX', foster_program: false, rank: 5)
+shelter_3 = Shelter.create!(name: 'Fancy pets of Colorado', city: 'Denver, CO', foster_program: true, rank: 10)
+
+shelter_1.pets.create!(name: 'Mr. Pirate', breed: 'tuxedo shorthair', age: 5, adoptable: true)
+shelter_1.pets.create!(name: 'Gaspir', breed: 'shorthair', age: 3, adoptable: true)
+shelter_3.pets.create!(name: 'Joey', breed: 'rottweiler', age: 13, adoptable: true)
