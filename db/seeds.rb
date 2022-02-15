@@ -39,3 +39,4 @@ PetApplication.create!(pet_id: pet_1.id, application_id: app_2.id)
 PetApplication.create!(pet_id: pet_3.id, application_id: app_2.id)
 PetApplication.create!(pet_id: pet_1.id, application_id: app_1.id)
 PetApplication.create!(pet_id: pet_2.id, application_id: app_1.id)
+
