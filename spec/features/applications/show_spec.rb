@@ -125,7 +125,19 @@ RSpec.describe 'application' do
 
     visit "/applications/#{@jim.id}"
 
-    fill_in :search, with: "me"
+    fill_in :search, with: "meow"
+    click_button("Search")
+
+    within('#pet-results') do
+      expect(page).to have_content("Meow")
+    end
+  end
+
+  it 'Case Insensitive Matches for Pet Names' do
+
+    visit "/applications/#{@jim.id}"
+
+    fill_in :search, with: "eo"
     click_button("Search")
 
     within('#pet-results') do
