@@ -7,6 +7,14 @@
 <br>
 
 <% @shelters.each do |shelter| %>
-  <h4>Shelter: <%= shelter.name %></h4>
-  <br>
+  <ul>
+    <h4><%= shelter.name %></h4>
+  </ul>
+
 <% end %>
+
+<h2>Shelter's with Pending Applications:</h2> <% @shelters_with_pending_apps.each do |shelter| %>
+  <ul>
+    <h4> <%= shelter.name %> </h4>
+  </ul>
+  <% end %>
