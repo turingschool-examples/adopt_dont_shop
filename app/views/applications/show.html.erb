@@ -34,7 +34,7 @@
 <section id="application-submission">
 <% if @application.pets.count > 0 && @application.status == "In Progress" %>
 <h3>Submit Your Application</h3>
-<%= form_with url: "/applications/#{@application.id}?apply=pet", method: :patch, local: true do |form| %>
+<%= form_with url: "/applications/#{@application.id}", method: :patch, local: true do |form| %>
   <%= form.label :description %>
   <%= form.text_field :description %>
   <%= form.submit "Submit Application" %>
