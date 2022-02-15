@@ -22,4 +22,10 @@ RSpec.describe AdoptionForm, type: :model do
     it { should validate_presence_of :zip_code }
     it { should validate_presence_of :description }
   end
+
+  it 'has default value for description' do
+    form = create(:adoption_form)
+
+    expect(form.description).to eq("Describe home here")
+  end
 end
