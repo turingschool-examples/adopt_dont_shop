@@ -5,6 +5,7 @@ RSpec.describe 'The Admin Shelters Index' do
     before :each do 
         @dumb_friends_league = Shelter.create!(foster_program: true, name: "Dumb Friends League", city: "Englewood", rank: "1")
         @smart_friends_league = Shelter.create!(foster_program: true, name: "Smart Friends League", city: "Lakewood", rank: "2")
+        @any_friends_league = Shelter.create!(foster_program: true, name: "Any Friends League", city: "Littleton", rank: "3")
 
         @application_1 = Application.create!(name: "Sedan Turtle", street_address: "3425 Gransfield ave", city: "Denver", state: "CO", zipcode: "80219", status: "Pending")
         @application_2 = Application.create!(name: "Roman Reigns", street_address: "2354 Narwal ct", city: "Littleton", state: "CO", zipcode: "23785", status: "Pending")
@@ -13,6 +14,7 @@ RSpec.describe 'The Admin Shelters Index' do
         @mushu = @application_1.pets.create!(adoptable: true, age: "5", breed: "dog", name:"Mushu", shelter: @dumb_friends_league)
         @mantis = @application_1.pets.create!(adoptable: true, age: "2", breed: "cat", name:"Mantis", shelter: @dumb_friends_league)
         @tesla = @application_3.pets.create!(adoptable: true, age: "9", breed: "cat", name:"Tesla", shelter: @smart_friends_league)
+        @bowie = @application_2.pets.create!(adoptable: true, age: "9", breed: "dog", name:"Bowie", shelter: @any_friends_league)
         
     end
 
@@ -22,10 +24,14 @@ RSpec.describe 'The Admin Shelters Index' do
         expect(page).to have_content(@smart_friends_league.name)
         expect(@smart_friends_league.name).to appear_before(@dumb_friends_league.name)
     end 
-
-    it 'displays all shelters with pending applications' do 
+# Need to use within block here 
+    it 'displays all shelters with pending applications in alphabetical order' do 
         visit '/admin/shelters/'
         expect(page).to have_content "Shelters With Pending Applications"
-        expect(page).to have_content "#{@dumb_friends_league.name}"
+        within(".pending_applications") do 
+            expect(page).to have_content("#{@dumb_friends_league.name}")
+            expect(page).to have_content("#{@any_friends_league.name}") 
+            expect(@any_friends_league.name).to appear_before(@dumb_friends_league.name)
+        end 
     end 
 end

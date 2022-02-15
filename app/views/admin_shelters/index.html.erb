@@ -10,10 +10,10 @@
 <br>
 
 <center>
-<h2> Shelters With Pending Applications </h2>
-<section>
-<% @shelters_pending_apps.each do |shelter| %>
-   <%= shelter.name %>
-<% end %>
-</section>
+<div class="pending_applications">
+   <h2> Shelters With Pending Applications </h2>
+      <% @shelters_pending_apps.each do |shelter| %>
+         <p><%= shelter.name %></p>
+      <% end %>
+</div>
 </center>
