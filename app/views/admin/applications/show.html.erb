@@ -1,0 +1,22 @@
+<h1> <%= @application.name %>'s Application'  </h1>
+<br>
+<h2>Pets wanted for adpotion</h2>
+<br>
+  <% @pets.each do |pet| %>
+      <h3><%= pet.name  %></h3>
+      <br>
+
+    <% if PetApplication.pet_app(@application.id,pet.id).status == "Open" %>
+
+        <%= form_with url: "/admin/applications/#{@application.id}/?status=1", method: :patch, local: true do |f| %>
+          <button class="btn btn-success btn-secondary btn-sm" type="submit">Approve for Adoption</button>
+          <%= f.text_field :petid, value: pet.id, hidden: true %>
+      <% end %>
+    <% else %>
+      <ul>
+        <h5><%= "This application has been approved!" %></h5>
+      </ul>
+    <% end %>
+
+      <br>
+  <% end %>
