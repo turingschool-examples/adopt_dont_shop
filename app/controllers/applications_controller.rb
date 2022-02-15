@@ -41,8 +41,10 @@ class ApplicationsController < ApplicationController
     #   @pet_application = PetApplication.create!(pet: @new_pet, application: @application, approved: true)
     #   redirect_to "/applications/#{@application.id}"
     # elsif params[:description] != nil
-      @application = Application.update(app_params)
-      @application = Application.find(params[:id])
+    @application = Application.find(params[:id])
+
+    @application.update(app_params)
+      # @application = Application.update(app_params).first
       redirect_to "/applications/#{@application.id}"
     # end
   end

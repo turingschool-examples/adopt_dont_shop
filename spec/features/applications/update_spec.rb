@@ -10,8 +10,8 @@ RSpec.describe 'the application update' do
     pet_2 = Pet.create!(adoptable: true, age: 3, breed: 'doberman', name: 'Lobster', shelter_id: shelter.id)
     pet_3 = Pet.create!(adoptable: true, age: 1, breed: 'domestic shorthair', name: 'Sylvester', shelter_id: shelter_2.id)
     # pet_4 = Pet.create!(adoptable: true, age: 1, breed: 'orange tabby shorthair', name: 'Lasagna', shelter_id: shelter.id)
-    pet_application_1 = PetApplication.create!(pet: pet_1, application: application, approved: true)
-    pet_application_2 = PetApplication.create!(pet: pet_2, application: application, approved: true)
+    # pet_application_1 = PetApplication.create!(pet: pet_1, application: application, approved: true)
+    # pet_application_2 = PetApplication.create!(pet: pet_2, application: application, approved: true)
 
     visit "/applications/#{application.id}"
 
@@ -20,7 +20,7 @@ RSpec.describe 'the application update' do
 
     within "#add-pet-to-app" do
       expect(page).to have_content(pet_3.name)
-      expect(page).to have_link("Adopt #{pet_3.name}")
+      expect(page).to have_button("Adopt #{pet_3.name}")
     end
 
     click_on("Adopt #{pet_3.name}")

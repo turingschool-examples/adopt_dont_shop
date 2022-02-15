@@ -1,4 +1,3 @@
-
 <h1> Your Application </h1>
 <h2> Name: <%= @application.name %> </h2>
 <h3> Full Address: <%= @application.full_address %> </h3>
@@ -12,7 +11,7 @@
 <% if @application.status == 'in_progress' %>
   <div id="add-pet-to-app">
     <h2> Add a Pet to this Application </h2>
-    <%= form_with url: "/applications/#{@application.id}?search=query", method: :get do |form| %>
+    <%= form_with url: "/applications/#{@application.id}?search=query", method: :get, local: true do |form| %>
       <%= form.label :query %>
       <%= form.text_field :query %>
       <%= form.submit "Search" %>
@@ -20,7 +19,7 @@
 
     <% @pets_found.each do |pet| %>
       <h3><%= pet.name %></h3>
-      <h3> <%= link_to "Adopt #{pet.name}", "/applications/#{@application.id}?search=#{pet.id}", method: :post %> </h3>
+      <h3> <%= button_to "Adopt #{pet.name}", "/applications/#{@application.id}?search=#{pet.id}" %> </h3>
     <% end %>
   </div>
 
