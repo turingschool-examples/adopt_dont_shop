@@ -63,9 +63,9 @@ RSpec.describe Shelter, type: :model do
       end 
     end 
 
-    describe '.full_address' do
+    describe '.name_and_full_address' do
       it 'can find a shelters full address' do 
-      expect(Shelter.full_address(@shelter_1)).to eq("214 w placid Aurora, CO 82743")
+      expect(Shelter.name_and_full_address(@shelter_1)).to eq("Name: #{@shelter_1.name}, Address: #{@shelter_1.street_address} #{@shelter_1.city}, #{@shelter_1.state} #{@shelter_1.zipcode}")
       end 
     end 
   end 

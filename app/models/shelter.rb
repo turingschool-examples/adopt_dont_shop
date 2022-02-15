@@ -42,8 +42,8 @@ class Shelter < ApplicationRecord
     find(shelter_ids)
   end
 
-  def self.full_address(shelter)
-    shelter = find_by_sql("SELECT street_address, city, state, zipcode FROM shelters WHERE id = #{shelter.id}")
-    "#{shelter.first.street_address} #{shelter.first.city}, #{shelter.first.state} #{shelter.first.zipcode}"
+  def self.name_and_full_address(shelter)
+    shelter = find_by_sql("SELECT name, street_address, city, state, zipcode FROM shelters WHERE id = #{shelter.id}")
+    "Name: #{shelter.first.name}, Address: #{shelter.first.street_address} #{shelter.first.city}, #{shelter.first.state} #{shelter.first.zipcode}"
   end 
 end
