@@ -1,0 +1,9 @@
+<h1>All Shelters</h1>
+
+<% @shelters.each_with_index do |shelter, index| %>
+  <div id="index-<%= index + 1 %>">
+    <h3><%= shelter.name %></h3>
+    <p><%= link_to "Update #{shelter.name}", "/shelters/#{shelter.id}/edit" %> - 
+    <%= link_to "Delete #{shelter.name}", "/shelters/#{shelter.id}", method: :delete %></p>
+  </div>
+<% end %>
