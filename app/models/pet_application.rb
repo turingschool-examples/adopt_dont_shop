@@ -26,4 +26,10 @@ class PetApplication < ApplicationRecord
         ids = where(application_id: app_id, status: 1).pluck(:pet_id)
         Pet.find(ids)
     end 
+
+    def self.find_already_adopted_pets(application)
+        app_id = application.id
+        ids = where(application_id: app_id, status: nil).pluck(:pet_id)
+        Pet.where(id:ids, adoptable: false)
+    end 
 end 
