@@ -49,7 +49,7 @@ RSpec.describe Shelter, type: :model do
     end
 
     describe '#with_pending_applications' do
-      it 'lists the shelters that have pending applications' do
+      it 'returns the shelters that have pending applications' do
         pet_1 = @shelter_1.pets.create(name: 'Mr. Pirate', breed: 'tuxedo shorthair', age: 5, adoptable: false)
         pet_2 = @shelter_2.pets.create(name: 'Clawdia', breed: 'shorthair', age: 3, adoptable: true)
         pet_3 = @shelter_3.pets.create(name: 'Lucille Bald', breed: 'sphynx', age: 8, adoptable: true)
