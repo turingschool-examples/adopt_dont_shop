@@ -18,8 +18,19 @@ class Application < ApplicationRecord
     PetApplication.new(pet_id: pet.id, application_id: self.id).save
   end
 
-  def self.search(search_params)
-    require "pry"; binding.pry
-    where("name ILIKE ?", "%#{search_params}%")
+  # def self.search(search_params)
+  #   where("name ILIKE ?", "%#{search_params}%")
+  # end
+
+  def pending_app?
+    status == "Pending"
   end
+
+  def self.display_pending_apps
+    joins(:pets).where(status: 1)
+  end
+
+  # def self.display_pending_apps
+  #   where(status: 1)
+  # end
 end
