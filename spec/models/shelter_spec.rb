@@ -13,14 +13,26 @@ RSpec.describe Shelter, type: :model do
   end
 
   before(:each) do
-    @shelter_1 = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
-    @shelter_2 = Shelter.create(name: 'RGV animal shelter', city: 'Harlingen, TX', foster_program: false, rank: 5)
-    @shelter_3 = Shelter.create(name: 'Fancy pets of Colorado', city: 'Denver, CO', foster_program: true, rank: 10)
+    @shelter_1 = Shelter.create!(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
+    @shelter_2 = Shelter.create!(name: 'RGV animal shelter', city: 'Harlingen, TX', foster_program: false, rank: 5)
+    @shelter_3 = Shelter.create!(name: 'Fancy pets of Colorado', city: 'Denver, CO', foster_program: true, rank: 10)
 
-    @pet_1 = @shelter_1.pets.create(name: 'Mr. Pirate', breed: 'tuxedo shorthair', age: 5, adoptable: false)
-    @pet_2 = @shelter_1.pets.create(name: 'Clawdia', breed: 'shorthair', age: 3, adoptable: true)
-    @pet_3 = @shelter_3.pets.create(name: 'Lucille Bald', breed: 'sphynx', age: 8, adoptable: true)
-    @pet_4 = @shelter_1.pets.create(name: 'Ann', breed: 'ragdoll', age: 5, adoptable: true)
+
+    @application = Application.create!(name: "Chaz Carmichael",
+      street_address: "10 lane",
+      city: "Sandy Springs",
+      state: "CO",
+      zipcode: 12345,
+      description: "I like pets",
+      status: "In Progress")
+
+    @pet_1 = @shelter_1.pets.create!(name: 'Mr. Pirate', breed: 'tuxedo shorthair', age: 5, adoptable: false)
+    @pet_2 = @shelter_1.pets.create!(name: 'Clawdia', breed: 'shorthair', age: 3, adoptable: true)
+    @pet_3 = @shelter_3.pets.create!(name: 'Lucille Bald', breed: 'sphynx', age: 8, adoptable: true)
+    @pet_4 = @shelter_1.pets.create!(name: 'Ann', breed: 'ragdoll', age: 5, adoptable: true)
+
+    @pet_application = PetApplication.create!(application_id: @application.id, pet_id: @pet_1.id)
+    @pet_application1 = PetApplication.create!(application_id: @application.id, pet_id: @pet_3.id)
   end
 
   describe 'class methods' do
@@ -70,8 +82,16 @@ RSpec.describe Shelter, type: :model do
 
     describe '#reverse_alphabetical' do
       it 'returns all shelters in the system listed in reverse alphabetical order by name' do
-        
+
         expect(Shelter.reverse_alphabetical).to eq([@shelter_2,@shelter_3,@shelter_1])
+      end
+    end
+
+    describe '#pending_applications' do
+      it 'returns all shelters with pending applications' do
+        @application.status = "1"
+        @application.save
+        expect(Shelter.pending_applications).to eq([@shelter_1,@shelter_3])
       end
     end
   end
