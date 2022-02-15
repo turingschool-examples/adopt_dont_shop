@@ -1,1 +1,12 @@
+<center>
+<h1>Shelters</h1>
+<hr>
 <%= render :partial => 'partials/shelter_index', locals: { shelters: @shelters } %>
+
+  <section id="apps-pending">
+    <h2>Shelters with Pending Applications</h2>
+    <% @pending_shelters.each do |shelter| %>
+    <p><%= shelter.name %></p>
+    <% end %>
+  </section>
+</center>
