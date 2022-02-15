@@ -1,25 +1,21 @@
-class AdminController < ApplicationController
+class AdminApplicationsController < ApplicationController
     def index 
-        @shelters = Shelter.reverse_alphabetical_shelters
-        @shelters_pending_apps = Shelter.shelters_with_pending_apps
+        
     end 
 
     def show
+        # Thin this out by calling more of the methods in the view?
         @application = Application.find(params[:id])
         @full_address = "#{@application.street_address} #{@application.city}, #{@application.state} #{@application.zipcode}"
         @undetermined_pets = PetApplication.find_undetermined_pets(@application)
         @already_adopted = PetApplication.find_already_adopted_pets(@application)
         @approved_pets = PetApplication.find_approved_pets(@application)
         @rejected_pets = PetApplication.find_rejected_pets(@application)
-        # do I need unadoptable_pets anymore? I don't think so
-        # @unadoptable_pets = @application.pets.find_unadoptable_pets
     end 
 
     def update 
         application = Application.find(params[:id])
         approved_pets = PetApplication.find_approved_pets(application)
-        # rejected_pets = PetApplication.find_rejected_pets(application)
-        # undetermined_pets = PetApplication.find_nil_pets(application)
         if params[:approve]
             pet = Pet.find(params[:approve])
             accepted_joins_row = (PetApplication.find_joins_row(application, pet)).first
