@@ -47,6 +47,39 @@ RSpec.describe Shelter, type: :model do
         expect(Shelter.order_by_name_desc).to eq([@shelter_2, @shelter_3, @shelter_1])
       end
     end
+
+    describe '#with_pending_applications' do
+      it 'lists the shelters that have pending applications' do
+        pet_1 = @shelter_1.pets.create(name: 'Mr. Pirate', breed: 'tuxedo shorthair', age: 5, adoptable: false)
+        pet_2 = @shelter_2.pets.create(name: 'Clawdia', breed: 'shorthair', age: 3, adoptable: true)
+        pet_3 = @shelter_3.pets.create(name: 'Lucille Bald', breed: 'sphynx', age: 8, adoptable: true)
+        pet_4 = @shelter_1.pets.create(name: 'Ann', breed: 'ragdoll', age: 5, adoptable: true)
+
+        app_1 = Application.create!(
+          name: "Jerry Blank",
+          street_address: "246 DumDum Ave.",
+          city: "Melbourne",
+          state: "IL",
+          zip_code: 53262,
+          status: "In Progress"
+        )
+        app_2 = Application.create!(
+          name: "Jeff Jippers",
+          street_address: "123 Affirmative Ave.",
+          city: "Claytown",
+          state: "AL",
+          zip_code: 34567,
+          status: "Pending"
+        )
+        PetApplication.create!(pet_id: pet_1.id, application_id: app_2.id)
+        PetApplication.create!(pet_id: pet_3.id, application_id: app_2.id)
+        PetApplication.create!(pet_id: pet_1.id, application_id: app_1.id)
+        PetApplication.create!(pet_id: pet_2.id, application_id: app_1.id)
+
+        expect(Shelter.with_pending_applications).to eq([@shelter_1, @shelter_3])
+      end
+    end
+
   end
 
   describe 'instance methods' do
