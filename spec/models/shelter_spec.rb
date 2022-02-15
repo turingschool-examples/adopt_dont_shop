@@ -19,7 +19,7 @@ RSpec.describe Shelter, type: :model do
     @application_1 = Application.create!(name: "Sedan Turtle", street_address: "3425 Gransfield ave", city: "Denver", state: "CO", zipcode: "80219", status: "Pending")
     @application_2 = Application.create!(name: "Sedan Turtle", street_address: "3425 Gransfield ave", city: "Denver", state: "CO", zipcode: "80219", status: "In Progress")
 
-    @shelter_1 = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
+    @shelter_1 = Shelter.create(name: 'Aurora shelter', city: 'Aurora', foster_program: false, rank: 9, street_address: "214 w placid", state: "CO", zipcode: "82743")
     @shelter_2 = Shelter.create(name: 'RGV animal shelter', city: 'Harlingen, TX', foster_program: false, rank: 5)
     @shelter_3 = Shelter.create(name: 'Fancy pets of Colorado', city: 'Denver, CO', foster_program: true, rank: 10)
 
@@ -60,6 +60,12 @@ RSpec.describe Shelter, type: :model do
     describe '#shelters_with_pending_apps' do 
       it 'retrieves all shelters with pending applications' do
         expect(Shelter.shelters_with_pending_apps).to eq([@shelter_1])
+      end 
+    end 
+
+    describe '.full_address' do
+      it 'can find a shelters full address' do 
+      expect(Shelter.full_address(@shelter_1)).to eq("214 w placid Aurora, CO 82743")
       end 
     end 
   end 
