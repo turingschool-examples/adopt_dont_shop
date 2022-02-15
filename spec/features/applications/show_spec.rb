@@ -121,4 +121,15 @@ RSpec.describe 'application' do
     expect(page).to_not have_link("Why I would make a good owner for these pet(s)")
   end
 
+  it 'can show partial matches' do
+
+    visit "/applications/#{@jim.id}"
+
+    fill_in :search, with: "me"
+    click_button("Search")
+
+    within('#pet-results') do
+      expect(page).to have_content("#{@meow.name}")
+    end
+  end
 end
