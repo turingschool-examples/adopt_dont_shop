@@ -1,0 +1,1 @@
+"/admin/applications/#{@application.id}/?pet_id=#{pet.id}"
