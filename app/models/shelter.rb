@@ -40,5 +40,10 @@ class Shelter < ApplicationRecord
   def self.shelters_with_pending_apps
     shelter_ids = Application.where(status: "Pending").joins(:pets).pluck(:shelter_id).uniq
     find(shelter_ids)
+  end
+
+  def self.full_address(shelter)
+    shelter = find_by_sql("SELECT street_address, city, state, zipcode FROM shelters WHERE id = #{shelter.id}")
+    "#{shelter.first.street_address} #{shelter.first.city}, #{shelter.first.state} #{shelter.first.zipcode}"
   end 
 end
