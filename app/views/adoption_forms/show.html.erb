@@ -4,11 +4,20 @@
   <%= f.submit "Search" %>
 <% end %>
 
+<% if @pet_form.pets.present? %>
+  <p>Pets on this application: </p>
+  <% @pet_form.pets.each do |pet| %>
+    <%= pet.name %>
+  <% end %>
+<% end %>
 
 <% if @searched_pets.present? %>
   <% @searched_pets.each do |pet| %>
-    <h4>Pet name: <%= pet.name %></h4>
-  <% end  %>
+    <div id="pet_<%= pet.id %>">
+      <h4>Pet name: <%= pet.name %></h4>
+      <%= button_to "Adopt this pet", "/adoption_forms/#{@pet_form.id}/pets/#{pet.id}", method: :post, local: true %><br>
+    </div>
+  <% end %>
 <% end %>
 
 <br><br>
