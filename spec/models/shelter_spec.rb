@@ -17,11 +17,12 @@ RSpec.describe Shelter, type: :model do
     Shelter.destroy_all
     Pet.destroy_all
     @application_1 = Application.create!(name: "Sedan Turtle", street_address: "3425 Gransfield ave", city: "Denver", state: "CO", zipcode: "80219", status: "Pending")
-    @application_2 = Application.create!(name: "Sedan Turtle", street_address: "3425 Gransfield ave", city: "Denver", state: "CO", zipcode: "80219", status: "In Progress")
+    @application_2 = Application.create!(name: "lomein Smurtle", street_address: "3425 Gransfield ave", city: "Denver", state: "CO", zipcode: "80219", status: "In Progress")
+    @application_3 = Application.create!(name: "deman Durtle", street_address: "3425 Gransfield ave", city: "Denver", state: "CO", zipcode: "80219", status: "Pending")
 
-    @shelter_1 = Shelter.create(name: 'Aurora shelter', city: 'Aurora', foster_program: false, rank: 9, street_address: "214 w placid", state: "CO", zipcode: "82743")
+    @shelter_1 = Shelter.create(name: 'Zurora shelter', city: 'Aurora', foster_program: false, rank: 9, street_address: "214 w placid", state: "CO", zipcode: "82743")
     @shelter_2 = Shelter.create(name: 'RGV animal shelter', city: 'Harlingen, TX', foster_program: false, rank: 5)
-    @shelter_3 = Shelter.create(name: 'Fancy pets of Colorado', city: 'Denver, CO', foster_program: true, rank: 10)
+    @shelter_3 = Shelter.create(name: 'Sancy pets of Colorado', city: 'Denver, CO', foster_program: true, rank: 10)
 
     @pet_1 = @shelter_1.pets.create(name: 'Mr. Pirate', breed: 'tuxedo shorthair', age: 5, adoptable: false)
     @pet_2 = @shelter_1.pets.create(name: 'Clawdia', breed: 'shorthair', age: 3, adoptable: true)
@@ -29,12 +30,13 @@ RSpec.describe Shelter, type: :model do
     @pet_4 = @shelter_1.pets.create(name: 'Ann', breed: 'ragdoll', age: 5, adoptable: true)
 
     @application_1.pets << @pet_2
+    @application_3.pets << @pet_3
   end
 
   describe 'class methods' do
     describe '#search' do
       it 'returns partial matches' do
-        expect(Shelter.search("Fancy")).to eq([@shelter_3])
+        expect(Shelter.search("Sancy")).to eq([@shelter_3])
       end
     end
 
@@ -53,13 +55,13 @@ RSpec.describe Shelter, type: :model do
 
     describe '#reverse_alphabetical_shelters' do 
       it 'orders the shelters by name, descending' do 
-        expect(Shelter.reverse_alphabetical_shelters).to eq([@shelter_2, @shelter_3, @shelter_1])
+        expect(Shelter.reverse_alphabetical_shelters).to eq([@shelter_1, @shelter_3, @shelter_2])
       end 
     end
 
     describe '#shelters_with_pending_apps' do 
-      it 'retrieves all shelters with pending applications' do
-        expect(Shelter.shelters_with_pending_apps).to eq([@shelter_1])
+      it 'retrieves all shelters with pending applications alphabetically' do
+        expect(Shelter.alphabetical_shelters_with_pending_apps).to eq([@shelter_3, @shelter_1])
       end 
     end 
 
