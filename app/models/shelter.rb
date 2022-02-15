@@ -33,6 +33,11 @@ class Shelter < ApplicationRecord
     find_by_sql(sql)
   end
 
+  def self.pending_apps
+    shelters = Applicant.where(status: 'Pending').joins(:pets).pluck(:shelter_id).uniq
+    find(shelters)
+  end
+
   def shelter_pets_filtered_by_age(age_filter)
     adoptable_pets.where('age >= ?', age_filter)
   end
