@@ -26,7 +26,6 @@ RSpec.describe 'New applicant' do
     expect(find('form')).to have_content('City:')
     expect(find('form')).to have_content('State:')
     expect(find('form')).to have_content('Zipcode:')
-    expect(find('form')).to have_content('Description:')
   end
 
   it 'creates the application' do
@@ -37,7 +36,6 @@ RSpec.describe 'New applicant' do
     fill_in 'City:', with: 'Miami'
     fill_in 'State:', with: "FL"
     fill_in 'Zipcode:', with: "11111"
-    fill_in 'Description:', with: "I love dogs"
     click_button 'Submit Application'
 
     expect(page).to have_content('Laura Guerra')
