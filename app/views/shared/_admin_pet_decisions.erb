@@ -6,8 +6,8 @@
     <% end %>
 <% end %>
 
-<% if @undetermined_pets.nil? == false && @unadoptable_pets.empty? == false%>
-    <% @undetermined_pets.each do |pet| %>
+<% if @undetermined_pets.nil? == false && @already_adopted.empty? == false%>
+    <% @already_adopted.each do |pet| %>
         <p><%= pet.name %></p> 
         <%=  "#{pet.name} has been approved for adoption" %>
         <%= button_to "Reject #{pet.name}", "/admin/applications/#{@application.id}/update?reject=#{pet.id}", method: :patch %>

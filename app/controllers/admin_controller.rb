@@ -7,10 +7,12 @@ class AdminController < ApplicationController
     def show
         @application = Application.find(params[:id])
         @full_address = "#{@application.street_address} #{@application.city}, #{@application.state} #{@application.zipcode}"
-        @undetermined_pets = PetApplication.find_nil_pets(@application)
+        @undetermined_pets = PetApplication.find_undetermined_pets(@application)
+        @already_adopted = PetApplication.find_already_adopted_pets(@application)
         @approved_pets = PetApplication.find_approved_pets(@application)
         @rejected_pets = PetApplication.find_rejected_pets(@application)
-        @unadoptable_pets = @application.pets.find_unadoptable_pets
+        # do I need unadoptable_pets anymore? I don't think so
+        # @unadoptable_pets = @application.pets.find_unadoptable_pets
     end 
 
     def update 
@@ -33,7 +35,7 @@ class AdminController < ApplicationController
             rejected_joins_row = (PetApplication.find_joins_row(application, pet)).first
             rejected_joins_row.Rejected!
             rejected_pets = PetApplication.find_rejected_pets(application)
-            undetermined_pets = PetApplication.find_nil_pets(application)
+            undetermined_pets = PetApplication.find_undetermined_pets(application)
             if undetermined_pets.empty? && rejected_pets.empty? == false
                 application.Rejected!
             end 
