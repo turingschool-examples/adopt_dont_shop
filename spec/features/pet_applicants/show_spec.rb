@@ -7,7 +7,7 @@ RSpec.describe 'add pet to application' do
     @jax = @no_dog_left_behind.pets.create!(name: "Jax", age: 1, breed: 'Golden Retriever', adoptable: true)
     @lady = @no_dog_left_behind.pets.create!(name: "Lady", age: 3, breed: 'Ridgeback', adoptable: true)
   end
-  it "cann add pet to application" do
+  it "can add pet to application" do
 
     visit "/applicants/#{@greg.id}"
 

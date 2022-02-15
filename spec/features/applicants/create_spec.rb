@@ -51,7 +51,6 @@ RSpec.describe 'New applicant' do
     fill_in 'City:', with: 'Miami'
 
     click_button 'Submit Application'
-    save_and_open_page
     expect(page).to have_content("Error: Name can't be blank, State can't be blank, Zipcode can't be blank")
     expect(page).to have_current_path('/applicants/new')
   end

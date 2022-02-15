@@ -36,4 +36,14 @@ RSpec.describe 'the applicant show' do
     expect(page).to have_content(@jax.name)
     expect(page).to_not have_content(@lady.name)
   end
+
+  it 'provides case sensitive matches as search results' do
+    visit "/applicants/#{@greg.id}"
+
+    fill_in 'Add a Pet to this Application', with: "jax"
+    click_on("Search")
+    expect(current_path).to eq("/applicants/#{@greg.id}")
+    expect(page).to have_content(@jax.name)
+    expect(page).to_not have_content(@lady.name)
+  end
 end

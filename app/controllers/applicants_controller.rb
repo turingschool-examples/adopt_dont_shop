@@ -2,7 +2,7 @@ class ApplicantsController < ApplicationController
   def show
     if params[:search]
       @applicant = Applicant.find(params[:id])
-      @pets = Pet.where(["name LIKE ?", "%#{params[:search]}%"])
+      @pets = Pet.search(params[:search])
     else
       @applicant = Applicant.find(params[:id])
     end
