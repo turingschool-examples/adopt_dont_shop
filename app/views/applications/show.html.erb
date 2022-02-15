@@ -1,23 +1,43 @@
 <h2>Name: <%= @application.name %></h2>
+
 <p>Address: <%= @application.street_address %>, <%= @application.city %>, <%= @application.state %>, <%= @application.zip_code %></p>
+
 <p>Why would you make a good pet parent?: <%= @application.description %></p>
+  <% if @pets.count > 0 %>
+    <%= form_with url: "/applications/#{@application.id}", method: :patch, local: true do |f| %>
+    
+      <%= f.label :description %>
+      <%= f.text_area :description %><br>
+    
+      <%= f.submit 'Submit' %>
+    
+    <% end %>
+  <% end %>
 <div class="pets">
   <p>Pets for this application: </p>
     <div class="pet">
-      <% @pets.each do |name| %>
-        <%= name %><br>
+      <% @pets.each do |pet| %>
+        <%= pet.name %><br>
     </div>
     <% end %>
 </div>
+
 <p>Status: <%= @application.status %></p>
 <%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |f| %>
     <%= f.label :search_name, 'Search for Pet by Name' %>
     <%= f.text_field :search_name %>
-    <%= f.submit 'Submit'  %>
+    <%= f.submit 'Search'  %>
   <% end %>
-<% if @pet %> 
-  <div class="pet-<%= @pet.id %>">
-    <%= @pet.name %>
-    <%= button_to 'Adopt this Pet', "/applications/#{@application.id}/#{@pet.id}", method: :post %>
-  </div>
+<% @results&.each do |result| %>
+  <%= result.name %>
+  <%= button_to 'Adopt this Pet', "/applications/#{@application.id}/#{result.id}", method: :post %>
 <% end %>
+
+
+
+
+
+
+
+
+
