@@ -12,10 +12,9 @@ class ApplicationsController < ApplicationController
   end
 
   def update
-    @application = Application.find(params[:id])
-    @application.update(update_params)
-    @application.save
-    redirect_to "/application/#{@application.id}"
+    application = Application.find(params[:id])
+    application.update(update_params)
+    redirect_to "/application/#{application.id}"
   end
 
   def create
