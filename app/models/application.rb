@@ -15,7 +15,7 @@ class Application < ApplicationRecord
         pets << pet
     end
 
-    def self.pets_requiring_decision
+    def self.application_requires_decision
         where(status: "Pending").joins(:pet_applications).where(pet_applications: {:status => nil})
     end 
 end

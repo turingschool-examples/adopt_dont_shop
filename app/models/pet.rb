@@ -10,12 +10,6 @@ class Pet < ApplicationRecord
     shelter.name
   end
 
-  def find_application_id
-    # There can be multiple applications for a pet from a single shelter, this only takes the first
-    pet_applications.pluck(:application_id).first
-    
-  end
-
   def self.match(search_name)
     formatted_name = search_name.downcase
     where("name ILIKE ?", "%#{formatted_name}%")
