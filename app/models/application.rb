@@ -1,6 +1,14 @@
 class Application < ApplicationRecord
-  has_many :pets, through: :pet_applications
+  after_initialize :set_defaults
+
+  def set_defaults
+    self.description ||= "No Description"
+    self.status ||= "In Progress"
+  end
+
   has_many :pet_applications
+  has_many :pets, through: :pet_applications
+
   validates_presence_of :name
   validates_presence_of :address
   validates_presence_of :city

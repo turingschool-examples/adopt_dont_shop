@@ -9,16 +9,17 @@ PetApplication.destroy_all
 Application.destroy_all
 Pet.destroy_all
 Shelter.destroy_all
+VeterinaryOffice.destroy_all
+Veterinarian.destroy_all
+
+application_1 = Application.create(name: "Michael Hicks", address: "858 S Emerson St", city: "Dever", state: "CO", zipcode: 80211, description: "I am very reliable", status: "Rejceted")
+application_2 = Application.create(name: "Suzanne Roth", address: "9406 Oakmont Rd", city: "Albuquerque", state: "NM", zipcode: 87111, description: "Best dog mom ever!", status: "Accepted")
+application_3 = Application.create(name: "Ada Hicks", address: "4012 Tracy St NE", city: "Albuquerque", state: "NM", zipcode: 87111, description: "I'm actually a dog myself!", status: "Pending")
 
 shelter_1 = Shelter.create(name: 'El Dorado Shelter', city: 'Albuquerque, NM', foster_program: false, rank: 9)
 shelter_2 = Shelter.create(name: 'Sandia Shelter', city: 'Albuquerque, NM', foster_program: true, rank: 7)
 shelter_3 = Shelter.create(name: 'La Cueva Shelter', city: 'Denver, CO', foster_program: false, rank: 2)
 shelter_4 = Shelter.create(name: 'Oakmont Shelter', city: 'New York, NY', foster_program: true, rank: 8)
-
-application_1 = Application.create(name: "Michael Hicks", address: "858 S Emerson St", city: "Dever", state: "CO", zipcode: "80211")
-application_2 = Application.create(name: "Suzanne Roth", address: "9406 Oakmont Rd", city: "Albuquerque", state: "NM", zipcode: "87111", description: "Best dog mom ever!", status: "Accepted")
-application_3 = Application.create(name: "Ada Hicks", address: "4012 Tracy St NE", city: "Albuquerque", state: "NM", zipcode: "87111", description: "I'm actually a dog myself!", status: "Pending")
-
 
 pet_1 = Pet.create(name: 'Queso', breed: 'Boston Terrier', age: 5, adoptable: true, shelter_id: shelter_1.id)
 pet_2 = Pet.create(name: 'Gibblets', breed: 'French Bulldog', age: 3, adoptable: true, shelter_id: shelter_1.id)

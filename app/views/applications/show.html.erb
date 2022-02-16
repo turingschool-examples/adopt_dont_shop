@@ -1,14 +1,22 @@
-<h1>Application <%= @application.id %>'s Information</h1>
+<h3><%= @application.name %></h3>
+<p><%= @application.address %>
+<%= @application.city %>,
+<%= @application.state %>
+<%= @application.zipcode %></p>
+<p><%= @application.description %></p>
+<% @application.pets.each do |pet| %>
+<%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
+<% end  %>
+<p><%= @application.status %></p>
 
-<h2>Applicant: <%= @application.name %></h2>
-<h2>Address: <%= @application.address %></h2>
-<h2>City: <%= @application.city %></h2>
-<h2>State: <%= @application.state %></h2>
-<h2>Zipcode: <%= @application.zipcode %></h2>
-<h2>Pet Applied For: </h2>
-<%= @application.pets.each do |pet| %>
-  <section id="pet_<%=pet.id%>"
-    <h4><%= link_to "#{pet.name}", "pets/#{pet.id}" %></h4>
-  </section>
+<%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |form| %>
+<%= form.label :search, "Add a Pet to This Application" %>
+<%= form.text_field :search %>
+<%= form.submit "Search" %>
 <% end %>
-<h3>Application Status: <%= @application.status %></h3>
+
+<% if @pets.present? %>
+  <% @pets.each do |pet| %>
+  <%= pet.name %>
+  <% end %>
+<% end  %>
