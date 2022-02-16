@@ -10,7 +10,7 @@ require 'rails_helper'
      PetApplication.create(pet: pet_1, application: application_1)
 
      visit "/applications/#{application_1.id}"
-     save_and_open_page
+     # save_and_open_page
 
      expect(page).to have_content(application_1.name)
      expect(page).to have_content(application_1.address)
