@@ -25,9 +25,9 @@ RSpec.describe Shelter, type: :model do
     @shelter_3 = Shelter.create(name: 'Sancy pets of Colorado', city: 'Denver, CO', foster_program: true, rank: 10)
 
     @pet_1 = @shelter_1.pets.create(name: 'Mr. Pirate', breed: 'tuxedo shorthair', age: 5, adoptable: false)
-    @pet_2 = @shelter_1.pets.create(name: 'Clawdia', breed: 'shorthair', age: 3, adoptable: true)
+    @pet_2 = @shelter_1.pets.create(name: 'Clawdia', breed: 'shorthair', age: 12, adoptable: true)
     @pet_3 = @shelter_3.pets.create(name: 'Lucille Bald', breed: 'sphynx', age: 8, adoptable: true)
-    @pet_4 = @shelter_1.pets.create(name: 'Ann', breed: 'ragdoll', age: 5, adoptable: true)
+    @pet_4 = @shelter_1.pets.create(name: 'Ann', breed: 'ragdoll', age: 8, adoptable: true)
 
     @application_1.pets << @pet_2
     @application_3.pets << @pet_3
@@ -87,7 +87,7 @@ RSpec.describe Shelter, type: :model do
 
     describe '.shelter_pets_filtered_by_age' do
       it 'filters the shelter pets based on given params' do
-        expect(@shelter_1.shelter_pets_filtered_by_age(5)).to eq([@pet_4])
+        expect(@shelter_1.shelter_pets_filtered_by_age(5)).to eq([@pet_2, @pet_4])
       end
     end
 
@@ -96,5 +96,11 @@ RSpec.describe Shelter, type: :model do
         expect(@shelter_1.pet_count).to eq(3)
       end
     end
+
+    describe '.adoptable_pets_avg_age' do 
+      it 'returns the average age of all pets for one shelter' do 
+        expect(@shelter_1.adoptable_pets_avg_age).to eq(10)
+      end 
+    end 
   end
 end
