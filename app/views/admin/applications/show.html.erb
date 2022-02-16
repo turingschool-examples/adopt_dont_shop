@@ -1,8 +1,9 @@
 <h1> <%= @application.name %>'s Application'  </h1>
 <br>
-
     <% if @application.status == "Approved" %>
       <a href="#" class="btn btn-success btn-lg disabled" role="button" aria-disabled="true">Application Status: <%= @application.status %></a>
+    <% elsif @application.status == "Rejected" %>
+      <a href="#" class="btn btn-danger btn-lg disabled" role="button" aria-disabled="true">Application Status: <%= @application.status %></a>
     <% end %>
 
     <h2>Pets wanted for adpotion</h2>
@@ -24,12 +25,12 @@
         <%= f.text_field :petid, value: pet.id, hidden: true %>
       <% end %>
 
-      <% elsif PetApplication.pet_app(@application.id,pet.id).status == "Approved" && @application.status != "Approved"%>
+      <% elsif PetApplication.pet_app(@application.id,pet.id).status == "Approved" && @application.rejected_or_approved == false %>
       <ul>
         <h5><%= "This application has been approved!" %></h5>
       </ul>
 
-      <% elsif PetApplication.pet_app(@application.id,pet.id).status == "Rejected" %>
+      <% elsif PetApplication.pet_app(@application.id,pet.id).status == "Rejected" && @application.rejected_or_approved == false %>
         <ul>
           <h5><%= "This application has been rejected!" %></h5>
         </ul>
