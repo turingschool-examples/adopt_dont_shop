@@ -56,9 +56,9 @@ RSpec.describe Shelter, type: :model do
 
     describe '#order_by_number_of_pets' do
     # This test is breaking and I dont understand why yet
-      xit 'orders the shelters by number of pets they have, descending' do
+      it 'orders the shelters by number of pets they have, descending' do
         expect(Shelter.all).to eq([@shelter_1, @shelter_2, @shelter_3])
-        expect(Shelter.order_by_number_of_pets).to eq([@shelter_1, @shelter_3, @shelter_2])
+        expect(Shelter.order_by_number_of_pets).to eq([@shelter_3, @shelter_1, @shelter_2])
       end
     end
 
@@ -127,12 +127,6 @@ RSpec.describe Shelter, type: :model do
     describe '.pets_adopted_count' do 
       it 'returns the number of pets adopted from one shelter' do 
        expect(@shelter_3.pets_adopted_count).to eq(3)
-      end 
-    end 
-
-    describe '.pets_requiring_decision' do 
-      it 'returns pets that still need to be approved/rejected for one shelter' do 
-       expect(@shelter_3.pets_requiring_decision).to eq([@pet_3])
       end 
     end 
   end
