@@ -43,15 +43,15 @@ class ApplicationsController < ApplicationController
 
     application = Application.find(params[:id])
     application.pets << Pet.find(params[:pet_id])
+    application.add_pet(pet)
     application.save
     redirect_to "/applications/#{application.id}"
+
   end
 
   # def search
   #   @pets = Pet.find_by(name: params[:search])
-  #
   #   redirect_to "/applications/#{params[:id]}"
-  #
   # end
 
 private
