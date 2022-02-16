@@ -7,7 +7,6 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 Shelter.destroy_all
 Pet.destroy_all
-Application.destroy_all
 
 dfl = Shelter.create!(foster_program: true, name: "Dumb Friends League", city: "Denver", rank: 53)
 spike = dfl.pets.create!(adoptable: true, age: 1, breed: "Golden Retriever", name: "Spike")
