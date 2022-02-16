@@ -1,11 +1,15 @@
 class ApplicationsController < ApplicationController
   def show
     @application = Application.find(params[:id])
+    # @application.update(status: @application.status_check)
     @results = Pet.search(params[:name]) unless params[:name] == nil
   end
 
   def admin_show
     @application = Application.find(params[:id])
+    if params[:update] == "yes"
+      @application.update(status: @application.status_check)
+    end
   end
 
   def new
@@ -23,17 +27,11 @@ class ApplicationsController < ApplicationController
     end
   end
 
-  def update
+  def submit
     app = Application.find(params[:id])
 
-    app.update(status: "Pending")
     app.update(app_params)
-    redirect_to "/applications/#{app.id}"
-  end
-
-  def approve
-    app = Application.find(params[:id])
-    app.update(status: "Approved")
+    app.update(status: "Pending")
     redirect_to "/applications/#{app.id}"
   end
 
