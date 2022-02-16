@@ -22,7 +22,7 @@ class ApplicationsController < ApplicationController
     # application = Application.create(application_params)
     application = Application.new(application_params)
     # application.status = "In Progress"
-    # application.update(status: "In Progress")
+    application.update(status: "In Progress")
     # redirect_to "/applications/#{application.id}"
     # if application.save && params[:pet_names] != nil
     if application.save
@@ -37,13 +37,14 @@ class ApplicationsController < ApplicationController
   end
 
   def update
-    application = Application.find(params[:id])
-
-    application.update(application_params)
-    redirect_to "/applications/#{application.id}"
-    # pet = Pet.find_by(name: params[:search])
-    # application.pets << pet
+    # application = Application.find(params[:id])
+    # application.update(application_params)
     # redirect_to "/applications/#{application.id}"
+
+    application = Application.find(params[:id])
+    application.pets << Pet.find(params[:pet_id])
+    application.save
+    redirect_to "/applications/#{application.id}"
   end
 
   # def search
@@ -55,7 +56,8 @@ class ApplicationsController < ApplicationController
 
 private
   def application_params
-    params.permit(:name, :street_address, :city, :state, :zip_code, :description)
+
+    params.permit(:name, :street_address, :city, :state, :zip_code, :description, :pet_id)
     .with_defaults(status: "In Progress")
   end
 end
