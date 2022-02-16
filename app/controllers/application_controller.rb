@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
   def welcome
+    @pets = Pet.all
   end
 
   private
