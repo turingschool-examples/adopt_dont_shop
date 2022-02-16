@@ -66,11 +66,5 @@ RSpec.describe Pet, type: :model do
         expect(@pet_3.shelter_name).to eq(@shelter_1.name)
       end
     end
-
-    # describe '.find_application_id' do
-    #   it 'returns the application_id for a given pet in a given shelter' do
-    #     expect(@pet_1.find_application_id).to eq(@application_1.id)
-    #   end
-    # end
   end
 end
