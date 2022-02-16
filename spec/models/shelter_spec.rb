@@ -19,6 +19,7 @@ RSpec.describe Shelter, type: :model do
     @application_1 = Application.create!(name: "Sedan Turtle", street_address: "3425 Gransfield ave", city: "Denver", state: "CO", zipcode: "80219", status: "Pending")
     @application_2 = Application.create!(name: "lomein Smurtle", street_address: "3425 Gransfield ave", city: "Denver", state: "CO", zipcode: "80219", status: "In Progress")
     @application_3 = Application.create!(name: "deman Durtle", street_address: "3425 Gransfield ave", city: "Denver", state: "CO", zipcode: "80219", status: "Pending")
+    @application_4 = Application.create!(name: "yolain squirtle", street_address: "3425 somkewher ave", city: "Denver", state: "CO", zipcode: "80219", status: "Accepted")
 
     @shelter_1 = Shelter.create(name: 'Zurora shelter', city: 'Aurora', foster_program: false, rank: 9, street_address: "214 w placid", state: "CO", zipcode: "82743")
     @shelter_2 = Shelter.create(name: 'RGV animal shelter', city: 'Harlingen, TX', foster_program: false, rank: 5)
@@ -28,9 +29,13 @@ RSpec.describe Shelter, type: :model do
     @pet_2 = @shelter_1.pets.create(name: 'Clawdia', breed: 'shorthair', age: 12, adoptable: true)
     @pet_3 = @shelter_3.pets.create(name: 'Lucille Bald', breed: 'sphynx', age: 8, adoptable: true)
     @pet_4 = @shelter_1.pets.create(name: 'Ann', breed: 'ragdoll', age: 8, adoptable: true)
+    @pet_5 = @shelter_3.pets.create(name: 'San', breed: 'brute', age: 8, adoptable: false)
+    @pet_6 = @shelter_3.pets.create(name: 'Ran', breed: 'brute', age: 8, adoptable: false)
 
     @application_1.pets << @pet_2
     @application_3.pets << @pet_3
+    @application_4.pets << @pet_5
+    @application_4.pets << @pet_6
   end
 
   describe 'class methods' do
@@ -49,7 +54,7 @@ RSpec.describe Shelter, type: :model do
     describe '#order_by_number_of_pets' do
       it 'orders the shelters by number of pets they have, descending' do
         expect(Shelter.all).to eq([@shelter_1, @shelter_2, @shelter_3])
-        expect(Shelter.order_by_number_of_pets).to eq([@shelter_1, @shelter_3, @shelter_2])
+        expect(Shelter.order_by_number_of_pets).to eq([@shelter_3, @shelter_1, @shelter_2])
       end
     end
 
@@ -103,9 +108,22 @@ RSpec.describe Shelter, type: :model do
       end
     end
 
+    describe '.pets_adopted_count' do
+      it 'returns the number of pets at the given shelter that have been adopted' do
+        expect(@shelter_1.adoptable_pet_count).to eq(2)
+      end
+    end
+
     describe '.adoptable_pets_avg_age' do 
       it 'returns the average age of all pets for one shelter' do 
         expect(@shelter_1.adoptable_pets_avg_age).to eq(10)
+      end 
+    end 
+
+    describe '.pets_adopted_count' do 
+      it 'returns the number of pets adopted from one shelter' do 
+        binding.pry
+       expect(@shelter_3.pets_adopted_count).to eq(2)
       end 
     end 
   end

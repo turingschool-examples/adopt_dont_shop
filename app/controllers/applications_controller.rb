@@ -6,7 +6,7 @@ def show
     @applied_pets = @application.pets.all
     if params[:search]
       @pets = Pet.match(params[:search])
-    end 
+    end
   end
 
   def new 
