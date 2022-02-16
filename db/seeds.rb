@@ -8,10 +8,12 @@ Veterinarian.destroy_all
 VeterinaryOffice.destroy_all
 
 6.times do
-    Shelter.create(name: Faker::Company.name,
+    Shelter.create(name: Faker::App.name,
                 foster_program: Faker::Boolean::boolean(true_ratio: 0.66),
                 city: Faker::Address.city,
-                rank: rand(1..3))
+                state: Faker::Address.state,
+                zipcode: Faker::Address.street_address.to_i,
+                rank: rand(1..6))
 end
 
 50.times do
@@ -23,7 +25,7 @@ end
 end
 
 10.times do
-    application = Application.create(name: Faker::Name.name,
+    application = Application.create(name: Faker::FunnyName.two_word_name,
                 street_address:Faker::Address.street_address,
                 city: Faker::Address.city,
                 state: Faker::Address.state,
