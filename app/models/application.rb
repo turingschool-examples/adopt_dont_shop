@@ -12,4 +12,8 @@ class Application < ApplicationRecord
   def all_pets_approved
     self.pet_applications.all? { |pet_apps| pet_apps.status == "Approved" }
   end
+
+  def rejected_or_approved
+    self.pet_applications.all? { |pet_apps| pet_apps.status == "Approved" || pet_apps.status == "Rejected" }
+  end
 end
