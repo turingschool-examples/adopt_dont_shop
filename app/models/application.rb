@@ -7,6 +7,9 @@ class Application < ApplicationRecord
                         :city,
                         :state,
                         :zipcode
-  enum status: { "In Progress" => "0", "Pending" => "1", "Accepted" => "2", "Rejected" => "3" }
+  enum status: { "In Progress" => "0", "Pending" => "1", "Approved" => "2", "Rejected" => "3" }
 
+  def all_pets_approved
+    self.pet_applications.all? { |pet_apps| pet_apps.status == "Approved" }
+  end
 end
