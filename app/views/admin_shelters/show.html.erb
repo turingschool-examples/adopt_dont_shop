@@ -3,3 +3,12 @@
 <center>
 <h3><%= @shelter_name_and_address %></h3>
 </center>
+
+<center>
+<div class="statistics">
+   <h2> Shelter Statistics </h2>
+   <% if @shelter.pets.empty? == false %>
+      <p>Average age of adoptable pets: <%= @shelter.adoptable_pets_avg_age  %><p>
+    <% end %>
+</div>
+</center>

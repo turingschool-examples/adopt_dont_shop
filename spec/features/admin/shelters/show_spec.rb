@@ -4,6 +4,8 @@ RSpec.describe 'The admin shelters show page' do
     before :each do 
         @shelter_1 = Shelter.create(name: 'Aurora shelter', city: 'Aurora', foster_program: false, rank: 9, street_address: "214 w placid", state: "CO", zipcode: "82743")
         @shelter_2 = Shelter.create(name: 'Englewood shelter', city: 'Englewood', foster_program: false, rank: 9, street_address: "7325 w Hampden", state: "CO", zipcode: "80239")
+        @pet_2 = @shelter_1.pets.create(name: 'Clawdia', breed: 'shorthair', age: 12, adoptable: true)
+        @pet_3 = @shelter_1.pets.create(name: 'Lucille Bald', breed: 'sphynx', age: 8, adoptable: true)
     end 
     it 'shows the shelters name and full address' do 
         visit "/admin/shelters/#{@shelter_1.id}"
@@ -21,7 +23,8 @@ RSpec.describe 'The admin shelters show page' do
 
     it 'has a section for statistics where the average age of all adoptable pets for that shelter is visible' do 
         visit "/admin/shelters/#{@shelter_1.id}"
-        expect(page).to have_content(@shelter_1.adoptable_pets_avg_age)
-        expect(page).to have_content(10)
+        within(".statistics") do 
+            expect(page).to have_content(@shelter_1.adoptable_pets_avg_age)
+        end 
     end 
 end 
