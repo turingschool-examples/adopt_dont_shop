@@ -3,6 +3,10 @@ require 'rails_helper'
 RSpec.describe 'The Admin Shelters Index' do 
 
     before :each do 
+        PetApplication.destroy_all
+        Shelter.destroy_all
+        Application.destroy_all
+        Pet.destroy_all
         @dumb_friends_league = Shelter.create!(foster_program: true, name: "Dumb Friends League", city: "Englewood", rank: "1")
         @smart_friends_league = Shelter.create!(foster_program: true, name: "Smart Friends League", city: "Lakewood", rank: "2")
         @any_friends_league = Shelter.create!(foster_program: true, name: "Any Friends League", city: "Littleton", rank: "3")
@@ -20,9 +24,11 @@ RSpec.describe 'The Admin Shelters Index' do
 
     it 'displays all shelters in the system in reverse alphabetical order' do 
         visit '/admin/shelters/'
-        expect(page).to have_content(@dumb_friends_league.name)
-        expect(page).to have_content(@smart_friends_league.name)
-        expect(@smart_friends_league.name).to appear_before(@dumb_friends_league.name)
+        within(".all_shelters") do
+            expect(page).to have_content(@dumb_friends_league.name)
+            expect(page).to have_content(@smart_friends_league.name)
+            expect(@smart_friends_league.name).to appear_before(@dumb_friends_league.name)
+        end
     end 
 
     it 'displays all shelters with pending applications in alphabetical order' do 
@@ -31,7 +37,26 @@ RSpec.describe 'The Admin Shelters Index' do
         within(".pending_applications") do 
             expect(page).to have_content("#{@dumb_friends_league.name}")
             expect(page).to have_content("#{@any_friends_league.name}") 
+            expect(page).to have_no_content("#{@smart_friends_league.name}") 
             expect(@any_friends_league.name).to appear_before(@dumb_friends_league.name)
         end 
+    end 
+
+    it "displays every shelter's name as a link that brings the user to that shelter's admin show page" do 
+        visit '/admin/shelters/'
+        within(".all_shelters") do
+            expect(page).to have_link(@any_friends_league.name)
+            expect(page).to have_link(@dumb_friends_league.name)
+            expect(page).to have_link(@smart_friends_league.name)
+            click_link(@any_friends_league.name)
+            expect(current_path).to eq("/admin/shelters/#{@any_friends_league.id}")
+        end
+        visit '/admin/shelters/'
+        within(".pending_applications") do
+            expect(page).to have_link(@any_friends_league.name)
+            expect(page).to have_link(@dumb_friends_league.name)
+            click_link(@dumb_friends_league.name)
+            expect(current_path).to eq("/admin/shelters/#{@dumb_friends_league.id}")
+        end
     end 
 end
