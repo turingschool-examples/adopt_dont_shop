@@ -1,32 +1,38 @@
 <h1> <%= @application.name %>'s Application'  </h1>
 <br>
-<h2>Pets wanted for adpotion</h2>
-<br>
-  <% @pets.each do |pet| %>
+
+    <% if @application.status == "Approved" %>
+      <a href="#" class="btn btn-success btn-lg disabled" role="button" aria-disabled="true">Application Status: <%= @application.status %></a>
+    <% end %>
+
+    <h2>Pets wanted for adpotion</h2>
+    <br>
+
+    <% @pets.each do |pet| %>
       <h3><%= pet.name  %></h3>
-      <br>
+    <br>
 
     <% if PetApplication.pet_app(@application.id,pet.id).status == "Open" %>
 
-        <%= form_with url: "/admin/applications/#{@application.id}/?status=1", method: :patch, local: true do |f| %>
-          <button class="btn btn-success btn-secondary btn-sm" type="submit">Approve</button>
-          <%= f.text_field :petid, value: pet.id, hidden: true %>
-        <% end %>
+      <%= form_with url: "/admin/applications/#{@application.id}/?status=1", method: :patch, local: true do |f| %>
+        <button class="btn btn-success btn-secondary btn-sm" type="submit">Approve</button>
+        <%= f.text_field :petid, value: pet.id, hidden: true %>
+      <% end %>
 
-        <%= form_with url: "/admin/applications/#{@application.id}/?status=2", method: :patch,  local: true do |f| %>
-          <button class="btn btn-danger btn-secondary btn-sm" type="submit">Reject</button>
-          <%= f.text_field :petid, value: pet.id, hidden: true %>
-        <% end %>
+      <%= form_with url: "/admin/applications/#{@application.id}/?status=2", method: :patch,  local: true do |f| %>
+        <button class="btn btn-danger btn-secondary btn-sm" type="submit">Reject</button>
+        <%= f.text_field :petid, value: pet.id, hidden: true %>
+      <% end %>
 
-    <% elsif PetApplication.pet_app(@application.id,pet.id).status == "Approved" %>
+      <% elsif PetApplication.pet_app(@application.id,pet.id).status == "Approved" && @application.status != "Approved"%>
       <ul>
         <h5><%= "This application has been approved!" %></h5>
       </ul>
 
-    <% elsif PetApplication.pet_app(@application.id,pet.id).status == "Rejected" %>
-      <ul>
-        <h5><%= "This application has been rejected!" %></h5>
-      </ul>
+      <% elsif PetApplication.pet_app(@application.id,pet.id).status == "Rejected" %>
+        <ul>
+          <h5><%= "This application has been rejected!" %></h5>
+        </ul>
     <% end %>
 
       <br>
