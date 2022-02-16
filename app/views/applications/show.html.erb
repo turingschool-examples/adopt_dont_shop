@@ -1,15 +1,5 @@
-<h1>Application #<%= @application.id %></h1>
-<br>
-<h2>Name: <%= @application.name %></h2>
-<p><%= "Description: #{@application.description}" unless @application.description == nil%></p>
-<br>
-<p>Street Address: <%= @application.street_address %></p>
-<p>City: <%= @application.city %></p>
-<p>State: <%= @application.state %></p>
-<p>Zip: <%= @application.zip_code %></p>
-<br>
-<h2>Application Status: <%= @application.status %></h2>
-<br>
+<%= render "details" %>
+
 <h3>Pets Applied for:</h3>
 <div id="added_pets">
 <% @application.pets.each do |pet| %>
