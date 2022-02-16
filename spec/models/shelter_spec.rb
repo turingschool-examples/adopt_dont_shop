@@ -31,11 +31,13 @@ RSpec.describe Shelter, type: :model do
     @pet_4 = @shelter_1.pets.create(name: 'Ann', breed: 'ragdoll', age: 8, adoptable: true)
     @pet_5 = @shelter_3.pets.create(name: 'San', breed: 'brute', age: 8, adoptable: false)
     @pet_6 = @shelter_3.pets.create(name: 'Ran', breed: 'brute', age: 8, adoptable: false)
+    @pet_7 = @shelter_3.pets.create(name: 'Dan', breed: 'cute', age: 8, adoptable: true)
 
     @application_1.pets << @pet_2
     @application_3.pets << @pet_3
     @application_4.pets << @pet_5
     @application_4.pets << @pet_6
+    pet_application = PetApplication.create!(pet_id: "#{@pet_7.id}", application_id: "#{@application_4.id}", status: "Accepted")
   end
 
   describe 'class methods' do
@@ -123,7 +125,13 @@ RSpec.describe Shelter, type: :model do
 
     describe '.pets_adopted_count' do 
       it 'returns the number of pets adopted from one shelter' do 
-       expect(@shelter_3.pets_adopted_count).to eq(2)
+       expect(@shelter_3.pets_adopted_count).to eq(3)
+      end 
+    end 
+
+    describe '.pets_requiring_decision' do 
+      it 'returns pets that still need to be approved/rejected for one shelter' do 
+       expect(@shelter_3.pets_requiring_decision).to eq([@pet_3])
       end 
     end 
   end

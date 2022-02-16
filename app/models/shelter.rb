@@ -58,4 +58,8 @@ class Shelter < ApplicationRecord
   def pets_adopted_count
     (pets.joins(:applications).where(applications: {:status => "Accepted"})).count
   end 
+
+  def pets_requiring_decision
+    pets.joins(:pet_applications).where(pet_applications: {:status => nil}).joins(:applications).where(applications: {:status => "Pending"})
+  end 
 end
