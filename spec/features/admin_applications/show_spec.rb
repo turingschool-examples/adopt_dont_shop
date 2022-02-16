@@ -58,4 +58,20 @@ RSpec.describe "Admin Applications Show Page" do
     expect(page).to have_button("Approve")
     expect(page).to have_button("Reject")
   end
+
+  it "after approving all pets on application redirected to show page with applications status changed to approved" do
+    visit "/admin/applications/#{@application.id}"
+    expect(page).to have_content(@pet_1.name)
+    expect(page).to have_content(@pet_2.name)
+    expect(page).to have_button("Reject")
+    click_on("Approve", match: :first)
+    expect(current_path).to eq("/admin/applications/#{@application.id}/")
+    expect(page).to have_content("This application has been approved!")
+    click_on("Approve", match: :first)
+    expect(current_path).to eq("/admin/applications/#{@application.id}/")
+    expect(page).to have_content("Approved")
+    expect(page).to_not have_button("Approve")
+    expect(page).to_not have_button("Reject")
+    save_and_open_page
+  end
 end
