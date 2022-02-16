@@ -20,11 +20,13 @@ RSpec.describe Pet, type: :model do
     @shelter_1 = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
     @shelter_2 = Shelter.create(name: 'Englewood shelter', city: 'Englewood, CO', foster_program: true, rank: 4)
     @application_1 = Application.create!(name: "Sedan Turtle", street_address: "3425 Gransfield ave", city: "Denver", state: "CO", zipcode: "80219", status: "Pending")
+    @application_2 = Application.create!(name: "Deman Turtle", street_address: "3425 Lands ave", city: "Lenver", state: "CO", zipcode: "80219", status: "Pending")
     @pet_1 = @shelter_1.pets.create(name: 'Mr. Pirate', breed: 'tuxedo shorthair', age: 5, adoptable: true)
     @pet_2 = @shelter_1.pets.create(name: 'Clawdia', breed: 'shorthair', age: 3, adoptable: true)
     @pet_3 = @shelter_1.pets.create(name: 'Ann', breed: 'ragdoll', age: 3, adoptable: false)
     @pet_4 = @shelter_2.pets.create(name: 'Henry', breed: 'doggo', age: 7, adoptable: false)
     @application_1.pets << @pet_1
+    @application_2.pets << @pet_1
   end
 
   describe 'class methods' do
@@ -55,13 +57,7 @@ RSpec.describe Pet, type: :model do
         @pet_1.reload
         expect(@pet_1.adoptable).to eq(false)
       end 
-    end 
-
-    describe '#find_unadoptable_pets' do 
-      it 'finds all pets that are not adoptable' do 
-        expect(Pet.find_unadoptable_pets).to eq([@pet_3, @pet_4])
-      end 
-    end 
+    end
   end 
 
   describe 'instance methods' do

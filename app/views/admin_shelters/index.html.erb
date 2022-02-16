@@ -1,0 +1,21 @@
+<center>
+<div class="all_shelters">
+   <h1> Admin Shelters Index </h1>
+
+   <h2> All Shelters </h2>
+   <% @shelters.each do |shelter| %>
+      <p><%= link_to shelter.name, "/admin/shelters/#{shelter.id}" %></p>
+   <% end %>
+</div>
+</center>
+
+<br>
+
+<center>
+<div class="pending_applications">
+   <h2> Shelters With Pending Applications </h2>
+      <% @shelters_pending_apps.each do |shelter| %>
+         <p><%= link_to shelter.name, "/admin/shelters/#{shelter.id}" %></p>
+      <% end %>
+</div>
+</center>

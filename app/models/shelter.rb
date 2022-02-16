@@ -4,6 +4,7 @@ class Shelter < ApplicationRecord
   validates :city, presence: true
 
   has_many :pets, dependent: :destroy
+  has_many :applications, through: :pets
 
   def self.order_by_recently_created
     order(created_at: :desc)
@@ -37,8 +38,25 @@ class Shelter < ApplicationRecord
     find_by_sql(sql)
   end 
 
-  def self.shelters_with_pending_apps
+  def self.alphabetical_shelters_with_pending_apps
     shelter_ids = Application.where(status: "Pending").joins(:pets).pluck(:shelter_id).uniq
-    find(shelter_ids)
+    where(id: shelter_ids).order(name: :asc)
+  end
+
+  def self.name_and_full_address(shelter)
+    shelter = find_by_sql("SELECT name, street_address, city, state, zipcode FROM shelters WHERE id = #{shelter.id}")
+    "Name: #{shelter.first.name}, Address: #{shelter.first.street_address} #{shelter.first.city}, #{shelter.first.state} #{shelter.first.zipcode}"
+  end 
+
+  def adoptable_pets_avg_age
+    pets.where(adoptable: true).average(:age).round
+  end 
+
+  def adoptable_pet_count
+    pets.where(adoptable: true).count
+  end 
+
+  def pets_adopted_count
+    (pets.joins(:applications).where(applications: {:status => "Accepted"})).count
   end 
 end

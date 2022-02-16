@@ -22,8 +22,4 @@ class Pet < ApplicationRecord
   def self.approved_for_adoption
     where(adoptable: true).update(adoptable: false)
   end 
-
-  def self.find_unadoptable_pets
-    where(adoptable: false)
-  end 
 end

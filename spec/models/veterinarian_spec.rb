@@ -12,6 +12,8 @@ RSpec.describe Veterinarian, type: :model do
   end
 
   before(:each) do
+    Veterinarian.destroy_all
+    VeterinaryOffice.destroy_all
     @vet_office = VeterinaryOffice.create(name: 'Best Vets', boarding_services: true, max_patient_capacity: 20)
     @vet_1 = @vet_office.veterinarians.create(name: 'Taylor', review_rating: 10, on_call: true)
     @vet_2 = @vet_office.veterinarians.create(name: 'Tanya', review_rating: 9, on_call: true)

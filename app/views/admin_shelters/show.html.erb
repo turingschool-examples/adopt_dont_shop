@@ -1,0 +1,30 @@
+<center><h1>Admin Shelter Show Page</h1></center>
+
+<center>
+<h3><%= @shelter_name_and_address %></h3>
+</center>
+
+<center>
+<div class="statistics">
+   <h2> Shelter Statistics </h2>
+   <% if @shelter.pets.empty? == false %>
+      <p>Average age of adoptable pets: <%= @shelter.adoptable_pets_avg_age  %><p>
+      <p>Total number of adoptable pets: <%= @shelter.adoptable_pet_count  %><p>
+      <p>Total number pets adopted: <%= @shelter.pets_adopted_count  %><p>
+    <% end %>
+</div>
+</center>
+
+<center>
+<div class="action_required">
+   <h2> Action Required </h2>
+   <% if @shelter.pets.empty? == false %>
+      <% @shelter.applications.application_requires_decision.each do |application| %>
+         <p><%= application.name %></p>
+         <% application.pets.each do |pet| %>
+            <p><%= link_to "#{pet.name}", "/admin/applications/#{application.id}" %><p>
+         <% end %>
+      <% end %>
+    <% end %>
+</div>
+</center>

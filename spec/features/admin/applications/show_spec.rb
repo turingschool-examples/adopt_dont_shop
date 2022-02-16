@@ -32,7 +32,7 @@ RSpec.describe 'The admin applications show page' do
         expect(page).to have_content("#{@mushu.name} has been approved")
     end 
 
-    xit 'has a button next to each pet on an application that allows the admin user to reject that specific pet' do 
+    it 'has a button next to each pet on an application that allows the admin user to reject that specific pet' do 
         visit "/admin/applications/#{@application_1.id}"
         click_button("Reject #{@mushu.name}")
         expect(current_path).to eq("/admin/applications/#{@application_1.id}")
@@ -47,7 +47,7 @@ RSpec.describe 'The admin applications show page' do
         expect(page).to have_button("Reject #{@mushu.name}")
     end
 
-    xit 'updates an applications status to approved once all pets have been approved' do 
+    it 'updates an applications status to approved once all pets have been approved' do 
         visit "/admin/applications/#{@application_1.id}"
         expect(@application_1.status).to eq("Pending")
         click_button("Approve #{@mushu.name}")
@@ -76,8 +76,9 @@ RSpec.describe 'The admin applications show page' do
         expect(page).to have_content("Accepted")
         @application_1.reload
         visit "/admin/applications/#{@application_2.id}"
-        save_and_open_page
         @application_2.reload
         expect(page).to have_no_content("Approve Mushu")
+        expect(page).to have_button("Reject Mushu")
+        expect(page).to have_content("Mushu has been approved for adoption in another application.")
     end 
 end 

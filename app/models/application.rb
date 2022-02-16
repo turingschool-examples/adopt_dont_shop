@@ -5,12 +5,17 @@ class Application < ApplicationRecord
     validates_presence_of :city
     validates_presence_of :state
     validates_presence_of :zipcode
+    # want to implement a callback 
     # validates_presence_of :description
 
     has_many :pet_applications
     has_many :pets, through: :pet_applications
 
     def adopt(pet)
-        self.pets << pet
+        pets << pet
     end
+
+    def self.application_requires_decision
+        where(status: "Pending").joins(:pet_applications).where(pet_applications: {:status => nil}).uniq
+    end 
 end
