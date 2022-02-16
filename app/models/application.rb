@@ -1,11 +1,19 @@
 class Application < ApplicationRecord
-  validates :name, presence: true
-  validates :address, presence: true
-  validates :city, presence: true
-  validates :state, presence: true
-  validates :zipcode, presence: true
-  validates :description, presence: true
-  validates :status, presence: true
+  after_initialize :set_defaults
+
+  def set_defaults
+    self.description ||= "No Description"
+    self.status ||= "In Progress"
+  end
+
   has_many :pet_applications
-  has_many :pets, :through => :pet_applications
+  has_many :pets, through: :pet_applications
+
+  validates_presence_of :name
+  validates_presence_of :address
+  validates_presence_of :city
+  validates_presence_of :state
+  validates_presence_of :zipcode
+  validates_presence_of :description
+  validates_presence_of :status
 end

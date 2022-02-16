@@ -5,7 +5,7 @@ class CreateApplications < ActiveRecord::Migration[5.2]
       t.string :address
       t.string :city
       t.string :state
-      t.string :zipcode
+      t.integer :zipcode
       t.string :description
       t.string :status
 
