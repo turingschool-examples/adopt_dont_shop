@@ -1,13 +1,13 @@
 <center>
   <h1>Admin View</h1>
-  <h2>Shelter Index</h2>
-  
+  <h3>Shelter Index</h3>
+
   <% @shelters.each do |shelter| %>
   <%= shelter.name %>
   <% end %>
 
 
-  <h2> Shelters With Pending Applications </h2>
+  <h3> Shelters With Pending Applications </h3>
   <% @shelters_with_pending_apps.each do |shelter| %>
   <%= shelter.name %>
   <% end %>

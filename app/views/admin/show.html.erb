@@ -1,0 +1,29 @@
+<center>
+  <h1>Admin View</h1>
+
+  <h2>Applicants Awaiting Approval</h2>
+
+<p>Name: <%= @applicant.name %></p>
+<p>Full Address: <%= @full_address %></p>
+<p>Description: <%= @applicant.description %></p>
+<p>Status: <%= @applicant.status %></p>
+
+<br>
+
+
+<div id = "pet_sat">
+  <% @applicant.pet_applications.each do |pet_app| %>
+    <p>
+      <ul>
+        <p><%= pet_app.pet.name %></p>
+        <p>Status: <%= pet_app.status %></p>
+        <% if pet_app.status == "In Progress" %>
+          <p>
+            <%= button_to "Approve #{pet_app.pet.name}", "/admin/applications/#{@applicant.id}/update?approve=#{pet_app.id}", method: :patch %>
+            <%= button_to "Reject #{pet_app.pet.name}", "/admin/applications/#{@applicant.id}/update?reject=#{pet_app.id}", method: :patch %>
+          </p>
+        <% end %>
+    </p>
+  </div>
+  <% end %>
+<center>
