@@ -50,6 +50,7 @@ RSpec.describe Shelter, type: :model do
 
     describe '#order_by_recently_created' do
       it 'returns shelters with the most recently created first' do
+        binding.pry
         expect(Shelter.order_by_recently_created).to eq([@shelter_3, @shelter_2, @shelter_1])
       end
     end
