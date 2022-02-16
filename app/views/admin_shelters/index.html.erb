@@ -3,7 +3,7 @@
 
 <h2> All Shelters </h2>
 <% @shelters.each do |shelter| %>
-   <p><%= shelter.name %></p>
+   <p><%= link_to shelter.name, "/admin/shelters/#{shelter.id}" %></p>
 <% end %>
 </center>
 

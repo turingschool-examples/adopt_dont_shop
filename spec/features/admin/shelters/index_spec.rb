@@ -24,7 +24,7 @@ RSpec.describe 'The Admin Shelters Index' do
         expect(page).to have_content(@smart_friends_league.name)
         expect(@smart_friends_league.name).to appear_before(@dumb_friends_league.name)
     end 
-# Need to use within block here 
+
     it 'displays all shelters with pending applications in alphabetical order' do 
         visit '/admin/shelters/'
         expect(page).to have_content "Shelters With Pending Applications"
