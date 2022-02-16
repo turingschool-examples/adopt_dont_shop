@@ -19,8 +19,11 @@
 <div class="action_required">
    <h2> Action Required </h2>
    <% if @shelter.pets.empty? == false %>
-      <%@shelter.pets_requiring_decision.each do |pet| %>
-         <p><%= pet.name %><p>
+      <% @shelter.applications.application_requires_decision.each do |application| %>
+         <p><%= application.name %></p>
+         <% application.pets.each do |pet| %>
+            <p><%= link_to "#{pet.name}", "/admin/applications/#{application.id}" %><p>
+         <% end %>
       <% end %>
     <% end %>
 </div>

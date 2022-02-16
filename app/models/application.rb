@@ -16,6 +16,6 @@ class Application < ApplicationRecord
     end
 
     def self.application_requires_decision
-        where(status: "Pending").joins(:pet_applications).where(pet_applications: {:status => nil})
+        where(status: "Pending").joins(:pet_applications).where(pet_applications: {:status => nil}).uniq
     end 
 end
