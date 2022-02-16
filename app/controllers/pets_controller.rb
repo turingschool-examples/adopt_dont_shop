@@ -45,6 +45,14 @@ class PetsController < ApplicationController
     redirect_to '/pets'
   end
 
+  def adopt
+    pets = Application.find(params[:app_id]).pets
+    pets.each do |pet|
+      pet.update(adoptable: false)
+    end
+    redirect_to "/admin/applications/#{params[:app_id]}"
+  end
+
   private
 
   def pet_params

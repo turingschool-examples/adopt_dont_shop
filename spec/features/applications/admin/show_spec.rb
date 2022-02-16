@@ -298,9 +298,10 @@ RSpec.describe Application, type: :feature do
         it 'pets on approved applications are no longer adoptable' do
           visit "/pets"
 
-          expect(page).to have_content(pet_1.name)
-          expect(page).to have_content(pet_2.name)
-          expect(page).to have_content(pet_3.name)
+          expect(page).to have_content(@pet_1.name)
+          expect(page).to have_content(@pet_2.name)
+          expect(page).to have_content(@pet_3.name)
+          expect(page).to have_content(@pet_4.name)
 
           visit "/admin/applications/#{@app_2.id}"
 
@@ -308,25 +309,40 @@ RSpec.describe Application, type: :feature do
             click_button("Approve")
           end
 
-          vist "/pets"
+          expect(current_path).to eq("/admin/applications/#{@app_2.id}")
+          expect(page).to have_content("Application Status: Approved")
 
-          expect(page).to have_content(pet_1.name)
-          expect(page).to have_content(pet_2.name)
-          expect(page).to_not have_content(pet_3.name)
+          visit "/pets"
+
+          expect(page).to have_content(@pet_1.name)
+          expect(page).to have_content(@pet_2.name)
+          expect(page).to_not have_content(@pet_3.name)
+          expect(page).to have_content(@pet_4.name)
         end
 
-        xit 'pets on rejected applications remain adoptable' do
+        it 'pets on rejected applications remain adoptable' do
+          visit "/pets"
+
+          expect(page).to have_content(@pet_1.name)
+          expect(page).to have_content(@pet_2.name)
+          expect(page).to have_content(@pet_3.name)
+          expect(page).to have_content(@pet_4.name)
+
           visit "/admin/applications/#{@app_2.id}"
 
           within("#decide-#{@pet_3.id}") do
             click_button("Reject")
           end
 
-          vist "/pets"
+          expect(current_path).to eq("/admin/applications/#{@app_2.id}")
+          expect(page).to have_content("Application Status: Rejected")
 
-          expect(page).to have_content(pet_1.name)
-          expect(page).to have_content(pet_2.name)
-          expect(page).to have_content(pet_3.name)
+          visit "/pets"
+
+          expect(page).to have_content(@pet_1.name)
+          expect(page).to have_content(@pet_2.name)
+          expect(page).to have_content(@pet_3.name)
+          expect(page).to have_content(@pet_4.name)
         end
       end
     end

@@ -16,6 +16,7 @@ Rails.application.routes.draw do
   get '/pets/:id/edit', to: 'pets#edit'
   patch '/pets/:id', to: 'pets#update'
   delete '/pets/:id', to: 'pets#destroy'
+  get '/pets/adopt/:app_id', to: 'pets#adopt'
 
   get '/veterinary_offices', to: 'veterinary_offices#index'
   get '/veterinary_offices/new', to: 'veterinary_offices#new'
@@ -52,4 +53,7 @@ Rails.application.routes.draw do
 
   get '/admin/shelters', to: 'shelters#admin_index'
   get '/admin/applications/:id', to: 'applications#admin_show'
+  get '/admin/applications/approve/:id', to: 'applications#complete'
+  get '/admin/applications/reject/:id', to: 'applications#complete'
+
 end
