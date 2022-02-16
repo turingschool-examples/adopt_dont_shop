@@ -1,8 +1,9 @@
 <h3><%= @application.name %></h3>
+
 <p><%= @application.address %>
-<%= @application.city %>,
-<%= @application.state %>
-<%= @application.zipcode %></p>
+<p><%= @application.city %>,</p>
+<p><%= @application.state %></p>
+<p><%= @application.zipcode %></p>
 <p><%= @application.description %></p>
 <% @application.pets.each do |pet| %>
 <%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
@@ -18,5 +19,6 @@
 <% if @pets.present? %>
   <% @pets.each do |pet| %>
   <%= pet.name %>
+  <%= link_to "Adopt this Pet", "/applications/#{@application.id}?add_pet=#{pet.id}" %>
   <% end %>
 <% end  %>
