@@ -13,5 +13,15 @@ RSpec.describe 'The admin shelters show page' do
         expect(page).to have_content(@shelter_1.street_address)
         expect(page).to have_content(@shelter_1.state)
         expect(page).to have_content(@shelter_1.zipcode)
+        @pet_1 = @shelter_1.pets.create(name: 'Mr. Pirate', breed: 'tuxedo shorthair', age: 2, adoptable: false)
+        @pet_2 = @shelter_1.pets.create(name: 'Clawdia', breed: 'shorthair', age: 8, adoptable: true)
+        @pet_3 = @shelter_2.pets.create(name: 'Lucille Bald', breed: 'sphynx', age: 8, adoptable: true)
+        @pet_4 = @shelter_1.pets.create(name: 'Ann', breed: 'ragdoll', age: 12, adoptable: true)
+    end 
+
+    it 'has a section for statistics where the average age of all adoptable pets for that shelter is visible' do 
+        visit "/admin/shelters/#{@shelter_1.id}"
+        expect(page).to have_content(@shelter_1.adoptable_pets_avg_age)
+        expect(page).to have_content(10)
     end 
 end 
