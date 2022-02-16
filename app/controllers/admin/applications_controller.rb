@@ -11,8 +11,9 @@ class Admin::ApplicationsController < ApplicationController
     pet_app.status = params[:status]
     pet_app.save
     if @application.all_pets_approved
-      @application.status = "2"
-      @application.save
+       @application.adopt
+       @application.status = "2"
+       @application.save
     elsif @application.rejected_or_approved
       @application.status = "3"
       @application.save
