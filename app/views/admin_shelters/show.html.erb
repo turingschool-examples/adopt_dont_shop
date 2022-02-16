@@ -9,6 +9,7 @@
    <h2> Shelter Statistics </h2>
    <% if @shelter.pets.empty? == false %>
       <p>Average age of adoptable pets: <%= @shelter.adoptable_pets_avg_age  %><p>
+      <p>Total number of adoptable pets: <%= @shelter.adoptable_pet_count  %><p>
     <% end %>
 </div>
 </center>
