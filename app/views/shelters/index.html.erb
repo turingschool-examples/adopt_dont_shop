@@ -12,7 +12,9 @@
   <div id="shelter-<%= shelter.id %>">
     <h3><%= shelter.name %></h3>
     <p>Created at: <%= shelter.created_at %></p>
-    <%= link_to "Update #{shelter.name}", "/shelters/#{shelter.id}/edit" %>
+
+    <%= link_to "Update #{shelter.name}", "/shelters/#{shelter.id}/edit" %> <br>
     <%= link_to "Delete #{shelter.name}", "/shelters/#{shelter.id}", method: :delete %>
+    <p>---------------------</p>
   </div>
 <% end %>

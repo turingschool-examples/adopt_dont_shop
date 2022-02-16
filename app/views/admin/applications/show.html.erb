@@ -1,0 +1,18 @@
+
+<section id="application_info">
+  <%= render :partial => 'partials/app_attributes', locals: { applications: @applications } %>
+</section>
+
+<section id="approving-apps">
+    <% @application.pets.each do |pet| %>
+    <% if @application.status == "Pending" %>
+  <p><%= button_to "Approve Application for #{pet.name}",
+    "/admin/applications/#{@application.id}",
+    method: :patch, params: {:pet_id => pet.id}%></p>
+    <%= "#{pet.name}: Approved" %>
+    <% elsif @application.status == "Approved" %>
+    <%= "#{pet.name}: Approved" %>
+      <%= "#{pet.name}: #{@application.status}" %>
+    <% end %>
+  <% end %>
+</section>

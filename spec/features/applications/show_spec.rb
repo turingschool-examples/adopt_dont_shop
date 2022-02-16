@@ -69,7 +69,7 @@ RSpec.describe 'application show page' do
 
       expect(current_path).to eq("/applications/#{@application_1.id}")
     end
-
+save_and_open_page
     within('#app-attributes') do
       expect(page).to have_content("Pork Chop")
     end

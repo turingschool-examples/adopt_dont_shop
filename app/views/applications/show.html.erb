@@ -1,11 +1,5 @@
 <section id="app-attributes">
-  <h1>Name: <%= @application.name %></h1>
-  <p>Address: <%= @application.address %></p>
-  <p>City: <%= @application.city %></p>
-  <p>State: <%= @application.state %></p>
-  <p>Zipcode: <%= @application.zipcode %></p>
-
-  <p>Status: <%= @application.status %></p>
+  <%= render :partial => 'partials/app_attributes', locals: { applications: @applications } %>
 
   <% @application.pets.each do |pet| %>
   <p>Pet Name: <%= link_to pet.name, "/pets/#{pet.id}"%></p>
@@ -14,8 +8,8 @@
 
 <section id="adding-pets">
   <p>Add a Pet to this Application:</p>
-  <%= form_tag("/applications/#{@application.id}?query=search", method: :get) do %>
-    <%= text_field_tag :search, params[:search] %>
+  <%= form_tag("/applications/#{@application.id}", method: :get) do %>
+    <%= text_field_tag :search %>
     <%= submit_tag "Search" %>
   <% end %>
 </section>
@@ -25,8 +19,8 @@
     <%= pet.name %>
     <%= button_to "Adopt this Pet",
       "/applications/#{@application.id}",
-      method: :patch,
-      params: {:application_id => @application.id, :pet_id => pet.id}
+      method: :post,
+      params: {:pet_id => pet.id}
     %>
   <% end %>
 </div>
