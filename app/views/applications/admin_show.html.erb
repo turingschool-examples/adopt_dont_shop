@@ -1,0 +1,27 @@
+<h1>Application #<%= @application.id %></h1>
+<br>
+<h2>Name: <%= @application.name %></h2>
+<p><%= "Description: #{@application.description}" unless @application.description == nil%></p>
+<br>
+<p>Street Address: <%= @application.street_address %></p>
+<p>City: <%= @application.city %></p>
+<p>State: <%= @application.state %></p>
+<p>Zip: <%= @application.zip_code %></p>
+<br>
+<br>
+<h3>Pets Applied for:</h3>
+<% @application.pets.each do |pet| %>
+  <% pet_app = PetApplication.find_by_rels(pet.id, @application.id) %>
+  <% status = pet_app.status %>
+  <div id="decide-<%= pet.id %>">
+    <% if status == "Approved" %>
+      <p><%= "#{pet.name} - APPROVED" %></p>
+    <% elsif status == "Rejected" %>
+      <p><%= "#{pet.name} - REJECTED" %></p>
+    <% else %>
+      <p><%= "#{pet.name} " %></p>
+      <%= button_to "Approve", "/pet_applications/approve/#{pet_app.id}", method: :patch %>
+      <%= button_to "Reject", "/pet_applications/reject/#{pet_app.id}", method: :patch %>
+    <% end %>
+  </div>
+<% end %>
