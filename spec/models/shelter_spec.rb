@@ -18,6 +18,7 @@ RSpec.describe Shelter, type: :model do
     @shelter_3 = Shelter.create!(name: 'Fancy pets of Colorado', city: 'Denver, CO', foster_program: true, rank: 10)
 
 
+
     @application = Application.create!(name: "Chaz Carmichael",
       street_address: "10 lane",
       city: "Sandy Springs",
@@ -77,6 +78,16 @@ RSpec.describe Shelter, type: :model do
     describe '.pet_count' do
       it 'returns the number of pets at the given shelter' do
         expect(@shelter_1.pet_count).to eq(3)
+      end
+    end
+
+    describe '.average_age' do
+      it 'returns the average_age of pets at the given shelter' do
+        shelter_4 = Shelter.create!(name: 'Da best pets', city: 'Orange, CA', foster_program: true, rank: 9)
+        pet_2 = shelter_4.pets.create!(name: 'Clawdia', breed: 'shorthair', age: 3, adoptable: true)
+        pet_3 = shelter_4.pets.create!(name: 'Lucille Bald', breed: 'sphynx', age: 8, adoptable: false)
+        pet_4 = shelter_4.pets.create!(name: 'Ann', breed: 'ragdoll', age: 5, adoptable: true)
+        expect(shelter_4.average_age).to eq(4)
       end
     end
 
