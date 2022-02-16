@@ -312,6 +312,9 @@ RSpec.describe Application, type: :feature do
           expect(current_path).to eq("/admin/applications/#{@app_2.id}")
           expect(page).to have_content("Application Status: Approved")
 
+          visit "/pets/#{@pet_3.id}"
+          expect(page).to have_content("Adoptable: false")
+
           visit "/pets"
 
           expect(page).to have_content(@pet_1.name)
@@ -337,6 +340,9 @@ RSpec.describe Application, type: :feature do
           expect(current_path).to eq("/admin/applications/#{@app_2.id}")
           expect(page).to have_content("Application Status: Rejected")
 
+          visit "/pets/#{@pet_3.id}"
+          expect(page).to have_content("Adoptable: true")
+          
           visit "/pets"
 
           expect(page).to have_content(@pet_1.name)
