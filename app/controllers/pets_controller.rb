@@ -36,7 +36,7 @@ class PetsController < ApplicationController
       redirect_to "/pets/#{pet.id}"
     else
       redirect_to "/pets/#{pet.id}/edit"
-      flash[:alert] = "Error: #{error_message(pet.errors)}"
+      flash[:notice] = "Error: #{error_message(pet.errors)}"
     end
   end
 
