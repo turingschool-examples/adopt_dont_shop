@@ -6,6 +6,9 @@ RSpec.describe 'The admin shelters show page' do
         @shelter_2 = Shelter.create(name: 'Englewood shelter', city: 'Englewood', foster_program: false, rank: 9, street_address: "7325 w Hampden", state: "CO", zipcode: "80239")
         @pet_2 = @shelter_1.pets.create(name: 'Clawdia', breed: 'shorthair', age: 12, adoptable: true)
         @pet_3 = @shelter_1.pets.create(name: 'Lucille Bald', breed: 'sphynx', age: 8, adoptable: true)
+
+        @application_1 = Application.create!(name: "Sedan Turtle", street_address: "3425 Gransfield ave", city: "Denver", state: "CO", zipcode: "80219", status: "Pending")
+        @application_1.pets << @pet_3
     end 
     it 'shows the shelters name and full address' do 
         visit "/admin/shelters/#{@shelter_1.id}"
@@ -32,6 +35,15 @@ RSpec.describe 'The admin shelters show page' do
         visit "/admin/shelters/#{@shelter_1.id}"
         within(".statistics") do 
             expect(page).to have_content(@shelter_1.adoptable_pet_count)
+        end 
+    end 
+
+    it 'has an action required section where pets with pending apps for that shelter are listed' do 
+        visit "/admin/shelters/#{@shelter_1.id}"
+        within(".action_required") do 
+            expect(page).to have_content("Action Required")
+            expect(page).to have_content(@pet_3.name)
+            expect(page).to have_no_content(@pet_2.name)
         end 
     end 
 end 

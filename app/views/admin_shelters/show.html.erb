@@ -14,3 +14,14 @@
     <% end %>
 </div>
 </center>
+
+<center>
+<div class="action_required">
+   <h2> Action Required </h2>
+   <% if @shelter.pets.empty? == false %>
+      <%@shelter.pets_requiring_decision.each do |pet| %>
+         <p><%= pet.name %><p>
+      <% end %>
+    <% end %>
+</div>
+</center>
