@@ -35,8 +35,15 @@ app_2 = Application.create!(
   zip_code: 34567,
   status: "Pending"
 )
+app_3 = Application.create!(
+  name: "Michael Jackson",
+  street_address: "123 Main St.",
+  city: "Basicville",
+  state: "OH",
+  zip_code: 12345,
+  status: "In Progress"
+)
 PetApplication.create!(pet_id: pet_1.id, application_id: app_2.id)
 PetApplication.create!(pet_id: pet_3.id, application_id: app_2.id)
 PetApplication.create!(pet_id: pet_1.id, application_id: app_1.id)
 PetApplication.create!(pet_id: pet_2.id, application_id: app_1.id)
-
