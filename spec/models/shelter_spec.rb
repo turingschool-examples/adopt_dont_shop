@@ -98,6 +98,14 @@ RSpec.describe Shelter, type: :model do
       end
     end
 
+    describe '#pending_alphabetical_order' do
+      it 'returns all shelters with pending applications listed in  alphabetical order by name' do
+        @application.status = "1"
+        @application.save
+        expect(Shelter.pending_alphabetical_order).to eq([@shelter_1,@shelter_3])
+      end
+    end
+
     describe '#pending_applications' do
       it 'returns all shelters with pending applications' do
         @application.status = "1"

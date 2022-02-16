@@ -43,4 +43,8 @@ class Shelter < ApplicationRecord
   def average_age
     adoptable_pets.average(:age)
   end
+
+  def self.pending_alphabetical_order
+    pending_applications.order(:name)
+  end
 end
