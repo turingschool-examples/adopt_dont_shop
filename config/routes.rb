@@ -1,6 +1,13 @@
 Rails.application.routes.draw do
   root 'welcome#index'
-  
+
+  # get '/applications', to: 'applications#index'
+  get '/applications/new', to: 'applications#new'
+  get '/applications/:id', to: 'applications#show'
+  post '/applications', to: 'applications#create'
+  # get '/applications/:id/edit', to: 'applications#edit'
+  # patch '/applications/:id', to: 'applications#update'
+
   get '/shelters', to: 'shelters#index'
   get '/shelters/new', to: 'shelters#new'
   get '/shelters/:id', to: 'shelters#show'
@@ -14,10 +21,6 @@ Rails.application.routes.draw do
   get '/pets/:id/edit', to: 'pets#edit'
   patch '/pets/:id', to: 'pets#update'
   delete '/pets/:id', to: 'pets#destroy'
-
-  get '/applications', to: 'applications#index'
-  get '/applications/:id', to: 'applications#show'
-  get '/applications/new', to: 'applications#new'
 
   get '/veterinary_offices', to: 'veterinary_offices#index'
   get '/veterinary_offices/new', to: 'veterinary_offices#new'
