@@ -33,10 +33,4 @@ RSpec.describe "Admin Index" do
     visit 'admin/shelters'
     expect(page).to have_content("Shelter's with Pending Applications:\n#{@shelter_1.name}\n#{@shelter_4.name}")
   end
-
-  xit "displays Shelters with pending applications in alphabetical order" do
-    visit 'admin/shelters'
-
-      expect(@shelter_4.name).to appear_before(@shelter_1.name)
-  end
 end

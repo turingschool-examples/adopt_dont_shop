@@ -13,6 +13,11 @@
 @pet_2 = Pet.find_or_create_by!(adoptable: true, age: 3, breed: 'doberman', name: 'Lobster', shelter_id: @shelter_2.id)
 @pet_3 = Pet.find_or_create_by!(adoptable: false, age: 2, breed: 'saint bernard', name: 'Beethoven', shelter_id: @shelter_3.id)
 
+@pet_4 = Pet.find_or_create_by!(adoptable: true, age: 7, breed: 'sphynx', name: 'Blake', shelter_id: @shelter_1.id)
+@pet_5 = Pet.find_or_create_by!(adoptable: false, age: 3, breed: 'doberman', name: 'Lobster', shelter_id: @shelter_2.id)
+@pet_6 = Pet.find_or_create_by!(adoptable: true, age: 4, breed: 'sphynx', name: 'Jeremy', shelter_id: @shelter_3.id)
+@pet_7 = Pet.find_or_create_by!(adoptable: true, age: 9, breed: 'doberman', name: 'Lobster', shelter_id: @shelter_1.id)
+
 @vet_office_1 = VeterinaryOffice.find_or_create_by!(name: 'Special Friends', boarding_services: true, max_patient_capacity: 100)
 @vet_office_2 = VeterinaryOffice.find_or_create_by!(name: 'Pet Emergency Room', boarding_services: true, max_patient_capacity: 50)
 @vet_office_3 = VeterinaryOffice.find_or_create_by!(name: 'The Country Vet', boarding_services: true, max_patient_capacity: 200)

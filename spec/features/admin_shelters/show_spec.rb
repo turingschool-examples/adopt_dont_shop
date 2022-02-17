@@ -10,12 +10,6 @@ RSpec.describe "Admin Shelter Show Page" do
     @pet_2 = Pet.create(adoptable: true, age: 3, breed: 'dragon', name: 'Blake C', shelter_id: @shelter_1.id)
   end
 
-  xit "displays shelter's name and full address" do
-    visit "/admin/shelters/#{@shelter_1.id}"
-    expect(page).to have_content(@shelter_1.name)
-    expect(page).to have_content(@shelter_1.address)
-  end
-
   it "displays average age of all adoptable pets" do
     visit "/admin/shelters/#{@shelter_1.id}"
     expect(page).to have_content("Average Age of Adoptable Pets: 2.0")
