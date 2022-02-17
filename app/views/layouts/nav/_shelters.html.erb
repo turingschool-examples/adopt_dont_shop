@@ -4,17 +4,17 @@
   <section class="py-5 text-center container">
     <div class="row py-lg-5">
       <div class="col-lg-6 col-md-8 mx-auto">
-        <h1 class="fw-light">All Pets</h1>
-        <p class="lead text-muted">Check out all the lovely pets with have here at adopt, don't shop! If you already have a pet in mind search below!</p>
+        <h1 class="fw-light">All Shelters</h1>
+        <p class="lead text-muted">Check out all the shelters that house these lovely pets here at adopt, don't shop! If you already have a shelter in mind search below!</p>
         <p>
-          <%= form_with url: "/pets", method: :get, local: true do |f| %>
+          <%= form_with url: "/shelters", method: :get, local: true do |f| %>
             <%= f.label :search %>
             <%= f.text_field :search %>
             <%= f.submit "Search" %>
           <% end %>
           <br>
           <div class="d-flex justify-content-center">
-            <a class="btn btn-outline-dark" href="/application/new" role="button">Start an Application</a>
+            <a class="btn btn-outline-dark" href="/shelters?sort=pet_count" role="button">Sort by number of pets</a>
           </div>
 
       </div>
@@ -24,21 +24,18 @@
   <div class="album py-5 bg-light">
     <div class="container">
       <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-      <% @pets.each do |pet| %>
+      <% @shelters.each do |shelter| %>
         <div class="col">
-          <h3><%= pet.name %></h3>
+          <h3><%= shelter.name %></h3>
           <div class="card shadow-sm">
-
-
             <div class="card-body">
               <p class="card-text">
-              <p>Age: <%= pet.age %></p>
-              <p>Breed: <%= pet.breed %></p>
-              <p>Adoptable: </p>
-              <p>You can find <%= pet.name %> at <%= pet.shelter_name %>!</p>
+                <div id="shelter-<%= shelter.id %>"
+                  <p>Created at: <%= shelter.created_at %></p>
+                </div>
               <div class="d-flex justify-content-between align-items-center">
-                  <%= link_to "Edit #{pet.name}", "/pets/#{pet.id}/edit" %>
-                  <%= link_to "Delete #{pet.name}", "/pets/#{pet.id}", method: :delete %>
+                <%= link_to "Update #{shelter.name}", "/shelters/#{shelter.id}/edit" %>
+                <%= link_to "Delete #{shelter.name}", "/shelters/#{shelter.id}", method: :delete %>
               </div>
             </div>
           </div>

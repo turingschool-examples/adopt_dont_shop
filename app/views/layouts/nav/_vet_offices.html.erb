@@ -1,0 +1,44 @@
+<main>
+  <br>
+
+  <section class="py-5 text-center container">
+    <div class="row py-lg-5">
+      <div class="col-lg-6 col-md-8 mx-auto">
+        <h1 class="fw-light">All Veterinary Offices</h1>
+        <p class="lead text-muted">Check out all the veterinary offices! Sort by number of veterinarians below!</p>
+        <p>
+          <br>
+          <div class="d-flex justify-content-center">
+            <a class="btn btn-outline-dark" href='/veterinary_offices?sort=veterinarian_count' role="button">Sort by number of veterinarians</a>
+          </div>
+
+      </div>
+    </div>
+  </section>
+
+  <div class="album py-5 bg-light">
+    <div class="container">
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+      <% @veterinary_offices.each do |office| %>
+        <div class="col">
+          <h3><%= office.name %></h3>
+          <div class="card shadow-sm">
+            <div class="card-body">
+              <p class="card-text">
+                <div id="veterinary-office-<%= office.id %>">
+                  <p>Created at: <%= office.created_at %></p>
+                </div>
+              <div class="d-flex justify-content-between align-items-center">
+
+                <%= link_to "Update #{office.name}", "/veterinary_offices/#{office.id}/edit" %>
+                <%= link_to "Delete #{office.name}", "/veterinary_offices/#{office.id}", method: :delete %>
+              </div>
+            </div>
+          </div>
+        </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+</main>
