@@ -22,3 +22,17 @@
   <%= link_to "Adopt this Pet", "/applications/#{@application.id}?add_pet=#{pet.id}" %>
   <% end %>
 <% end  %>
+<% if @application.pets.count > 0 && @application.status == "In Progress" %>
+<h4>What makes <%=@application.name %> a good fit?</h4>
+<%= form_with url: "/applications/#{@application.id}", method: :patch, local: true do |f| %>
+<%= f.label :description %>
+<%= f.text_area :description, :required => true %>
+<%= f.label "Submit Application"%>
+<%= f.submit :submit %>
+<%end%>
+<%else%>
+<h4>Why would you make a good owner for these pet(s)?</h4>
+<p><%=@application.description%></p>
+<%end%>
+<h4> Application Status:</h4>
+<p><%=@application.status%></p>

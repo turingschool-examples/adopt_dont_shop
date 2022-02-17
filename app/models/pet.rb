@@ -12,4 +12,8 @@ class Pet < ApplicationRecord
   def self.adoptable
     where(adoptable: true)
   end
+
+  def self.sorted(petname)
+    where('lower(name) LIKE ?', "%#{petname.downcase}%")
+  end
 end
