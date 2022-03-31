@@ -8,6 +8,6 @@ RSpec.describe 'the applications show' do
 
 
 
-	end
+
 
 end
