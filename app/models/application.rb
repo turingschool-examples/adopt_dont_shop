@@ -6,4 +6,6 @@ class Application < ApplicationRecord
   validates :zip_code, presence: true
   validates :reasons_to_approve, presence: true
   validates :status, presence: true
+
+  has_many :pets, dependent: :destroy
 end

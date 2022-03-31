@@ -8,7 +8,6 @@ class CreateApplications < ActiveRecord::Migration[5.2]
       t.string :zip_code
       t.text :reasons_to_approve
       t.string :status
-      t.references :pet, null: false, foreign_key: true
 
       t.timestamps
     end
