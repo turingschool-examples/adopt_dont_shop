@@ -7,7 +7,11 @@ RSpec.describe 'the applications show' do
 										  description: "I'm lonely and need fluffy mammals")
 		shelter = Shelter.create!(name: "Max Fund", city: "Denver", rank: 100, foster_program:true)
 		pet_1 = shelter.pets.create!(name: "Dianne", age: 3, breed: "cat?", adoptable: true)
-		visit '/applications/show'
+		visit "/applications/#{application.id}"
+
+		expect(page).to have_content(application.name)
+		expect(page).to have_content(application.full_address)
+		expect(page).to have_content(application.description)
 	end
 
 
