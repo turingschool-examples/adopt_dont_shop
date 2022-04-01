@@ -9,9 +9,7 @@ class ApplicationsController < ApplicationController
   end
 
   def create
-    # require "pry"; binding.pry
     # @application = Application.create!(app_params)
-    # require "pry"; binding.pry
     @application = Application.new({
       name: params[:name],
       address: params[:address],

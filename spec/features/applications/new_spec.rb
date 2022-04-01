@@ -27,6 +27,7 @@ RSpec.describe Application do
         expect(page).to have_content("Name: Barry Bonds")
         expect(page).to have_content("Address: 513 Maggie Lane, Evergreen, CO, 80439")
         expect(page).to have_content("Description: ")
+        expect(page).to have_content("Pet Name(s): ")
         expect(page).to have_content("Status: in_progress")
       end
 
