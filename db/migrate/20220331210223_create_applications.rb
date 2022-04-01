@@ -6,7 +6,6 @@ class CreateApplications < ActiveRecord::Migration[5.2]
       t.string :city
       t.string :state
       t.string :zip_code
-      t.text :reasons_to_approve
       t.string :status
 
       t.timestamps
