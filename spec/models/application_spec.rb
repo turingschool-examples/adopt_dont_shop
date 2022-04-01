@@ -5,7 +5,7 @@ RSpec.describe Application, type: :model do
   #   it { should belong_to(:shelter) }
   # end
 
-  describe 'validations' do
+  describe 'validations'
     it { should validate_presence_of(:name) }
     it { should validate_presence_of(:street) }
     it { should validate_presence_of(:city) }
@@ -13,7 +13,7 @@ RSpec.describe Application, type: :model do
     it { should validate_presence_of(:zip) }
     it { should validate_presence_of(:status) }
     it { should validate_presence_of(:description) }
-  end
+  
 end
   #
   # before(:each) do
