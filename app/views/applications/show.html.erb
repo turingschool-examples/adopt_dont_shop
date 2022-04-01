@@ -1,3 +1,20 @@
 <p><%= @application.name %></p>
 <p><%= @application.street_address%>, <%= @application.city %>, <%= @application.state %> <%= @application.zipcode %></p>
 <p>Application stauts: <%=@application.status%></p>
+<h4>Add a Pet to this Application</h4>
+
+<%= form_with url: "/applications/#{@application.id}", method: :get, local:true do |f|%>
+	<%= f.label :search_by_name %>
+	<%= f.text_area :search_by_name %>'
+	<%= f.submit "Submit" %>
+<% end  %>
+
+<% if @pet_found %>
+	<h4>Match found:</h4>
+	<p><%= @pet_found.name %></p>
+	<p><%= @pet_found.age %></p>
+	<p><%= @pet_found.breed %></p>
+	<p><%= @pet_found.adoptable %></p>
+<% else %>
+	<p>No pet by this name is found</p>
+<% end %>

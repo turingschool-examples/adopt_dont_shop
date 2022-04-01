@@ -17,6 +17,9 @@ class ApplicationsController < ApplicationController
 
   def show
     @application = Application.find(params[:id])
+    if params[:search_by_name]
+      @pet_found = Pet.search_by_name(params[:search_by_name])[0]
+    end
   end 
 
 

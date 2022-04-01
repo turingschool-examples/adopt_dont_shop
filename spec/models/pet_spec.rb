@@ -32,6 +32,14 @@ RSpec.describe Pet, type: :model do
         expect(Pet.adoptable).to eq([@pet_1, @pet_2])
       end
     end
+
+    describe '#search_by_name' do 
+      it 'returns a pet with matcing name' do 
+        expect(Pet.search_by_name('Ann')).to eq([@pet_3])
+      end
+
+
+    end
   end
 
   describe 'instance methods' do
