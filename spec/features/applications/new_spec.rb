@@ -11,12 +11,14 @@ RSpec.describe 'new application page' do
     fill_in("Zipcode", with: "88901")
 
     click_on("Submit")
-    expect(current_path).to eq("/applications/1")
+    new_app = Application.last
+    expect(current_path).to eq("/applications/#{new_app.id}")
+    save_and_open_page
 
     expect(page).to have_content("Frodo Baggins")
     expect(page).to have_content("1 Shire Ave")
     expect(page).to have_content("Las Vegas")
-    expect(page).to have_content("Description")
+    expect(page).to have_content("None")
     expect(page).to have_content("Pending")
     expect(page).not_to have_content("Accepted")
   end

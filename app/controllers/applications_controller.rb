@@ -18,6 +18,7 @@ class ApplicationsController < ApplicationController
       status: "Pending",
       description: "None"
     )
+    redirect_to "/applications/#{app.id}"
     # require "pry"; binding.pry
   end
 
