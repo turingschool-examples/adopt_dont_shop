@@ -4,7 +4,7 @@ RSpec.describe 'the applications show' do
 	
 	it 'shows application attributes' do 
 		application = Application.create!(name: "Tyler R", street_address:"1000 Something Blvd", 
-										  city: "Denver", state: "CO", zipcode: "80123")
+										  city: "Denver", state: "CO", zipcode: 80123)
 		shelter = Shelter.create!(name: "Max Fund", city: "Denver", rank: 100, foster_program:true)
 		pet_1 = shelter.pets.create!(name: "Dianne", age: 3, breed: "cat?", adoptable: true)
 		visit "/applications/#{application.id}"

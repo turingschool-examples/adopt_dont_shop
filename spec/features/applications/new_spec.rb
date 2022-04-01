@@ -14,7 +14,7 @@ RSpec.describe 'the applications new' do
 		fill_in "Street address", with: "123 Lowell St"
 		fill_in "City", with: "Aurora"
 		fill_in "State", with: "CO"
-		fill_in "Zipcode", with: "80663"
+		fill_in "Zipcode", with: 80663
 
 		click_button "Submit"
 
