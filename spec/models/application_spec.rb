@@ -12,7 +12,7 @@ RSpec.describe Application, type: :model do
   end
 
   describe 'relationships' do
-    xit { should have_many(:pets) }
+    # xit { should have_many(:pets) }
   end
 
 end
