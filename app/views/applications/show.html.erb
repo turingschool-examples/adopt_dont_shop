@@ -1,0 +1,18 @@
+<h1><%= @applicant.name %>'s Application</h1>
+<% @applicant.pets.each do |pet| %>
+
+<h4>Pets Applied For</h4>
+<p><%= pet.name %></p>
+<%end%>
+
+<h4><%= @applicant.name%>'s Information</h4>
+<p>Street Address: <%=@applicant.street_address%></p>
+<p>City: <%=@applicant.city%></p>
+<p>State: <%=@applicant.state%></p>
+<p>Zip Code: <%=@applicant.zipcode%></p>
+
+<h4>What makes <%=@applicant.name %> a good fit?</h4>
+<p><%=@applicant.description%></p>
+
+<h4>Status:</h4>
+<p><%=@applicant.status%></p>
