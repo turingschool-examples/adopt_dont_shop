@@ -13,7 +13,6 @@ RSpec.describe 'new application page' do
     click_on("Submit")
     new_app = Application.last
     expect(current_path).to eq("/applications/#{new_app.id}")
-    save_and_open_page
 
     expect(page).to have_content("Frodo Baggins")
     expect(page).to have_content("1 Shire Ave")
