@@ -49,7 +49,7 @@ RSpec.describe 'Application Show Page' do
      visit "/applications/#{@application_1.id}"
 
      click_on("Mr. Pirate")
-     expect(current_path).to eq("/pets/#{pet_1.id}/show")
+     expect(current_path).to eq("/pets/#{@pet_1.id}")
      expect(page).to have_content(@pet_1.name)
      expect(page).to have_content(@pet_1.age)
      expect(page).not_to have_content(@pet_2.name)
