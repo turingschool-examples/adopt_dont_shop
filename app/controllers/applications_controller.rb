@@ -9,16 +9,21 @@ class ApplicationsController < ApplicationController
   def new;end
 
   def create
-    app = Application.create!(
-      name: params[:name],
-      street_address: params[:street_address],
-      city: params[:city],
-      state: params[:state],
-      zipcode: params[:zipcode],
-      status: "Pending",
-      description: "None"
-    )
-    redirect_to "/applications/#{app.id}"
+    if params.has_value?("")
+      redirect_to "/applications/new"
+      flash[:alert] = "Error: Please fill out all required fields"
+    else
+      @app = Application.create!(
+        name: params[:name],
+        street_address: params[:street_address],
+        city: params[:city],
+        state: params[:state],
+        zipcode: params[:zipcode],
+        status: "Pending",
+        description: "None"
+      )
+      redirect_to "/applications/#{@app.id}"
+    end
   end
 
 
