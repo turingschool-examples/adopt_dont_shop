@@ -5,5 +5,7 @@
 <h3><%= @application.state %></h3>
 <h3><%= @application.zipcode %></h3>
 <h3><%= @application.description %></h3>
-<h3><%= @pets.each {|pet| pet.name} %></h3>
+<% @pets.each do |pet| %>
+  <h3><%= pet.name%></h3>
+  <% end %>
 <h3><%= @application.status %></h3>
