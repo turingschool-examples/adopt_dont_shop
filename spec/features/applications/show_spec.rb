@@ -19,7 +19,7 @@ RSpec.describe 'applications' do
       expect(page).to have_link(@pet.name)
 
       click_link @pet.name
-save_and_open_page
+
       expect(current_path).to eq("/pets/#{@pet.id}")
     end
   end
