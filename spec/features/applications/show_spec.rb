@@ -33,7 +33,6 @@ RSpec.describe 'Application Show Page' do
     it 'contains the name, address, description of the applicant, and application status' do
 
      visit "/applications/#{@application_1.id}"
-     save_and_open_page
 
      expect(page).to have_content(@application_1.name)
      expect(page).to have_content(@application_1.street_address)
@@ -44,6 +43,16 @@ RSpec.describe 'Application Show Page' do
      expect(page).to have_content(@pet_2.name)
      expect(page).to have_content(@application_1.description)
      expect(page).to have_content(@application_1.status)
+   end
+
+   it 'has links to the pets show pages' do
+     visit "/applications/#{@application_1.id}"
+
+     click_on("Mr. Pirate")
+     expect(current_path).to eq("/pets/#{pet_1.id}/show")
+     expect(page).to have_content(@pet_1.name)
+     expect(page).to have_content(@pet_1.age)
+     expect(page).not_to have_content(@pet_2.name)
    end
   end
 end
