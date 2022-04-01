@@ -4,7 +4,6 @@ class ApplicationsController < ApplicationController
 
   def show
     @applicant = Application.find(params[:id])
-    require "pry"; binding.pry
   end
 
   def new;end
@@ -20,7 +19,6 @@ class ApplicationsController < ApplicationController
       description: "None"
     )
     redirect_to "/applications/#{app.id}"
-    # require "pry"; binding.pry
   end
 
 
