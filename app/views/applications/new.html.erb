@@ -1,8 +1,12 @@
 <%= form_with url: "/applications/#{@application.id}", method: :post, local: true do |form| %>
   <%= form.label :name %>
   <%= form.text_field :name %>
+  <%= form.label :address %>
+  <%= form.text_field :address %>
+  <%= form.hidden_field :description, value: "" %>
+  <%= form.hidden_field :pet_names, value: "" %>
+  <%= form.hidden_field :status, value: "0" %>
 
-  <%= form.label :full_address %>
-  <%= form.text_field :full_address %>
   <%= form.submit "Submit" %>
+
 <% end %>

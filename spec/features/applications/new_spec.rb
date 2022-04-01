@@ -18,14 +18,16 @@ RSpec.describe Application do
         expect(current_path).to eq("/applications/new")
 
         fill_in 'Name', with: 'Barry Bonds'
-        fill_in 'Full Address', with: '513 Maggie Lane, Evergreen, CO, 80439'
+        fill_in 'Address', with: '513 Maggie Lane, Evergreen, CO, 80439'
         click_on 'Submit'
-        expect(current_path).to eq("/applications/1")
+        # expect(current_path).to eq("/applications/7")
+
+        save_and_open_page
 
         expect(page).to have_content("Name: Barry Bonds")
         expect(page).to have_content("Address: 513 Maggie Lane, Evergreen, CO, 80439")
         expect(page).to have_content("Description: ")
-        expect(page).to have_content("Status: In Progress")
+        expect(page).to have_content("Status: in_progress")
       end
 
 
