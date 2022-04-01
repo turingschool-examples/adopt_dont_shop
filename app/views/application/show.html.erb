@@ -7,6 +7,6 @@
 <h3>Description: <%= @application.description %></h3>
 <h3>Pets: </h3>
 <% @pets.each do |pet| %>
-  <h3><%= pet.name%></h3>
+  <h3><%= link_to "#{pet.name}", "/pets/#{pet.id}"%></h3>
   <% end %>
 <h3>Status: <%= @application.status %></h3>
