@@ -7,7 +7,12 @@ class ApplicationsController < ApplicationController
 
   def create
     application = Application.create(app_params)
-    redirect_to "/applications/#{application.id}"
+    if application.save
+      redirect_to "/applications/#{application.id}"
+    else 
+      redirect_to "/applications/new"
+      flash[:alert] = "Error: all requested areas must be filled!"
+    end
   end
 
   def show

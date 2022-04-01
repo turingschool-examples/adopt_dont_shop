@@ -15,7 +15,6 @@ RSpec.describe 'the applications new' do
 		fill_in "City", with: "Aurora"
 		fill_in "State", with: "CO"
 		fill_in "Zipcode", with: 80663
-
 		click_button "Submit"
 
 		expect(current_path).to eq("/applications/#{Application.first.id}")
@@ -26,6 +25,20 @@ RSpec.describe 'the applications new' do
 	end
 
 
+	it 'redirects to application/new and gives error messages' do 
+		visit '/applications/new'
+
+		fill_in "Name", with: nil
+		fill_in "Street address", with: "123 Lowell St"
+		fill_in "City", with: "Aurora"
+		fill_in "State", with: nil
+		fill_in "Zipcode", with: 80663
+		click_button "Submit"
+
+		expect(current_path).to eq('/applications/new')
+		expect(page).to have_content('Error: all requested areas must be filled!')
+
+	end
 
 
 end
