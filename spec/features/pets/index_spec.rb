@@ -85,6 +85,6 @@ RSpec.describe 'the pets index' do
   it 'has a link to start an adoption application' do
     visit "/pets"
     click_on("Start an Application")
-    expect(current_path).to eq("/application/new")
+    expect(current_path).to eq("/applications/new")
   end
 end
