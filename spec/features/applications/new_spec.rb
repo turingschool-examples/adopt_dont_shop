@@ -23,4 +23,17 @@ RSpec.describe 'new application page' do
     expect(page).not_to have_content("Accepted")
   end
 
+  it 'tells you when the form is not fully completed' do
+    visit '/applications/new'
+
+    fill_in("Name", with: "Frodo Baggins")
+    fill_in("Street Address", with: "1 Shire Ave")
+    fill_in("State", with: "NV")
+    fill_in("Zipcode", with: "88901")
+
+    click_on("Submit")
+    expect(current_path).to eq("/applications/new")
+    expect(page).to have_content("Error: Please fill out all required fields")
+  end
+
 end
