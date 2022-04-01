@@ -10,6 +10,6 @@ Shelter.destroy_all
 Pet.destroy_all
 Veterinarian.destroy_all
 VeterinaryOffice.destroy_all
-application = Application.create!(name: "Tyler R", street_address:"1000 Something Blvd", city: "Denver", state: "CO", zipcode: "80123")
+application = Application.create!(name: "Tyler R", street_address:"1000 Something Blvd", city: "Denver", state: "CO", zipcode: 80123)
 shelter = Shelter.create!(name: "Max Fund", city: "Denver", rank: 100, foster_program:true)
 pet_1 = shelter.pets.create!(name: "Dianne", age: 3, breed: "cat?", adoptable: true)
