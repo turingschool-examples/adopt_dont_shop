@@ -27,6 +27,13 @@ ActiveRecord::Schema.define(version: 2022_03_31_223011) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "pet_applications", force: :cascade do |t|
+    t.bigint "pet_id"
+    t.bigint "application_id"
+    t.index ["application_id"], name: "index_pet_applications_on_application_id"
+    t.index ["pet_id"], name: "index_pet_applications_on_pet_id"
+  end
+
   create_table "pets", force: :cascade do |t|
     t.boolean "adoptable"
     t.integer "age"
@@ -36,13 +43,6 @@ ActiveRecord::Schema.define(version: 2022_03_31_223011) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["shelter_id"], name: "index_pets_on_shelter_id"
-  end
-
-  create_table "pets_applications", force: :cascade do |t|
-    t.bigint "pet_id"
-    t.bigint "application_id"
-    t.index ["application_id"], name: "index_pets_applications_on_application_id"
-    t.index ["pet_id"], name: "index_pets_applications_on_pet_id"
   end
 
   create_table "shelters", force: :cascade do |t|
@@ -72,8 +72,8 @@ ActiveRecord::Schema.define(version: 2022_03_31_223011) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "pet_applications", "applications"
+  add_foreign_key "pet_applications", "pets"
   add_foreign_key "pets", "shelters"
-  add_foreign_key "pets_applications", "applications"
-  add_foreign_key "pets_applications", "pets"
   add_foreign_key "veterinarians", "veterinary_offices"
 end
