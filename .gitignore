@@ -35,6 +35,8 @@ pickle-email-*.html
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key
+/coverage
+/.DS_Store
 
 /public/packs
 /public/packs-test
