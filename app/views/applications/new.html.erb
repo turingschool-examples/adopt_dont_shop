@@ -1,0 +1,8 @@
+<%= form_with url: "/applications/#{@application.id}", method: :post, local: true do |form| %>
+  <%= form.label :name %>
+  <%= form.text_field :name %>
+
+  <%= form.label :full_address %>
+  <%= form.text_field :full_address %>
+  <%= form.submit "Submit" %>
+<% end %>
