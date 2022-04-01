@@ -1,0 +1,10 @@
+<h1><%= @application.name %></h1>
+<p><%= @application.street %></p>
+<p><%= @application.city %></p>
+<p><%= @application.state %></p>
+<p><%= @application.zip %></p>
+<p><%= @application.description %></p>
+<p><%= @application.status %></p>
+<p><% @application.pets.each do |pet| %></p>
+<p><%= pet.name %></p>
+<p><% end %></p>
