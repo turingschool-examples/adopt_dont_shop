@@ -4,8 +4,9 @@
   <%= f.label :search %>
   <%= f.text_field :search %>
   <%= f.submit "Search" %>
-<% end %>
+<% end %><br>
 
+<%= link_to "Start an Application", "/applications/new" %><br>
 
 <% @pets.each do |pet| %>
   <h3><%= pet.name %></h3>
