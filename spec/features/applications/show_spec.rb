@@ -26,7 +26,7 @@ RSpec.describe 'Application Show Page' do
       @pet_1 = @shelter_1.pets.create(name: 'Mr. Pirate', breed: 'tuxedo shorthair', age: 5, adoptable: true)
       @pet_2 = @shelter_1.pets.create(name: 'Clawdia', breed: 'shorthair', age: 3, adoptable: true)
       PetApplication.create!(pet: @pet_1, application: @application_1)
-      PetApplication.create!(pet: @pet_1, application: @application_1)
+      PetApplication.create!(pet: @pet_2, application: @application_1)
 
     end
 
@@ -43,6 +43,16 @@ RSpec.describe 'Application Show Page' do
      expect(page).to have_content(@pet_2.name)
      expect(page).to have_content(@application_1.description)
      expect(page).to have_content(@application_1.status)
+   end
+
+   it 'has links to the pets show pages' do
+     visit "/applications/#{@application_1.id}"
+
+     click_on("Mr. Pirate")
+     expect(current_path).to eq("/pets/#{@pet_1.id}")
+     expect(page).to have_content(@pet_1.name)
+     expect(page).to have_content(@pet_1.age)
+     expect(page).not_to have_content(@pet_2.name)
    end
   end
 end
