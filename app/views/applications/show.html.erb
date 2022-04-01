@@ -1,9 +1,8 @@
 <h1><%= @applicant.name %>'s Application</h1>
-<% @applicant.pets.each do |pet| %>
-
 <h4>Pets Applied For</h4>
-<p><%= pet.name %></p>
-<%end%>
+  <% @applicant.pets.each do |pet| %>
+    <p><%= pet.name %></p>
+    <%end%>
 
 <h4><%= @applicant.name%>'s Information</h4>
 <p>Street Address: <%=@applicant.street_address%></p>

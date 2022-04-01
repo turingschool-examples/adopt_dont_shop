@@ -26,13 +26,14 @@ RSpec.describe 'Application Show Page' do
       @pet_1 = @shelter_1.pets.create(name: 'Mr. Pirate', breed: 'tuxedo shorthair', age: 5, adoptable: true)
       @pet_2 = @shelter_1.pets.create(name: 'Clawdia', breed: 'shorthair', age: 3, adoptable: true)
       PetApplication.create!(pet: @pet_1, application: @application_1)
-      PetApplication.create!(pet: @pet_1, application: @application_1)
+      PetApplication.create!(pet: @pet_2, application: @application_1)
 
     end
 
     it 'contains the name, address, description of the applicant, and application status' do
 
      visit "/applications/#{@application_1.id}"
+     save_and_open_page
 
      expect(page).to have_content(@application_1.name)
      expect(page).to have_content(@application_1.street_address)
