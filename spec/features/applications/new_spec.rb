@@ -8,7 +8,7 @@ RSpec.describe 'new application page' do
     fill_in("Street Address", with: "1 Shire Ave")
     fill_in("City", with: "Las Vegas")
     fill_in("State", with: "NV")
-    fill_in("Zip Code", with: "88901")
+    fill_in("Zipcode", with: "88901")
 
     click_on("Submit")
     expect(current_path).to eq("/applications/1")

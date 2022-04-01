@@ -1,1 +1,15 @@
 <h2>Fill Out New Application</h2>
+
+<%= form_with url: "/applications/:id", method: :post, local: true do |form| %>
+<%= form.label :name %>
+<%= form.text_field :name %>
+<%= form.label :street_address, "Street Address" %>
+<%= form.text_field :street_address %>
+<%= form.label :city %>
+<%= form.text_field :city %>
+<%= form.label :state %>
+<%= form.text_field :state %>
+<%= form.label :zipcode %>
+<%= form.text_field :zipcode %>
+<%= form.submit "Submit" %>
+<% end %>
