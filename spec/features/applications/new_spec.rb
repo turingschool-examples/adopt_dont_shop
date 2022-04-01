@@ -22,7 +22,7 @@ RSpec.describe 'the applications new' do
 
 		expect(page).to have_content("Kim G")
 		expect(page).to have_content("123 Lowell St, Aurora, CO 80663")
-	
+		expect(page).to have_content("Application stauts: In Progress")
 	end
 
 
