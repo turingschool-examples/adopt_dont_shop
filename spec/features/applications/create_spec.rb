@@ -17,13 +17,13 @@ RSpec.describe 'creating an application' do
 
     application = Application.all.first
 
-    expect(current_path).to eq("/application/#{application.id}")
+    expect(current_path).to eq("/applications/#{application.id}")
     expect(page).to have_content(application.name)
     expect(page).to have_content(application.street_address)
     expect(page).to have_content(application.city)
     expect(page).to have_content(application.state)
     expect(page).to have_content(application.zip_code)
-    expect(page).to have_content(application.status)
+    expect(page).to have_content("Status: In Progress")
     expect(page).to have_content("Description:")
   end
 
