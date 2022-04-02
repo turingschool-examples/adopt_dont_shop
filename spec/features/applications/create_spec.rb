@@ -49,9 +49,7 @@ RSpec.describe 'applicaton creation' do
         fill_in 'Description', with: 'I love dogs'
 
         click_button "Submit"
-        expect(page).to have_current_path(
-              "/applications"
-            )
+        expect(page).to have_current_path("/applications/:id")
         # expect(page).to have_content('Tyler')
         # expect(page).to have_content('Dr. Burstyn')
         # expect(page).to have_content('Dr. Burstyn')
