@@ -1,3 +1,10 @@
+# As a visitor
+# When I visit an admin application show page ('/admin/applications/:id')
+# For every pet that the application is for, I see a button to approve the application for that specific pet
+# When I click that button
+# Then I'm taken back to the admin application show page
+# And next to the pet that I approved, I do not see a button to approve this pet
+#And instead I see an indicator next to the pet that they have been approved
 require 'rails_helper'
 
 RSpec.describe "Admin applications Show" do
@@ -15,12 +22,10 @@ RSpec.describe "Admin applications Show" do
 
   it "shows an admin application" do
 
-    p admin_applications_path(@application_1.id)
     visit admin_applications_path(@application_1.id)
-#    expect(current_path).to eq("application_path(#{@application_1.id})"
+    expect(current_path).to eq("application_path(#{@application_1.id})"
 #     save_and_open_page
-#    click_link("Mr. Pirate")
-    # save_and_open_page
-#    expect(current_path).to eq("/pets/#{@pet_1.id}")
+    #click_on("Approve")
+    expect(current_path).to eq("application_path(#{@application_1.id})"
   end
 end

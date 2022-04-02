@@ -2,7 +2,7 @@
 <ul id="applications">
 <% @applications.each do |application| %>
     <li>
-    <h2>Name: <a href="/applications/<%= application.id %>"><%= application.name %></a></h2>
+    <h2>Name: <a href="/admin/applications/<%= application.id %>"><%= application.name %></a></h2>
         Created_at: <%= application.created_at %>
     </li>
 
