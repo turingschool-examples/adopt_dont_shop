@@ -1,8 +1,8 @@
 <h1><%= @application.name %></h1>
-<p><%= @application.street %></p>
-<p><%= @application.city %></p>
-<p><%= @application.state %></p>
-<p><%= @application.zip %></p>
-<p><%= @application.description %></p>
-<p><%= @application.status %></p>
-<p><%= @pets.name %> </p>
+<p>Address: <%= @application.street %>
+  <%= @application.city %>
+  <%= @application.state %>,
+  <%= @application.zip %></p>
+<p>Description: <%= @application.description %></p>
+<p>Application status: <%= @application.status %></p>
+<p>Pets: <%= @pets.name %> </p>
