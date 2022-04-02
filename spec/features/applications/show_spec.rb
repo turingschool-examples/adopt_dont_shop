@@ -7,7 +7,7 @@ RSpec.describe "Applications Show" do
 
   it "shows an application" do
     visit "/applications/#{@application_1.id}"
-
+    save_and_open_page
     expect(page).to have_content("Carol Crikey")
     expect(page).to have_content("2022 S Fake Street")
     expect(page).to have_content("Birmingham")
