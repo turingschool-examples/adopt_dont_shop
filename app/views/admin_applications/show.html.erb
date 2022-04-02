@@ -1,0 +1,11 @@
+<% @application.pets.each do |pet| %>
+  <div id="pet-<%= pet.id %>">
+    <% if pet.adoptable %>
+      <h3><%= pet.name %></h3>
+      <%= button_to "Approve", "/pets/#{pet.id}", params: {application_id: @application.id, approved: true}, method: :patch, local: true %>
+    <% else %>
+      <h3><%= pet.name %></h3>
+      <p>Approved!</p>
+    <% end %>
+  </div>
+<% end %>
