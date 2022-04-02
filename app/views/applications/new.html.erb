@@ -1,0 +1,20 @@
+<h3>New Application:</h3><br>
+
+
+<%= form_with url: "/applications", method: :post, local: true do |form| %>
+  <%= form.label :name %><br>
+  <%= form.text_field :name %><br>
+  <%= form.label :street_address %><br>
+  <%= form.text_field :street_address %><br>
+  <%= form.label :city %><br>
+  <%= form.text_field :city %><br>
+  <%= form.label :state %><br>
+  <%= form.text_field :state %><br>
+  <%= form.label :zip_code %><br>
+  <%= form.number_field :zip_code %><br>
+  <%= form.label :description %><br>
+  <%= form.hidden_field :description, value: "Awaiting information" %><br>
+  <%= form.label :status %><br>
+  <%= form.hidden_field :status, value: "In progress" %><br>
+  <%= form.submit "Submit" %><br>
+<% end %>

@@ -37,13 +37,13 @@ gem 'jbuilder', '~> 2.5'
 gem 'bootsnap', '>= 1.1.0', require: false
 
 group :development, :test do
-  gem 'capybara'
-  gem 'shoulda-matchers'
-  gem 'launchy'
-  gem 'orderly'
   gem 'pry'
-  gem 'rspec-rails'
+  gem 'rspec-rails', '~> 4.0.1'
+  gem 'capybara'
+  gem 'launchy'
   gem 'simplecov'
+  gem 'shoulda-matchers', '~> 3.1'
+  gem 'orderly'
   gem 'database_cleaner-active_record'
 end
 
