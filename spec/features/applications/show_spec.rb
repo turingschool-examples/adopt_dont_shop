@@ -8,8 +8,8 @@ RSpec.describe 'the application show' do
                 street: '123 Main',city: 'Leadville', state: 'CO',
                 zip: 11111, description: "I'm a real cool cat")
 
-    # binding.pry
     visit "/applications/#{application.id}"
+    save_and_open_page
     expect(page).to have_content(application.name)
     expect(page).to have_content(application.street)
     expect(page).to have_content(application.city)
