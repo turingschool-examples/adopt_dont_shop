@@ -106,11 +106,21 @@ RSpec.describe 'the pets index' do
     expect(page).to have_content('Status: In Progress')
   end
 
+  # As a visitor
+  # When I visit the new application page
+  # And I fail to fill in any of the form fields
+  # And I click submit
+  # Then I am taken back to the new applications page
+  # And I see a message that I must fill in those fields.
+
   it "displays an error message to the user to fill out required fields" do
     visit "/pets"
     click_link "Start an Application"
     expect(current_path).to eq("/applications/new")
     click_on "submit"
+    # require 'pry'; binding.pry
+    save_and_open_page
+    expect(page).to have_content("Error: please enter all required fields.")
     expect(current_path).to eq("/applications/new")
   end
 end
