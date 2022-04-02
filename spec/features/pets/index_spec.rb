@@ -105,4 +105,12 @@ RSpec.describe 'the pets index' do
     expect(page).to have_content('Loves dogs')
     expect(page).to have_content('Status: In Progress')
   end
+
+  it "displays an error message to the user to fill out required fields" do
+    visit "/pets"
+    click_link "Start an Application"
+    expect(current_path).to eq("/applications/new")
+    click_on "submit"
+    expect(current_path).to eq("/applications/new")
+  end
 end
