@@ -5,6 +5,7 @@ Rails.application.routes.draw do
     resources :applications, :shelters
   end
 
+  get '/applications/new', to: 'application#new'
   get '/applications/:id', to: 'application#show'
 
   get '/shelters', to: 'shelters#index'

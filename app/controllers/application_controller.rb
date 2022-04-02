@@ -7,6 +7,9 @@ class ApplicationController < ActionController::Base
     @pets = @application.pets
   end
 
+  def new
+  end
+
   private
 
   def error_message(errors)
