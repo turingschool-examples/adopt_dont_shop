@@ -1,9 +1,11 @@
 class ApplicationsController < ApplicationController
   def show
-    if params[:search] == "name"
+    @application = Application.find(params[:id])
+    if params[:pet_names]
+      @pets = Pet.search(params[:pet_names])
       # require "pry"; binding.pry
     else
-     @application = Application.find(params[:id])
+      @pets = []
     end
   end
 
@@ -29,11 +31,11 @@ class ApplicationsController < ApplicationController
     end
   end
 
-  private
-    def app_params
-      # require "pry"; binding.pry
-      params.permit(:name, :address, :description, :pet_names, :status)
-    end
+  # private
+    # def app_params
+    #   # require "pry"; binding.pry
+    #   params.permit(:name, :address, :description, :pet_names, :status)
+    # end
 
 
 end
