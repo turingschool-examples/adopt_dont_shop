@@ -10,12 +10,11 @@ class ApplicationsController < ApplicationController
   def create
     params[:status] = 'In Progress'
     application = Application.create(application_params)
-    # require 'pry'; binding.pry
     if application.save
-      redirect_to "/applications/#{application.id}"
+      redirect_to "/applications/#{application.id}" and return
     else
       flash[:notice] = "Error: please enter all required fields."
-      render :new
+      redirect_to "/applications/new" and return
     end
   end
 
