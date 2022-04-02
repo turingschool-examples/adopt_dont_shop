@@ -22,7 +22,6 @@ RSpec.describe Application do
         click_on 'Submit'
         # expect(current_path).to eq("/applications/7")
 
-        save_and_open_page
 
         expect(page).to have_content("Name: Barry Bonds")
         expect(page).to have_content("Address: 513 Maggie Lane, Evergreen, CO, 80439")
@@ -31,6 +30,14 @@ RSpec.describe Application do
         expect(page).to have_content("Status: in_progress")
       end
 
+      it 'When I visit to applications page and fail to fill in any of the fields' do
+        visit "/applications/new"
+        # fill_in 'Name', with: 'Barry Bonds'
+        # fill_in 'Address', with:
+        click_on 'Submit'
+        expect(current_path).to eq("/applications/new")
+        expect(page).to have_content('Please fill in all fields')
+      end
 
 
 

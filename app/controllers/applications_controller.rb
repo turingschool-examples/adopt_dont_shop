@@ -1,7 +1,10 @@
 class ApplicationsController < ApplicationController
   def show
-
-    @application = Application.find(params[:id])
+    if params[:search] == "name"
+      # require "pry"; binding.pry
+    else
+     @application = Application.find(params[:id])
+    end
   end
 
   def new
@@ -17,8 +20,13 @@ class ApplicationsController < ApplicationController
       pet_names: params[:pet_names],
       status: params[:status].to_i,
       })
-    @application.save
-    redirect_to "/applications/#{@application.id}"
+
+    if @application.save
+      redirect_to "/applications/#{@application.id}"
+    else
+      flash[:notice] = "Please fill in all fields"
+      redirect_to "/applications/new"
+    end
   end
 
   private
