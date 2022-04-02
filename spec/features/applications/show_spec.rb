@@ -9,7 +9,6 @@ RSpec.describe 'the application show' do
                 zip: 11111, description: "I'm a real cool cat")
 
     visit "/applications/#{application.id}"
-    save_and_open_page
     expect(page).to have_content(application.name)
     expect(page).to have_content(application.street)
     expect(page).to have_content(application.city)

@@ -8,21 +8,22 @@ RSpec.describe "when I visit the pet index page", type: :feature do
       expect(current_path).to eq("/applications/new")
     end
 
-    xit "let's me fill out an application" do
+    it "let's me fill out an application" do
       visit "/applications/new"
 
       fill_in("name", with: "Celeste Chere")
       fill_in("street", with: "123 Easy St")
       fill_in("city", with: "Narshe")
+      fill_in("state", with: "CO")
       fill_in("zip", with: 00234)
       click_button "Submit"
-      save_and_open_page
 
-      expect(current_path).to eq("/applications/#{application.id}")
       expect(page).to have_content("Celeste Chere")
       expect(page).to have_content("123 Easy St")
       expect(page).to have_content("Narshe")
       expect(page).to have_content(00234)
+      expect(page).to have_content("In Progress")
+
     end
   end
 end
