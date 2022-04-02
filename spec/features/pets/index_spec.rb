@@ -76,7 +76,6 @@ RSpec.describe 'the pets index' do
 
     fill_in 'Search', with: "Ba"
     click_on("Search")
-
     expect(page).to have_content(pet_1.name)
     expect(page).to have_content(pet_2.name)
     expect(page).to_not have_content(pet_3.name)
@@ -86,14 +85,12 @@ RSpec.describe 'the pets index' do
     visit "/pets"
     click_link "Start an Application"
     expect(current_path).to eq("/applications/new")
-
     fill_in 'Name', with: 'John D'
     fill_in 'Street Address', with: '123 Main St.'
     fill_in 'City', with: 'Denver'
     fill_in 'State', with: 'Colorado'
     fill_in 'Zip Code', with: '80204'
     fill_in 'Description', with: 'Loves dogs'
-
     click_on "submit"
     application = Application.where("name = 'John D'").first
     expect(current_path).to eq("/applications/#{application.id}")
@@ -104,5 +101,22 @@ RSpec.describe 'the pets index' do
     expect(page).to have_content('80204')
     expect(page).to have_content('Loves dogs')
     expect(page).to have_content('Status: In Progress')
+  end
+
+  it "displays an error message to fill out the required fields" do
+    visit "/pets"
+    click_link "Start an Application"
+    expect(current_path).to eq("/applications/new")
+    click_on "submit"
+    expect(page).to have_content("Error: please enter all required fields.")
+    expect(current_path).to eq("/applications/new")
+
+    visit "/pets"
+    click_link "Start an Application"
+    expect(current_path).to eq("/applications/new")
+    fill_in 'Name', with: 'John D'
+    click_on "submit"
+    expect(page).to have_content("Error: please enter all required fields.")
+    expect(current_path).to eq("/applications/new")
   end
 end
