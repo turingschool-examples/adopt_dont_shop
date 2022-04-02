@@ -1,0 +1,16 @@
+
+<%= form_for @application, url: "/applications", method: :post, local:true do |f|%>
+	<%= f.label :name %>
+	<%= f.text_area :name %>
+	<%= f.label :street_address %>
+	<%= f.text_area :street_address %>
+	<%= f.label :city %>
+	<%= f.text_area :city %>
+	<%= f.label :state %>
+	<%= f.text_area :state %>
+	<%= f.label :zipcode %>
+	<%= f.text_area :zipcode %>
+	<%= f.hidden_field :status, :value => "In Progress" %>
+	<%= f.submit "Submit" %>
+
+<% end %>
