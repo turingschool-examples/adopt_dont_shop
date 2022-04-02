@@ -6,6 +6,6 @@ class Application < ApplicationRecord
   validates :zip, presence: true, numericality: true
   validates :status, presence: true
   validates :description, presence: true
-    
-  has_many :pets
+  has_many :application_pets
+  has_many :pets, through: :application_pets
 end

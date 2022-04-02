@@ -1,9 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe Application, type: :model do
-  # describe 'relationships' do
-  #   it { should belong_to(:shelter) }
-  # end
+  describe 'relationships' do
+    it { should have_many(:application_pets) }
+    it { should have_many(:pets).through(:application_pets) }
+
+  end
 
   describe 'validations'
     it { should validate_presence_of(:name) }

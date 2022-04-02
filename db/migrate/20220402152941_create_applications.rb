@@ -8,9 +8,6 @@ class CreateApplications < ActiveRecord::Migration[5.2]
       t.integer :zip
       t.string :status
       t.string :description
-      t.references :pet, foreign_key: true
-
-      t.timestamps
     end
   end
 end

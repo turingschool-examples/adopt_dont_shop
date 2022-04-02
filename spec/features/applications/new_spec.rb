@@ -8,7 +8,7 @@ RSpec.describe "when I visit the pet index page", type: :feature do
       expect(current_path).to eq("/applications/new")
     end
 
-    it "let's me fill out an application" do
+    xit "let's me fill out an application" do
       visit "/applications/new"
 
       fill_in("name", with: "Celeste Chere")
