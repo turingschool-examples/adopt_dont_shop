@@ -1,10 +1,10 @@
 <h1>Application Show Page</h1>
 
-Name: <%= @application.name %><br>
-Address: <%= @application.address %><br>
-Description: <%= @application.description %><br>
-Pet Name(s): <%= @application.pet_names %><br>
-Status: <%= @application.status %><br>
+Applicant Name: <%= @application.name %><br>
+Full Address: <%= @application.address %><br>
+Why I am a Good Home: <%= @application.description %><br>
+Adoptable Pets: <%= @application.pet_names %><br>
+Application Status: <%= @application.status %><br>
 <h4>Add a Pet to this Application</h4>
 <%= form_with url: "/applications/#{@application.id}?search=name", method: :get, local: true do %>
   <%= label_tag(:pet_names, "pet names") %>
@@ -12,5 +12,9 @@ Status: <%= @application.status %><br>
   <%= submit_tag("Submit") %>
 <% end %>
 <% @pets.each do |pet| %>
-<%= pet.name %><br>
+<div id="pet-<%= pet.id %>">
+
+  <%= pet.name %> <%= button_to "Adopt This Pet", "/applications/#{@application.id}/edit", method: :get, local: true %>  <br>
+
+</div>
 <% end %>
