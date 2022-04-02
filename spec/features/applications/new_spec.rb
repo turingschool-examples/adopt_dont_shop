@@ -24,7 +24,7 @@ RSpec.describe "Applications new page" do
     fill_in('Description', with: "I'm nice")
 
     click_button("Submit")
-    save_and_open_page
+    # save_and_open_page
     expect(current_path).to eq("/applications/#{@application_1.id + 1}")
     expect(page).to have_content("Carol Crikey")
     expect(page).to have_content("2022 S Fake Street")
