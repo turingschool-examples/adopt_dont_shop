@@ -1,7 +1,10 @@
 class ApplicationsController < ApplicationController
   def show
-
-    @application = Application.find(params[:id])
+    if params[:search] == "name"
+      # require "pry"; binding.pry
+    else
+     @application = Application.find(params[:id])
+    end
   end
 
   def new

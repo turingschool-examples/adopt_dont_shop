@@ -5,3 +5,9 @@ Address: <%= @application.address %><br>
 Description: <%= @application.description %><br>
 Pet Name(s): <%= @application.pet_names %><br>
 Status: <%= @application.status %><br>
+<h4>Add a Pet to this Application</h4>
+<%= form_with url: "/applications/#{@application.id}?search=name", method: :get, local: true do %>
+  <%= label_tag(:pet_name, "Pet's name") %>
+  <%= text_field_tag(:pet_name) %>
+  <%= submit_tag("Submit") %>
+<% end %>
