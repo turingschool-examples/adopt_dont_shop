@@ -15,9 +15,10 @@ RSpec.describe "Admin applications Show" do
 
   it "shows an admin application" do
 
+    p admin_applications_path(@application_1.id)
     visit admin_applications_path(@application_1.id)
 #    expect(current_path).to eq("application_path(#{@application_1.id})"
-     save_and_open_page
+#     save_and_open_page
 #    click_link("Mr. Pirate")
     # save_and_open_page
 #    expect(current_path).to eq("/pets/#{@pet_1.id}")
