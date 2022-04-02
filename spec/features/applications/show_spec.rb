@@ -5,13 +5,16 @@ RSpec.describe 'applications' do
     before (:each) do
       @shelter = Shelter.create!(foster_program: true, name: "GoodPets", city: "Denver", rank: 6000)
       @pet = @shelter.pets.create!(adoptable: true, age: 3, breed: "Shepard", name: "Alfonso")
-      @application = @pet.applications.create!(name: "Billy Swanson", address: "543 Cherry St, Denver, CO 80033")
+      @application = @pet.applications.create!(name: "Billy Swanson", street_address: "543 Cherry St", city: "Denver", state: "CO", zip_code: "80033")
       visit "/applications/#{@application.id}"
     end
 
     it 'can show the name of the applicant' do
       expect(page).to have_content(@application.name)
-      expect(page).to have_content(@application.address)
+      expect(page).to have_content(@application.street_address)
+      expect(page).to have_content(@application.city)
+      expect(page).to have_content(@application.state)
+      expect(page).to have_content(@application.zip_code)
       expect(page).to have_content(@pet.name)
     end
 

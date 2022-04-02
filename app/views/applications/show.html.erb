@@ -1,6 +1,11 @@
 <h1>Application <%= @application.id %> </h1>
 <h2>Name: <%= @application.name %></h2>
-<p>Address: <%= @application.address %></p>
+<p>
+  Address: <%= @application.street_address %>,
+           <%= @application.city %>,
+           <%= @application.state %>,
+           <%= @application.zip_code %>
+</p>
 <p>Description: <%= @application.description %> </p>
 <p>Status: <%= @application.status = "In Progress" %> </p>
 <% @pets.each do |pet| %>

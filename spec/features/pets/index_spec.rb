@@ -93,18 +93,5 @@ RSpec.describe 'the pets index' do
     click_link("Start an Application")
 
     expect(current_path).to eq("/applications/new")
-
-    fill_in :name, with: "Frank"
-    fill_in :address, with: "123 Main Street, Denver, Colorado 90210"
-    click_button "Submit"
-
-    application = Application.all.first
-
-    expect(current_path).to eq("/applications/#{application.id}")
-    expect(page).to have_content("Status: In Progress")
-    expect(page).to have_content("Description:")
-    expect(page).to have_content("123 Main Street")
-    expect(page).to have_content("Denver, Colorado")
-    expect(page).to have_content("90210")
   end
 end
