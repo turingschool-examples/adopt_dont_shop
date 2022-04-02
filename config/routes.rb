@@ -4,6 +4,7 @@ Rails.application.routes.draw do
 #  namespace :admin do
 #    resources :applications, :shelters
 #  end
+  get '/admin/applications', to: 'admin_applications#index'
   get '/admin/applications/:id', to: 'admin_applications#show'
 
   get '/applications', to: 'application#index'
