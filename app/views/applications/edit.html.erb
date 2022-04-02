@@ -1,0 +1,25 @@
+
+<h3>Application For:</h3><br>
+
+
+<%= form_with model: @application, url: "/applications/#{@application.id}/edit", method: :patch, local: true do |form| %>
+  <%= form.label :name %><br>
+  <%= form.text_field :name %><br>
+  <%= form.label :street_address %><br>
+  <%= form.text_field :street_address %><br>
+  <%= form.label :city %><br>
+  <%= form.text_field :city %><br>
+  <%= form.label :state %><br>
+  <%= form.text_field :state %><br>
+  <%= form.label :zip_code %><br>
+  <%= form.text_field :zip_code %><br>
+  <%= form.label :description %><br>
+  <%= form.text_field :description %><br>
+  <%= form.label :status %><br>
+  <%= form.text_field :status %><br>
+  <%= form.label :pets %><br>
+  <% @application.pets.each do |pet| %>
+  <%= link_to pet.name, "/pets/#{pet.id}", method: :get %><br>
+  <%= form.submit  %><br>
+  <% end %>
+<% end %>
