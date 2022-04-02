@@ -18,7 +18,6 @@ save_and_open_page
     expect(page).to have_content(application.state)
     expect(page).to have_content(application.zip)
     expect(page).to have_content(application.description)
-    # binding.pry
     expect(page).to have_content(scooby.name)
     expect(page).to have_content(application.status)
   end
