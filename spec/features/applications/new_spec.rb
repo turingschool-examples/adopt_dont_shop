@@ -25,5 +25,16 @@ RSpec.describe "when I visit the pet index page", type: :feature do
       expect(page).to have_content("In Progress")
 
     end
+
+    it 'sends user back to form if all the fields are not filled in' do
+      visit "/applications/new"
+
+      fill_in("name", with: "Celeste Chere")
+      fill_in("street", with: "123 Easy St")
+      fill_in("zip", with: 00234)
+      click_button "Submit"
+      expect(current_path).to eq('/applications/new')
+      expect(page).to have_content("Please fill out all fields!")
+    end
   end
 end

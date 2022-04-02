@@ -1,4 +1,7 @@
 <h1>Start an application</h1>
+<% if @message %>
+<p style=color:red;><%= @message %></p>
+<% end %>
 
 <%= form_with url: "/applications/new", method: :post, local: true do |f| %>
   <%= f.label :name %>

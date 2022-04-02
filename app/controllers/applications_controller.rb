@@ -9,11 +9,18 @@ class ApplicationsController < ApplicationController
   end
 
   def new
+    if params[:form]
+      @message = "Please fill out all fields!"
+    end
   end
 
   def create
-    application = Application.create!(application_params)
-    redirect_to "/applications/#{application.id}"
+    if params.values.any?("")
+      redirect_to "/applications/new?form=unfilled"
+    else
+      application = Application.create!(application_params)
+      redirect_to "/applications/#{application.id}"
+    end
   end
 
   def application_params
