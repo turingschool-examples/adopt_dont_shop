@@ -1,10 +1,10 @@
 <h1>Pet Adoption Application</h1>
-<%= form_with url: "/applications/#{@application.id}", method: :post, local: true do |f| %>
+<%= form_with url: "/applications", method: :post, local: true do |f| %>
   <%= f.label :name %>
   <%= f.text_field :name %>
 
-  <%= f.label :street, 'Street Address' %>
-  <%= f.text_field :street %>
+  <%= f.label :street_address, 'Street Address' %>
+  <%= f.text_field :street_address %>
 
   <%= f.label :city %>
   <%= f.text_field :city %>
@@ -12,8 +12,8 @@
   <%= f.label :state %>
   <%= f.text_field :state %>
 
-  <%= f.label :zip_code, 'Zip Code' %>
-  <%= f.number_field :zip_code %>
+  <%= f.label :zipcode, 'Zip Code' %>
+  <%= f.number_field :zipcode %>
 
   <%= f.submit 'Submit'%>
 <% end %>
