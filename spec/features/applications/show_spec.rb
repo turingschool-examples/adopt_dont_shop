@@ -10,17 +10,15 @@ RSpec.describe 'the applications show' do
     @shelter = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
     @pet = Pet.create(name: 'Scooby', age: 2, breed: 'Great Dane', adoptable: true, shelter_id: @shelter.id)
     @pet_2 = Pet.create(adoptable: true, age: 3, breed: 'doberman', name: 'Lobster', shelter_id: @shelter.id)
-    @applicantion = Application.create(
+
+    @application = Application.create(
       name: 'Sherman',
-      address: '123 Main St',
-      city: 'Longmont',
-      state: 'CO',
-      zipcode: '80501',
+      address: '123 Main St', city: 'Longmont', state: 'CO', zipcode: '80501',
       description: 'Loves animals',
       status: 'Accepted'
     )
 
-    visit "/applications/#{@applicantion.id}"
+    visit "/applications/#{@application.id}"
   end
 
   it 'shows the attributes of the application' do
