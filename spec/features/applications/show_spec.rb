@@ -86,6 +86,7 @@ RSpec.describe 'the application show' do
       it "shows me a section to submit my application" do
         visit "/applications/#{@application.id}"
         fill_in("search", with: "Scooby")
+        click_on "Search"
         click_button "Adopt #{@scooby.name}"
 
         expect(page).to have_button("Submit my application")
@@ -109,6 +110,7 @@ RSpec.describe 'the application show' do
         end
 
         expect(page).to_not have_content("Submit my application")
+        expect(page).to_not have_content("Add a Pet to this Application")
       end
     end
   end
