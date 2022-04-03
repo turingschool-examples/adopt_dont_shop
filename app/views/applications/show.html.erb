@@ -14,7 +14,17 @@ Application Status: <%= @application.status %><br>
 <% @pets.each do |pet| %>
 <div id="pet-<%= pet.id %>">
 
-  <%= pet.name %> <%= button_to "Adopt This Pet", "/applications/#{@application.id}/edit", method: :get, local: true %>  <br>
+  <%= pet.name %>
+  <%= form_with url: "/applications/#{@application.id}?adopt=pet", method: :patch, local: true do |form| %>
+    <%= form.hidden_field :name, value: "#{@application.name}" %>
 
+    <%= form.hidden_field :address, value: "#{@application.address}" %>
+
+    <%= form.hidden_field :description, value: "#{@application.description}" %>
+    <%= form.hidden_field :pet_name, value: "#{pet.id}" %>
+    <%= form.hidden_field :status, value: "#{@application.status}" %>
+
+    <%= form.submit "Adopt This Pet" %>
+  <% end  %>
 </div>
 <% end %>

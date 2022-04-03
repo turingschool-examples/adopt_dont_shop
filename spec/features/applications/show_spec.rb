@@ -62,7 +62,7 @@ RSpec.describe 'Application show page' do
         within "#pet-#{@pet_2.id}" do
           click_on "Adopt This Pet"
         end
-        save_and_open_page
+        # save_and_open_page
 
         expect(current_path).to eq("/applications/#{@app_2.id}")
 
