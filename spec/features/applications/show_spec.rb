@@ -25,6 +25,8 @@ RSpec.describe 'Application Show Page' do
       @shelter_1 = Shelter.create!(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
       @pet_1 = @shelter_1.pets.create(name: 'Mr. Pirate', breed: 'tuxedo shorthair', age: 5, adoptable: true)
       @pet_2 = @shelter_1.pets.create(name: 'Clawdia', breed: 'shorthair', age: 3, adoptable: true)
+      @pet_3 = @shelter_1.pets.create(name: 'Ann', breed: 'ragdoll', age: 3, adoptable: false)
+      @pet_4 = @shelter_1.pets.create(name: 'Purrdy', breed: 'persian', age: 6, adoptable: true)
       PetApplication.create!(pet: @pet_1, application: @application_1)
       PetApplication.create!(pet: @pet_2, application: @application_1)
 
@@ -39,10 +41,10 @@ RSpec.describe 'Application Show Page' do
      expect(page).to have_content(@application_1.city)
      expect(page).to have_content(@application_1.state)
      expect(page).to have_content(@application_1.zipcode)
-     expect(page).to have_content(@pet_1.name)
-     expect(page).to have_content(@pet_2.name)
-     # expect(page).to have_content(@application_1.description)
-     # expect(page).to have_content(@application_1.status)
+     # expect(page).to have_content(@pet_1.name)
+     # expect(page).to have_content(@pet_2.name)
+     expect(page).to have_content(@application_1.description)
+     expect(page).to have_content(@application_1.status)
    end
 
    it 'has links to the pets show pages' do
@@ -61,6 +63,19 @@ RSpec.describe 'Application Show Page' do
      visit "/applications/#{@application_1.id}"
      save_and_open_page
      # expect(page).to have_content("Add a Pet to this Application")
+   end
+
+   it 'allows for a search of pets by name' do
+
+     visit "/applications/#{@application_1.id}"
+
+     # expect(page).to have_content("Add a Pet to this Application")
+
+     fill_in(:pet_name, with: "Mr Pirate")
+     click_on("Search")
+
+     expect(current_path).to eq("/applications/#{@application_1.id}")
+     expect(page).to have_content(@pet_1.name)
    end
   end
 end
