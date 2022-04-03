@@ -6,6 +6,7 @@ Rails.application.routes.draw do
 #  end
   get '/admin/applications', to: 'admin_applications#index'
   get '/admin/applications/:id', to: 'admin_applications#show'
+  patch '/admin/applications/:id', to: 'admin_applications#show'
 
   get '/applications', to: 'application#index'
   get '/applications/new', to: 'application#new'

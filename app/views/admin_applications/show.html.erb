@@ -1,9 +1,15 @@
 <h1> Admin Application for: <%= @application.name %></h1>
-<h3>Pets: <% @pets.each do |pet| %>
-<%= link_to "#{pet.name}", "/pets/#{pet.id}"%>
-<%= form_with url: "/admin/applications/#{@application.id}/?status=1",
-              method: :patch, local: true do |f| %>
+<h3>Pets: <p>
+<% @pets.each do |pet| %>
+  <%= link_to "#{pet.name}", "/pets/#{pet.id}"%>
+  <% if @approved == "approved" && @petid == "#{pet.id}"%>
+    <h3>This pet has been approved!</h3>
+  <% else %>
+    <%= form_with url: "/admin/applications/#{@application.id}/?status=approved",
+      method: :patch, local: true do |f| %>
         <button class="btn btn-success btn-secondary btn-sm" type="submit">Approve</button>
         <%= f.text_field :petid, value: pet.id, hidden: true %>
       <% end %>
-<% end %></h3>
+  <% end %>
+<% end %>
+</h3>

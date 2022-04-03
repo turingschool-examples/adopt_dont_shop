@@ -6,7 +6,8 @@ class AdminApplicationsController < ActionController::Base
   def show
     @application = Application.find(params[:id])
     @pets = @application.pets
-    #@pets = @application.pets.adoptable
+    @approved = params[:status]
+    @petid = params[:petid]
   end
 
   def new

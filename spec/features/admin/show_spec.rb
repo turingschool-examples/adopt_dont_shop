@@ -22,10 +22,10 @@ RSpec.describe "Admin applications Show" do
 
   it "shows an admin application with pets to approve" do
 
-    visit admin_applications_path(@application_1.id)
-    expect(current_path).to eq (admin_applications_path(@application_1.id))
-#     save_and_open_page
-    click_button("Approve")
-    expect(current_path).to eq (admin_applications_path(@application_1.id))
+    visit "/admin/applications/#{@application_1.id}"
+    expect(current_path).to eq ("/admin/applications/#{@application_1.id}")
+    click_button("Approve", match: :first)
+    expect(page).to have_content("This pet has been approved!")
+
   end
 end
