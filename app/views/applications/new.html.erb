@@ -3,14 +3,21 @@
   <%= f.label :name %>
   <%= f.text_field :name %>
 
-  <%= f.label :address %>
-  <%= f.text_field :breed %>
+  <%= f.label :street_address %>
+  <%= f.text_field :address %>
+  
+  <%= f.label :city %>
+  <%= f.text_field :city %>
+  
+  <%= f.label :state %>
+  <%= f.text_field :state %>
 
-  <%= f.label :age %>
-  <%= f.number_field :age %>
+  <%= f.label :zipcode %>
+  <%= f.number_field :zipcode %>
 
-  <%= f.label :adoptable %>
-  <%= f.check_box :adoptable, value: true %>
+  <%= f.hidden_field :description, value: "Applicant is unknown" %>
+  
+  <%= f.hidden_field :app_status, value: "In progress" %>
 
-  <%= f.submit %>
+  <%= f.submit "Submit"%>
 <% end %>
