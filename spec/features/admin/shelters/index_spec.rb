@@ -8,8 +8,8 @@ RSpec.describe 'the admin shelters index' do
     
     visit '/admin/shelters'
 
-    expect(shelter3.name).to appear_before(shelter1.name)
-    expect(shelter1.name).to appear_before(shelter2.name)
+    expect(shelter2.name).to appear_before(shelter1.name)
+    expect(shelter1.name).to appear_before(shelter3.name)
   end
 end
 # As a visitor
