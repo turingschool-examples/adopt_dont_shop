@@ -1,17 +1,25 @@
 <h1>New Application</h1>
 
-<%= form_with url: "/applications", method: :post, local: true do |form| %>
+<% if @application %>
+  <% if @application.errors.any? %>
+    <% @application.errors.full_messages.each do |error| %>
+      <p class="error-message">Error: <%= error %><p>
+    <% end %>
+  <% end %>
+<% end %>
+
+<%= form_with url: "/applications/new", method: :post, local: true do |form| %>
   <%= form.label :name %>
-  <%= form.text_field :name %>
+  <%= form.text_field :name %><br>
   <%= form.label :street_address %>
-  <%= form.text_field :street_address %>
+  <%= form.text_field :street_address %><br>
   <%= form.label :city %>
-  <%= form.text_field :city %>
+  <%= form.text_field :city %><br>
   <%= form.label :state %>
-  <%= form.text_field :state %>
+  <%= form.text_field :state %><br>
   <%= form.label :zip_code %>
-  <%= form.text_field :zip_code %>
+  <%= form.text_field :zip_code %><br>
   <%= form.label :description %>
-  <%= form.text_field :description %>
+  <%= form.text_field :description %><br>
   <%= form.submit "Submit" %>
 <% end %>

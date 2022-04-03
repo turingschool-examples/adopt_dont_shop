@@ -1,0 +1,14 @@
+.error-message {
+  padding: 5px;
+  width: 30%;
+  color: rgb(130, 0, 0);
+  background-color: rgba(245, 144, 144, 20%);
+  border-left: 2px ridge red;
+  border-bottom: 2px ridge red;
+}
+
+form {
+  padding: 5px;
+  width: 30%;
+  background-color: rgba(160, 160, 200, 0.5);
+}
