@@ -5,5 +5,5 @@ class Application < ApplicationRecord
   validates :state, presence: true 
   validates :zipcode, presence: true, numericality: true 
   has_many :pet_applications
-  has_many :pets, through: :petapplications 
+  has_many :pets, through: :pet_applications 
 end 
