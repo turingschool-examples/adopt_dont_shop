@@ -24,7 +24,6 @@ RSpec.describe 'the applications show page' do
   end
 
   it 'shows the attributes of the application' do
-    save_and_open_page
     expect(page).to have_content(@application.name)
     expect(page).to have_content(@application.address)
     expect(page).to have_content(@application.city)
@@ -36,8 +35,9 @@ RSpec.describe 'the applications show page' do
 
   it 'pet names has redirect link' do
     expect(page).to have_link(@pet_1.name.to_s, href: "/pets/#{@pet_1.id}")
+
     click_link @pet_1.name.to_s
-    save_and_open_page
+
     expect(current_path).to eq("/pets/#{@pet_1.id}")
   end
 end
