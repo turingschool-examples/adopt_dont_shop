@@ -152,9 +152,34 @@ RSpec.describe 'admin_applications show page' do
         within "#pet-#{pet_3.id}" do
           click_button "Approve"
         end
-        
+
         expect(current_path).to eq("/admin/applications/#{application.id}")
         expect(page).to have_content("Application Status: Approved")
+      end
+
+      it 'shows that the application has been rejected if all pets have a ruling and one or more of them is rejected' do
+        application = Application.create!(name: 'Chris', address: '505 Main St.', city: 'Denver', state: 'CO', zipcode: '80205', description: "I'm great with dogs.", status: 'In-progress')
+        shelter = Shelter.create(name: 'Mystery Building', city: 'Irvine CA', foster_program: false, rank: 9)
+        pet_1 = application.pets.create!(name: 'Scrappy', age: 1, breed: 'Great Dane', adoptable: true, shelter_id: shelter.id)
+        pet_2 = application.pets.create!(name: 'Sparky', age: 1, breed: 'Great Dane', adoptable: true, shelter_id: shelter.id)
+        pet_3 = application.pets.create!(name: 'Spot', age: 1, breed: 'Great Dane', adoptable: true, shelter_id: shelter.id)
+
+        visit "/admin/applications/#{application.id}"
+
+        within "#pet-#{pet_1.id}" do
+          click_button "Approve"
+        end
+
+        within "#pet-#{pet_2.id}" do
+          click_button "Approve"
+        end
+
+        within "#pet-#{pet_3.id}" do
+          click_button "Reject"
+        end
+
+        expect(current_path).to eq("/admin/applications/#{application.id}")
+        expect(page).to have_content("Application Status: Rejected")
       end
     end
   end
