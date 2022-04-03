@@ -41,15 +41,15 @@ RSpec.describe 'applicaton creation' do
       it 'creates applciation with filled in data' do
         visit "/applications/new"
 
-        fill_in 'Name', with: 'Tyler'
-        fill_in 'Street address', with: '123 Cherry Lane'
-        fill_in 'City', with: 'Las Vegas'
-        fill_in 'State', with: 'NV'
-        fill_in 'Zipcode', with: '99977'
-        fill_in 'Description', with: 'I love dogs'
+        fill_in('Name', with: 'Tyler')
+        fill_in('Street address', with: '123 Cherry Lane')
+        fill_in('City', with: 'Las Vegas')
+        fill_in('State', with: 'NV')
+        fill_in('Zipcode', with: '99977')
+        fill_in('Description', with: 'I love dogs')
 
         click_button "Submit"
-        expect(page).to have_current_path("/applications/:id")
+        expect(page).to have_current_path("/applications")
         # expect(page).to have_content('Tyler')
         # expect(page).to have_content('Dr. Burstyn')
         # expect(page).to have_content('Dr. Burstyn')
