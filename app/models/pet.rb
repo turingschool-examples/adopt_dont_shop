@@ -3,9 +3,7 @@ class Pet < ApplicationRecord
   validates :age, presence: true, numericality: true
   belongs_to :shelter
 
-  def shelter_name
-    shelter.name
-  end
+  delegate :name, to: :shelter, prefix: true
 
   def self.adoptable
     where(adoptable: true)

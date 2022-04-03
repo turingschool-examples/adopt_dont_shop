@@ -9,10 +9,10 @@ class VeterinaryOffice < ApplicationRecord
   end
 
   def self.order_by_number_of_vets
-    select("veterinary_offices.*, count(veterinarians.id) AS vets_count")
-      .joins("LEFT OUTER JOIN veterinarians ON veterinarians.veterinary_office_id = veterinary_offices.id")
-      .group("veterinary_offices.id")
-      .order("vets_count DESC")
+    select('veterinary_offices.*, count(veterinarians.id) AS vets_count')
+      .joins('LEFT OUTER JOIN veterinarians ON veterinarians.veterinary_office_id = veterinary_offices.id')
+      .group('veterinary_offices.id')
+      .order('vets_count DESC')
   end
 
   def vet_count
