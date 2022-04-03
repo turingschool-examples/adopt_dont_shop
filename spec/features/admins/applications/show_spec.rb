@@ -153,7 +153,7 @@ RSpec.describe 'admin_applications show page' do
           click_button "Approve"
         end
 
-        expect(current_path).to eq("admin/applications/#{application.id}")
+        expect(current_path).to eq("/admin/applications/#{application.id}")
         expect(page).to have_content("Application Status: Approved!")
       end
     end
