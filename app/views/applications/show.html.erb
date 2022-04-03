@@ -29,7 +29,7 @@
     <% end %>
   <% end %>
 <% end %>
-<% if @adopt_me.empty? == false %>
+<% if @adopt_me.empty? == false && @application.status == "In Progress" %>
   <%= form_with url: "/applications/#{@application.id}", method: :patch, local: true do |form| %>
   <%= form.label "Why would you make a good owner?" %>
   <%= form.text_field :description %>
