@@ -17,8 +17,10 @@ RSpec.describe 'new application page' do
     expect(page).to have_content("Frodo Baggins")
     expect(page).to have_content("1 Shire Ave")
     expect(page).to have_content("Las Vegas")
+    expect(page).to have_content("NV")
+    expect(page).to have_content("88901")
     expect(page).to have_content("None")
-    expect(page).to have_content("Pending")
+    expect(page).to have_content("In Progress")
     expect(page).not_to have_content("Accepted")
   end
 
@@ -34,5 +36,4 @@ RSpec.describe 'new application page' do
     expect(current_path).to eq("/applications/new")
     expect(page).to have_content("Error: Please fill out all required fields")
   end
-
 end
