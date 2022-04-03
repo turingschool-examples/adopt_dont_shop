@@ -6,7 +6,7 @@ RSpec.describe 'the application show' do
     @scooby = Pet.create!(name: 'Scooby', age: 2, breed: 'Great Dane', adoptable: true, shelter_id: @shelter.id)
     @scrappy = Pet.create!(name: "Scrappy", age: 3, breed: 'Pug', adoptable: true, shelter_id: @shelter.id)
     @application = Application.create!(status: "In Progress", name: "Murmuring Savannah", street: '123 Main',city: 'Leadville', state: 'CO',
-    zip: 11111, description: "I'm a real cool cat")
+    zip: 11111, description: "")
   end
 
   describe "when I visit an applicat!!ion's show page" do
@@ -52,14 +52,7 @@ RSpec.describe 'the application show' do
       expect(page).to have_content("Scrappy")
 
     end
-      # As a visitor
-      # When I visit an application's show page
-      # And I search for a Pet by name
-      # And I see the names Pets that match my search
-      # Then next to each Pet's name I see a button to "Adopt this Pet"
-      # When I click one of these buttons
-      # Then I am taken back to the application show page
-      # And I see the Pet I want to adopt listed on this application
+
     it "has a button to Adopt this Pet" do
       visit "/applications/#{@application.id}"
 
@@ -80,10 +73,42 @@ RSpec.describe 'the application show' do
       fill_in("search", with: "Scrappy")
       click_on "Search"
       click_button "Adopt #{@scrappy.name}"
+
       expect("Scooby").to appear_before("Add a Pet to this Application")
       expect("Scrappy").to appear_before("Add a Pet to this Application")
+
       within('#app') do
         expect(page).to have_content("Scrappy")
+      end
+    end
+
+    describe "once I have added a pet to my application" do
+      it "shows me a section to submit my application" do
+        visit "/applications/#{@application.id}"
+        fill_in("search", with: "Scooby")
+        click_button "Adopt #{@scooby.name}"
+
+        expect(page).to have_button("Submit my application")
+        expect(page).to have_content("Why would you make a good owner")
+        expect(@application.description).to be("")
+      end
+
+      it "has a place to fill in a reason and changes my status" do
+        visit "/applications/#{@application.id}"
+        fill_in("search", with: "Scooby")
+        click_button "Adopt #{@scooby.name}"
+
+        fill_in("description", with: "I'm a cool cat")
+        click_button "Submit my application"
+
+        expect(current_path).to eq("/applications/#{@application.id}")
+
+        within('#app') do
+          expect(page).to have_content("I'm a cool cat")
+          expect(page).to have_content("Pending")
+        end
+
+        expect(page).to_not have_content("Submit my application")
       end
     end
   end
