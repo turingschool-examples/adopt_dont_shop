@@ -10,13 +10,13 @@ RSpec.describe 'the applications index' do
     pet_3 = Pet.create(name: 'Spot', age: 1, breed: 'Great Dane', adoptable: true, shelter_id: shelter.id)
 
     visit "/applications/#{application.id}"
-    
+
     expect(page).to have_content(application.name)
     expect(page).to have_content(application.address)
     expect(page).to have_content(application.city)
     expect(page).to have_content(application.state)
     expect(page).to have_content(application.zipcode)
-    expect(page).to have_content(application.description)
+    expect(page).to_not have_content(application.description)
     expect(page).to have_content(application.status)
     expect(page).to_not have_content(pet_3.name)
     click_link "#{pet_1.name}"

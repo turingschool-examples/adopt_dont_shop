@@ -90,7 +90,7 @@ RSpec.describe 'the pets index' do
     fill_in 'City', with: 'Denver'
     fill_in 'State', with: 'Colorado'
     fill_in 'Zip Code', with: '80204'
-    fill_in 'Description', with: 'Loves dogs'
+    # fill_in 'Description', with: 'Loves dogs'
     click_on "submit"
     application = Application.where("name = 'John D'").first
     expect(current_path).to eq("/applications/#{application.id}")
@@ -99,7 +99,7 @@ RSpec.describe 'the pets index' do
     expect(page).to have_content('Denver')
     expect(page).to have_content('Colorado')
     expect(page).to have_content('80204')
-    expect(page).to have_content('Loves dogs')
+    # expect(page).to have_content('Loves dogs')
     expect(page).to have_content('Status: In Progress')
   end
 
