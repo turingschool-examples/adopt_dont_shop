@@ -19,4 +19,14 @@ class Application < ApplicationRecord
     pet_ids = pets.map {|pet| pet.id}
     pet_ids.count == approved_pet_ids.count + rejected_pet_ids.count
   end
+
+  def any_pets_rejected?
+    pet_ids = pets.map {|pet| pet.id}
+    int_rejected_pet_ids = rejected_pet_ids.map {|pet_id| pet_id.to_i}
+    if all_pets_have_ruling?
+      pet_ids.any? {|pet_id| int_rejected_pet_ids.include?(pet_id)}
+    else
+      false
+    end
+  end
 end
