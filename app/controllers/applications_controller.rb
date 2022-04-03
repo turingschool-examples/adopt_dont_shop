@@ -5,10 +5,8 @@ class ApplicationsController < ApplicationController
 
   def show
     @application = Application.find(params[:id])
-    if params[:pet_id].present?
-      @adopt_me = Pet.find(params[:pet_id])
-      binding.pry
-    end
+    ApplicationPet.create(pet_id: params[:pet_id], application_id: params[:id])
+    @adopt_me = @application.pets
     if params[:search].present?
       @pets = Pet.search(params[:search])
     end

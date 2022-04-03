@@ -63,24 +63,25 @@ RSpec.describe 'the application show' do
     it "has a button to Adopt this Pet" do
       visit "/applications/#{@application.id}"
 
-      expect(page).to_not have_content("Adopt this Pet")
+      expect(page).to_not have_content("Adopt #{@scooby.name}")
 
       fill_in("search", with: "Scooby")
       click_on "Search"
-      expect(page).to have_button("Adopt this Pet")
+      expect(page).to have_button("Adopt #{@scooby.name}")
     end
 
     it "lets me add the pet to my application" do
 
       visit "/applications/#{@application.id}"
 
+      fill_in("search", with: "Scooby")
+      click_on "Search"
+      click_button "Adopt #{@scooby.name}"
       fill_in("search", with: "Scrappy")
       click_on "Search"
-      click_button "Adopt this Pet"
-      save_and_open_page
-
+      click_button "Adopt #{@scrappy.name}"
+      expect("Scooby").to appear_before("Add a Pet to this Application")
       expect("Scrappy").to appear_before("Add a Pet to this Application")
-
       within('#app') do
         expect(page).to have_content("Scrappy")
       end
