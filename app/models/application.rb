@@ -1,5 +1,4 @@
 class Application < ApplicationRecord
-  # belongs_to :applicant
   has_many :application_pets
   has_many :pets, through: :application_pets
 
@@ -9,6 +8,4 @@ class Application < ApplicationRecord
   validates_presence_of :state
   validates_presence_of :zipcode
   validates_presence_of :description
-  validates_presence_of :pets
-  validates_presence_of :status
 end
