@@ -1,0 +1,11 @@
+<h1>Admin Shelter Index Page</h1>
+
+<% @shelters.each do |shelter| %>
+  <div id="shelter-<%= shelter.id %>">
+
+    Shelter Name: <%= shelter.name %><br>
+    Location: <%= shelter.city %><br>
+    Foster Program?: <%= shelter.foster_program %><br>
+    Shelter Rank: <%= shelter.rank %><br><br>
+  </div>
+<% end %>

@@ -75,7 +75,7 @@ RSpec.describe 'Application show page' do
 
         visit "/applications/#{@app_2.id}"
 
-        fill_in "pet names", with: 'Lobster'
+        fill_in "pet names", with: 'lobster'
         click_on 'Submit'
         within "#pet-#{@pet_2.id}" do
           click_on "Adopt This Pet"
@@ -90,10 +90,19 @@ RSpec.describe 'Application show page' do
         expect(page).to_not have_content("in_progress")
         expect(page).to have_content("pending")
         expect(page).to have_content("Why I am a Good Home: I am a good pet owner.")
-
-
       end
     end
+    describe 'Partial Matches for Pet Names' do
+      it 'And I search for Pets by name Then I see any pet whose name PARTIALLY matches my search' do
+        visit "/applications/#{@app_2.id}"
 
+        fill_in "pet names", with: 'ski'
+        click_on 'Submit'
+        # save_and_open_page
+        expect(current_path).to eq("/applications/#{@app_2.id}")
+        expect(page).to have_content("#{@pet_3.name}")
+        expect(page).to have_content("#{@pet_4.name}")
+      end
+    end
   end
 end
