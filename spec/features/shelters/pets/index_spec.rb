@@ -89,10 +89,11 @@ RSpec.describe 'the pets index' do
     pet_3 = Pet.create(adoptable: true, age: 4, breed: 'chihuahua', name: 'Elle', shelter_id: shelter.id)
 
     visit "/pets/"
+save_and_open_page
+    expect(page).to have_button('Start An Application')
 
-    expect(page).to have_link('New Application')
-
-    click_link("New Application")
-    expect(current_path).to eq("/applications")
+    click_button("Start An Application")
+    expect(current_path).to eq("/applications/new")
   end
+
 end
