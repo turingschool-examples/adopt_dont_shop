@@ -1,6 +1,6 @@
 <% @application.pets.each do |pet| %>
   <div id="pet-<%= pet.id %>">
-    <% if @application.status == "Approved" %>
+    <% if @application.status == "Approved" || @application.status == "Rejected"%>
       <h3>Application Status: <%= @application.status %>
     <% elsif @application.approved_pet_ids.include?(pet.id.to_s) %>
       <h3><%= pet.name %></h3>
