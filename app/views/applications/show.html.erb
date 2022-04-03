@@ -12,12 +12,14 @@
   <% end %>
 <% end %></p></div>
 <br>
-<h3>Add a Pet to this Application</h3>
-<%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |f| %>
-  <%= f.label :search %>
-  <%= f.text_field :search %>
-  <%= f.submit "Search" %>
-<% end %><br>
+<% if @application.status == "In Progress" %>
+  <h3>Add a Pet to this Application</h3>
+  <%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |f| %>
+    <%= f.label :search %>
+    <%= f.text_field :search %>
+    <%= f.submit "Search" %>
+  <% end %><br>
+<% end %>
 <% if @pets %>
   <% @pets.each do |pet|%>
     <%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
@@ -26,4 +28,10 @@
       <%= f.submit "Adopt #{pet.name}" %>
     <% end %>
   <% end %>
+<% end %>
+<%= form_with url: "/applications/#{@application.id}", method: :patch, local: true do |form| %>
+<%= form.label "Why would you make a good owner?" %>
+<%= form.text_field :description %>
+<%= form.hidden_field :status, value: "Pending" %>
+<%= form.submit "Submit my application" %>
 <% end %>
