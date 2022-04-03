@@ -67,8 +67,7 @@ RSpec.describe 'the application show' do
 
       fill_in("search", with: "Scooby")
       click_on "Search"
-
-      expect(page).to have_content("Adopt this Pet")
+      expect(page).to have_button("Adopt this Pet")
     end
 
     it "lets me add the pet to my application" do
@@ -77,7 +76,8 @@ RSpec.describe 'the application show' do
 
       fill_in("search", with: "Scrappy")
       click_on "Search"
-      click_on "Adopt this Pet"
+      click_button "Adopt this Pet"
+      save_and_open_page
 
       expect("Scrappy").to appear_before("Add a Pet to this Application")
 
