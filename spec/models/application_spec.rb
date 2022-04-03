@@ -12,7 +12,14 @@ RSpec.describe Application do
     it { should validate_presence_of(:city)}
     it { should validate_presence_of(:state)}
     it { should validate_presence_of(:zipcode)}
-    it { should validate_presence_of(:description)}
-    it { should validate_presence_of(:status)}
+    # it { should validate_presence_of(:description)}
+    # it { should validate_presence_of(:status)}
+  end
+
+  it 'sets default settings for specific fields' do
+    application_1 = Application.create!(name: 'Anita Barker', street_address: '2468 Park Blvd.', city: 'Denver', state: 'CO', zipcode: '80202')
+
+    expect(application_1.description).to eq("I'm a qualified pet parent!")
+    expect(application_1.status).to eq("Pending")
   end
 end
