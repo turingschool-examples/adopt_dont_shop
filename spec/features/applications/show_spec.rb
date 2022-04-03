@@ -67,12 +67,33 @@ RSpec.describe 'Application show page' do
         expect(current_path).to eq("/applications/#{@app_2.id}")
 
         expect(page).to have_content("Adoptable Pets: #{@pet_2.name}")
+      end
+    end
 
+    describe 'Adding a description to an application' do
+
+      it 'I see a section to input my description after adding a pet(s)' do
+
+        visit "/applications/#{@app_2.id}"
+
+        expect(page).to have_content("Adoptable Pets:")
+        fill_in "pet names", with: 'Lobster'
+        click_on 'Submit'
+        within "#pet-#{@pet_2.id}" do
+          click_on "Adopt This Pet"
+        end
+
+        fill_in "Why I Would Make a Good Home", with: "I am a good pet owner."
+        click_on "Submit This Application"
+
+        expect(current_path).to eq("/applications/#{@app_2.id}")
+
+        expect(page).to_not have_content("in_progress")
+        expect(page).to have_content("pending")
+        expect(page).to_not have_content("Adoptable Pets:")
 
       end
-
-
-
     end
+
   end
 end
