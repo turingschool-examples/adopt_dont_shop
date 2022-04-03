@@ -2,8 +2,8 @@ class ApplicationController < ActionController::Base
   def welcome
   end
 
-  def show
-    @application = Application.find(params[:id])
+  def find_pet
+    @pet = Pet.find(params[:id])
   end
 
 
