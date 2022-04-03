@@ -13,16 +13,20 @@ class Pet < ApplicationRecord
     where(adoptable: true)
   end
 
-  def self.search(search)
-    if search
-      pet_name = Pet.find_by(name: search)
-        if pet_name
-          self.where(name: pet_name)
-        else
-          @pets = Pet.adoptable
-        end
-    else
-      @pets = Pet.adoptable 
-    end
-  end
+  def self.search_by_name(input)
+    find_by(name: "#{input}")
+  end 
+
+  # def self.search(search)
+  #   if search
+  #     pet_name = search.downcase
+  #       if self.where(name: pet_name)
+  #          self.where(name: pet_name).sort_by{|pet| pet.name}
+  #       else
+  #         puts "Sorry, no pets with that name are adoptable right now."
+  #       end
+  #   else
+  #     puts "Sorry, no pets with that name are adoptable right now."
+  #   end
+  # end
 end

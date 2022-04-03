@@ -1,5 +1,5 @@
-<%= form_tag pets_path, method: :get do %>
-<%= label_tag(:search, "Add a Pet to this Application") %>
-  <%= text_field_tag :search, params[:search] %>
-  <%= submit_tag("Submit", :name => nil) %>
+<%= form_with url: "/applications/#{@application.id}?search=pet_name", method: :get local: true do |f| %>
+<%= f.label :pet_name %>
+<%= f.text_field :pet_name%>
+<%= f.submit "Search"%>
 <% end %>

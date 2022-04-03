@@ -240,9 +240,9 @@ DEPENDENCIES
   pry
   puma (~> 3.11)
   rails (~> 5.2.6)
-  rspec-rails (~> 4.0.1)
+  rspec-rails
   sass-rails (~> 5.0)
-  shoulda-matchers (~> 3.1)
+  shoulda-matchers
   simplecov
   spring
   spring-watcher-listen (~> 2.0.0)
