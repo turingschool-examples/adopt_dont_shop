@@ -82,36 +82,28 @@ RSpec.describe 'the application show' do
       end
     end
 
-    describe "once I have added a pet to my application" do
-      it "shows me a section to submit my application" do
-        visit "/applications/#{@application.id}"
-        fill_in("search", with: "Scooby")
-        click_on "Search"
-        click_button "Adopt #{@scooby.name}"
+    it "shows me a section to submit my application" do
+      visit "/applications/#{@application.id}"
 
-        expect(page).to have_button("Submit my application")
-        expect(page).to have_content("Why would you make a good owner")
-        expect(@application.description).to be("")
+      fill_in("search", with: "Scooby")
+      click_on "Search"
+      click_button "Adopt #{@scooby.name}"
+
+      expect(page).to have_button("Submit my application")
+      expect(page).to have_content("Why would you make a good owner?")
+      expect(@application.description).to eq("")
+
+      fill_in("description", with: "I'm a cool cat")
+      click_button "Submit my application"
+
+      expect(current_path).to eq("/applications/#{@application.id}")
+
+      within('#app') do
+        expect(page).to have_content("I'm a cool cat")
+        expect(page).to have_content("Pending")
       end
-
-      it "has a place to fill in a reason and changes my status" do
-        visit "/applications/#{@application.id}"
-        fill_in("search", with: "Scooby")
-        click_button "Adopt #{@scooby.name}"
-
-        fill_in("description", with: "I'm a cool cat")
-        click_button "Submit my application"
-
-        expect(current_path).to eq("/applications/#{@application.id}")
-
-        within('#app') do
-          expect(page).to have_content("I'm a cool cat")
-          expect(page).to have_content("Pending")
-        end
-
-        expect(page).to_not have_content("Submit my application")
-        expect(page).to_not have_content("Add a Pet to this Application")
+      expect(page).to_not have_content("Submit my application")
+      expect(page).to_not have_content("Add a Pet to this Application")
       end
-    end
   end
 end
