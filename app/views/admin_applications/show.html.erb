@@ -3,9 +3,13 @@
     <% if @application.approved_pet_ids.include?(pet.id.to_s) %>
       <h3><%= pet.name %></h3>
       <p>Approved!</p>
+    <% elsif @application.rejected_pet_ids.include?(pet.id.to_s) %>
+      <h3><%= pet.name %></h3>
+      <p>Rejected!</p>
     <% else %>
       <h3><%= pet.name %></h3>
-      <%= button_to "Approve", "/applications/#{@application.id}", params: {application_id: @application.id, pet_id: pet.id}, method: :patch, local: true %>
+      <%= button_to "Approve", "/applications/#{@application.id}", params: {approval: true, application_id: @application.id, pet_id: pet.id}, method: :patch, local: true %>
+      <%= button_to "Reject", "/applications/#{@application.id}", params: {rejection: true, application_id: @application.id, pet_id: pet.id}, method: :patch, local: true %>
     <% end %>
   </div>
 <% end %>
