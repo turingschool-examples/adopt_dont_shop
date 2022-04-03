@@ -11,4 +11,7 @@
 <p>Description: <%= @application.description %></p>
 <% @application.pets.each do |pet| %>
 <%= link_to pet.name, "/pets/#{pet.id}", method: :get %><br>
+<% if @application.status == "In progress" %>
+  <%= render 'applications/pet_search_bar' %>
+  <% end %>
 <% end %>

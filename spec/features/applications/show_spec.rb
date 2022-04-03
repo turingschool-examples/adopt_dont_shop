@@ -37,4 +37,18 @@ RSpec.describe 'the application show page' do
     click_link("#{olive.name}")
     expect(current_path).to eq("/pets/#{olive.id}")
   end
+
+  it 'has a search bar to add pet to application if not submitted' do
+    furry_friends = Shelter.create!(name: "Furry Friends", foster_program: true, city: "Denver", rank: "2")
+
+    olive = furry_friends.pets.create!(name: "Olive", age: 2, breed: "dog", adoptable: true)
+
+    application_4 = Application.create!(name: "Marky Mark", street_address: "678 I Way", city: "Richmond", zip_code: 23229, state: "VA", description: "Awaiting Information", status: "In progress")
+
+    pet_application_5 = PetApplication.create!(pet_id: olive.id, application_id: application_4.id)
+
+    visit "/applications/#{application_4.id}"
+
+    expect(page).to have_content("Add a Pet to this Application")
+  end
 end
