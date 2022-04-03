@@ -12,17 +12,18 @@ RSpec.describe 'the application show page' do
 
     visit "/applications/#{application_4.id}"
 
+    # within "#application-#{application_4.id}" do
+
     expect(page).to have_content(application_4.name)
     expect(page).to have_content(application_4.street_address)
     expect(page).to have_content(application_4.city)
     expect(page).to have_content(application_4.zip_code)
     expect(page).to have_content(application_4.state)
     expect(page).to have_content(application_4.status)
-    expect(page).to have_link("#{olive.name}")
-
-    # click_link("/pets/#{pet.id}")
-    # expect(current_path).to eq("/pets/#{olive.id}")
+    # end
   end
+
+
   it 'links to the pets show page' do
     furry_friends = Shelter.create!(name: "Furry Friends", foster_program: true, city: "Denver", rank: "2")
 
@@ -38,10 +39,12 @@ RSpec.describe 'the application show page' do
     expect(current_path).to eq("/pets/#{olive.id}")
   end
 
-  it 'has a search bar to add pet to application if not submitted' do
+  it 'has a section to add pet to application' do
     furry_friends = Shelter.create!(name: "Furry Friends", foster_program: true, city: "Denver", rank: "2")
 
     olive = furry_friends.pets.create!(name: "Olive", age: 2, breed: "dog", adoptable: true)
+
+    ozzy = furry_friends.pets.create!(name: "Ozzy", age: 1, breed: "dog", adoptable: true)
 
     application_4 = Application.create!(name: "Marky Mark", street_address: "678 I Way", city: "Richmond", zip_code: 23229, state: "VA", description: "Awaiting Information", status: "In progress")
 
@@ -50,6 +53,12 @@ RSpec.describe 'the application show page' do
     visit "/applications/#{application_4.id}"
 
     expect(page).to have_content("Add a Pet to this Application")
+    expect(page).to have_button("Search")
+    fill_in('Pet name', with: "#{ozzy.name}")
+    click_button "Search"
+    save_and_open_page
+    expect(current_path).to eq("/applications/#{application_4.id}")
+    expect(page).to have_content("#{ozzy.name}")
   end
 
   it 'does not render the search bar if application is not in progress' do
