@@ -2,13 +2,6 @@ class ApplicationsController < ApplicationController
   def index
   end
 
-  def show
-    @applicant = Application.find(params[:id])
-    if @applicant.status == "In Progress"
-      @progress = true
-    end
-  end
-
   def new;end
 
   def create
@@ -29,9 +22,17 @@ class ApplicationsController < ApplicationController
     end
   end
 
+  def show
+    @applicant = Application.find(params[:id])
+      if params[:pet_name]
+        @pets = Pet.search(params[:pet_name])
+      else
+        pets =[]
+      end
+  end
 
-  # private
-  #   def applications_params
-  #     params.permit(:name, :street_address, :city, :state, :zipcode, status: "pending", description: "none")
-  #   end
+  private
+    def applications_params
+      params.permit(:name, :street_address, :city, :state, :zipcode, :description, :status)
+    end
 end
