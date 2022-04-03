@@ -51,4 +51,13 @@ RSpec.describe 'the application show page' do
 
     expect(page).to have_content("Add a Pet to this Application")
   end
+
+  it 'does not render the search bar if application is not in progress' do
+    application_3 = Application.create!(name: "Steve Jobs", street_address: "456 I Way", city: "Richmond", zip_code: 23229, state: "VA", description: "Awaiting Information", status: "Rejected")
+
+    visit "/applications/#{application_3.id}"
+
+    expect(page).to_not have_content("Add a Pet to this Application")
+
+  end
 end
