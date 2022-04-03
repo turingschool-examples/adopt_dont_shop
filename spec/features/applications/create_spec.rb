@@ -34,9 +34,9 @@ RSpec.describe 'creating an application' do
     click_button "Submit"
 
     expect(current_path).to eq("/applications/new")
-    expect(page).to have_content("Error: Street address can't be empty")
-    expect(page).to have_content("Error: City can't be empty")
-    expect(page).to have_content("Error: State can't be empty")
-    expect(page).to have_content("Error: Zip code can't be empty")
+    expect(page).to have_content("Error: Street address can't be blank")
+    expect(page).to have_content("Error: City can't be blank")
+    expect(page).to have_content("Error: State can't be blank")
+    expect(page).to have_content("Error: Zip code can't be blank")
   end
 end
