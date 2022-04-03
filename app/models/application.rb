@@ -8,4 +8,10 @@ class Application < ApplicationRecord
   validates_presence_of :zipcode
   validates_presence_of :description
   validates_presence_of :status
+
+  def all_pets_approved?
+    pet_ids = pets.map {|pet| pet.id}
+    int_approved_pet_ids = approved_pet_ids.map {|pet_id| pet_id.to_i}
+    pet_ids.all? {|pet_id| int_approved_pet_ids.include?(pet_id)}
+  end
 end
