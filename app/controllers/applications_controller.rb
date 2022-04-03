@@ -4,6 +4,9 @@ class ApplicationsController < ApplicationController
 
   def show
     @applicant = Application.find(params[:id])
+    if @applicant.status == "In Progress"
+      @progress = true
+    end
   end
 
   def new;end
@@ -19,7 +22,7 @@ class ApplicationsController < ApplicationController
         city: params[:city],
         state: params[:state],
         zipcode: params[:zipcode],
-        status: "Pending",
+        status: "In Progress",
         description: "None"
       )
       redirect_to "/applications/#{@app.id}"
