@@ -76,7 +76,6 @@ RSpec.describe 'Application show page' do
 
         visit "/applications/#{@app_2.id}"
 
-        expect(page).to have_content("Adoptable Pets:")
         fill_in "pet names", with: 'Lobster'
         click_on 'Submit'
         within "#pet-#{@pet_2.id}" do

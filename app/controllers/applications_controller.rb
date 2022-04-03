@@ -1,5 +1,6 @@
 class ApplicationsController < ApplicationController
   def show
+
     @application = Application.find(params[:id])
     if params[:pet_names]
       @pets = Pet.search(params[:pet_names])
@@ -49,7 +50,7 @@ class ApplicationsController < ApplicationController
       })
     app_pet.save
     redirect_to "/applications/#{@application.id}"
-    # require "pry"; binding.pry
+
   end
   def edit
     if params[:pet_names]
