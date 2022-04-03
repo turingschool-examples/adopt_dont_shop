@@ -1,9 +1,11 @@
 class ApplicationsController < ApplicationController
   def show
+
     @application = Application.find(params[:id])
     if params[:pet_names]
       @pets = Pet.search(params[:pet_names])
       # require "pry"; binding.pry
+
     else
       @pets = []
     end
@@ -28,6 +30,30 @@ class ApplicationsController < ApplicationController
     else
       flash[:notice] = "Please fill in all fields"
       redirect_to "/applications/new"
+    end
+  end
+
+  def update
+    # id = params[:]
+    @pet = Pet.find(params[:pet_name])
+    @application = Application.find(params[:id])
+    @application.update({
+      name: params[:name],
+      address: params[:address],
+      description: params[:description],
+      pet_names: @pet.name,
+      status: params[:status].to_i
+      })
+    app_pet = ApplicationPet.new({
+      application: @application,
+      pet: @pet
+      })
+    app_pet.save
+    redirect_to "/applications/#{@application.id}"
+
+  end
+  def edit
+    if params[:pet_names]
     end
   end
 
