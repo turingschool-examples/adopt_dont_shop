@@ -56,7 +56,7 @@ RSpec.describe 'the application show page' do
     expect(page).to have_button("Search")
     fill_in('Pet name', with: "#{ozzy.name}")
     click_button "Search"
-    save_and_open_page
+
     expect(current_path).to eq("/applications/#{application_4.id}")
     expect(page).to have_content("#{ozzy.name}")
   end
@@ -67,6 +67,25 @@ RSpec.describe 'the application show page' do
     visit "/applications/#{application_3.id}"
 
     expect(page).to_not have_content("Add a Pet to this Application")
+  end
 
+  it 'adds pet after clicking adopt this pet' do
+    furry_friends = Shelter.create!(name: "Furry Friends", foster_program: true, city: "Denver", rank: "2")
+
+    olive = furry_friends.pets.create!(name: "Olive", age: 2, breed: "dog", adoptable: true)
+
+    ozzy = furry_friends.pets.create!(name: "Ozzy", age: 1, breed: "dog", adoptable: true)
+
+    application_4 = Application.create!(name: "Marky Mark", street_address: "678 I Way", city: "Richmond", zip_code: 23229, state: "VA", description: "Awaiting Information", status: "In progress")
+
+    pet_application_5 = PetApplication.create!(pet_id: olive.id, application_id: application_4.id)
+
+    visit "/applications/#{application_4.id}"
+    fill_in('Pet name', with: "#{ozzy.name}")
+    click_button "Search"
+
+    click_button "Adopt this Pet"
+    expect(current_path).to eq("/applications/#{application_4.id}")
+    expect(page).to have_content("Pets: #{olive.name} #{ozzy.name}")
   end
 end
