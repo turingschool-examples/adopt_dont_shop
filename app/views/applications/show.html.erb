@@ -4,6 +4,7 @@
     <p><%=link_to "#{pet.name}", "/pets/#{pet.id}" %></p>
     <%end%>
 
+<section id="applicant-info">
 <h4><%= @applicant.name%>'s Information</h4>
 <p>Street Address: <%=@applicant.street_address%></p>
 <p>City: <%=@applicant.city%></p>
@@ -15,3 +16,7 @@
 
 <h4>Status:</h4>
 <p><%=@applicant.status%></p>
+<% if @progress %>
+<%= "#{@applicant.status}" %>
+</section>
+<% end %>

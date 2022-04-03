@@ -9,8 +9,8 @@ RSpec.describe 'Application Show Page' do
         city: 'Denver',
         state: 'CO',
         zipcode: '80202',
-        description: 'none',
-        status: 'pending'
+        # description: 'none',
+        # status: 'pending'
       )
       @application_2 = Application.create!(
         name: 'Bob Barker',
@@ -18,8 +18,8 @@ RSpec.describe 'Application Show Page' do
         city: 'Golden',
         state: 'CO',
         zipcode: '80209',
-        description: 'na',
-        status: 'pending'
+        # description: 'na',
+        # status: 'In Progress'
       )
 
       @shelter_1 = Shelter.create!(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
@@ -41,8 +41,8 @@ RSpec.describe 'Application Show Page' do
      expect(page).to have_content(@application_1.zipcode)
      expect(page).to have_content(@pet_1.name)
      expect(page).to have_content(@pet_2.name)
-     expect(page).to have_content(@application_1.description)
-     expect(page).to have_content(@application_1.status)
+     # expect(page).to have_content(@application_1.description)
+     # expect(page).to have_content(@application_1.status)
    end
 
    it 'has links to the pets show pages' do
@@ -53,6 +53,14 @@ RSpec.describe 'Application Show Page' do
      expect(page).to have_content(@pet_1.name)
      expect(page).to have_content(@pet_1.age)
      expect(page).not_to have_content(@pet_2.name)
+   end
+
+   it 'when application is pending you can add pets' do
+     visit "/applications/#{@application_2.id}"
+     save_and_open_page
+     visit "/applications/#{@application_1.id}"
+     save_and_open_page
+     # expect(page).to have_content("Add a Pet to this Application")
    end
   end
 end
