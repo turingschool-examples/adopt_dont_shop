@@ -5,7 +5,19 @@
   <%= @application.zip %></p>
 <p>Description: <%= @application.description %></p>
 <p>Application status: <%= @application.status %></p>
-<p>Pets: <% @pets.each do |pet|%>
-<%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
+<p>Pets:
+<%# <% @pets.each do |pet|%>
+<%# <%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
+<%# <% end %></p>
+<br>
+<h3>Add a Pet to this Application</h3>
+<%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |f| %>
+  <%= f.label :search %>
+  <%= f.text_field :search %>
+  <%= f.submit "Search" %>
+<% end %><br>
+<% if @pets %>
+  <% @pets.each do |pet|%>
+  <%= link_to "#{pet.name}", "/pets/#{pet.id}" %><br>
+  <% end %>
 <% end %>
- </p>
