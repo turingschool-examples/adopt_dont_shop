@@ -1,5 +1,5 @@
 <h1><%= @application.name %></h1>
-<p>Address: <%= @application.street %>
+<div id='app'><p>Address: <%= @application.street %>
   <%= @application.city %>
   <%= @application.state %>,
   <%= @application.zip %></p>
@@ -8,7 +8,7 @@
 <p>Pets:
 <%# <% @pets.each do |pet|%>
 <%# <%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
-<%# <% end %></p>
+<%# <% end %></p></div>
 <br>
 <h3>Add a Pet to this Application</h3>
 <%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |f| %>
