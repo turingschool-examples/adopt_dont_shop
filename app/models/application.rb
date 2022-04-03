@@ -11,6 +11,7 @@ class Application < ApplicationRecord
 
   def all_pets_approved?
     pet_ids = pets.map {|pet| pet.id}
-    pet_ids.all? {|pet_id| approved_pet_ids.include?(pet_id)}
+    int_approved_pet_ids = approved_pet_ids.map {|pet_id| pet_id.to_i}
+    pet_ids.all? {|pet_id| int_approved_pet_ids.include?(pet_id)}
   end
 end

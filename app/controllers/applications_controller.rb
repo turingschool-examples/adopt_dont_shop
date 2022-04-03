@@ -10,7 +10,6 @@ class ApplicationsController < ApplicationController
   def create
     params[:description] = 'Place Holder'
     params[:status] = 'In Progress'
-    # require 'pry'; binding.pry
     application = Application.create(application_params)
     if application.save
       redirect_to "/applications/#{application.id}" and return
