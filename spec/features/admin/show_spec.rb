@@ -20,12 +20,12 @@ RSpec.describe "Admin applications Show" do
     @pet_2.applications << @application_1
   end
 
-  it "shows an admin application" do
+  it "shows an admin application with pets to approve" do
 
     visit admin_applications_path(@application_1.id)
-    expect(current_path).to eq("application_path(#{@application_1.id})"
+    expect(current_path).to eq (admin_applications_path(@application_1.id))
 #     save_and_open_page
-    #click_on("Approve")
-    expect(current_path).to eq("application_path(#{@application_1.id})"
+    click_button("Approve")
+    expect(current_path).to eq (admin_applications_path(@application_1.id))
   end
 end

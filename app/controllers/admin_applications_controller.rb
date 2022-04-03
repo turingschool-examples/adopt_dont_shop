@@ -4,9 +4,9 @@ class AdminApplicationsController < ActionController::Base
   end
 
   def show
-#    binding.pry
     @application = Application.find(params[:id])
     @pets = @application.pets
+    #@pets = @application.pets.adoptable
   end
 
   def new
