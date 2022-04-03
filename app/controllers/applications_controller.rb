@@ -34,24 +34,38 @@ class ApplicationsController < ApplicationController
   end
 
   def update
-    # id = params[:]
-    @pet = Pet.find(params[:pet_name])
-    @application = Application.find(params[:id])
-    @application.update({
-      name: params[:name],
-      address: params[:address],
-      description: params[:description],
-      pet_names: @pet.name,
-      status: params[:status].to_i
-      })
-    app_pet = ApplicationPet.new({
-      application: @application,
-      pet: @pet
-      })
-    app_pet.save
-    redirect_to "/applications/#{@application.id}"
 
+    if params[:pet_name]
+      @pet = Pet.find(params[:pet_name])
+      @application = Application.find(params[:id])
+      @application.update({
+        name: params[:name],
+        address: params[:address],
+        description: params[:description],
+        pet_names: @pet.name,
+        status: params[:status].to_i
+        })
+      app_pet = ApplicationPet.new({
+        application: @application,
+        pet: @pet
+        })
+      app_pet.save
+      redirect_to "/applications/#{@application.id}"
+
+    elsif params[:why_i_would_make_a_good_home]
+      @application = Application.find(params[:id])
+      @application.update({
+        description: params[:why_i_would_make_a_good_home],
+        status: params[:status].to_i
+        })
+      # require "pry"; binding.pry
+      redirect_to "/applications/#{@application.id}"
+
+    end
   end
+
+
+
   def edit
     if params[:pet_names]
     end
