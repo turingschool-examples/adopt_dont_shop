@@ -9,7 +9,7 @@ RSpec.describe 'the application show' do
     zip: 11111, description: "")
   end
 
-  describe "when I visit an applicat!!ion's show page" do
+  describe "when I visit an application's show page" do
     it "shows the applicant and all it's attributes" do
 
       visit "/applications/#{@application.id}"
@@ -42,14 +42,37 @@ RSpec.describe 'the application show' do
 
       expect(page).to have_content("Scooby")
       expect(page).to_not have_content("Scrappy")
+    end
+
+    it "lets me search with partial search" do
+      fluffy = Pet.create!(name: 'Fluffy', age: 2, breed: 'Great Dane', adoptable: true, shelter_id: @shelter.id)
+      fluff_poof = Pet.create!(name: 'Fluff Poof', age: 2, breed: 'Great Dane', adoptable: true, shelter_id: @shelter.id)
+      mr_fluffy = Pet.create!(name: 'Mr. Fluffy', age: 2, breed: 'Great Dane', adoptable: true, shelter_id: @shelter.id)
 
       visit "/applications/#{@application.id}"
 
-      fill_in("search", with: "Sc")
+      fill_in("search", with: "fluff")
       click_on "Search"
 
-      expect(page).to have_content("Scooby")
-      expect(page).to have_content("Scrappy")
+      expect(page).to have_content("Fluffy")
+      expect(page).to have_content("Fluff Poof")
+      expect(page).to have_content("Mr. Fluffy")
+
+    end
+
+    it "search bar is case insensitive" do
+      fluffy = Pet.create!(name: 'Fluffy', age: 2, breed: 'Great Dane', adoptable: true, shelter_id: @shelter.id)
+      fluff_poof = Pet.create!(name: 'FlufF Poof', age: 2, breed: 'Great Dane', adoptable: true, shelter_id: @shelter.id)
+      mr_fluffy = Pet.create!(name: 'Mr. FlufFy', age: 2, breed: 'Great Dane', adoptable: true, shelter_id: @shelter.id)
+
+      visit "/applications/#{@application.id}"
+
+      fill_in("search", with: "fluff")
+      click_on "Search"
+
+      expect(page).to have_content("Fluffy")
+      expect(page).to have_content("FlufF Poof")
+      expect(page).to have_content("Mr. FlufFy")
 
     end
 
