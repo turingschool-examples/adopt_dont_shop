@@ -28,3 +28,17 @@ Application Status: <%= @application.status %><br>
   <% end  %>
 </div>
 <% end %>
+<% if  @application.status == "in_progress"%>
+
+<h3>Why I Would Make a Good Home</h3>
+  <%= form_with url: "/applications/#{@application.id}?add=description", method: :patch, local: true do |form| %>
+
+    <%= form.label :why_i_would_make_a_good_home%>
+    <%= form.text_field :why_i_would_make_a_good_home %>
+
+    <%= form.hidden_field :status, value: 1 %>
+
+    <%= form.submit "Submit This Application" %>
+  <% end %>
+
+<% end  %>

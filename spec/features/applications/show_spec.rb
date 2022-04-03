@@ -62,7 +62,6 @@ RSpec.describe 'Application show page' do
         within "#pet-#{@pet_2.id}" do
           click_on "Adopt This Pet"
         end
-        # save_and_open_page
 
         expect(current_path).to eq("/applications/#{@app_2.id}")
 
@@ -82,14 +81,16 @@ RSpec.describe 'Application show page' do
           click_on "Adopt This Pet"
         end
 
-        fill_in "Why I Would Make a Good Home", with: "I am a good pet owner."
+        fill_in 'Why i would make a good home', with: 'I am a good pet owner.'
         click_on "Submit This Application"
+        save_and_open_page
 
         expect(current_path).to eq("/applications/#{@app_2.id}")
 
         expect(page).to_not have_content("in_progress")
         expect(page).to have_content("pending")
-        expect(page).to_not have_content("Adoptable Pets:")
+        expect(page).to have_content("Why I am a Good Home: I am a good pet owner.")
+
 
       end
     end
