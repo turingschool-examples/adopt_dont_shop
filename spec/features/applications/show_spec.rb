@@ -81,9 +81,9 @@ RSpec.describe 'Application show page' do
           click_on "Adopt This Pet"
         end
 
+        # save_and_open_page
         fill_in 'Why i would make a good home', with: 'I am a good pet owner.'
         click_on "Submit This Application"
-        save_and_open_page
 
         expect(current_path).to eq("/applications/#{@app_2.id}")
 
