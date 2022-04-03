@@ -125,8 +125,15 @@ RSpec.describe 'the application show' do
         expect(page).to have_content("I'm a cool cat")
         expect(page).to have_content("Pending")
       end
+
       expect(page).to_not have_content("Submit my application")
-      expect(page).to_not have_content("Add a Pet to this Application")
-      end
+      expect(page).to_not have_content("Why would you make a good owner")
+    end
+
+    it "does not show an application submission without adding pets" do
+      visit "/applications/#{@application.id}"
+
+      expect(page).to_not have_content("Why would you make a good owner")
+    end
   end
 end
