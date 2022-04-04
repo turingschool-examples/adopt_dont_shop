@@ -16,12 +16,14 @@ application_3 = Application.create!(name: "Doug Shruggs", street_address: "2024 
 shelter_1 = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
 shelter_2 = Shelter.create(name: 'RGV animal shelter', city: 'Harlingen, TX', foster_program: false, rank: 5)
 shelter_3 = Shelter.create(name: 'Fancy pets of Colorado', city: 'Denver, CO', foster_program: true, rank: 10)
-shelter_4 = Shelter.create(name: 'Dumb Friends League', city: 'Boulder, CO', foster_program: true, rank: 8)
+shelter_4 = Shelter.create(name: 'Dumb Friends League', city: 'Boulder, CO', foster_program: true, rank: 1)
 
 pet_1 = Pet.create!(name: 'Mr. Pirate', breed: 'tuxedo shorthair', age: 5, adoptable: true, shelter_id: shelter_1.id)
 pet_2 = Pet.create!(name: 'Clawdia', breed: 'shorthair', age: 3, adoptable: true, shelter_id: shelter_1.id)
 pet_3 = Pet.create!(name: 'Ann', breed: 'ragdoll', age: 3, adoptable: false, shelter_id: shelter_3.id)
 pet_4 = Pet.create!(name: 'Purrdy', breed: 'persian', age: 6, adoptable: true, shelter_id: shelter_3.id)
+pet_5 = Pet.create!(name: 'Staniel', breed: 'sheepadoodle', age: 2, adoptable: true, shelter_id: shelter_4.id)
+pet_6 = Pet.create!(name: 'Brodan', breed: 'German Shorthair Pointer', age: 5, adoptable: true, shelter_id: shelter_4.id)
 
 
 PetApplication.create!(pet: pet_1, application: application_2)
