@@ -4,9 +4,8 @@ class ApplicationsController < ApplicationController
     if params[:search].present?
       @pets = Pet.search(params[:search])
     end
-    if params[:status] == "Pending"
-      @application.status = params[:status]
-    elsif @application.status == nil
+
+    if @application.status == nil
       @application.status = "In Progress"
     end
   end
