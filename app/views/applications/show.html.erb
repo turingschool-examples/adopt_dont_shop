@@ -7,9 +7,21 @@
 <p>State: <%= @application.state %></p>
 <p>Zipcode: <%= @application.zipcode %></p>
 <p>Description: <%= @application.description %></p>
-<p>Pets</p>
+
+<h3>Add a Pet to this Application</h3>
+<%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |f| %>
+  <%= f.label :pets,'Search Pets' %>
+  <%= f.text_field :pets %>
+  <%= f.submit "Search" %>
+<% end %>
 <% @pets.each do |pet| %>
-  <%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
+<%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
+<%= button_to "Adopt #{pet.name}", "/applications/#{@application.id}/pets", method: :post, params: {:pet_id => pet.id} %>
+<% end %>
+
+<p>Adopt A Pet Requests</p>
+<% @pets.each do |pet| %>
+<%= pet.name %>
 <% end %>
 
 <p>Status: <%= @application.status %></p>

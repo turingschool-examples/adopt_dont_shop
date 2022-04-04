@@ -5,8 +5,11 @@ class ApplicationsController < ApplicationController
   end
 
   def show
-    @application = Application.find(params[:application_id])
+    @application = Application.find(params[:id])
     @pets = @application.pets
+    if params[:pets].present?
+      @pets = Pet.search(params[:pets])
+    end
   end
 
   def new
@@ -16,7 +19,6 @@ class ApplicationsController < ApplicationController
 
   def create
     application = Application.new(application_params)
-
     if application.save
       redirect_to "/applications/#{application.id}"
     else
@@ -25,11 +27,22 @@ class ApplicationsController < ApplicationController
     end
   end
 
+  def update
+    application = Application.find(params[:id])
+    require "pry"; binding.pry
+
+    @pets = Pet.find(params[:id])
+    # application.pets << @pets.last
+    # require "pry"; binding.pry
+
+    redirect_to "/applications/#{application.id}"
+  end
+
 
   private
 
   def application_params
-    params.permit(:name, :street_address, :city, :state, :zipcode, :description, :status)
+    params.permit(:name, :street_address, :city, :state, :zipcode, :description, :status, :pets)
   end
 
 end

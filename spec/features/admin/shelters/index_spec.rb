@@ -15,7 +15,7 @@ RSpec.describe 'the admin shelters index' do
   it 'lists all the shelters with pending applications' do
     shelter1 = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
     shelter2 = Shelter.create(name: 'Denver shelter', city: 'Denver, CO', foster_program: true, rank: 10)
-    pet_1 = Pet.create(adoptable: true, age: 1, breed: 'sphynx', name: 'Lucille Bald', shelter_id: shelter1.id)
+    pet1 = Pet.create!(name: 'Joey', age: 2, breed: 'Poodle', adoptable: true, shelter_id: shelter1.id)
     application = Application.create!(name: 'Andrew',
       street_address: '112 Greenbrook',
       city: 'Denver',
@@ -24,18 +24,18 @@ RSpec.describe 'the admin shelters index' do
       description: 'Happy, friendly, cool',
       status: 'Pending',
     )
-    application_pet = ApplicationPet.create(pet_id: pet_1.id, application_id: application.id)
+    application_pet = ApplicationPet.create!(application_id: application.id, pet_id: pet1.id)
     
     visit '/admin/shelters'
-
-    within "Shelters with Pending Applications" do
+    expect(page).to have_content("Shelters with Pending Applications")
+    within "#shelters_with_pending_applications" do
       expect(page).to have_content('Aurora shelter')
       expect(page).to_not have_content('Denver shelter')
     end
+
   end
-
-
 end
+
 # As a visitor
 # When I visit the admin shelter index ('/admin/shelters')
 # Then I see a section for "Shelter's with Pending Applications"

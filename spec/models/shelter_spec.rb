@@ -29,16 +29,35 @@ RSpec.describe Shelter, type: :model do
         expect(Shelter.search("Fancy")).to eq([@shelter_3])
       end
     end
-
+    
     describe '#order_by_recently_created' do
       it 'returns shelters with the most recently created first' do
         expect(Shelter.order_by_recently_created).to eq([@shelter_3, @shelter_2, @shelter_1])
       end
     end
-
+    
     describe '#order_by_number_of_pets' do
       it 'orders the shelters by number of pets they have, descending' do
         expect(Shelter.order_by_number_of_pets).to eq([@shelter_1, @shelter_3, @shelter_2])
+      end
+    end
+    
+    describe '#pending' do
+      it 'returns shelters with pending applications' do
+        shelter1 = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
+        shelter2 = Shelter.create(name: 'Denver shelter', city: 'Denver, CO', foster_program: true, rank: 10)
+        pet1 = Pet.create!(name: 'Joey', age: 2, breed: 'Poodle', adoptable: true, shelter_id: shelter1.id)
+        application = Application.create!(name: 'Andrew',
+          street_address: '112 Greenbrook',
+          city: 'Denver',
+          state: 'CO',
+          zipcode: '80207',
+          description: 'Happy, friendly, cool',
+          status: 'Pending',
+        )
+      application_pet = ApplicationPet.create!(application_id: application.id, pet_id: pet1.id)
+      
+      expect(Shelter.pending).to eq([shelter1])
       end
     end
   end
