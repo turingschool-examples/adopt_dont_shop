@@ -58,7 +58,7 @@ RSpec.describe 'the shelters index' do
     ApplicationPet.create!(pet_id: "#{@nimbus.id}", application_id: "#{application3.id}")
 
     visit "/admin/shelters"
-save_and_open_page
+
     within("#pending") do
       expect(@shelter_1.name).to appear_before(@shelter_3.name)
       expect(@shelter_3.name).to appear_before(@shelter_2.name)
