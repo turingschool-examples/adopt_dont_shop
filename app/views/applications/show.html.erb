@@ -4,7 +4,7 @@
 <p> Description: <%= @application.description %></p>
 <p> Pets on this application: </p>
 <ul>
-  <%= @pets.each do |pet| %>
+  <% @pets.each do |pet| %>
   <li><a href="/pets/<%= pet.id %>/"> <%= pet.name %> </a></li>
   <% end %>
 </ul>
