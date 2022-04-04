@@ -18,6 +18,7 @@
 				<h4>Application for <%=pet.name%> <%=@application.application_pet_status(pet.id)%></h4>
 			<% else %>
 				<p><%= button_to "Approve application for #{pet.name}", "/admin/applications/#{@application.id}/pets", method: :patch, params: {:pet_id => pet.id, :application_id => @application.id, :status => 'approved'}%></p>
+				<p><%= button_to "Reject application for #{pet.name}", "/admin/applications/#{@application.id}/pets", method: :patch, params: {:pet_id => pet.id, :application_id => @application.id, :status => 'rejected'}%></p>
 			<% end %>
 
 		  </section>
