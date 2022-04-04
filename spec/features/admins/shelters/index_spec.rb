@@ -48,8 +48,12 @@ RSpec.describe 'admin_shelters index page' do
 
         within "#shelter-#{shelter_1.id}" do
           click_link "#{shelter_1.name}"
-          expect(current_path).to eq("/admin/shelters/#{shelter_1.id}")
         end
+
+        expect(current_path).to eq("/admin/shelters/#{shelter_1.id}")
+        expect(page).to have_content("#{shelter_1.name}")
+        expect(page).not_to have_content("#{shelter_2.name}")
+        expect(page).not_to have_content("#{shelter_3.name}")
       end
     end
   end
