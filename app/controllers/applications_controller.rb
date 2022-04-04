@@ -30,9 +30,9 @@ class ApplicationsController < ApplicationController
   def update
     application = Application.find(params[:id])
     @pets = Pet.search(params[:pets])
-    require "pry"; binding.pry
+    application.pets << @pets.last
+    # require "pry"; binding.pry
 
-    application.update(application_params)
     redirect_to "/applications/#{application.id}"
   end
 
