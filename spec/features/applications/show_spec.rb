@@ -83,6 +83,20 @@ RSpec.describe 'Application Show Page' do
      expect(page).not_to have_content(@pet_2.name)
    end
 
+   it 'searches for pets with partial name' do
+     @pet_5 = @shelter_1.pets.create(name: 'Junipurr', breed: 'maine coon', age: 8, adoptable: true)
+     @pet_6 = @shelter_1.pets.create(name: 'Sir purge', breed: 'golden retriever', age: 5, adoptable: true)
+
+     visit "/applications/#{@application_1.id}"
+     fill_in(:pet_name, with: "pur")
+     click_on("Search")
+     expect(current_path).to eq("/applications/#{@application_1.id}")
+     expect(page).to have_content(@pet_5.name)
+     expect(page).to have_content(@pet_6.name)
+     expect(page).to have_content(@pet_4.name)
+     expect(page).not_to have_content(@pet_1.name)
+   end
+
    it 'can add pets to the application with a button' do
      visit "applications/#{@application_1.id}"
      fill_in(:pet_name, with: "Mr. Pirate")
@@ -92,7 +106,7 @@ RSpec.describe 'Application Show Page' do
        click_button "Adopt this Pet"
      end
      expect(current_path).to eq("/applications/#{@application_1.id}")
-     expect(page).to have_content(@pet_1.name)
+     expect(page).to have_link(@pet_1.name)
      expect(page).not_to have_content(@pet_2.name)
    end
 

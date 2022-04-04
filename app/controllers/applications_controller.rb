@@ -26,6 +26,7 @@ class ApplicationsController < ApplicationController
     @applicant = Application.find(params[:id])
       if params[:pet_name]
         @pets = Pet.search(params[:pet_name])
+        # require "pry"; binding.pry
       else
         @pets =[]
       end
