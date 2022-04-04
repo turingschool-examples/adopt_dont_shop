@@ -52,15 +52,15 @@ RSpec.describe 'admin application show page' do
     end
   end
 
-  xit 'can reject a pet for adoption' do
+  it 'can reject a pet for adoption' do
     visit "/admin/applications/#{@application_1.id}"
 
-    Pet.all.each do |pet|
-      within ".pet_app-#{pet.id}" do
+    @application_1.pet_applications.each do |pet_app|
+      within ".pet_app-#{pet_app.id}" do
         click_on("Reject")
       end
-      expect(current_path).to eq("/admin/applications/#{pet.id}")
-      within ".pet_app-#{pet.id}" do
+      expect(current_path).to eq("/admin/applications/#{@application_1.id}")
+      within ".pet_app-#{pet_app.id}" do
         expect(page).not_to have_button("Reject")
         expect(page).to have_content("Not Approved")
       end

@@ -5,11 +5,14 @@
 <%= pet_app.pet.name %>
 
   <% if pet_app.status == "Pending" %>
-  <p><%= button_to "Approve", "/admin/applications/#{@application.id}", params: {approve: pet_app.id}, method: :patch %></p>
+  <p><%= button_to "Approve", "/admin/applications/#{@application.id}", params: {approve: pet_app.id}, method: :patch %>
+  <%= button_to "Reject", "/admin/applications/#{@application.id}", params: {reject: pet_app.id}, method: :patch %></p>
 
   <% elsif pet_app.status == "Approved" %>
   <p>Approved for Adoption</p>
-  
+
+  <% elsif pet_app.status == "Not Approved"%>
+  <p>Not Approved</p>
   <% end %>
 </div>
 <% end %>
