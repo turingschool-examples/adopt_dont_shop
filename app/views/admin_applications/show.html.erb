@@ -4,11 +4,16 @@ Applicant Name: <%= @application.name %><br>
 Full Address: <%= @application.address %><br>
 Why I am a Good Home: <%= @application.description %><br>
 
-Adoptable Pets: <% @pets.each do |pet| %><br>
+Adoptable Pets: <% @application.pets.each do |pet| %><br>
+
 <div id="pet-<%= pet.id %>">
 
-  <%= pet.name %><br>
-
+  <%= pet.name %>
+  <%= form_with url: "/admin/applications/#{@application.id}?approve=pet", method: :patch, local: true do |form| %>
+  <%= form.hidden_field :pet_status, value: 1 %>
+  <%= form.submit "APPROVE THIS PET" %>
+  <% end  %>
 </div>
 <% end %><br>
+
 Application Status: <%= @application.status %><br>
