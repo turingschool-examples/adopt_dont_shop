@@ -17,4 +17,10 @@ RSpec.describe "AdminShelters", type: :feature do
     end
   end
 
+    it "shows a section with statistics" do
+      visit "/admin/shelters/#{@shelter_3.id}"
+
+      expect(page).to have_content("Some quick stats:")
+    end
+
 end
