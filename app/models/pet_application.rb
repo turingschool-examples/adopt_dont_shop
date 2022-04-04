@@ -11,4 +11,8 @@ class PetApplication < ApplicationRecord
   def self.all_approved?
     !any?{|pet_app| pet_app.status != "Approved"}
   end
+
+  def self.all_inspected?
+    !any?{|pet_app| pet_app.status == "Pending"}
+  end
 end

@@ -116,12 +116,17 @@ RSpec.describe 'admin application show page' do
     @pet_app5 = PetApplication.create!(pet: @pet3, application: @application_1)
 
     visit "/admin/applications/#{@application_1.id}"
-    @application_1.pet_applications.each do |pet_app|
-      within ".pet_app-#{pet_app.id}" do
-        click_on("Reject")
-      end
-    end
 
+    within ".pet_app-#{@pet_app1.id}" do
+      click_on("Reject")
+    end
+    within ".pet_app-#{@pet_app2.id}" do
+      click_on("Approve")
+    end
+    within ".pet_app-#{@pet_app5.id}" do
+      click_on("Reject")
+    end
+    
     expect(current_path).to eq("/admin/applications/#{@application_1.id}")
     expect(page).to have_content("Rejected")
 
