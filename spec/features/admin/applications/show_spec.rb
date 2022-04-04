@@ -15,10 +15,8 @@ end
       click_on "Search"
       click_button "Adopt #{@scooby.name}"
       visit "/admin/applications/#{@application.id}"
-      save_and_open_page
       expect(page).to have_no_content("Application Approved")
       click_button "Approve Application for Scooby"
-      save_and_open_page
       expect(current_path).to eq("/admin/applications/#{@application.id}")
       expect(page).to have_no_button("Approve Scooby")
       expect(page).to have_content("Application Approved")
