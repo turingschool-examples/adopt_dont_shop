@@ -1,10 +1,10 @@
 <h1> Shelters </h1>
 <% @shelters.each do |shelter| %>
-<h3> <%= shelter.name %> </h3>
+  <p> <%= link_to "#{shelter.name}", "/admin/shelters/#{shelter.id}", method: :get %> </p>
 <% end %>
 <div id="shelters_with_pending_applications"> 
 <h2> Shelters with Pending Applications </h2>
 <% @shelters_with_pending_applications.each do |shelter| %>
-  <p> <%= shelter.name %> </p>
+  <h3> <%= shelter.name %> </h3>
 <% end %>
 </div>

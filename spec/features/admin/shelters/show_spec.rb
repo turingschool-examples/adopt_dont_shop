@@ -13,9 +13,3 @@ RSpec.describe 'the admin shelter show page' do
     expect(page).to_not have_content("Denver, CO")
   end
 end
-
-# As a visitor
-# When I visit an admin shelter show page
-# Then I see that shelter's name and full address
-
-# NOTE: Your query should only return the necessary data to complete the story
