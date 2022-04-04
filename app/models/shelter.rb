@@ -20,6 +20,10 @@ class Shelter < ApplicationRecord
     find_by_sql("SELECT * FROM shelters ORDER BY name DESC")
   end
 
+  def self.show_list(id)
+    find_by_sql("SELECT name, city FROM shelters WHERE id = #{id}")
+  end
+
   def self.pending
     select("shelters.*")
     .joins(pets: :applications)

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe AdminShelters, type: :feature do
+RSpec.describe "AdminShelters", type: :feature do
   before (:each) do
     @shelter_1 = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
     @shelter_2 = Shelter.create(name: 'RGV animal shelter', city: 'Harlingen, TX', foster_program: false, rank: 5)
@@ -13,6 +13,7 @@ RSpec.describe AdminShelters, type: :feature do
 
       expect(page).to have_content(@shelter_1.name)
       expect(page).to have_content(@shelter_1.city)
+      expect(page).to_not have_content(@shelter_3.name)
     end
   end
 
