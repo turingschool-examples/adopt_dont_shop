@@ -6,8 +6,4 @@ class Application < ApplicationRecord
   validates :zipcode, presence: true
   has_many :pet_applications
   has_many :pets, through: :pet_applications
-
-  def self.find_pet_by_name(name)
-    pets.find.where(params[:name] == name)
-  end
 end
