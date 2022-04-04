@@ -6,6 +6,8 @@ Veterinarian.destroy_all
 VeterinaryOffice.destroy_all
 
 @shelter = Shelter.create!(foster_program: true, name: "GoodPets", city: "Denver", rank: 6000)
+@shelter2 = Shelter.create!(foster_program: true, name: "Furry Friends For You", city: "Denver", rank: 17)
+@shelter3 = Shelter.create!(foster_program: true, name: "Pet Rescue Denver", city: "Denver", rank: 432)
 
 @pet1 = @shelter.pets.create!(adoptable: true, age: 3, breed: "Shepard", name: "Alfonso")
 @pet2 = @shelter.pets.create!(adoptable: true, age: 6, breed: "Shepard", name: "Geoffrey")
