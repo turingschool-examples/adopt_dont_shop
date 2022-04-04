@@ -8,6 +8,10 @@ RSpec.describe 'Admin Shelter Index Page' do
     @shelter_1.pets.create(name: 'Mr. Pirate', breed: 'tuxedo shorthair', age: 5, adoptable: true)
     @shelter_1.pets.create(name: 'Clawdia', breed: 'shorthair', age: 3, adoptable: true)
     @shelter_3.pets.create(name: 'Lucille Bald', breed: 'sphynx', age: 8, adoptable: true)
+
+    @app_1 = Application.create!(name: 'bob', address: '100 main street, Aurora, CO, 80014', description: 'I love dogs', pet_names: 'Joe, Champ, Pixie', status: 2)
+    @app_2 = Application.create!(name: 'sumbit', address: '321 hill ave, Denver, CO, 80021', description: "", pet_names: "", status: 0)
+
   end
   describe 'As a visitor' do
     describe 'When I visit the admin shelter index' do
@@ -23,6 +27,15 @@ RSpec.describe 'Admin Shelter Index Page' do
         expect("#{@shelter_2.name}").to appear_before("#{@shelter_3.name}")
         expect("#{@shelter_3.name}").to appear_before("#{@shelter_1.name}")
       end
+
+      it 'Then I see a section for Shelters with Pending Applications' do
+
+        within "#Shelters With Pending Apps-#{}"
+      end
+
+      # it 'And in this section I see the name of every shelter that has a pending application' do
+      #
+      # end
     end
   end
 end
