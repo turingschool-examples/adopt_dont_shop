@@ -8,10 +8,11 @@ Rails.application.routes.draw do
   get '/admin/applications/:id', to: 'admin_applications#show'
   patch '/admin/applications/:id', to: 'admin_applications#show'
 
+  post '/applications', to: 'application#create'
+  post '/applications/new', to: 'application#create'
   get '/applications', to: 'application#index'
   get '/applications/new', to: 'application#new'
   get '/applications/:id', to: 'application#show'
-  post '/applications', to: 'application#create'
 
   get '/shelters', to: 'shelters#index'
   get '/shelters/new', to: 'shelters#new'

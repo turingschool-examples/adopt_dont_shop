@@ -14,7 +14,7 @@ class VeterinariansController < ApplicationController
   def create
     @vet_office = VeterinaryOffice.find(vet_params[:veterinary_office_id])
     veterinarian = Veterinarian.new(vet_params)
-
+    # binding.pry
     if veterinarian.save
       redirect_to "/veterinary_offices/#{@vet_office.id}/veterinarians"
     else
