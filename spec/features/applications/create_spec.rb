@@ -34,13 +34,6 @@ RSpec.describe 'application creation' do
     expect(current_path).to eq("/applications/#{application.id}")
   end
 
-  # As a visitor
-  # When I visit the new application page
-  # And I fail to fill in any of the form fields
-  # And I click submit
-  # Then I am taken back to the new applications page
-  # And I see a message that I must fill in those fields.
-
   it "factors for blank fields of the form" do
     visit "/applications/new"
 
