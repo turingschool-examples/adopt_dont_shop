@@ -82,12 +82,6 @@ RSpec.describe 'the applications index' do
    end
   end
 
-  # As a visitor
-  # When I visit an application show page
-  # And I search for Pets by name
-  # Then I see any pet whose name PARTIALLY matches my search
-  # For example, if I search for "fluff", my search would match pets with names "fluffy", "fluff", and "mr. fluff"
-
   it 'allows the user to search for pets with partial searches' do
     application_1 = Application.create!(name: 'John', address: '505 Main St.', city: 'Denver', state: 'CO', zipcode: '80205', description: "I'm great with dogs.", status: 'In-progress')
     application = Application.create!(name: 'Chris', address: '505 Main St.', city: 'Denver', state: 'CO', zipcode: '80205', description: "I'm great with dogs.", status: 'In-progress')
