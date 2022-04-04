@@ -29,11 +29,13 @@
   <%= pet.name %>
 <% end %>
 
-<% if @application.pets.count >= 1 %>
-  <%= form_with url: "/applications/#{@application.id}", method: :post, local: true do |f| %>
-    <%= f.label :description %>
-    <%= f.text_field :description %>
-    <%= f.button "Submit Application", name: "status", value: 'Pending' %>
+<% if @application[:status] == 'In Progress' %>
+  <% if @application.pets.count >= 1 %>
+    <%= form_with url: "/applications/#{@application.id}", method: :post, local: true do |f| %>
+      <%= f.label :description %>
+      <%= f.text_field :description %>
+      <%= f.button "Submit Application", name: "status", value: 'Pending' %>
+    <% end %>
   <% end %>
 <% end %>
 
