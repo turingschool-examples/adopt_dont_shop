@@ -16,3 +16,6 @@
   <%= link_to "Edit #{pet.name}", "/pets/#{pet.id}/edit" %>
   <%= link_to "Delete #{pet.name}", "/pets/#{pet.id}", method: :delete %>
 <% end %>
+
+<h1> Apply for Pet Adoption </h1>
+<%=button_to 'Start An Application', "/applications/new", method: :get%>

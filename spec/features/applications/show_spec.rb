@@ -15,7 +15,6 @@ RSpec.describe 'the applications show page' do
       name: 'Sherman',
       address: '123 Main St', city: 'Longmont', state: 'CO', zipcode: '80501',
       description: 'Loves animals',
-      status: 'Accepted'
     )
     PetApplication.create!(pet_id: @pet_1.id, application_id: @application.id)
     PetApplication.create!(pet_id: @pet_2.id, application_id: @application.id)

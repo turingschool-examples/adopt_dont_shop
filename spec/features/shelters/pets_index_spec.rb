@@ -87,4 +87,6 @@ RSpec.describe 'the shelters pets index' do
     expect(@pet_1.name).to appear_before(@pet_4.name)
     expect(@pet_4.name).to appear_before(@pet_2.name)
   end
+
+  
 end
