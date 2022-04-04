@@ -34,13 +34,14 @@ RSpec.describe "Applications Show" do
 
   it "has a search bar to add pets to application" do
     visit "/applications/#{@application_1.id}"
+    # save_and_open_page
     expect(page).to_not have_content('Name: Dorothy')
     expect(page).to_not have_content('Breed: pug')
     expect(page).to_not have_content('Age: 5')
 
-    fill_in 'Search for pet name', with: 'dorothy'
+    fill_in 'Search for pet name', with: 'Dorothy'
     click_button 'Submit'
-
+    # save_and_open_page
     expect(current_path).to eq("/applications/#{@application_1.id}")
     expect(page).to have_content('Name: Dorothy')
     expect(page).to have_content('Breed: pug')

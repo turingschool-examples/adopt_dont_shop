@@ -7,11 +7,11 @@ class ApplicationController < ActionController::Base
   end
 
   def show
-    binding.pry
+    # binding.pry
     @application = Application.find(params[:id])
     @pets = @application.pets
     if params[:search_for_pet_name].present?
-      @pets = Pet.search(params[:search_for_pet_name])
+      @searched_pets = Pet.search(params[:search_for_pet_name])
     end
   end
 

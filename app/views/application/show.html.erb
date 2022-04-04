@@ -7,9 +7,18 @@
 <h3>Pets: <% @pets.each do |pet| %>
 <%= link_to "#{pet.name}", "/pets/#{pet.id}"%>
 <% end %></h3>
+<h3>Status: In Progress</h3>
+
+<h2>Add a Pet to This Application</h2>
 <%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |f| %>
   <%= f.label :search_for_pet_name %>
   <%= f.text_field :search_for_pet_name %>
   <%= f.submit "Submit" %>
 <% end %>
-<h3>Status: In Progress</h3>
+<% if @searched_pets %>
+  <% @searched_pets.each do |pet| %>
+    <h4>Name: <%= pet.name %></h4>
+    <h4>Breed: <%= pet.breed %></h4>
+    <h4>Age: <%= pet.age %></h4>
+  <% end %>
+<% end %>
