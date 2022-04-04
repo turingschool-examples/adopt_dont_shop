@@ -9,12 +9,29 @@
 	<%= f.submit "Submit" %>
 <% end  %>
 
-<% if @pet_found %>
+<% if @pet_found && @pet_found.first %>
+<% @pet_found.each do |pet| %>
+
 	<h4>Match found:</h4>
-	<p><%= @pet_found.name %></p>
-	<p><%= @pet_found.age %></p>
-	<p><%= @pet_found.breed %></p>
-	<p><%= @pet_found.adoptable %></p>
+	<p><%= pet.name %></p>
+	<p><%= pet.age %></p>
+	<p><%= pet.breed %></p>
+	<p><%= pet.adoptable %></p>
+	<p><%= button_to "Adopt #{pet.name}", "/applications/#{@application.id}/pets", method: :post, params: {:pet_id => pet.id, :application_id => @application.id}%></p>
+	<% end %>
 <% else %>
 	<p>No pet by this name is found</p>
 <% end %>
+
+<section id="pets_selected">
+
+	<% if @pets_added && @pets_added.first %>
+		<h4>Pets added:</h4>
+		<% @pets_added.each do |pet| %>
+			<p><%= pet.name %></p>
+			<p><%= pet.age %></p>
+			<p><%= pet.breed %></p>
+			<% end %>
+
+	<% end %>
+	</section>
