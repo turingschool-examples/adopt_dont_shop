@@ -1,0 +1,8 @@
+<h4><%= @application.name%>'s Application</h4>
+<h5>Pets Applied For</h5>
+<% @application.pets.each do |pet| %>
+<div class="pet-<%=pet.id%>">
+<p><%= pet.name %>
+  <%= button_to "Approve", "/admin/applications/#{@application.id}", method: :get %></p>
+</div>
+<% end %>
