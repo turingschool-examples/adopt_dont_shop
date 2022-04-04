@@ -1,0 +1,14 @@
+<h1>Admin Application Show Page</h1>
+
+Applicant Name: <%= @application.name %><br>
+Full Address: <%= @application.address %><br>
+Why I am a Good Home: <%= @application.description %><br>
+
+Adoptable Pets: <% @pets.each do |pet| %><br>
+<div id="pet-<%= pet.id %>">
+
+  <%= pet.name %><br>
+
+</div>
+<% end %><br>
+Application Status: <%= @application.status %><br>
