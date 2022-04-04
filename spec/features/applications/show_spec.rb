@@ -30,20 +30,20 @@ RSpec.describe 'applications' do
 
     it 'has a search bar to find pets by name' do
       fill_in :search, with: 'Alfonso'
-      click_button 'Submit'
+      click_button 'Search'
 
-      expect(current_path).to eq("/applications/#{@application.id}?search=Alfonso")
+      expect(current_path).to eq("/applications/#{@application.id}")
 
       within '#search-bar' do
         expect(page).to have_content("Name: Alfonso")
         expect(page).to have_content("Age: 3")
-        expect(page).to have_content("Age: 6")
-        expect(page).to have_content("Adoptable: True")
+        expect(page).to have_content("Age: 7")
+        expect(page).to have_content("Adoptable: true")
         expect(page).to have_content("Breed: Shepard")
 
         expect(page).to_not have_content("Geoffrey")
-        expect(page).to_not have_content("Adoptable: False")
-        expect(page).to_not have_content("Age: 7")
+        expect(page).to_not have_content("Adoptable: false")
+        expect(page).to_not have_content("Age: 6")
       end
     end
   end
