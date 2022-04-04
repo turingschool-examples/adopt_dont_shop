@@ -40,6 +40,13 @@ class ApplicationController < ActionController::Base
   end
 
   def application_params
-    params.permit(:name, :street_address, :city, :state, :zip_code, :description)
+    params.permit( :name,
+                   :street_address,
+                   :city,
+                   :state,
+                   :zip_code,
+                   :description,
+                   :status
+                 )   
   end
 end

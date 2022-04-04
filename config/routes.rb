@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   end
 
   post '/applications', to: 'application#create'
-  post '/applications/new', to: 'applications#create'
+  post '/applications/new', to: 'application#create'
   get '/applications', to: 'application#index'
   get '/applications/new', to: 'application#new'
   get '/applications/:id', to: 'application#show'
