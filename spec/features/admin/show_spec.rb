@@ -13,6 +13,14 @@
 # Then I'm taken back to the admin application show page
 # And next to the pet that I rejected, I do not see a button to approve or reject this pet
 # And instead I see an indicator next to the pet that they have been rejected
+#
+# As a visitor
+# When there are two applications in the system for the same pet
+# When I visit the admin application show page for one of the applications
+# And I approve or reject the pet for that application
+# When I visit the other application's admin show page
+# Then I do not see that the pet has been accepted or rejected for that application
+# And instead I see buttons to approve or reject the pet for this specific application
 
 require 'rails_helper'
 
@@ -29,9 +37,14 @@ RSpec.describe "Admin applications Show" do
     @application_1 = Application.create!(name: "Carol Crikey", street_address: "2022 S Fake Street", city: "Birmingham",
       state: "AL", zip_code: "54738", description: 'empty', status: "In Progress")
 
+    @application_2 = Application.create!(name: "John H", street_address: "123 Anywhere Ave", city: "Denver",
+      state: "CO", zip_code: "80204", description: 'I would be good at it', status: "In Progress")
+
     #set up the join table ids
     @applicaion_pets_1 = @pet_1.applications << @application_1
     @applicaion_pets_2 = @pet_2.applications << @application_1
+    @applicaion_pets_3 = @pet_1.applications << @application_2
+    @applicaion_pets_4 = @pet_2.applications << @application_2
 
   end
   describe "display" do
@@ -56,6 +69,25 @@ RSpec.describe "Admin applications Show" do
       expect(page).to have_content(@pet_2.name)
       click_button("Reject", match: :first)
       expect(page).to have_content("This pet has been rejected!")
+
+    end
+
+    it "displays a button to approve or reject application for a pet if there are two applications for the same pet" do
+
+      visit "/admin/applications/#{@application_1.id}"
+      expect(page).to have_content(@pet_1.name)
+      expect(page).to have_content(@pet_2.name)
+      expect(page).to have_button("Reject")
+      click_button("Reject", match: :first)
+
+      expect(current_path).to eq("/admin/applications/#{@application_1.id}/")
+      expect(page).to have_content("This pet has been rejected!")
+
+      visit "/admin/applications/#{@application_2.id}"
+      save_and_open_page
+      expect(page).to have_content(@pet_1.name)
+      expect(page).to have_button("Approve")
+      expect(page).to have_button("Reject")
 
     end
   end
