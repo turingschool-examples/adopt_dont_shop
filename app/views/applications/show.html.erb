@@ -18,3 +18,11 @@
 <% else %>
 	<p>No pet by this name is found</p>
 <% end %>
+
+<% if @pet_found %>
+	<%= form_with url: "/applications/#{@application.id}", method: :get, local:true do |f|%> #post to create the joins. point to pet_application#create
+		<%= f.label :description %>
+		<%= f.text_area :description %>
+		<%= f.submit "Submit" %>
+	<% end %>
+<% end %>

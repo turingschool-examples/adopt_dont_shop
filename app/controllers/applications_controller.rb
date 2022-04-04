@@ -1,7 +1,7 @@
 class ApplicationsController < ApplicationController
 
 
-  def new 
+  def new
     @application = Application.new
   end
 
@@ -9,7 +9,7 @@ class ApplicationsController < ApplicationController
     application = Application.create(app_params)
     if application.save
       redirect_to "/applications/#{application.id}"
-    else 
+    else
       redirect_to "/applications/new"
       flash[:alert] = "Error: all requested areas must be filled!"
     end
@@ -20,13 +20,16 @@ class ApplicationsController < ApplicationController
     if params[:search_by_name]
       @pet_found = Pet.search_by_name(params[:search_by_name])[0]
     end
-  end 
+    if params[:description]
+      @application.status = "Pending"
+    end
+  end
 
 
 
 private
 
   def app_params
-    params.require(:application).permit(:name, :street_address, :city, :state, :zipcode, :status)
+    params.require(:application).permit(:name, :street_address, :city, :state, :zipcode, :status, :description)
   end
 end
