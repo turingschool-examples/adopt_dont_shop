@@ -35,10 +35,10 @@ RSpec.describe "Admin applications Show" do
     @pet_3 = @shelter_3.pets.create(name: 'Lucille Bald', breed: 'sphynx', age: 8, adoptable: true)
 
     @application_1 = Application.create!(name: "Carol Crikey", street_address: "2022 S Fake Street", city: "Birmingham",
-      state: "AL", zip_code: "54738", description: 'empty', status: "In Progress")
+      state: "AL", zip_code: "54738", description: 'empty', status: "Pending")
 
     @application_2 = Application.create!(name: "John H", street_address: "123 Anywhere Ave", city: "Denver",
-      state: "CO", zip_code: "80204", description: 'I would be good at it', status: "In Progress")
+      state: "CO", zip_code: "80204", description: 'I would be good at it', status: "Pending")
 
     #set up the join table ids
     @applicaion_pets_1 = @pet_1.applications << @application_1

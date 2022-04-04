@@ -1,5 +1,11 @@
 <h1> Admin Application for: <%= @application.name %></h1>
-<h3>Pets: <p>
+<% if @application.status == "Accepted" %>
+     <a href="#" class="btn btn-success btn-lg disabled" role="button" aria-disabled="true">Application Status: <%= @application.status %></a>
+<% elsif @application.status == "Rejected" %>
+     <a href="#" class="btn btn-danger btn-lg disabled" role="button" aria-disabled="true">Application Status: <%= @application.status %></a>
+ <% end %>
+
+<h3>Pets to adpot: <p>
 <% @pets.each do |pet| %>
   <%= link_to "#{pet.name}", "/pets/#{pet.id}"%>
   <% if @admin_status == "approved" && @petid == "#{pet.id}"%>

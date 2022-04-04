@@ -7,7 +7,6 @@ class Application < ApplicationRecord
   validates :description, presence: true
   validates :status, presence: true
 
-  # has_many :pets, dependent: :destroy
   has_many :application_pets
   has_many :pets, through: :application_pets
 end

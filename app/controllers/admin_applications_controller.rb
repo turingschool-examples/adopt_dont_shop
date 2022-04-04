@@ -11,6 +11,8 @@ class AdminApplicationsController < ActionController::Base
   end
 
   def update
+    @application = Application.find(params[:id])
+#    app_pet = ApplicationPet.app_pet(@application.id, params[:petid])
 #    redirect_to "/admin/applications/#{@application.id}/"
   end
 
@@ -19,14 +21,10 @@ class AdminApplicationsController < ActionController::Base
 
   def create
 #    @application = Application.create!(application_params)
- #   redirect_to "/applications/#{@application.id}"
+#   redirect_to "/applications/#{@application.id}"
   end
 
   private
-
-  def error_message(errors)
-    errors.full_messages.join(', ')
-  end
 
   def application_params
  #   params.permit(:name, :street_address, :city, :state, :zip_code, :description)
