@@ -20,6 +20,15 @@ class Shelter < ApplicationRecord
     find_by_sql "select * from shelters order by name desc"
   end
 
+  def self.pending_applications
+    select("shelters.*")
+    .distinct
+    .joins("inner join pets on pets.shelter_id = shelters.id
+            inner join application_pets on pets.id = application_pets.pet_id
+            inner join applications on application_pets.application_id = applications.id")
+    .where("applications.status = 'Pending'")
+  end
+
   def pet_count
     pets.count
   end
