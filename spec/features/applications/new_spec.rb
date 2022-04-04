@@ -33,4 +33,13 @@ RSpec.describe "Applications new page" do
     expect(page).to have_content("54738")
     expect(page).to have_content("In Progress")
   end
+
+  it 're-renders the new form given invalid data' do
+    visit "/applications/new"
+
+    click_button("Submit")
+    # save_and_open_page
+    expect(current_path).to eq("/applications/new")
+    expect(page).to have_content("Error: Name can't be blank, Street address can't be blank, City can't be blank, State can't be blank, Zip code can't be blank, Description can't be blank")
+  end
 end
