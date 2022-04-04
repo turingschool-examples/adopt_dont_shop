@@ -9,13 +9,13 @@ RSpec.describe "Application Show Page" do
     @pet_1 = Pet.create!(name: 'Scooby', age: 2, breed: 'Great Dane', adoptable: true, shelter_id: @shelter.id)
     @pet_2 = Pet.create!(name: 'Scrappy', age: 1, breed: 'Great Dane', adoptable: true, shelter_id: @shelter.id)
     @pet_3 = Pet.create!(name: 'Daisy', age: 4, breed: 'American Bully', adoptable: true, shelter_id: @shelter.id)
-    @pet_applications_1 = PetApplication.create!(pet_id: @pet_3.id, application_id: @application_1.id)
-    @pet_applications_2 = PetApplication.create!(pet_id: @pet_2.id, application_id: @application_1.id)
-    @pet_applications_3 = PetApplication.create!(pet_id: @pet_1.id, application_id: @application_2.id)
+    @pets_applications_1 = PetApplication.create!(pet_id: @pet_3.id, application_id: @application_1.id)
+    @pets_applications_2 = PetApplication.create!(pet_id: @pet_2.id, application_id: @application_1.id)
 
   end
 
-  describe "show page shows applicant info" do
+  it "show page shows applicant info" do
+    application_2 = Application.create!(name: 'Bob Ross', street_address: '21 Happy Tree Ln', city: 'Daytona Beach', state: 'FL', zipcode: '32122', why_me: "I live on a happy little farm on the edge of town, we've got plenty of space to let the poor feller run and solve mysteries.")
     visit "/applications/#{@appication_2.id}/"
 
     expect(page).to have_content(@application_2.name)
@@ -28,12 +28,25 @@ RSpec.describe "Application Show Page" do
     expect(page).to have_link(href: "/pets/#{@pet_1.id}/")
     expect(page).to have_content("In Progress")
   end
+
+  it "show page (unsubmitted) has search field for pet's name" do
+
+    visit "/applications/#{@application_1.id}/"
+
+    expect(page).not_to have_content(@pet_1.name)
+
+    fill_in :find_pet, with: "Moose"
+    click_on :search
+
+    expect(current_path).to eq("/applications/#{@application_1.id}")
+    expect(page).not_to have_content("@pet_1.name")
+    expect(page).not_to have_content("@pet_2.name")
+
+    fill_in :find_pet, with: "Scooby"
+    click_on :search
+
+    expect(current_path).to eq("/applications/#{@application_1.id}")
+    expect(page).to have_content("@pet_1.name")
+    # We may decide to add other pet atributes here?
+  end
 end
-# As a visitor
-# When I visit an applications show page
-# Then I can see the following:
-# - Name of the Applicant
-# - Full Address of the Applicant including street address, city, state, and zip code
-# - Description of why the applicant says they'd be a good home for this pet(s)
-# - names of all pets that this application is for (all names of pets should be links to their show page)
-# - The Application's status, either "In Progress", "Pending", "Accepted", or "Rejected"

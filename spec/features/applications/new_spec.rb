@@ -3,8 +3,8 @@ require 'rails_helper'
 RSpec.describe "Application Show Page" do
 
   before :each do
-    @application_1 = Application.create!(name: 'Alex Horn', street_address: '12 Not A Real Ln', city: 'Westminster', state: 'CO', zipcode: '80021', why_me: "Well, I guess, I just REALLY really wanted a dog.")
-    @application_2 = Application.create!(name: 'Bob Ross', street_address: '21 Happy Tree Ln', city: 'Daytona Beach', state: 'FL', zipcode: '32122', why_me: "I live on a happy little farm on the edge of town, we've got plenty of space to let the poor feller run and solve mysteries.")
+    @application_1 = Application.create!(name: 'Alex Horn', street_address: '12 Not A Real Ln', city: 'Westminster', state: 'CO', zipcode: '80021')
+    @application_2 = Application.create!(name: 'Bob Ross', street_address: '21 Happy Tree Ln', city: 'Daytona Beach', state: 'FL', zipcode: '32122')
     @shelter = Shelter.create(name: 'Mystery Building', city: 'Irvine CA', foster_program: false, rank: 9)
     @pet_1 = Pet.create!(name: 'Scooby', age: 2, breed: 'Great Dane', adoptable: true, shelter_id: @shelter.id)
     @pet_2 = Pet.create!(name: 'Scrappy', age: 1, breed: 'Great Dane', adoptable: true, shelter_id: @shelter.id)
@@ -38,5 +38,18 @@ RSpec.describe "Application Show Page" do
     expect(page).to have_content("In Progress")
   end
 
+  it "Returns to the new application form if submitted incomplete" do
+    visit "/pets/new/"
+    fill_in :name, with: "Bean"
+    fill_in :city, with: "London"
+    click_on :submit
 
+    expect(current_path).to eq("/pets/new/")
+
+    # This might need to be updated, depending on how we warn the user, whether
+    # we're putting this on the page or in an alert box
+    expect(page).to have_content("One or more required fields were left blank. Please fill in all reqired fields before submitting your application")
+    expect(page).to have_content("Bean")
+    expect(page).to have_content("London")
+  end
 end
