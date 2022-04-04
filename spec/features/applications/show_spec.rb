@@ -42,6 +42,8 @@ RSpec.describe 'Application Show Page' do
      # expect(page).to have_content(@pet_2.name)
      expect(page).to have_content(@application_1.description)
      expect(page).to have_content(@application_1.status)
+     expect(page).not_to have_content(@application_2.name)
+     expect(page).not_to have_content(@application_2.street_address)
    end
 
    it 'has links to the pets show pages' do
@@ -60,31 +62,32 @@ RSpec.describe 'Application Show Page' do
      PetApplication.create!(pet: @pet_1, application: @application_1)
      PetApplication.create!(pet: @pet_2, application: @application_1)
      visit "/applications/#{@application_2.id}"
+     expect(page).to have_content("Add Pet to Application")
      # save_and_open_page
      visit "/applications/#{@application_1.id}"
      # save_and_open_page
-     # expect(page).to have_content("Add a Pet to this Application")
+     expect(page).to have_content("Add Pet to Application")
    end
 
    it 'allows for a search of pets by name' do
 
      visit "/applications/#{@application_1.id}"
 
-     # expect(page).to have_content("Add a Pet to this Application")
+     expect(page).to have_content("Add Pet to Application")
 
      fill_in(:pet_name, with: "Mr. Pirate")
      click_on("Search")
 
      expect(current_path).to eq("/applications/#{@application_1.id}")
      expect(page).to have_content(@pet_1.name)
+     expect(page).not_to have_content(@pet_2.name)
    end
 
    it 'can add pets to the application with a button' do
      visit "applications/#{@application_1.id}"
      fill_in(:pet_name, with: "Mr. Pirate")
      click_on("Search")
-     save_and_open_page
-# require 'pry'; binding.pry
+
      within ".pet-#{@pet_1.id}" do
        click_button "Adopt this Pet"
      end
@@ -92,5 +95,30 @@ RSpec.describe 'Application Show Page' do
      expect(page).to have_content(@pet_1.name)
      expect(page).not_to have_content(@pet_2.name)
    end
-  end
+
+   it 'can submit an application once pets are added' do
+     PetApplication.create!(pet: @pet_1, application: @application_1)
+     PetApplication.create!(pet: @pet_2, application: @application_1)
+
+     visit "/applications/#{@application_1.id}"
+     expect(page).to have_content("Submit Application")
+     fill_in(:description, with: "Because I like animals")
+     click_on "Submit"
+     expect(current_path).to eq("/applications/#{@application_1.id}")
+     expect(page).to have_content("Pending")
+     updated_app = Application.find(@application_1.id)
+     expect(updated_app.id).to eq(@application_1.id)
+     expect(updated_app.status).to eq("Pending")
+     expect(updated_app.description).to eq("Because I like animals")
+     expect(page).not_to have_content("Add Pet to Application")
+   end
+
+   it 'can not be submitted if there are no pets on the application' do
+     visit "/applications/#{@application_1.id}"
+
+     expect(@application_1.pets).to eq([])
+     expect(page).not_to have_content("Submit Application")
+     expect(page).not_to have_button("Submit")
+   end
+ end
 end
