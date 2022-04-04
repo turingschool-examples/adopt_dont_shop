@@ -55,22 +55,7 @@ RSpec.describe 'applicaton creation' do
         click_button "Submit"
         expect(page).to have_current_path("/applications/new")
         expect(page).to have_content("Error")
-        # expect(page).to have_content('Dr. Burstyn')
-        # expect(page).to have_content('Dr. Burstyn')
-        # expect(page).to have_content('Dr. Burstyn')
       end
     end
-
-    # context 'given invalid data' do
-    #   it 're-renders the new form' do
-    #     visit "/veterinary_offices/#{@vet_office.id}/veterinarians/new"
-    #
-    #     click_button 'Save'
-    #     expect(page).to have_current_path(
-    #       "/veterinary_offices/#{@vet_office.id}/veterinarians/new"
-    #     )
-    #     expect(page).to have_content("Error: Name can't be blank, Review rating can't be blank, Review rating is not a number")
-    #   end
-    # end
   end
 end
