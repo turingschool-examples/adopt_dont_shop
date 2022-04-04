@@ -14,14 +14,18 @@
   <%= f.text_field :pets %>
   <%= f.submit "Search" %>
 <% end %>
+
 <% @pets.each do |pet| %>
-<%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
-<%= button_to "Adopt #{pet.name}", "/applications/#{@application.id}/pets", method: :post, params: {:pet_id => pet.id} %>
+  <% if pet.adoptable == true && !@application.pets.include?(pet) %>
+    <%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
+    <%= button_to "Adopt #{pet.name}", "/applications/#{@application.id}/pets", method: :post, params: {:pet_id => pet.id} %>
+  <% end %>
 <% end %>
 
-<p>Adopt A Pet Requests</p>
-<% @pets.each do |pet| %>
-<%= pet.name %>
+<p>Pet Adoption Requests</p>
+<% @application.pets.each do |pet| %>
+  <%= pet.name %>
 <% end %>
+
 
 <p>Status: <%= @application.status %></p>

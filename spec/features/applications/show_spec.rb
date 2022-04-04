@@ -11,7 +11,6 @@ RSpec.describe 'application show page' do
       zipcode: '80207',
       description: 'Happy, friendly, cool',
       status: 'In Progress',
-      pets: Pet.all
     )
     # application_pet_1 = ApplicationPet.create!(application_id: application.id, pet_id: pet1.id)
     visit "/applications/#{application.id}"
@@ -69,5 +68,34 @@ RSpec.describe 'application show page' do
 
     expect(current_path).to eq("/applications/#{application.id}")
     expect(page).to have_content("Dog")
+  end
+
+  it "has button to add a pet to application for adoption" do
+    shelter = Shelter.create!(name: 'Save The Animals', city: 'Denver', rank: 4, foster_program: true)
+    application = Application.create!(name: 'Andrew',
+      street_address: '112 Greenbrook',
+      city: 'Denver',
+      state: 'CO',
+      zipcode: '80207',
+      description: 'Happy, friendly, cool',
+      status: 'In Progress'
+    )
+    pet1 = Pet.create!(name: 'Joey', age: 2, breed: 'Poodle', adoptable: true, shelter_id: shelter.id)
+    dog = Pet.create!(name: 'Dog', age: 4, breed: 'German', adoptable: true, shelter_id: shelter.id)
+    # application_pet_1 = ApplicationPet.create!(application_id: application.id, pet_id: pet1.id)
+    visit "/applications/#{application.id}"
+    fill_in 'Pets', with: "Dog"
+    click_button "Search"
+    expect(page).to have_link("Dog")
+    click_button 'Adopt Dog'
+    expect(current_path).to eq("/applications/#{application.id}")
+
+    fill_in 'Description', with: "I will make a loving house for our dog."
+    click_button 'Submit Application'
+    expect(current_path).to eq("/applications/#{application.id}")
+    expect(page).to have_content("Pending")
+    expect(page).to_not have_content("Search")
+
+
   end
 end
