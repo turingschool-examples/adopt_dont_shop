@@ -36,16 +36,17 @@ RSpec.describe 'admin application show page' do
       click_on("Approve")
     end
     expect(current_path).to eq("/admin/applications/#{@application_1.id}")
-    within ".pet-#{@pet_app1.id}" do
+    save_and_open_page
+    within ".pet_app-#{@pet_app1.id}" do
       expect(page).not_to have_button("Approve")
       expect(page).to have_content("Approved for Adoption")
     end
 
-    within ".pet-#{@pet_app2.id}" do
+    within ".pet_app-#{@pet_app2.id}" do
       click_on("Approve")
     end
     expect(current_path).to eq("/admin/applications/#{@application_1.id}")
-    within "pet-#{@pet_app2.id}" do
+    within "pet_app-#{@pet_app2.id}" do
       expect(page).not_to have_button("Approve")
       expect(page).to have_content("Approved for Adoption")
     end
@@ -55,11 +56,11 @@ RSpec.describe 'admin application show page' do
     visit "/admin/applications/#{@application_1.id}"
 
     Pet.all.each do |pet|
-      within ".pet-#{pet.id}" do
+      within ".pet_app-#{pet.id}" do
         click_on("Reject")
       end
       expect(current_path).to eq("/admin/applications/#{pet.id}")
-      within ".pet-#{pet.id}" do
+      within ".pet_app-#{pet.id}" do
         expect(page).not_to have_button("Reject")
         expect(page).to have_content("Not Approved")
       end
@@ -69,24 +70,24 @@ RSpec.describe 'admin application show page' do
   xit 'approval or rejection on one application does not affect other applications' do
     visit "/admin/applications/#{@application_1.id}"
 
-    within ".pet-#{@pet_1.id}" do
+    within ".pet_app-#{@pet_1.id}" do
       click_on("Approve")
     end
 
     visit "/admin/applications/#{@application_2.id}"
 
-    within ".pet-#{@pet_1.id}" do
+    within ".pet_app-#{@pet_1.id}" do
       expect(page).to have_button("Approve")
       expect(page).to have_button("Reject")
     end
 
-    within "pet-#{@pet_2.id}" do
+    within "pet_app-#{@pet_2.id}" do
       click_on("Approve")
     end
 
     visit "/admin/applications/#{@application_1.id}"
 
-    within ".pet-#{@pet_2.id}" do
+    within ".pet_app-#{@pet_2.id}" do
       expect(page).to have_button("Approve")
       expect(page).to have_button("Reject")
     end
