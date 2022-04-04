@@ -8,7 +8,8 @@ RSpec.describe "Applications Show" do
     @pet_2 = @shelter_1.pets.create(name: 'Clawdia', breed: 'shorthair', age: 3, adoptable: true)
     @pet_3 = @shelter_1.pets.create(name: 'Dorothy', breed: 'pug', age: 5, adoptable: true)
 
-    @application_1 = Application.create!(name: "Carol Crikey", street_address: "2022 S Fake Street", city: "Birmingham", state: "AL", zip_code: "54738", description: 'empty')
+    @application_1 = Application.create!(name: "Carol Crikey", street_address: "2022 S Fake Street",
+                    city: "Birmingham", state: "AL", zip_code: "54738", description: 'empty', status: "In Progress")
 
     @pet_1.applications << @application_1
     @pet_2.applications << @application_1
@@ -49,7 +50,8 @@ RSpec.describe "Applications Show" do
   end
 
   it "has a link to adopt a pet that has been searched for" do
-    application_2 = Application.create!(name: "Johnny Testman", street_address: "534 Not Real Drive", city: "Heaven", state: "FL", zip_code: "12359", description: 'empty')
+    application_2 = Application.create!(name: "Johnny Testman", street_address: "534 Not Real Drive",
+      city: "Heaven", state: "FL", zip_code: "12359", description: 'empty', status: "In Progress")
 
     visit "/applications/#{application_2.id}"
     # save_and_open_page
