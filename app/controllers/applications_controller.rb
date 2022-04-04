@@ -6,7 +6,7 @@ class ApplicationsController < ApplicationController
 
   def show
     @application = Application.find(params[:id])
-    @pets = @application.pets
+    @pets = Pet.all
     if params[:pets].present?
       @pets = Pet.search(params[:pets])
     end
