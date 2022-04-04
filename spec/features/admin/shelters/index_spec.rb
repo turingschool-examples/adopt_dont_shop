@@ -8,6 +8,7 @@ RSpec.describe 'the shelters index' do
     @mr_pirate = @shelter_1.pets.create(name: 'Mr. Pirate', breed: 'tuxedo shorthair', age: 5, adoptable: true)
     @clawdia = @shelter_1.pets.create(name: 'Clawdia', breed: 'shorthair', age: 3, adoptable: true)
     @lucille_blad = @shelter_3.pets.create(name: 'Lucille Bald', breed: 'sphynx', age: 8, adoptable: true)
+    @nimbus = @shelter_2.pets.create(name: 'Nimbus', breed: 'corgi', age: 1, adoptable: true)
   end
 
   it 'lists all the shelter names' do
@@ -45,5 +46,23 @@ RSpec.describe 'the shelters index' do
     expect(current_path).to eq("/admin/shelters/#{@shelter_1.id}")
   end
 
+  it "shows the shelters with pending applications in alpha order" do
+    application1 = Application.create!(status: "Pending", name: "Bob Bingus", street: '123 Main',city: 'Leadville', state: 'CO',
+    zip: 11111, description: "I'm a good dude")
+    application2 = Application.create!(status: "Pending", name: "Clark Kent", street: '123 Main St', city: 'Leadville', state: 'CO',
+    zip: 11111, description: "I'm married to a good dude")
+    application3 = Application.create!(status: "Pending", name: "Susan Strong", street: '123 Main St', city: 'Pleasantville', state: 'ME',
+    zip: 11111, description: "Susan strong")
+    ApplicationPet.create!(pet_id: "#{@mr_pirate.id}", application_id: "#{application2.id}")
+    ApplicationPet.create!(pet_id: "#{@lucille_blad.id}", application_id: "#{application1.id}")
+    ApplicationPet.create!(pet_id: "#{@nimbus.id}", application_id: "#{application3.id}")
+
+    visit "/admin/shelters"
+save_and_open_page
+    within("#pending") do
+      expect(@shelter_1.name).to appear_before(@shelter_3.name)
+      expect(@shelter_3.name).to appear_before(@shelter_2.name)
+    end
+  end
 
 end
