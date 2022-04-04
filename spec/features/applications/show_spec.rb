@@ -69,10 +69,47 @@ RSpec.describe 'applications' do
       end
 
       expect(current_path).to eq("/applications/#{@application.id}")
-# save_and_open_page
+
       within "#pets-to-adopt" do
         expect(page).to have_content("Alfonso")
       end
+    end
+  end
+
+  describe 'submitting an application' do
+    before :each do
+      @shelter = Shelter.create!(foster_program: true, name: "GoodPets", city: "Denver", rank: 6000)
+      @pet1 = @shelter.pets.create!(adoptable: true, age: 3, breed: "Shepard", name: "Alfonso")
+      @pet2 = @shelter.pets.create!(adoptable: true, age: 6, breed: "Shepard", name: "Geoffrey")
+      @pet3 = @shelter.pets.create!(adoptable: true, age: 7, breed: "Shepard", name: "Alfonso")
+      @application = Application.create!(name: "Billy Swanson", street_address: "543 Cherry St", city: "Denver", state: "CO", zip_code: "80033")
+      @application.status = "In Progress"
+
+      visit "/applications/#{@application.id}"
+
+      fill_in :search, with: "Alfonso"
+      click_button "Search"
+    end
+
+    it 'can submit an aplication after adding pet' do
+      expect(page).to_not have_field("Description")
+
+      within "#pet-#{@pet1.id}" do
+        click_button 'Adopt this Pet'
+      end
+
+      expect(page).to have_field("Description")
+
+      fill_in :description, with: "I have a job."
+
+      click_button "Submit Application"
+
+      expect(current_path).to eq("/applications/#{@application.id}")
+      expect(page).to have_link("Alfonso")
+      expect(page).to have_content("Status: Pending")
+      expect(page).to_not have_content("Status: In Progress")
+      expect(page).to_not have_field("Description")
+      expect(page).to_not have_field("Search")
     end
   end
 end
