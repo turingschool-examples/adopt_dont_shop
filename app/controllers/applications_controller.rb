@@ -17,12 +17,17 @@ class ApplicationsController < ApplicationController
 
   def show
     @application = Application.find(params[:id])
+    if @application.pets_added != []
+      @pets_added = @application.pets_added
+    end
+
     if params[:search_by_name]
-      @pet_found = Pet.search_by_name(params[:search_by_name])[0]
+      @pet_found = Pet.search_by_name(params[:search_by_name])
     end
     if params[:description]
       @application.status = "Pending"
     end
+
   end
 
 

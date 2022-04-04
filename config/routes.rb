@@ -45,4 +45,6 @@ Rails.application.routes.draw do
   #post app/id tto pet_app#create, create in p_a controller, redirect
 
   get '/admin/shelters', to: 'admin_shelters#index'
+
+  post "/applications/:id/pets", to: 'application_pets#create'
 end

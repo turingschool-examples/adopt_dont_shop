@@ -39,20 +39,39 @@ RSpec.describe 'the applications show' do
 		expect(page).to have_content("No pet by this name is found")
 	end
 
-	it 'has an area to enter description and changes status on submittal' do
+	it 'can add pet to application' do
 		visit "/applications/#{@application.id}"
+
+		expect(page).to have_content("Add a Pet to this Application")
+
 		fill_in "Search by name", with: "Dianne"
 		click_button "Submit"
-
-		expect(page).to have_content("Description")
-
-		fill_in "Description", with: "I eat my vegetables"
-		click_button "Submit"
+		click_button "Adopt #{@pet_1.name}"
 
 		expect(current_path).to eq("/applications/#{@application.id}")
-		expect(page).to have_content("Pending")
+
+		within("#pets_selected") do
+			expect(page).to have_content(@pet_1.name)
+			expect(page).to have_content(@pet_1.breed)
+			expect(page).to have_content(@pet_1.age)
+		end
 
 	end
+
+	# it 'has an area to enter description and changes status on submittal' do
+	# 	visit "/applications/#{@application.id}"
+	# 	fill_in "Search by name", with: "Dianne"
+	# 	click_button "Submit"
+	#
+	# 	expect(page).to have_content("Description")
+	#
+	# 	fill_in "Description", with: "I eat my vegetables"
+	# 	click_button "Submit"
+	#
+	# 	expect(current_path).to eq("/applications/#{@application.id}")
+	# 	expect(page).to have_content("Pending")
+	#
+	# end
 
 
 end
