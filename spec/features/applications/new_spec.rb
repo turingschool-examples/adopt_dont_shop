@@ -15,7 +15,7 @@ RSpec.describe "Application Show Page" do
 
   end
 
-  xit "Links from pets index to new application form" do
+  it "Links from pets index to new application form" do
     visit "/pets/"
     click_on "Start an Application"
 
