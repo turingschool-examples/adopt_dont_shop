@@ -1,7 +1,10 @@
 class ApplicationsController < ApplicationController
   def show
     @application = Application.find(params[:id])
-    @pets = @application.pets
+    # @pets = @application.pets
+    if params[:search].present?
+      @pets = Pet.search(params[:search])
+    end
   end
 
   def new
@@ -16,9 +19,13 @@ class ApplicationsController < ApplicationController
     end
   end
 
+  def update
+    # Application.pets << Pet.where("id = #{params[:id]}")
+  end
+
   private
 
   def application_params
-    params.permit :name, :street_address, :city, :state, :zip_code, :description, :status
+    params.permit :name, :street_address, :city, :state, :zip_code, :description, :status, :pets
   end
 end

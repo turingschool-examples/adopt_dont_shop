@@ -8,9 +8,14 @@
 </p>
 <p>Description: <%= @application.description %> </p>
 <p>Status: <%= @application.status = "In Progress" %> </p>
-<% @pets.each do |pet| %>
-  <%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
-<% end %>
+
+<div id="pets-to-adopt">
+  <% if @application.pets %>
+    <h3>Desired Pets: <% @application.pets.each do |pet| %></h3>
+      <%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
+    <% end %>
+  <% end %>
+</div>
 
 <div id="search-bar">
   <h2>Add a pet to this application:</h2>
@@ -19,11 +24,15 @@
   <%= form.text_field :search %><br>
   <%= form.submit "Search" %>
   <% end %><br>
-
-  <% @application.pets_with_name(params[:search]).each do |pet| %>
-    <h3>Name: <%= link_to "#{pet.name}", "/pets/#{pet.id}" %></h3>
-    <p>Adoptable: <%= pet.adoptable %></p>
-    <p>Age: <%= pet.age %></p>
-    <p>Breed: <%= pet.breed %></p>
+  <% if @pets %>
+    <% @pets.each do |pet| %>
+      <div id="pet-<%= pet.id %>">
+        <h3>Name: <%= link_to "#{pet.name}", "/pets/#{pet.id}" %></h3>
+        <p>Adoptable: <%= pet.adoptable %></p>
+        <p>Age: <%= pet.age %></p>
+        <p>Breed: <%= pet.breed %></p>
+        <%= button_to "Adopt this Pet", "/applications/#{@application.id}/pets/#{pet.id}", method: :post %>
+      </div>
+    <% end %>
   <% end %>
 </div>
