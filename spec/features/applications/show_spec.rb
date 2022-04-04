@@ -81,4 +81,30 @@ RSpec.describe 'the applications index' do
      expect(page).to have_content("Sparky")
    end
   end
+
+  # As a visitor
+  # When I visit an application show page
+  # And I search for Pets by name
+  # Then I see any pet whose name PARTIALLY matches my search
+  # For example, if I search for "fluff", my search would match pets with names "fluffy", "fluff", and "mr. fluff"
+
+  it 'allows the user to search for pets with partial searches' do
+    application_1 = Application.create!(name: 'John', address: '505 Main St.', city: 'Denver', state: 'CO', zipcode: '80205', description: "I'm great with dogs.", status: 'In-progress')
+    application = Application.create!(name: 'Chris', address: '505 Main St.', city: 'Denver', state: 'CO', zipcode: '80205', description: "I'm great with dogs.", status: 'In-progress')
+    shelter = Shelter.create(name: 'Mystery Building', city: 'Irvine CA', foster_program: false, rank: 9)
+    pet_1 = application_1.pets.create(name: 'Scrappy', age: 1, breed: 'Great Dane', adoptable: true, shelter_id: shelter.id)
+    pet_2 = application_1.pets.create(name: 'Sparky', age: 1, breed: 'Great Dane', adoptable: true, shelter_id: shelter.id)
+    pet_2 = application_1.pets.create(name: 'Sparkles', age: 1, breed: 'Chihuahua', adoptable: true, shelter_id: shelter.id)
+
+    visit "/applications/#{application.id}"
+
+    expect(page).to have_content("Add a Pet to this Application")
+    expect(page).to have_content(application.status)
+    fill_in 'Search', with: 'Spark'
+    click_on 'Search'
+    expect(current_path).to eq("/applications/#{application.id}")
+    expect(page).to have_content("Add a Pet to this Application")
+    expect(page).to have_content("Sparky")
+    expect(page).to have_content("Sparkles")
+  end
 end
