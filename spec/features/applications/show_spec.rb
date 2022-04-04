@@ -42,6 +42,8 @@ RSpec.describe 'Application Show Page' do
      # expect(page).to have_content(@pet_2.name)
      expect(page).to have_content(@application_1.description)
      expect(page).to have_content(@application_1.status)
+     expect(page).not_to have_content(@application_2.name)
+     expect(page).not_to have_content(@application_2.street_address)
    end
 
    it 'has links to the pets show pages' do
@@ -60,6 +62,7 @@ RSpec.describe 'Application Show Page' do
      PetApplication.create!(pet: @pet_1, application: @application_1)
      PetApplication.create!(pet: @pet_2, application: @application_1)
      visit "/applications/#{@application_2.id}"
+     expect(page).to have_content("Add Pet to Application")
      # save_and_open_page
      visit "/applications/#{@application_1.id}"
      # save_and_open_page
@@ -77,6 +80,7 @@ RSpec.describe 'Application Show Page' do
 
      expect(current_path).to eq("/applications/#{@application_1.id}")
      expect(page).to have_content(@pet_1.name)
+     expect(page).not_to have_content(@pet_2.name)
    end
 
    it 'can add pets to the application with a button' do
@@ -112,7 +116,9 @@ RSpec.describe 'Application Show Page' do
    it 'can not be submitted if there are no pets on the application' do
      visit "/applications/#{@application_1.id}"
 
-     expect(@applications.pets).to eq([])
+     expect(@application_1.pets).to eq([])
+     expect(page).not_to have_content("Submit Application")
+     expect(page).not_to have_button("Submit")
    end
  end
 end
