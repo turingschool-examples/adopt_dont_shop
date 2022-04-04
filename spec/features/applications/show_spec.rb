@@ -39,14 +39,6 @@ RSpec.describe 'the applications index' do
     expect(page).to have_content("Sparky")
   end
 
-#   As a visitor
-# When I visit an application's show page
-# And I search for a Pet by name
-# And I see the names Pets that match my search
-# Then next to each Pet's name I see a button to "Adopt this Pet"
-# When I click one of these buttons
-# Then I am taken back to the application show page
-# And I see the Pet I want to adopt listed on this application
   it 'allows the user to adopt a pet' do
     application_1 = Application.create!(name: 'John', address: '505 Main St.', city: 'Denver', state: 'CO', zipcode: '80205', description: "I'm great with dogs.", status: 'In-progress')
     application = Application.create!(name: 'Chris', address: '505 Main St.', city: 'Denver', state: 'CO', zipcode: '80205', description: "I'm great with dogs.", status: 'In-progress')
@@ -62,10 +54,8 @@ RSpec.describe 'the applications index' do
     expect(page).to have_content("Sparky")
     click_on 'Adopt this pet'
     expect(current_path).to eq("/applications/#{application.id}")
-
-    within '#pets' do
+    within "#pets" do
       expect(page).to have_content("Sparky")
     end
-    save_and_open_page
   end
 end

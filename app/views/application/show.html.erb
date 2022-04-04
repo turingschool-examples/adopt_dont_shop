@@ -4,10 +4,12 @@
 <h3>City: <%= @application.city %></h3>
 <h3>State: <%= @application.state %></h3>
 <h3>Zipcode: <%= @application.zipcode %></h3>
+<div id="pets">
 <h3>Pets: </h3>
 <% @pets.each do |pet| %>
   <h3><%= link_to "#{pet.name}", "/pets/#{pet.id}"%></h3>
-  <% end %>
+<% end %>
+</div>
 <h3>Status: <%= @application.status %></h3>
 <br>
 <h3>Add a Pet to this Application</h3>
@@ -18,4 +20,5 @@
 <% end %>
 <% @pet_results.each do |pet| %>
   <p><%= pet.name %></p>
+  <%= button_to "Adopt this pet", "/applications/#{@application.id}/pets", params: {application_id: @application.id, pet_id: pet.id}, method: :post, local: true %>
 <% end %>
