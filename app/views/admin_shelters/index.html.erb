@@ -1,5 +1,7 @@
 <% @shelters.each do |shelter| %>
-  <h1><%= shelter.name %><h1>
+<div id="shelter-<%= shelter.id %>">
+  <h1><%= link_to "#{shelter.name}", "/admin/shelters/#{shelter.id}" %><h1>
+</div>
 <% end %>
 
 <div id="pending_shelters">

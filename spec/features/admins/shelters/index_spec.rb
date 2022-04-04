@@ -35,6 +35,26 @@ RSpec.describe 'admin_shelters index page' do
         end
       end
 
+      it 'i see that all names are links to show pages' do
+        shelter_1 = Shelter.create!(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
+        shelter_2 = Shelter.create!(name: 'RGV animal shelter', city: 'Harlingen, TX', foster_program: false, rank: 5)
+        shelter_3 = Shelter.create!(name: 'Fancy pets of Colorado', city: 'Denver, CO', foster_program: true, rank: 10)
+
+        visit "/admin/shelters"
+
+        expect(page).to have_link("#{shelter_1.name}")
+        expect(page).to have_link("#{shelter_2.name}")
+        expect(page).to have_link("#{shelter_3.name}")
+
+        within "#shelter-#{shelter_1.id}" do
+          click_link "#{shelter_1.name}"
+        end
+
+        expect(current_path).to eq("/admin/shelters/#{shelter_1.id}")
+        expect(page).to have_content("#{shelter_1.name}")
+        expect(page).not_to have_content("#{shelter_2.name}")
+        expect(page).not_to have_content("#{shelter_3.name}")
+
       it 'i see that the pending shelters with pending apps are listed alphabetically' do
         shelter_1 = Shelter.create!(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
         shelter_2 = Shelter.create!(name: 'RGV animal shelter', city: 'Harlingen, TX', foster_program: false, rank: 5)
