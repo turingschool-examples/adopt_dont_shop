@@ -1,7 +1,11 @@
-<ul>
-<%@application.pets.each do |pet|%>
-  <li>
-    <%= pet.name %>
-  </li>
-<%end  %>
-</ul>
+<section id="Approve">
+  <%@application.application_pets.each do |pet_application|%>
+    <% if pet_application.status.nil? %>
+      <%= pet_application.pet.name %>
+      <%= button_to "Approve Application for #{pet_application.pet.name}", "/admin/applications/#{pet_application.id}", method: :patch, params: { status: "Approved" } %>
+      <%= button_to "Reject Application for #{pet_application.pet.name}", "/admin/applications/#{pet_application.id}", method: :patch, params: { status: "Rejected" } %>
+    <% else %>
+      <%= "#{pet_application.pet.name}  #{pet_application.status}" %>
+    <% end %>
+  <% end %>
+</section>
