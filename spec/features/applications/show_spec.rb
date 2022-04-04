@@ -80,11 +80,14 @@ RSpec.describe 'the applications index' do
    pet_2 = application_1.pets.create(name: 'Sparky', age: 1, breed: 'Great Dane', adoptable: true, shelter_id: shelter.id)
 
    visit "/applications/#{application.id}"
+   # save_and_open_page
    fill_in 'Search', with: 'Sparky'
    click_on 'Search'
    expect(current_path).to eq("/applications/#{application.id}")
+   # save_and_open_page
    click_on 'Adopt this pet'
    expect(current_path).to eq("/applications/#{application.id}")
+   save_and_open_page
    fill_in 'What makes you a good pet owner for these pet(s)?', with: 'Love dogs.'
    click_on 'Sumbit Application'
    expect(current_path).to eq("/applications/#{application.id}")
