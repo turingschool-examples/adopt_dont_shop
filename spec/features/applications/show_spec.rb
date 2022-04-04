@@ -27,9 +27,6 @@ RSpec.describe 'Application Show Page' do
       @pet_2 = @shelter_1.pets.create(name: 'Clawdia', breed: 'shorthair', age: 3, adoptable: true)
       @pet_3 = @shelter_1.pets.create(name: 'Ann', breed: 'ragdoll', age: 3, adoptable: false)
       @pet_4 = @shelter_1.pets.create(name: 'Purrdy', breed: 'persian', age: 6, adoptable: true)
-      PetApplication.create!(pet: @pet_1, application: @application_1)
-      PetApplication.create!(pet: @pet_2, application: @application_1)
-
     end
 
     it 'contains the name, address, description of the applicant, and application status' do
@@ -48,6 +45,8 @@ RSpec.describe 'Application Show Page' do
    end
 
    it 'has links to the pets show pages' do
+     PetApplication.create!(pet: @pet_1, application: @application_1)
+
      visit "/applications/#{@application_1.id}"
 
      click_on("Mr. Pirate")
@@ -58,10 +57,12 @@ RSpec.describe 'Application Show Page' do
    end
 
    it 'when application is pending you can add pets' do
+     PetApplication.create!(pet: @pet_1, application: @application_1)
+     PetApplication.create!(pet: @pet_2, application: @application_1)
      visit "/applications/#{@application_2.id}"
-     save_and_open_page
+     # save_and_open_page
      visit "/applications/#{@application_1.id}"
-     save_and_open_page
+     # save_and_open_page
      # expect(page).to have_content("Add a Pet to this Application")
    end
 
@@ -71,11 +72,25 @@ RSpec.describe 'Application Show Page' do
 
      # expect(page).to have_content("Add a Pet to this Application")
 
-     fill_in(:pet_name, with: "Mr Pirate")
+     fill_in(:pet_name, with: "Mr. Pirate")
      click_on("Search")
 
      expect(current_path).to eq("/applications/#{@application_1.id}")
      expect(page).to have_content(@pet_1.name)
+   end
+
+   it 'can add pets to the application with a button' do
+     visit "applications/#{@application_1.id}"
+     fill_in(:pet_name, with: "Mr. Pirate")
+     click_on("Search")
+     save_and_open_page
+# require 'pry'; binding.pry
+     within ".pet-#{@pet_1.id}" do
+       click_button "Adopt this Pet"
+     end
+     expect(current_path).to eq("/applications/#{@application_1.id}")
+     expect(page).to have_content(@pet_1.name)
+     expect(page).not_to have_content(@pet_2.name)
    end
   end
 end
