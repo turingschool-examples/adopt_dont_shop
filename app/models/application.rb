@@ -13,7 +13,7 @@ class Application < ApplicationRecord
   has_many :pets, through: :pet_applications
 
   def set_defaults
-    self.description ||= ""
+    self.description ||= "N/A"
     self.status ||= "In Progress"
   end
 end

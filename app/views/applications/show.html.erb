@@ -21,4 +21,10 @@
   <%= form.text_field :pet_name %>
   <%= form.submit "Search" %>
   <% end %>
-  
+
+  <% @pets.each do |pet| %>
+  <div class="pet-<%=pet.id%>">
+    <%= "#{pet.name}"  %>
+    <%= button_to "Adopt this Pet", "/applications/#{@applicant.id}", params: {pet: pet.id} , method: :get%>
+  </div>
+  <% end %>

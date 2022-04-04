@@ -22,13 +22,26 @@ class ApplicationsController < ApplicationController
     end
   end
 
+  def add_pet
+    @application = Application.find(params[:id])
+    pet = Pet.find(params[:pet_id])
+    @application.pets.push(pet)
+
+    redirect_to "/applications/#{@application.id}"
+  end
+
   def show
     @applicant = Application.find(params[:id])
       if params[:pet_name]
         @pets = Pet.search(params[:pet_name])
       else
-        pets =[]
+        @pets =[]
       end
+      if params[:pet]!= nil
+        pet = Pet.find(params[:pet])
+        PetApplication.create!(pet_id: pet.id, application_id: @applicant.id)
+    
+    end
   end
 
   private
