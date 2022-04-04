@@ -33,13 +33,12 @@ class ApplicationsController < ApplicationController
         pet = Pet.find(params[:pet])
         PetApplication.create!(pet_id: pet.id, application_id: @applicant.id)
       end
-      if params[:commit] == "Submit"
-        @applicant.update(applications_params)
-        # @applicant.description = params[:description]
-        @applicant.status = "Pending"
-        @submit = true
-      end
-      # require "pry"; binding.pry
+  end
+
+  def update
+    @applicant = Application.find(params[:id])
+    @applicant.update(description: params[:description], status: "Pending")
+    redirect_to "/applications/#{@applicant.id}"
   end
 
   private
