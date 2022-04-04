@@ -47,6 +47,6 @@ class ApplicationController < ActionController::Base
                    :zip_code,
                    :description,
                    :status
-                 )   
+                 )
   end
 end

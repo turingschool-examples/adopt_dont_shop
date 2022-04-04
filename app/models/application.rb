@@ -8,6 +8,6 @@ class Application < ApplicationRecord
   validates :status, presence: true
 
   # has_many :pets, dependent: :destroy
-  has_many :applications_pet
-  has_many :pets, through: :applications_pet
+  has_many :application_pets
+  has_many :pets, through: :application_pets
 end
