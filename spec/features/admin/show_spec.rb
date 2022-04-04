@@ -46,7 +46,7 @@ RSpec.describe 'admin application show page' do
       click_on("Approve")
     end
     expect(current_path).to eq("/admin/applications/#{@application_1.id}")
-    within "pet_app-#{@pet_app2.id}" do
+    within ".pet_app-#{@pet_app2.id}" do
       expect(page).not_to have_button("Approve")
       expect(page).to have_content("Approved for Adoption")
     end

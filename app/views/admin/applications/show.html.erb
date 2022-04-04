@@ -2,9 +2,14 @@
 <h5>Pets Applied For</h5>
 <% @application.pet_applications.each do |pet_app| %>
 <div class="pet_app-<%=pet_app.id%>">
-<p><%= pet_app.pet.name %>
+<%= pet_app.pet.name %>
+
   <% if pet_app.status == "Pending" %>
-  <%= button_to "Approve", "/admin/applications/#{@application.id}", params: {approve: pet_app.id}, method: :patch %>
-  <% end %></p>
+  <p><%= button_to "Approve", "/admin/applications/#{@application.id}", params: {approve: pet_app.id}, method: :patch %></p>
+
+  <% elsif pet_app.status == "Approved" %>
+  <p>Approved for Adoption</p>
+  
+  <% end %>
 </div>
 <% end %>
