@@ -37,5 +37,13 @@ RSpec.describe 'the shelters index' do
     end
   end
 
+  it "links to a shelter's show page" do
+    visit "/admin/shelters"
+
+    click_on "#{@shelter_1.name}"
+
+    expect(current_path).to eq("/admin/shelters/#{@shelter_1.id}")
+  end
+
 
 end
