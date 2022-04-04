@@ -11,3 +11,19 @@
 <% @pets.each do |pet| %>
   <%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
 <% end %>
+
+<div id="search-bar">
+  <h2>Add a pet to this application:</h2>
+  <%= form_with url:"/applications/#{@application.id}?search=#{params[:search]}", method: :get, local: true do |form| %>
+  <%= form.label :search %>
+  <%= form.text_field :search %><br>
+  <%= form.submit "Search" %>
+  <% end %><br>
+
+  <% @application.pets_with_name(params[:search]).each do |pet| %>
+    <h3>Name: <%= link_to "#{pet.name}", "/pets/#{pet.id}" %></h3>
+    <p>Adoptable: <%= pet.adoptable %></p>
+    <p>Age: <%= pet.age %></p>
+    <p>Breed: <%= pet.breed %></p>
+  <% end %>
+</div>
