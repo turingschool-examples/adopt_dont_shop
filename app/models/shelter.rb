@@ -28,6 +28,7 @@ class Shelter < ApplicationRecord
     select("shelters.*")
     .joins(pets: :applications)
     .where("status = ?", 'Pending')
+    .order(:name)
   end
 
   def pet_count
