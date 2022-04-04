@@ -9,15 +9,7 @@ class ApplicationsController < ApplicationController
       redirect_to "/applications/new"
       flash[:alert] = "Error: Please fill out all required fields"
     else
-      @app = Application.create!(
-        name: params[:name],
-        street_address: params[:street_address],
-        city: params[:city],
-        state: params[:state],
-        zipcode: params[:zipcode],
-        status: "In Progress",
-        description: "None"
-      )
+      @app = Application.create!(applications_params)
       redirect_to "/applications/#{@app.id}"
     end
   end
@@ -40,7 +32,7 @@ class ApplicationsController < ApplicationController
       if params[:pet]!= nil
         pet = Pet.find(params[:pet])
         PetApplication.create!(pet_id: pet.id, application_id: @applicant.id)
-    
+
     end
   end
 

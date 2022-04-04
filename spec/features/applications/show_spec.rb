@@ -92,5 +92,20 @@ RSpec.describe 'Application Show Page' do
      expect(page).to have_content(@pet_1.name)
      expect(page).not_to have_content(@pet_2.name)
    end
-  end
+
+   it 'can submit an application once pets are added' do
+     PetApplication.create!(pet: @pet_1, application: @application_1)
+     PetApplication.create!(pet: @pet_2, application: @application_1)
+
+     visit "/applications/#{@application_1.id}"
+     expect(page).to have_content("Submit Application")
+     fill_in(:description, with: "Because I like animals")
+     click_on "Submit"
+     expect(current_path).to eq("/applications/#{@application_1.id}")
+     expect(page).to have_content("Pending")
+     expect(@application_1.status).to eq("Pending")
+     expect(@application_1.description).to eq("Because I like animals")
+     expect(page).not_to have_content("Add Pet to Application")
+   end
+ end
 end

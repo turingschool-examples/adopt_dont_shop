@@ -19,7 +19,7 @@ RSpec.describe 'new application page' do
     expect(page).to have_content("Las Vegas")
     expect(page).to have_content("NV")
     expect(page).to have_content("88901")
-    expect(page).to have_content("None")
+    expect(page).to have_content("N/A")
     expect(page).to have_content("In Progress")
     expect(page).not_to have_content("Accepted")
   end
