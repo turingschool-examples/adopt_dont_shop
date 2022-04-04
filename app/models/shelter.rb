@@ -21,11 +21,12 @@ class Shelter < ApplicationRecord
   end
 
   def self.with_pending_applications
-    select("shelters.*")
+    select("shelters.*").distinct
       .joins("INNER JOIN pets ON pets.shelter_id = shelters.id
               INNER JOIN application_pets ON pets.id = application_pets.pet_id
               INNER JOIN applications ON application_pets.application_id = applications.id")
       .where("applications.status = 'Pending'")
+      .order(:name)
   end
 
   def pet_count
