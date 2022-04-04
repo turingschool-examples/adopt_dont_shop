@@ -5,7 +5,7 @@ class ApplicationsController < ApplicationController
   end
 
   def show
-    @application = Application.find(params[:application_id])
+    @application = Application.find(params[:id])
     @pets = @application.pets
     if params[:pets].present?
       @pets = Pet.search(params[:pets])
@@ -29,8 +29,10 @@ class ApplicationsController < ApplicationController
 
   def update
     application = Application.find(params[:id])
-    @pets = Pet.search(params[:pets])
-    application.pets << @pets.last
+    require "pry"; binding.pry
+
+    @pets = Pet.find(params[:id])
+    # application.pets << @pets.last
     # require "pry"; binding.pry
 
     redirect_to "/applications/#{application.id}"

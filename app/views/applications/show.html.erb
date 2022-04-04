@@ -18,7 +18,7 @@
 <p>Adoptable Pets</p>
 <% @pets.each do |pet| %>
   <%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
-  <%= button_to "Adopt this Pet", "/applications/#{@application.id}", method: :post %>
+  <%= button_to "Adopt #{pet.name}", "/applications/#{@application.id}/pets", method: :post, params: {:pet_id => pet.id} %>
 <% end %>
 
 <p>Status: <%= @application.status %></p>
