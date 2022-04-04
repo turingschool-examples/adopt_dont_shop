@@ -5,9 +5,7 @@ class Pet < ApplicationRecord
   has_many :petapplications
   has_many :applications, through: :petapplications
 
-  def shelter_name
-    shelter.name
-  end
+  delegate :name, to: :shelter, prefix: true
 
   def self.adoptable
     where(adoptable: true)
