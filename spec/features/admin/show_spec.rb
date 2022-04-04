@@ -103,10 +103,12 @@ RSpec.describe 'admin application show page' do
         click_on("Approve")
       end
     end
+
     expect(current_path).to eq("/admin/applications/#{@application_1.id}")
+    expect(page).to have_content("Approved")
+    
     updated_app = Application.find(@application_1.id)
     expect(updated_app.status).to eq("Approved")
-    expect(page).to have_content("Approved")
   end
 
 end

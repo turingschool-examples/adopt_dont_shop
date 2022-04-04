@@ -7,4 +7,8 @@ class PetApplication < ApplicationRecord
   def set_default
     self.status ||= "Pending"
   end
+
+  def self.all_approved?
+    !any?{|pet_app| pet_app.status != "Approved"}
+  end
 end

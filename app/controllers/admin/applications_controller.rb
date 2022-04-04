@@ -1,9 +1,11 @@
 class Admin::ApplicationsController < ApplicationController
 
   def show
-    # require "pry"; binding.pry
     @application = Application.find(params[:id])
-    if !params[:approve].nil?
+    # require "pry"; binding.pry
+    if @application.pet_applications.all_approved?
+      @application.update(status: "Approved")
     end
+
   end
 end
