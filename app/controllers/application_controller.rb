@@ -7,11 +7,15 @@ class ApplicationController < ActionController::Base
   end
 
   def show
-    # binding.pry
     @application = Application.find(params[:id])
+
+    @application.pets << Pet.find(params[:pet]) if params[:pet]
     @pets = @application.pets
+
     if params[:search_for_pet_name].present?
       @searched_pets = Pet.search(params[:search_for_pet_name])
+    else
+      @searched_pets = []
     end
   end
 
@@ -21,8 +25,6 @@ class ApplicationController < ActionController::Base
   def create
     # binding.pry
     @application = Application.new(application_params)
-    # redirect_to "/applications/#{@application.id}"
-    # binding.pry
     if @application.save
       redirect_to "/applications/#{@application.id}"
     else

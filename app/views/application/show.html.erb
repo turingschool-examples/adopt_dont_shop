@@ -17,7 +17,7 @@
 <% end %>
 <% if @searched_pets %>
   <% @searched_pets.each do |pet| %>
-    <h4>Name: <%= pet.name %></h4>
+    <h4>Name: <%= pet.name %> <%= link_to "Adopt this Pet", url: "/applications/#{@application.id}", params: {pet: pet.id}, method: :get, local: true %></h4>
     <h4>Breed: <%= pet.breed %></h4>
     <h4>Age: <%= pet.age %></h4>
   <% end %>

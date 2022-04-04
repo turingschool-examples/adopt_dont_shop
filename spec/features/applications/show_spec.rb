@@ -55,10 +55,10 @@ RSpec.describe "Applications Show" do
     # save_and_open_page
     fill_in 'Search for pet name', with: 'Dorothy'
     click_button 'Submit'
-
-    click_button 'Adopt this Pet'
     # save_and_open_page
-    expect(current_path).to eq("/applications/#{@application_1.id}")
+    click_link 'Adopt this Pet'
+    # save_and_open_page
+    expect(current_path).to eq("/applications/#{application_2.id}")
     expect(page).to have_content("Pets: Dorothy")
   end
 end
