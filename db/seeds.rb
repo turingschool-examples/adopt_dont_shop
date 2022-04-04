@@ -1,3 +1,4 @@
+ ApplicationsPet.destroy_all
  Shelter.destroy_all
  Pet.destroy_all
  VeterinaryOffice.destroy_all
