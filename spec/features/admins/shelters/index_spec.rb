@@ -54,6 +54,7 @@ RSpec.describe 'admin_shelters index page' do
         expect(page).to have_content("#{shelter_1.name}")
         expect(page).not_to have_content("#{shelter_2.name}")
         expect(page).not_to have_content("#{shelter_3.name}")
+      end
 
       it 'i see that the pending shelters with pending apps are listed alphabetically' do
         shelter_1 = Shelter.create!(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
