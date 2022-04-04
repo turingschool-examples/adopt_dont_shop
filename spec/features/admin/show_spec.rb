@@ -36,7 +36,7 @@ RSpec.describe 'admin application show page' do
       click_on("Approve")
     end
     expect(current_path).to eq("/admin/applications/#{@application_1.id}")
-    save_and_open_page
+
     within ".pet_app-#{@pet_app1.id}" do
       expect(page).not_to have_button("Approve")
       expect(page).to have_content("Approved for Adoption")
@@ -67,27 +67,27 @@ RSpec.describe 'admin application show page' do
     end
   end
 
-  xit 'approval or rejection on one application does not affect other applications' do
+  it 'approval or rejection on one application does not affect other applications' do
     visit "/admin/applications/#{@application_1.id}"
 
-    within ".pet_app-#{@pet_1.id}" do
+    within ".pet_app-#{@pet_app1.id}" do
       click_on("Approve")
     end
 
     visit "/admin/applications/#{@application_2.id}"
 
-    within ".pet_app-#{@pet_1.id}" do
+    within ".pet_app-#{@pet_app3.id}" do
       expect(page).to have_button("Approve")
       expect(page).to have_button("Reject")
     end
 
-    within "pet_app-#{@pet_2.id}" do
+    within ".pet_app-#{@pet_app4.id}" do
       click_on("Approve")
     end
 
     visit "/admin/applications/#{@application_1.id}"
 
-    within ".pet_app-#{@pet_2.id}" do
+    within ".pet_app-#{@pet_app2.id}" do
       expect(page).to have_button("Approve")
       expect(page).to have_button("Reject")
     end
