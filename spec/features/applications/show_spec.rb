@@ -47,4 +47,18 @@ RSpec.describe "Applications Show" do
     expect(page).to have_content('Breed: pug')
     expect(page).to have_content('Age: 5')
   end
+
+  it "has a link to adopt a pet that has been searched for" do
+    application_2 = Application.create!(name: "Johnny Testman", street_address: "534 Not Real Drive", city: "Heaven", state: "FL", zip_code: "12359", description: 'empty')
+
+    visit "/applications/#{application_2.id}"
+    # save_and_open_page
+    fill_in 'Search for pet name', with: 'Dorothy'
+    click_button 'Submit'
+
+    click_button 'Adopt this Pet'
+    # save_and_open_page
+    expect(current_path).to eq("/applications/#{@application_1.id}")
+    expect(page).to have_content("Pets: Dorothy")
+  end
 end
