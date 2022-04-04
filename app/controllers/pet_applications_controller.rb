@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-class PetApplications < ApplicationController
-=======
 class PetApplicationsController < ApplicationController
 
   def update
@@ -15,5 +12,4 @@ class PetApplicationsController < ApplicationController
     end
     redirect_to "/admin/applications/#{@application.id}"
   end
->>>>>>> 07e910e70356fbadcef99ef264798a545729c70f
 end
