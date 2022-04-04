@@ -6,7 +6,7 @@ class Application < ApplicationRecord
   validates_presence_of :zip_code
   validates_presence_of :status
 
-  has_many :pets_applications
-  has_many :pets, through: :pets_applications
+  has_many :applications_pets
+  has_many :pets, through: :applications_pets
 
 end

@@ -12,7 +12,7 @@ RSpec.describe Application, type: :model do
   end
 
   describe 'relationships' do
-    it {should have_many(:pets).through(:pets_applications)}
+    it {should have_many(:pets).through(:applications_pets)}
   end
 
   describe 'class methods' do
