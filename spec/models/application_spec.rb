@@ -14,4 +14,12 @@ RSpec.describe Application, type: :model do
   describe 'relationships' do
     it {should have_many(:pets).through(:pet_applications)}
   end
+
+  describe 'class methods' do
+    
+  end
+
+  describe 'instance methods' do
+
+  end
 end
