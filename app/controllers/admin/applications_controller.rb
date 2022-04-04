@@ -5,9 +5,8 @@ class Admin::ApplicationsController < ApplicationController
     @pets = []
     @application.pets.each {|pet| @pets << pet}
     if !params[:approve].nil?
-      require "pry"; binding.pry
-      @pet = Pet.find(params[:approve])
-      @pet.status = false
+      # require "pry"; binding.pry
+      Pet.find(params[:approve]).adoptable = false
     end
   end
 end
