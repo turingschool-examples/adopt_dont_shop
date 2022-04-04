@@ -34,7 +34,7 @@
   <% end %>
 
   <hr/>
-  <% if !@applicant.pets.empty? %>
+  <% if !@applicant.pets.empty? && @applicant.status == "In Progress" %>
   <h4>Submit Application</h4>
   <%= form_with url: "/applications/#{@applicant.id}", method: :patch, local: true do |form| %>
   <%= form.label :description, "What makes you a good fit for these pets?" %>
