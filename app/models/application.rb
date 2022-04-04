@@ -10,4 +10,6 @@ class Application < ApplicationRecord
   validates :description, presence: true
   validates :status, presence: true
 
+  attribute :status, :string, default: "In Progress" 
+
 end
