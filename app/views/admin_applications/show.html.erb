@@ -1,0 +1,11 @@
+<% @pets.each do |pet| %>
+<% if pet.application_pets.first.approved == false%>
+  <h3><%= pet.name %></h3>
+  <p><%= form_with url: "/admin/applications/#{@application.id}?approved=true", local: true do |form| %>
+  <%= form.submit "Approve Application for #{pet.name}" %></p>
+  <% end %>
+  <% else %>
+  <h3><%= pet.name %></h3>
+  <p>Application Approved</p>
+  <% end %>
+<% end %><br>
