@@ -36,6 +36,7 @@ RSpec.describe 'application creation' do
       fill_in 'Zipcode', with: '1254'
       click_on 'Submit'
       expect(current_path).to eq("/applications/new")
+      save_and_open_page
       expect(page).to have_content('Error, please fill out form')      
     end
   end
