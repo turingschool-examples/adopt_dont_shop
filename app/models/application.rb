@@ -5,4 +5,8 @@ class Application < ApplicationRecord
   def self.pending_applications
     where(:status == "Pending")
   end
+
+  def in_progress?
+    status == "In Progress"
+  end
 end
