@@ -9,5 +9,10 @@
     <%= application.zipcode %>
   </p>
   <p>Description: <%= application.description %></p>
+  <p>
+    Pets: <% application.pets.each do |pet| %>
+      <%= pet.name %>
+    <% end %>
+  </p>
   <p>Status: <%= application.status %></p><hr>
 <% end %>
