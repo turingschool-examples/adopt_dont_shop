@@ -6,14 +6,16 @@ RSpec.describe "Application show page" do
   it "shows the application and all it's attributes" do
     visit "/applications/#{smith_app.id}"
 
-    expect(page).to have_content(smith_app.name)
-    expect(page).to have_content(smith_app.address)
-    expect(page).to have_content(smith_app.city)
-    expect(page).to have_content(smith_app.state)
-    expect(page).to have_content(smith_app.zipcode)
-    expect(page).to have_content(smith_app.description)
-    expect(page).to have_content(smith_app.app_status)
-    expect(page).to have_content("Pets applied for:")
+    within ".application" do
+      expect(page).to have_content(smith_app.name)
+      expect(page).to have_content(smith_app.address)
+      expect(page).to have_content(smith_app.city)
+      expect(page).to have_content(smith_app.state)
+      expect(page).to have_content(smith_app.zipcode)
+      expect(page).to have_content(smith_app.description)
+      expect(page).to have_content(smith_app.app_status)
+      expect(page).to have_content("Pets applied for:")
+    end
   end
 
   it "has 'Add Pet' section" do
@@ -22,7 +24,7 @@ RSpec.describe "Application show page" do
     visit "/applications/#{smith_app.id}"
 
     expect(page).to have_content("Add a pet to this application")
-    within "[data-id=pet_search]" do
+    within ".pet_search" do
       expect(page).to have_content("Search for pet by name")
       expect(page).to have_button("Submit")
     end
@@ -36,7 +38,7 @@ RSpec.describe "Application show page" do
 
     fill_in "search_for_pet_by_name", with: "Scooby"
     click_button("Submit")
-    within "[data-id=pet_search]" do
+    within ".pet_results" do
       expect(page).to have_content("Scooby")
       expect(page).to_not have_content("Scrappy")
     end
