@@ -1,6 +1,24 @@
-<h1>hi</h1>
-<p>Name: <%= @app.name %></p>
-<p>Address: <%= @app.address %> <%= @app.city %>, <%= @app.state %> <%= @app.zipcode %></p>
-<p>Why I am a good fit: <%= @app.description %></p>
-<p>Status: <%= @app.app_status %></p>
+<h1>Application</h1>
+<p>Name:
+  <%= @app.name %></p>
+<p>Address:
+  <%= @app.address %>
+  <%= @app.city %>
+  <%= @app.state %>
+  <%= @app.zipcode %></p>
+<p>Why I am a good fit:
+  <%= @app.description %></p>
+<p>Status:
+  <%= @app.app_status %></p>
 <p>Pets applied for:</p>
+
+<div data-id="pet_search">
+  <h3>Add a pet to this application</h3>
+  <%= form_with url: '/pets', method: :get, local: true do |f| %>
+  <%= f.label :search_for_pet_by_name %>
+  <br>
+  <%= f.text_field :search %>
+  <br>
+  <%= f.submit "Submit" %>
+<% end %>
+</div>
