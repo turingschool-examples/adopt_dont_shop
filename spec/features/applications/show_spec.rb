@@ -45,6 +45,22 @@ RSpec.describe 'applications' do
         expect(page).to_not have_content("Adoptable: false")
         expect(page).to_not have_content("Age: 6")
       end
+
+    end
+
+    it 'can add a pet to an application' do
+      fill_in :search, with: 'Alfonso'
+      click_button 'Search'
+
+      within "#pet-#{@pet1.id}" do
+        click_button 'Adopt this Pet'
+      end
+
+      expect(current_path).to eq("/applications/#{@application.id}")
+
+      within "#pets-to-adopt" do
+        expect(page).to have_content("Alfonso")
+      end
     end
   end
 end
