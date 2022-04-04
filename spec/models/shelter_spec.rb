@@ -42,7 +42,14 @@ RSpec.describe Shelter, type: :model do
       end
     end
 
-
+    describe '#pending' do
+      it 'lists the shelters with pending applications' do
+        application = Application.create!(status: "Pending", name: "Bob Bingus", street: '123 Main',city: 'Leadville', state: 'CO',
+        zip: 11111, description: "I'm a good dude")
+        ApplicationPet.create!(pet_id: "#{@pet_2.id}", application_id: "#{application.id}")
+        expect(Shelter.pending).to eq([@shelter_1])
+      end
+    end
 
     describe '#order_by_reverse_alpha' do
       it 'orders the shelters by name, descending' do
