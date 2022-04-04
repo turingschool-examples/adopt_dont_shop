@@ -23,29 +23,29 @@ RSpec.describe 'admin application show page' do
     @shelter_1 = Shelter.create!(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
     @pet_1 = @shelter_1.pets.create(name: 'Mr. Pirate', breed: 'tuxedo shorthair', age: 5, adoptable: true)
     @pet_2 = @shelter_1.pets.create(name: 'Clawdia', breed: 'shorthair', age: 3, adoptable: true)
-    PetApplication.create!(pet: @pet_1, application: @application_1)
-    PetApplication.create!(pet: @pet_2, application: @application_1)
-    PetApplication.create!(pet: @pet_1, application: @application_2)
-    PetApplication.create!(pet: @pet_2, application: @application_2)
+    @pet_app1 = PetApplication.create!(pet: @pet_1, application: @application_1)
+    @pet_app2 = PetApplication.create!(pet: @pet_2, application: @application_1)
+    @pet_app3 = PetApplication.create!(pet: @pet_1, application: @application_2)
+    @pet_app4 = PetApplication.create!(pet: @pet_2, application: @application_2)
   end
 
   it 'has a button to approve each pet on an application' do
     visit "/admin/applications/#{@application_1.id}"
 
-    within ".pet-#{@pet_1.id}" do
+    within ".pet_app-#{@pet_app1.id}" do
       click_on("Approve")
     end
     expect(current_path).to eq("/admin/applications/#{@application_1.id}")
-    within ".pet-#{@pet_1.id}" do
+    within ".pet-#{@pet_app1.id}" do
       expect(page).not_to have_button("Approve")
       expect(page).to have_content("Approved for Adoption")
     end
 
-    within ".pet-#{@pet_2.id}" do
+    within ".pet-#{@pet_app2.id}" do
       click_on("Approve")
     end
-    expect(current_path).to eq("/admin/applications/#{@pet_2.id}")
-    within "pet-#{@pet_2.id}" do
+    expect(current_path).to eq("/admin/applications/#{@application_1.id}")
+    within "pet-#{@pet_app2.id}" do
       expect(page).not_to have_button("Approve")
       expect(page).to have_content("Approved for Adoption")
     end
