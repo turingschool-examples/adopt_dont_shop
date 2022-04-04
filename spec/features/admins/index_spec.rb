@@ -24,6 +24,12 @@ RSpec.describe 'the admin shelters index' do
 
     visit "/applications/#{application1.id}"
 
+    fill_in :search, with: "Mr. Pirate"
+
+    click_button "Search"
+
+    click_button "Adopt this Pet"
+
     fill_in :description, with: "I work from home."
 
     click_button "Submit Application"
