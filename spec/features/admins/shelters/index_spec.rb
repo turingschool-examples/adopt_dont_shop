@@ -44,7 +44,7 @@ RSpec.describe 'admin_shelters index page' do
         pet_2 = application_1.pets.create(name: 'Sparky', age: 1, breed: 'Great Dane', adoptable: true, shelter_id: shelter_1.id)
         application_2 = Application.create!(name: 'James', address: '1259 N Clarkson St.', city: 'Denver', state: 'CO', zipcode: '80218', description: "Love dogs.", status: 'Pending')
         pet_3 = application_2.pets.create!(name: 'Spot', age: 1, breed: 'Great Dane', adoptable: true, shelter_id: shelter_2.id)
-        application_3 = Application.create!(name: 'James', address: '1259 N Clarkson St.', city: 'Denver', state: 'CO', zipcode: '80218', description: "Love dogs.", status: 'In-progress')
+        application_3 = Application.create!(name: 'James', address: '1259 N Clarkson St.', city: 'Denver', state: 'CO', zipcode: '80218', description: "Love dogs.", status: 'Pending')
         pet_4 = application_3.pets.create!(name: 'Brian', age: 1, breed: 'Great Dane', adoptable: true, shelter_id: shelter_3.id)
 
         visit "/admin/shelters"
