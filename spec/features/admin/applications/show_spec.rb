@@ -14,11 +14,15 @@ end
       fill_in("search", with: "Scooby")
       click_on "Search"
       click_button "Adopt #{@scooby.name}"
+      fill_in("search", with: "Scrappy")
+      click_on "Search"
+      click_button "Adopt #{@scrappy.name}"
       visit "/admin/applications/#{@application.id}"
       expect(page).to have_no_content("Application Approved")
       click_button "Approve Application for Scooby"
       expect(current_path).to eq("/admin/applications/#{@application.id}")
-      expect(page).to have_no_button("Approve Scooby")
+      expect(page).to have_button("Approve Application for Scrappy")
+      expect(page).to have_no_button("Approve Application for Scooby")
       expect(page).to have_content("Application Approved")
     end
   end
