@@ -13,7 +13,7 @@ RSpec.describe 'application creation' do
       expect(find('form')).to have_content('State')
       expect(find('form')).to have_content('Zipcode')
       expect(find('form')).to have_content('Description')
-    
+    save_and_open_page
     end
   end
 
@@ -34,6 +34,18 @@ RSpec.describe 'application creation' do
         expect(page).to have_current_path("/applications/#{@application.id}")
         expect(page).to have_content('Status: In Progress')
 
+      end
+    end
+
+    context 'given invalid data' do
+      it 'returns visitor to new application if form fields left empty' do
+        visit '/applications/new'
+        fill_in 'State', with: 'CO'
+
+        click_button 'Save'
+
+        expect(page).to have_current_path('/applications/new')
+        expect(page).to have_content("Error: Name can't be blank, Address can't be blank, City can't be blank, State can't be blank, Zip can't be blank")
       end
     end
   end
