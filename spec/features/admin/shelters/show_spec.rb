@@ -36,4 +36,10 @@ RSpec.describe "AdminShelters", type: :feature do
       expect(page).to have_content("3.75")
     end
 
+    it "shows the amount of adoptable pets at said shelter" do
+      visit "/admin/shelters/#{shelter_3.id}"
+
+      expect(page).to have_content("4")
+    end
+
 end
