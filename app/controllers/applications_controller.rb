@@ -5,7 +5,7 @@ class ApplicationsController < ApplicationController
 
   def show
     @application = Application.find(params[:id])
-    ApplicationPet.create(pet_id: params[:pet_id], application_id: params[:id], approved: false)
+    ApplicationPet.create(pet_id: params[:pet_id], application_id: params[:id], approved: nil)
     @adopt_me = @application.pets
     if params[:search].present?
       @pets = Pet.search(params[:search])

@@ -1,10 +1,16 @@
 <% @pets.each do |pet| %>
 <% pet.application_pets.each do |ap|%>
-<% if ap.approved == false %>
+<% if ap.approved == nil %>
   <h3><%= pet.name %></h3>
   <p><%= form_with url: "/admin/applications/#{@application.id}?approved=true", local: true do |form| %>
   <%= form.submit "Approve Application for #{pet.name}" %></p>
   <% end %>
+  <p><%= form_with url: "/admin/applications/#{@application.id}?approved=false", local: true do |form| %>
+  <%= form.submit "Reject Application for #{pet.name}" %></p>
+  <% end %>
+  <% elsif ap.approved == false %>
+  <h3><%= pet.name %></h3>
+  <p>Application Rejected</p>
   <% else %>
   <h3><%= pet.name %></h3>
   <p>Application Approved</p>
