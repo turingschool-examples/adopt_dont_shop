@@ -15,7 +15,7 @@ RSpec.describe 'admin_shelters show page' do
           visit "/admin/shelters/#{shelter_1.id}"
 
           within "#statistics" do
-            expect(page).to have_content("Average Age: 5")
+            expect(page).to have_content("Average Pet Age: 5")
           end
         end
       end
