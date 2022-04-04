@@ -5,4 +5,8 @@ class AdminSheltersController < ApplicationController
     @pending = Shelter.pending
   end
 
+  def show
+    @shelter = Shelter.show_list(params[:id])
+  end
+
 end
