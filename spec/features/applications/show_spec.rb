@@ -120,5 +120,17 @@ RSpec.describe 'Application Show Page' do
      expect(page).not_to have_content("Submit Application")
      expect(page).not_to have_button("Submit")
    end
+
+   it 'allows for case insensitive searches' do
+
+     visit "/applications/#{@application_1.id}"
+
+     expect(page).to have_content("Add Pet to Application")
+     fill_in(:pet_name, with: "mr. pirate")
+     click_on("Search")
+
+     expect(page).to have_content(@pet_1.name)
+     expect(page).to_not have_content(@pet_3.name)
+   end
  end
 end
