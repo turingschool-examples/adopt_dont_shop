@@ -31,7 +31,7 @@ RSpec.describe "AdminShelters", type: :feature do
 
     it "shows the average age of adoptable pets at said shelter" do
       visit "/admin/shelters/#{@shelter_3.id}"
-save_and_open_page
+
       expect(@shelter_3.adoptable_aver_age).to eq(3.75)
       expect(page).to have_content("3.75")
     end

@@ -1,8 +1,8 @@
 <h1>Shelter Details</h1>
 
-<p>Name: <%= @shelter.first.name %></p>
-<p>Address: <%= @shelter.first.city %></p>
+<p>Name: <%= @shelter_info.first.name %></p>
+<p>Address: <%= @shelter_info.first.city %></p>
 
-<h4><%= "Some quick stats about #{@shelter.first.name}:" %> </h4>
-<p>Adoptable Pets: <%= "#{@shelterpets.adoptable_pets.count}" %></p>
-<p>Average Age of Adoptable Pets: <%= "#{(@shelterpets.adoptable_aver_age).to_f}" %></p>
+<h4><%= "Some quick stats about #{@shelter_info.first.name}:" %> </h4>
+<p>Adoptable Pets: <%= "#{@adoptablepetscount}" %></p>
+<p>Average Age of Adoptable Pets: <%= "#{@avg_age}" %></p>
