@@ -7,9 +7,15 @@ class Application < ApplicationRecord
   validates :city, presence: true
   validates :state, presence: true
   validates :zipcode, presence: true
-  validates :description, presence: true
   validates :status, presence: true
 
-  attribute :status, :string, default: "In Progress" 
+  attribute :description, :string, default: " "
+  attribute :status, :string, default: "In Progress"
 
+  # def self.search(search_term)
+  #   if search_term
+  #     @pets = Pet.find_by(name: search_term)
+  #   else @pets=Pet.all
+  #   end
+  # end
 end

@@ -32,22 +32,23 @@ RSpec.describe 'the applications show page' do
 
     expect(current_path).to eq("/pets/#{@pet_1.id}")
   end
-  
+end
 describe 'search in applicatioins' do
   before do
     @shelter = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
     @pet_1 = @shelter.pets.create(name: 'Scooby', age: 2, breed: 'Great Dane', adoptable: true, shelter_id: @shelter.id)
     @pet_2 = @shelter.pets.create(adoptable: true, age: 3, breed: 'doberman', name: 'Lobster', shelter_id: @shelter.id)
     @pet3 = @shelter.pets.create!(adoptable: true, age: 7, breed:"Golden Retriever", name:"Carter")
-    @application1 = Application.create!(name:'Chris', address: '123 Main St', city: 'Hometown', state: 'CO', zip: '80504' )
+    @application1 = Application.create!(name:'Chris', address: '123 Main St', city: 'Hometown', state: 'CO', zipcode: '80504' )
+    visit "/applications/#{@application1.id}"
   end
 
 
-  it 'Unsubmitted applications have a search box to add pets by name to the application' do
-    visit "/applications/#{@application1.id}"
-    fill_in('Pet Name', with: "Carter")
-    click_button 'submit'
-    expect(page).to have_content("Carter", "Golden Retriever")
-    expect(current_path).to eq("applications/#{@application1.id}")
+  it 'Unsubmitted applications have a search box to select pets by name' do
+    fill_in(:pet_name, with: "Carter")
+    click_button('Search')
+    save_and_open_page
+    expect(current_path).to eq("/applications/#{@application1.id}")
+    expect(page).to have_content(@pet3.name)
   end
 end
