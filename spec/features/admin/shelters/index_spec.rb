@@ -32,11 +32,24 @@ RSpec.describe 'the admin shelters index' do
       expect(page).to have_content('Aurora shelter')
       expect(page).to_not have_content('Denver shelter')
     end
+  end
+  
+  it 'has links to each shelter' do
+    shelter1 = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
+    shelter2 = Shelter.create(name: 'Denver shelter', city: 'Denver, CO', foster_program: true, rank: 10)
 
+    visit '/admin/shelters'
+    click_link "Aurora shelter"
+    expect(current_path).to eq("/admin/shelters/#{shelter1.id}")
+    
+    visit '/admin/shelters'
+    click_link "Denver shelter"
+    expect(current_path).to eq("/admin/shelters/#{shelter2.id}")
   end
 end
 
 # As a visitor
 # When I visit the admin shelter index ('/admin/shelters')
-# Then I see a section for "Shelter's with Pending Applications"
-# And in this section I see the name of every shelter that has a pending application
+# Then I see that every shelter name is a link
+# When I click one of these links
+# Then I am taken to that shelter's admin show page
