@@ -15,12 +15,12 @@
     <%= f.text_field :pets %>
     <%= f.submit "Search" %>
   <% end %>
-<% end %>
 
-<% @pets.each do |pet| %>
-  <% if pet.adoptable == true && !@application.pets.include?(pet) %>
-    <%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
-    <%= button_to "Adopt #{pet.name}", "/applications/#{@application.id}/pets", method: :post, params: {:pet_id => pet.id} %>
+  <% @pets.each do |pet| %>
+    <% if pet.adoptable == true && !@application.pets.include?(pet) %>
+      <%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
+      <%= button_to "Adopt #{pet.name}", "/applications/#{@application.id}/pets", method: :post, params: {:pet_id => pet.id} %>
+    <% end %>
   <% end %>
 <% end %>
 
@@ -35,7 +35,6 @@
     <%= f.text_field :description %>
     <%= f.button "Submit Application", name: "status", value: 'Pending' %>
   <% end %>
-  <%# <%= button_to "Submit Appliction", "/applications/#{@application.id}", method: :post, params: {:status => 'Pending'} %> %>
 <% end %>
 
 
