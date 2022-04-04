@@ -14,13 +14,13 @@ class ApplicationsController < ApplicationController
     end
   end
 
-  def add_pet
-    @application = Application.find(params[:id])
-    pet = Pet.find(params[:pet_id])
-    @application.pets.push(pet)
-
-    redirect_to "/applications/#{@application.id}"
-  end
+  # def add_pet
+  #   @application = Application.find(params[:id])
+  #   pet = Pet.find(params[:pet_id])
+  #   @application.pets.push(pet)
+  #
+  #   redirect_to "/applications/#{@application.id}"
+  # end
 
   def show
     @applicant = Application.find(params[:id])
@@ -32,8 +32,14 @@ class ApplicationsController < ApplicationController
       if params[:pet]!= nil
         pet = Pet.find(params[:pet])
         PetApplication.create!(pet_id: pet.id, application_id: @applicant.id)
-
-    end
+      end
+      if params[:commit] == "Submit"
+        @applicant.update(applications_params)
+        # @applicant.description = params[:description]
+        @applicant.status = "Pending"
+        @submit = true
+      end
+      # require "pry"; binding.pry
   end
 
   private

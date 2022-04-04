@@ -102,6 +102,8 @@ RSpec.describe 'Application Show Page' do
      click_on "Submit"
      expect(current_path).to eq("/applications/#{@application_1.id}")
      expect(page).to have_content("Pending")
+     # save_and_open_page
+     # require "pry"; binding.pry
      expect(@application_1.status).to eq("Pending")
      expect(@application_1.description).to eq("Because I like animals")
      expect(page).not_to have_content("Add Pet to Application")

@@ -34,7 +34,7 @@
   <hr/>
   <% if !@applicant.pets.empty? %>
   <h4>Submit Application</h4>
-  <%= form_with url: "/applications/#{@applicant.id}", method: :get, local: true do |form| %>
+  <%= form_with url: "/applications/#{@applicant.id}", method: :patch, local: true do |form| %>
   <%= form.label :description, "What makes you a good fit for these pets?" %>
   <%= form.text_area :description %>
   <%= form.submit "Submit" %>
