@@ -41,8 +41,8 @@ RSpec.describe 'applications' do
         expect(page).to have_content("Adoptable: True")
         expect(page).to have_content("Breed: Shepard")
 
-        expect(page).to_not have_content("Adoptable: False")
         expect(page).to_not have_content("Geoffrey")
+        expect(page).to_not have_content("Adoptable: False")
         expect(page).to_not have_content("Age: 7")
       end
     end
