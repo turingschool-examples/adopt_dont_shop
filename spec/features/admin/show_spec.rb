@@ -92,4 +92,21 @@ RSpec.describe 'admin application show page' do
       expect(page).to have_button("Reject")
     end
   end
+
+  it 'if all pets are accepted on an application the application is approved' do
+    @pet3 = @shelter_1.pets.create!(name: "Cheddar", age: 3, breed: "tabby", adoptable: true)
+    @pet_app5 = PetApplication.create!(pet: @pet3, application: @application_1)
+
+    visit "/admin/applications/#{@application_1.id}"
+    @application_1.pet_applications.each do |pet_app|
+      within ".pet_app-#{pet_app.id}" do
+        click_on("Approve")
+      end
+    end
+    expect(current_path).to eq("/admin/applications/#{@application_1.id}")
+    updated_app = Application.find(@application_1.id)
+    expect(updated_app.status).to eq("Approved")
+    expect(page).to have_content("Approved")
+  end
+
 end
