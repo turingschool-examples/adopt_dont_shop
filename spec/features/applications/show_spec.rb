@@ -1,9 +1,4 @@
 require 'rails_helper'
-# Name of the Applicant
-# Full Address of the Applicant including street address, city, state, and zip code
-# Description of why the applicant says they'd be a good home for this pet(s)
-# names of all pets that this application is for (all names of pets should be links to their show page)
-# The Application's status, either "In Progress", "Pending", "Accepted", or "Rejected"
 
 RSpec.describe 'the applications show page' do
   before do
@@ -28,7 +23,6 @@ RSpec.describe 'the applications show page' do
     expect(page).to have_content(@application.city)
     expect(page).to have_content(@application.state)
     expect(page).to have_content(@application.zipcode)
-    expect(page).to have_content(@application.description)
     expect(page).to have_content(@application.status)
   end
 
@@ -37,5 +31,23 @@ RSpec.describe 'the applications show page' do
     click_link @pet_1.name.to_s
 
     expect(current_path).to eq("/pets/#{@pet_1.id}")
+  end
+  
+describe 'search in applicatioins' do
+  before do
+    @shelter = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
+    @pet_1 = @shelter.pets.create(name: 'Scooby', age: 2, breed: 'Great Dane', adoptable: true, shelter_id: @shelter.id)
+    @pet_2 = @shelter.pets.create(adoptable: true, age: 3, breed: 'doberman', name: 'Lobster', shelter_id: @shelter.id)
+    @pet3 = @shelter.pets.create!(adoptable: true, age: 7, breed:"Golden Retriever", name:"Carter")
+    @application1 = Application.create!(name:'Chris', address: '123 Main St', city: 'Hometown', state: 'CO', zip: '80504' )
+  end
+
+
+  it 'Unsubmitted applications have a search box to add pets by name to the application' do
+    visit "/applications/#{@application1.id}"
+    fill_in('Pet Name', with: "Carter")
+    click_button 'submit'
+    expect(page).to have_content("Carter", "Golden Retriever")
+    expect(current_path).to eq("applications/#{@application1.id}")
   end
 end
