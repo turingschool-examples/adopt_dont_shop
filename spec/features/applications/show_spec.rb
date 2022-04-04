@@ -63,14 +63,14 @@ RSpec.describe 'Application Show Page' do
      # save_and_open_page
      visit "/applications/#{@application_1.id}"
      # save_and_open_page
-     # expect(page).to have_content("Add a Pet to this Application")
+     expect(page).to have_content("Add Pet to Application")
    end
 
    it 'allows for a search of pets by name' do
 
      visit "/applications/#{@application_1.id}"
 
-     # expect(page).to have_content("Add a Pet to this Application")
+     expect(page).to have_content("Add Pet to Application")
 
      fill_in(:pet_name, with: "Mr. Pirate")
      click_on("Search")
@@ -83,8 +83,7 @@ RSpec.describe 'Application Show Page' do
      visit "applications/#{@application_1.id}"
      fill_in(:pet_name, with: "Mr. Pirate")
      click_on("Search")
-     save_and_open_page
-# require 'pry'; binding.pry
+
      within ".pet-#{@pet_1.id}" do
        click_button "Adopt this Pet"
      end
