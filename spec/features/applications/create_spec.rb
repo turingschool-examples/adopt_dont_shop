@@ -26,9 +26,17 @@ RSpec.describe 'application creation' do
       application = Application.last
       expect(current_path).to eq("/applications/#{application.id}")
       expect(page).to have_content('Joe Blow')
-      expect(page).to have_content('In progress')
-      
-      
+      expect(page).to have_content('In progress')      
+    end
+    it "will return error message if inccorectly filled out" do
+      visit "/applications/new" 
+      fill_in 'Name', with: 'Joe Blow'
+      fill_in 'City', with: 'Castle Rock'
+      fill_in 'State', with: 'CO'
+      fill_in 'Zipcode', with: '1254'
+      click_on 'Submit'
+      expect(current_path).to eq("/applications/new")
+      expect(page).to have_content('Error, please fill out form')      
     end
   end
 end 

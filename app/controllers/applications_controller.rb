@@ -7,8 +7,14 @@ def new
 end
 
 def create 
-  app = Application.create!(app_params)
-  redirect_to "/applications/#{app.id}"
+  app = Application.new(app_params)
+  
+  if app.save
+    redirect_to "/applications/#{app.id}"
+  else 
+    redirect_to "/applications/new"
+    flash[:alert] = "Error, please fill out form"
+  end 
 end
 
 private
