@@ -6,8 +6,12 @@ class AdminApplicationsController < ActionController::Base
   def show
     @application = Application.find(params[:id])
     @pets = @application.pets
-    @approved = params[:status]
+    @admin_status = params[:status]
     @petid = params[:petid]
+  end
+
+  def update
+#    redirect_to "/admin/applications/#{@application.id}/"
   end
 
   def new
