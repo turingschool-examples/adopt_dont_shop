@@ -5,12 +5,17 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+require 'faker'
 Application.destroy_all
 Pet.destroy_all
 Shelter.destroy_all
 
 shelter = Shelter.create!(name: 'Save The Animals', city: 'Denver', rank: 4, foster_program: true)
 pet1 = Pet.create!(name: 'Joey', age: 2, breed: 'Poodle', adoptable: true, shelter_id: shelter.id)
+pet2 = Pet.create!(name: Faker::Creature::Dog.name, age: Faker::Number.between(from: 1, to: 10), breed: Faker::Creature::Dog.breed, adoptable: true, shelter_id: shelter.id)
+pet3 = Pet.create!(name: Faker::Creature::Dog.name, age: Faker::Number.between(from: 1, to: 10), breed: Faker::Creature::Dog.breed, adoptable: true, shelter_id: shelter.id)
+pet4 = Pet.create!(name: Faker::Creature::Dog.name, age: Faker::Number.between(from: 1, to: 10), breed: Faker::Creature::Dog.breed, adoptable: true, shelter_id: shelter.id)
+pet5 = Pet.create!(name: Faker::Creature::Dog.name, age: Faker::Number.between(from: 1, to: 10), breed: Faker::Creature::Dog.breed, adoptable: true, shelter_id: shelter.id)
 application = Application.create!(name: 'Andrew',
   street_address: '112 Greenbrook',
   city: 'Denver',
