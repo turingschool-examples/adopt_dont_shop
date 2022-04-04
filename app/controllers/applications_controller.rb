@@ -29,11 +29,8 @@ class ApplicationsController < ApplicationController
 
   def update
     application = Application.find(params[:id])
-    require "pry"; binding.pry
-
-    @pets = Pet.find(params[:id])
-    # application.pets << @pets.last
-    # require "pry"; binding.pry
+    application[:status] = 'Pending'
+    application.save
 
     redirect_to "/applications/#{application.id}"
   end
