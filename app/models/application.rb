@@ -18,6 +18,8 @@ class Application < ApplicationRecord
     application_pet = ApplicationPet.where(application_id: id, pet_id: pet_id).first
     if application_pet.updated?
       application_pet.status 
+    else 
+      nil
     end
   end
 
