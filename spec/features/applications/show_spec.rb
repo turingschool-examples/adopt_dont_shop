@@ -108,5 +108,11 @@ RSpec.describe 'Application Show Page' do
      expect(updated_app.description).to eq("Because I like animals")
      expect(page).not_to have_content("Add Pet to Application")
    end
+
+   it 'can not be submitted if there are no pets on the application' do
+     visit "/applications/#{@application_1.id}"
+
+     expect(@applications.pets).to eq([])
+   end
  end
 end
