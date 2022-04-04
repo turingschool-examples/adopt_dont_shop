@@ -2,10 +2,6 @@ require 'rails_helper'
 
 RSpec.describe 'application creation' do
   before(:each) do
-    ApplicationPet.destroy_all
-    Application.destroy_all
-    Pet.destroy_all
-    Shelter.destroy_all
     shelter = Shelter.create!(foster_program: false, name: 'Humane Society', city: 'Phoenix', rank: 20)
     spot = Pet.create!(adoptable: true, age: 2, breed: 'Mix', name: 'Spot', shelter_id: shelter[:id])
     application = Application.create!(name: 'Cory', city: 'Tempe', state: 'AZ', street_address: '3030 Westroad', zip_code: '85282', description: 'I love dogs and I have a lot of free time to take care of one.', status: 'Pending')
@@ -36,34 +32,22 @@ RSpec.describe 'application creation' do
     expect(page).to have_content('Colorado')
     expect(page).to have_content('In Progress')
     expect(current_path).to eq("/applications/#{application.id}")
-
-
   end
 
+  # As a visitor
+  # When I visit the new application page
+  # And I fail to fill in any of the form fields
+  # And I click submit
+  # Then I am taken back to the new applications page
+  # And I see a message that I must fill in those fields.
 
-  # describe 'the pet create' do
-  #   context 'given valid data' do
-  #     it 'creates the pet and redirects to the shelter pets index' do
-  #       visit "/shelters/#{@shelter.id}/pets/new"
-  #
-  #       fill_in 'Name', with: 'Bumblebee'
-  #       fill_in 'Age', with: 1
-  #       fill_in 'Breed', with: 'Welsh Corgi'
-  #       check 'Adoptable'
-  #       click_button 'Save'
-  #       expect(page).to have_current_path("/shelters/#{@shelter.id}/pets")
-  #       expect(page).to have_content('Bumblebee')
-  #     end
-  #   end
-  #
-  #   context 'given invalid data' do
-  #     it 're-renders the new form' do
-  #       visit "/shelters/#{@shelter.id}/pets/new"
-  #
-  #       click_button 'Save'
-  #       expect(page).to have_current_path("/shelters/#{@shelter.id}/pets/new")
-  #       expect(page).to have_content("Error: Name can't be blank, Age can't be blank, Age is not a number")
-  #     end
-  #   end
-  # end
+  it "factors for blank fields of the form" do
+    visit "/applications/new"
+
+    click_button 'Create'
+
+    expect(page).to have_content('You can not leave any of the fields blank.')
+    expect(current_path).to eq("/applications/new")
+  end
+
 end

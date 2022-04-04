@@ -10,5 +10,11 @@
   <%= f.label :zip_code %>
   <%= f.text_field :zip_code %><br><br>
 
+  <% flash.each do |type, msg| %>
+    <div style="color:red">
+      <%= msg %>
+    </div>
+  <% end %>
+
   <%= f.submit "Create" %>
 <% end %>

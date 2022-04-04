@@ -9,7 +9,12 @@ class ApplicationsController < ApplicationController
 
   def create
     @new_app = Application.create!(name: params[:name], street_address: params[:street_address], city: params[:city], state: params[:state], zip_code: params[:zip_code], description: "", status: "In Progress")
-    redirect_to "/applications/#{@new_app[:id]}"
+    if @new_app[:name].empty? || @new_app[:street_address].empty? || @new_app[:city].empty? || @new_app[:state].empty? || @new_app[:zip_code].empty?
+      redirect_to "/applications/new", notice: "You can not leave any of the fields blank."
+      binding.pry
+    else
+      redirect_to "/applications/#{@new_app[:id]}"
+    end
   end
 
 end
