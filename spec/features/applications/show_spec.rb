@@ -8,7 +8,6 @@ RSpec.describe 'the applications index' do
     pet_1 = application.pets.create(name: 'Scrappy', age: 1, breed: 'Great Dane', adoptable: true, shelter_id: shelter.id)
     pet_2 = application.pets.create(name: 'Sparky', age: 1, breed: 'Great Dane', adoptable: true, shelter_id: shelter.id)
     pet_3 = Pet.create(name: 'Spot', age: 1, breed: 'Great Dane', adoptable: true, shelter_id: shelter.id)
-
     visit "/applications/#{application.id}"
 
     expect(page).to have_content(application.name)
@@ -21,5 +20,23 @@ RSpec.describe 'the applications index' do
     expect(page).to_not have_content(pet_3.name)
     click_link "#{pet_1.name}"
     expect(current_path).to eq("/pets/#{pet_1.id}")
+  end
+  
+  it 'allows the user to search for pets' do
+    application_1 = Application.create!(name: 'John', address: '505 Main St.', city: 'Denver', state: 'CO', zipcode: '80205', description: "I'm great with dogs.", status: 'In-progress')
+    application = Application.create!(name: 'Chris', address: '505 Main St.', city: 'Denver', state: 'CO', zipcode: '80205', description: "I'm great with dogs.", status: 'In-progress')
+    shelter = Shelter.create(name: 'Mystery Building', city: 'Irvine CA', foster_program: false, rank: 9)
+    pet_1 = application_1.pets.create(name: 'Scrappy', age: 1, breed: 'Great Dane', adoptable: true, shelter_id: shelter.id)
+    pet_2 = application_1.pets.create(name: 'Sparky', age: 1, breed: 'Great Dane', adoptable: true, shelter_id: shelter.id)
+
+    visit "/applications/#{application.id}"
+
+    expect(page).to have_content("Add a Pet to this Application")
+    expect(page).to have_content(application.status)
+    fill_in 'Search', with: 'Sparky'
+    click_on 'Search'
+    expect(current_path).to eq("/applications/#{application.id}")
+    expect(page).to have_content("Add a Pet to this Application")
+    expect(page).to have_content("Sparky")
   end
 end
