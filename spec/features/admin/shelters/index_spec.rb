@@ -11,4 +11,17 @@ RSpec.describe 'the admin shelter index' do
     page.should have_selector("ul#shelter li:nth-child(2)", text: @shelter3.name)
     page.should have_selector("ul#shelter li:nth-child(3)", text: @shelter2.name)
   end
+
+  it 'list all Shelters with pending applications ' do
+    shelter = Shelter.create!(foster_program: false, name: 'Humane Society', city: 'Phoenix', rank: 20)
+    shelter2 = Shelter.create!(foster_program: false, name: 'Portland Shelter', city: 'Phoenix', rank: 20)
+    spot = Pet.create!(adoptable: true, age: 2, breed: 'Mix', name: 'Spot', shelter_id: shelter[:id])
+    application = Application.create!(name: 'Cory', city: 'Tempe', state: 'AZ', street_address: '3030 Westroad', zip_code: '85282', description: 'I love dogs and I have a lot of free time to take care of one.', status: 'Pending')
+    app_pet = ApplicationPet.create!(pet_id: spot.id, application_id: application.id)
+    visit "/admin/shelters"
+      within("#pending_applications") do
+        expect(page).to have_content(shelter.name)
+      end
+      # page.should have_selector("ul#pending", text: @shelter.name)
+  end
 end
