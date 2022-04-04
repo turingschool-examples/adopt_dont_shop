@@ -9,4 +9,8 @@ class Application < ApplicationRecord
   has_many :application_pets
   has_many :pets, through: :application_pets
 
+  def pets_added
+    Pet.joins(applications: :application_pets).where("applications.id=#{self.id}")
+  end
+
 end
