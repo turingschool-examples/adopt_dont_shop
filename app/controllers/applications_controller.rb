@@ -3,10 +3,19 @@ class ApplicationsController < ApplicationController
   def show
     @application = Application.find(params[:id])
     @pets = @application.pets
+    # require 'pry'; binding.pry
     if params[:search]
       @pet_results = Pet.search(params[:search])
     else
       @pet_results = []
+    end
+    # require 'pry'; binding.pry
+    if @pets.count > 0
+      @description = 'What makes you a good pet owner for these pet(s)?'
+      @submit = "Sumbit Application"
+    else
+      @description = ' '
+      @submit = ' '
     end
   end
 
@@ -36,6 +45,11 @@ class ApplicationsController < ApplicationController
       application.rejected_pet_ids << params[:pet_id]
       application.save
       redirect_to "/admin/applications/#{params[:application_id]}"
+    elsif params[:submit]
+      application = Application.find(params[:id])
+      application.update(status: 'Pending')
+      application.save
+      redirect_to "/applications/#{params[:id]}"
     end
   end
 
