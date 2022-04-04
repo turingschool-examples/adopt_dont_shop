@@ -9,8 +9,12 @@ class ApplicationsController < ApplicationController
   end
 
   def create
-    new_application = Application.create!(new_application_params)
-    redirect_to "/applications/#{new_application.id}"
+    @application = Application.new(new_application_params)
+    if @application.save
+      redirect_to "/applications/#{@application.id}"
+    else
+      render :new
+    end
   end
 
   private
