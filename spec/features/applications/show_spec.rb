@@ -90,8 +90,9 @@ RSpec.describe 'application show page' do
     click_button 'Adopt Dog'
     expect(current_path).to eq("/applications/#{application.id}")
 
-    fill_in 'Description', with: "I will make a loving house for our dog."
+    fill_in 'description', with: "I will make a loving house for our dog."
     click_button 'Submit Application'
+  
     expect(current_path).to eq("/applications/#{application.id}")
     expect(page).to have_content("Pending")
     expect(page).to_not have_content("Search")
