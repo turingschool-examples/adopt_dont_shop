@@ -40,5 +40,20 @@ RSpec.describe Pet, type: :model do
         expect(@pet_3.shelter_name).to eq(@shelter_1.name)
       end
     end
+
+    describe '.approved_application?' do
+      it 'returns true if the pet is on an application that has been approved' do
+        application_1 = Application.create!(name: 'Chris', address: '505 Main St.', city: 'Denver', state: 'CO', zipcode: '80205', description: "I'm great with dogs.", status: 'Approved')
+        application_2 = Application.create!(name: 'James', address: '1259 N Clarkson St.', city: 'Denver', state: 'CO', zipcode: '80218', description: "I'm great with dogs.", status: 'Pending')
+        shelter = Shelter.create(name: 'Mystery Building', city: 'Irvine CA', foster_program: false, rank: 9)
+        pet_4 = application_1.pets.create!(name: 'Mr. Pirate', breed: 'tuxedo shorthair', age: 5, adoptable: true, shelter_id: shelter.id)
+        pet_5 = application_2.pets.create!(name: 'Clawdia', breed: 'shorthair', age: 3, adoptable: true, shelter_id: shelter.id)
+        pet_6 = application_1.pets.create!(name: 'Ann', breed: 'ragdoll', age: 3, adoptable: false, shelter_id: shelter.id)
+
+        expect(pet_4.approved_application?).to eq(true)
+        expect(pet_5.approved_application?).to eq(false)
+        expect(pet_6.approved_application?).to eq(true)
+      end
+    end
   end
 end

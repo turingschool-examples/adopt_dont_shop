@@ -9,6 +9,9 @@ class PetsController < ApplicationController
 
   def show
     @pet = Pet.find(params[:id])
+    if @pet.approved_application?
+      @pet.update(adoptable: false)
+    end
   end
 
   def new
