@@ -9,10 +9,12 @@
 <p>Description: <%= @application.description %></p>
 
 <h3>Add a Pet to this Application</h3>
-<%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |f| %>
-  <%= f.label :pets,'Search Pets' %>
-  <%= f.text_field :pets %>
-  <%= f.submit "Search" %>
+<% if @application[:status] == 'In Progress' %>
+  <%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |f| %>
+    <%= f.label :pets,'Search Pets' %>
+    <%= f.text_field :pets %>
+    <%= f.submit "Search" %>
+  <% end %>
 <% end %>
 
 <% @pets.each do |pet| %>
@@ -25,6 +27,15 @@
 <p>Pet Adoption Requests</p>
 <% @application.pets.each do |pet| %>
   <%= pet.name %>
+<% end %>
+
+<% if @application.pets.count >= 1 %>
+  <%= form_with url: "/applications/#{@application.id}", method: :post, local: true do |f| %>
+    <%= f.label :description %>
+    <%= f.text_field :description %>
+    <%= f.button "Submit Application", name: "status", value: 'Pending' %>
+  <% end %>
+  <%# <%= button_to "Submit Appliction", "/applications/#{@application.id}", method: :post, params: {:status => 'Pending'} %> %>
 <% end %>
 
 
