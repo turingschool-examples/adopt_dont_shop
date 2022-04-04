@@ -13,7 +13,7 @@ RSpec.describe 'application creation' do
       expect(find('form')).to have_content('State')
       expect(find('form')).to have_content('Zipcode')
       expect(find('form')).to have_content('Description')
-      # expect(find('form')).to have_content('Pending')
+    
     end
   end
 
@@ -32,6 +32,7 @@ RSpec.describe 'application creation' do
         click_button 'Save'
        @application = Application.find_by(name: "New Applicant")
         expect(page).to have_current_path("/applications/#{@application.id}")
+        expect(page).to have_content('Status: In Progress')
 
       end
     end
