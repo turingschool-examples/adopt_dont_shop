@@ -16,12 +16,32 @@ RSpec.describe "Admin index" do
     expect("Fancy pets of Colorado").to appear_before("Aurora shelter")
   end
   
-#   When I visit the admin shelter index ('/admin/shelters')
-# Then I see a section for "Shelter's with Pending Applications"
-# And in this section I see the name of every shelter that has a pending application
 
-  it "contains shelters with pending applications" do
+  it "contains section 'shelters with pending applications'" do
     visit '/admin/shelters'
     expect(page).to have_content("Shelter's with Pending Applications")
+  end
+  #   When I visit the admin shelter index ('/admin/shelters')
+  # Then I see a section for "Shelter's with Pending Applications"
+  # And in this section I see the name of every shelter that has a pending application
+  
+  it "contains shelters with pending applications" do
+    @smith_app = Application.create!(name: "Bobby Smith", address: "3245 E 1st", city: "Lakewood", state: "CO", zipcode: "80026", description: "Im Awesome!", app_status: "Pending") 
+    @jones_app = Application.create!(name: "Kim Jones", address: "3245 E 1st", city: "Lakewood", state: "CO", zipcode: "80026", description: "Im Awesome!", app_status: "Pending") 
+    @adams_app = Application.create!(name: "Steve Adams", address: "3245 E 1st", city: "Lakewood", state: "CO", zipcode: "80026", description: "beats dogs!", app_status: "Rejected") 
+    aurora = Shelter.create(name: "Aurora shelter", city: "Aurora, CO", foster_program: false, rank: 9) 
+    shelter = Shelter.create(name: "Denver shelter", city: "Aurora, CO", foster_program: false, rank: 9) 
+    @scooby = @smith_app.pets.create!(adoptable: true, age: 1, breed: "sphynx", name: "Scooby", shelter_id: shelter.id) 
+    @scrappy = @smith_app.pets.create!(adoptable: true, age: 1, breed: "small dane", name: "Scrappy", shelter_id: shelter.id) 
+    @bucky = @jones_app.pets.create!(adoptable: true, age: 1, breed: "small dane", name: "Bucky", shelter_id: shelter.id) 
+    @roger = @adams_app.pets.create!(adoptable: true, age: 1, breed: "small dane", name: "Roger", shelter_id: aurora.id) 
+
+    visit '/admin/shelters'
+    
+    within("#shelters") do
+      expect(page).to have_content("Denver shelter")
+      expect(page).to_not have_content("Aurora shelter")
+    end 
+    
   end
 end
