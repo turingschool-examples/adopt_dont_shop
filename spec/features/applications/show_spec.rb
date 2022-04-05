@@ -41,4 +41,21 @@ RSpec.describe "Application show page" do
       expect(page).to_not have_content("Scrappy")
     end
   end
+  it "has case insensitive and partial search" do
+    visit "/applications/#{smith_app.id}"
+    
+    fill_in "search_for_pet_by_name", with: "scooby"
+    click_button("Submit")
+    within ".pet_results" do
+      expect(page).to have_content("Scooby")
+      expect(page).to_not have_content("Scrappy")
+    end
+    fill_in "search_for_pet_by_name", with: "scra"
+    click_button("Submit")
+    within ".pet_results" do
+      expect(page).to have_content("Scrappy")
+      expect(page).to_not have_content("Scooby")
+    end
+    
+  end
 end
