@@ -33,6 +33,30 @@ RSpec.describe 'admin_shelters show page' do
             expect(page).to have_content("Number of Adoptable Pets: 2")
           end
         end
+
+        it 'and it contains the count of adopted pets for that shelter' do
+          application_1 = Application.create!(name: 'Chris', address: '505 Main St.', city: 'Denver', state: 'CO', zipcode: '80205', description: "I'm great with dogs.", status: 'In Progress')
+          shelter = Shelter.create(name: 'Mystery Building', city: 'Irvine CA', foster_program: false, rank: 9)
+          pet_1 = application_1.pets.create!(name: 'Scrappy', age: 1, breed: 'Great Dane', adoptable: true, shelter_id: shelter.id)
+          pet_2 = application_1.pets.create!(name: 'Sparky', age: 1, breed: 'Great Dane', adoptable: true, shelter_id: shelter.id)
+          pet_3 = Pet.create!(name: 'Spot', age: 1, breed: 'Great Dane', adoptable: true, shelter_id: shelter.id)
+
+          visit "/admin/applications/#{application_1.id}"
+
+          within "#pet-#{pet_1.id}" do
+            click_button "Approve"
+          end
+
+          within "#pet-#{pet_2.id}" do
+            click_button "Approve"
+          end
+
+          visit "/admin/shelters/#{shelter.id}"
+
+          within "#statistics" do
+            expect(page).to have_content("Number of Adopted Pets: 2")
+          end
+        end
       end
     end
   end
