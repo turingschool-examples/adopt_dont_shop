@@ -56,13 +56,10 @@ class Shelter < ApplicationRecord
   def action_required_pets
     pet_array = []
     action_required = []
-    # new idea
-
     pets.each do |pet|
       pet.application_pets.each do |application_pet|
         if application_pet.status == "pending"
           pet_array << pet
-          # require 'pry'; binding.pry
         end
       end
     end
@@ -74,6 +71,5 @@ class Shelter < ApplicationRecord
         end
       end
     end
-    # require 'pry'; binding.pry
   end
 end
