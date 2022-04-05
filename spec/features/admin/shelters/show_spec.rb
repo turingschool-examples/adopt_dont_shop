@@ -112,8 +112,48 @@ RSpec.describe 'the admin shelter show page' do
       expect(current_path).to eq("/admin/applications/#{application1.id}")
     end
   end
+  
+  it "has a count of pets adopted" do
+    shelter1 = Shelter.create!(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
+    shelter2 = Shelter.create!(name: 'Denver shelter', city: 'Denver, CO', foster_program: false, rank: 9)
+    luna = shelter1.pets.create!(name: 'luna', age: 1, breed: 'Cat', adoptable: true)
+    booth = Pet.create!(name: 'booth', age: 11, breed: 'Cat', adoptable: true, shelter_id: shelter1.id)
+    application1 = Application.create!(name: 'Andrew',
+      street_address: '112 Greenbrook',
+      city: 'Denver',
+      state: 'CO',
+      zipcode: '80207',
+      description: 'Happy, friendly, cool',
+      status: 'Pending'
+    )
+    application2 = Application.create!(name: 'Andrew',
+      street_address: '112 Greenbrook',
+      city: 'Denver',
+      state: 'CO',
+      zipcode: '80207',
+      description: 'Happy, friendly, cool',
+      status: 'In Progress'
+    )
+    application_pet = ApplicationPet.create!(application_id: application1.id, pet_id: luna.id)
+    application_pet = ApplicationPet.create!(application_id: application2.id, pet_id: booth.id, pet_status: "Approved")
+    
+    visit "/admin/shelters/#{shelter1.id}"
+    expect(page).to have_content("Action Required")
+    within "#statistics" do
+      expect(page).to have_content("Pets Adopted: 0")
+    end
+    
+    application1[:status] = "Approved"
+    visit "/admin/shelters/#{shelter1.id}"
+    expect(page).to have_content("Action Required")
+    within "#statistics" do
+      expect(page).to have_content("Pets Adopted: 0")
+    end
+  end
 end
 # As a visitor
 # When I visit an admin shelter show page
-# And I look in the "Action Required" section
-# Then next to each pet's name I see a link to the admin application show page where I can accept or reject the pet.
+# Then I see a section for statistics
+# And in that section I see the number of pets that have been adopted from that shelter
+
+# Note: A Pet has been adopted from a shelter if they are part of an approved application
