@@ -2,6 +2,9 @@ require "rails_helper"
 
 RSpec.describe "Application show page" do
   let!(:smith_app) { Application.create!(name: "Bobby Smith", address: "3245 E 1st", city: "Lakewood", state: "CO", zipcode: "80026", description: "Im Awesome!", app_status: "Rejected") }
+  let!(:shelter) { Shelter.create(name: "Aurora shelter", city: "Aurora, CO", foster_program: false, rank: 9) }
+  let!(:scooby) { Pet.create!(adoptable: true, age: 1, breed: "sphynx", name: "Scooby", shelter_id: shelter.id) }
+  let!(:scrappy) { Pet.create!(adoptable: true, age: 1, breed: "small dane", name: "Scrappy", shelter_id: shelter.id) }
 
   it "shows the application and all it's attributes" do
     visit "/applications/#{smith_app.id}"
@@ -19,8 +22,6 @@ RSpec.describe "Application show page" do
   end
 
   it "has 'Add Pet' section" do
-    shelter = Shelter.create(name: "Aurora shelter", city: "Aurora, CO", foster_program: false, rank: 9)
-    scooby = Pet.create!(adoptable: true, age: 1, breed: "sphynx", name: "Scooby", shelter_id: shelter.id)
     visit "/applications/#{smith_app.id}"
 
     expect(page).to have_content("Add a pet to this application")
@@ -31,9 +32,6 @@ RSpec.describe "Application show page" do
   end
 
   it "has pet search function" do
-    shelter = Shelter.create(name: "Aurora shelter", city: "Aurora, CO", foster_program: false, rank: 9)
-    scooby = Pet.create!(adoptable: true, age: 4, breed: "sphynx", name: "Scooby", shelter_id: shelter.id)
-    scrappy = Pet.create!(adoptable: true, age: 1, breed: "small dane", name: "Scrappy", shelter_id: shelter.id)
     visit "/applications/#{smith_app.id}"
 
     fill_in "search_for_pet_by_name", with: "Scooby"
