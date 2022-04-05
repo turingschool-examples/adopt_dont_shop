@@ -2,16 +2,26 @@ class ApplicationsController < ApplicationController
   def index
   end
 
-  def new;end
+  def new
+
+  end
 
   def create
-    if params.has_value?("")
-      redirect_to "/applications/new"
-      flash[:alert] = "Error: Please fill out all required fields"
+    app = Application.new(applications_params)
+
+    if app.save
+      redirect_to "/applications/#{app.id}"
     else
-      @app = Application.create!(applications_params)
-      redirect_to "/applications/#{@app.id}"
+      redirect_to '/applications/new'
+      flash[:alert] = "Error: #{error_message(app.errors)}"
     end
+    # if params.has_value?("")
+    #   redirect_to "/applications/new"
+    #   flash[:alert] = "Error: Please fill out all required fields"
+    # else
+    #   @app = Application.create!(applications_params)
+    #   redirect_to "/applications/#{@app.id}"
+    # end
   end
 
   # def add_pet

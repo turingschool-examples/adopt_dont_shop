@@ -33,7 +33,8 @@ RSpec.describe 'new application page' do
     fill_in("Zipcode", with: "88901")
 
     click_on("Submit")
+    expect(page).to have_content("Error: City can't be blank")
     expect(current_path).to eq("/applications/new")
-    expect(page).to have_content("Error: Please fill out all required fields")
+    save_and_open_page
   end
 end
