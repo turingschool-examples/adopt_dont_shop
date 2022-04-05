@@ -92,4 +92,20 @@ RSpec.describe 'admin application show page' do
       expect(page).to have_button("Reject")
     end
   end
+
+  it 'once a pet is on an approved application, that pet is no longer adoptable' do
+    visit "/admin/applications/#{@application_1.id}"
+    @application_1.pet_applications.each do |pet_app|
+      within ".pet_app-#{pet_app.id}" do
+        click_on("Approve")
+      end
+    end
+
+    approved_app = Application.find(@application_1.id)
+    expect(approved_app.status).to eq("Approved")
+
+    visit "/pets/#{@pet_1.id}"
+    # save_and_open_page
+    expect(page).to have_content("false")
+  end
 end
