@@ -116,7 +116,7 @@ RSpec.describe 'Admin Applications Show Page' do
       end
       expect(page).to have_content("Application Status: accepted")
       visit "/pets/#{@skeeter.id}"
-      save_and_open_page
+      # save_and_open_page
       expect(page).to have_content("false")
       expect(page).to_not have_content("true")
 
