@@ -47,5 +47,9 @@ class AdminApplicationsController < ApplicationController
       end
     end
 
+    def message_for_unadoptable_pets
+
+    end
+
 
 end

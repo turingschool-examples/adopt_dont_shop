@@ -74,11 +74,12 @@ RSpec.describe 'Admin Applications Show Page' do
       within "#pet-#{@skeeter.id}" do
         expect(page).to_not have_content("This Pet Has Been Denied!")
         expect(page).to_not have_content("This Pet Has Been Approved!")
-
+        expect(page).to have_selector(:link_or_button, 'APPROVE THIS PET')
       end
       within "#pet-#{@lobster.id}" do
         expect(page).to_not have_content("This Pet Has Been Approved!")
         expect(page).to_not have_content("This Pet Has Been Denied!")
+        expect(page).to have_selector(:link_or_button, 'APPROVE THIS PET')
       end
     end
 
@@ -142,7 +143,7 @@ RSpec.describe 'Admin Applications Show Page' do
       end
 
       visit "/admin/applications/#{@mark.id}"
-      save_and_open_page
+      # save_and_open_page
       within "#pet-#{@skeeter.id}" do
         expect(page).to have_content("This Pet Has Been Adopted")
       end
@@ -150,7 +151,9 @@ RSpec.describe 'Admin Applications Show Page' do
         expect(page).to have_content("This Pet Has Been Adopted")
       end
       within "#pet-#{@bald.id}" do
-        expect(page).to have_content("APPROVE")
+        expect(page).to have_selector(:link_or_button, 'APPROVE THIS PET')
+        expect(page).to have_selector(:link_or_button, 'DENY THIS PET')
+        expect(page).to_not have_content("This Pet Has Been Adopted")
       end
     end
 
