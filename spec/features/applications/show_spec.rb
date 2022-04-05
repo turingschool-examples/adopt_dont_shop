@@ -15,7 +15,7 @@ RSpec.describe "Application Show Page" do
 
   end
 
-  it "show page shows applicant info" do
+  it "shows applicant info" do
     visit "/applications/#{@application_2.id}/"
 
     expect(page).to have_content(@application_2.name)
@@ -29,24 +29,42 @@ RSpec.describe "Application Show Page" do
     expect(page).to have_content("In Progress")
   end
 
-  xit "show page (unsubmitted) has search field for pet's name" do
+  it "(unsubmitted) has search field for pet's name" do
 
-    visit "/applications/#{@application_1.id}/"
+    visit "/applications/#{@application_2.id}/"
 
-    expect(page).not_to have_content(@pet_1.name)
+    expect(page).not_to have_content(@pet_3.name)
 
     fill_in :find_pet, with: "Moose"
-    click_on :search
+    click_on "Search"
 
-    expect(current_path).to eq("/applications/#{@application_1.id}")
-    expect(page).not_to have_content("@pet_1.name")
-    expect(page).not_to have_content("@pet_2.name")
+    expect(current_path).to eq("/applications/#{@application_2.id}")
+    expect(page).not_to have_content(@pet_3.name)
+    expect(page).not_to have_content(@pet_2.name)
 
-    fill_in :find_pet, with: "Scooby"
-    click_on :search
+    fill_in :find_pet, with: "Scrappy"
+    click_on "Search"
 
-    expect(current_path).to eq("/applications/#{@application_1.id}")
-    expect(page).to have_content("@pet_1.name")
+    expect(current_path).to eq("/applications/#{@application_2.id}")
+    expect(page).to have_content(@pet_2.name)
     # We may decide to add other pet atributes here?
+  end
+
+  it 'allows visitors to add pets to unsubmitted application' do
+  
+    visit "/applications/#{@application_2.id}/"
+
+    expect(page).not_to have_content(@pet_2.name)
+
+    fill_in :find_pet, with: "Scrappy"
+    click_on "Search"
+
+    expect(page).to have_button("Adopt This Pet")
+
+    click_on "Adopt This Pet"
+
+    expect(current_path).to eq("/applications/#{@application_2.id}")
+    expect(page).to have_content(@pet_2.name)
+    expect(page.text.index(@pet_2.name)).to be < page.text.index("Search")
   end
 end
