@@ -22,11 +22,10 @@ RSpec.describe 'the admin application show page' do
     visit "/admin/applications/#{application.id}"
     expect(page).to have_content(application.name)
     expect(page).to have_content(pet1.name)
-    save_and_open_page
+
     click_button "Approve"
     expect(page).to_not have_content("Approve")
     expect(page).to have_content(pet1.name)
-    save_and_open_page
 
   end
 
