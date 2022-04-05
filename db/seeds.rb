@@ -1,6 +1,7 @@
 # This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
 #
+PetApplication.destroy_all
 Pet.destroy_all
 Shelter.destroy_all
 Application.destroy_all
@@ -16,6 +17,6 @@ frank = rgv_shelter.pets.create(name: "Frank", age: 3, breed: "Husky", adoptable
 bilbo = aurora_shelter.pets.create(name: "Bilbo", age: 7, breed: "Golden Ret", adoptable: true)
 generic = fancy_shelter.pets.create(name: "Generic", age: 4, breed: "Pit", adoptable: true)
 
-bobby = Application.create(name: "Bobby Smith", address: "3245 E 1st", city: "Lakewood", state: "CO", zipcode: "80026", description: "Im Awesome!", app_status: "In Progress")
-joe = Application.create(name: "Joe", address: "4455 1st", city: "Denver", state: "CO", zipcode: "85555", description: "Im Awesome!", app_status: "In Progress")
-susan = Application.create(name: "Susan", address: "4678 N st", city: "Lakewood", state: "CO", zipcode: "82345", description: "Im Awesome!", app_status: "In Progress")
+bobby = Application.create(name: "Bobby Smith", address: "3245 E 1st", city: "Lakewood", state: "CO", zipcode: "80026", app_status: "In Progress")
+joe = Application.create(name: "Joe", address: "4455 1st", city: "Denver", state: "CO", zipcode: "85555", app_status: "In Progress")
+susan = Application.create(name: "Susan", address: "4678 N st", city: "Lakewood", state: "CO", zipcode: "82345", app_status: "In Progress")
