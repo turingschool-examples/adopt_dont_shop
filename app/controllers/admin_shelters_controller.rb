@@ -20,5 +20,7 @@ class AdminSheltersController < ApplicationController
         end
       end
     end
+
+    require 'pry'; binding.pry
   end
 end
