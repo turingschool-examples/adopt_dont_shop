@@ -16,6 +16,7 @@ class ApplicationsController < ApplicationController
     @application = Application.find(params[:id])
     @pets = @application.pets
     @search_pets = Pet.where(name: params[:pet_name]) if params[:pet_name].present?
+    @application.update_status_pending if @application.description.length > 1
   end
 
   private
