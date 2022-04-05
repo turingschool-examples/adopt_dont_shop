@@ -6,12 +6,12 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-Veterinarian.destroy_all
-VeterinaryOffice.destroy_all
-Application.destroy_all
 PetApplication.destroy_all
+Application.destroy_all
 Pet.destroy_all
 Shelter.destroy_all
+Veterinarian.destroy_all
+VeterinaryOffice.destroy_all
 
 @vet_office_1 = VeterinaryOffice.create(name: 'Best Vets', boarding_services: true, max_patient_capacity: 20)
 @vet_office_2 = VeterinaryOffice.create(name: 'Vets R Us', boarding_services: true, max_patient_capacity: 20)
