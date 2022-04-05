@@ -10,14 +10,17 @@ class Application < ApplicationRecord
   validates_presence_of :status
 
   def all_pets_approved?
+    # application_pets.all == application_pets.approved
     application_pets.all? {|application_pet| application_pet.approved? }
   end
 
   def all_pets_have_ruling?
-    application_pets.none? {|application_pet| application_pet.pending? }
+    application_pets.pending.none?
+    # application_pets.none? {|application_pet| application_pet.pending? }
   end
 
   def any_pets_rejected?
-    application_pets.any? {|application_pet| application_pet.rejected? }
+    application_pets.rejected.any?
+    # application_pets.any? {|application_pet| application_pet.rejected? }
   end
 end
