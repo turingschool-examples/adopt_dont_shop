@@ -1,7 +1,10 @@
 <% @admin_shelters.each do |shelter| %>
   <h3><%= shelter.name %></h3>
-<% end %>
-<h3>Shelter's with Pending Applications</h3>
-<div id="shelters">
-
-</div>
+  <% end %>
+  <hr>
+<h3>Shelter's with Pending Applications :</h3>
+  <div id="shelters">
+    <% @shelters_w_app.uniq.each do |shelter| %>
+    <h3><%= shelter.name %></h3>
+    <% end %>
+  </div>

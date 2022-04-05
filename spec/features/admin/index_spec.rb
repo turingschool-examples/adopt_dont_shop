@@ -37,7 +37,7 @@ RSpec.describe "Admin index" do
     @roger = @adams_app.pets.create!(adoptable: true, age: 1, breed: "small dane", name: "Roger", shelter_id: aurora.id) 
 
     visit '/admin/shelters'
-    
+    save_and_open_page
     within("#shelters") do
       expect(page).to have_content("Denver shelter")
       expect(page).to_not have_content("Aurora shelter")
