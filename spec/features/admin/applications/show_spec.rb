@@ -129,7 +129,7 @@ RSpec.describe 'admin application show page' do
     within ".pet_app-#{@pet_app4.id}" do
       expect(page).to have_button("Reject")
       expect(page).not_to have_button("Approve")
-      expect(page).to have_content("Already approved")
+      expect(page).to have_content("Already Approved")
     end
   end
 end
