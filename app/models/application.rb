@@ -7,4 +7,8 @@ class Application < ApplicationRecord
   # validates_presence_of :description
   # validates_presence_of :pet_names
   validates_presence_of :status
+
+  def self.pending_apps
+    joins(:pets).where(status: '1')
+  end
 end

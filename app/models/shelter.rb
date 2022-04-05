@@ -3,6 +3,7 @@ class Shelter < ApplicationRecord
   validates :rank, presence: true, numericality: true
   validates :city, presence: true
 
+  has_many :application_pets, through: :pets
   has_many :pets, dependent: :destroy
 
   def self.order_by_recently_created
@@ -35,10 +36,6 @@ class Shelter < ApplicationRecord
   def self.reverse_order_by_name
     select("shelters.*")
     .order("name DESC")
-  end
-
-  def self.pending_apps
-    require "pry"; binding.pry
   end
 end
 

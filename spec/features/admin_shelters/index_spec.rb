@@ -52,18 +52,16 @@ RSpec.describe 'Admin Shelter Index Page' do
       end
 
       it 'Then I see a section for Shelters with Pending Applications' do
-
-        expect(page).to have_content("Shelters with Pending Applications:")
+        within("#pending_application") do
+          expect(page).to have_content("Shelters with Pending Applications:")
+        end
       end
 
       it 'And in this section I see the name of every shelter that has a pending application' do
-        within("Shelters-#{@shelter_1.id}") do
+        save_and_open_page
+        within("#pending_application") do
           expect(page).to have_content("#{@shelter_1.name}")
-        end
-        within("Shelters-#{@shelter_3.id}") do
           expect(page).to have_content("#{@shelter_3.name}")
-        end
-        within("Shelters-#{@shelter_2.id}") do
           expect(page).to_not have_content("#{@shelter_2.name}")
         end
       end

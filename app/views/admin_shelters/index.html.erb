@@ -11,10 +11,12 @@
 
 <% end %>
 
+<section id="pending_application">
 <h2>Shelters with Pending Applications:</h2>
 
-<% @shelters.pending_apps.each do |shelter| %>
-  <section id="Shelters-<%= shelter.id %>">
-    <%= shelter.name %>
-  </section>
+<% @applications.pending_apps.each do |application| %>
+    <% application.pets.each do |pet| %>
+      <%= pet.shelter.name %><br>
+    <% end %>
 <% end %>
+</section>
