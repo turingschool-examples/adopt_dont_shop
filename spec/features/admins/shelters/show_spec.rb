@@ -34,12 +34,6 @@ RSpec.describe 'admin_shelters show page' do
           end
         end
 
-#           As a visitor
-# When I visit an admin shelter show page
-# Then I see a section for statistics
-# And in that section I see the number of pets that have been adopted from that shelter
-#
-# Note: A Pet has been adopted from a shelter if they are part of an approved application
         it 'and it contains the count of adopted pets for that shelter' do
           application_1 = Application.create!(name: 'Chris', address: '505 Main St.', city: 'Denver', state: 'CO', zipcode: '80205', description: "I'm great with dogs.", status: 'In Progress')
           shelter = Shelter.create(name: 'Mystery Building', city: 'Irvine CA', foster_program: false, rank: 9)
@@ -57,7 +51,6 @@ RSpec.describe 'admin_shelters show page' do
             click_button "Approve"
           end
 
-          # require 'pry'; binding.pry
           visit "/admin/shelters/#{shelter.id}"
 
           within "#statistics" do

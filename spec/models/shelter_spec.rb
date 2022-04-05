@@ -107,7 +107,6 @@ RSpec.describe Shelter, type: :model do
         application_1.approved_pet_ids << pet_1.id
         application_1.approved_pet_ids << pet_2.id
         application_1.save
-
         expect(@shelter_1.adopted_pet_count).to eq(2)
       end
     end
