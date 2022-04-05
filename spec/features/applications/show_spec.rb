@@ -85,8 +85,11 @@ RSpec.describe 'the applications show page' do
     it '#search allows for partial matches' do
       fill_in(:pet_name, with: 'ob')
       click_button 'Search'
-      expect(page).to have_content(@pet_2.name)
-      expect(page).to have_content(@pet_1.name)
+
+      within '.pets' do
+        expect(page).to have_content(@pet_2.name)
+        expect(page).to have_content(@pet_1.name)
+      end
     end
   end
 end
