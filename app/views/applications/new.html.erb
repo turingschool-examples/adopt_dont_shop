@@ -6,11 +6,11 @@
 <b>
   <%= f.label :name %>
   <%= f.text_field :name %><br>
-  <p><style="color:red;">*required</style></p> <br>
+  <p style="color:red;">*Required</p> <br>
 
   <%= f.label :address%>
   <%= f.text_field :address %>
-  <p><style="color:red;">*required</style></p> <br>
+  <p style="color:red;">*Required</p> <br>
 
 
   <%= f.label :city %>
@@ -19,12 +19,12 @@
   <%= f.text_field :state, size: "2x2 "%>
   <%= f.label :zipcode %>
   <%= f.text_field :zipcode, size: "5x5" %><br>
-  <p><style="color:red;">*required</style></p> <br>
+  <p style="color:red;">*Required</p><br>
 
-Decribe what makes you a competant pet owner<br>
-  <%= f.label :description %>
+Decribe what makes you a competent pet owner<br>
+  <%= f.label :description %></br>
   <%= f.text_area :description, size: "24x4" %><br>
-  <p><style="color:red;">*required</style></p> <br>
+  <p style="color:red;">*Required</p> <br>
 
 Click Save to submit your application
   <%= f.submit "Save"%>
