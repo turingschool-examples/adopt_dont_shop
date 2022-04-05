@@ -1,15 +1,35 @@
 <h1> Admin Application for: <%= @application.name %></h1>
-<h3>Pets: <p>
+<% if @application.status == "Accepted" %>
+     <a href="#" class="btn btn-success btn-lg disabled" role="button" aria-disabled="true">Application Status: <%= @application.status %></a>
+<% elsif @application.status == "Rejected" %>
+     <a href="#" class="btn btn-danger btn-lg disabled" role="button" aria-disabled="true">Application Status: <%= @application.status %></a>
+ <% end %>
+
+<h3>Pets to adpot: <p>
 <% @pets.each do |pet| %>
   <%= link_to "#{pet.name}", "/pets/#{pet.id}"%>
-  <% if @approved == "approved" && @petid == "#{pet.id}"%>
-    <h3>This pet has been approved!</h3>
-  <% else %>
-    <%= form_with url: "/admin/applications/#{@application.id}/?status=approved",
+  <br>
+
+  <% if ApplicationPet.app_pet(@application.id,pet.id).status == "Open" %>
+
+    <%= form_with url: "/admin/applications/#{@application.id}?status=1",
       method: :patch, local: true do |f| %>
         <button class="btn btn-success btn-secondary btn-sm" type="submit">Approve</button>
         <%= f.text_field :petid, value: pet.id, hidden: true %>
       <% end %>
+
+    <%= form_with url: "/admin/applications/#{@application.id}/?status=2", method: :patch,  local: true do |f| %>
+        <button class="btn btn-danger btn-secondary btn-sm" type="submit">Reject</button>
+        <%= f.text_field :petid, value: pet.id, hidden: true %>
+      <% end %>
+
+  <% elsif ApplicationPet.app_pet(@application.id,pet.id).status == "Approved" %>
+    <%= "This application has been approved!" %>
+    <br>
+
+  <% elsif ApplicationPet.app_pet(@application.id,pet.id).status == "Rejected" %>
+    <%= "This application has been rejected!" %>
+    <br>
   <% end %>
 <% end %>
 </h3>
