@@ -52,4 +52,13 @@ class Shelter < ApplicationRecord
   def adoptable_pet_count
     adoptable_pets.count
   end
+
+  def adopted_pet_count
+    count = 0
+    applicaitons = Application.all
+    applicaitons.each do |app|
+      count += app.approved_pet_ids.count
+    end
+    count
+  end
 end
