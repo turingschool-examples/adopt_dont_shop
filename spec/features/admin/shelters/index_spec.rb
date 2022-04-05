@@ -37,7 +37,7 @@ RSpec.describe 'the admin shelters index' do
   it 'has links to each shelter' do
     shelter1 = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
     shelter2 = Shelter.create(name: 'Denver shelter', city: 'Denver, CO', foster_program: true, rank: 10)
-
+    
     visit '/admin/shelters'
     click_link "Aurora shelter"
     expect(current_path).to eq("/admin/shelters/#{shelter1.id}")
@@ -46,10 +46,40 @@ RSpec.describe 'the admin shelters index' do
     click_link "Denver shelter"
     expect(current_path).to eq("/admin/shelters/#{shelter2.id}")
   end
+
+  it 'lists all the shelters with pending applications alphabetically' do
+    shelter2 = Shelter.create(name: 'Denver shelter', city: 'Denver, CO', foster_program: true, rank: 10)
+    shelter1 = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
+    pet1 = Pet.create!(name: 'Joey', age: 2, breed: 'Poodle', adoptable: true, shelter_id: shelter1.id)
+    application1 = Application.create!(name: 'Andrew',
+      street_address: '112 Greenbrook',
+      city: 'Denver',
+      state: 'CO',
+      zipcode: '80207',
+      description: 'Happy, friendly, cool',
+      status: 'Pending',
+    )
+    pet2 = Pet.create!(name: 'Bear', age: 2, breed: 'Poodle', adoptable: true, shelter_id: shelter2.id)
+    application2 = Application.create!(name: 'Andrew',
+      street_address: '112 Greenbrook',
+      city: 'Denver',
+      state: 'CO',
+      zipcode: '80207',
+      description: 'Happy, friendly, cool',
+      status: 'Pending',
+    )
+    application_pet1 = ApplicationPet.create!(application_id: application1.id, pet_id: pet1.id)
+    application_pet2 = ApplicationPet.create!(application_id: application2.id, pet_id: pet2.id)
+    
+    visit '/admin/shelters'
+    expect(page).to have_content("Shelters with Pending Applications")
+    within "#shelters_with_pending_applications" do
+      expect('Aurora shelter').to appear_before('Denver shelter')
+    end
+  end
 end
 
 # As a visitor
 # When I visit the admin shelter index ('/admin/shelters')
-# Then I see that every shelter name is a link
-# When I click one of these links
-# Then I am taken to that shelter's admin show page
+# And I look in the section for shelters with pending applications
+# Then I see all those shelters are listed alphabetically
