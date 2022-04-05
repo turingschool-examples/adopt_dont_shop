@@ -11,10 +11,10 @@
 <p> Application Status: <%= @application.status %>
 
 <%= form_with method: :get do |f|%>
-<%= f.label :find_pet, "Search Pets By Name: " %>
-<%= f.text_field :find_pet %>
-<%= f.submit "Search" %>
+  <%= f.label :find_pet, "Search Pets By Name: " %>
+  <%= f.text_field :find_pet %>
+  <%= f.submit "Search" %>
 <% end %>
 <% @pet_search.each do |pet| %>
-  <li><a href="/pets/<%= pet.id %>/"> <%= pet.name %></a></li>
-  <% end %>
+  <li><%= pet.name %></li> <%= button_to "Adopt This Pet", "/applications/#{@application.id}", method: "post", params: { pet_id: pet.id, application_id: @application.id } %>
+<% end %>
