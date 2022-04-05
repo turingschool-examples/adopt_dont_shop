@@ -11,18 +11,19 @@ RSpec.describe "Application Show Page" do
     @pet_3 = Pet.create!(name: 'Daisy', age: 4, breed: 'American Bully', adoptable: true, shelter_id: @shelter.id)
     @pets_applications_1 = ApplicationsPet.create!(pet_id: @pet_3.id, application_id: @application_1.id)
     @pets_applications_2 = ApplicationsPet.create!(pet_id: @pet_2.id, application_id: @application_1.id)
+    @pets_applications_3 = ApplicationsPet.create!(pet_id: @pet_1.id, application_id: @application_2.id)
 
   end
 
   it "show page shows applicant info" do
-    visit "/applications/#{@appication_2.id}/"
+    visit "/applications/#{@application_2.id}/"
 
     expect(page).to have_content(@application_2.name)
     expect(page).to have_content(@application_2.street_address)
     expect(page).to have_content(@application_2.city)
     expect(page).to have_content(@application_2.state)
-    expect(page).to have_content(@application_2.zipcode)
-    expect(page).to have_content(@application_2.why_me)
+    expect(page).to have_content(@application_2.zip_code)
+    expect(page).to have_content(@application_2.description)
     expect(page).to have_content(@pet_1.name)
     expect(page).to have_link(href: "/pets/#{@pet_1.id}/")
     expect(page).to have_content("In Progress")
