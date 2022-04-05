@@ -11,4 +11,8 @@ class Application < ApplicationRecord
 
   attribute :description, :string, default: ' '
   attribute :status, :string, default: 'In Progress'
+
+  def update_status_pending
+    update({ status: 'Pending' })
+  end
 end
