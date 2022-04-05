@@ -10,8 +10,8 @@
 <% @app_pet.each do |app| %>
   <% if app[:pet_status] == nil %>
     <%= app.pet.name %>
-    <%= button_to "Approve", "/admin/applications/#{@application.id}", method: :patch, params: {app_id: app.id, status: 'Approve'} %>
-    <%= button_to "Reject", "/admin/applications/#{@application.id}", method: :patch, params: {app_id: app.id, status: 'Reject'}%>
+    <%= button_to "Approve #{app.pet.name}", "/admin/applications/#{@application.id}", method: :patch, params: {app_id: app.id, status: 'Approve'} %>
+    <%= button_to "Reject #{app.pet.name}", "/admin/applications/#{@application.id}", method: :patch, params: {app_id: app.id, status: 'Reject'}%>
   <% end %>
 <% end %>
 
@@ -22,3 +22,6 @@
     <%= "#{app.pet.name} rejected" %><br>
   <% end %>
 <% end %>
+
+
+<%= "Status: #{@application.status}" %>
