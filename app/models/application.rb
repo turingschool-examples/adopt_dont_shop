@@ -7,4 +7,10 @@ class Application < ApplicationRecord
   # validates_presence_of :description
   # validates_presence_of :pet_names
   # validates_presence_of :status
+
+  def application_pet_status(pet_id)
+    pet_app = application_pets.where(pet_id: pet_id, application_id: id).first
+    pet_app.pet_status
+
+  end
 end
