@@ -21,6 +21,7 @@
     <%= f.text_field :pet_name, size: "12x1"%><br>
     <%= f.submit "Search" %>
     <% end %>
+
     <% if @search_pets != nil %>
       <% @search_pets.each do |pet| %>
       <div class="pet-<%= pet.id %>">
@@ -31,3 +32,11 @@
     <% end %>
   <% end %>
 
+<% if @pets.count > 0 && @application.description == " " %>
+  <%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |f| %>
+  <p>Describe why you make a good owner for these pets:<p>
+  <%= f.label :description %><br>
+  <%= f.text_field :description %><br>
+  <%= f.submit 'Submit Application' %>
+  <% end %>
+<% end %>
