@@ -15,4 +15,13 @@ RSpec.describe "Admin index" do
     expect("RGV animal shelter").to appear_before("Fancy pets of Colorado")
     expect("Fancy pets of Colorado").to appear_before("Aurora shelter")
   end
+  
+#   When I visit the admin shelter index ('/admin/shelters')
+# Then I see a section for "Shelter's with Pending Applications"
+# And in this section I see the name of every shelter that has a pending application
+
+  it "contains shelters with pending applications" do
+    visit '/admin/shelters'
+    expect(page).to have_content("Shelter's with Pending Applications")
+  end
 end
