@@ -64,7 +64,7 @@ RSpec.describe "Application show page" do
     fill_in "search_for_pet_by_name", with: "scooby"
     click_button("Submit")
 
-    within ".pet_search" do
+    within ".pet_results" do
       expect(page).to have_button("Adopt this pet")
     end
   end

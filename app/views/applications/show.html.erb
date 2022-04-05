@@ -25,6 +25,6 @@
 <div class="pet_results">
 <% @pet_search_results.each do |result| %>
   <%= result.name %>
-  <%= %>
+  <%= button_to 'Adopt this pet', "/applications/#{@app.id}", method: :get %>
 <% end %>
 </div>
