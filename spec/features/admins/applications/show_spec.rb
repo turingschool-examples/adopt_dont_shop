@@ -206,7 +206,7 @@ RSpec.describe 'admin_applications show page' do
         within "#pet-#{pet_3.id}" do
           click_button "Approve"
         end
-
+        
         visit "/pets/#{pet_1.id}"
 
         expect(page).to have_content("false")
