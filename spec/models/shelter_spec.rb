@@ -30,6 +30,16 @@ RSpec.describe Shelter, type: :model do
       end
     end
 
+    describe '#pending_applications' do
+      it 'lists all shelters with pending applications' do
+        application1 = @pet_1.applications.create!(name: "Billy Swanson", street_address: "123 Main Lane", city: "Dallas", state: "New Hampshire", zip_code: "12121", description: "I work from home.", status: "Pending")
+
+        # application_pet = ApplicationPet.create!(application_id: application1.id, pet_id: @pet_1.id)
+
+        expect(Shelter.pending_applications).to eq([@shelter_1])
+      end
+    end
+
     describe '#reverse_alphabetical' do
       it 'returns shelters in reverse alphabetical order' do
         expect(Shelter.reverse_alphabetical).to eq([@shelter_2, @shelter_3, @shelter_1])
