@@ -36,6 +36,7 @@ RSpec.describe 'the admin shelter show page' do
     luna = Pet.create!(name: 'luna', age: 1, breed: 'Cat', adoptable: true, shelter_id: shelter2.id)
     booth = Pet.create!(name: 'booth', age: 11, breed: 'Cat', adoptable: true, shelter_id: shelter2.id)
     archie = Pet.create!(name: 'archie', age: 4, breed: 'Dog', adoptable: true, shelter_id: shelter1.id)
+    archie = Pet.create!(name: 'archie', age: 4, breed: 'Dog', adoptable: false, shelter_id: shelter1.id)
     rocky = Pet.create!(name: 'rocky', age: 2, breed: 'Hamster', adoptable: true, shelter_id: shelter1.id)
     opa = Pet.create!(name: 'Opa', age: 2, breed: 'Hamster', adoptable: true, shelter_id: shelter2.id)
 
