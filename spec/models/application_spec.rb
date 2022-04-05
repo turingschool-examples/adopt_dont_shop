@@ -61,22 +61,35 @@ RSpec.describe Application, type: :model do
       end
 
       describe '#all_pets_approved?' do 
-    it 'returns true if all pets in an application has been approved' do 
-           @application_pet1 = ApplicationPet.create!(application: @application, pet: @pet_1)
-           @application_pet2 = ApplicationPet.create!(application: @application, pet: @pet_2)
-            application_pet1_updated = ApplicationPet.find(@application_pet1.id)
-            application_pet1_updated.status = 'approved'
-            application_pet1_updated.save
+        it 'returns true if all pets in an application has been approved' do 
+               @application_pet1 = ApplicationPet.create!(application: @application, pet: @pet_1)
+               @application_pet2 = ApplicationPet.create!(application: @application, pet: @pet_2)
+                application_pet1_updated = ApplicationPet.find(@application_pet1.id)
+                application_pet1_updated.status = 'approved'
+                application_pet1_updated.save
 
-            expect(@application.all_pets_approved?).to be false
+                expect(@application.all_pets_approved?).to be false
 
-            application_pet2_updated = ApplicationPet.find(@application_pet2.id)
-            application_pet2_updated.status = 'approved'
-            application_pet2_updated.save
+                application_pet2_updated = ApplicationPet.find(@application_pet2.id)
+                application_pet2_updated.status = 'approved'
+                application_pet2_updated.save
 
-            expect(@application.all_pets_approved?).to be true
+                expect(@application.all_pets_approved?).to be true
+          end
+      end
+
+      describe '#approve_application' do 
+        it 'approves application' do 
+          @application.approve_application
+          expect(@application.status).to eq('Approved')
         end
+      end
 
+      describe '#reject_application' do 
+        it 'rejects application' do 
+          @application.reject_application
+          expect(@application.status).to eq('Rejected')
+        end
       end
  
   end

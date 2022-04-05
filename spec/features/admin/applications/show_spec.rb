@@ -91,11 +91,10 @@ RSpec.describe 'the admin applications show' do
 
     within("#pets_added-#{@pet_2.id}") do 
       click_button "Approve application for #{@pet_2.name}"
+    end 
 
       expect(current_path).to eq("/admin/applications/#{application_3.id}")
-    
       expect(page).to have_content('Application Status: Approved')
-    end 
   end
 
 end

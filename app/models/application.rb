@@ -36,4 +36,13 @@ class Application < ApplicationRecord
     application_pet_approved.count == application_pet_tot.count
   end
 
+  def approve_application
+    self.status = 'Approved'
+    self.save
+  end
+
+  def reject_application
+    self.status = 'Rejected'
+    self.save
+  end
 end
