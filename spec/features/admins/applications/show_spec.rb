@@ -206,7 +206,7 @@ RSpec.describe 'admin_applications show page' do
         within "#pet-#{pet_3.id}" do
           click_button "Approve"
         end
-        
+
         visit "/pets/#{pet_1.id}"
 
         expect(page).to have_content("false")
@@ -218,6 +218,52 @@ RSpec.describe 'admin_applications show page' do
         visit "/pets/#{pet_3.id}"
 
         expect(page).to have_content("false")
+      end
+
+      it 'pets can only have one approved application on them at any time' do
+        application_1 = Application.create!(name: 'Chris', address: '505 Main St.', city: 'Denver', state: 'CO', zipcode: '80205', description: "I'm great with dogs.", status: 'In-progress')
+        application_2 = Application.create!(name: 'James', address: '1259 N Clarkson St.', city: 'Denver', state: 'CO', zipcode: '80218', description: "I'm great with dogs.", status: 'In-progress')
+        shelter = Shelter.create(name: 'Mystery Building', city: 'Irvine CA', foster_program: false, rank: 9)
+        pet_1 = application_1.pets.create!(name: 'Scrappy', age: 1, breed: 'Great Dane', adoptable: true, shelter_id: shelter.id)
+        pet_2 = application_1.pets.create!(name: 'Sparky', age: 1, breed: 'Great Dane', adoptable: true, shelter_id: shelter.id)
+        pet_3 = application_1.pets.create!(name: 'Spot', age: 1, breed: 'Great Dane', adoptable: true, shelter_id: shelter.id)
+        ApplicationPet.create!(pet: pet_1, application: application_2)
+        ApplicationPet.create!(pet: pet_2, application: application_2)
+        ApplicationPet.create!(pet: pet_3, application: application_2)
+
+        visit "/admin/applications/#{application_2.id}"
+
+        within "#pet-#{pet_1.id}" do
+          click_button "Approve"
+        end
+
+        within "#pet-#{pet_2.id}" do
+          click_button "Approve"
+        end
+
+        within "#pet-#{pet_3.id}" do
+          click_button "Approve"
+        end
+
+        visit "/admin/applications/#{application_2.id}"
+
+        within "#pet-#{pet_1.id}" do
+          expect(page).not_to have_button("Approve")
+          expect(page).to have_button("Reject")
+          expect(page).to have_content("This pet has already been approved for adoption.")
+        end
+
+        within "#pet-#{pet_2.id}" do
+          expect(page).not_to have_button("Approve")
+          expect(page).to have_button("Reject")
+          expect(page).to have_content("This pet has already been approved for adoption.")
+        end
+
+        within "#pet-#{pet_3.id}" do
+          expect(page).not_to have_button("Approve")
+          expect(page).to have_button("Reject")
+          expect(page).to have_content("This pet has already been approved for adoption.")
+        end
       end
     end
   end
