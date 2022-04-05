@@ -9,16 +9,28 @@
 <% end %></h3>
 <h3>Status: In Progress</h3>
 
-<h2>Add a Pet to This Application</h2>
-<%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |f| %>
-  <%= f.label :search_for_pet_name %>
-  <%= f.text_field :search_for_pet_name %>
-  <%= f.submit "Submit" %>
+<% if @application.status == "In Progress" %>
+  <h3>Add a Pet to This Application</h3>
+  <%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |f| %>
+    <%= f.label :search_for_pet_name %>
+    <%= f.text_field :search_for_pet_name %>
+    <%= f.submit "Submit" %>
+    <% end %>
 <% end %>
+
 <% if @searched_pets %>
   <% @searched_pets.each do |pet| %>
     <h4>Name: <%= pet.name %> <%= link_to "Adopt this Pet", url: "/applications/#{@application.id}", params: {pet: pet.id}, method: :get, local: true %></h4>
     <h4>Breed: <%= pet.breed %></h4>
     <h4>Age: <%= pet.age %></h4>
+  <% end %>
+<% end %>
+
+<% if !@pets.empty? && @application.status == "In Progress"%>
+  <h2>Submit Application:</h2>
+  <%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |f| %>
+    <%= f.label :why_would_you_be_a_good_owner %>
+    <%= f.text_field :why_would_you_be_a_good_owner %>
+    <%= f.submit "Submit Application" %>
   <% end %>
 <% end %>

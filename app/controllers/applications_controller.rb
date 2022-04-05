@@ -12,9 +12,7 @@ class ApplicationsController < ApplicationController
     if params[:search_for_pet_name].present?
       @searched_pets = Pet.search(params[:search_for_pet_name])
     else
-      @searched_pets = []
-    end
-  end
+      @searched_pets    end
 
   def new
   end
@@ -33,13 +31,6 @@ class ApplicationsController < ApplicationController
 
   private
   def application_params
-    params.permit( :name,
-                   :street_address,
-                   :city,
-                   :state,
-                   :zip_code,
-                   :description,
-                   :status
-                 )
+    params.permit( :name, :street_address, :city, :state, :zip_code, :description, :status)
   end
 end
