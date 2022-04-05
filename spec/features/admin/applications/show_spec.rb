@@ -116,7 +116,7 @@ RSpec.describe 'admin application show page' do
   end
 
   it 'can not be approved on a pending application if it is on an approved application' do
-    @pet_app5 = PetApplication.create!(pet: @pet_2, application: @application_2)
+    @pet_app5 = PetApplication.create!(pet: @pet_3, application: @application_2)
 
     visit "/admin/applications/#{@application_1.id}"
     @application_1.pet_applications.each do |pet_app|
@@ -130,6 +130,18 @@ RSpec.describe 'admin application show page' do
       expect(page).to have_button("Reject")
       expect(page).not_to have_button("Approve")
       expect(page).to have_content("Already Approved")
+    end
+
+    within ".pet_app-#{@pet_app3.id}" do
+      expect(page).to have_button("Reject")
+      expect(page).not_to have_button("Approve")
+      expect(page).to have_content("Already Approved")
+    end
+    
+    within ".pet_app-#{@pet_app5.id}" do
+      expect(page).to have_button("Reject")
+      expect(page).to have_button("Approve")
+      expect(page).not_to have_content("Already Approved")
     end
   end
 end
