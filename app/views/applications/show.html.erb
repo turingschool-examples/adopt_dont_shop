@@ -7,10 +7,12 @@
 <p>Description: <%= @application.description %></p>
 <p>Status: <%= @application.status %></p>
 
+<div class="requested_pets">
 <h3>Requested Pets</h3>
 <% @pets.each do |pet| %>
   <%= link_to "#{pet.name}", "/pets/#{pet.id}" %><br>
 <% end %>
+</div>
 
   <% if @application.status == "In Progress" %>
   <h1>Add a Pet to your Application</h1>
@@ -21,7 +23,10 @@
     <% end %>
     <% if @search_pets != nil %>
       <% @search_pets.each do |pet| %>
+      <div class="pet-<%= pet.id %>">
         <%= pet.name %>
+        <%= button_to "Adopt", "/pet_applications/new", method: :post, params: {:application_id => @application.id, :pet_id => pet.id} %>
+      </div>
       <% end %>
     <% end %>
   <% end %>
