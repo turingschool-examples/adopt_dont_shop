@@ -39,13 +39,40 @@ RSpec.describe 'the admin shelter show page' do
     archie = Pet.create!(name: 'archie', age: 4, breed: 'Dog', adoptable: false, shelter_id: shelter1.id)
     rocky = Pet.create!(name: 'rocky', age: 2, breed: 'Hamster', adoptable: true, shelter_id: shelter1.id)
     opa = Pet.create!(name: 'Opa', age: 2, breed: 'Hamster', adoptable: true, shelter_id: shelter2.id)
-
+    
     visit "/admin/shelters/#{shelter1.id}"
     expect(page).to have_content("Statistics")
     expect(page).to have_content("Adoptable Pet Count: 2")
-
+    
     visit "/admin/shelters/#{shelter2.id}"
     expect(page).to have_content("Statistics")
     expect(page).to have_content("Adoptable Pet Count: 3")
   end
+  
+  it "has an 'Action Required' section that has pets who have pending applications and have not been approved/rejected" do
+    shelter1 = Shelter.create!(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
+    luna = Pet.create!(name: 'luna', age: 1, breed: 'Cat', adoptable: true, shelter_id: shelter1.id)
+    booth = Pet.create!(name: 'booth', age: 11, breed: 'Cat', adoptable: true, shelter_id: shelter1.id)
+    application = Application.create!(name: 'Andrew',
+      street_address: '112 Greenbrook',
+      city: 'Denver',
+      state: 'CO',
+      zipcode: '80207',
+      description: 'Happy, friendly, cool',
+      status: 'Pending'
+    )
+    application_pet = ApplicationPet.create!(application_id: application.id, pet_id: luna.id)
+    
+    visit "/admin/shelters/#{shelter1.id}"
+    expect(page).to have_content("Action Required")
+    within "#action_required" do
+      expect(page).to have_content("luna")
+      expect(page).to_not have_content("booth")
+    end
+  end
+
 end
+# As a visitor
+# When I visit an admin shelter show page
+# Then I see a section titled "Action Required"
+# In that section, I see a list of all pets for this shelter that have a pending application and have not yet been marked "approved" or "rejected"
