@@ -9,7 +9,7 @@ RSpec.describe 'the applications show page' do
     @application = Application.create(
       name: 'Sherman',
       address: '123 Main St', city: 'Longmont', state: 'CO', zipcode: '80501',
-      description: 'Loves animals'
+      description: ''
     )
     PetApplication.create!(pet_id: @pet_1.id, application_id: @application.id)
     PetApplication.create!(pet_id: @pet_2.id, application_id: @application.id)
@@ -68,9 +68,12 @@ RSpec.describe 'the applications show page' do
 
       click_button 'Search'
       click_button 'Adopt'
+      # binding.pry
       expect(page).to have_content('Describe why you make a good owner for these pets:')
       fill_in('Description', with: 'Dogs are amazing')
       click_button 'Submit Application'
+      # binding.pry
+      save_and_open_page
       expect(current_path).to eq("/applications/#{@application1.id}")
       expect(page).to have_content('Pending')
       expect(page).to_not have_content('Accepted')

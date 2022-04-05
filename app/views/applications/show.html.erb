@@ -32,7 +32,7 @@
     <% end %>
   <% end %>
 
-<% if @pets.count > 0 && @application.description == "" %>
+<% if @pets.count > 0 && @application.description == " " %>
   <%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |f| %>
   <p>Describe why you make a good owner for these pets:<p>
   <%= f.label :description %><br>
