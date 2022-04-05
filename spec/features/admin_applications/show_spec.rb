@@ -87,8 +87,8 @@ RSpec.describe 'Admin Applications Show Page' do
       within "#pet-#{@lobster.id}" do
         click_on "APPROVE THIS PET"
       end
-
-      expect(page).to have_content("Application Status: approved")
+      # save_and_open_page
+      expect(page).to have_content("Application Status: accepted")
 
     end
 
