@@ -10,9 +10,9 @@ Application.destroy_all
 Pet.destroy_all
 Shelter.destroy_all
 
+shelter3 = Shelter.create!(name: 'Aurora Shelter', city: 'Denver', rank: 4, foster_program: true)
 shelter1 = Shelter.create!(name: 'Save The Animals', city: 'Denver', rank: 4, foster_program: true)
 shelter2 = Shelter.create!(name: 'Denver Shelter', city: 'Denver', rank: 4, foster_program: true)
-shelter3 = Shelter.create!(name: 'Aurora Shelter', city: 'Denver', rank: 4, foster_program: true)
 pet1 = Pet.create!(name: 'Joey', age: 2, breed: 'Poodle', adoptable: true, shelter_id: shelter1.id)
 pet2 = Pet.create!(name: Faker::Creature::Dog.name, age: Faker::Number.between(from: 1, to: 10), breed: Faker::Creature::Dog.breed, adoptable: true, shelter_id: shelter1.id)
 pet3 = Pet.create!(name: Faker::Creature::Dog.name, age: Faker::Number.between(from: 1, to: 10), breed: Faker::Creature::Dog.breed, adoptable: true, shelter_id: shelter2.id)
