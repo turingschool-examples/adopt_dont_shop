@@ -19,8 +19,13 @@ class ApplicationsController < ApplicationController
   def new
   end
 
+  def update
+    @application = Application.find(params[:id])
+    @application.status = "Pending"
+    @application.save
+  end
+
   def create
-    binding.pry
     @application = Application.new(application_params)
     if @application.save
       redirect_to "/applications/#{@application.id}"

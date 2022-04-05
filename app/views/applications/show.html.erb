@@ -7,7 +7,7 @@
 <h3>Pets: <% @pets.each do |pet| %>
 <%= link_to "#{pet.name}", "/pets/#{pet.id}"%>
 <% end %></h3>
-<h3>Status: In Progress</h3>
+<h3>Status: <%= @application.status %></h3>
 
 <% if @application.status == "In Progress" %>
   <h3>Add a Pet to This Application</h3>
