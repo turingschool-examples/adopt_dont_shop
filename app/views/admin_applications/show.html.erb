@@ -1,0 +1,15 @@
+<h1>Application Admin</h1>
+<h3>Application ID: <%= @application.id %></h3>
+<p>Name: <%= @application.name %></p>
+<p>Street: <%= @application.street_address %></p>
+<p>City: <%= @application.city %></p>
+<p>State: <%= @application.state %></p>
+<p>Zipcode: <%= @application.zipcode %></p>
+<p>Description: <%= @application.description %></p>
+
+<% @app_pet.each do |app| %>
+  <%= app.pet.name %>
+  <% if app[:pet_status] == nil %>
+      <%= button_to "Approve", "/admin/applications/#{@application.id}", method: :patch, params: {app_id: app.id} %>
+  <% end %>
+<% end %>
