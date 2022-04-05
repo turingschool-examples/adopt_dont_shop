@@ -11,6 +11,7 @@ class AdminApplicationsController < ApplicationController
     end
     if application.all_pets_approved?
       application.update(status: "Approved")
+      application.pets.each {|pet| pet.update(adoptable: false)}
     elsif application.any_pets_rejected? && application.all_pets_have_ruling?
       application.update(status: "Rejected")
     end
