@@ -14,10 +14,11 @@ class ApplicationsController < ApplicationController
   end
 
   def create
-    @application = Application.new(application_params)
-    if @application.save
-      redirect_to "/applications/#{@application.id}"
+    application = Application.new(application_params)
+    if application.save
+      redirect_to "/applications/#{application.id}"
     else
+      flash[:notice] = "Input required - fields cannot be blank"
       render :new
     end
   end
