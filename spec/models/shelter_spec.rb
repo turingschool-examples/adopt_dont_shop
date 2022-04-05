@@ -46,16 +46,16 @@ RSpec.describe Shelter, type: :model do
       it 'selects the shelters that have pending applications' do
         @pet_5 = @shelter_2.pets.create!(name: 'Joey', breed: 'ragdoll', age: 8, adoptable: true)
 
-        @application_1 = Application.create!(name: "Anita Barker", street_address: '2468 Park Blvd.', city: "Denver", state: "CO", zipcode: "80202", status: "Approved")
-        @application_2 = Application.create!(name: "Frodo Baggins", street_address: '1 Shire Ave', city: "Denver", state: "CO", zipcode: "80202", status: "Pending")
+        @application_1 = Application.create!(name: "Anita Barker", street_address: '2468 Park Blvd.', city: "Denver", state: "CO", zipcode: "80202", status: "Pending")
+        @application_2 = Application.create!(name: "Frodo Baggins", street_address: '1 Shire Ave', city: "Denver", state: "CO", zipcode: "80202", status: "Approved")
 
         PetApplication.create!(pet: @pet_1, application: @application_1)
         PetApplication.create!(pet: @pet_2, application: @application_1)
         PetApplication.create!(pet: @pet_3, application: @application_1)
         PetApplication.create!(pet: @pet_5, application: @application_2)
-        PetApplication.create!(pet: @pet_5, application: @application_1)
-        # require "pry"; binding.pry
-        expect(Shelter.pending_apps).to eq([@shelter_2])
+        PetApplication.create!(pet: @pet_5, application: @application_2)
+
+        expect(Shelter.pending_apps).to eq([@shelter_1, @shelter_3])
       end
     end
   end

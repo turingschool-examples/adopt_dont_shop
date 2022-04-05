@@ -14,19 +14,10 @@ class ApplicationsController < ApplicationController
     end
   end
 
-  # def add_pet
-  #   @application = Application.find(params[:id])
-  #   pet = Pet.find(params[:pet_id])
-  #   @application.pets.push(pet)
-  #
-  #   redirect_to "/applications/#{@application.id}"
-  # end
-
   def show
     @applicant = Application.find(params[:id])
       if params[:pet_name]
         @pets = Pet.search(params[:pet_name])
-        # require "pry"; binding.pry
       else
         @pets =[]
       end
