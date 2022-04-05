@@ -15,7 +15,7 @@ RSpec.describe "Application Show Page" do
 
   end
 
-  xit "Links from pets index to new application form" do
+  it "Links from pets index to new application form" do
     visit "/pets/"
     click_on "Start an Application"
 
@@ -38,18 +38,18 @@ RSpec.describe "Application Show Page" do
     expect(page).to have_content("In Progress")
   end
 
-  xit "Returns to the new application form if submitted incomplete" do
-    visit "/pets/new/"
+  it "Returns to the new application form if submitted incomplete" do
+    visit "/applications/new/"
     fill_in :name, with: "Bean"
     fill_in :city, with: "London"
     click_on :submit
-
-    expect(current_path).to eq("/pets/new/")
+    # save_and_open_page
+    # expect(current_path).to eq("/pets/new/")
 
     # This might need to be updated, depending on how we warn the user, whether
     # we're putting this on the page or in an alert box
     expect(page).to have_content("One or more required fields were left blank. Please fill in all reqired fields before submitting your application")
-    expect(page).to have_content("Bean")
-    expect(page).to have_content("London")
+    expect(page).to have_field(:name, with: "Bean")
+    expect(page).to have_field(:city, with: "London")
   end
 end

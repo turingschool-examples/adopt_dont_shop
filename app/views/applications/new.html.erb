@@ -1,0 +1,24 @@
+<h3>New Adoption Application</h3>
+<% if @application %>
+  <% if @application.errors.any? %>
+  <p>One or more required fields were left blank. Please fill in all reqired fields before submitting your application</p>
+    <% @application.errors.full_messages.each do |message| %>
+    <h2><%= message %></h2>
+    <% end %>
+  <% end %>
+<% end %>
+
+</br>
+<%= form_with name: @application, url: "/applications/", method: :post, local: true do |f| %>
+  <%= f.label "Name: " %>
+  <%= f.text_field :name, value: params[:name] %></br>
+  <%= f.label "Street Address: " %>
+  <%= f.text_field :street_address, value: params[:street_address] %></br>
+  <%= f.label "City: " %>
+  <%= f.text_field :city, value: params[:city] %></br>
+  <%= f.label "State: " %>
+  <%= f.text_field :state, value: params[:state] %></br>
+  <%= f.label "Zip-code: " %>
+  <%= f.text_field :zip_code, value: params[:zip_code] %></br>
+  <%= f.submit :submit %>
+<% end %>
