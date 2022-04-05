@@ -85,9 +85,16 @@ RSpec.describe Shelter, type: :model do
       end
     end
 
-    describe '#reverse_alpha_names' do
+    describe '.reverse_alpha_names' do
       it 'returns a list of shelters in reverse alphabetical order by name' do
         expect(Shelter.reverse_alpha_names).to eq([@shelter_2, @shelter_3, @shelter_1])
+      end
+    end
+
+    describe '.average_age' do
+      it 'returns the average age of all the pets in the shelter' do
+        @shelter_1.pets.create!(name: 'Clawdia', breed: 'shorthair', age: 3, adoptable: true)
+        expect(@shelter_1.average_age).to eq(3.67)
       end
     end
   end
