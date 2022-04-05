@@ -6,8 +6,18 @@ class AdminApplicationsController < ActionController::Base
   def show
     @application = Application.find(params[:id])
     @pets = @application.pets
-    @approved = params[:status]
-    @petid = params[:petid]
+  end
+
+  def update
+    @application = Application.find(params[:id])
+###
+#    get join info from ApplicationPets
+###
+    join_update = ApplicationPet.app_pet(@application.id, params[:petid])
+    join_update.status = params[:status]
+    join_update.save
+
+    redirect_to "/admin/applications/#{@application.id}/"
   end
 
   def new
@@ -15,14 +25,10 @@ class AdminApplicationsController < ActionController::Base
 
   def create
 #    @application = Application.create!(application_params)
- #   redirect_to "/applications/#{@application.id}"
+#   redirect_to "/applications/#{@application.id}"
   end
 
   private
-
-  def error_message(errors)
-    errors.full_messages.join(', ')
-  end
 
   def application_params
  #   params.permit(:name, :street_address, :city, :state, :zip_code, :description)
