@@ -12,4 +12,8 @@ class Pet < ApplicationRecord
   def self.adoptable
     where(adoptable: true)
   end
+
+  def has_any_approved_applications?
+    applications.where(status: "Approved").count > 0
+  end
 end
