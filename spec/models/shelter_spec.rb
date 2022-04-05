@@ -21,6 +21,14 @@ RSpec.describe Shelter, type: :model do
     @pet_2 = @shelter_1.pets.create(name: 'Clawdia', breed: 'shorthair', age: 3, adoptable: true)
     @pet_3 = @shelter_3.pets.create(name: 'Lucille Bald', breed: 'sphynx', age: 8, adoptable: true)
     @pet_4 = @shelter_1.pets.create(name: 'Ann', breed: 'ragdoll', age: 5, adoptable: true)
+
+    @app_1 = Application.create!(name: 'bob', address: '100 main street, Aurora, CO, 80014', description: 'I love dogs', pet_names: 'Mr. Pirate, Champ, Pixie', status: 1)
+    @app_3 = Application.create!(name: 'Jim', address: '245 oak lane, longmont, CO, 80045', description: 'Best home ever', pet_names: 'Charlie, Gypsy, Lucille Bald', status: 1)
+    @app_2 = Application.create!(name: 'sumbit', address: '321 hill ave, Denver, CO, 80021', description: "", pet_names: "", status: 0)
+
+    ApplicationPet.create!(application: @app_1, pet: @pet_1)
+    ApplicationPet.create!(application: @app_3, pet: @pet_3)
+    ApplicationPet.create!(application: @app_2, pet: @pet_4)
   end
 
   describe 'class methods' do
@@ -49,6 +57,12 @@ RSpec.describe Shelter, type: :model do
     end
   end
 
+  describe '#pending_apps' do
+    it 'returns shelters with pending apps' do
+      expect(Shelter.pending_apps).to eq([@shelter_1, @shelter_3])
+    end
+  end
+
   describe 'instance methods' do
     describe '.adoptable_pets' do
       it 'only returns pets that are adoptable' do
@@ -73,5 +87,6 @@ RSpec.describe Shelter, type: :model do
         expect(@shelter_1.pet_count).to eq(3)
       end
     end
+
   end
 end
