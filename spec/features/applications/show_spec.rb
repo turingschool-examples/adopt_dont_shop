@@ -77,6 +77,7 @@ RSpec.describe 'the applications show page' do
       expect(current_path).to eq("/applications/#{@application1.id}")
       expect(page).to have_content('Pending')
       expect(page).to_not have_content('Accepted')
+      expect(page).to_not have_content('Search')
       expect(page).to_not have_content('In Progress')
       expect(page).to_not have_content('Rejected')
     end
