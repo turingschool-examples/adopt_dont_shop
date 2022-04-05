@@ -67,4 +67,15 @@ RSpec.describe "Application Show Page" do
     expect(page).to have_content(@pet_2.name)
     expect(page.text.index(@pet_2.name)).to be < page.text.index("Search")
   end
+
+  it 'Will search for a partial match on unsubmitted search field' do
+    visit "/applications/#{application_2.id}"
+
+    expect(page).not_to have_content("Scrappy")
+
+    fill_in :find_pet, with: "Scr"
+    click_on "Search"
+
+    expect(page).to have_content("Scrappy")
+  end
 end
