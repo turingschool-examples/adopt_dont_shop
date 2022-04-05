@@ -8,17 +8,17 @@
 <p>Description: <%= @application.description %></p>
 
 <% @app_pet.each do |app| %>
-  <%= app.pet.name %>
   <% if app[:pet_status] == nil %>
-      <%= button_to "Approve", "/admin/applications/#{@application.id}", method: :patch, params: {app_id: app.id, status: 'Approve'} %>
-      <%= button_to "Reject", "/admin/applications/#{@application.id}", method: :patch, params: {app_id: app.id, status: 'Reject'}%>
+    <%= app.pet.name %>
+    <%= button_to "Approve", "/admin/applications/#{@application.id}", method: :patch, params: {app_id: app.id, status: 'Approve'} %>
+    <%= button_to "Reject", "/admin/applications/#{@application.id}", method: :patch, params: {app_id: app.id, status: 'Reject'}%>
   <% end %>
 <% end %>
 
 <% @app_pet.each do |app| %>
   <% if app[:pet_status] == "Approved" %>
-    <%= "#{app.pet.name} approved" %>
+    <%= "#{app.pet.name} approved" %><br>
   <% elsif app[:pet_status] == "Rejected" %>
-    <%= "#{app.pet.name} rejected" %>
+    <%= "#{app.pet.name} rejected" %><br>
   <% end %>
 <% end %>
