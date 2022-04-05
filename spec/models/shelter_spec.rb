@@ -75,6 +75,12 @@ RSpec.describe Shelter, type: :model do
       end
     end
 
+    describe '.adoptable_pet_count' do
+      it 'returns count of adoptable pets' do
+        expect(@shelter_1.adoptable_pet_count).to eq(2)
+      end
+    end
+
     describe '.alphabetical_pets' do
       it 'returns pets associated with the given shelter in alphabetical name order' do
         expect(@shelter_1.alphabetical_pets).to eq([@pet_4, @pet_2])
