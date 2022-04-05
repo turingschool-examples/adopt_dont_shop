@@ -93,7 +93,6 @@ RSpec.describe 'Admin Applications Show Page' do
     end
 
     it 'I deny a single pet on an application, I see the application status is now rejected' do
-
       visit "/admin/applications/#{@bonds.id}"
 
       within "#pet-#{@skeeter.id}" do
@@ -102,11 +101,30 @@ RSpec.describe 'Admin Applications Show Page' do
       within "#pet-#{@lobster.id}" do
         click_on "APPROVE THIS PET"
       end
-      save_and_open_page
+      # save_and_open_page
       expect(page).to have_content("Application Status: rejected")
-
     end
 
+    it 'i approve all pets on an app, visiting those pet show pages show no longer adoptable' do
+      visit "/admin/applications/#{@bonds.id}"
+
+      within "#pet-#{@skeeter.id}" do
+        click_on "APPROVE THIS PET"
+      end
+      within "#pet-#{@lobster.id}" do
+        click_on "APPROVE THIS PET"
+      end
+      expect(page).to have_content("Application Status: accepted")
+      visit "/pets/#{@skeeter.id}"
+      save_and_open_page
+      expect(page).to have_content("false")
+      expect(page).to_not have_content("true")
+
+      visit "/pets/#{@skeeter.id}"
+      expect(page).to have_content("false")
+      expect(page).to_not have_content("true")
+
+    end
 
 
 
