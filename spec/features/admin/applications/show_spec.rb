@@ -45,28 +45,24 @@ RSpec.describe 'the admin applications show' do
     end
   end
 
-    it 'approves/rejects a pet for adoption does not affect other applications' do 
-      visit "admin/applications/#{@application_1.id}"
+  it 'approves/rejects a pet for adoption does not affect other applications' do 
+    visit "admin/applications/#{@application_1.id}"
+
+    within("#pets_added-#{@pet_1.id}") do 
+      click_button "Reject application for #{@pet_1.name}"
+    end 
+
+      @application_pet2 = ApplicationPet.create!(application: @application_2, pet: @pet_1)
+      @application_2.description = "I am lonely and need fluffy mammals too"
+      @application_2.status = "Pending"
+      @application_2.save
+
+      visit "/admin/applications/#{@application_2.id}"
 
       within("#pets_added-#{@pet_1.id}") do 
-        click_button "Reject application for #{@pet_1.name}"
+        expect(page).to_not have_content("Approve application for #{@pet_1.name}")
+        expect(page).to_not have_content("Reject application for #{@pet_1.name}")
       end 
-
-
-        # @application_pet2 = ApplicationPet.create!(application: @application_2, pet: @pet_1)
-        # @application_2.description = "I am lonely and need fluffy mammals too"
-        # @application_2.status = "Pending"
-        # @application_2.save
-
-        # visit "admin/applications/#{@application_2.id}"
-
-        # within("#pets_added-#{@pet_1.id}") do 
-        #   expect(page).to_not have_content("Approve application for #{@pet_1.name}")
-        #   expect(page).to_not have_content("Reject application for #{@pet_1.name}")
-        # end 
-
   end
-
-
 
 end

@@ -1,18 +1,19 @@
 <section id="App_info">
 	<h1>Application Info</h1>
-	<p><%= @application.name %></p>
-	<p><%= @application.street_address%>, <%= @application.city %>, <%= @application.state %> <%= @application.zipcode %></p>
+	<p>Applicant Name: <%= @application.name %></p>
+	<p>Applicant Address: <%= @application.street_address%>, <%= @application.city %>, <%= @application.state %> <%= @application.zipcode %></p>
 	<p>Application description: <%=@application.description%></p>
-	<p>Application stauts: <%=@application.status%></p>
+	<p>Application status: <%=@application.status%></p>
 </section>
 
 	<% if @application.pets_added != [] %>
-		<% @application.pets_added.each do |pet| %>
+		<% @application.pets_added.each_with_index do |pet, index| %>
 		  <section id="pets_added-<%=pet.id%>">
 		  	<h2>Pets Added:</h2>
-			<p><%= pet.name %></p> 
-			<p><%= pet.age %></p> 
-			<p><%= pet.breed %></p> 
+		  	<h4>Pet No. <%=index +1 %></h4>
+			<p>Name: <%= pet.name %></p> 
+			<p>Age: <%= pet.age %></p> 
+			<p>Breed: <%= pet.breed %></p> 
 
 			<% if @application.application_pet_status(pet.id) %>
 				<h4>Application for <%=pet.name%> <%=@application.application_pet_status(pet.id)%></h4>
