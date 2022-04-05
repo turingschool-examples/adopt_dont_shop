@@ -10,6 +10,9 @@
   <p>Status:<%= @app.app_status %></p>
   <p>Pets applied for:
     <%= @app.pets.map { |pet| pet.name }.join(" ") %></p>
+  <% if !@app.pets.empty? %>
+    <%= button_to "Submit application" %>
+  <% end %>
 </div>
 
 <div class="pet_search">
