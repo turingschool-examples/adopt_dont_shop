@@ -10,6 +10,6 @@
 <h4>Action Required</h4>
 <div id="action_required">
 <% @app_pets_nil.each do |app_pet| %>
-  <p><%= app_pet.pet.name %></p>
+  <p><%= link_to "#{app_pet.pet.name}", "/admin/applications/#{app_pet.application.id}" %></p>
 <% end %>
 </div>
