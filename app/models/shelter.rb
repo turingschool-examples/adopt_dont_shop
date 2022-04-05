@@ -54,11 +54,12 @@ class Shelter < ApplicationRecord
   end
 
   def adopted_pet_count
-    count = 0
-    applicaitons = Application.all
-    applicaitons.each do |app|
-      count += app.approved_pet_ids.count
-    end
-    count
+    pets.where(adoptable: false).count
+    # count = 0
+    # applicaitons = Application.all
+    # applicaitons.each do |app|
+    #   count += app.approved_pet_ids.count
+    # end
+    # count
   end
 end
