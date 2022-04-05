@@ -1,0 +1,39 @@
+<h1>Admin Application Show Page</h1>
+
+Applicant Name: <%= @application.name %><br>
+Full Address: <%= @application.address %><br>
+Why I am a Good Home: <%= @application.description %><br>
+
+Adoptable Pets: <% @application.pets.each do |pet| %><br>
+<div id="pet-<%= pet.id %>">
+    <%= pet.name %>
+    <% if @application.application_pet_status(pet.id) == "undecided" %>
+
+      <%= form_with url: "/admin/applications/#{@application.id}?approve=pet", method: :patch, local: true do |form| %>
+      <%= form.hidden_field :pet_status, value: 1 %>
+      <%= form.hidden_field :pet_id, value: "#{pet.id}" %>
+      <%= form.submit "APPROVE THIS PET" %>
+      <% end  %>
+      <%= form_with url: "/admin/applications/#{@application.id}?deny=pet", method: :patch, local: true do |form| %>
+      <%= form.hidden_field :pet_status, value: 2 %>
+      <%= form.hidden_field :pet_id, value: "#{pet.id}" %>
+      <%= form.submit "DENY THIS PET" %>
+      <% end  %>
+
+      <% elsif @application.application_pet_status(pet.id) == "approved" %>
+      This Pet Has Been Approved!
+      <% elsif @application.application_pet_status(pet.id) == "denied" %>
+        <br>This Pet Has Been Denied!
+
+
+
+
+    <% end  %>
+
+
+</div>
+
+
+<% end %><br>
+
+Application Status: <%= @application.status %><br>

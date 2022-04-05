@@ -47,7 +47,8 @@ class ApplicationsController < ApplicationController
         })
       app_pet = ApplicationPet.new({
         application: @application,
-        pet: @pet
+        pet: @pet,
+        pet_status: 0
         })
       app_pet.save
       redirect_to "/applications/#{@application.id}"
