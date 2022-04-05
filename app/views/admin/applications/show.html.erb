@@ -25,7 +25,6 @@
 			<% if @application.all_pets_reviewed? %>
 				<% if @application.all_pets_approved? %>
 					<% @application.approve_application %>
-	
 				<% elsif %>
 					<% @application.reject_application %>
 				<%end %>

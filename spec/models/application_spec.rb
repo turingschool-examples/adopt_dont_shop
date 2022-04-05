@@ -79,18 +79,38 @@ RSpec.describe Application, type: :model do
       end
 
       describe '#approve_application' do 
-        it 'approves application' do 
+        it 'changes application status to Approved' do 
           @application.approve_application
           expect(@application.status).to eq('Approved')
+        end
+
+        it 'changes all pets in approved application adaoptable to false' do 
+           @application_pet1 = ApplicationPet.create!(application: @application, pet: @pet_1)
+           @application_pet2 = ApplicationPet.create!(application: @application, pet: @pet_2)
+
+
+           pet_1_update = Pet.find(@pet_1.id)
+           pet_2_update = Pet.find(@pet_2.id)
+           expect(pet_1_update.adoptable).to eq true
+           expect(pet_2_update.adoptable).to eq true
+
+           @application.approve_application
+           pet_1_update = Pet.find(@pet_1.id)
+           pet_2_update = Pet.find(@pet_2.id)
+           expect(pet_1_update.adoptable).to eq false
+           expect(pet_2_update.adoptable).to eq false
+
         end
       end
 
       describe '#reject_application' do 
         it 'rejects application' do 
           @application.reject_application
+
           expect(@application.status).to eq('Rejected')
         end
       end
+
  
   end
 end

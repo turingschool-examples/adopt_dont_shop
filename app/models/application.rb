@@ -39,6 +39,7 @@ class Application < ApplicationRecord
   def approve_application
     self.status = 'Approved'
     self.save
+    pets.map {|pet| pet.adopt}
   end
 
   def reject_application

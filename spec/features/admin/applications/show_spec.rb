@@ -72,8 +72,6 @@ RSpec.describe 'the admin applications show' do
 
   it 'changes application status to approved when all pets approved' do 
 
-
-
     application_3 = Application.create!(name: "Kim G", street_address:"2000 Something Blvd", city: "Denver", state: "CO", zipcode: 80128)
     application_pet3_1 = ApplicationPet.create!(application: application_3, pet: @pet_1)
     application_pet3_2 = ApplicationPet.create!(application: application_3, pet: @pet_2)

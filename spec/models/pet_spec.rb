@@ -37,8 +37,6 @@ RSpec.describe Pet, type: :model do
       it 'returns a pet with matcing name' do 
         expect(Pet.search_by_name('Ann')).to eq([@pet_3])
       end
-
-
     end
   end
 
@@ -47,6 +45,15 @@ RSpec.describe Pet, type: :model do
       it 'returns the shelter name for the given pet' do
         expect(@pet_3.shelter_name).to eq(@shelter_1.name)
       end
+    end
+
+    describe '.adopt' do 
+      it 'adopts a pet and makes it not adoptable' do 
+        @pet_1.adopt
+        expect(@pet_1.adoptable).to be false
+
+      end
+
     end
   end
 end
