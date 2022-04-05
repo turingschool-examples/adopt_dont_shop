@@ -81,5 +81,12 @@ RSpec.describe 'the applications show page' do
       expect(page).to_not have_content('In Progress')
       expect(page).to_not have_content('Rejected')
     end
+
+    it '#search allows for partial matches' do
+      fill_in(:pet_name, with: 'ob')
+      click_button 'Search'
+      expect(page).to have_content(@pet_2.name)
+      expect(page).to have_content(@pet_1.name)
+    end
   end
 end
