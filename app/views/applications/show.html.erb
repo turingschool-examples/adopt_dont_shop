@@ -35,9 +35,9 @@
 			<p>Pet age: <%= pet.age %></p>
 			<p>Pet breed: <%= pet.breed %></p>
 			<% end %>
-
 	<% end %>
 </section>
+
 <% if @application.status == "In Progress" %>
 	<% if @pets_added && @pets_added.first %>
 		<%= form_with url: "/applications/#{@application.id}", method: :patch, local:true do |f|%>
@@ -49,3 +49,4 @@
 <% else %>
 	<p>Why I would make a good home: <%= @application.description %></p>
 <% end %>
+

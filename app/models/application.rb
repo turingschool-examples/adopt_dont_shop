@@ -13,4 +13,14 @@ class Application < ApplicationRecord
     Pet.joins(applications: :application_pets).where("applications.id=#{self.id}")
   end
 
+
+  def application_pet_status(pet_id)
+    application_pet = ApplicationPet.where(application_id: id, pet_id: pet_id).first
+    if application_pet.updated?
+      application_pet.status 
+    else 
+      nil
+    end
+  end
+
 end
