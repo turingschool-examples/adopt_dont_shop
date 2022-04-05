@@ -13,7 +13,7 @@ class Pet < ApplicationRecord
     where(adoptable: true)
   end
 
-  def approved_application?
-    applications.any? {|application| application.status == "Approved"}
+  def has_any_approved_applications?
+    applications.where(status: "Approved").count > 0
   end
 end

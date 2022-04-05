@@ -35,18 +35,18 @@ class ApplicationsController < ApplicationController
   end
 
   def update
-    if params[:approval]
-      application = Application.find(params[:application_id])
-      application.approved_pet_ids << params[:pet_id]
-      application.save
-      redirect_to "/admin/applications/#{params[:application_id]}"
-    elsif params[:rejection]
-      application = Application.find(params[:application_id])
-      application.rejected_pet_ids << params[:pet_id]
-      application.save
-      redirect_to "/admin/applications/#{params[:application_id]}"
-    elsif params[:submit]
-      application = Application.find(params[:id])
+    application = Application.find(params[:id])
+    # if params[:approval]
+    #   application = Application.find(params[:application_id])
+    #   application.approved_pet_ids << params[:pet_id]
+    #   application.save
+    #   redirect_to "/admin/applications/#{params[:application_id]}"
+    # elsif params[:rejection]
+    #   application = Application.find(params[:application_id])
+    #   application.rejected_pet_ids << params[:pet_id]
+    #   application.save
+    #   redirect_to "/admin/applications/#{params[:application_id]}"
+    if params[:submit]
       application.update(status: 'Pending')
       application.save
       redirect_to "/applications/#{params[:id]}"
