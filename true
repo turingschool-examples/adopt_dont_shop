@@ -1,0 +1,2 @@
+      invoke  active_record
+      create    db/migrate/20220403234059_add_pending_to_applications.rb
