@@ -63,4 +63,21 @@ RSpec.describe "Applications Show" do
     expect(current_path).to eq("/applications/#{application_2.id}")
     expect(page).to have_content("Pets: Dorothy")
   end
+
+  it "submits applications" do
+    application_2 = Application.create!(name: "Johnny Testman", street_address: "534 Not Real Drive",
+      city: "Heaven", state: "FL", zip_code: "12359", description: 'empty', status: "In Progress")
+
+    visit "/applications/#{application_2.id}"
+    # save_and_open_page
+    fill_in 'Search for pet name', with: 'Dorothy'
+    click_button 'Submit'
+    click_link 'Adopt this Pet'
+    # save_and_open_page
+    fill_in 'Why would you be a good owner', with: "I'm super nice and chill!"
+    click_button 'Submit Application'
+
+    expect(current_path).to eq("/applications/#{application_2.id}")
+
+  end
 end
