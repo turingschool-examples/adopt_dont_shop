@@ -24,7 +24,6 @@ RSpec.describe 'application creation' do
         fill_in 'City', with: 'CityVille'
         fill_in 'State', with: 'CO'
         fill_in 'Zipcode', with: '88888'
-        fill_in 'Description', with: 'Text text text text text'
 
         click_button 'Save'
         @application = Application.find_by(name: 'New Applicant')
