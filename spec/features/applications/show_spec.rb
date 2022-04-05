@@ -86,8 +86,11 @@ RSpec.describe 'the applications show page' do
       fill_in(:pet_name, with: 'ob')
       click_button 'Search'
 
-      within '.pets' do
+      within ".pet-#{@pet_2.id}" do
         expect(page).to have_content(@pet_2.name)
+      end
+
+      within ".pet-#{@pet_1.id}" do
         expect(page).to have_content(@pet_1.name)
       end
     end
