@@ -13,7 +13,7 @@ RSpec.describe 'the admin shelter show page' do
     expect(page).to_not have_content("Denver, CO")
   end
 
-  xit 'shows the average age for pets in section of statistics' do
+  it 'shows the average age for pets in section of statistics' do
     shelter1 = Shelter.create!(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
     shelter2 = Shelter.create!(name: 'Denver shelter', city: 'Denver, CO', foster_program: true, rank: 10)
     luna = Pet.create!(name: 'luna', age: 1, breed: 'Cat', adoptable: true, shelter_id: shelter2.id)
@@ -30,7 +30,7 @@ RSpec.describe 'the admin shelter show page' do
     expect(page).to have_content("Adoptable Pet Average Age: 6")
   end
 
-  it 'shows the average age for pets in section of statistics' do
+  it 'shows the number of pets in the shelter' do
     shelter1 = Shelter.create!(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
     shelter2 = Shelter.create!(name: 'Denver shelter', city: 'Denver, CO', foster_program: true, rank: 10)
     luna = Pet.create!(name: 'luna', age: 1, breed: 'Cat', adoptable: true, shelter_id: shelter2.id)
