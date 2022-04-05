@@ -8,7 +8,8 @@
     <%= @app.zipcode %></p>
   <p>Why I am a good fit:<%= @app.description %></p>
   <p>Status:<%= @app.app_status %></p>
-  <p>Pets applied for:</p>
+  <p>Pets applied for:
+    <%= @app.pets.map { |pet| pet.name }.join(" ") %></p>
 </div>
 
 <div class="pet_search">
@@ -23,7 +24,10 @@
 </div>
 
 <div class="pet_results">
-<% @pet_search_results.each do |result| %>
-  <%= result.name %>
+<% @pet_search_results.each do |pet| %>
+  <div data-id=<%="#{pet.id}"%>>
+    <%= pet.name %>
+    <%= button_to 'Adopt this pet', "/pet_applications?pet_id=#{pet.id}&application_id=#{@app.id}", method: :post %>
+  </div>
 <% end %>
 </div>
