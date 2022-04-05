@@ -36,6 +36,10 @@ class Shelter < ApplicationRecord
     select("shelters.*")
     .order("name DESC")
   end
+
+  def self.pending_apps
+    require "pry"; binding.pry
+  end
 end
 
 

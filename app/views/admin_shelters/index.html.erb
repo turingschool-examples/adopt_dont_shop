@@ -8,4 +8,13 @@
     Foster Program?: <%= shelter.foster_program %><br>
     Shelter Rank: <%= shelter.rank %><br><br>
   </div>
+
+<% end %>
+
+<h2>Shelters with Pending Applications:</h2>
+
+<% @shelters.pending_apps.each do |shelter| %>
+  <section id="Shelters-<%= shelter.id %>">
+    <%= shelter.name %>
+  </section>
 <% end %>
