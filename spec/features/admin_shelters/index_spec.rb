@@ -58,7 +58,6 @@ RSpec.describe 'Admin Shelter Index Page' do
       end
 
       it 'And in this section I see the name of every shelter that has a pending application' do
-        save_and_open_page
         within("#pending_application") do
           expect(page).to have_content("#{@shelter_1.name}")
           expect(page).to have_content("#{@shelter_3.name}")
