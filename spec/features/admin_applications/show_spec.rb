@@ -18,7 +18,7 @@ RSpec.describe 'Admin Applications Show Page' do
 
   describe 'As a visitor' do
 
-    it 'For every pet on the app, I see a button to approve the application for that specific pet' do
+    it 'For every pet on the app, I see a button to approve that specific pet' do
 
       visit "/admin/applications/#{@bonds.id}"
       within "#pet-#{@lobster.id}" do
@@ -33,6 +33,20 @@ RSpec.describe 'Admin Applications Show Page' do
       within "#pet-#{@skeeter.id}" do
         expect(page).to_not have_content("This Pet Has Been Approved!")
       end
+    end
+
+    it 'For every pet on the app, I see a button to deny that specific pet' do
+      visit "/admin/applications/#{@bonds.id}"
+
+      within "#pet-#{@skeeter.id}" do
+          click_on "DENY THIS PET"
+      end
+      expect(current_path).to eq("/admin/applications/#{@bonds.id}")
+      within "#pet-#{@skeeter.id}" do
+        expect(page).to have_content("This Pet Has Been Denied!")
+        expect(page).to_not have_content("DENY THIS PET")
+      end
+
     end
 
   end
