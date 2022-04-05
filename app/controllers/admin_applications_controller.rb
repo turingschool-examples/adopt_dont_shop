@@ -3,7 +3,7 @@ class AdminApplicationsController < ApplicationController
   def show
     @application = Application.find(params[:id])
     @app_pets = @application.application_pets
-    # require "pry"; binding.pry
+    @all_pets_approved = @application.all_pets_approved?
   end
 
   def update
