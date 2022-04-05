@@ -12,8 +12,10 @@ class ApplicationsController < ApplicationController
     if params[:search_for_pet_name].present?
       @searched_pets = Pet.search(params[:search_for_pet_name])
     else
-      @searched_pets    end
-
+      @searched_pets
+    end
+  end
+  
   def new
   end
 
