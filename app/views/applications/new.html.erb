@@ -2,7 +2,7 @@
 
 <%= form_with url: "/applications/:id", method: :post, local: true do |form| %>
 <%= form.label :name %>
-<%= form.text_field :name %><br/><br/>
+<%= form.text_field :name, value: params[:name] %><br/><br/>
 <%= form.label :street_address, "Street Address" %>
 <%= form.text_field :street_address %><br/><br/>
 <%= form.label :city %>
