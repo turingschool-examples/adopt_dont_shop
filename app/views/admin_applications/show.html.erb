@@ -1,0 +1,26 @@
+<h1>Application <%= @application.id %> </h1>
+<h2>Name: <%= @application.name %></h2>
+<p>
+  Address: <%= @application.street_address %>,
+           <%= @application.city %>,
+           <%= @application.state %>,
+           <%= @application.zip_code %>
+</p>
+<p>Description: <%= @application.description %> </p>
+<p>Status: <%= @application.status %></p>
+
+<h2>Desired Pets:</h2>
+<% @pets.each do |pet| %>
+  <div id="pet-<%= pet.id %>">
+    <p><%= pet.name %></p>
+    <% if params[:status] == "approved" && params[:pet_id] == "#{pet.id}"%>
+      <p>Status: Approved</p>
+    <% else %>
+      <p>Status: Pending Approval</p>
+      <p><%= button_to "Approve Pet", "/admin/applications/#{@application.id}?status=approved&pet_id=#{pet.id}", method: :post %><p>
+    <% end %>
+
+    <p>Age: <%= pet.age %></p>
+    <p>Breed: <%= pet.breed %></p>
+  </div>
+<% end %>

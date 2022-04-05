@@ -48,7 +48,7 @@ RSpec.describe "Admin Applications" do
         expect(page).to_not have_button("Approve Pet")
         expect(page).to have_content("Approved")
       end
-
+      
       within "#pet-#{@pet2.id}" do
         click_button "Approve Pet"
       end
