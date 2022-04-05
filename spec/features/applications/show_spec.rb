@@ -44,11 +44,19 @@ describe 'search in applicatioins' do
   end
 
 
-  it 'Unsubmitted applications have a search box to select pets by name' do
+  it 'Unsubmitted applications have a search box to select pets by name and when adopt button clicked, pet is attached to application' do
     fill_in(:pet_name, with: "Carter")
     click_button('Search')
-    save_and_open_page
     expect(current_path).to eq("/applications/#{@application1.id}")
-    expect(page).to have_content(@pet3.name)
+    within ".pet-#{@pet3.id}" do
+      expect(page).to have_content(@pet3.name)
+      click_button('Adopt')
+      expect(current_path).to eq("/applications/#{@application1.id}")
+    end
+
+    within ".requested_pets" do
+      expect(page).to have_content(@pet3.name)
+      require "pry"; binding.pry
+    end
   end
 end
