@@ -3,7 +3,6 @@ require 'rails_helper'
 RSpec.describe 'application creation' do
   describe 'application new' do
     it 'renders the new form' do
-
       visit '/applications/new'
 
       expect(page).to have_content('New Application')
@@ -13,7 +12,6 @@ RSpec.describe 'application creation' do
       expect(find('form')).to have_content('State')
       expect(find('form')).to have_content('Zipcode')
       expect(find('form')).to have_content('Description')
-    save_and_open_page
     end
   end
 
@@ -30,10 +28,9 @@ RSpec.describe 'application creation' do
         fill_in 'Description', with: 'Text text text text text'
 
         click_button 'Save'
-       @application = Application.find_by(name: "New Applicant")
+        @application = Application.find_by(name: 'New Applicant')
         expect(page).to have_current_path("/applications/#{@application.id}")
         expect(page).to have_content('Status: In Progress')
-
       end
     end
 
