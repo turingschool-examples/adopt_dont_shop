@@ -58,5 +58,26 @@ describe 'search in applicatioins' do
     within '.requested_pets' do
       expect(page).to have_content(@pet3.name)
     end
+
+    describe 'sumbit an application' do
+      it 'shows a section to input on why applicant would be a good owner' do
+        expect(page).to_not have_content('Describe why you make a good owner for these pets:')
+        fill_in(:pet_name, with: "#{@pet3.name}")
+
+        click_button 'Search'
+        click_button 'Adopt'
+
+        expect(page).to have_content('Describe why you make a good owner for these pets:')
+        expect(find('form')).to have_content('Description')
+        fill_in ('Description', with: 'Dogs are amazing')
+        click_button 'Submit Application'
+        expect(current_path).to eq("/applications/#{@application1.id}")
+        expect(page).to have_content('Dogs are amazing')
+        expect(page).to have_content("Pending")
+        expect(page).to_not have_content("Accepted")
+        expect(page).to_not have_content("In Progress")
+        expect(page).to_not have_content("Rejected")
+      end
+    end
   end
 end
