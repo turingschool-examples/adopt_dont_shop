@@ -1,26 +1,29 @@
 class ApplicationsController < ApplicationController
-def show
-   @app = Application.find(params[:id])
-end
+  def show
+    @app = Application.find(params[:id])
+    @pet_search_results = []
+    if params[:search_for_pet_by_name]
+      @pet_search_results = Pet.find_pet_by_name(params[:search_for_pet_by_name])
+    end
+  end
 
-def new
-end
+  def new
+  end
 
-def create 
-  app = Application.new(app_params)
-  
-  if app.save
-    redirect_to "/applications/#{app.id}"
-  else 
-    redirect_to "/applications/new"
-    flash[:alert] = "Error, please fill out form"
-  end 
-end
+  def create
+    app = Application.new(app_params)
 
-private
+    if app.save
+      redirect_to "/applications/#{app.id}"
+    else
+      redirect_to "/applications/new"
+      flash[:alert] = "Error, please fill out form"
+    end
+  end
+
+  private
 
   def app_params
     params.permit(:id, :name, :address, :city, :state, :zipcode, :description, :app_status)
   end
-
-end 
+end
