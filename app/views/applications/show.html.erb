@@ -14,23 +14,23 @@
 <% end %>
 </div>
 
-  <% if @application.status == "In Progress" %>
+<% if @application.status == "In Progress" %>
   <h1>Add a Pet to your Application</h1>
-    <%= form_with url: "/applications/#{@application.id}?search=pet_name", method: :get, local: true do |f| %>
-    <%= f.label :pet_name%>
-    <%= f.text_field :pet_name, size: "12x1"%><br>
+  <%= form_with url: "/applications/#{@application.id}?search=pet_name", method: :get, local: true do |f| %>
+    <%= f.label :pet_name %>
+    <%= f.text_field :pet_name %><br>
     <%= f.submit "Search" %>
-    <% end %>
+  <% end %>
 
-    <% if @search_pets != nil %>
-      <% @search_pets.each do |pet| %>
+  <% if @search_pets != nil %>
+    <% @search_pets.each do |pet| %>
       <div class="pet-<%= pet.id %>">
         <%= pet.name %>
         <%= button_to "Adopt", "/pet_applications/new", method: :post, params: {:application_id => @application.id, :pet_id => pet.id} %>
       </div>
-      <% end %>
     <% end %>
   <% end %>
+<% end %>
 
 <% if @pets.count > 0 && @application.description == " " %>
   <%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |f| %>
