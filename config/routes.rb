@@ -42,5 +42,4 @@ Rails.application.routes.draw do
   post '/applications/:id', to: 'applications#create'
 
   post '/pet_applications/new', to: 'pet_applications#create'
-
 end

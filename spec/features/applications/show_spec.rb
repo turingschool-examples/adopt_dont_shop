@@ -9,7 +9,7 @@ RSpec.describe 'the applications show page' do
     @application = Application.create(
       name: 'Sherman',
       address: '123 Main St', city: 'Longmont', state: 'CO', zipcode: '80501',
-      description: 'Loves animals',
+      description: 'Loves animals'
     )
     PetApplication.create!(pet_id: @pet_1.id, application_id: @application.id)
     PetApplication.create!(pet_id: @pet_2.id, application_id: @application.id)
@@ -28,6 +28,7 @@ RSpec.describe 'the applications show page' do
 
   it 'pet names has redirect link' do
     expect(page).to have_link(@pet_1.name.to_s, href: "/pets/#{@pet_1.id}")
+
     click_link @pet_1.name.to_s
 
     expect(current_path).to eq("/pets/#{@pet_1.id}")
@@ -38,14 +39,14 @@ describe 'search in applicatioins' do
     @shelter = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
     @pet_1 = @shelter.pets.create(name: 'Scooby', age: 2, breed: 'Great Dane', adoptable: true, shelter_id: @shelter.id)
     @pet_2 = @shelter.pets.create(adoptable: true, age: 3, breed: 'doberman', name: 'Lobster', shelter_id: @shelter.id)
-    @pet3 = @shelter.pets.create!(adoptable: true, age: 7, breed:"Golden Retriever", name:"Carter")
-    @application1 = Application.create!(name:'Chris', address: '123 Main St', city: 'Hometown', state: 'CO', zipcode: '80504' )
+    @pet3 = @shelter.pets.create!(adoptable: true, age: 7, breed: 'Golden Retriever', name: 'Carter')
+    @application1 = Application.create!(name: 'Chris', address: '123 Main St', city: 'Hometown', state: 'CO',
+                                        zipcode: '80504')
     visit "/applications/#{@application1.id}"
   end
 
-
   it 'Unsubmitted applications have a search box to select pets by name and when adopt button clicked, pet is attached to application' do
-    fill_in(:pet_name, with: "Carter")
+    fill_in(:pet_name, with: 'Carter')
     click_button('Search')
     expect(current_path).to eq("/applications/#{@application1.id}")
     within ".pet-#{@pet3.id}" do
@@ -54,9 +55,8 @@ describe 'search in applicatioins' do
       expect(current_path).to eq("/applications/#{@application1.id}")
     end
 
-    within ".requested_pets" do
+    within '.requested_pets' do
       expect(page).to have_content(@pet3.name)
-      require "pry"; binding.pry
     end
   end
 end
