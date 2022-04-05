@@ -43,7 +43,7 @@ RSpec.describe "Application Show Page" do
     fill_in :name, with: "Bean"
     fill_in :city, with: "London"
     click_on :submit
-    save_and_open_page
+    # save_and_open_page
     # expect(current_path).to eq("/pets/new/")
 
     # This might need to be updated, depending on how we warn the user, whether
