@@ -43,4 +43,16 @@ RSpec.describe 'the admin shelters index' do
       expect(page).not_to have_content(@shelter_3.name)
     end
   end
+
+  it 'shows the shelters with pending applications in alphabetical order' do
+    @application_3 = Application.create!(name: "Ron Weasley", street_address: 'The Burrow', city: "London", state: "CO", zipcode: "80202", status: "Pending")
+    PetApplication.create!(pet: @pet_5, application: @application_3)
+
+    visit "/admin/shelters"
+    within ".pending" do
+      expect(@shelter_1.name).to appear_before(@shelter_3.name)
+      expect(@shelter_3.name).to appear_before(@shelter_2.name)
+      expect(@shelter_2.name).not_to appear_before(@shelter_1.name)
+    end
+  end
 end
