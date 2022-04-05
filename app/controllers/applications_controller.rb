@@ -23,9 +23,8 @@ class ApplicationsController < ApplicationController
 
   def submit_for_approval
     app = Application.find(params[:id])
-    app.description = params[:description]
-    app.app_status = "Pending"
-    app.save
+    app.update(description: params[:description])
+    app.update(app_status: "Pending")
     redirect_to "/applications/#{params[:id]}"
   end
 
