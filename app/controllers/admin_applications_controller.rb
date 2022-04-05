@@ -6,14 +6,18 @@ class AdminApplicationsController < ActionController::Base
   def show
     @application = Application.find(params[:id])
     @pets = @application.pets
-    @admin_status = params[:status]
-    @petid = params[:petid]
   end
 
   def update
     @application = Application.find(params[:id])
-#    app_pet = ApplicationPet.app_pet(@application.id, params[:petid])
-#    redirect_to "/admin/applications/#{@application.id}/"
+###
+#    get join info from ApplicationPets
+###
+    join_update = ApplicationPet.app_pet(@application.id, params[:petid])
+    join_update.status = params[:status]
+    join_update.save
+
+    redirect_to "/admin/applications/#{@application.id}/"
   end
 
   def new

@@ -57,8 +57,8 @@ RSpec.describe "Admin applications Show" do
       expect(page).to have_button("Approve")
 
       click_button("Approve", match: :first)
-      expect(current_path).to eq ("/admin/applications/#{@application_1.id}")
-      expect(page).to have_content("This pet has been approved!")
+      expect(current_path).to eq ("/admin/applications/#{@application_1.id}/")
+      expect(page).to have_content("This application has been approved!")
     end
 
     it "shows an admin application with pets to reject" do
@@ -68,7 +68,7 @@ RSpec.describe "Admin applications Show" do
       expect(page).to have_content(@pet_1.name)
       expect(page).to have_content(@pet_2.name)
       click_button("Reject", match: :first)
-      expect(page).to have_content("This pet has been rejected!")
+      expect(page).to have_content("This application has been rejected!")
 
     end
 
@@ -79,12 +79,13 @@ RSpec.describe "Admin applications Show" do
       expect(page).to have_content(@pet_2.name)
       expect(page).to have_button("Reject")
       click_button("Reject", match: :first)
+#      save_and_open_page
 
       expect(current_path).to eq("/admin/applications/#{@application_1.id}/")
-      expect(page).to have_content("This pet has been rejected!")
+      expect(page).to have_content("This application has been rejected!")
 
       visit "/admin/applications/#{@application_2.id}"
-      save_and_open_page
+#      save_and_open_page
       expect(page).to have_content(@pet_1.name)
       expect(page).to have_button("Approve")
       expect(page).to have_button("Reject")

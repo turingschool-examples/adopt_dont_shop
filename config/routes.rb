@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   get '/admin/applications', to: 'admin_applications#index'
   get '/admin/applications/:id', to: 'admin_applications#show'
   post '/admin/applications/:id', to: 'admin_applications#create'
-  patch '/admin/applications/:id', to: 'admin_applications#show'
+  patch '/admin/applications/:id', to: 'admin_applications#update'
 
   post '/applications', to: 'applications#create'
   post '/applications/new', to: 'applications#create'
