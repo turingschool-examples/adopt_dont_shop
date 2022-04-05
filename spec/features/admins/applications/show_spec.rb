@@ -231,7 +231,7 @@ RSpec.describe 'admin_applications show page' do
         ApplicationPet.create!(pet: pet_2, application: application_2)
         ApplicationPet.create!(pet: pet_3, application: application_2)
 
-        visit "/admin/applications/#{application_2.id}"
+        visit "/admin/applications/#{application_1.id}"
 
         within "#pet-#{pet_1.id}" do
           click_button "Approve"
@@ -246,6 +246,7 @@ RSpec.describe 'admin_applications show page' do
         end
 
         visit "/admin/applications/#{application_2.id}"
+        # save_and_open_page
 
         within "#pet-#{pet_1.id}" do
           expect(page).not_to have_button("Approve")
