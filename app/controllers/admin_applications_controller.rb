@@ -8,7 +8,11 @@ class AdminApplicationsController < ApplicationController
   def update
     @application = Application.find(params[:id])
     @app_pet = ApplicationPet.find(params[:app_id])
-    @app_pet.pet_status = 'Approved'
+    if params[:status] == "Approve"
+      @app_pet.pet_status = 'Approved'
+    elsif params[:status] == 'Reject'
+      @app_pet.pet_status = 'Rejected'
+    end
     @app_pet.save
     redirect_to "/admin/applications/#{@application.id}"
   end
