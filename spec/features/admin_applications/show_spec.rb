@@ -92,6 +92,21 @@ RSpec.describe 'Admin Applications Show Page' do
 
     end
 
+    it 'I deny a single pet on an application, I see the application status is now rejected' do
+
+      visit "/admin/applications/#{@bonds.id}"
+
+      within "#pet-#{@skeeter.id}" do
+        click_on "APPROVE THIS PET"
+      end
+      within "#pet-#{@lobster.id}" do
+        click_on "DENY THIS PET"
+      end
+      # save_and_open_page
+      expect(page).to have_content("Application Status: rejected")
+
+    end
+
 
 
 
