@@ -8,4 +8,13 @@
   <li><a href="/pets/<%= pet.id %>/"> <%= pet.name %> </a></li>
   <% end %>
 </ul>
-<p> Application Status: <%= @application.status %>
+<p> Application Status: <%= @application.status %></p>
+
+<% if @pets %>
+<section name="application_submission_form">
+  <%= form_with url: "/application/#{@application.id}", method: :patch, local: true do |t| %>
+  <%= t.label "Why I would make a good owner:" %>
+  <%= t.text_area :description, value: params[:description], required: true %>
+  <%= t.submit :submit_this_application %>
+  <% end %>
+<% end %>
