@@ -17,7 +17,6 @@ RSpec.describe 'the application show' do
     expect(page).to have_content(application.description)
     expect(page).to have_content(application.status)
     expect(page).to have_content('Pet(s) applying for: Spot')
-    save_and_open_page
   end
 
   it "searches for pets and adds them to an application" do
@@ -32,9 +31,9 @@ RSpec.describe 'the application show' do
 
     fill_in 'Search', with: 'Spot'
     click_button 'Submit'
-    save_and_open_page
+
     expect(current_path).to eq("/applications/#{application.id}/")
-    # binding.pry
+
     expect(page).to have_content("Spot")
     expect(page).to_not have_content("Chungus")
   end

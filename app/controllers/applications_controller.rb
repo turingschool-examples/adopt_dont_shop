@@ -2,10 +2,9 @@ class ApplicationsController < ApplicationController
 
   def show
     @application = Application.find(params[:id])
-    # binding.pry
+
     if params[:search] != nil
       @search_results = Pet.search_by_name(params[:search])
-      binding.pry
     end
   end
 

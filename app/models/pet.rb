@@ -16,7 +16,6 @@ class Pet < ApplicationRecord
   end
 
   def self.search_by_name(input)
-    binding.pry
     where(name: input)
   end
 end
