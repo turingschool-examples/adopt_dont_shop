@@ -14,14 +14,14 @@ RSpec.describe 'the admin shelters index' do
 
     @pet_5 = @shelter_3.pets.create(name: 'Lucille Bald', breed: 'sphynx', age: 8, adoptable: true)
 
-    @application_1 = Application.create!(name: "Anita Barker", street_address: '2468 Park Blvd.', city: "Denver", state: "CO", zipcode: "80202")
-    @application_2 = Application.create!(name: "Frodo Baggins", street_address: '1 Shire Ave', city: "Denver", state: "CO", zipcode: "80202")
+    @application_1 = Application.create!(name: "Anita Barker", street_address: '2468 Park Blvd.', city: "Denver", state: "CO", zipcode: "80202", status: "Pending")
+    @application_2 = Application.create!(name: "Frodo Baggins", street_address: '1 Shire Ave', city: "Denver", state: "CO", zipcode: "80202", status: "Rejected")
 
     @pet_app_1 = PetApplication.create(pet: @pet_1, application: @application_1)
     @pet_app_2 = PetApplication.create(pet: @pet_2, application: @application_1)
-    @pet_app_3 = PetApplication.create(pet: @pet_3, application: @application_1, status: "Approved")
+    @pet_app_3 = PetApplication.create(pet: @pet_3, application: @application_1)
     @pet_app_4 = PetApplication.create(pet: @pet_1, application: @application_2)
-    @pet_app_5 = PetApplication.create(pet: @pet_4, application: @application_2, status: "Rejected")
+    @pet_app_5 = PetApplication.create(pet: @pet_4, application: @application_2)
   end
 
   describe 'on index page' do
@@ -39,8 +39,8 @@ RSpec.describe 'the admin shelters index' do
     expect(page).to have_content("Shelters with Pending Applications")
     within ".pending" do
       expect(page).to have_content(@shelter_1.name)
-      expect(page).to have_content(@shelter_3.name)
-      expect(page).not_to have_content(@shelter_2.name)
+      expect(page).to have_content(@shelter_2.name)
+      expect(page).not_to have_content(@shelter_3.name)
     end
   end
 end

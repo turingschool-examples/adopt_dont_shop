@@ -20,6 +20,11 @@ class Shelter < ApplicationRecord
     find_by_sql("SELECT * FROM shelters ORDER BY name desc")
   end
 
+  def self.pending_apps
+    joins(pets: :applications).where("applications.status = ?", "Pending")
+
+  end
+
   def pet_count
     pets.count
   end
@@ -35,4 +40,5 @@ class Shelter < ApplicationRecord
   def shelter_pets_filtered_by_age(age_filter)
     adoptable_pets.where('age >= ?', age_filter)
   end
+
 end
