@@ -10,10 +10,14 @@ class Shelter < ApplicationRecord
   end
 
   def self.order_by_number_of_pets
-    select("shelters.*, count(pets.id) AS pets_count")
-      .joins("LEFT OUTER JOIN pets ON pets.shelter_id = shelters.id")
-      .group("shelters.id")
-      .order("pets_count DESC")
+    select('shelters.*, count(pets.id) AS pets_count')
+      .joins('LEFT OUTER JOIN pets ON pets.shelter_id = shelters.id')
+      .group('shelters.id')
+      .order('pets_count DESC')
+  end
+
+  def self.order_by_reverse_alphabetical
+    find_by_sql('SELECT * FROM shelters ORDER BY name desc')
   end
 
   def pet_count
