@@ -42,8 +42,8 @@ RSpec.describe Shelter, type: :model do
       end
     end
 
-    describe '#pending_apps' do
-      it 'selects the shelters that have pending applications' do
+    describe '#class methods' do
+      it 'pending_apps' do
         @pet_5 = @shelter_2.pets.create!(name: 'Joey', breed: 'ragdoll', age: 8, adoptable: true)
 
         @application_1 = Application.create!(name: "Anita Barker", street_address: '2468 Park Blvd.', city: "Denver", state: "CO", zipcode: "80202", status: "Pending")
@@ -56,6 +56,14 @@ RSpec.describe Shelter, type: :model do
         PetApplication.create!(pet: @pet_5, application: @application_2)
 
         expect(Shelter.pending_apps).to eq([@shelter_1, @shelter_3])
+      end
+
+      it 'name_and_city' do
+        shelter_search = Shelter.name_and_city(@shelter_2.id).first
+        expect(shelter_search.name).to eq(@shelter_2.name)
+        expect(shelter_search.city).to eq(@shelter_2.city)
+        # expect(shelter_search.foster_program).to eq(nil)
+        # expect(shelter_search.rank).not_to eq(@shelter_2.rank)
       end
     end
   end
