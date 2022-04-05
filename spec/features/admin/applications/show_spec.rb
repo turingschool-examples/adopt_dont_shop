@@ -23,6 +23,7 @@ RSpec.describe 'admin application show page' do
     @shelter_1 = Shelter.create!(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
     @pet_1 = @shelter_1.pets.create(name: 'Mr. Pirate', breed: 'tuxedo shorthair', age: 5, adoptable: true)
     @pet_2 = @shelter_1.pets.create(name: 'Clawdia', breed: 'shorthair', age: 3, adoptable: true)
+    @pet_3 = @shelter_1.pets.create(name: "Sammy", breed: "daschund", age: 8, adoptable: true)
     @pet_app1 = PetApplication.create!(pet: @pet_1, application: @application_1)
     @pet_app2 = PetApplication.create!(pet: @pet_2, application: @application_1)
     @pet_app3 = PetApplication.create!(pet: @pet_1, application: @application_2)
@@ -105,7 +106,12 @@ RSpec.describe 'admin application show page' do
     expect(approved_app.status).to eq("Approved")
 
     visit "/pets/#{@pet_1.id}"
-    # save_and_open_page
     expect(page).to have_content("false")
+
+    visit "/pets/#{@pet_2.id}"
+    expect(page).to have_content("false")
+
+    visit "/pets/#{@pet_3.id}"
+    expect(page).to have_content("true")
   end
 end
