@@ -71,5 +71,6 @@ class Shelter < ApplicationRecord
         end
       end
     end
+    action_required
   end
 end
