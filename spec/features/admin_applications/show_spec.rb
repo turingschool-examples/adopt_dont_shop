@@ -25,12 +25,14 @@ RSpec.describe 'Admin Applications Show Page' do
           click_on "APPROVE THIS PET"
       end
       expect(current_path).to eq("/admin/applications/#{@bonds.id}")
-      save_and_open_page
+      # save_and_open_page
       within "#pet-#{@lobster.id}" do
         expect(page).to have_content("This Pet Has Been Approved!")
-        expect(page).to_not have_content("APPROVE")
+        expect(page).to_not have_content("APPROVE THIS PET")
       end
-
+      within "#pet-#{@skeeter.id}" do
+        expect(page).to_not have_content("This Pet Has Been Approved!")
+      end
     end
 
   end
