@@ -1,26 +1,29 @@
 <p><%= @application.name %></p>
 <p><%= @application.street_address%>, <%= @application.city %>, <%= @application.state %> <%= @application.zipcode %></p>
-<p>Application stauts: <%=@application.status%></p>
+<h3>Application status: <%=@application.status%></h3>
+
+
+<% if @application.status == "In Progress" %>
 <h4>Add a Pet to this Application</h4>
+	<%= form_with url: "/applications/#{@application.id}", method: :get, local:true do |f|%>
+		<%= f.label :search_by_name %>
+		<%= f.text_area :search_by_name %>'
+		<%= f.submit "Submit" %>
+	<% end  %>
 
-<%= form_with url: "/applications/#{@application.id}", method: :get, local:true do |f|%>
-	<%= f.label :search_by_name %>
-	<%= f.text_area :search_by_name %>'
-	<%= f.submit "Submit" %>
-<% end  %>
 
-<% if @pet_found && @pet_found.first %>
-<% @pet_found.each do |pet| %>
-
-	<h4>Match found:</h4>
-	<p><%= pet.name %></p>
-	<p><%= pet.age %></p>
-	<p><%= pet.breed %></p>
-	<p><%= pet.adoptable %></p>
+	<% if @pet_found && @pet_found.first %>
+		<% @pet_found.each do |pet| %>
+			<h4>Match found:</h4>
+			<p><%= pet.name %></p>
+			<p><%= pet.age %></p>
+			<p><%= pet.breed %></p>
+			<p><%= pet.adoptable %></p>
 	<p><%= button_to "Adopt #{pet.name}", "/applications/#{@application.id}/pets", method: :post, params: {:pet_id => pet.id, :application_id => @application.id}%></p>
 	<% end %>
-<% else %>
-	<p>No pet by this name is found</p>
+	<% else %>
+		<p>No pet by this name is found</p>
+	<% end %>
 <% end %>
 
 <section id="pets_selected">
@@ -28,10 +31,21 @@
 	<% if @pets_added && @pets_added.first %>
 		<h4>Pets added:</h4>
 		<% @pets_added.each do |pet| %>
-			<p><%= pet.name %></p>
-			<p><%= pet.age %></p>
-			<p><%= pet.breed %></p>
+			<p>Pet name: <%= pet.name %></p>
+			<p>Pet age: <%= pet.age %></p>
+			<p>Pet breed: <%= pet.breed %></p>
 			<% end %>
 
 	<% end %>
-	</section>
+</section>
+<% if @application.status == "In Progress" %>
+	<% if @pets_added && @pets_added.first %>
+		<%= form_with url: "/applications/#{@application.id}", method: :patch, local:true do |f|%>
+			<%= f.label :description %>
+			<%= f.text_area :description %>
+			<%= f.submit "Submit Description" %>
+		<% end %>
+	<% end %>
+<% else %>
+	<p>Why I would make a good home: <%= @application.description %></p>
+<% end %>
