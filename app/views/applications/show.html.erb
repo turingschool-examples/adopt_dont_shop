@@ -1,4 +1,7 @@
 <h2>Application Information</h2>
+<div class="flash_messages">
+  <%= flash[:notice] %>
+</div>
 <p> Name: <%= @application.name %></p>
 <p> Address: <%= @application.street_address %>, <%= @application.city %> <%= @application.state %>, <%= @application.zip_code %></p>
 <p> Description: <%= @application.description %></p>
@@ -10,11 +13,12 @@
 </ul>
 <p> Application Status: <%= @application.status %></p>
 
-<% if @pets %>
+<% if @pets.length > 0  %>
 <section name="application_submission_form">
-  <%= form_with url: "/application/#{@application.id}", method: :patch, local: true do |t| %>
+  <%= form_with url: "/applications/#{@application.id}", method: :patch, local: true do |t| %>
   <%= t.label "Why I would make a good owner:" %>
-  <%= t.text_area :description, value: params[:description], required: true %>
+  <%= t.text_area :description, value: params[:description] %>
   <%= t.submit :submit_this_application %>
   <% end %>
+</section>
 <% end %>

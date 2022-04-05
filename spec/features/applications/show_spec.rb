@@ -62,7 +62,7 @@ RSpec.describe "Application Show Page" do
     expect(page).to have_content(@pet_3.name)
   end
 
-  xit "does not display :description form unless application has pets added to it" do
+  it "does not display :description form unless application has pets added to it" do
     visit "/applications/#{@application_2.id}"
 
     expect(page).to have_field(:search)
