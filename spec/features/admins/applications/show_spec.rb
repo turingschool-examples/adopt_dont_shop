@@ -251,19 +251,19 @@ RSpec.describe 'admin_applications show page' do
         within "#pet-#{pet_1.id}" do
           expect(page).not_to have_button("Approve")
           expect(page).to have_button("Reject")
-          expect(page).to have_content("This pet has already been approved for adoption.")
+          expect(page).to have_content("This pet has already been approved for adoption on another application.")
         end
 
         within "#pet-#{pet_2.id}" do
           expect(page).not_to have_button("Approve")
           expect(page).to have_button("Reject")
-          expect(page).to have_content("This pet has already been approved for adoption.")
+          expect(page).to have_content("This pet has already been approved for adoption on another application.")
         end
 
         within "#pet-#{pet_3.id}" do
           expect(page).not_to have_button("Approve")
           expect(page).to have_button("Reject")
-          expect(page).to have_content("This pet has already been approved for adoption.")
+          expect(page).to have_content("This pet has already been approved for adoption on another application.")
         end
       end
     end

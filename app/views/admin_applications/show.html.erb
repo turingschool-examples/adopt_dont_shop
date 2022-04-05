@@ -8,6 +8,9 @@
     <% elsif application_pet.rejected? %>
       <h3><%= application_pet.pet.name %></h3>
       <p>Rejected!</p>
+    <% elsif application_pet.pet.has_any_approved_applications? %>
+      <h3>This pet has already been approved for adoption on another application.</h3>
+      <%= button_to "Reject", "/admin/applications/#{@application.id}", params: {status: :rejected, application_pet_id: application_pet.id}, method: :patch, local: true %>
     <% else %>
       <h3><%= application_pet.pet.name %></h3>
       <%= button_to "Approve", "/admin/applications/#{@application.id}", params: {status: :approved, application_pet_id: application_pet.id}, method: :patch, local: true %>
