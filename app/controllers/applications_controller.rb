@@ -24,11 +24,19 @@ class ApplicationsController < ApplicationController
     if params[:search_by_name]
       @pet_found = Pet.search_by_name(params[:search_by_name])
     end
-    if params[:description]
-      @application.status = "Pending"
-    end
 
   end
+
+    def update
+      @application = Application.find(params[:id])
+      if params[:description]
+
+        @application.description = params[:description]
+        @application.status = "Pending"
+        @application.save
+      end
+      redirect_to "/applications/#{@application.id}"
+    end
 
 
 

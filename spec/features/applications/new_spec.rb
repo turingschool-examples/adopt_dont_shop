@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe 'the applications new' do
-	
-	it 'creates a new application' do 
+
+	it 'creates a new application' do
 		shelter = Shelter.create!(name: "Max Fund", city: "Denver", rank: 100, foster_program:true)
 		pet_1 = shelter.pets.create!(name: "Dianne", age: 3, breed: "cat?", adoptable: true)
 		visit "/pets/#{pet_1.id}"
@@ -21,11 +21,11 @@ RSpec.describe 'the applications new' do
 
 		expect(page).to have_content("Kim G")
 		expect(page).to have_content("123 Lowell St, Aurora, CO 80663")
-		expect(page).to have_content("Application stauts: In Progress")
+		expect(page).to have_content("Application status: In Progress")
 	end
 
 
-	it 'redirects to application/new and gives error messages' do 
+	it 'redirects to application/new and gives error messages' do
 		visit '/applications/new'
 
 		fill_in "Name", with: nil

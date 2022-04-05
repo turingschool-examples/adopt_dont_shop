@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe 'the applications show' do
 	before :each do
  		@application = Application.create!(name: "Tyler R", street_address:"1000 Something Blvd",
-										  city: "Denver", state: "CO", zipcode: 80123)
+										  city: "Denver", state: "CO", zipcode: 80123, status: "In Progress")
 		@shelter = Shelter.create!(name: "Max Fund", city: "Denver", rank: 100, foster_program:true)
 		@pet_1 = @shelter.pets.create!(name: "Dianne", age: 3, breed: "cat?", adoptable: true)
 	end
@@ -58,20 +58,24 @@ RSpec.describe 'the applications show' do
 
 	end
 
-	# it 'has an area to enter description and changes status on submittal' do
-	# 	visit "/applications/#{@application.id}"
-	# 	fill_in "Search by name", with: "Dianne"
-	# 	click_button "Submit"
-	#
-	# 	expect(page).to have_content("Description")
-	#
-	# 	fill_in "Description", with: "I eat my vegetables"
-	# 	click_button "Submit"
-	#
-	# 	expect(current_path).to eq("/applications/#{@application.id}")
-	# 	expect(page).to have_content("Pending")
-	#
-	# end
+	 it 'has an area to enter description and changes status on submittal' do
+	 	visit "/applications/#{@application.id}"
+	 	fill_in "Search by name", with: "Dianne"
+	 	click_button "Submit"
+		click_button "Adopt #{@pet_1.name}"
+
+	 	expect(page).to have_content("Description")
+
+	 	fill_in "Description", with: "I eat my vegetables"
+		click_button "Submit Description"
+
+	 	expect(current_path).to eq("/applications/#{@application.id}")
+	
+	 	expect(page).to have_content("Pending")
+		expect(page).to have_content(@application.description)
+		expect(page).to_not have_content("Search by name")
+
+	 end
 
 
 end
