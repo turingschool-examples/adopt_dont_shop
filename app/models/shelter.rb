@@ -50,14 +50,30 @@ class Shelter < ApplicationRecord
   end
 
   def adoptable_pet_count
-    a = Shelter.with_pending_applications
-    # require 'pry'; binding.pry
     adoptable_pets.count
   end
 
   def action_required_pets
-    shelters = Shelter.with_pending_applications
+    pet_array = []
+    action_required = []
+    # new idea
+
+    pets.each do |pet|
+      pet.application_pets.each do |application_pet|
+        if application_pet.status == "pending"
+          pet_array << pet
+          # require 'pry'; binding.pry
+        end
+      end
+    end
+
+    pet_array.each do |pet|
+      pet.application_pets.each do |application_pet|
+        if Application.find(application_pet.application_id).status == "Pending"
+          action_required << pet
+        end
+      end
+    end
     # require 'pry'; binding.pry
-    # adoptable_pets.count
   end
 end
