@@ -31,6 +31,10 @@ RSpec.describe 'admin_applications show page' do
           expect(page).not_to have_button("Approve")
           expect(page).to have_content("Approved!")
         end
+
+        within "#pet-#{pet_2.id}" do
+          expect(page).to have_button("Approve")
+        end
       end
 
       it 'for every pet, i see a button to reject the application for that specific pet' do
