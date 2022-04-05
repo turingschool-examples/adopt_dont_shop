@@ -96,5 +96,11 @@ RSpec.describe Shelter, type: :model do
         expect(@shelter_1.adoptable_pet_count).to eq(2)
       end
     end
+
+    describe '.action_required_pets' do
+      it 'returns the pets (not approved or rejected) from applications that are pending' do
+        expect(@shelter_1.action_required_pets).to eq(2)
+      end
+    end
   end
 end

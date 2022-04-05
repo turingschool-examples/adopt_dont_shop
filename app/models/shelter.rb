@@ -50,6 +50,14 @@ class Shelter < ApplicationRecord
   end
 
   def adoptable_pet_count
+    a = Shelter.with_pending_applications
+    # require 'pry'; binding.pry
     adoptable_pets.count
+  end
+
+  def action_required_pets
+    shelters = Shelter.with_pending_applications
+    # require 'pry'; binding.pry
+    # adoptable_pets.count
   end
 end
