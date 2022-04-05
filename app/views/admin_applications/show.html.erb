@@ -14,10 +14,23 @@ Adoptable Pets: <% @application.pets.each do |pet| %><br>
       <%= form.hidden_field :pet_id, value: "#{pet.id}" %>
       <%= form.submit "APPROVE THIS PET" %>
       <% end  %>
+      <%= form_with url: "/admin/applications/#{@application.id}?deny=pet", method: :patch, local: true do |form| %>
+      <%= form.hidden_field :pet_status, value: 2 %>
+      <%= form.hidden_field :pet_id, value: "#{pet.id}" %>
+      <%= form.submit "DENY THIS PET" %>
+      <% end  %>
 
-    <% else %><br>
-    This Pet Has Been Approved!
+      <% elsif @application.application_pet_status(pet.id) == "approved" %>
+      This Pet Has Been Approved!
+      <% elsif @application.application_pet_status(pet.id) == "denied" %>
+        <br>This Pet Has Been Denied!
+
+
+
+
     <% end  %>
+
+
 </div>
 
 
