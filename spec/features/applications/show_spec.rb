@@ -68,12 +68,12 @@ RSpec.describe 'the applications show page' do
 
       click_button 'Search'
       click_button 'Adopt'
-      # binding.pry
+
       expect(page).to have_content('Describe why you make a good owner for these pets:')
       fill_in('Description', with: 'Dogs are amazing')
+
       click_button 'Submit Application'
-      # binding.pry
-      save_and_open_page
+
       expect(current_path).to eq("/applications/#{@application1.id}")
       expect(page).to have_content('Pending')
       expect(page).to_not have_content('Accepted')
