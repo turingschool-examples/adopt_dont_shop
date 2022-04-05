@@ -18,8 +18,14 @@
 			<% if @application.application_pet_status(pet.id) %>
 				<h4>Application for <%=pet.name%> <%=@application.application_pet_status(pet.id)%></h4>
 			<% else %>
+				<% if pet.adoptable %>
 				<p><%= button_to "Approve application for #{pet.name}", "/admin/applications/#{@application.id}/pets", method: :patch, params: {:pet_id => pet.id, :application_id => @application.id, :status => 'approved'}%></p>
 				<p><%= button_to "Reject application for #{pet.name}", "/admin/applications/#{@application.id}/pets", method: :patch, params: {:pet_id => pet.id, :application_id => @application.id, :status => 'rejected'}%></p>
+				<% else %>
+					<h4><%= pet.name %> has been adopted!</h4>
+					<p><%= button_to "Reject application for #{pet.name}", "/admin/applications/#{@application.id}/pets", method: :patch, params: {:pet_id => pet.id, :application_id => @application.id, :status => 'rejected'}%></p>
+				<% end %>
+
 			<% end %>
 	
 			<% if @application.all_pets_reviewed? %>

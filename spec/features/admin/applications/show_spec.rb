@@ -30,7 +30,7 @@ RSpec.describe 'the admin applications show' do
       application_pet_updated = ApplicationPet.find(@application_pet1.id)
     
       expect(page).to have_content("Application for #{@pet_1.name} #{application_pet_updated.status}")
-      expect(page).to_not have_content("Approve application for #{@pet_1.name}")
+      expect(page).to_not have_button("Approve application for #{@pet_1.name}")
     end
   end
 
@@ -44,8 +44,8 @@ RSpec.describe 'the admin applications show' do
       application_pet_updated = ApplicationPet.find(@application_pet1.id)
     
       expect(page).to have_content("Application for #{@pet_1.name} #{application_pet_updated.status}")
-      expect(page).to_not have_content("Approve application for #{@pet_1.name}")
-      expect(page).to_not have_content("Reject application for #{@pet_1.name}")
+      expect(page).to_not have_button("Approve application for #{@pet_1.name}")
+      expect(page).to_not have_button("Reject application for #{@pet_1.name}")
     end
   end
 
@@ -64,8 +64,8 @@ RSpec.describe 'the admin applications show' do
       visit "/admin/applications/#{@application_2.id}"
 
       within("#pets_added-#{@pet_1.id}") do 
-        expect(page).to_not have_content("Approve application for #{@pet_1.name}")
-        expect(page).to_not have_content("Reject application for #{@pet_1.name}")
+        expect(page).to have_button("Approve application for #{@pet_1.name}")
+        expect(page).to have_button("Reject application for #{@pet_1.name}")
       end 
   
   end
@@ -93,6 +93,38 @@ RSpec.describe 'the admin applications show' do
 
       expect(current_path).to eq("/admin/applications/#{application_3.id}")
       expect(page).to have_content('Application Status: Approved')
+
+      visit "/pets/#{@pet_1.id}"
+
+      expect(page).to have_content("Adoptable? false")
+
+      visit "/pets/#{@pet_2.id}"
+
+      expect(page).to have_content("Adoptable? false")
   end
 
+
+  it 'pets with approved applicatiopn can only be rejected for other applications' do 
+      @application_pet2 = ApplicationPet.create!(application: @application_2, pet: @pet_1)
+      @application_2.description = "I am lonely and need fluffy mammals too"
+      @application_2.status = "Pending"
+      @application_2.save
+
+    visit "/admin/applications/#{@application_1.id}"
+
+
+    within("#pets_added-#{@pet_1.id}") do 
+
+      click_button "Approve application for #{@pet_1.name}"
+    end 
+
+    visit "/admin/applications/#{@application_2.id}"
+   
+    within("#pets_added-#{@pet_1.id}") do 
+   
+    expect(page).to_not have_button("Approve application for #{@pet_1.name}")
+    expect(page).to have_content("#{@pet_1.name} has been adopted!")
+    expect(page).to have_button("Reject application for #{@pet_1.name}")
+    end 
+  end 
 end
