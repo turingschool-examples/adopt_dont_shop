@@ -9,7 +9,6 @@ class AdminSheltersController < ApplicationController
     id = params[:id]
     @shelter = Shelter.find_by_sql("SELECT name, city FROM shelters WHERE shelters.id = #{id}")
     @shelter_pets = Shelter.find_by_sql("SELECT age FROM pets WHERE shelter_id=#{id} AND adoptable=true")
-    require 'pry'; binding.pry
     if @shelter_pets.count > 0
       @shelter_average_age = @shelter_pets.map {|pet|pet.age}.sum / @shelter_pets.count
     end
