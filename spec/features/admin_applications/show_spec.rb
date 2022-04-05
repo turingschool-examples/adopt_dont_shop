@@ -97,12 +97,12 @@ RSpec.describe 'Admin Applications Show Page' do
       visit "/admin/applications/#{@bonds.id}"
 
       within "#pet-#{@skeeter.id}" do
-        click_on "APPROVE THIS PET"
-      end
-      within "#pet-#{@lobster.id}" do
         click_on "DENY THIS PET"
       end
-      # save_and_open_page
+      within "#pet-#{@lobster.id}" do
+        click_on "APPROVE THIS PET"
+      end
+      save_and_open_page
       expect(page).to have_content("Application Status: rejected")
 
     end
