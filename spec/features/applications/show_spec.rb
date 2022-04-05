@@ -49,4 +49,22 @@ RSpec.describe "Application Show Page" do
     expect(page).to have_content(@pet_2.name)
     # We may decide to add other pet atributes here?
   end
+
+  it 'allows visitors to add pets to unsubmitted application' do
+  
+    visit "/applications/#{@application_2.id}/"
+
+    expect(page).not_to have_content(@pet_2.name)
+
+    fill_in :find_pet, with: "Scrappy"
+    click_on "Search"
+
+    expect(page).to have_button("Adopt This Pet")
+
+    click_on "Adopt This Pet"
+
+    expect(current_path).to eq("/applications/#{@application_2.id}")
+    expect(page).to have_content(@pet_2.name)
+    expect(page.text.index(@pet_2.name)).to be < page.text.index("Search")
+  end
 end
