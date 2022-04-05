@@ -66,6 +66,8 @@ RSpec.describe 'admin_shelters show page' do
           within "#action_required" do
             expect(page).to have_content("Scrappy")
             expect(page).to have_content("Sparky")
+            expect(page).to_not have_content("Spot")
+            expect(page).to_not have_content("Rupert")
             expect(page).to_not have_content("Charles")
           end
 
