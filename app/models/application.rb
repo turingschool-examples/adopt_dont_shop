@@ -10,23 +10,17 @@ class Application < ApplicationRecord
   validates_presence_of :status
 
   def all_pets_approved?
-    pet_ids = pets.map {|pet| pet.id}
-    int_approved_pet_ids = approved_pet_ids.map {|pet_id| pet_id.to_i}
-    pet_ids.all? {|pet_id| int_approved_pet_ids.include?(pet_id)}
+    # application_pets.all == application_pets.approved
+    application_pets.all? {|application_pet| application_pet.approved? }
   end
 
   def all_pets_have_ruling?
-    pet_ids = pets.map {|pet| pet.id}
-    pet_ids.count == approved_pet_ids.count + rejected_pet_ids.count
+    application_pets.pending.none?
+    # application_pets.none? {|application_pet| application_pet.pending? }
   end
 
   def any_pets_rejected?
-    pet_ids = pets.map {|pet| pet.id}
-    int_rejected_pet_ids = rejected_pet_ids.map {|pet_id| pet_id.to_i}
-    if all_pets_have_ruling?
-      pet_ids.any? {|pet_id| int_rejected_pet_ids.include?(pet_id)}
-    else
-      false
-    end
+    application_pets.rejected.any?
+    # application_pets.any? {|application_pet| application_pet.rejected? }
   end
 end

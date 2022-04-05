@@ -24,9 +24,7 @@ RSpec.describe Application, type: :model do
       pet_2 = application.pets.create!(name: 'Sparky', age: 1, breed: 'Great Dane', adoptable: true, shelter_id: shelter.id)
       pet_3 = application.pets.create!(name: 'Spot', age: 1, breed: 'Great Dane', adoptable: true, shelter_id: shelter.id)
 
-      application.approved_pet_ids << pet_1.id
-      application.approved_pet_ids << pet_2.id
-      application.approved_pet_ids << pet_3.id
+      application.application_pets.each {|application_pet| application_pet.update(status: :approved)}
 
       expect(application.all_pets_approved?).to eq(true)
     end
@@ -38,12 +36,9 @@ RSpec.describe Application, type: :model do
       pet_2 = application.pets.create!(name: 'Sparky', age: 1, breed: 'Great Dane', adoptable: true, shelter_id: shelter.id)
       pet_3 = application.pets.create!(name: 'Spot', age: 1, breed: 'Great Dane', adoptable: true, shelter_id: shelter.id)
 
-      application.approved_pet_ids << pet_1.id
-      application.approved_pet_ids << pet_2.id
-
-      expect(application.all_pets_have_ruling?).to eq(false)
-
-      application.rejected_pet_ids << pet_3.id
+      application.application_pets.third.update(status: :approved)
+      application.application_pets.second.update(status: :approved)
+      application.application_pets.first.update(status: :approved)
 
       expect(application.all_pets_have_ruling?).to eq(true)
     end
@@ -55,12 +50,9 @@ RSpec.describe Application, type: :model do
       pet_2 = application.pets.create!(name: 'Sparky', age: 1, breed: 'Great Dane', adoptable: true, shelter_id: shelter.id)
       pet_3 = application.pets.create!(name: 'Spot', age: 1, breed: 'Great Dane', adoptable: true, shelter_id: shelter.id)
 
-      application.approved_pet_ids << pet_1.id
-      application.approved_pet_ids << pet_2.id
-
-      expect(application.any_pets_rejected?).to eq(false)
-
-      application.rejected_pet_ids << pet_3.id
+      application.application_pets.third.update(status: :approved)
+      application.application_pets.second.update(status: :approved)
+      application.application_pets.first.update(status: :rejected)
 
       expect(application.any_pets_rejected?).to eq(true)
     end
