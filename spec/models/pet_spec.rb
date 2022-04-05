@@ -9,6 +9,7 @@ RSpec.describe Pet, type: :model do
     it { should validate_presence_of(:name) }
     it { should validate_presence_of(:age) }
     it { should validate_numericality_of(:age) }
+    it { should validate_presence_of(:breed) }
   end
 
   before(:each) do
@@ -21,7 +22,7 @@ RSpec.describe Pet, type: :model do
   describe 'class methods' do
     describe '#search' do
       it 'returns partial matches' do
-        expect(Pet.search("Claw")).to eq([@pet_2])
+        expect(Pet.search('Claw')).to eq([@pet_2])
       end
     end
 
