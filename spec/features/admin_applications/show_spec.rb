@@ -76,6 +76,25 @@ RSpec.describe 'Admin Applications Show Page' do
         expect(page).to_not have_content("This Pet Has Been Denied!")
       end
     end
+
+    it 'I approve all pets on an application, I see the application status is now Approved' do
+
+      visit "/admin/applications/#{@bonds.id}"
+
+      within "#pet-#{@skeeter.id}" do
+        click_on "APPROVE THIS PET"
+      end
+      within "#pet-#{@lobster.id}" do
+        click_on "APPROVE THIS PET"
+      end
+
+      expect(page).to have_content("Application Status: approved")
+
+    end
+
+
+
+
   end
 
 
