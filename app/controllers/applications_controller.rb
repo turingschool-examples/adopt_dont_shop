@@ -20,4 +20,8 @@ class ApplicationsController < ApplicationController
     end
   end
 
+  def add_pet
+    ApplicationPet.create!(pet_id: params[:chosen_pet], application_id: params[:id])
+    redirect_to "/applications/#{params[:id]}"
+  end
 end
