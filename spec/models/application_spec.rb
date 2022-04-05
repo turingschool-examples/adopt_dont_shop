@@ -29,6 +29,18 @@ RSpec.describe Application, type: :model do
         expect(@application.pets_added).to eq([@pet_1])
       end
 
+      describe '#application_pet_status' do
+
+        it 'returns application_pet status if association is updated' do 
+        @application_pet1 = ApplicationPet.create!(application: @application, pet: @pet_1)
+        application_pet_updated = ApplicationPet.find(@application_pet1.id)
+        application_pet_updated.status = 'approved'
+        application_pet_updated.save
+        expect(@application.application_pet_status(@pet_1.id)).to eq('approved')
+        end
+
+
+      end
     end
   end
 

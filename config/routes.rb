@@ -42,9 +42,10 @@ Rails.application.routes.draw do
   get '/applications/new', to: 'applications#new'
   get '/applications/:id', to: 'applications#show'
   post '/applications', to: 'applications#create'
-  #post app/id tto pet_app#create, create in p_a controller, redirect
+  post '/applications/:id/pets', to: 'application_pets#create'
 
-  get '/admin/shelters', to: 'admin_shelters#index'
 
-  post "/applications/:id/pets", to: 'application_pets#create'
+  get '/admin/shelters', to: 'admin/shelters#index'
+  get 'admin/applications/:id', to: 'admin/applications#show'
+  patch "/admin/applications/:id/pets", to: 'admin/application_pets#update'
 end
