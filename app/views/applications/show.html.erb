@@ -3,7 +3,7 @@
 <h3>Description: <%= @application.description %></h3>
 
 <% @application.pets.each do |pet| %>
-  <h3>Pet(s) applying for: <%=link_to pet.name, "/pets/#{pet.id}" %> </h3>
+  <h3>Applying for pet: <%=link_to pet.name, "/pets/#{pet.id}" %> </h3>
 <% end %>
 <h3>Application status: <%= @application.status %></h3>
 
@@ -19,5 +19,6 @@
 <% if @search_results %>
   <% @search_results.each do |pet| %>
     <%= pet.name %>
+    <%= button_to "Adopt this Pet", action: "add_pet", params: {chosen_pet: pet.id} %>
   <% end %>
 <% end %>
