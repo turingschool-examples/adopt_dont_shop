@@ -34,10 +34,6 @@ RSpec.describe 'admin_shelters show page' do
           end
         end
 
-        #         As a visitor
-# When I visit an admin shelter show page
-# Then I see a section titled "Action Required"
-# In that section, I see a list of all pets for this shelter that have a pending application and have not yet been marked "approved" or "rejected"
         it 'displays a section titled Action Required that lists the pets with pending applicaitons, not approved or rejected' do
           application_1 = Application.create!(name: 'Chris', address: '505 Main St.', city: 'Denver', state: 'CO', zipcode: '80205', description: "I'm great with dogs.", status: 'Pending')
           application_2 = Application.create!(name: 'John', address: '505 Main St.', city: 'Denver', state: 'CO', zipcode: '80205', description: "I'm great with dogs.", status: 'In Progress')
@@ -62,17 +58,12 @@ RSpec.describe 'admin_shelters show page' do
           visit "/admin/shelters/#{shelter.id}"
 
           expect(page).to have_content("Action Required")
-
           within "#action_required" do
             expect(page).to have_content("Scrappy")
             expect(page).to have_content("Sparky")
             expect(page).to_not have_content("Spot")
             expect(page).to_not have_content("Rupert")
             expect(page).to_not have_content("Charles")
-          end
-
-          within "#statistics" do
-            expect(page).to have_content("Number of Adopted Pets: 2")
           end
         end
       end
