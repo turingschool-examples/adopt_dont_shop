@@ -12,5 +12,13 @@ class AdminSheltersController < ApplicationController
     if @shelter_pets.count > 0
       @shelter_average_age = @shelter_pets.map {|pet|pet.age}.sum / @shelter_pets.count
     end
+    @app_pets_nil = []
+    Shelter.find(params[:id]).pets.each do |pet|
+      pet.application_pets.each do |app_pet|
+        if app_pet.pet_status == nil && app_pet.application.status == "Pending"
+          @app_pets_nil << app_pet
+        end
+      end
+    end
   end
 end

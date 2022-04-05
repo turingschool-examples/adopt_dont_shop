@@ -51,7 +51,8 @@ RSpec.describe 'the admin shelter show page' do
   
   it "has an 'Action Required' section that has pets who have pending applications and have not been approved/rejected" do
     shelter1 = Shelter.create!(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
-    luna = Pet.create!(name: 'luna', age: 1, breed: 'Cat', adoptable: true, shelter_id: shelter1.id)
+    shelter2 = Shelter.create!(name: 'Denver shelter', city: 'Denver, CO', foster_program: false, rank: 9)
+    luna = shelter1.pets.create!(name: 'luna', age: 1, breed: 'Cat', adoptable: true)
     booth = Pet.create!(name: 'booth', age: 11, breed: 'Cat', adoptable: true, shelter_id: shelter1.id)
     application1 = Application.create!(name: 'Andrew',
       street_address: '112 Greenbrook',
@@ -70,7 +71,7 @@ RSpec.describe 'the admin shelter show page' do
       status: 'In Progress'
     )
     application_pet = ApplicationPet.create!(application_id: application1.id, pet_id: luna.id)
-    application_pet = ApplicationPet.create!(application_id: application2.id, pet_id: booth.id)
+    application_pet = ApplicationPet.create!(application_id: application2.id, pet_id: booth.id, pet_status: "Approved")
     
     visit "/admin/shelters/#{shelter1.id}"
     expect(page).to have_content("Action Required")

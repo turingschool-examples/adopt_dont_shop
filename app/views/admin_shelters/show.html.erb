@@ -8,6 +8,8 @@
   <%= @shelter_average_age %>
 </p>
 <h4>Action Required</h4>
-<% @shelter_pets.each do |pet| %>
-  
+<div id="action_required">
+<% @app_pets_nil.each do |app_pet| %>
+  <p><%= app_pet.pet.name %></p>
 <% end %>
+</div>
