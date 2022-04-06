@@ -7,7 +7,7 @@ Why I am a Good Home: <%= @application.description %><br>
 Adoptable Pets: <% @application.pets.each do |pet| %><br>
 <div id="pet-<%= pet.id %>">
     <%= pet.name %>
-    <% if @application.application_pet_status(pet.id) == "undecided" %>
+    <% if @application.application_pet_status(pet.id) == "undecided" && pet.adoptable == true %>
 
       <%= form_with url: "/admin/applications/#{@application.id}?approve=pet", method: :patch, local: true do |form| %>
       <%= form.hidden_field :pet_status, value: 1 %>
@@ -19,9 +19,10 @@ Adoptable Pets: <% @application.pets.each do |pet| %><br>
       <%= form.hidden_field :pet_id, value: "#{pet.id}" %>
       <%= form.submit "DENY THIS PET" %>
       <% end  %>
-
+      <% elsif pet.adoptable == false %>
+        This Pet Has Been Adopted
       <% elsif @application.application_pet_status(pet.id) == "approved" %>
-      This Pet Has Been Approved!
+        This Pet Has Been Approved!
       <% elsif @application.application_pet_status(pet.id) == "denied" %>
         <br>This Pet Has Been Denied!
 
