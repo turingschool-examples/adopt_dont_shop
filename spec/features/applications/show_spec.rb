@@ -69,7 +69,7 @@ RSpec.describe "Application Show Page" do
   end
 
   it 'Will search for a partial match on unsubmitted search field' do
-    visit "/applications/#{application_2.id}"
+    visit "/applications/#{@application_2.id}"
 
     expect(page).not_to have_content("Scrappy")
 

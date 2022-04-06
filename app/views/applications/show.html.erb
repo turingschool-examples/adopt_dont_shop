@@ -4,7 +4,7 @@
 <p> Description: <%= @application.description %></p>
 <p> Pets on this application: </p>
 <ul>
-  <% @pets.each do |pet| %>
+  <% @application.pets.each do |pet| %>
   <li><a href="/pets/<%= pet.id %>/"> <%= pet.name %> </a></li>
   <% end %>
 </ul>
@@ -15,6 +15,8 @@
   <%= f.text_field :find_pet %>
   <%= f.submit "Search" %>
 <% end %>
-<% @pet_search.each do |pet| %>
+<% if params[:find_pet] != nil %>
+  <% Pet.search_by_name(params[:find_pet]).each do |pet| %>
   <li><%= pet.name %></li> <%= button_to "Adopt This Pet", "/applications/#{@application.id}", method: "post", params: { pet_id: pet.id, application_id: @application.id } %>
+  <% end %>
 <% end %>
