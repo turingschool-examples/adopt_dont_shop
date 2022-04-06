@@ -9,4 +9,5 @@ class Application < ApplicationRecord
   validates_presence_of :state
   validates_presence_of :zipcode
   validates_presence_of :description
+
 end

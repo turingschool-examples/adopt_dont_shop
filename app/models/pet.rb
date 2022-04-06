@@ -18,4 +18,5 @@ class Pet < ApplicationRecord
     pets << joins(pets: :applications).where(applications: {:status => "Approved"})
     pets.count
   end
+
 end
