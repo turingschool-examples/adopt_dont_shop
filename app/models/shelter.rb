@@ -33,9 +33,10 @@ class Shelter < ApplicationRecord
   end
 
   def self.reverse_alphabetical_order
-    select("shelters.*, count(pets.id) AS pets_count")
-      .joins("LEFT OUTER JOIN pets ON pets.shelter_id = shelters.id")
-      .group("shelters.id")
-      .order("name DESC")
+    find_by_sql("SELECT * FROM shelters ORDER BY shelters.name desc")
+  end
+
+  def pending_apps
+    where(pets.applications)
   end
 end

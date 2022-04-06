@@ -18,3 +18,12 @@
 <% end %>
 
 <h1>Shelters With Pending Applications</h1>
+<div id="pending-applications">
+  <% @shelters.each do |shelter| %>
+    <% shelter.pets.each do |pet| %>
+      <% if pet.applications.length > 0 %>
+        <h3><%= shelter.name %> has pending applications for <%= pet.name %><h3>
+      <% end %>
+    <% end %>
+  <% end %>
+</div>
