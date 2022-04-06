@@ -57,15 +57,14 @@ RSpec.describe "Application Show Page" do
 
     expect(current_path).to eq("/applications/#{@application_1.id}")
     expect(page).to have_content("Pending")
-    expect(page).not_to have_field(:search)
+    expect(page).not_to have_field(:find_pet)
     expect(page).to have_content(@pet_2.name)
     expect(page).to have_content(@pet_3.name)
   end
 
   it "does not display :description form unless application has pets added to it" do
     visit "/applications/#{@application_2.id}"
-
-    expect(page).to have_field(:search)
+    expect(page).to have_field(:find_pet)
     expect(page).not_to have_field(:description)
     expect(page).not_to have_button(:submit)
   end
