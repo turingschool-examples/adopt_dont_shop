@@ -125,7 +125,7 @@ RSpec.describe Shelter, type: :model do
         pet_7 = application_1.pets.create(name: 'Mr. Te', breed: 'tuxedo shorthair', age: 5, adoptable: true, shelter_id: shelter_4.id)
         ApplicationPet.where(pet: pet_5, application: application_1).first.update(status: :approved)
         ApplicationPet.where(pet: pet_6, application: application_1).first.update(status: :rejected)
-        expect(shelter_4.action_required_applications).to eq(1)
+        expect(shelter_4.action_required_applications.count).to eq(1)
       end
     end
   end
