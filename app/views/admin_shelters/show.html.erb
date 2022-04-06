@@ -10,8 +10,10 @@
   <p>Action Required</p>
   <ul>
     <% @shelter.action_required_pets.each do |pet| %>
-      <li><%= pet.name %></li>
+      <% @shelter.action_required_applications.each do |application| %>
+        <li><%= pet.name %></li>
+        <%= link_to "Application", "/admin/applications/#{application.id}" %>
+      <% end %>
     <% end %>
   </ul>
-
 </div>

@@ -90,11 +90,6 @@ RSpec.describe 'admin_shelters show page' do
           end
         end
 
-        # As a visitor
-# When I visit an admin shelter show page
-# And I look in the "Action Required" section
-# Then next to each pet's name I see a link to the admin application show page where I can accept or reject the pet.
-
         it 'displays links to applicaiton show pages in the Action Required section' do
           application_1 = Application.create!(name: 'Chris', address: '505 Main St.', city: 'Denver', state: 'CO', zipcode: '80205', description: "I'm great with dogs.", status: 'Pending')
           application_2 = Application.create!(name: 'John', address: '505 Main St.', city: 'Denver', state: 'CO', zipcode: '80205', description: "I'm great with dogs.", status: 'In Progress')
@@ -126,6 +121,10 @@ RSpec.describe 'admin_shelters show page' do
             expect(page).to_not have_content("Spot")
             expect(page).to_not have_content("Rupert")
             expect(page).to_not have_content("Charles")
+          end
+          within "#action_required" do
+            first(:link, "Application").click
+            expect(current_path).to eq("/admin/applications/#{application_1.id}")
           end
         end
       end
