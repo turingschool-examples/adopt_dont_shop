@@ -26,7 +26,6 @@ RSpec.describe 'Admin Shelter Show Page' do
   describe 'As a visitor' do
     describe 'When I visit an admin shelter show page' do
       it 'Then I see that shelters name and full address' do
-        save_and_open_page
         within "#shelter-#{@shelter_1.id}" do
           expect(page).to have_content("#{@shelter_1.name}")
           expect(page).to have_content("#{@shelter_1.full_address}")

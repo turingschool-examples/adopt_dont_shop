@@ -58,12 +58,27 @@ RSpec.describe 'Admin Shelter Index Page' do
       end
 
       it 'And in this section I see the name of every shelter that has a pending application' do
+        # save_and_open_page
         within("#pending_application") do
           expect(page).to have_content("#{@shelter_1.name}")
           expect(page).to have_content("#{@shelter_3.name}")
           expect(page).to_not have_content("#{@shelter_2.name}")
         end
       end
+      it 'Then I see that every shelter name is a link' do
+        within "#shelter-#{@shelter_2.id}" do
+          save_and_open_page
+          expect(page).to have_selector(:link_or_button, "#{@shelter_2.name}")
+        end
+        within "#shelter-#{@shelter_3.id}" do
+          expect(page).to have_selector(:link_or_button, "#{@shelter_3.name}")
+        end
+        within "#shelter-#{@shelter_1.id}" do
+          click_link "#{@shelter_1.name}"
+          expect(current_path).to eq("/admin/shelters/#{@shelter_1.id}")
+        end
+      end
+      it 'When I click one of these links I am taken to that shelters show page'
     end
   end
 end
