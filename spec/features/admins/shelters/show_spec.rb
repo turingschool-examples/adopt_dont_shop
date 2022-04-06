@@ -33,7 +33,7 @@ RSpec.describe 'admin_shelters show page' do
             expect(page).to have_content("Number of Adoptable Pets: 2")
           end
         end
-        
+
         it 'displays a section titled Action Required that lists the pets with pending applicaitons, not approved or rejected' do
           application_1 = Application.create!(name: 'Chris', address: '505 Main St.', city: 'Denver', state: 'CO', zipcode: '80205', description: "I'm great with dogs.", status: 'Pending')
           application_2 = Application.create!(name: 'John', address: '505 Main St.', city: 'Denver', state: 'CO', zipcode: '80205', description: "I'm great with dogs.", status: 'In Progress')
@@ -54,9 +54,9 @@ RSpec.describe 'admin_shelters show page' do
           within "#pet-#{pet_4.id}" do
             click_button "Reject"
           end
-          
+
           visit "/admin/shelters/#{shelter.id}"
-          
+
           within "#action_required" do
             expect(page).to have_content("Scrappy")
             expect(page).to have_content("Sparky")
@@ -87,6 +87,45 @@ RSpec.describe 'admin_shelters show page' do
 
           within "#statistics" do
             expect(page).to have_content("Number of Adopted Pets: 2")
+          end
+        end
+
+        # As a visitor
+# When I visit an admin shelter show page
+# And I look in the "Action Required" section
+# Then next to each pet's name I see a link to the admin application show page where I can accept or reject the pet.
+
+        it 'displays links to applicaiton show pages in the Action Required section' do
+          application_1 = Application.create!(name: 'Chris', address: '505 Main St.', city: 'Denver', state: 'CO', zipcode: '80205', description: "I'm great with dogs.", status: 'Pending')
+          application_2 = Application.create!(name: 'John', address: '505 Main St.', city: 'Denver', state: 'CO', zipcode: '80205', description: "I'm great with dogs.", status: 'In Progress')
+          shelter = Shelter.create(name: 'Mystery Building', city: 'Irvine CA', foster_program: false, rank: 9)
+          shelter_2 = Shelter.create(name: 'Known Building', city: 'Irvine CA', foster_program: false, rank: 9)
+          pet_1 = application_1.pets.create!(name: 'Scrappy', age: 1, breed: 'Great Dane', adoptable: true, shelter_id: shelter.id)
+          pet_2 = application_1.pets.create!(name: 'Sparky', age: 1, breed: 'Great Dane', adoptable: true, shelter_id: shelter.id)
+          pet_3 = application_1.pets.create!(name: 'Spot', age: 1, breed: 'Great Dane', adoptable: true, shelter_id: shelter.id)
+          pet_4 = application_1.pets.create!(name: 'Rupert', age: 1, breed: 'Great Dane', adoptable: true, shelter_id: shelter.id)
+          pet_5 = application_2.pets.create!(name: 'Charles', age: 1, breed: 'Great Dane', adoptable: true, shelter_id: shelter_2.id)
+
+          visit "/admin/applications/#{application_1.id}"
+
+          within "#pet-#{pet_3.id}" do
+            click_button "Approve"
+          end
+
+          within "#pet-#{pet_4.id}" do
+            click_button "Reject"
+          end
+
+          visit "/admin/shelters/#{shelter.id}"
+
+          within "#action_required" do
+            expect(page).to have_content("Scrappy")
+            expect(page).to have_link("Application")
+            expect(page).to have_content("Sparky")
+            expect(page).to have_link("Application")
+            expect(page).to_not have_content("Spot")
+            expect(page).to_not have_content("Rupert")
+            expect(page).to_not have_content("Charles")
           end
         end
       end
