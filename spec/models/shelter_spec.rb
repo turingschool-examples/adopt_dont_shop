@@ -73,5 +73,29 @@ RSpec.describe Shelter, type: :model do
         expect(Shelter.order_by_reverse_alphabetical).to eq([@shelter_2, @shelter_3, @shelter_1])
       end
     end
+
+      it '.pending_applications' do
+        @application1 = Application.create(
+          name: 'The Original Sherman',
+          address: '123 Main St', city: 'Longmont', state: 'CO', zipcode: '80501',
+          description: '  ', status: "Pending"
+          )
+        @application2 = Application.create(
+          name: 'Sherman1',
+          address: '123 Main St', city: 'Longmont', state: 'CO', zipcode: '80501',
+          description: '   ', status: "Pending"
+          )
+        @application3 = Application.create(
+          name: 'Sherman2',
+          address: '123 Main St', city: 'Longmont', state: 'CO', zipcode: '80501',
+          description: ' '
+          )
+        @pet_5 = @shelter_2.pets.create(name: 'Clawdias', breed: 'shorthair', age: 3, adoptable: true)
+        PetApplication.create!(pet_id: @pet_1.id, application_id: @application1.id)
+        PetApplication.create!(pet_id: @pet_5.id, application_id: @application2.id)
+
+        expect(Shelter.pending_applications).to eq([@shelter_1, @shelter_2])
+      end
+
   end
 end
