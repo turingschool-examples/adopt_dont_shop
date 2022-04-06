@@ -53,6 +53,27 @@ class Shelter < ApplicationRecord
     adoptable_pets.count
   end
 
+  def action_required_pets
+    pet_array = []
+    action_required = []
+    pets.each do |pet|
+      pet.application_pets.each do |application_pet|
+        if application_pet.status == "pending"
+          pet_array << pet
+        end
+      end
+    end
+
+    pet_array.each do |pet|
+      pet.application_pets.each do |application_pet|
+        if Application.find(application_pet.application_id).status == "Pending"
+          action_required << pet
+        end
+      end
+    end
+    action_required
+  end
+  
   def adopted_pet_count
     pets.where(adoptable: false).count
   end
