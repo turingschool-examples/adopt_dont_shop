@@ -73,8 +73,12 @@ class Shelter < ApplicationRecord
     end
     action_required
   end
-  
+
   def adopted_pet_count
     pets.where(adoptable: false).count
+  end
+
+  def self.make_address_readable(shelter_id)
+    find_by_sql("SELECT id, CONCAT(address,' ',city,', ',state,' ',zip_code) AS address FROM shelters WHERE id=#{shelter_id}").first.address
   end
 end
