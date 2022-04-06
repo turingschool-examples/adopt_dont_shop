@@ -58,6 +58,14 @@ RSpec.describe Shelter, type: :model do
         expect(Shelter.with_pending_applications).to eq([@shelter_1, @shelter_2])
       end
     end
+
+    describe '.make_address_readable' do
+      it 'returns a single string of the full address of the shelter' do
+        shelter_5 = Shelter.create!(name: 'Iron Maiden Animal Shelter', address: "22 Acacia Ave.", city: "New York", state: "NY", zip_code: "10105", foster_program: false, rank: 8)
+
+        expect(Shelter.make_address_readable(shelter_5.id)).to eq("22 Acacia Ave. New York, NY 10105")
+      end
+    end
   end
 
   describe 'instance methods' do
@@ -107,9 +115,9 @@ RSpec.describe Shelter, type: :model do
         ApplicationPet.where(pet: pet_5, application: application_1).first.update(status: :approved)
         ApplicationPet.where(pet: pet_6, application: application_1).first.update(status: :rejected)
         expect(shelter_4.action_required_pets.count).to eq(1)
-      end 
+      end
     end
-    
+
     describe '.adopted_pet_count' do
       it 'returns the number of adoptable pets at the given shelter' do
         expect(@shelter_1.adopted_pet_count).to eq(1)
