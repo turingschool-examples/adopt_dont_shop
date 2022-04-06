@@ -70,14 +70,21 @@ RSpec.describe "Applications Show" do
 
     visit "/applications/#{application_2.id}"
     # save_and_open_page
+    expect(page).to have_content("Status: In Progress")
+    expect(page).to_not have_content("Status: Pending")
+
     fill_in 'Search for pet name', with: 'Dorothy'
     click_button 'Submit'
     click_link 'Adopt this Pet'
-    # save_and_open_page
+    save_and_open_page
+    expect(page).to have_content("Status: In Progress")
+    expect(page).to_not have_content("Status: Pending")
+
     fill_in 'Why would you be a good owner', with: "I'm super nice and chill!"
     click_button 'Submit Application'
-
+    save_and_open_page
     expect(current_path).to eq("/applications/#{application_2.id}")
-
+    expect(page).to_not have_content("Status: In Progress")
+    expect(page).to have_content("Status: Pending")
   end
 end

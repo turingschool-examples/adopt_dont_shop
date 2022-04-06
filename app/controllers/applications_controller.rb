@@ -22,7 +22,9 @@ class ApplicationsController < ApplicationController
   def update
     @application = Application.find(params[:id])
     @application.status = "Pending"
+    @application.description = params[:why_would_you_be_a_good_owner]
     @application.save
+    redirect_to "/applications/#{@application.id}"
   end
 
   def create
