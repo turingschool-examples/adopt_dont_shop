@@ -22,6 +22,17 @@ class ApplicationsController < ApplicationController
 
   def add_pet
     ApplicationPet.create!(pet_id: params[:chosen_pet], application_id: params[:id])
+    application = Application.find(params[:id])
+    application.description = params[:description]
+    application.save
+    redirect_to "/applications/#{params[:id]}"
+  end
+
+  def submit_application
+    application = Application.find(params[:id])
+    application.description = params[:description]
+    application.status = "Pending"
+    application.save
     redirect_to "/applications/#{params[:id]}"
   end
 end

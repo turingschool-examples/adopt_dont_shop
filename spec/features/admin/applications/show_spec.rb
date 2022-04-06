@@ -59,9 +59,9 @@ RSpec.describe 'the admin shelter show page ' do
     expect(page).to have_button("Reject Application for Poopy")
     expect(page).to have_button("Reject Application for Bognart")
 
-    save_and_open_page
+
     click_button("Reject Application for Spot")
-    save_and_open_page
+    
     click_button("Reject Application for Bognart")
 
     expect(page).to_not have_button("Reject Application for Spot")

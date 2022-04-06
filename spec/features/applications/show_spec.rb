@@ -23,7 +23,7 @@ RSpec.describe 'the application show' do
     shelter = Shelter.create!(foster_program: false, name: 'Humane Society', city: 'Phoenix', rank: 20)
     spot = Pet.create!(adoptable: true, age: 2, breed: 'Mix', name: 'Spot', shelter_id: shelter[:id])
     chungus = Pet.create!(adoptable: true, age: 15, breed: 'Chihuahua', name: 'Chungus', shelter_id: shelter[:id])
-    application = Application.create!(name: 'Cory', city: 'Tempe', state: 'AZ', street_address: '3030 Westroad', zip_code: '85282', description: 'I love dogs and I have a lot of free time to take care of one.', status: 'Pending')
+    application = Application.create!(name: 'Cory', city: 'Tempe', state: 'AZ', street_address: '3030 Westroad', zip_code: '85282', description: 'I love dogs and I have a lot of free time to take care of one.', status: 'In Progress')
     app_pet = ApplicationPet.create!(pet_id: spot.id, application_id: application.id)
 
     visit "/applications/#{application.id}"
@@ -42,7 +42,7 @@ RSpec.describe 'the application show' do
     shelter = Shelter.create!(foster_program: false, name: 'Humane Society', city: 'Phoenix', rank: 20)
     spot = Pet.create!(adoptable: true, age: 2, breed: 'Mix', name: 'Spot', shelter_id: shelter[:id])
     chungus = Pet.create!(adoptable: true, age: 15, breed: 'Chihuahua', name: 'Chungus', shelter_id: shelter[:id])
-    application = Application.create!(name: 'Cory', city: 'Tempe', state: 'AZ', street_address: '3030 Westroad', zip_code: '85282', description: 'I love dogs and I have a lot of free time to take care of one.', status: 'Pending')
+    application = Application.create!(name: 'Cory', city: 'Tempe', state: 'AZ', street_address: '3030 Westroad', zip_code: '85282', description: 'I love dogs and I have a lot of free time to take care of one.', status: 'In Progress')
     app_pet = ApplicationPet.create!(pet_id: spot.id, application_id: application.id)
 
     visit "/applications/#{application.id}"
@@ -60,7 +60,7 @@ RSpec.describe 'the application show' do
     shelter = Shelter.create!(foster_program: false, name: 'Humane Society', city: 'Phoenix', rank: 20)
     spot = Pet.create!(adoptable: true, age: 2, breed: 'Mix', name: 'Spot', shelter_id: shelter[:id])
     chungus = Pet.create!(adoptable: true, age: 15, breed: 'Chihuahua', name: 'Chungus', shelter_id: shelter[:id])
-    application = Application.create!(name: 'Cory', city: 'Tempe', state: 'AZ', street_address: '3030 Westroad', zip_code: '85282', description: 'I love dogs and I have a lot of free time to take care of one.', status: 'Pending')
+    application = Application.create!(name: 'Cory', city: 'Tempe', state: 'AZ', street_address: '3030 Westroad', zip_code: '85282', description: 'I love dogs and I have a lot of free time to take care of one.', status: 'In Progress')
     app_pet = ApplicationPet.create!(pet_id: spot.id, application_id: application.id)
 
     visit "/applications/#{application.id}"
@@ -72,5 +72,38 @@ RSpec.describe 'the application show' do
     expect(page).to have_content("Applying for pet: Chungus")
   end
 
+  it "has a section to sumbit an application" do
+    shelter = Shelter.create!(foster_program: false, name: 'Humane Society', city: 'Phoenix', rank: 20)
+    spot = Pet.create!(adoptable: true, age: 2, breed: 'Mix', name: 'Spot', shelter_id: shelter[:id])
+    chungus = Pet.create!(adoptable: true, age: 15, breed: 'Chihuahua', name: 'Chungus', shelter_id: shelter[:id])
+    application = Application.create!(name: 'Cory', city: 'Tempe', state: 'AZ', street_address: '3030 Westroad', zip_code: '85282', status: 'In Progress')
+    app_pet = ApplicationPet.create!(pet_id: spot.id, application_id: application.id)
+
+    visit "/applications/#{application.id}"
+
+
+    expect(page).to have_button("Submit this Application")
+    expect(page).to have_field(:description)
+
+
+  end
+
+  it "application changes description" do
+    shelter = Shelter.create!(foster_program: false, name: 'Humane Society', city: 'Phoenix', rank: 20)
+    spot = Pet.create!(adoptable: true, age: 2, breed: 'Mix', name: 'Spot', shelter_id: shelter[:id])
+    chungus = Pet.create!(adoptable: true, age: 15, breed: 'Chihuahua', name: 'Chungus', shelter_id: shelter[:id])
+    application = Application.create!(name: 'Cory', city: 'Tempe', state: 'AZ', street_address: '3030 Westroad', zip_code: '85282', status: 'In Progress')
+    app_pet = ApplicationPet.create!(pet_id: spot.id, application_id: application.id)
+    visit "/applications/#{application.id}"
+
+    fill_in :description, with: 'New description'
+    click_button 'Submit this Application'
+
+
+    expect(page).to have_content("Pending")
+    expect(page).to have_content("New description")
+    expect(page).to_not have_button("Submit this Application")
+    expect(page).to_not have_field(:description)
+  end
 
 end
