@@ -53,7 +53,6 @@ class ApplicationsController < ApplicationController
         pet_status: 0
         })
       app_pet.save
-      # require "pry"; binding.pry
       redirect_to "/applications/#{@application.id}"
 
     elsif params[:why_i_would_make_a_good_home]
@@ -66,19 +65,4 @@ class ApplicationsController < ApplicationController
 
     end
   end
-
-
-
-  # def edit
-  #   if params[:pet_names]
-  #   end
-  # end
-
-  # private
-    # def app_params
-    #   # require "pry"; binding.pry
-    #   params.permit(:name, :address, :description, :pet_names, :status)
-    # end
-
-
 end
