@@ -12,7 +12,6 @@ RSpec.describe 'shelter creation' do
       expect(find('form')).to have_content('Foster program')
     end
   end
-
   describe 'the shelter create' do
     context 'given valid data' do
       it 'creates the shelter' do
@@ -28,7 +27,6 @@ RSpec.describe 'shelter creation' do
         expect(page).to have_content('Houston Shelter')
       end
     end
-
     context 'given invalid data' do
       it 're-renders the new form' do
         visit '/shelters/new'

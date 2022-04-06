@@ -1,6 +1,5 @@
 require 'rails_helper'
 
-
 RSpec.describe 'Admin Shelter Show Page' do
   before do
     @shelter_1 = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
@@ -22,7 +21,6 @@ RSpec.describe 'Admin Shelter Show Page' do
 
     visit "/admin/shelters/#{@shelter_1.id}"
   end
-
   describe 'As a visitor' do
     describe 'When I visit an admin shelter show page' do
       it 'Then I see that shelters name and full address' do
@@ -30,6 +28,14 @@ RSpec.describe 'Admin Shelter Show Page' do
           expect(page).to have_content("#{@shelter_1.name}")
           expect(page).to have_content("#{@shelter_1.full_address}")
         end
+      end
+      it 'Then I see a section for statistics' do
+        within ("#statistics") do
+          expect(page).to have_content("Shelter Statistics")
+        end
+      end
+      it 'In that section I see the average age of all adoptable pets' do
+        expect(page).to have_content("Average Pet Age:")
       end
     end
   end

@@ -64,12 +64,6 @@ RSpec.describe Application, type: :model do
       it 'returns shelters with pending apps' do
         expect(Application.pending_apps).to eq([@bonds, @sosa, @mark])
       end
-
-
-
     end
-
-
-
   end
 end

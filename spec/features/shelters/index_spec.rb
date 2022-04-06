@@ -9,7 +9,6 @@ RSpec.describe 'the shelters index' do
     @shelter_1.pets.create(name: 'Clawdia', breed: 'shorthair', age: 3, adoptable: true)
     @shelter_3.pets.create(name: 'Lucille Bald', breed: 'sphynx', age: 8, adoptable: true)
   end
-
   it 'lists all the shelter names' do
     visit "/shelters"
 
@@ -17,7 +16,6 @@ RSpec.describe 'the shelters index' do
     expect(page).to have_content(@shelter_2.name)
     expect(page).to have_content(@shelter_3.name)
   end
-
   it 'lists the shelters by most recently created first' do
     visit "/shelters"
 
@@ -40,7 +38,6 @@ RSpec.describe 'the shelters index' do
       expect(page).to have_content("Created at: #{@shelter_3.created_at}")
     end
   end
-
   it 'has a link to sort shelters by the number of pets they have' do
     visit '/shelters'
 
@@ -51,7 +48,6 @@ RSpec.describe 'the shelters index' do
     expect(@shelter_1.name).to appear_before(@shelter_3.name)
     expect(@shelter_3.name).to appear_before(@shelter_2.name)
   end
-
   it 'has a link to update each shelter' do
     visit "/shelters"
 
@@ -70,7 +66,6 @@ RSpec.describe 'the shelters index' do
     click_on("Update #{@shelter_1.name}")
     expect(page).to have_current_path("/shelters/#{@shelter_1.id}/edit")
   end
-
   it 'has a link to delete each shelter' do
     visit "/shelters"
 
@@ -90,12 +85,10 @@ RSpec.describe 'the shelters index' do
     expect(page).to have_current_path("/shelters")
     expect(page).to_not have_content(@shelter_1.name)
   end
-
   it 'has a text box to filter results by keyword' do
     visit "/shelters"
     expect(page).to have_button("Search")
   end
-
   it 'lists partial matches as search results' do
     visit "/shelters"
 
