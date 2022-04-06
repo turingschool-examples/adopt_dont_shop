@@ -148,9 +148,9 @@ RSpec.describe 'the admin application show page' do
     app_pet_3 = ApplicationPet.create!(application_id: application.id, pet_id: pet3.id)
 
     visit "/admin/applications/#{application.id}"
+    click_button "Reject #{pet2.name}"
     click_button "Approve #{pet1.name}"
-    click_button "Approve #{pet2.name}"
-    click_button "Reject #{pet3.name}"
+    click_button "Approve #{pet3.name}"
 
     # expect(current_path).to eq("/admin/applications/#{application.id}")
     expect(page).to have_content("Status: Rejected")
