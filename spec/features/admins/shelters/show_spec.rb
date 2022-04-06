@@ -90,6 +90,44 @@ RSpec.describe 'admin_shelters show page' do
           end
         end
 
+        it 'displays links to applicaiton show pages in the Action Required section' do
+          application_1 = Application.create!(name: 'Chris', address: '505 Main St.', city: 'Denver', state: 'CO', zipcode: '80205', description: "I'm great with dogs.", status: 'Pending')
+          application_2 = Application.create!(name: 'John', address: '505 Main St.', city: 'Denver', state: 'CO', zipcode: '80205', description: "I'm great with dogs.", status: 'In Progress')
+          shelter = Shelter.create(name: 'Mystery Building', city: 'Irvine CA', foster_program: false, rank: 9)
+          shelter_2 = Shelter.create(name: 'Known Building', city: 'Irvine CA', foster_program: false, rank: 9)
+          pet_1 = application_1.pets.create!(name: 'Scrappy', age: 1, breed: 'Great Dane', adoptable: true, shelter_id: shelter.id)
+          pet_2 = application_1.pets.create!(name: 'Sparky', age: 1, breed: 'Great Dane', adoptable: true, shelter_id: shelter.id)
+          pet_3 = application_1.pets.create!(name: 'Spot', age: 1, breed: 'Great Dane', adoptable: true, shelter_id: shelter.id)
+          pet_4 = application_1.pets.create!(name: 'Rupert', age: 1, breed: 'Great Dane', adoptable: true, shelter_id: shelter.id)
+          pet_5 = application_2.pets.create!(name: 'Charles', age: 1, breed: 'Great Dane', adoptable: true, shelter_id: shelter_2.id)
+
+          visit "/admin/applications/#{application_1.id}"
+
+          within "#pet-#{pet_3.id}" do
+            click_button "Approve"
+          end
+
+          within "#pet-#{pet_4.id}" do
+            click_button "Reject"
+          end
+
+          visit "/admin/shelters/#{shelter.id}"
+
+          within "#action_required" do
+            expect(page).to have_content("Scrappy")
+            expect(page).to have_link("Application")
+            expect(page).to have_content("Sparky")
+            expect(page).to have_link("Application")
+            expect(page).to_not have_content("Spot")
+            expect(page).to_not have_content("Rupert")
+            expect(page).to_not have_content("Charles")
+          end
+          within "#action_required" do
+            first(:link, "Application").click
+            expect(current_path).to eq("/admin/applications/#{application_1.id}")
+          end
+        end
+
         it 'i see the shelters name and full address' do
           shelter = Shelter.create(name: 'Mystery Building', address: "22 Acacia Ave.", city: 'New York', state: "NY", zip_code: "10501", foster_program: false, rank: 9)
           
