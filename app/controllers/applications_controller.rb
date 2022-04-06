@@ -4,8 +4,9 @@ class ApplicationsController < ApplicationController
     @application = Application.find(params[:id])
     if params[:pet_names]
       @pets = Pet.search(params[:pet_names])
+      @pets_names = []
+      @pets_names << @pet
       # require "pry"; binding.pry
-
     else
       @pets = []
     end
@@ -37,6 +38,7 @@ class ApplicationsController < ApplicationController
 
     if params[:pet_name]
       @pet = Pet.find(params[:pet_name])
+
       @application = Application.find(params[:id])
       @application.update({
         name: params[:name],
@@ -51,6 +53,7 @@ class ApplicationsController < ApplicationController
         pet_status: 0
         })
       app_pet.save
+      # require "pry"; binding.pry
       redirect_to "/applications/#{@application.id}"
 
     elsif params[:why_i_would_make_a_good_home]
@@ -59,7 +62,6 @@ class ApplicationsController < ApplicationController
         description: params[:why_i_would_make_a_good_home],
         status: params[:status].to_i
         })
-      # require "pry"; binding.pry
       redirect_to "/applications/#{@application.id}"
 
     end
