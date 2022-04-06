@@ -91,6 +91,7 @@ RSpec.describe "Application Show Page" do
 
     expect(page).to have_content("Scrappy")
   end
+  
   it "Has a form for application description which, once filled, allows the user to 'submit' the application" do
     visit "/applications/#{@application_1.id}"
     fill_in :description, with: "I run a not-for profit animal rescue on my property, and we're looking for a foster mother dog for three orphaned squirrels. Of course we also don't want to have just one dog without a pack, so we decided that what we really need is two dogs! We think Scrappy and Daisy would make fantastic parents!"
