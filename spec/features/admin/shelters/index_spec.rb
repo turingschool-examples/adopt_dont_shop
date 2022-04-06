@@ -9,6 +9,8 @@ RSpec.describe 'Admin Shelters Index' do
     @shelter_1.pets.create(name: 'Mr. Pirate', breed: 'tuxedo shorthair', age: 5, adoptable: true)
     @shelter_1.pets.create(name: 'Clawdia', breed: 'shorthair', age: 3, adoptable: true)
     @shelter_3.pets.create(name: 'Lucille Bald', breed: 'sphynx', age: 8, adoptable: true)
+    @application_1 = Application.create(name: 'Alex Horn', street_address: '12 Not A Real Ln', city: 'Westminster', state: 'CO', zip_code: '80021')
+    @
   end
 
   it 'displays all shelters in reverse alphabetical order' do
@@ -32,6 +34,17 @@ RSpec.describe 'Admin Shelters Index' do
 
     within("#shelter-#{@shelter_1.id}") do
       expect(page).to have_content(@shelter_1.name)
+    end
+  end
+
+  it 'displays a list of shelters with pending applications' do
+    visit '/admin/shelters'
+
+    expect(page).to have_content("Shelters With Pending Applications: ")
+
+    within("#pending-applications") do
+      expect(page).to have_content(@shelter_1.name)
+      expect(page).to have_content(@shelter_2.name)
     end
   end
 end
