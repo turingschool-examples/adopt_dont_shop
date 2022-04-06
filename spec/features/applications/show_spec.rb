@@ -78,4 +78,15 @@ RSpec.describe "Application Show Page" do
 
     expect(page).to have_content("Scrappy")
   end
+
+  it 'Will search for pets in a case-insensitive manner' do
+    visit "/applications/#{@application_2.id}"
+
+    expect(page).not_to have_content("Scrappy")
+
+    fill_in :find_pet, with: "sCrAPpY"
+    click_on "Search"
+
+    expect(page).to have_content("Scrappy")
+  end
 end
