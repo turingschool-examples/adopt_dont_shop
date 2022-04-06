@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe "Application show page" do
-  let!(:smith_app) { Application.create!(name: "Bobby Smith", address: "3245 E 1st", city: "Lakewood", state: "CO", zipcode: "80026", description: "Im Awesome!", app_status: "Rejected") }
+  let!(:smith_app) { Application.create!(name: "Bobby Smith", address: "3245 E 1st", city: "Lakewood", state: "CO", zipcode: "80026", app_status: "In Progress") }
   let!(:shelter) { Shelter.create(name: "Aurora shelter", city: "Aurora, CO", foster_program: false, rank: 9) }
   let!(:scooby) { Pet.create!(adoptable: true, age: 1, breed: "sphynx", name: "Scooby", shelter_id: shelter.id) }
   let!(:scrappy) { Pet.create!(adoptable: true, age: 1, breed: "small dane", name: "Scrappy", shelter_id: shelter.id) }
@@ -79,5 +79,25 @@ RSpec.describe "Application show page" do
     end
 
     expect(page).to have_content("Pets applied for: Scooby")
+  end
+
+  it "submit an application" do
+    visit "/applications/#{smith_app.id}"
+
+    fill_in "search_for_pet_by_name", with: "scooby"
+    click_button("Submit")
+    within "[data-id=#{scooby.id}]" do
+      click_button("Adopt this pet")
+    end
+    fill_in "description", with: "I like doggos"
+    click_button("Submit application")
+
+    expect(current_path).to eq("/applications/#{smith_app.id}")
+    expect(page).to have_content("Why I am a good fit: I like doggos")
+    expect(page).to have_content("Status: Pending")
+    expect(page).to_not have_content("Status: In Progress")
+    expect(page).to have_content("Pets applied for: Scooby")
+    expect(page).to_not have_content(".pet_search")
+    expect(page).to_not have_content(".pet_results")
   end
 end

@@ -1,33 +1,45 @@
 <div class="application">
   <h1>Application</h1>
-  <p>Name:<%= @app.name %></p>
+  <p>Name:
+    <%= @app.name %></p>
   <p>Address:
     <%= @app.address %>
     <%= @app.city %>
     <%= @app.state %>
     <%= @app.zipcode %></p>
-  <p>Why I am a good fit:<%= @app.description %></p>
-  <p>Status:<%= @app.app_status %></p>
+  <p>Why I am a good fit:
+    <%= @app.description %></p>
+  <p>Status:
+    <%= @app.app_status %></p>
   <p>Pets applied for:
     <%= @app.pets.map { |pet| pet.name }.join(" ") %></p>
+  <% if !@app.pets.empty? %>
+    <%= form_with url: "/applications/#{@app.id}/submit_for_approval", method: :patch, local: true do |f| %>
+    <%= f.label :description %>
+    <br>
+    <%= f.text_field :description %>
+    <br>
+    <%= f.submit "Submit application" %>
+  <% end %>
+<% end %>
 </div>
 
 <div class="pet_search">
-  <h3>Add a pet to this application</h3>
-  <%= form_with url: "/applications/#{@app.id}", method: :get, local: true do |f| %>
-  <%= f.label :search_for_pet_by_name %>
-  <br>
-  <%= f.text_field :search_for_pet_by_name %>
-  <br>
-  <%= f.submit "Submit" %>
+<h3>Add a pet to this application</h3>
+<%= form_with url: "/applications/#{@app.id}", method: :get, local: true do |f| %>
+<%= f.label :search_for_pet_by_name %>
+<br>
+<%= f.text_field :search_for_pet_by_name %>
+<br>
+<%= f.submit "Submit" %>
 <% end %>
 </div>
 
 <div class="pet_results">
 <% @pet_search_results.each do |pet| %>
-  <div data-id=<%="#{pet.id}"%>>
-    <%= pet.name %>
-    <%= button_to 'Adopt this pet', "/pet_applications?pet_id=#{pet.id}&application_id=#{@app.id}", method: :post %>
-  </div>
+<div data-id=<%="#{pet.id}"%>>
+  <%= pet.name %>
+  <%= button_to 'Adopt this pet', "/pet_applications?pet_id=#{pet.id}&application_id=#{@app.id}", method: :post %>
+</div>
 <% end %>
 </div>
