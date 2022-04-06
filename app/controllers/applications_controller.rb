@@ -69,10 +69,10 @@ class ApplicationsController < ApplicationController
 
 
 
-  def edit
-    if params[:pet_names]
-    end
-  end
+  # def edit
+  #   if params[:pet_names]
+  #   end
+  # end
 
   # private
     # def app_params

@@ -21,8 +21,10 @@ RSpec.describe 'Application show page' do
       expect(page).to have_content("Applicant Name: #{@app_1.name}")
       expect(page).to have_content("Full Address: #{@app_1.address}")
       expect(page).to have_content("Why I am a Good Home: #{@app_1.description}")
-      # expect(page).to have_content("Adoptable Pets: Joe, Champ, Pixie")
       expect(page).to have_content("Application Status: #{@app_1.status}")
+      expect(page).to_not have_content("#{@app_2.name}")
+      expect(page).to_not have_content("#{@app_2.address}")
+      expect(page).to_not have_content("#{@app_2.status}")
     end
 
     describe 'When and application has not been submitted' do
@@ -37,6 +39,7 @@ RSpec.describe 'Application show page' do
         expect(current_path).to eq("/applications/#{@app_2.id}")
         expect(page).to have_content("#{@pet_3.name}")
         expect(page).to have_content("#{@pet_4.name}")
+        expect(page).to_not have_content("#{@pet_1.name}")
       end
     end
 
@@ -97,7 +100,7 @@ RSpec.describe 'Application show page' do
         within "#pet-#{@pet_1.id}" do
           click_on "Adopt This Pet"
         end
-        save_and_open_page
+        # save_and_open_page
         fill_in 'Why i would make a good home', with: 'I am a good pet owner.'
         click_on "Submit This Application"
         expect(page).to_not have_content("Add a Pet to this Application")
@@ -114,6 +117,7 @@ RSpec.describe 'Application show page' do
         expect(current_path).to eq("/applications/#{@app_2.id}")
         expect(page).to have_content("#{@pet_3.name}")
         expect(page).to have_content("#{@pet_4.name}")
+        expect(page).to_not have_content("#{@pet_1.name}")
       end
     end
   end
