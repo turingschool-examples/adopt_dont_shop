@@ -1,1 +1,14 @@
 <h1>Admin Applications show page</h1>
+<h3><%= @app.name %>'s Application'</h3>
+
+<% @pet_apps.each do |pa| %>
+  <div id="app-<%=pa.id %>">
+    <h3><%= pa.pet.name %></h3>
+    <% if pa.status == nil %>
+      <p><%= button_to "Approve", "/pet_applications/#{pa.id}", method: :patch, params: {status: "Approved", application_id: @app.id} %></p>
+      <p><%= button_to "Deny", "/pet_applications/#{pa.id}", method: :patch, params: {status: "Denied", application_id: @app.id} %></p> 
+    <% else %>
+      <%= pa.status %>
+      <% end  %>
+  </div>
+<% end %>
