@@ -51,7 +51,7 @@ RSpec.describe "Application Show Page" do
   end
 
   it 'allows visitors to add pets to unsubmitted application' do
-  
+
     visit "/applications/#{@application_2.id}/"
 
     expect(page).not_to have_content(@pet_2.name)
@@ -61,7 +61,9 @@ RSpec.describe "Application Show Page" do
 
     expect(page).to have_button("Adopt This Pet")
 
-    click_on "Adopt This Pet"
+    within("#pet_search_result_#{@pet_2.id}") do
+      click_on "Adopt This Pet"
+    end
 
     expect(current_path).to eq("/applications/#{@application_2.id}")
     expect(page).to have_content(@pet_2.name)
@@ -89,4 +91,24 @@ RSpec.describe "Application Show Page" do
 
     expect(page).to have_content("Scrappy")
   end
+  it "Has a form for application description which, once filled, allows the user to 'submit' the application" do
+    visit "/applications/#{@application_1.id}"
+    fill_in :description, with: "I run a not-for profit animal rescue on my property, and we're looking for a foster mother dog for three orphaned squirrels. Of course we also don't want to have just one dog without a pack, so we decided that what we really need is two dogs! We think Scrappy and Daisy would make fantastic parents!"
+    click_on :submit
+
+    expect(current_path).to eq("/applications/#{@application_1.id}")
+    expect(page).to have_content("Pending")
+    expect(page).not_to have_field(:find_pet)
+    expect(page).to have_content(@pet_2.name)
+    expect(page).to have_content(@pet_3.name)
+  end
+
+  it "does not display :description form unless application has pets added to it" do
+    application_3 = Application.create!(name: "Professor T", street_address: "123 Turing Ave", city: "Denver", state: "CO", zip_code: "80203")
+    visit "/applications/#{application_3.id}"
+    expect(page).to have_field(:find_pet)
+    expect(page).not_to have_field(:description)
+    expect(page).not_to have_button(:submit)
+  end
+
 end
