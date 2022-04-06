@@ -57,11 +57,11 @@ RSpec.describe Shelter, type: :model do
     end
   end
 
-  describe '#pending_apps' do
-    it 'returns shelters with pending apps' do
-      expect(Shelter.pending_apps).to eq([@shelter_1, @shelter_3])
-    end
-  end
+  # describe '#pending_apps' do
+  #   it 'returns shelters with pending apps' do
+  #     expect(Shelter.pending_apps).to eq([@shelter_1, @shelter_3])
+  #   end
+  # end
 
   describe 'instance methods' do
     describe '.adoptable_pets' do

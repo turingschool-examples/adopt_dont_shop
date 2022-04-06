@@ -7,7 +7,7 @@ RSpec.describe Application, type: :model do
     @lobster = Pet.create!(adoptable: true, age: 3, breed: 'doberman', name: 'Lobster', shelter_id: @shelter.id)
     @skeeter = Pet.create!(adoptable: true, age: 7, breed: 'corgie', name: 'Skeeter', shelter_id: @shelter.id)
     @skippy = Pet.create!(adoptable: true, age: 5, breed: 'lab', name: 'skippy', shelter_id: @shelter.id)
-    @bonds= Application.create!(name: 'Barry Bonds', address: '100 main street, Aurora, CO, 80014', description: 'I love dogs', pet_names: "#{@skeeter.id}, #{@lobster.id}", status: 1)
+    @bonds = Application.create!(name: 'Barry Bonds', address: '100 main street, Aurora, CO, 80014', description: 'I love dogs', pet_names: "#{@skeeter.id}, #{@lobster.id}", status: 1)
     @app_pet1 = ApplicationPet.create!(application: @bonds, pet: @skeeter, pet_status: 0)
     @app_pet2 = ApplicationPet.create!(application: @bonds, pet: @lobster, pet_status: 1)
     @app_pet3 = ApplicationPet.create!(application: @bonds, pet: @skippy, pet_status: 2)
@@ -26,6 +26,7 @@ RSpec.describe Application, type: :model do
     @cat  = Pet.create!(adoptable: true, age: 7, breed: 'mut', name: 'Cat McCatFace', shelter_id: @shelter2.id)
     @app_pet6 = ApplicationPet.create!(application: @mark, pet: @dog, pet_status: 1)
     @app_pet7 = ApplicationPet.create!(application: @mark, pet: @cat, pet_status: 2)
+    @ruth = Application.create!(name: 'Babe Ruth', address: '999 Yankees Stink St, Aurora, CO, 80014', description: 'stinks', pet_names: "", status: 0)
 
 
   end
@@ -58,6 +59,13 @@ RSpec.describe Application, type: :model do
       it 'returns false if any pet on an application is denied' do
         expect(@mark.all_pets_approved?).to eq(false)
       end
+
+      it 'returns shelters with pending apps' do
+        expect(Application.pending_apps).to eq([@bonds, @sosa, @mark])
+      end
+
+
+
     end
 
 
