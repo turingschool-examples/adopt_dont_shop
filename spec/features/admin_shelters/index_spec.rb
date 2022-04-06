@@ -24,7 +24,6 @@ RSpec.describe 'Admin Shelter Index Page' do
   describe 'As a visitor' do
     describe 'When I visit the admin shelter index' do
       it 'Then I see all shelters in the system listed in reverse alphabetical order' do
-
         within "#shelter-#{@shelter_2.id}" do
           expect(page).to have_content("#{@shelter_2.name}")
           expect(page).to have_content("#{@shelter_2.city}")
@@ -50,35 +49,37 @@ RSpec.describe 'Admin Shelter Index Page' do
           expect(page).to_not have_content("#{@shelter_2.name}")
         end
       end
-
       it 'Then I see a section for Shelters with Pending Applications' do
         within("#pending_application") do
           expect(page).to have_content("Shelters with Pending Applications:")
         end
       end
-
       it 'And in this section I see the name of every shelter that has a pending application' do
-        # save_and_open_page
         within("#pending_application") do
           expect(page).to have_content("#{@shelter_1.name}")
           expect(page).to have_content("#{@shelter_3.name}")
+          expect(page).to_not have_content("#{@shelter_1.city}")
+          expect(page).to_not have_content("#{@shelter_1.foster_program}")
+          expect(page).to_not have_content("#{@shelter_1.rank}")
           expect(page).to_not have_content("#{@shelter_2.name}")
         end
       end
       it 'Then I see that every shelter name is a link' do
         within "#shelter-#{@shelter_2.id}" do
-          save_and_open_page
           expect(page).to have_selector(:link_or_button, "#{@shelter_2.name}")
+          expect(page).to_not have_selector(:link_or_button, "#{@shelter_1.name}")
         end
         within "#shelter-#{@shelter_3.id}" do
           expect(page).to have_selector(:link_or_button, "#{@shelter_3.name}")
         end
+      end
+      it 'When I click one of these links I am taken to that shelters show page' do
         within "#shelter-#{@shelter_1.id}" do
           click_link "#{@shelter_1.name}"
           expect(current_path).to eq("/admin/shelters/#{@shelter_1.id}")
+          expect(current_path).to_not eq("/admin/shelters/#{@shelter_2.id}")
         end
       end
-      it 'When I click one of these links I am taken to that shelters show page'
     end
   end
 end

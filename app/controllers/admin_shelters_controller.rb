@@ -11,16 +11,15 @@ class AdminSheltersController < ApplicationController
 
 
   private
-    def no_duplicate_pets
-      shelters = Shelter.reverse_order_by_name
-      applications = Application.pending_apps
-      pending_shelters = []
-      applications.each do |app|
-        app.pets.each do |pet|
-          pending_shelters << pet.shelter
-        end
+  def no_duplicate_pets
+    shelters = Shelter.reverse_order_by_name
+    applications = Application.pending_apps
+    pending_shelters = []
+    applications.each do |app|
+      app.pets.each do |pet|
+        pending_shelters << pet.shelter
       end
-      pending_shelters.uniq
-      # require "pry"; binding.pry
     end
+    pending_shelters.uniq
+  end
 end

@@ -9,7 +9,6 @@ RSpec.describe 'the shelters pets index' do
     @pet_3 = Pet.create(adoptable: true, age: 1, breed: 'domestic shorthair', name: 'Sylvester', shelter_id: @shelter_2.id)
     @pet_4 = Pet.create(adoptable: true, age: 1, breed: 'orange tabby shorthair', name: 'Lasagna', shelter_id: @shelter.id)
   end
-
   it 'lists all the pets associated with the shelter, with their attributes' do
     visit "/shelters/#{@shelter.id}/pets"
 
@@ -26,7 +25,6 @@ RSpec.describe 'the shelters pets index' do
     expect(page).to_not have_content(@pet_3.name)
     expect(page).to_not have_content(@pet_3.shelter_name)
   end
-
   it 'displays a link to create a new pet' do
     visit "/shelters/#{@shelter.id}/pets"
 
@@ -34,7 +32,6 @@ RSpec.describe 'the shelters pets index' do
     click_on("Create a Pet")
     expect(page).to have_current_path("/shelters/#{@shelter.id}/pets/new")
   end
-
   it 'displays a link to edit each pet' do
     visit "/shelters/#{@shelter.id}/pets"
 
@@ -45,7 +42,6 @@ RSpec.describe 'the shelters pets index' do
 
     expect(page).to have_current_path("/pets/#{@pet_1.id}/edit")
   end
-
   it 'displays a link to delete each pet' do
     visit "/shelters/#{@shelter.id}/pets"
 
@@ -57,14 +53,12 @@ RSpec.describe 'the shelters pets index' do
     expect(page).to have_current_path("/pets")
     expect(page).to_not have_content(@pet_1.name)
   end
-
   it 'displays a form for a number value' do
     visit "/shelters/#{@shelter.id}/pets"
 
     expect(page).to have_content("Only display pets with an age of at least...")
     expect(page).to have_select("age")
   end
-
   it 'only displays records above the given return value' do
     visit "/shelters/#{@shelter.id}/pets"
 
@@ -74,7 +68,6 @@ RSpec.describe 'the shelters pets index' do
     expect(page).to_not have_content(@pet_1.name)
     expect(page).to_not have_content(@pet_3.name)
   end
-
   it 'allows the user to sort in alphabetical order' do
     visit "/shelters/#{@shelter.id}/pets"
 
