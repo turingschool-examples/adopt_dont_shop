@@ -11,7 +11,6 @@ class SheltersController < ApplicationController
 
   def pets
     @shelter = Shelter.find(params[:shelter_id])
-
     if params[:sort] == 'alphabetical'
       @shelter_pets = @shelter.alphabetical_pets
     elsif params[:age]

@@ -9,16 +9,26 @@
 
 <h3>Add a Pet to this Application</h3>
 
-<%= form_with url: "/applications/#{params[:id]}/?search=#{params[:search]}", method: :get, local: true do |f| %>
-  <%= f.label :search  %>
-  <%= f.text_field :search %>
-  <%= f.submit 'Submit' %>
-<% end %>
-
+<% if @application.status == "In Progress" %>
+  <%= form_with url: "/applications/#{params[:id]}/?search=#{params[:search]}", method: :get, local: true do |f| %>
+    <%= f.label :search  %>
+    <%= f.text_field :search %>
+    <%= f.submit 'Submit' %>
+  <% end %>
+<% end  %>
 <br>
-<% if @search_results %>
+<% if @search_results && @application.status == "In Progress" %>
   <% @search_results.each do |pet| %>
     <%= pet.name %>
     <%= button_to "Adopt this Pet", action: "add_pet", params: {chosen_pet: pet.id} %>
+  <% end %>
+<% end %>
+
+<% if @application.pets.length > 0 && @application.status == "In Progress" %>
+  <%= form_with url: "/applications/#{params[:id]}", method: :patch, params: {description: :description}, local: true do |f| %>
+    <%= f.label "Reasons you would make a good owner" %>
+    <br>
+    <%= f.text_field :description %>
+    <%= f.submit 'Submit this Application' %>
   <% end %>
 <% end %>
