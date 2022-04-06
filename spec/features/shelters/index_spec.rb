@@ -105,4 +105,5 @@ RSpec.describe 'the shelters index' do
     expect(page).to have_content(@shelter_2.name)
     expect(page).to_not have_content(@shelter_1.name)
   end
+
 end
