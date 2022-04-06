@@ -20,5 +20,11 @@ class AdminSheltersController < ApplicationController
         end
       end
     end
+    
+    @adopted_count = Pet.adopted
+    # applications = Application.where(status: "Approved")
+    # applications.each do |app|
+    #   ApplicationPet.find
+    # require 'pry'; binding.pry
   end
 end

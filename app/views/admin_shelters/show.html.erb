@@ -3,10 +3,11 @@
 <h3><%= shelter.city %></h3>
 <% end %>
 <h4>Shelter Statistics</h4>
+<div id="statistics">
 <p>Adoptable Pet Count: <%= @shelter_pets.count %></p>
-<p>Adoptable Pet Average Age:
-  <%= @shelter_average_age %>
-</p>
+<p>Adoptable Pet Average Age: <%= @shelter_average_age %></p>
+<p>Pets Adopted: <%= Pet.adopted %></p>
+</div>
 <h4>Action Required</h4>
 <div id="action_required">
 <% @app_pets_nil.each do |app_pet| %>

@@ -32,6 +32,12 @@ RSpec.describe Pet, type: :model do
         expect(Pet.adoptable).to eq([@pet_1, @pet_2])
       end
     end
+
+    describe "#adopted" do
+      it 'returns the count of adopted pets' do
+        expect(Pet.adopted).to eq(1)
+      end
+    end
   end
 
   describe 'instance methods' do

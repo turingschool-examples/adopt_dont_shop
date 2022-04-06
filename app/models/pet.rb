@@ -12,4 +12,10 @@ class Pet < ApplicationRecord
   def self.adoptable
     where(adoptable: true)
   end
+
+  def self.adopted
+    pets = []
+    pets << joins(pets: :applications).where(applications: {:status => "Approved"})
+    pets.count
+  end
 end
