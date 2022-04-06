@@ -24,22 +24,24 @@
 <% end %>
 </div>
 
+<% if @app.app_status != "Pending" %>
 <div class="pet_search">
-<h3>Add a pet to this application</h3>
-<%= form_with url: "/applications/#{@app.id}", method: :get, local: true do |f| %>
-<%= f.label :search_for_pet_by_name %>
-<br>
-<%= f.text_field :search_for_pet_by_name %>
-<br>
-<%= f.submit "Submit" %>
+  <h3>Add a pet to this application</h3>
+  <%= form_with url: "/applications/#{@app.id}", method: :get, local: true do |f| %>
+  <%= f.label :search_for_pet_by_name %>
+  <br>
+  <%= f.text_field :search_for_pet_by_name %>
+  <br>
+  <%= f.submit "Submit" %>
 <% end %>
 </div>
 
 <div class="pet_results">
 <% @pet_search_results.each do |pet| %>
-<div data-id=<%="#{pet.id}"%>>
-  <%= pet.name %>
-  <%= button_to 'Adopt this pet', "/pet_applications?pet_id=#{pet.id}&application_id=#{@app.id}", method: :post %>
-</div>
+  <div data-id=<%="#{pet.id}"%>>
+    <%= pet.name %>
+    <%= button_to 'Adopt this pet', "/pet_applications?pet_id=#{pet.id}&application_id=#{@app.id}", method: :post %>
+  </div>
 <% end %>
 </div>
+<% end %>
