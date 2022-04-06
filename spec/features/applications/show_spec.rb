@@ -5,6 +5,7 @@ RSpec.describe "Application Show Page" do
   before :each do
     @application_1 = Application.create!(name: 'Alex Horn', street_address: '12 Not A Real Ln', city: 'Westminster', state: 'CO', zip_code: '80021')
     @application_2 = Application.create!(name: 'Bob Ross', street_address: '21 Happy Tree Ln', city: 'Daytona Beach', state: 'FL', zip_code: '32122')
+    @application_3 = Application.create!(name: "Professor T", street_address: "123 Turing Ave", city: "Denver", state: "CO", zip_code: "80203")
     @shelter = Shelter.create(name: 'Mystery Building', city: 'Irvine CA', foster_program: false, rank: 9)
     @pet_1 = Pet.create!(name: 'Scooby', age: 2, breed: 'Great Dane', adoptable: true, shelter_id: @shelter.id)
     @pet_2 = Pet.create!(name: 'Scrappy', age: 1, breed: 'Great Dane', adoptable: true, shelter_id: @shelter.id)
@@ -91,7 +92,7 @@ RSpec.describe "Application Show Page" do
 
     expect(page).to have_content("Scrappy")
   end
-  
+
   it "Has a form for application description which, once filled, allows the user to 'submit' the application" do
     visit "/applications/#{@application_1.id}"
     fill_in :description, with: "I run a not-for profit animal rescue on my property, and we're looking for a foster mother dog for three orphaned squirrels. Of course we also don't want to have just one dog without a pack, so we decided that what we really need is two dogs! We think Scrappy and Daisy would make fantastic parents!"
@@ -105,8 +106,7 @@ RSpec.describe "Application Show Page" do
   end
 
   it "does not display :description form unless application has pets added to it" do
-    application_3 = Application.create!(name: "Professor T", street_address: "123 Turing Ave", city: "Denver", state: "CO", zip_code: "80203")
-    visit "/applications/#{application_3.id}"
+    visit "/applications/#{@application_3.id}"
     expect(page).to have_field(:find_pet)
     expect(page).not_to have_field(:description)
     expect(page).not_to have_button(:submit)
