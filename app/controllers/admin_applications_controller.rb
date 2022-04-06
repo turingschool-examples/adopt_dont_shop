@@ -16,6 +16,7 @@ class AdminApplicationsController < ApplicationController
       elsif params[:status] == 'Reject'
         app_pet.pet_status = 'Rejected'
         @app_pet.pet_status = 'Rejected'
+        @application.status = 'Rejected'
       end
     end
     @application.application_pets.each do |app|
