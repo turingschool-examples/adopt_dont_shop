@@ -27,12 +27,17 @@ Application.destroy_all
 @shelter_1 = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
 @shelter_2 = Shelter.create(name: 'RGV animal shelter', city: 'Harlingen, TX', foster_program: false, rank: 5)
 @shelter_3 = Shelter.create(name: 'Fancy pets of Colorado', city: 'Denver, CO', foster_program: true, rank: 10)
+@shelter_4 = Shelter.create(name: 'This is a Shelter', city: 'Denver, CO', foster_program: true, rank: 11, full_address: "2438 Drive St, Denver, CO, 98542")
+
+
+
 
 #pets - not tied to application yet
 @pet_1 = @shelter_1.pets.create(name: 'Mr. Pirate', breed: 'tuxedo shorthair', age: 5, adoptable: false)
 @pet_2 = @shelter_1.pets.create(name: 'Clawdia', breed: 'shorthair', age: 3, adoptable: true)
 @pet_3 = @shelter_3.pets.create(name: 'Lucille Bald', breed: 'sphynx', age: 8, adoptable: true)
 @pet_4 = @shelter_1.pets.create(name: 'Ann', breed: 'ragdoll', age: 5, adoptable: true)
+@pet_5 = @shelter_4.pets.create(name: 'Ruby', breed: 'mut', age: 5, adoptable: true)
 
 #pets - currently on applications
 @shelter = Shelter.create!(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
@@ -55,4 +60,5 @@ Application.destroy_all
 @app_pet2 = ApplicationPet.create!(application: @bonds, pet: @lobster, pet_status: 0)
 
 @app_pet3 = ApplicationPet.create!(application: @sosa, pet: @skeeter, pet_status: 0)
-@app_pet4 = ApplicationPet.create!(application: @sosa, pet: @lobster, pet_status: 1)
+@app_pet4 = ApplicationPet.create!(application: @sosa, pet: @lobster, pet_status: 0)
+@app_pet5 = ApplicationPet.create!(application: @sosa, pet: @pet_5, pet_status: 0)
