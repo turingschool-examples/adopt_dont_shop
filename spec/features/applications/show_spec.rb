@@ -106,4 +106,13 @@ RSpec.describe 'the application show' do
     expect(page).to_not have_field(:description)
   end
 
+  it "no submit section when there is no pets" do
+    shelter = Shelter.create!(foster_program: false, name: 'Humane Society', city: 'Phoenix', rank: 20)
+    application = Application.create!(name: 'Cory', city: 'Tempe', state: 'AZ', street_address: '3030 Westroad', zip_code: '85282', status: 'In Progress')
+    visit "/applications/#{application.id}"
+
+    expect(page).to_not have_button("Submit this Application")
+    expect(page).to_not have_field(:description)
+  end
+
 end
