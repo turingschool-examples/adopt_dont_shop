@@ -51,6 +51,7 @@ RSpec.describe Application, type: :model do
       expect(@bonds.application_pet_status(@lobster.id)).to eq("approved")
       expect(@bonds.application_pet_status(@skippy.id)).to eq("denied")
     end
+
     describe '.all_pets_approved?' do
       it 'returns true if all pets on a single app have been approved' do
         expect(@sosa.all_pets_approved?).to eq(true)
@@ -67,6 +68,7 @@ RSpec.describe Application, type: :model do
 
 
     end
+
 
 
   end
