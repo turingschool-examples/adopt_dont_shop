@@ -4,9 +4,6 @@ class ApplicationsController < ApplicationController
     @application = Application.find(params[:id])
     if params[:pet_names]
       @pets = Pet.search(params[:pet_names])
-      @pets_names = []
-      @pets_names << @pet
-      # require "pry"; binding.pry
     else
       @pets = []
     end
@@ -17,7 +14,6 @@ class ApplicationsController < ApplicationController
   end
 
   def create
-    # @application = Application.create!(app_params)
     @application = Application.new({
       name: params[:name],
       address: params[:address],

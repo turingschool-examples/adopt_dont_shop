@@ -4,7 +4,6 @@ class AdminApplicationsController < ApplicationController
     @application = Application.find(params[:id])
     @app_pets = @application.application_pets
     @pets = @application.pets
-    # require "pry"; binding.pry
   end
 
   def update
@@ -12,7 +11,6 @@ class AdminApplicationsController < ApplicationController
     if params[:approve]
       @application = Application.find(params[:id])
       id = params[:pet_id].to_i
-
       @app_pet = @application.application_pets.where(pet_id: id)
       @app_pet.update(pet_status: 1)
       if @application.all_pets_approved? == false
@@ -46,10 +44,5 @@ class AdminApplicationsController < ApplicationController
         end
       end
     end
-
-    def message_for_unadoptable_pets
-
-    end
-
 
 end
