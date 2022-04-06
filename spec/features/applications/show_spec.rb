@@ -97,7 +97,6 @@ RSpec.describe "Application show page" do
     expect(page).to have_content("Status: Pending")
     expect(page).to_not have_content("Status: In Progress")
     expect(page).to have_content("Pets applied for: Scooby")
-    expect(page).to_not have_content(".pet_search")
-    expect(page).to_not have_content(".pet_results")
+    expect(page).to_not have_content("Add a pet to this application")
   end
 end
