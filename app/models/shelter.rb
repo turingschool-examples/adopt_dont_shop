@@ -70,6 +70,8 @@ class Shelter < ApplicationRecord
   end
 
   def self.make_address_readable(shelter_id)
-    find_by_sql("SELECT id, CONCAT(address,' ',city,', ',state,' ',zip_code) AS address FROM shelters WHERE id=#{shelter_id}").first.address
+    if find(shelter_id).address
+      find_by_sql("SELECT id, CONCAT(address,' ',city,', ',state,' ',zip_code) AS address FROM shelters WHERE id=#{shelter_id}").first.address
+    end
   end
 end

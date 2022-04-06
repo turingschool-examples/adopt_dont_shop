@@ -130,7 +130,7 @@ RSpec.describe 'admin_shelters show page' do
 
         it 'i see the shelters name and full address' do
           shelter = Shelter.create(name: 'Mystery Building', address: "22 Acacia Ave.", city: 'New York', state: "NY", zip_code: "10501", foster_program: false, rank: 9)
-          
+
           visit "/admin/shelters/#{shelter.id}"
 
           expect(page).to have_content("Mystery Building")
