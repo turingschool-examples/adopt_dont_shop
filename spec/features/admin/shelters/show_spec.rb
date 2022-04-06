@@ -124,7 +124,7 @@ RSpec.describe 'the admin shelter show page' do
       state: 'CO',
       zipcode: '80207',
       description: 'Happy, friendly, cool',
-      status: 'Pending'
+      status: 'Approved'
     )
     application2 = Application.create!(name: 'Andrew',
       street_address: '112 Greenbrook',
@@ -138,16 +138,8 @@ RSpec.describe 'the admin shelter show page' do
     application_pet = ApplicationPet.create!(application_id: application2.id, pet_id: booth.id, pet_status: "Approved")
     
     visit "/admin/shelters/#{shelter1.id}"
-    expect(page).to have_content("Action Required")
     within "#statistics" do
-      expect(page).to have_content("Pets Adopted: 0")
-    end
-    
-    application1[:status] = "Approved"
-    visit "/admin/shelters/#{shelter1.id}"
-    expect(page).to have_content("Action Required")
-    within "#statistics" do
-      expect(page).to have_content("Pets Adopted: 0")
+      expect(page).to have_content("Pets Adopted: 1")
     end
   end
 end
