@@ -99,4 +99,12 @@ RSpec.describe "Application show page" do
     expect(page).to have_content("Pets applied for: Scooby")
     expect(page).to_not have_content("Add a pet to this application")
   end
+
+  it "cannot submit app without adding pets" do
+    visit "/applications/#{smith_app.id}"
+
+    expect(page).to have_content("Status: In Progress")
+    expect(page).to_not have_field("description")
+    expect(page).to_not have_button("Submit application")
+  end
 end
