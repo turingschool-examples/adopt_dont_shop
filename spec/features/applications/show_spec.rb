@@ -115,4 +115,34 @@ RSpec.describe 'the application show' do
     expect(page).to_not have_field(:description)
   end
 
+  it "can search with fragments" do
+    shelter = Shelter.create!(foster_program: false, name: 'Humane Society', city: 'Phoenix', rank: 20)
+    spot = Pet.create!(adoptable: true, age: 2, breed: 'Mix', name: 'Spot', shelter_id: shelter[:id])
+    chungus = Pet.create!(adoptable: true, age: 15, breed: 'Chihuahua', name: 'Chungus', shelter_id: shelter[:id])
+    gus = Pet.create!(adoptable: true, age: 15, breed: 'Chihuahua', name: 'Gus', shelter_id: shelter[:id])
+    application = Application.create!(name: 'Cory', city: 'Tempe', state: 'AZ', street_address: '3030 Westroad', zip_code: '85282', status: 'In Progress')
+    app_pet = ApplicationPet.create!(pet_id: spot.id, application_id: application.id)
+    visit "/applications/#{application.id}"
+
+    fill_in 'Search', with: 'us'
+    click_button 'Submit'
+
+    expect(page).to have_content(chungus.name)
+    expect(page).to have_content(gus.name)
+  end
+
+  it "searches are case insensitive" do
+    shelter = Shelter.create!(foster_program: false, name: 'Humane Society', city: 'Phoenix', rank: 20)
+    spot = Pet.create!(adoptable: true, age: 2, breed: 'Mix', name: 'Spot', shelter_id: shelter[:id])
+    chungus = Pet.create!(adoptable: true, age: 15, breed: 'Chihuahua', name: 'Chungus', shelter_id: shelter[:id])
+    gus = Pet.create!(adoptable: true, age: 15, breed: 'Chihuahua', name: 'Gus', shelter_id: shelter[:id])
+    application = Application.create!(name: 'Cory', city: 'Tempe', state: 'AZ', street_address: '3030 Westroad', zip_code: '85282', status: 'In Progress')
+    app_pet = ApplicationPet.create!(pet_id: spot.id, application_id: application.id)
+    visit "/applications/#{application.id}"
+
+    fill_in 'Search', with: 'ChUnGuS'
+    click_button 'Submit'
+
+    expect(page).to have_content(chungus.name)
+  end
 end

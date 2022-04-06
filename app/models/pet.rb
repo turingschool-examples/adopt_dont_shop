@@ -16,6 +16,7 @@ class Pet < ApplicationRecord
   end
 
   def self.search_by_name(input)
-    where(name: input)
+    Pet.all.find_all {|pet| pet.name.upcase.include?(input.upcase)}
+    # where(name: input)
   end
 end
