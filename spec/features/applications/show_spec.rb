@@ -61,7 +61,9 @@ RSpec.describe "Application Show Page" do
 
     expect(page).to have_button("Adopt This Pet")
 
-    click_on "Adopt This Pet"
+    within("#pet_search_result_#{@pet_2.id}") do
+      click_on "Adopt This Pet"
+    end
 
     expect(current_path).to eq("/applications/#{@application_2.id}")
     expect(page).to have_content(@pet_2.name)
@@ -81,7 +83,8 @@ RSpec.describe "Application Show Page" do
   end
 
   it "does not display :description form unless application has pets added to it" do
-    visit "/applications/#{@application_2.id}"
+    application_3 = Application.create!(name: "Professor T", street_address: "123 Turing Ave", city: "Denver", state: "CO", zip_code: "80203")
+    visit "/applications/#{application_3.id}"
     expect(page).to have_field(:find_pet)
     expect(page).not_to have_field(:description)
     expect(page).not_to have_button(:submit)
