@@ -43,6 +43,8 @@ RSpec.describe 'Admin Applications Show Page' do
       within "#pet-#{@skeeter.id}" do
         expect(page).to_not have_content("This Pet Has Been Approved!")
       end
+      expect(page).to_not have_content("#{@skippy.name}")
+      expect(page).to_not have_content("#{@sosa.name}")
     end
 
     it 'For every pet on the app, I see a button to deny that specific pet' do
@@ -75,11 +77,15 @@ RSpec.describe 'Admin Applications Show Page' do
         expect(page).to_not have_content("This Pet Has Been Denied!")
         expect(page).to_not have_content("This Pet Has Been Approved!")
         expect(page).to have_selector(:link_or_button, 'APPROVE THIS PET')
+        expect(page).to have_selector(:link_or_button, 'DENY THIS PET')
+
       end
       within "#pet-#{@lobster.id}" do
         expect(page).to_not have_content("This Pet Has Been Approved!")
         expect(page).to_not have_content("This Pet Has Been Denied!")
         expect(page).to have_selector(:link_or_button, 'APPROVE THIS PET')
+        expect(page).to have_selector(:link_or_button, 'DENY THIS PET')
+
       end
     end
 
@@ -95,7 +101,7 @@ RSpec.describe 'Admin Applications Show Page' do
       end
       # save_and_open_page
       expect(page).to have_content("Application Status: accepted")
-
+      expect(page).to_not have_content("Application Status: in_progress")
     end
 
     it 'I deny a single pet on an application, I see the application status is now rejected' do
@@ -109,6 +115,9 @@ RSpec.describe 'Admin Applications Show Page' do
       end
       # save_and_open_page
       expect(page).to have_content("Application Status: rejected")
+      expect(page).to_not have_content("Application Status: accepted")
+      expect(page).to_not have_content("Application Status: in_progress")
+
     end
 
     it 'i approve all pets on an app, visiting those pet show pages show no longer adoptable' do
@@ -126,7 +135,7 @@ RSpec.describe 'Admin Applications Show Page' do
       expect(page).to have_content("false")
       expect(page).to_not have_content("true")
 
-      visit "/pets/#{@skeeter.id}"
+      visit "/pets/#{@lobster.id}"
       expect(page).to have_content("false")
       expect(page).to_not have_content("true")
     end
@@ -157,13 +166,6 @@ RSpec.describe 'Admin Applications Show Page' do
       end
     end
 
-
-
   end
-
-
-
-
-
 
 end

@@ -16,7 +16,6 @@ class Application < ApplicationRecord
 
   def self.pending_apps
     joins(:pets).where(status: '1').distinct
-    # require "pry"; binding.pry
   end
 
   def all_pets_approved?

@@ -4,8 +4,6 @@ class ApplicationsController < ApplicationController
     @application = Application.find(params[:id])
     if params[:pet_names]
       @pets = Pet.search(params[:pet_names])
-      # require "pry"; binding.pry
-
     else
       @pets = []
     end
@@ -16,7 +14,6 @@ class ApplicationsController < ApplicationController
   end
 
   def create
-    # @application = Application.create!(app_params)
     @application = Application.new({
       name: params[:name],
       address: params[:address],
@@ -37,6 +34,7 @@ class ApplicationsController < ApplicationController
 
     if params[:pet_name]
       @pet = Pet.find(params[:pet_name])
+
       @application = Application.find(params[:id])
       @application.update({
         name: params[:name],
@@ -59,24 +57,8 @@ class ApplicationsController < ApplicationController
         description: params[:why_i_would_make_a_good_home],
         status: params[:status].to_i
         })
-      # require "pry"; binding.pry
       redirect_to "/applications/#{@application.id}"
 
     end
   end
-
-
-
-  def edit
-    if params[:pet_names]
-    end
-  end
-
-  # private
-    # def app_params
-    #   # require "pry"; binding.pry
-    #   params.permit(:name, :address, :description, :pet_names, :status)
-    # end
-
-
 end

@@ -3,33 +3,41 @@
 Applicant Name: <%= @application.name %><br>
 Full Address: <%= @application.address %><br>
 Why I am a Good Home: <%= @application.description %><br>
-Adoptable Pets: <%= @application.pet_names %><br>
+Adoptable Pets: <br><% @application.pets.each do |pet| %>
+<%= pet.name %><br>
+<% end  %><br>
+
 Application Status: <%= @application.status %><br>
-<h4>Add a Pet to this Application</h4>
-<%= form_with url: "/applications/#{@application.id}?search=name", method: :get, local: true do %>
-  <%= label_tag(:pet_names, "pet names") %>
-  <%= text_field_tag(:pet_names) %>
-  <%= submit_tag("Submit") %>
+<% if @application.status == "in_progress" %>
+  <h4>Add a Pet to this Application</h4>
+  <%= form_with url: "/applications/#{@application.id}?search=name", method: :get, local: true do %>
+    <%= label_tag(:pet_names, "pet names") %>
+    <%= text_field_tag(:pet_names) %>
+    <%= submit_tag("Submit") %>
+  <% end %>
+  <% @pets.each do |pet| %>
+
+  <div id="pet-<%= pet.id %>">
+
+    <%= pet.name %>
+
+    <%= form_with url: "/applications/#{@application.id}?adopt=pet", method: :patch, local: true do |form| %>
+      <%= form.hidden_field :name, value: "#{@application.name}" %>
+
+      <%= form.hidden_field :address, value: "#{@application.address}" %>
+
+      <%= form.hidden_field :description, value: "#{@application.description}" %>
+      <%= form.hidden_field :pet_name, value: "#{pet.id}" %>
+      <%= form.hidden_field :status, value: "#{@application.status}" %>
+
+      <%= form.submit "Adopt This Pet" %>
+
+    <% end %>
+  </div>
+  <% end %>
 <% end %>
-<% @pets.each do |pet| %>
-<div id="pet-<%= pet.id %>">
 
-  <%= pet.name %>
-  <%= form_with url: "/applications/#{@application.id}?adopt=pet", method: :patch, local: true do |form| %>
-    <%= form.hidden_field :name, value: "#{@application.name}" %>
-
-    <%= form.hidden_field :address, value: "#{@application.address}" %>
-
-    <%= form.hidden_field :description, value: "#{@application.description}" %>
-    <%= form.hidden_field :pet_name, value: "#{pet.id}" %>
-    <%= form.hidden_field :status, value: "#{@application.status}" %>
-
-    <%= form.submit "Adopt This Pet" %>
-  <% end  %>
-</div>
-<% end %>
-
-<% if  @application.status == "in_progress"%>
+<% if  @application.status == "in_progress" && @application.pet_names.empty? == false%>
 
 <h3>Why I Would Make a Good Home</h3>
   <%= form_with url: "/applications/#{@application.id}?add=description", method: :patch, local: true do |form| %>
