@@ -43,10 +43,12 @@ RSpec.describe "admin shelter index" do
   end
 
   it 'has a section that shows all shelters with pending applications' do
-
-    expect(page).to have_content(@shelter_1.name)
-    expect(page).to have_content(@shelter_2.name)
-    expect(page).to not_have_content(@shelter_3.name)
+    save_and_open_page
+    within '.pending' do
+      expect(page).to have_content(@shelter_1.name)
+      expect(page).to have_content(@shelter_2.name)
+      expect(page).to_not have_content(@shelter_3.name)
+    end
   end
 
 end
