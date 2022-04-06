@@ -115,6 +115,7 @@ RSpec.describe Shelter, type: :model do
         ApplicationPet.where(pet: pet_5, application: application_1).first.update(status: :approved)
         ApplicationPet.where(pet: pet_6, application: application_1).first.update(status: :rejected)
         expect(shelter_4.action_required_pets.count).to eq(1)
+        expect(shelter_4.action_required_pets).to eq([pet_7])
       end
     end
 
@@ -134,6 +135,7 @@ RSpec.describe Shelter, type: :model do
         ApplicationPet.where(pet: pet_5, application: application_1).first.update(status: :approved)
         ApplicationPet.where(pet: pet_6, application: application_1).first.update(status: :rejected)
         expect(shelter_4.action_required_applications.count).to eq(1)
+        expect(shelter_4.action_required_applications).to eq([application_1])
       end
     end
   end
