@@ -31,4 +31,11 @@ class Shelter < ApplicationRecord
   def shelter_pets_filtered_by_age(age_filter)
     adoptable_pets.where('age >= ?', age_filter)
   end
+
+  def self.reverse_alphabetical_order
+    select("shelters.*, count(pets.id) AS pets_count")
+      .joins("LEFT OUTER JOIN pets ON pets.shelter_id = shelters.id")
+      .group("shelters.id")
+      .order("name DESC")
+  end
 end
