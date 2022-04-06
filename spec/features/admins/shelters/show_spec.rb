@@ -33,7 +33,7 @@ RSpec.describe 'admin_shelters show page' do
             expect(page).to have_content("Number of Adoptable Pets: 2")
           end
         end
-        
+
         it 'displays a section titled Action Required that lists the pets with pending applicaitons, not approved or rejected' do
           application_1 = Application.create!(name: 'Chris', address: '505 Main St.', city: 'Denver', state: 'CO', zipcode: '80205', description: "I'm great with dogs.", status: 'Pending')
           application_2 = Application.create!(name: 'John', address: '505 Main St.', city: 'Denver', state: 'CO', zipcode: '80205', description: "I'm great with dogs.", status: 'In Progress')
@@ -54,9 +54,9 @@ RSpec.describe 'admin_shelters show page' do
           within "#pet-#{pet_4.id}" do
             click_button "Reject"
           end
-          
+
           visit "/admin/shelters/#{shelter.id}"
-          
+
           within "#action_required" do
             expect(page).to have_content("Scrappy")
             expect(page).to have_content("Sparky")
@@ -88,6 +88,15 @@ RSpec.describe 'admin_shelters show page' do
           within "#statistics" do
             expect(page).to have_content("Number of Adopted Pets: 2")
           end
+        end
+
+        it 'i see the shelters name and full address' do
+          shelter = Shelter.create(name: 'Mystery Building', address: "22 Acacia Ave.", city: 'New York', state: "NY", zip_code: "10501", foster_program: false, rank: 9)
+
+          visit "/admin/shelters/#{shelter.id}"
+
+          expect(page).to have_content("Mystery Building")
+          expect(page).to have_content("22 Acacia Ave. New York, NY 10501")
         end
       end
     end
