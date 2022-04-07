@@ -3,8 +3,8 @@ class Shelter < ApplicationRecord
   validates :rank, presence: true, numericality: true
   validates :city, presence: true
 
-  has_many :application_pets, through: :pets
   has_many :pets, dependent: :destroy
+  has_many :applications, through: :pets
 
   def self.order_by_recently_created
     order(created_at: :desc)
@@ -41,6 +41,10 @@ class Shelter < ApplicationRecord
   def adoptable_pets_avg_age
     pets.where(adoptable: :true).average(:age).round
   end
+
+  def self.pending_names
+    select('name')
+    .joins(:applications).where(:status == 1).distinct.pluck('name')
+
+  end
 end
-
-

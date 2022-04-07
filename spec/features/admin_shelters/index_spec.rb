@@ -13,7 +13,7 @@ RSpec.describe 'Admin Shelter Index Page' do
 
     @app_1 = Application.create!(name: 'bob', address: '100 main street, Aurora, CO, 80014', description: 'I love dogs', pet_names: 'Mr. Pirate, Champ, Pixie', status: 1)
     @app_3 = Application.create!(name: 'Jim', address: '245 oak lane, longmont, CO, 80045', description: 'Best home ever', pet_names: 'Charlie, Gypsy, Lucille Bald', status: 1)
-    @app_2 = Application.create!(name: 'sumbit', address: '321 hill ave, Denver, CO, 80021', description: "", pet_names: "", status: 0)
+    @app_2 = Application.create!(name: 'sumbit', address: '321 hill ave, Denver, CO, 80021', description: "", pet_names: "", status: 1)
 
     ApplicationPet.create!(application: @app_1, pet: @pet_1)
     ApplicationPet.create!(application: @app_3, pet: @pet_3)
@@ -56,12 +56,13 @@ RSpec.describe 'Admin Shelter Index Page' do
       end
       it 'And in this section I see the name of every shelter that has a pending application' do
         within("#pending_application") do
+          # save_and_open_page
           expect(page).to have_content("#{@shelter_1.name}")
           expect(page).to have_content("#{@shelter_3.name}")
           expect(page).to_not have_content("#{@shelter_1.city}")
           expect(page).to_not have_content("#{@shelter_1.foster_program}")
           expect(page).to_not have_content("#{@shelter_1.rank}")
-          expect(page).to_not have_content("#{@shelter_2.name}")
+          expect(page).to have_content("#{@shelter_2.name}")
         end
       end
       it 'Then I see that every shelter name is a link' do

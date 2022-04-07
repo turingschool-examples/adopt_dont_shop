@@ -36,6 +36,11 @@ RSpec.describe Shelter, type: :model do
       it 'returns partial matches' do
         expect(Shelter.search("Fancy")).to eq([@shelter_3])
       end
+
+      it 'returns shelters with pending apps' do
+        expect(Shelter.pending_names.count).to eq(2)
+        expect(Shelter.pending_names).to eq([@shelter_1.name, @shelter_3.name])
+      end
     end
 
     describe '#order_by_recently_created' do

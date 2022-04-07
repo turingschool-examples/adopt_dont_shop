@@ -7,6 +7,7 @@ class Application < ApplicationRecord
   # validates_presence_of :description
   # validates_presence_of :pet_names
   validates_presence_of :status
+  # has_many :shelters, through: :pets
 
 
   def application_pet_status(pet_id)
@@ -15,6 +16,7 @@ class Application < ApplicationRecord
   end
 
   def self.pending_apps
+    # require "pry"; binding.pry
     joins(:pets).where(status: '1').distinct
   end
 
