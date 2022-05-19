@@ -84,32 +84,30 @@ RSpec.describe 'the pets index' do
 
   it 'displays a link to start an application' do
     shelter = Shelter.create!(foster_program: true, name: 'Gally', city: 'Denver', rank: 21)
-    application = Application.create!(name: 'Sylvester Tommy', street_address: '1827 Vincent Ave', city: 'Halifax',
-                                      state: 'Colorado', zip_code: '19274', description: 'I LOVE pets', status: 'In Progress')
+    # application = Application.create!(name: 'Sylvester Tommy', street_address: '1827 Vincent Ave', city: 'Halifax',
+    # state: 'Colorado', zip_code: '19274', description: 'I LOVE pets', status: 'In Progress')
     pet1 = Pet.create!(adoptable: true, age: 9, breed: 'Labrador', name: 'Suzan', shelter_id: shelter.id)
-    ap1 = ApplicationPet.create!(application_id: application.id, pet_id: pet1.id)
+    # ap1 = ApplicationPet.create!(application_id: application.id, pet_id: pet1.id)
 
     visit '/pets'
 
     click_link('Start an Application')
 
-    expect(current_path).to eq('/applications/new')
-
     fill_in('Name', with: 'Sylvester Tommy')
 
-    # fill_in('Street Address', with: '1827 Vincent Ave')
+    fill_in(:street_address, with: '1827 Vincent Ave')
 
     fill_in('City', with: 'Denver')
 
     fill_in('State', with: 'Colorado')
 
-    # fill_in('Zipcode', with: '38271')
+    fill_in(:zip_code, with: '38271')
 
     fill_in('Description', with: 'I LOVE pets')
 
     click_button('Submit')
 
-    expect(current_path).to eq("applications/#{application.last.id}")
+    expect(current_path).to eq("/applications/#{Application.last.id}")
 
     expect(page).to have_content('Sylvester Tommy')
 
