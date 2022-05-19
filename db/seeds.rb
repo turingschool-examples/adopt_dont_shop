@@ -25,6 +25,7 @@
   @vet_3 = @vet_office.veterinarians.create!(name: 'Jim', review_rating: 8, on_call: true)
   @not_on_call_vet = @vet_office.veterinarians.create(name: 'Sam', review_rating: 10, on_call: false)
 
+  @application_1 = Application.create!(name: "Mike", address: "1234 Street St Denver CO 69420", description: "I care about pets", pets: @pet_1.name, status: "Pending")
 
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
