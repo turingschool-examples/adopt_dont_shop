@@ -46,6 +46,6 @@ RSpec.describe 'application' do
   end
 
   it 'shows full address of applicant' do
-    visit '/'
+    visit '/:id'
   end
 end
