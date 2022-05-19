@@ -1,6 +1,10 @@
 require 'rails_helper'
 
-RSpec.describe Application type: :model do
+RSpec.describe Application, type: :model do
+  describe 'relationships' do
+    it { should have_many(:application_pet) }
+    it { should have_many(:pets).through(:application_pet) }
+  end
   describe 'validations' do
     it { should validate_presence_of :name }
     it { should validate_presence_of :street_address }
