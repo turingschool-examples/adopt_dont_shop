@@ -5,12 +5,12 @@ class ApplicationsController < ApplicationController
 
   def new
     @status = 'In Progress'
-    @last_app = Application.last
   end
 
   def create
     application = Application.create(application_params)
-    redirect_to "/applications/#{application.id}"
+    @last_app = Application.order('created_at').last
+    redirect_to "/applications/#{@last_app.id}"
   end
 
   private
