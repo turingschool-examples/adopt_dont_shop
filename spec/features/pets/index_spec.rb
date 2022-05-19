@@ -103,7 +103,7 @@ RSpec.describe 'the pets index' do
 
     fill_in(:zip_code, with: '38271')
 
-    fill_in('Description', with: 'I LOVE pets')
+    fill_in('Description', with: 'I LOVE pets') # Added description even though it is not specified in user story because that didn't make sense to me
 
     click_button('Submit')
 
