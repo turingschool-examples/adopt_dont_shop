@@ -4,7 +4,7 @@
 # Examples:
   Shelter.destroy_all
   Pet.destroy_all
-  Veterinary_office.destroy_all
+  VeterinaryOffice.destroy_all
   Veterinarian.destroy_all
   Application.destroy_all
 
@@ -20,12 +20,11 @@
   @vet_office_1 = VeterinaryOffice.create!(name: 'Best Vets', boarding_services: true, max_patient_capacity: 20)
   @vet_office_2 = VeterinaryOffice.create!(name: 'Vets R Us', boarding_services: true, max_patient_capacity: 20)
 
-  @vet_1 = @vet_office.veterinarians.create!(name: 'Taylor', review_rating: 10, on_call: true)
-  @vet_2 = @vet_office.veterinarians.create!(name: 'Tanya', review_rating: 9, on_call: true)
-  @vet_3 = @vet_office.veterinarians.create!(name: 'Jim', review_rating: 8, on_call: true)
-  @not_on_call_vet = @vet_office.veterinarians.create(name: 'Sam', review_rating: 10, on_call: false)
+  @vet_1 = @vet_office_1.veterinarians.create!(name: 'Taylor', review_rating: 10, on_call: true)
+  @vet_2 = @vet_office_1.veterinarians.create!(name: 'Tanya', review_rating: 9, on_call: true)
+  @vet_3 = @vet_office_1.veterinarians.create!(name: 'Jim', review_rating: 8, on_call: true)
+  @not_on_call_vet = @vet_office_1.veterinarians.create(name: 'Sam', review_rating: 10, on_call: false)
 
-  @application_1 = Application.create!(name: "Mike", address: "1234 Street St Denver CO 69420", description: "I care about pets", pets: @pet_1.name, status: "Pending")
 
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
