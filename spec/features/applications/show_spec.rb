@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe 'the shelter show' do
   let(:application) { Application.create!(name: 'Debbie', street_address: '1234 dog way', city: "San Francisco", zip_code: 66012, description: 'I love dogs', pet_names: 'Pickle, Brownie', application_status: 'Accepted') }
 
-  it "shows the application and all it's attributes" do
+  it "shows an application and all it's attributes" do
     visit "/applications/#{application.id}"
     save_and_open_page
 
