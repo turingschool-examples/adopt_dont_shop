@@ -97,13 +97,13 @@ RSpec.describe 'the pets index' do
 
     fill_in('Name', with: 'Sylvester Tommy')
 
-    fill_in('Street Address', with: '1827 Vincent Ave')
+    # fill_in('Street Address', with: '1827 Vincent Ave')
 
     fill_in('City', with: 'Denver')
 
     fill_in('State', with: 'Colorado')
 
-    fill_in('Zipcode', with: '38271')
+    # fill_in('Zipcode', with: '38271')
 
     fill_in('Description', with: 'I LOVE pets')
 
