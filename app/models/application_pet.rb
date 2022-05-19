@@ -1,4 +1,4 @@
 class ApplicationPet < ApplicationRecord
   belongs_to :pet
-  belogns_to :application
+  belongs_to :application
 end

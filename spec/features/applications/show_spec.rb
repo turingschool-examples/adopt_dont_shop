@@ -17,5 +17,9 @@ RSpec.describe 'application' do
     expect(page).to have_content('I LOVE pets')
     expect(page).to have_content('In Progress')
     expect(page).to have_content('Suzan')
+
+    click_link('Suzan')
+
+    expect(current_path).to eq("/pets/#{pet1.id}")
   end
 end
