@@ -44,4 +44,15 @@ RSpec.describe 'application' do
     expect(page).to have_link("Veterinarians")
     expect(page).to have_link("Veterinary Offices")
   end
+
+  describe 'Application show page' do
+    it 'displays the name and location of applicant' do
+      applicant = Applicant.create!(name: "Bob Ross", street_address: "123 Trees St.", city: "Nantuket", state: "MA", zip: "02554")
+
+      visit "/applicants/#{applicant.id}"
+
+      expect(page).to have_content("Bob Ross")
+      expect(page).to have_content("123 Trees St. Nantuket, MA 02554")
+    end
+  end
 end
