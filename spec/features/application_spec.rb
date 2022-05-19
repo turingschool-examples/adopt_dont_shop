@@ -44,8 +44,4 @@ RSpec.describe 'application' do
     expect(page).to have_link('Veterinarians')
     expect(page).to have_link('Veterinary Offices')
   end
-
-  it 'shows full address of applicant' do
-    visit '/:id'
-  end
 end
