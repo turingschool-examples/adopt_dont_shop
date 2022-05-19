@@ -50,7 +50,7 @@ RSpec.describe 'application' do
       applicant = Applicant.create!(name: "Bob Ross", street_address: "123 Trees St.", city: "Nantuket", state: "MA", zip: "02554")
 
       visit "/applicants/#{applicant.id}"
-
+      save_and_open_page
       expect(page).to have_content("Bob Ross")
       expect(page).to have_content("123 Trees St. Nantuket, MA 02554")
     end
