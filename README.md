@@ -56,6 +56,8 @@ Localhost is fine for development, but
 the application must be hosted on Heroku.
 
 Use these guides: https://devcenter.heroku.com/articles/getting-started-with-rails5
+
+Continuous Integration / Deployment is not allowed for this project.
 ```
 
 ## Apply for Pet(s)
