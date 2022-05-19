@@ -1,4 +1,4 @@
-BEFORE YOU START THE PROJECT
+# BEFORE YOU START THE PROJECT
 DTR: Essential Questions to Discuss
 What are your learning goals for the project?
 Build upon existing code within the project repo to create a Pet Adoption Platform.
