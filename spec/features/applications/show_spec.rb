@@ -48,7 +48,7 @@ RSpec.describe 'application' do
   it 'shows full address of applicant' do
     application = Application.create!(name: 'Sylvester Tommy', street_address: '1827 Vincent Ave', city: 'Halifax',
                                       state: 'Colorado', zip_code: '19274', description: 'I LOVE pets', status: 'In Progress')
-    visit '/applications/:id'
+    visit "/applications/#{application.id}"
 
     expect(page).to have_content('Sylvester Tommy')
     expect(page).to have_content('1827 Vincent Ave')
