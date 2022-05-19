@@ -6,19 +6,19 @@ RSpec.describe 'the applications new page' do
 
     fill_in('Name', with: 'Sylvester Tommy')
 
-    fill_in('Street Address', with: '1827 Vincent Ave')
+    fill_in(:street_address, with: '1827 Vincent Ave')
 
     fill_in('City', with: 'Denver')
 
     fill_in('State', with: 'Colorado')
 
-    fill_in('Zipcode', with: '38271')
+    fill_in(:zip_code, with: '38271')
 
     fill_in('Description', with: 'I LOVE pets')
 
     click_button('Submit')
 
-    expect(current_path).to eq("applications/#{application.last.id}")
+    expect(current_path).to eq("/applications/#{Application.last.id}")
 
     expect(page).to have_content('Sylvester Tommy')
 
