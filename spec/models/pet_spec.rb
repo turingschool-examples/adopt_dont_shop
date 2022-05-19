@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe Pet, type: :model do
   describe 'relationships' do
     it { should belong_to(:shelter) }
+    it { should have_many(:applications).through(:application_pets) }
   end
 
   describe 'validations' do
@@ -21,7 +22,7 @@ RSpec.describe Pet, type: :model do
   describe 'class methods' do
     describe '#search' do
       it 'returns partial matches' do
-        expect(Pet.search("Claw")).to eq([@pet_2])
+        expect(Pet.search('Claw')).to eq([@pet_2])
       end
     end
 
