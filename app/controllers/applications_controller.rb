@@ -8,16 +8,16 @@ class ApplicationsController < ApplicationController
     redirect_to "/applications/#{application.id}"
   end
 
-  # def create
-  #   application = Ppplication.new(application_params)
+  def create
+    application = Application.new(application_params)
 
-  #   if application.save
-  #     redirect_to "/application/#{application.id}"
-  #   else
-  #     redirect_to "/applications/new"
-  #     flash[:alert] = "Error: #{error_message(application.errors)}"
-  #   end
-  # end
+    if application.save
+      redirect_to '/applications'
+    else
+      redirect_to '/applications/new'
+      flash[:alert] = "Error: #{error_message(application.errors)}"
+    end
+  end
 
 
   private 

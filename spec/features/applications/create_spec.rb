@@ -30,5 +30,21 @@ RSpec.describe 'New Application page' do
     expect(page).to have_content('ID' )
     expect(page).to have_content('83201')
     expect(page).to have_content('I love dogs')
+
+
+    it 're-renders the new form if all information isnt given' do
+      visit '/applications/new'
+      click_button 'Save'
+
+      fill_in 'name', with: 'Sam' 
+      fill_in 'street_address', with: '123 cherry ln' 
+      fill_in 'city', with: 'Boise' 
+      fill_in 'state', with: 'ID' 
+      fill_in 'zip_code', with: '83201' 
+
+      expect(page).to have_content("Error: Name can't be blank, Rank can't be blank, Rank is not a number")
+      expect(page).to have_current_path('/applications/new')
+    end
+    end
   end
 end
