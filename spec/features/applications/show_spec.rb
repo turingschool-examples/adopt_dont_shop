@@ -13,7 +13,7 @@ require 'rails_helper'
 # - names of all pets that this application is for (all names of pets should be links to their show page)
 # - The Application's status, either "In Progress", "Pending", "Accepted", or "Rejected"
 
-RSpec.describe Applications, type: :feature do
+RSpec.describe Application, type: :feature do
   describe 'Application Show Page' do
     context 'as a visitor, can see all parameters' do
       before(:each) do
@@ -28,7 +28,7 @@ RSpec.describe Applications, type: :feature do
         @pet23 = @shelter2.pets.create(name: 'Huckleberry', age: 17, breed: 'Tuxedo', adoptable: true)
         @application2 = Application.create(name: 'Caden', street_address: '111 First Street', city: 'Denver', state: 'CO', zipcode: '07321')
 
-        visit "/applications/#{application1.id}"
+        visit "/applications/#{@application1.id}"
       end
         
       it 'also shows status' do
@@ -40,7 +40,7 @@ RSpec.describe Applications, type: :feature do
         expect(page).to have_content('80504')
         expect(page).to have_content('Mr. Biggs')
         expect(page).to have_content('In Progress')
-        
+
       end
     end
   end
