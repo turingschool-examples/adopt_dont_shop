@@ -10,8 +10,8 @@
 <%= form.label :state %>
   <%= form.text_field :state %> <br>
 <%= form.label :zip_code %>
-  <%= form.number_field :zip_code %>
-<%= form.label :description %>
-  <%= form.text_field :description %>
+  <%= form.number_field :zip_code %> <br>
+<%= form.label :description, "Why would this be a good home?" %>
+  <%= form.text_field :description %> <br> <br>
 <%= form.submit "Submit Application" %>
 <% end %>

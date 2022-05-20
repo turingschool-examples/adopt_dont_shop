@@ -23,6 +23,7 @@ RSpec.describe 'the application show' do
     expect(page).to have_link('Lucille Bald')
     click_link 'Lucille Bald'
     expect(current_path).to eq("/pets/#{pet_1.id}")
+    save_and_open_page
 
   end
 end
