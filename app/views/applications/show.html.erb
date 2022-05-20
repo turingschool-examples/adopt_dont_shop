@@ -21,5 +21,6 @@
 <% if params[:search].present? %>
   <% @pet_search.each do |pet| %>
     <%= pet.name %>
+    <%= button_to 'Adopt this Pet', "/applicationpets", method: :create %>
   <% end %>
 <% end %>
