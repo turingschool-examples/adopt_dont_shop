@@ -7,8 +7,7 @@ class ApplicationsController < ApplicationController
 	end
 
 	def create
-		# application = Application.create(application_params)
-		application = Application.new(application_params)
+		application = Application.create(application_params)
 		if application.save
 			redirect_to "/applications/#{application.id}"
 		else
