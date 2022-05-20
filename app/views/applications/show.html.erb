@@ -1,3 +1,12 @@
-<h1> Applicant Name: <%= @application.name %></h1>
-<p> Address: <%= @application.street_address %> <%= @application.city  %> <%= @application.state %> <%= @application.zip_code %></p>
-<p> Reason for adopting: <%= @application.description %></p>
+<h2> Applicant Name: <%= @application.name %></h2>
+<p><b>Address:</b> <%= @application.street_address %>,
+             <%= @application.city  %>,
+             <%= @application.state %>,
+             <%= @application.zip_code %></p>
+<p><b>Why is <%= @application.name %> a good fit? </b> <%= @application.description %></p>
+<p><b>Pet Names: </b>
+  <% @application.pets.each do |pet| %>
+    <%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
+  <% end %>
+</p>
+<p><b> Application Status:</b><%= @application.status %></p>
