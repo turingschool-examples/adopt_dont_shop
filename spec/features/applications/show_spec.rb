@@ -14,7 +14,7 @@ RSpec.describe 'Applications Show Page' do
   it 'displays names of pets for application' do
     shelter = Shelter.create!(foster_program: true, name: 'Happy Dog', city: 'Denver', rank: 3)
     max = shelter.pets.create!(adoptable: true, age: 4, breed: 'Labrador', name: 'Max')
-    sasha = shelter.pets.create!(adoptable: false, age: 2, breed: 'pitsky', name: 'sasha')
+    sasha = shelter.pets.create!(adoptable: false, age: 2, breed: 'Pitsky', name: 'Sasha')
     application = Application.create!(name: 'Thomas', address: '12 Water Street, Denver, CO, 80111',
                                       description: 'Happy Home', status: 'In Progress')
     application2 = Application.create!(name: 'Sage', address: '42 Wind Avenue, Denver, CO, 80111',
@@ -25,5 +25,10 @@ RSpec.describe 'Applications Show Page' do
     visit "/applications/#{application.id}"
     expect(page).to have_content('Max')
     expect(page).to have_content('Sasha')
+    click_link 'Max'
+    expect(current_path).to eq("/pets/#{max.id}")
+    visit "/applications/#{application.id}"
+    click_link 'Sasha'
+    expect(current_path).to eq("/pets/#{sasha.id}")
   end
 end
