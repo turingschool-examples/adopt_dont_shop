@@ -1,7 +1,7 @@
 
 <h2>Start an Application</h2>
 <%= form_with url: "/applications", method: :post, local: true do |form|%>
-  <%= form.label :name, "Name" %><br/>
+  <%= form.label :name %><br/>
   <%= form.text_field :name %><br/>
   <%= form.label :street_address, "Street Address" %><br/>
   <%= form.text_field :street_address %><br/>
@@ -13,7 +13,5 @@
   <%= form.text_field :zip_code %><br/>
   <%= form.label :description, "Why would you make a good home?" %><br/>
   <%= form.text_field :description %><br/>
-  <%= form.label :pet_names, "Pet Names (list all)" %><br/>
-  <%= form.text_field :pet_names %><br/>
   <%= form.submit 'Submit' %>
 <% end %>

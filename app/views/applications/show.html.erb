@@ -1,8 +1,21 @@
 <p><strong>Full Name: </strong><%= @application.name %></p>
-<p><Strong>Street Address: </strong><%= @application.street_address %></p>
-<p><Strong>City: </strong><%= @application.city %></p>
-<p><Strong>State: </strong><%= @application.state %></p>
-<p><Strong>Zip Code: </strong><%= @application.zip_code %></p>
-<p><Strong>Why would you make a good home? </strong><%= @application.description %></p>
-<p><Strong>Pet Names (list all): </strong><%= @application.pet_names %></p>
-<p><Strong>Application Status: </strong><%= @application.application_status %></p>
+<p><strong>Street Address: </strong><%= @application.street_address %></p>
+<p><strong>City: </strong><%= @application.city %></p>
+<p><strong>State: </strong><%= @application.state %></p>
+<p><strong>Zip Code: </strong><%= @application.zip_code %></p>
+<p><strong>Why would you make a good home? </strong><%= @application.description %></p>
+<p><strong>Application Status: </strong><%= @application.application_status %></p>
+<br>
+<p><strong>Add a Pet to this Application</strong></p>
+
+<%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |f| %>
+  <%= f.label :pet_name %>
+  <%= f.text_field :pet_name %>
+  <%= f.submit 'Submit' %>
+<% end %>
+
+<% if @pets != nil %>
+  <% @pets.each do |pet| %>
+    <%= pet.name %>
+  <% end %>
+<% end %>
