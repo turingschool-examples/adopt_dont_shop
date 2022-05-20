@@ -6,22 +6,17 @@ class ApplicationsController < ApplicationController
   
   def new
   end
-  
-  def create 
-    application = Application.create(application_params)
-    redirect_to "/applications/#{application.id}"
-  end
 
-#  def create
-#     @application = Application.create(application_params)
-#     if @application.save
-#       redirect_to "/applications/#{@application.id}"
-#     else
-#       flash[:alert] =
-#         "Error: All fields must be completed to submit!"
-#       redirect_to '/applications/new'
-#     end
-#   end
+ def create
+    @application = Application.create(application_params)
+    if @application.save
+      redirect_to "/applications/#{@application.id}"
+    else
+      flash[:alert] =
+        "Error: All fields must be completed to submit!"
+      redirect_to '/applications/new'
+    end
+  end
 
 
   private 

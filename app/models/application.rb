@@ -7,6 +7,7 @@ class Application < ApplicationRecord
   validates :city, presence: true
   validates :state, presence: true
   validates :zip_code, presence: true
+  validates :pet_names, presence: true 
   validates :application_status, presence: true
 
   attribute :description, :string, default: ' '

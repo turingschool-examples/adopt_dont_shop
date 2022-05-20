@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'New Application page' do 
-  let!(:application) { Application.create!(name: 'Sam', street_address: '123 Cherry ln', city: 'Boise', state: 'ID', zip_code: '83201', description: 'I love dogs', application_status: 'In Progress')}
+  let!(:application) { Application.create!(name: 'Sam', street_address: '123 Cherry ln', city: 'Boise', state: 'ID', zip_code: '83201', description: 'I love dogs', pet_names: 'Finn', application_status: 'In Progress')}
   
   it 'has form to create new application' do 
     visit 'applications/new'
@@ -12,7 +12,7 @@ RSpec.describe 'New Application page' do
     fill_in 'state', with: 'ID' 
     fill_in 'zip_code', with: '83201' 
     fill_in 'description', with: 'I love dogs'
-    
+    fill_in 'pet_names', with: 'Finn'
     click_button "Submit"
   
     # expect(current_path).to eq("/applications/#{application.id}")
