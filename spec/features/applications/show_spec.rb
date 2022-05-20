@@ -18,11 +18,12 @@ RSpec.describe 'the application show' do
     expect(page).to have_content('CO')
     expect(page).to have_content(80303)
     expect(page).to have_content('I need to combat loneliness')
-    #expect(page).to have_content(@app_1.status)
+    expect(page).to have_content(app_1.status)
     expect(page).to_not have_content('Jenn')
     expect(page).to have_link('Lucille Bald')
     click_link 'Lucille Bald'
     expect(current_path).to eq("/pets/#{pet_1.id}")
+    save_and_open_page
 
   end
 end

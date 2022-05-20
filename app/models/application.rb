@@ -1,4 +1,6 @@
 class Application < ApplicationRecord
+	after_initialize :default_values
+
 	has_many :pet_applications
 	has_many :pets, through: :pet_applications
 
@@ -8,4 +10,9 @@ class Application < ApplicationRecord
 	validates :state, presence: :true
 	validates :zip_code, presence: :true
 	validates :description, presence: :true
+
+	def default_values
+		self.status ||= "In Progress"
+	end
+
 end

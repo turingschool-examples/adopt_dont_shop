@@ -1,0 +1,17 @@
+<h2> Fill Out Application to Adopt </h2>
+
+<%= form_with url: "/applications", method: :post, local: :true do |form| %>
+<%= form.label :name %>
+  <%= form.text_field :name %> <br>
+<%= form.label :street_address %>
+  <%= form.text_field :street_address %> <br>
+<%= form.label :city %>
+  <%= form.text_field :city %> <br>
+<%= form.label :state %>
+  <%= form.text_field :state %> <br>
+<%= form.label :zip_code %>
+  <%= form.number_field :zip_code %> <br>
+<%= form.label :description, "Why would this be a good home?" %>
+  <%= form.text_field :description %> <br> <br>
+<%= form.submit "Submit Application" %>
+<% end %>
