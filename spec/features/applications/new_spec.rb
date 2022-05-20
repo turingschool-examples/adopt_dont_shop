@@ -10,7 +10,7 @@ RSpec.describe "new application page" do
     fill_in("City", with: "Aurora")
     fill_in("State", with: "CO")
     fill_in("Zip code", with: 80010)
-    fill_in("Description", with: "I need fluffy pets to cuddle")
+    fill_in("Why would this be a good home?", with: "I need fluffy pets to cuddle")
 
     click_on("Submit")
     application = Application.last
