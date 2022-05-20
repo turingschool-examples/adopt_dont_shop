@@ -13,7 +13,7 @@ RSpec.describe "new application page" do
 
     click_on("Submit")
     application = Application.last
-    expect(current_path).to eq("applications/#{application.id}")
+    expect(current_path).to eq("/applications/#{application.id}")
 
   end
 end
