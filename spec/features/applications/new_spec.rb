@@ -4,7 +4,7 @@ RSpec.describe "new application page" do
 
   it "creates a new application" do
     visit '/applications/new'
-    
+
     fill_in("Name", with: "Jenn")
     fill_in("Street address", with: "2 Wildflower Lane")
     fill_in("City", with: "Aurora")
@@ -15,7 +15,5 @@ RSpec.describe "new application page" do
     click_on("Submit")
     application = Application.last
     expect(current_path).to eq("/applications/#{application.id}")
-    save_and_open_page
-
   end
 end
