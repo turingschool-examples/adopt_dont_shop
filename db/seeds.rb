@@ -8,10 +8,10 @@
 
 Veterinarian.destroy_all
 VeterinaryOffice.destroy_all
-Shelter.destroy_all
-Pet.destroy_all
-Application.destroy_all
 ApplicationPet.destroy_all
+Application.destroy_all
+Pet.destroy_all
+Shelter.destroy_all
 
 dumb_friends = Shelter.create!(name: 'Denver Dumb Friends League', city: 'Denver', rank: 4, foster_program: true)
 boulder_county = Shelter.create!(name: 'Boulder County Shelter', city: 'Boulder', rank: 7, foster_program: true)
