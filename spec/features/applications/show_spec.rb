@@ -42,7 +42,6 @@ RSpec.describe 'application show page' do
 
     expect(page).to have_content('Spot')
     expect(page).to_not have_content('Suzan')
-    save_and_open_page
   end
 
   it 'adds a pet to the application' do

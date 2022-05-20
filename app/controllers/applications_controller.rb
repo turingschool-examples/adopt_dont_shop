@@ -2,9 +2,7 @@ class ApplicationsController < ApplicationController
   def show
     @application = Application.find(params[:id])
 
-    if params[:search].present?
-      @pet_search = Pet.search(params[:search])
-    end
+    @pet_search = Pet.search(params[:search]) if params[:search].present?
   end
 
   def new
@@ -16,8 +14,8 @@ class ApplicationsController < ApplicationController
       @last_app = Application.order('created_at').last
       redirect_to "/applications/#{@last_app.id}"
     else
-      redirect_to "/applications/new"
-      flash[:message] = "Please fill in all the fields"
+      redirect_to '/applications/new'
+      flash[:message] = 'Please fill in all the fields'
     end
   end
 
