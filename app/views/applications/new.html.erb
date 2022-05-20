@@ -11,8 +11,8 @@
   <%= form.text_field :zip_code %>
   <%= form.label :description %>
   <%= form.text_field :description %>
-  <%= form.label :status %>
-  <%= form.text_field :status, :value => @status %>
+  <% form.label :status %>
+  <% form.text_field :status, :value => @status %>
 
   <%= form.submit "Submit" %>
 <% end %>
