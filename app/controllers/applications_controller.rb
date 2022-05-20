@@ -8,9 +8,13 @@ class ApplicationsController < ApplicationController
   end
 
   def create
-    application = Application.create(application_params)
-    @last_app = Application.order('created_at').last
-    redirect_to "/applications/#{@last_app.id}"
+    if Application.create(application_params).valid?
+      @last_app = Application.order('created_at').last
+      redirect_to "/applications/#{@last_app.id}"
+    else
+      redirect_to "/applications/new"
+      flash[:message] = "Please fill in all the fields"
+    end
   end
 
   private
