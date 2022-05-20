@@ -1,0 +1,4 @@
+class PetApplications
+  belongs_to :pet
+  belongs_to :application
+end
