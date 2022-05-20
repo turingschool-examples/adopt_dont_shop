@@ -22,7 +22,8 @@ RSpec.describe 'the shelter show' do
 
   it "can search for pets" do
     visit "applications/#{application.id}"
-
+    save_and_open_page
+    
     expect(page).to have_content("Add a Pet to this Application")
     expect(page).to_not have_content(pet_1.name)
 
