@@ -6,10 +6,10 @@ RSpec.describe "new application page" do
     visit '/applications/new'
 
     fill_in("Name", with: "Jenn")
-    fill_in("Street Address", with: "2 Wildflower Lane")
+    fill_in("Street address", with: "2 Wildflower Lane")
     fill_in("City", with: "Aurora")
     fill_in("State", with: "CO")
-    fill_in("Zip Code", with: 80010)
+    fill_in("Zip code", with: 80010)
 
     click_on("Submit")
     application = Application.last
