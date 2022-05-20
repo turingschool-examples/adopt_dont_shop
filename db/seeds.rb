@@ -7,7 +7,6 @@ Application.destroy_all
 Pet.destroy_all
 Shelter.destroy_all
 
-
 app_1 = Application.create!(name: 'Stephen', street_address: '3 Green St', city: 'Boulder', state: 'CO', zip_code: 80303, description: 'I need to combat loneliness' )
 app_2 = Application.create!(name: 'Jenn', street_address: '2 Wildflower Lane', city: 'Aurora', state: 'CO', zip_code: 80010, description: 'I need fluffy pets to cuddle' )
 
