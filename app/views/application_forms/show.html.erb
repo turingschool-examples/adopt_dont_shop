@@ -1,0 +1,12 @@
+<h1><%= @application_form.name %></h1>
+<h3><%= @application_form.street_address %></h3>
+<h3><%= @application_form.city %></h3>
+<h3><%= @application_form.state %></h3>
+<h3><%= @application_form.zip_code %></h3>
+<h3><%= @application_form.description %></h3>
+<h3><%= @application_form.status %></h3>
+<h3><% @application_form.pets.each do |pet|%>
+    <%= link_to "#{pet.name}", "/pets/#{pet.id}/" %>
+  <% end %>
+
+</h3>
