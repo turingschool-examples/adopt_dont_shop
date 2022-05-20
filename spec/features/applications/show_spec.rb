@@ -10,7 +10,6 @@ RSpec.describe 'the application show' do
 
   it "shows the application and all it's attributes" do
     visit "/applications/#{app_1.id}"
-    save_and_open_page
 
     expect(page).to have_content('Stephen')
     expect(page).to have_content('3 Green St')
@@ -23,7 +22,6 @@ RSpec.describe 'the application show' do
     expect(page).to have_link('Lucille Bald')
     click_link 'Lucille Bald'
     expect(current_path).to eq("/pets/#{pet_1.id}")
-    save_and_open_page
 
   end
 end

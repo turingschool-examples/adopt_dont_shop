@@ -7,7 +7,6 @@ RSpec.describe 'the pets index' do
     pet_2 = Pet.create(adoptable: true, age: 3, breed: 'doberman', name: 'Lobster', shelter_id: shelter.id)
 
     visit "/pets"
-    save_and_open_page
     expect(page).to have_content(pet_1.name)
     expect(page).to have_content(pet_1.breed)
     expect(page).to have_content(pet_1.age)
@@ -86,8 +85,6 @@ RSpec.describe 'the pets index' do
     shelter = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
     pet_1 = Pet.create(adoptable: true, age: 7, breed: 'sphynx', name: 'Bare-y Manilow', shelter_id: shelter.id)
     visit "/pets"
-
-    save_and_open_page
 
     expect(page).to have_link("Start an Application for #{pet_1.name}!")
     click_on("Start an Application for #{pet_1.name}!")
