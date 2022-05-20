@@ -12,22 +12,23 @@ class ApplicationsController < ApplicationController
     redirect_to "/applications/#{application.id}"
   end
 
-  def create
-    application = Application.new(application_params)
-
-    if application.save
-      redirect_to '/applications'
-    else
-      redirect_to '/applications/new'
-      flash[:alert] = "Error: #{error_message(application.errors)}"
-    end
-  end
+#  def create
+#     @application = Application.create(application_params)
+#     if @application.save
+#       redirect_to "/applications/#{@application.id}"
+#     else
+#       flash[:alert] =
+#         "Error: All fields must be completed to submit!"
+#       redirect_to '/applications/new'
+#     end
+#   end
 
 
   private 
 
   def application_params 
-    params.permit(:name, :street_address, :city, :state, :zip_code, :description, :pets, :application_status)
+     params.permit(:name, :street_address, :city, :state, :zip_code, :description, :pet_names, :application_status)
+    # params.permit(:id, :name, :address, :city, :state, :zipcode, :description)
   end
 end
 
