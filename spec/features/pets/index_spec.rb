@@ -6,7 +6,7 @@ RSpec.describe 'the pets index' do
     pet_1 = Pet.create(adoptable: true, age: 1, breed: 'sphynx', name: 'Lucille Bald', shelter_id: shelter.id)
     pet_2 = Pet.create(adoptable: true, age: 3, breed: 'doberman', name: 'Lobster', shelter_id: shelter.id)
 
-    visit "/pets"
+    visit '/pets'
 
     expect(page).to have_content(pet_1.name)
     expect(page).to have_content(pet_1.breed)
@@ -25,7 +25,7 @@ RSpec.describe 'the pets index' do
     pet_2 = Pet.create(adoptable: true, age: 3, breed: 'doberman', name: 'Lobster', shelter_id: shelter.id)
     pet_3 = Pet.create(adoptable: false, age: 2, breed: 'saint bernard', name: 'Beethoven', shelter_id: shelter.id)
 
-    visit "/pets"
+    visit '/pets'
 
     expect(page).to_not have_content(pet_3.name)
   end
@@ -57,13 +57,13 @@ RSpec.describe 'the pets index' do
 
     click_link("Delete #{pet_1.name}")
 
-    expect(page).to have_current_path("/pets")
+    expect(page).to have_current_path('/pets')
     expect(page).to_not have_content(pet_1.name)
   end
 
   it 'has a text box to filter results by keyword' do
-    visit "/pets"
-    expect(page).to have_button("Search")
+    visit '/pets'
+    expect(page).to have_button('Search')
   end
 
   it 'lists partial matches as search results' do
@@ -72,13 +72,55 @@ RSpec.describe 'the pets index' do
     pet_2 = Pet.create(adoptable: true, age: 3, breed: 'domestic pig', name: 'Babe', shelter_id: shelter.id)
     pet_3 = Pet.create(adoptable: true, age: 4, breed: 'chihuahua', name: 'Elle', shelter_id: shelter.id)
 
-    visit "/pets"
+    visit '/pets'
 
-    fill_in 'Search', with: "Ba"
-    click_on("Search")
+    fill_in 'Search', with: 'Ba'
+    click_on('Search')
 
     expect(page).to have_content(pet_1.name)
     expect(page).to have_content(pet_2.name)
     expect(page).to_not have_content(pet_3.name)
+  end
+
+  it 'displays a link to start an application' do
+    shelter = Shelter.create!(foster_program: true, name: 'Gally', city: 'Denver', rank: 21)
+    # application = Application.create!(name: 'Sylvester Tommy', street_address: '1827 Vincent Ave', city: 'Halifax',
+    # state: 'Colorado', zip_code: '19274', description: 'I LOVE pets', status: 'In Progress')
+    pet1 = Pet.create!(adoptable: true, age: 9, breed: 'Labrador', name: 'Suzan', shelter_id: shelter.id)
+    # ap1 = ApplicationPet.create!(application_id: application.id, pet_id: pet1.id)
+
+    visit '/pets'
+
+    click_link('Start an Application')
+
+    fill_in('Name', with: 'Sylvester Tommy')
+
+    fill_in(:street_address, with: '1827 Vincent Ave')
+
+    fill_in('City', with: 'Denver')
+
+    fill_in('State', with: 'Colorado')
+
+    fill_in(:zip_code, with: '38271')
+
+    fill_in('Description', with: 'I LOVE pets') # Added description even though it is not specified in user story because that didn't make sense to me
+
+    click_button('Submit')
+
+    expect(current_path).to eq("/applications/#{Application.last.id}")
+
+    expect(page).to have_content('Sylvester Tommy')
+
+    expect(page).to have_content('1827 Vincent Ave')
+
+    expect(page).to have_content('Denver')
+
+    expect(page).to have_content('Colorado')
+
+    expect(page).to have_content('38271')
+
+    expect(page).to have_content('I LOVE pets')
+
+    expect(page).to have_content('In Progress')
   end
 end
