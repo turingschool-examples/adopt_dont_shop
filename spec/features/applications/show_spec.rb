@@ -14,7 +14,8 @@ RSpec.describe 'Application Show Page', type: :feature do
                 city: 'Fort Worth', 
                 state: 'TX', 
                 zip_code: 76119,
-                description: 'I just really love animals'
+                description: 'I just really love animals',
+                status: 'Rejected'
             )
             application2 = Application.create!(
                 name: 'Carol Baskins', 
@@ -22,7 +23,8 @@ RSpec.describe 'Application Show Page', type: :feature do
                 city: 'Tampa', 
                 state: 'FL', 
                 zip_code: 33625,
-                description: 'I just really love animals more than that other guy'
+                description: 'I just really love animals more than that other guy',
+                status: 'Rejected'
             )
 
             pet_application_1 = PetApplication.create!(pet: pet_1, application: application1)
@@ -34,6 +36,7 @@ RSpec.describe 'Application Show Page', type: :feature do
             expect(page).to have_content(application1.name)
             expect(page).to have_content("Full address: 3150 Horton Rd, Fort Worth, TX 76119")
             expect(page).to have_content(application1.description)
+            expect(page).to have_content(application1.status)
 
             expect(page).to_not have_content('Carol Baskins')
             expect(page).to_not have_content("Full address: 12802 Easy St, Tampa, fL 33625")
@@ -56,7 +59,8 @@ RSpec.describe 'Application Show Page', type: :feature do
                 city: 'Fort Worth', 
                 state: 'TX', 
                 zip_code: 76119,
-                description: 'I just really love animals'
+                description: 'I just really love animals',
+                status: 'Rejected'
             )
             application2 = Application.create!(
                 name: 'Carol Baskins', 
@@ -64,7 +68,8 @@ RSpec.describe 'Application Show Page', type: :feature do
                 city: 'Tampa', 
                 state: 'FL', 
                 zip_code: 33625,
-                description: 'I just really love animals more than that other guy'
+                description: 'I just really love animals more than that other guy',
+                status: 'Rejected'
             )
             pet_application1 = PetApplication.create!(pet: pet_1, application: application1)
             pet_application2 = PetApplication.create!(pet: pet_2, application: application2)
@@ -75,6 +80,9 @@ RSpec.describe 'Application Show Page', type: :feature do
             expect(page).to have_content(application2.name)
             expect(page).to have_content("Full address: #{application2.street_address}, #{application2.city}, #{application2.state} #{application2.zip_code}")
             expect(page).to have_content(application2.description)
+            expect(page).to have_content(application2.status)
+
+            expect(page).to_not have_content(application1.name)
 
             click_link "#{pet_2.name}"
             expect(current_path).to eq("/pets/#{pet_2.id}")

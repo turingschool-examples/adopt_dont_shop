@@ -6,4 +6,5 @@
 <% @application.pets_wanted.each do |pet_applied| %>
   <%= link_to "#{pet_applied.name}", "/pets/#{pet_applied.id}" %>
 <% end %>
+<p> Application Status: <%= @application.status %></p>
 
