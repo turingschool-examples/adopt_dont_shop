@@ -19,10 +19,14 @@ RSpec.describe Application, type: :model do
       max = shelter.pets.create!(adoptable: true, age: 4, breed: 'Labrador', name: 'Max')
       sasha = shelter.pets.create!(adoptable: false, age: 2, breed: 'pitsky', name: 'sasha')
       application = Application.create!(name: 'Thomas', address: '12 Water Street, Denver, CO, 80111',
-                                        description: 'happy home', status: 'in progress')
+                                        description: 'Happy Home', status: 'In Progress')
+      application2 = Application.create!(name: 'Sage', address: '42 Wind Avenue, Denver, CO, 80111',
+                                         description: 'Happy home', status: 'In Progress')
       ApplicationPet.create!(pet: max, application: application)
       ApplicationPet.create!(pet: sasha, application: application)
-      expect(Application.pets).to eq([max, sasha])
+      ApplicationPet.create!(pet: sasha, application: application2)
+      expect(application.pets).to eq([max, sasha])
+      expect(application2.pets).to eq([sasha])
     end
   end
 end
