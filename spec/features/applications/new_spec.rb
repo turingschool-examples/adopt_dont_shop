@@ -34,4 +34,20 @@ RSpec.describe 'the applications new page' do
 
     expect(page).to have_content('In Progress')
   end
+
+  it "checks to make sure that all the fields are populated" do
+    visit '/applications/new'
+
+    expect(page).to_not have_content("Please fill in all the fields")
+
+    fill_in('Name', with: 'Sylvester Tommy')
+    fill_in(:street_address, with: '1827 Vincent Ave')
+    fill_in('City', with: 'Denver')
+
+    click_button('Submit')
+
+    expect(current_path).to eq("/applications/new")
+
+    expect(page).to have_content("Please fill in all the fields")
+  end
 end
