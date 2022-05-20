@@ -61,6 +61,6 @@ RSpec.describe 'application show page' do
 
     expect(current_path).to eq("/applications/#{application.id}")
 
-    expect('Suzy').to appear_before('Status')
+    expect('Spot').to appear_before('Status')
   end
 end
