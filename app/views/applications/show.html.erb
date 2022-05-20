@@ -2,7 +2,8 @@
 <p><%= "Name: #{@application.name}" %></p>
 <p><%= "Full address: #{@application.street_address}, #{@application.city}, #{@application.state} #{@application.zip_code}" %></p>
 <p><%= "Applicant statement: #{@application.description}" %></p>
-<p>Pet(s) applied for <%= link_to "#{pet_1.name}", "/pets/#{pet_1.id}" %>
-
-</p>
+<p> Pet(s) applied for:  </p>
+<% @application.pets_wanted.each do |pet_applied| %>
+  <%= link_to "#{pet_applied.name}", "/pets/#{pet_applied.id}" %>
+<% end %>
 
