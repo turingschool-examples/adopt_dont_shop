@@ -17,10 +17,10 @@ VeterinaryOffice.destroy_all
     pet11 = shelter1.pets.create(name: 'Mr. Biggs', age: 2, breed: 'Great Dane', adoptable: true)
     pet12 = shelter1.pets.create(name: 'Spike', age: 3, breed: 'doberman', adoptable: true)
     pet13 = shelter1.pets.create(name: 'Carter', age: 7, breed: 'Golden Retriever', adoptable: true)
-    application1 = Application.create!(name: 'Chris', address: '123 Main St', city: 'Hometown', state: 'CO', zipcode: '80504')
+    application1 = Application.create!(name: 'Chris', street_address: '123 Main St', city: 'Hometown', state: 'CO', zipcode: "80504")
   shelter2 = Shelter.create(name: 'Colorado Cats', city: 'Vail', foster_program: true, rank: 5)
     pet21 = shelter2.pets.create(name: 'Boots', age: 4, breed: 'Tabby', adoptable: true)
     pet22 = shelter2.pets.create(name: 'Evil Steve', age: 4, breed: 'Unknown', adoptable: false)
     pet23 = shelter2.pets.create(name: 'Huckleberry', age: 17, breed: 'Tuxedo', adoptable: true)
-    application2 = Application.create(name: 'Caden', address: '111 First Street', city: 'Denver', state: 'CO', zipcode: '07321')
+    application2 = Application.create(name: 'Caden', street_address: '111 First Street', city: 'Denver', state: 'CO', zipcode: '07321')
   
