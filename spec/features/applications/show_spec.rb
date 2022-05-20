@@ -54,6 +54,7 @@ RSpec.describe 'application show page' do
     visit "/applications/#{application.id}"
 
     fill_in('Search', with: 'Spot')
+
     click_button('Search')
 
     click_button('Adopt this Pet')
