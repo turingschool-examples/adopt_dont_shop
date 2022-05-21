@@ -67,7 +67,7 @@ RSpec.describe 'application show page' do
   it "allows for the user to submit their application" do
     shelter = Shelter.create!(foster_program: true, name: 'Gally', city: 'Denver', rank: 21)
     application = Application.create!(name: 'Sylvester Tommy', street_address: '1827 Vincent Ave', city: 'Halifax',
-                                      state: 'Colorado', zip_code: '19274', description: 'I LOVE pets', status: 'In Progress')
+                                      state: 'Colorado', zip_code: '19274', description: '', status: 'In Progress')
     pet1 = Pet.create!(adoptable: true, age: 9, breed: 'Labrador', name: 'Suzan', shelter_id: shelter.id)
     pet2 = Pet.create!(adoptable: true, age: 3, breed: 'Poodle', name: 'Spot', shelter_id: shelter.id)
 
@@ -86,5 +86,6 @@ RSpec.describe 'application show page' do
 
     expect(page).to have_content('Pending')
     expect(page).to_not have_content('Search')
+    expect(page).to_not have_content('Submit Application')
   end
 end
