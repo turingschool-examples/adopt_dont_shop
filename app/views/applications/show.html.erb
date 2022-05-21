@@ -1,3 +1,4 @@
+<h1>Application</h1>
 <p><strong>Full Name: </strong><%= @application.name %></p>
 <p><strong>Street Address: </strong><%= @application.street_address %></p>
 <p><strong>City: </strong><%= @application.city %></p>
@@ -5,7 +6,12 @@
 <p><strong>Zip Code: </strong><%= @application.zip_code %></p>
 <p><strong>Why would you make a good home? </strong><%= @application.description %></p>
 <p><strong>Application Status: </strong><%= @application.application_status %></p>
-<br>
+
+<p><strong>Names of pets you are interested in: </strong>
+  <% @application.pets.each do |pet| %>
+    <%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
+  <% end %></p><br>
+
 <p><strong>Add a Pet to this Application</strong></p>
 
 <%= form_with url: "/applications/#{@application.id}?search=pet_name", method: :get, local: true do |f| %>
@@ -18,8 +24,7 @@
   <% @pet_search.each do |pet| %>
     <div id="<%= pet.id %>">
      <%= pet.name %>
-     <%= button_to 'Adopt this Pet', '/pet_applications/new', method: :post, params: {:pet_id => pet.id, :application_id => @application.id}  %>
+     <%= button_to 'Adopt this Pet', '/pet_applications/new', method: :post, params: {:pet_id => pet.id, :application_id => @application.id} %>
     </div>
   <% end %>
 <% end %>
-
