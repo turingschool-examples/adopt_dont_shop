@@ -11,7 +11,7 @@
     <%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
   <% end %></p><br>
 
-<p><strong>"Why would you make a good owner?" </strong><%= @application.description %></p>
+<p><strong>Why would you make a good owner? </strong><%= @application.description %></p><br>
 
 <% if @application.application_status == "In Progress" %>
 <p><strong>Add a Pet to this Application</strong></p>
@@ -20,16 +20,17 @@
   <%= f.text_field :pet_name %>
   <%= f.submit 'Search' %>
   <% end %>
-<%end%>
+<%end%><br>
 
-<% if @application.pets != nil && @application.description == " " %>
-<%= form_with url: "/applications/#{@application.id}", method: :patch, local: true do |f| %>
-  <%= f.label :description, "Why would you make a good owner?" %></br>
-  <%= f.text_field :description %></br>
-  <%= f.hidden_field :application_status, :value => "Pending" %>
-  <%= f.submit 'Submit' %>
-  <% end %>
-<% end %>
+<% if @application.application_status == "In Progress" %>
+  <% if @application.pets.count > 0 && @application.description != "" %>
+    <%= form_with url: "/applications/#{@application.id}", method: :patch, local: true do |f| %>
+      <%= f.label :description, "Why would you make a good owner?" %></br>
+      <%= f.text_field :description %></br>
+      <%= f.hidden_field :application_status, :value => "Pending" %>
+      <%= f.submit 'Submit' %>
+    <% end %>
+<%end%>
 
 <% if @pet_search != nil %>
   <% @pet_search.each do |pet| %>

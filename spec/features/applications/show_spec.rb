@@ -49,7 +49,8 @@ RSpec.describe 'the applications show page' do
     expect(current_path).to eq("/pets/#{pet_1.id}")
   end
 
-  it "can submit an application" do 
+  it "can submit an application" do
+
     visit "applications/#{application.id}"
 
     expect(page).to_not have_content("Submit")
@@ -61,11 +62,12 @@ RSpec.describe 'the applications show page' do
 
     within("##{pet_1.id}")
     click_button "Adopt this Pet"
-    
+
     expect(current_path).to eq("/applications/#{application.id}")
     expect(page).to have_content(pet_1.name)
 
-    fill_in "description", with: "I love dogs" 
+    fill_in "description", with: "I love dogs"
+
     click_button "Submit"
 
     expect(current_path).to eq("/applications/#{application.id}")
@@ -74,8 +76,9 @@ RSpec.describe 'the applications show page' do
     expect(page).to_not have_content("Search")
   end
 
-  it 'shows description' do 
-    
+
+  it 'shows description of why the applicant would make a good owner' do
+
     visit "applications/#{application.id}"
 
     expect(page).to_not have_content("Submit")
@@ -88,16 +91,18 @@ RSpec.describe 'the applications show page' do
 
     within("##{pet_1.id}")
     click_button "Adopt this Pet"
-    
+
     expect(current_path).to eq("/applications/#{application.id}")
     expect(page).to have_content(pet_1.name)
 
-    fill_in "description", with: "I love dogs" 
+    fill_in "description", with: "I love dogs"
     click_button "Submit"
 
     app_1 = Application.find(application.id)
- 
+
     expect(current_path).to eq("/applications/#{application.id}")
+    expect(page).to_not have_content("Adopt a Pet")
+    expect(page).to_not have_content("Submit")
     expect(app_1.application_status).to eq("Pending")
     expect(app_1.description).to eq("I love dogs")
   end
