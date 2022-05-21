@@ -1,3 +1,4 @@
+<%= link_to "Start an Application", "/applications/new/" %>
 <h1>All pets</h1>
 
 <%= form_with url: "/pets", method: :get, local: true do |f| %>
@@ -9,7 +10,6 @@
 
 <% @pets.each do |pet| %>
   <h3><%= pet.name %></h3>
-  <h3><%= link_to "Edit #{pet.name}", "/pets/#{pet.id}/edit" %></h3>
   <p>Age: <%= pet.age %></p>
   <p>Breed: <%= pet.breed %></p>
   <p>Adoptable: </p>
