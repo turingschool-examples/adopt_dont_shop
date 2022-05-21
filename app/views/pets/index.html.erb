@@ -9,6 +9,7 @@
 
 <% @pets.each do |pet| %>
   <h3><%= pet.name %></h3>
+  <h3><%= link_to "Edit #{pet.name}", "/pets/#{pet.id}/edit" %></h3>
   <p>Age: <%= pet.age %></p>
   <p>Breed: <%= pet.breed %></p>
   <p>Adoptable: </p>
