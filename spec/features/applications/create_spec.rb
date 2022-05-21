@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'New Application page' do
-  let!(:application) { Application.create!(name: 'Sam', street_address: '123 Cherry ln', city: 'Boise', state: 'ID', zip_code: '83201', description: 'I love dogs', application_status: 'In Progress')}
+  let!(:application) { Application.create!(name: 'Sam', street_address: '123 Cherry ln', city: 'Boise', state: 'ID', zip_code: '83201', description: 'I love dogs')}
 
   it 'has form to create new application' do
     visit 'applications/new'

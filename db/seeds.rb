@@ -20,7 +20,7 @@ Shelter.destroy_all
 # vet_1 = Veterinarian.create(name: 'Taylor', review_rating: 10, on_call: true, veterinary_office_id: vet_office.id)
 # vet_2 = Veterinarian.create(name: 'Jim', review_rating: 8, on_call: true, veterinary_office_id: vet_office.id)
 
-application = Application.create!(name: 'Debbie', street_address: '1234 dog way', city: "San Francisco", state: 'CA', zip_code: 66012, description: 'I love dogs', application_status: 'Pending')
+application = Application.create!(name: 'Debbie', street_address: '1234 dog way', city: "San Francisco", state: 'CA', zip_code: 66012, description: 'I love dogs')
 
 pet_1 = Pet.create(adoptable: true, age: 7, breed: 'sphynx', name: 'Bare-y Manilow', shelter_id: shelter.id)
 pet_2 = Pet.create(adoptable: true, age: 3, breed: 'domestic pig', name: 'Babe', shelter_id: shelter.id)
