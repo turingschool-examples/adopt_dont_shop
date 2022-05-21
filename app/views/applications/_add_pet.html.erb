@@ -1,0 +1,17 @@
+<% if @application.status == "In Progress" %>
+  <p>Add a Pet to this Application</p>
+  <%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |f| %>
+    <%= f.label :search %>
+    <%= f.text_field :search %>
+    <%= f.submit "Submit" %>
+  <% end %>
+    <% if params[:search] %>
+      <% @pets.each do |pet| %>
+        <h3><%= pet.name %></h3>
+        <p>Age: <%= pet.age %></p>
+        <p>Breed: <%= pet.breed %></p>
+        <p>Adoptable: </p>
+        <p>You can find <%= pet.name %> at <%= pet.shelter_name %>!</p>
+        <% end %>
+    <% end %>
+<% end %>

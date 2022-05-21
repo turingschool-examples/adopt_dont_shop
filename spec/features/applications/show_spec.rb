@@ -96,18 +96,70 @@ RSpec.describe 'Application Show Page', type: :feature do
         end
     end
 
-    describe 'Searching for Pets for an Application' do
-        # As a visitor
-        # When I visit an application's show page
-        # And that application has not been submitted,
-        # Then I see a section on the page to "Add a Pet to this Application"
-        # In that section I see an input where I can search for Pets by name
-        # When I fill in this field with a Pet's name
-        # And I click submit,
-        # Then I am taken back to the application show page
-        # And under the search bar I see any Pet whose name matches my search
-        # it 'has an unfinished application' do
-        #     visit 'applications/'
-        # end
+  describe 'Searching for Pets for an Application' do
+    it 'has a search section that shows up on applications that are in progress' do
+      shelter_1 = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
+      pet_1 = shelter_1.pets.create(name: 'Mr. Pirate', breed: 'tuxedo shorthair', age: 5, adoptable: true)
+      pet_2 = shelter_1.pets.create(name: 'Clawdia', breed: 'shorthair', age: 3, adoptable: true)
+      pet_3 = shelter_1.pets.create(name: 'Ann', breed: 'ragdoll', age: 3, adoptable: false)
+
+      application1 = Application.create!(
+          name: 'Joe Exotic',
+          street_address: '3150 Horton Rd',
+          city: 'Fort Worth',
+          state: 'TX',
+          zip_code: 76119,
+          description: 'I just really love animals',
+          status: 'Rejected'
+      )
+
+      application2 = Application.create!(
+          name: 'Spongebob',
+          street_address: '124 Conch lane',
+          city: 'Bikini Bottom',
+          state: 'Despair',
+          zip_code: 33025,
+          description: "I'm ready!",
+          status: 'In Progress'
+      )
+      visit "/applications/#{application1.id}"
+
+      expect(page).to_not have_content("Add a Pet to this Application")
+
+      visit "/applications/#{application2.id}"
+
+      expect(page).to have_content("Add a Pet to this Application")
     end
+
+    it 'returns a list of pets with an exact match to the name entered' do
+      shelter_1 = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
+      pet_1 = shelter_1.pets.create(name: 'Mr. Pirate', breed: 'tuxedo shorthair', age: 5, adoptable: true)
+      pet_2 = shelter_1.pets.create(name: 'Clawdia', breed: 'shorthair', age: 3, adoptable: true)
+      pet_3 = shelter_1.pets.create(name: 'Ann', breed: 'ragdoll', age: 3, adoptable: false)
+
+      application2 = Application.create!(
+          name: 'Spongebob',
+          street_address: '124 Conch lane',
+          city: 'Bikini Bottom',
+          state: 'Despair',
+          zip_code: 33025,
+          description: "I'm ready!",
+          status: 'In Progress'
+      )
+
+      visit "/applications/#{application2.id}"
+
+      fill_in(:search, with: "Clawdia")
+      click_button("Submit")
+
+
+      expect(page).to have_content("Clawdia")
+      expect(page).to have_content("#{pet_2.breed}")
+      expect(page).to have_content("#{pet_2.age}")
+
+
+      expect(page).to_not have_content("#{pet_1.name}")
+      expect(page).to_not have_content("#{pet_3.name}")
+    end
+  end
 end
