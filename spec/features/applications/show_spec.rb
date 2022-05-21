@@ -64,7 +64,7 @@ RSpec.describe 'application show page' do
     expect('Spot').to appear_before('Status')
   end
 
-  it "allows for the user to submit their application" do
+  it 'allows for the user to submit their application' do
     shelter = Shelter.create!(foster_program: true, name: 'Gally', city: 'Denver', rank: 21)
     application = Application.create!(name: 'Sylvester Tommy', street_address: '1827 Vincent Ave', city: 'Halifax',
                                       state: 'Colorado', zip_code: '19274', description: '', status: 'In Progress')
@@ -89,7 +89,7 @@ RSpec.describe 'application show page' do
     expect(page).to_not have_content('Submit Application')
   end
 
-  it "lets you search for pets even with a partial name" do
+  it 'lets you search for pets even with a partial name' do
     shelter = Shelter.create!(foster_program: true, name: 'Gally', city: 'Denver', rank: 21)
     application = Application.create!(name: 'Sylvester Tommy', street_address: '1827 Vincent Ave', city: 'Halifax',
                                       state: 'Colorado', zip_code: '19274', description: '', status: 'In Progress')
@@ -104,12 +104,12 @@ RSpec.describe 'application show page' do
     click_button('Search')
 
     expect(current_path).to eq("/applications/#{application.id}")
-    expect(page).to have_content("Fluffy")
-    expect(page).to have_content("Fluff")
-    expect(page).to have_content("Mr. Fluff")
+    expect(page).to have_content('Fluffy')
+    expect(page).to have_content('Fluff')
+    expect(page).to have_content('Mr. Fluff')
   end
 
-  it "lets you search for pets even with a case insensitive name" do
+  it 'lets you search for pets even with a case insensitive name' do
     shelter = Shelter.create!(foster_program: true, name: 'Gally', city: 'Denver', rank: 21)
     application = Application.create!(name: 'Sylvester Tommy', street_address: '1827 Vincent Ave', city: 'Halifax',
                                       state: 'Colorado', zip_code: '19274', description: '', status: 'In Progress')
@@ -124,9 +124,8 @@ RSpec.describe 'application show page' do
     click_button('Search')
 
     expect(current_path).to eq("/applications/#{application.id}")
-    expect(page).to have_content("FLUFFY")
-    expect(page).to have_content("FluFF")
-    expect(page).to have_content("mr. fluff")
+    expect(page).to have_content('FLUFFY')
+    expect(page).to have_content('FluFF')
+    expect(page).to have_content('mr. fluff')
   end
-
 end
