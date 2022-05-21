@@ -6,6 +6,7 @@ Rails.application.routes.draw do
 
   post '/application_pets/', to: 'application_pets#create'
 
+  get '/admin/shelters', to: 'admin_shelters#index'
   get '/shelters', to: 'shelters#index'
   get '/shelters/new', to: 'shelters#new'
   get '/shelters/:id', to: 'shelters#show'
