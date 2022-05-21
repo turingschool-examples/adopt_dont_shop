@@ -4,14 +4,16 @@
 <%= "Street Address: #{@application.street_address}"%><br>
 <%= "City, State Zip: #{@application.city}, #{@application.state}  #{@application.zipcode}"%><br>
 <%= "Description of Worthiness: #{@application.description}"%><br>
-PETS
+Add a Pet to this Application
 <section id = 'pets'>
-<%= form_with url: "/pets", method: :get, local: true do |f| %>
+<%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |f| %>
   <%= f.label :search %>
   <%= f.text_field :search %>
   <%= f.submit "Search" %>
 <% end %>
-<p><% @application.pet.each do |pet| %>
-<%= link_to "#{pet.name}", "/pet/#{pet.id}" %><br>
-<% end %></p></section>
+<% if @pets != nil %>
+  <p><% @pets.each do |pet| %>
+  <%= link_to "#{pet.name}", "/pet/#{pet.id}" %><br>
+  <% end %></p></section>
+<% end %>
 <%= "#{@application.status}" %>

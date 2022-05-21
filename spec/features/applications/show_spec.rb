@@ -50,11 +50,11 @@ RSpec.describe Application, type: :feature do
       it 'allows for a user to add pets to an application before submitting' do
         expect(page).to have_content("Add a Pet to this Application")
         expect(find('form')).to have_content('Search')
-
         fill_in 'Search', with: 'Spike'
         click_on('Search')
         expect(current_path).to eq("/applications/#{@application1.id}")
         expect(page).to have_content('Spike')
+        expect(page).to_not have_content('Boots')
       end
     end
   end
