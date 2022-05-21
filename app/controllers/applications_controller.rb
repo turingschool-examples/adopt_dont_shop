@@ -5,6 +5,6 @@ class ApplicationsController < ApplicationController
   end
 
   def show
-    application=Application.find(params[:id])
+    @application=Application.find(params[:id])
   end
 end
