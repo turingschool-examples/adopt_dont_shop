@@ -187,8 +187,9 @@ RSpec.describe 'Application Show Page', type: :feature do
       click_button("Submit")
 
       click_button "Adopt this Pet"
+      save_and_open_page
       expect(current_path).to eq("/applications/#{application2.id}")
-      expect(page).to have_content("Pet(s) applied for: #{pet_3.name}")
+      expect(page).to have_link("#{pet_3.name}")
       expect(page).to_not have_content("Pet(s) applied for: #{pet_2.name}")
     end
   end
