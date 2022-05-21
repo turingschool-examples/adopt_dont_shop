@@ -1,27 +1,27 @@
 require 'rails_helper'
 
-RSpec.describe 'Application Show Page', type: :feature do 
-    describe 'visuals' do 
-        it 'can show attributes of the application' do 
+RSpec.describe 'Application Show Page', type: :feature do
+    describe 'visuals' do
+        it 'can show attributes of the application' do
             shelter_1 = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
             pet_1 = shelter_1.pets.create(name: 'Mr. Pirate', breed: 'tuxedo shorthair', age: 5, adoptable: true)
             pet_2 = shelter_1.pets.create(name: 'Clawdia', breed: 'shorthair', age: 3, adoptable: true)
             pet_3 = shelter_1.pets.create(name: 'Ann', breed: 'ragdoll', age: 3, adoptable: false)
 
             application1 = Application.create!(
-                name: 'Joe Exotic', 
-                street_address: '3150 Horton Rd', 
-                city: 'Fort Worth', 
-                state: 'TX', 
+                name: 'Joe Exotic',
+                street_address: '3150 Horton Rd',
+                city: 'Fort Worth',
+                state: 'TX',
                 zip_code: 76119,
                 description: 'I just really love animals',
                 status: 'Rejected'
             )
             application2 = Application.create!(
-                name: 'Carol Baskins', 
-                street_address: '12802 Easy St', 
-                city: 'Tampa', 
-                state: 'FL', 
+                name: 'Carol Baskins',
+                street_address: '12802 Easy St',
+                city: 'Tampa',
+                state: 'FL',
                 zip_code: 33625,
                 description: 'I just really love animals more than that other guy',
                 status: 'Rejected'
@@ -47,26 +47,26 @@ RSpec.describe 'Application Show Page', type: :feature do
             expect(page).to have_content(pet_1.name)
         end
 
-        it 'can test for multiple pets' do 
+        it 'can test for multiple pets' do
             shelter_1 = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
             pet_1 = shelter_1.pets.create(name: 'Mr. Pirate', breed: 'tuxedo shorthair', age: 5, adoptable: true)
             pet_2 = shelter_1.pets.create(name: 'Clawdia', breed: 'shorthair', age: 3, adoptable: true)
             pet_3 = shelter_1.pets.create(name: 'Ann', breed: 'ragdoll', age: 3, adoptable: false)
 
             application1 = Application.create!(
-                name: 'Joe Exotic', 
-                street_address: '3150 Horton Rd', 
-                city: 'Fort Worth', 
-                state: 'TX', 
+                name: 'Joe Exotic',
+                street_address: '3150 Horton Rd',
+                city: 'Fort Worth',
+                state: 'TX',
                 zip_code: 76119,
                 description: 'I just really love animals',
                 status: 'Rejected'
             )
             application2 = Application.create!(
-                name: 'Carol Baskins', 
-                street_address: '12802 Easy St', 
-                city: 'Tampa', 
-                state: 'FL', 
+                name: 'Carol Baskins',
+                street_address: '12802 Easy St',
+                city: 'Tampa',
+                state: 'FL',
                 zip_code: 33625,
                 description: 'I just really love animals more than that other guy',
                 status: 'Rejected'
@@ -76,7 +76,7 @@ RSpec.describe 'Application Show Page', type: :feature do
             pet_application3 = PetApplication.create!(pet: pet_3, application: application2)
 
             visit "/applications/#{application2.id}"
-            save_and_open_page
+            # save_and_open_page
             expect(page).to have_content(application2.name)
             expect(page).to have_content("Full address: #{application2.street_address}, #{application2.city}, #{application2.state} #{application2.zip_code}")
             expect(page).to have_content(application2.description)
@@ -93,10 +93,10 @@ RSpec.describe 'Application Show Page', type: :feature do
             click_link "#{pet_3.name}"
             expect(current_path).to eq("/pets/#{pet_3.id}")
             expect(page).to have_content(pet_3.name)
-        end 
+        end
     end
 
-    describe 'Searching for Pets for an Application' do 
+    describe 'Searching for Pets for an Application' do
         # As a visitor
         # When I visit an application's show page
         # And that application has not been submitted,
@@ -106,7 +106,7 @@ RSpec.describe 'Application Show Page', type: :feature do
         # And I click submit,
         # Then I am taken back to the application show page
         # And under the search bar I see any Pet whose name matches my search
-        # it 'has an unfinished application' do 
+        # it 'has an unfinished application' do
         #     visit 'applications/'
         # end
     end
