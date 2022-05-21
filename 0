@@ -1,0 +1,2 @@
+      invoke  active_record
+      create    db/migrate/20220521001958_change_status_application_default.rb
