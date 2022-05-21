@@ -45,7 +45,7 @@ RSpec.describe 'the admin shelters index page' do
     visit '/admin/shelters'
 
     expect(page).to have_content('Shelters with Pending Applications')
-    within('div#pending-apps') do
+    within('div#pendingApps') do
       expect(shelter1.name).to_not appear_before('Shelters with Pending Applciations')
     end
   end
