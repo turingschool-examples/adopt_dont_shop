@@ -1,4 +1,4 @@
-<h2> Applicant Name: <%= @application.name %></h2>
+<h1> Applicant Name: <%= @application.name %></h1>
 <p><b>Address:</b> <%= @application.street_address %>,
              <%= @application.city  %>,
              <%= @application.state %>,
@@ -19,3 +19,11 @@
     <%= form.submit "Search" %>
   <% end %>
 <% end %>
+
+<% if !@matching_pets.nil? %>
+  <% @matching_pets.each do |pet| %>
+    <div id="pet-<%=pet.id%>">
+      <p> <%= pet.name %> </p>
+    </div>
+  <% end  %>
+<% end  %>
