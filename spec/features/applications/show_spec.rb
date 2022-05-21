@@ -37,8 +37,9 @@ RSpec.describe 'the applications show page' do
 
     expect(page).to have_content(pet_1.name)
 
-    within("##{pet_1.id}")
-    click_button "Adopt this Pet"
+    within("##{pet_1.id}") do
+      click_button "Adopt this Pet"
+    end
 
     expect(current_path).to eq("/applications/#{application.id}")
     expect(page).to have_content(pet_1.name)
@@ -59,8 +60,9 @@ RSpec.describe 'the applications show page' do
 
     expect(page).to have_content(pet_1.name)
 
-    within("##{pet_1.id}")
-    click_button "Adopt this Pet"
+    within("##{pet_1.id}") do
+      click_button "Adopt this Pet"
+    end
 
     expect(current_path).to eq("/applications/#{application.id}")
     expect(page).to have_content(pet_1.name)
@@ -86,9 +88,10 @@ RSpec.describe 'the applications show page' do
 
     expect(page).to have_content(pet_1.name)
 
-    within("##{pet_1.id}")
-    click_button "Adopt this Pet"
-
+    within("##{pet_1.id}") do
+      click_button "Adopt this Pet"
+    end
+    
     expect(current_path).to eq("/applications/#{application.id}")
     expect(page).to have_content(pet_1.name)
 
