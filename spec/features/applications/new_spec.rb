@@ -51,7 +51,6 @@ RSpec.describe "Pets edit page" do
 
 
     click_on("Submit Application")
-
     expect(current_path).to eq('/applications/new')
     # expect(page).to have_content("Error: City can't be blank, State can't be blank, Zip code can't be blank, Rationale can't be blank, Status can't be blank")
     expect(page).to have_content("Error: Please fill out all fields")
