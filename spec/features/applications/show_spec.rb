@@ -22,7 +22,7 @@ RSpec.describe 'the shelter show' do
 
   it "can search for pets" do
     visit "applications/#{application.id}"
-    save_and_open_page
+    # save_and_open_page
     
     expect(page).to have_content("Add a Pet to this Application")
     expect(page).to_not have_content(pet_1.name)
@@ -32,5 +32,22 @@ RSpec.describe 'the shelter show' do
 
     expect(current_path).to eq("/applications/#{application.id}")
     expect(page).to have_content(pet_1.name)
+  end
+
+  it 'can add a pet to application' do 
+    visit "applications/#{application.id}"
+
+    fill_in :pet_name, with: pet_1.name
+    click_button('Submit')
+
+    expect(page).to have_content(pet_1.name)
+
+    within("##{pet_1.id}")
+    
+    click_button('Adopt this Pet')
+
+    expect(current_path).to eq("applications/#{application.id}")
+    expect(page).to have_content(pet_1.name)
+    expect(pet_1.name).to appear_before("Submit")
   end
 end
