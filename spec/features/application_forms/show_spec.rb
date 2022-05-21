@@ -35,7 +35,7 @@ RSpec.describe ApplicationForm, type: :feature do
       expect(page).to have_content(applicationform_2.state)
       expect(page).to have_content(applicationform_2.zip_code)
       expect(page).to have_content(applicationform_2.description)
-      save_and_open_page
+      # save_and_open_page
       applicationform_2.pets.each do |pet|
         expect(page).to have_content(pet.name)
         click_link pet.name
