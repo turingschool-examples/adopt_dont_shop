@@ -67,8 +67,11 @@ RSpec.describe 'the applications show page' do
     fill_in "description", with: "I love dogs" 
     click_button "Submit"
 
+    
+
     expect(current_path).to eq("/applications/#{application.id}")
-    expect(application.status).to eq("Pending")
+    expect(page).to have_content("Pending")
+    save_and_open_page
     expect(page).to have_content(pet_1.name)
     expect(page).to_not have_content("Search")
   end
