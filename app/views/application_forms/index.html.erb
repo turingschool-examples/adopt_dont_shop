@@ -1,0 +1,4 @@
+<% @application_forms.each do |application_form| %>
+  <h3> <%= application_form.name%></h3>
+  <%= link_to "View #{application_form.name}'s Application", "/application_forms/#{application_form.id}", method: :get %>
+<% end %>
