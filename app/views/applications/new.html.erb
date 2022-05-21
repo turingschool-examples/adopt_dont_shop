@@ -1,0 +1,14 @@
+<%= form_with url: '/applications', method: :post, local: true do |form| %>
+  <p><%= form.label :name %></p>
+  <%= form.text_field :name %>
+  <p><%= form.label :city %></p>
+  <%= form.text_field :city %>
+  <p><%= form.label :state %></p>
+  <%= form.text_field :state %>
+  <p><%= form.label :zipcode %></p>
+  <%= form.text_field :zipcode %>
+  <p><%= form.label :rationale %></p>
+  <%= form.text_area :rationale, size: "60x10" %>
+
+  <p><%= form.submit "Submit Application" %></p>
+<% end %>
