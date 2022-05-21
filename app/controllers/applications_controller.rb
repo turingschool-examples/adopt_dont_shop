@@ -2,6 +2,10 @@ class ApplicationsController < ApplicationController
   def show
     @application = Application.find(params[:id])
     @pet_search = Pet.search(params[:search]) if params[:search].present?
+
+    if params["Why would you make a good owner"].present?
+      @application.update(description: params["Why would you make a good owner"], status: 'Pending')
+    end
   end
 
   def new
