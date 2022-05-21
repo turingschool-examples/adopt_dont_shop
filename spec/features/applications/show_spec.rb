@@ -8,7 +8,6 @@ RSpec.describe 'the application show' do
   let!(:pet_2) {Pet.create!(name: "Zucchini", breed: 'weenie dog', age: 7, adoptable: true, shelter_id: shelter.id)}
 
   let!(:pet_application_1) {PetApplication.create(pet_id: pet_2.id, application_id: app_1.id)}
-  # let!(:pet_application_2) {PetApplication.create(pet_id: pet_1.id, application_id: app_2.id)}
 
   it "shows the application and all it's attributes" do
     visit "/applications/#{app_1.id}"
@@ -18,7 +17,6 @@ RSpec.describe 'the application show' do
     expect(page).to have_content('Boulder')
     expect(page).to have_content('CO')
     expect(page).to have_content(80303)
-    expect(page).to have_content('I need to combat loneliness')
     expect(page).to have_content('In Progress')
     expect(page).to_not have_content('Jenn')
     expect(page).to have_link('Zucchini')
@@ -62,7 +60,7 @@ RSpec.describe 'the application show' do
     visit "/applications/#{app_1.id}"
     expect(page).to have_button("Submit Application")
 
-    fill_in("Why would you be a good owner?", with: "I need to combat loneliness")
+    fill_in("description", with: "I need to combat loneliness")
     click_button("Submit Application")
 
     expect(current_path).to eq("/applications/#{app_1.id}")
@@ -70,5 +68,6 @@ RSpec.describe 'the application show' do
     expect(page).to_not have_content("In Progress")
     expect(page).to_not have_content("Add a Pet to this Application:")
     expect(page).to have_link('Zucchini')
+
   end
 end
