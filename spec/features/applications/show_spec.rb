@@ -27,7 +27,7 @@ RSpec.describe 'the application show' do
 
   end
 
-  it "allows you to add a pet to the application if the application has not been submitted" do
+  it "when you search a pet on the show page it displays the matching pet" do
     visit "/applications/#{app_1.id}"
     expect(page).to have_content('In Progress')
     expect(page).to have_content('Add a Pet to this Application')
@@ -39,5 +39,19 @@ RSpec.describe 'the application show' do
     within "#pet-#{pet_1.id}" do
       expect(page).to have_content('Lucille Bald')
     end
+  end
+
+  it "can add a searched for pet from the show page" do
+    visit "/applications/#{app_1.id}"
+    fill_in("Search by name", with: "Lucille Bald")
+    click_button "Search"
+
+    within "#pet-#{pet_1.id}" do
+      expect(page).to have_content('Lucille Bald')
+      click_button "Adopt this pet"
+      expect(current_path).to eq("/applications/#{app_1.id}")
+    end
+
+    expect(page).to have_link("Lucille Bald")
   end
 end
