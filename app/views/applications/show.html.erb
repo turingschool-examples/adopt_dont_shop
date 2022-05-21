@@ -3,8 +3,7 @@
 <p><%= "Full address: #{@application.street_address}, #{@application.city}, #{@application.state} #{@application.zip_code}" %></p>
 <p><%= "Applicant statement: #{@application.description}" %></p>
 <p> Pet(s) applied for:  </p>
-<% @application.pets_wanted.each do |pet_applied| %>
+<% @application.pets.each do |pet_applied| %>
   <%= link_to "#{pet_applied.name}", "/pets/#{pet_applied.id}" %>
 <% end %>
-<p> Application Status: <%= @application.status %></p>
-
+<p> Application Status: <%= @application.status %></p
