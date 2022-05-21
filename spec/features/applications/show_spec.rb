@@ -104,7 +104,7 @@ RSpec.describe 'the applications show page' do
     expect(app_1.description).to eq("I love dogs")
   end
 
-  it "searches for partial matches for pet names" do
+  it "can search for partial matches for pet names on application" do
     visit "/applications/#{application.id}"
 
     fill_in :pet_name, with: "Pic"
