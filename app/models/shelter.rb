@@ -37,6 +37,6 @@ class Shelter < ApplicationRecord
   end
 
   def self.pending_apps
-    joins(books: [{ reviews: { customer: :orders } }, :supplier])
+    joins(pets: :applications).where(application.status = 'Pending')
   end
 end
