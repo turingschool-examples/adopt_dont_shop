@@ -234,7 +234,7 @@ RSpec.describe 'Application Show Page', type: :feature do
         city: 'Bikini Bottom',
         state: 'Despair',
         zip_code: 33025,
-        description: ,
+        description: "",
         status: 'In Progress'
       )
     end
@@ -260,7 +260,6 @@ RSpec.describe 'Application Show Page', type: :feature do
       click_on("Submit Application")
 
       expect(page).to have_current_path("/applications/#{@application2.id}")
-      expect(page).to have_content("Application Status: #{@application.status}")
       expect(page).to have_content("Application Status: Pending")
     end
   end
