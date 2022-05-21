@@ -5,14 +5,14 @@
     <%= f.text_field :search %>
     <%= f.submit "Submit" %>
   <% end %>
-    <% if params[:search] %>
-      <% @pets.each do |pet| %>
-        <h3><%= pet.name %></h3>
-        <p>Age: <%= pet.age %></p>
-        <p>Breed: <%= pet.breed %></p>
-        <p>Adoptable: </p>
-        <p>You can find <%= pet.name %> at <%= pet.shelter_name %>!</p>
-        <%= button_to 'Adopt this Pet', "/pet_applications/new", method: :post, params: {pet_id: pet.id, application_id: @application.id} %>
-        <% end %>
+  <% if params[:search] %>
+    <% @pets.each do |pet| %>
+      <h3><%= pet.name %></h3>
+      <p>Age: <%= pet.age %></p>
+      <p>Breed: <%= pet.breed %></p>
+      <p>Adoptable: </p>
+      <p>You can find <%= pet.name %> at <%= pet.shelter_name %>!</p>
+      <%= button_to "Adopt #{pet.name}", "/pet_applications/new", method: :post, params: {pet_id: pet.id, application_id: @application.id} %>
     <% end %>
+  <% end %>
 <% end %>
