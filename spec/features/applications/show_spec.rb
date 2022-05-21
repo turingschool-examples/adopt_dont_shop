@@ -179,17 +179,17 @@ RSpec.describe 'Application Show Page', type: :feature do
           description: "I'm ready!",
           status: 'In Progress'
       )
-
-      visit "/application/#{application2.id}"
+      
+      visit "/applications/#{application2.id}"
       expect(page).to have_content(application2.name)
 
       fill_in(:search, with: "Ann")
       click_button("Submit")
-      expect(page).to have_content("Adopt this Pet")
 
       click_button "Adopt this Pet"
       expect(current_path).to eq("/applications/#{application2.id}")
-      expect(page).to have_content()
+      expect(page).to have_content("Pet(s) applied for: #{pet_3.name}")
+      expect(page).to_not have_content("Pet(s) applied for: #{pet_2.name}")
     end
   end
 end
