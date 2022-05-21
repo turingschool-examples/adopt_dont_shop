@@ -234,25 +234,34 @@ RSpec.describe 'Application Show Page', type: :feature do
         city: 'Bikini Bottom',
         state: 'Despair',
         zip_code: 33025,
-        description: "I'm ready!",
+        description: ,
         status: 'In Progress'
       )
     end
     it 'shows up when application has pets and does not show up when application has no pets' do
-
-
       visit "/applications/#{@application2.id}"
       expect(page).to have_content(@application2.name)
       expect(page).to_not have_content("Please enter why you would make a good home for these pet(s)")
 
       pet_application_1 = PetApplication.create!(pet: @pet_3, application: @application2)
 
-      visit "/applications/#{@application2.id}"    
+      visit "/applications/#{@application2.id}"
 
       expect(page).to have_content("Please enter why you would make a good home for these pet(s)")
     end
-    it 'changes application status to pending when submitted' do
 
+    it 'changes application status to pending when submitted' do
+      pet_application_1 = PetApplication.create!(pet: @pet_3, application: @application2)
+
+      visit "/applications/#{@application2.id}"
+
+      fill_in(:description, with: "I'm ready!")
+
+      click_on("Submit Application")
+
+      expect(page).to have_current_path("/applications/#{@application2.id}")
+      expect(page).to have_content("Application Status: #{@application.status}")
+      expect(page).to have_content("Application Status: Pending")
     end
   end
 end
