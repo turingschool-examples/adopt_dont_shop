@@ -222,13 +222,13 @@ RSpec.describe 'Application Show Page', type: :feature do
   end
 
   describe 'Application submission form' do
-    it 'shows up when application has pets and does not show up when application has no pets' do
+    before(:each) do
       shelter_1 = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
-      pet_1 = shelter_1.pets.create(name: 'Annabelle', breed: 'tuxedo shorthair', age: 5, adoptable: true)
-      pet_2 = shelter_1.pets.create(name: 'Annie', breed: 'shorthair', age: 3, adoptable: true)
-      pet_3 = shelter_1.pets.create(name: 'Barbara Ann', breed: 'ragdoll', age: 3, adoptable: false)
+      @pet_1 = shelter_1.pets.create(name: 'Annabelle', breed: 'tuxedo shorthair', age: 5, adoptable: true)
+      @pet_2 = shelter_1.pets.create(name: 'Annie', breed: 'shorthair', age: 3, adoptable: true)
+      @pet_3 = shelter_1.pets.create(name: 'Barbara Ann', breed: 'ragdoll', age: 3, adoptable: false)
 
-      application2 = Application.create!(
+      @application2 = Application.create!(
         name: 'Spongebob',
         street_address: '124 Conch lane',
         city: 'Bikini Bottom',
@@ -237,18 +237,21 @@ RSpec.describe 'Application Show Page', type: :feature do
         description: "I'm ready!",
         status: 'In Progress'
       )
+    end
+    it 'shows up when application has pets and does not show up when application has no pets' do
 
-      visit "/applications/#{application2.id}"
-      expect(page).to have_content(application2.name)
+
+      visit "/applications/#{@application2.id}"
+      expect(page).to have_content(@application2.name)
       expect(page).to_not have_content("Please enter why you would make a good home for these pet(s)")
 
-      fill_in(:search, with: "Ann")
-      click_button("Submit")
-      click_button "Adopt #{pet_3.name}"
+      pet_application_1 = PetApplication.create!(pet: @pet_3, application: @application2)
+
+      visit "/applications/#{@application2.id}"    
 
       expect(page).to have_content("Please enter why you would make a good home for these pet(s)")
     end
-    xit 'changes application status to pending when submitted' do
+    it 'changes application status to pending when submitted' do
 
     end
   end
