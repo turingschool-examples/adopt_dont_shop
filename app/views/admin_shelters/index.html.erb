@@ -1,0 +1,12 @@
+<h1>Admin Shelters Index Page</h1>
+
+<% @shelters.reverse_alphabetical.each do |shelter| %>
+    <h4>Shelter Name: <%= shelter.name %></h4><hr>
+<% end %>
+
+<h3>Shelter's with Pending Applications</h3>
+<div id="shelters-with-pending-applications">
+    <% @shelters.with_pending_applications.each do |shelter| %>
+        <p><%= shelter.name %></p>
+    <% end %>
+</div>
