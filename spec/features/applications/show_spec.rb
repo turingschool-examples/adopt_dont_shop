@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'the applications show page' do
-  let(:application) { Application.create!(name: 'Debbie Yang', street_address: '1234 dog way', city: "San Francisco", state: 'CA', zip_code: 66012, description: 'I love dogs') }
+  let(:application) { Application.create!(name: 'Debbie Yang', street_address: '1234 dog way', city: "San Francisco", state: 'CA', zip_code: 66012) }
   let(:shelter_1) { Shelter.create!(foster_program: true, name: 'DogsBySeth', city: 'Denver', rank: 1) }
   let(:pet_1) { shelter_1.pets.create!(adoptable: true, age: 3, breed: 'Yorkie', name: 'Pickle') }
   let(:pet_2) { shelter_1.pets.create!(adoptable: true, age: 5, breed: 'German Shephard', name: 'Brownie') }
@@ -14,7 +14,6 @@ RSpec.describe 'the applications show page' do
     expect(page).to have_content(application.city)
     expect(page).to have_content(application.zip_code)
     expect(page).to have_content(application.state)
-    expect(page).to have_content(application.description)
     expect(page).to have_content(application.application_status)
   end
 
@@ -25,7 +24,7 @@ RSpec.describe 'the applications show page' do
     expect(page).to_not have_content(pet_1.name)
 
     fill_in :pet_name, with: pet_1.name
-    click_button "Submit"
+    click_button "Search"
 
     expect(current_path).to eq("/applications/#{application.id}")
     expect(page).to have_content(pet_1.name)
@@ -34,7 +33,7 @@ RSpec.describe 'the applications show page' do
   it "can add a pet to application that links to that pet's show page" do
     visit "applications/#{application.id}"
     fill_in :pet_name, with: pet_1.name
-    click_button "Submit"
+    click_button "Search"
 
     expect(page).to have_content(pet_1.name)
 
@@ -43,7 +42,7 @@ RSpec.describe 'the applications show page' do
 
     expect(current_path).to eq("/applications/#{application.id}")
     expect(page).to have_content(pet_1.name)
-    expect(pet_1.name).to appear_before("Submit")
+    expect(pet_1.name).to appear_before("Search")
       # save_and_open_page
     click_link "#{pet_1.name}"
     expect(current_path).to eq("/pets/#{pet_1.id}")
