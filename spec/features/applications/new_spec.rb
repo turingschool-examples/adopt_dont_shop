@@ -15,10 +15,11 @@ RSpec.describe 'Application New Page', type: :feature do
 
         click_on("Submit")
 
-        expect(page).to have_current_path("/applications/:id")
+        expect(page).to have_current_path("/applications/#{Application.last.id}")
         expect(page).to have_content("Leonardo DiCaprio")
         expect(page).to have_content("Full address: 777 Hollywood lame, Hollywood, CA 33004")
         expect(page).to have_content("In Progress")
+        expect(page).to have_content("Applicant statement:")
     end
   end
 end
