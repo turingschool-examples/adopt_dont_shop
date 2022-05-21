@@ -114,9 +114,9 @@ RSpec.describe 'application show page' do
     application = Application.create!(name: 'Sylvester Tommy', street_address: '1827 Vincent Ave', city: 'Halifax',
                                       state: 'Colorado', zip_code: '19274', description: '', status: 'In Progress')
     pet1 = Pet.create!(adoptable: true, age: 9, breed: 'Labrador', name: 'Suzan', shelter_id: shelter.id)
-    pet2 = Pet.create!(adoptable: true, age: 3, breed: 'Poodle', name: 'Fluffy', shelter_id: shelter.id)
-    pet3 = Pet.create!(adoptable: true, age: 3, breed: 'Poodle', name: 'Fluff', shelter_id: shelter.id)
-    pet4 = Pet.create!(adoptable: true, age: 3, breed: 'Poodle', name: 'Mr. Fluff', shelter_id: shelter.id)
+    pet2 = Pet.create!(adoptable: true, age: 3, breed: 'Poodle', name: 'FLUFFY', shelter_id: shelter.id)
+    pet3 = Pet.create!(adoptable: true, age: 3, breed: 'Poodle', name: 'FluFF', shelter_id: shelter.id)
+    pet4 = Pet.create!(adoptable: true, age: 3, breed: 'Poodle', name: 'mr. fluff', shelter_id: shelter.id)
 
     visit "/applications/#{application.id}"
 
@@ -124,9 +124,9 @@ RSpec.describe 'application show page' do
     click_button('Search')
 
     expect(current_path).to eq("/applications/#{application.id}")
-    expect(page).to have_content("Fluffy")
-    expect(page).to have_content("Fluff")
-    expect(page).to have_content("Mr. Fluff")
+    expect(page).to have_content("FLUFFY")
+    expect(page).to have_content("FluFF")
+    expect(page).to have_content("mr. fluff")
   end
 
 end
