@@ -23,7 +23,7 @@
 <% if !@matching_pets.nil? %>
   <% @matching_pets.each do |pet| %>
     <div id="pet-<%=pet.id%>">
-      <p> <%= pet.name %> 
+      <p> <%= pet.name %>
         <%= button_to "Adopt this pet", "/pet_applications", method: :post, params: {:application_id => @application.id, :pet_id => pet.id} %>
       </p>
     </div>
