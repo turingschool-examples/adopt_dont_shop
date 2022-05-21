@@ -1,24 +1,31 @@
 require 'rails_helper'
 
 RSpec.describe Application, type: :feature do
-  it 'has a form that intakes all params' do
-    
-    
-    
-    
-    
-    
-    
-    
-    visit '/applications/new'
-    fill_in 'name', with: 'Joann Smith'
-    fill_in 'street_address', with: '111 Street Name'
-    fill_in 'city', with: 'Denver'
-    fill_in 'state', with: 'CO'
-    fill_in 'zipcode', with: '00012'
-    fill_in 'description', with: "I'm a great person"
-    click_on 'Submit'
-    expect(current_path).to eq("/applications")
-    
+  context "new application form" do  
+    it 'intakes all params' do
+      visit '/applications/new'
+      
+      expect(page).to have_content('New Application')
+      expect(find('form')).to have_content('Name')
+      expect(find('form')).to have_content('Street address')
+      expect(find('form')).to have_content('State')
+      expect(find('form')).to have_content('City')
+      expect(find('form')).to have_content('Zipcode')
+      expect(find('form')).to have_content('Description')
+    end
+
+    it 'takes us to the new app show once submitted' do
+      visit '/applications/new'
+      
+      fill_in 'Name', with: 'Joann Smith'
+      fill_in 'Street address', with: '111 Street Name'
+      fill_in 'City', with: 'Denver'
+      fill_in 'State', with: 'CO'
+      fill_in 'Zipcode', with: '00012'
+      fill_in 'Description', with: "I'm a great person"
+      click_on 'Submit'
+    save_and_open_page
+      expect(current_path).to eq("/applications/#{@application.id}")
+    end
   end
 end
