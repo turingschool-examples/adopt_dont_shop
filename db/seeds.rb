@@ -7,9 +7,9 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 Veterinarian.destroy_all
 VeterinaryOffice.destroy_all
+PetApplication.destroy_all
 Pet.destroy_all
 Application.destroy_all
-PetApplication.destroy_all
 Shelter.destroy_all
 
 vet_office_1 = VeterinaryOffice.create(name: 'Special Friends', boarding_services: true, max_patient_capacity: 100)
