@@ -7,11 +7,16 @@ class ApplicationsController < ApplicationController
   end
 
   def create
-    new_app = Application.create(app_params)
-    redirect_to "/applications/#{new_app.id}"
+    new_app = Application.new(app_params)
+      if new_app.save
+        redirect_to "/applications/#{new_app.id}"
+      else
+        flash[:notice] = "Application not created: Required information missing"
+        redirect_to "/applications/new"
+     end
   end
 
   def app_params
-    params.permit(:name, :street_address, :city, :state, :zip_code, :status)
+    params.permit(:name, :street_address, :city, :state, :zip_code, :status, :description)
   end
 end

@@ -45,7 +45,7 @@ During the evaluation, you will present your user story:
 ## Deploy
 
 ```
-[ ] done
+[x] done
 
 Deploy your application to Heroku
 
@@ -65,7 +65,7 @@ Continuous Integration / Deployment is not allowed for this project.
 Visitors to the site will be able to create applications to adopt pets. An application has many pets. Pets can have many applications.
 
 ```
-[ ] done
+[x] done
 
 Application Show Page
 
@@ -80,7 +80,7 @@ Then I can see the following:
 ```
 
 ```
-[ ] done
+[x] done
 
 Starting an Application
 
@@ -102,7 +102,7 @@ And I see an indicator that this application is "In Progress"
 ```
 
 ```
-[ ] done
+[x] done
 
 Starting an Application, Form not Completed
 

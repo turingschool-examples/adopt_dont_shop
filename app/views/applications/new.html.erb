@@ -1,16 +1,11 @@
 <h1>New Application</h1>
 
-<%= form_with url: "/applications/:id", method: :post, local: true do |f| %>
-  <%= f.label :name %>
-  <%= f.text_field :name %>
-  <%= f.label :street_address %>
-  <%= f.text_field :street_address %>
-  <%= f.label :city %>
-  <%= f.text_field :city %>
-  <%= f.label :state %>
-  <%= f.text_field :state %>
-  <%= f.label :zip_code %>
-  <%= f.text_field :zip_code %>
-  <%= f.hidden_field :status, value: "In Progress" %>
-  <%= f.submit "Submit" %>
-<% end %>
+<%= render partial: 'form', locals: { path: "/applications/:id", method: :post, button_text: 'Submit' } %>
+
+<body>
+  <% flash.each do |type, message| %>
+    <p><%= message %></p>
+  <% end %>
+
+  <%= yield %>
+</body>
