@@ -4,7 +4,7 @@ RSpec.describe 'the applications show page' do
   let!(:application) { Application.create!(name: 'Debbie Yang', street_address: '1234 dog way', city: "San Francisco", state: 'CA', zip_code: 66012) }
   let!(:shelter_1) { Shelter.create!(foster_program: true, name: 'DogsBySeth', city: 'Denver', rank: 1) }
   let!(:pet_1) { shelter_1.pets.create!(adoptable: true, age: 3, breed: 'Yorkie', name: 'Pickle') }
-  let!(:pet_2) { shelter_1.pets.create!(adoptable: true, age: 5, breed: 'German Shephard', name: 'Brownie') }
+  let!(:pet_2) { shelter_1.pets.create!(adoptable: true, age: 5, breed: 'German Shephard', name: 'Pickles') }
 
   it "shows an application and all it's attributes" do
     visit "/applications/#{application.id}"
@@ -105,5 +105,14 @@ RSpec.describe 'the applications show page' do
     expect(page).to_not have_content("Submit")
     expect(app_1.application_status).to eq("Pending")
     expect(app_1.description).to eq("I love dogs")
+  end
+
+  it "can search for partial matches for pet names on application" do
+    visit "/applications/#{application.id}"
+
+    fill_in :pet_name, with: "Pic"
+    click_button "Search"
+    expect(page).to have_content("Pickle")
+    expect(page).to have_content("Pickles")
   end
 end
