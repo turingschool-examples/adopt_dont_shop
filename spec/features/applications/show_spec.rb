@@ -31,7 +31,7 @@ RSpec.describe 'the applications show page' do
     expect(page).to have_content(pet_1.name)
   end
 
-  it 'can add a pet to application' do
+  it "can add a pet to application that links to that pet's show page" do
     visit "applications/#{application.id}"
     fill_in :pet_name, with: pet_1.name
     click_button "Submit"
