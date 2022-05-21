@@ -10,3 +10,12 @@
   <% end %>
 </p>
 <p><b> Application Status:</b> <%= @application.status %></p>
+
+<% if @application.status == "In Progress" %>
+  <h3> Add a Pet to this Application: </h3>
+  <%= form_with url:"/applications/#{@application.id}", method: :get do |form| %>
+    <%= form.label :search_by_name %>
+    <%= form.text_field :search_by_name %>
+    <%= form.submit "Search" %>
+  <% end %>
+<% end %>
