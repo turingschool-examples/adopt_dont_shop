@@ -34,10 +34,10 @@ RSpec.describe 'the admin shelters index page' do
     pet4 = shelter4.pets.create!(adoptable: true, age: 9, breed: 'Labrador', name: 'Suzan')
 
     application1 = Application.create!(name: 'Sylvester Tommy', street_address: '1827 Vincent Ave', city: 'Halifax',
-                                       state: 'Colorado', zip_code: '19274', status: 'In Progress')
+                                       state: 'Colorado', zip_code: '19274', status: 'Pending')
 
     application2 = Application.create!(name: 'Jamie James', street_address: '1827 Vincent Ave', city: 'Halifax',
-                                       state: 'Colorado', zip_code: '19274', status: 'In Progress')
+                                       state: 'Colorado', zip_code: '19274', status: 'Pending')
 
     ap1 = ApplicationPet.create!(application_id: application1.id, pet_id: pet1.id)
     ap2 = ApplicationPet.create!(application_id: application2.id, pet_id: pet3.id)
@@ -46,7 +46,9 @@ RSpec.describe 'the admin shelters index page' do
 
     expect(page).to have_content('Shelters with Pending Applications')
     within('div#pendingApps') do
-      expect(shelter1.name).to_not appear_before('Shelters with Pending Applciations')
+      expect(page).to have_content('Gally')
+
+      expect(page).to have_content('Eally')
     end
   end
 end
