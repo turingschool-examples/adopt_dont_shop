@@ -19,6 +19,6 @@ RSpec.describe 'the admin shelters index page' do
 
     expect(shelter2.name).to appear_before(shelter4.name)
 
-    expect(shelter4.name).to appear_after(shelter2.name)
+    expect(shelter4.name).to_not appear_before(shelter2.name)
   end
 end
