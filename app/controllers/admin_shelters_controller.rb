@@ -1,3 +1,5 @@
 class AdminSheltersController < ApplicationController
-  def index; end
+  def index
+    @shelters = Shelter.reverse_alpha
+  end
 end
