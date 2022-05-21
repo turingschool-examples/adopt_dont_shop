@@ -9,10 +9,12 @@
 
   <div id="pendingApps">
     <h2>Shelters with Pending Applications</h2>
-    <% @shelters_with_pending.each do |shelter| %>
-    <h3>Name: <%= shelter.name %></h3>
-    <p>City: <%= shelter.city %></p>
-    <p>Rank: <%= shelter.rank %></p>
-    <p>Foster Program: <%= shelter.foster_program %></p><br>
+    <% @applications_with_pending.each do |application| %>
+      <% application.shelters.each do |shelter| %>
+        <h3>Name: <%= shelter.name %></h3>
+        <p>City: <%= shelter.city %></p>
+        <p>Rank: <%= shelter.rank %></p>
+        <p>Foster Program: <%= shelter.foster_program %></p><br>
+      <% end %>
     <% end %>
   </div>
