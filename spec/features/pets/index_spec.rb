@@ -81,4 +81,10 @@ RSpec.describe 'the pets index' do
     expect(page).to have_content(pet_2.name)
     expect(page).to_not have_content(pet_3.name)
   end
+
+  it "takes us to the new application form" do
+    visit '/pets'
+    click_on 'Start an Application'
+    expect(current_path).to eq('/applications/new')
+  end
 end
