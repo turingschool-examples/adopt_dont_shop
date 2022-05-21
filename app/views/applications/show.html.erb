@@ -21,6 +21,6 @@
 <% if params[:search].present? %>
   <% @pet_search.each do |pet| %>
     <%= pet.name %>
-    <%= button_to 'Adopt this Pet', '/application_pets', method: :create, params: {application_id: @application.id, pet_id: pet.id} %>
+    <%= button_to 'Adopt this Pet', '/application_pets', method: :post, params: {application_id: @application.id, pet_id: pet.id} %>
   <% end %>
 <% end %>
