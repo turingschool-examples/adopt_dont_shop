@@ -26,7 +26,7 @@ RSpec.describe 'application creation' do
         fill_in 'State', with: 'NC'
         fill_in 'Zip', with: 12345
         fill_in 'Description', with: "I like this dog."
-        click_button 'Submit'
+        click_button 'Save'
         application_id = Application.last.id
         expect(page).to have_current_path("/applications/#{application_id}")
         expect(page).to have_content('Professor T')
