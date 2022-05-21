@@ -6,8 +6,12 @@
 <%= "Description of Worthiness: #{@application.description}"%><br>
 PETS
 <section id = 'pets'>
+<%= form_with url: "/pets", method: :get, local: true do |f| %>
+  <%= f.label :search %>
+  <%= f.text_field :search %>
+  <%= f.submit "Search" %>
+<% end %>
 <p><% @application.pet.each do |pet| %>
 <%= link_to "#{pet.name}", "/pet/#{pet.id}" %><br>
 <% end %></p></section>
 <%= "#{@application.status}" %>
-
