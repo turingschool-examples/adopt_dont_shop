@@ -12,14 +12,16 @@ RSpec.describe 'Start a new application' do
             fill_in :zip_code, with: "66666"
             fill_in :description, with: "I am a good mother!"
             click_button 'Submit'
-            expect(page).to have_content('Archie') 
-            expect(page).to have_content('44 Aloha Ave') 
-            expect(page).to have_content('Bubble T') 
-            expect(page).to have_content('GA') 
-            expect(page).to have_content('66666') 
-            expect(page).to have_content('I am a good mother!') 
-            expect(page).to_not have_content('Antonio') 
+            expect(page).to have_content('Archie')
+            expect(page).to have_content('44 Aloha Ave')
+            expect(page).to have_content('Bubble T')
+            expect(page).to have_content('GA')
+            expect(page).to have_content('66666')
+            expect(page).to have_content('I am a good mother!')
+            expect(page).to_not have_content('Antonio')
         end
     end
+
     
+
 end

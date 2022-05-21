@@ -9,4 +9,6 @@
   <% @application.pets.each do |pet| %>
     <p><%= link_to "#{pet.name}", "/pets/#{pet.id}" %></p>
     <% end %>
+    <h5>Add a Pet to this Application</h5>
+    <div id="add-pet-to-application"></div>
   <p>Status: <%= @application.status %></p>
