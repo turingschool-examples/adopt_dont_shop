@@ -12,7 +12,7 @@ class ApplicationsController < ApplicationController
   end
 
   def create
-    @application=Application.create(application_params)
+    @application = Application.create(application_params)
     redirect_to "/applications/#{@application.id}"
   end
 

@@ -24,8 +24,15 @@ RSpec.describe Application, type: :feature do
       fill_in 'Zipcode', with: '00012'
       fill_in 'Description', with: "I'm a great person"
       click_on 'Submit'
-    save_and_open_page
-      expect(current_path).to eq("/applications/#{@application.id}")
+
+      # expect(current_path).to eq("/applications/#{@application.id}")
+      expect(page).to have_content("Joann Smith")
+      expect(page).to have_content("111 Street Name")
+      expect(page).to have_content("Denver")
+      expect(page).to have_content("CO")
+      expect(page).to have_content("00012")
+      expect(page).to have_content("I'm a great person")
+      expect(page).to have_content("In Progress")
     end
   end
 end
