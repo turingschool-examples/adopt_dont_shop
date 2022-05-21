@@ -23,9 +23,18 @@
 <% if !@matching_pets.nil? %>
   <% @matching_pets.each do |pet| %>
     <div id="pet-<%=pet.id%>">
-      <p> <%= pet.name %> 
+      <p> <%= pet.name %>
         <%= button_to "Adopt this pet", "/pet_applications", method: :post, params: {:application_id => @application.id, :pet_id => pet.id} %>
       </p>
     </div>
   <% end  %>
 <% end  %>
+
+<% if @application.has_pets? && @application.status == "In Progress" %>
+  <h3> Submit Application: </h3>
+  <%= form_with url:"/applications/#{@application.id}", method: :patch do |form| %>
+    <%= form.label :description, "Why would you be a good owner?" %>
+    <%= form.text_field :description %>
+    <%= form.submit "Submit Application" %>
+  <% end %>
+<% end %>
