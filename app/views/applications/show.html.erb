@@ -4,7 +4,6 @@
 <p><strong>City: </strong><%= @application.city %></p>
 <p><strong>State: </strong><%= @application.state %></p>
 <p><strong>Zip Code: </strong><%= @application.zip_code %></p>
-<p><strong>Why would you make a good home? </strong><%= @application.description %></p>
 <p><strong>Application Status: </strong><%= @application.application_status %></p>
 
 <p><strong>Names of pets you are interested in: </strong>
@@ -12,12 +11,24 @@
     <%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
   <% end %></p><br>
 
-<p><strong>Add a Pet to this Application</strong></p>
+<p><strong>"Why would you make a good owner?" </strong><%= @application.description %></p>
 
+<% if @application.application_status == "In Progress" %>
+<p><strong>Add a Pet to this Application</strong></p>
 <%= form_with url: "/applications/#{@application.id}?search=pet_name", method: :get, local: true do |f| %>
   <%= f.label :pet_name %>
   <%= f.text_field :pet_name %>
+  <%= f.submit 'Search' %>
+  <% end %>
+<%end%>
+
+<% if @application.pets != nil && @application.description == " " %>
+<%= form_with url: "/applications/#{@application.id}", method: :patch, local: true do |f| %>
+  <%= f.label :description, "Why would you make a good owner?" %></br>
+  <%= f.text_field :description %></br>
+  <%= f.hidden_field :application_status, :value => "Pending" %>
   <%= f.submit 'Submit' %>
+  <% end %>
 <% end %>
 
 <% if @pet_search != nil %>

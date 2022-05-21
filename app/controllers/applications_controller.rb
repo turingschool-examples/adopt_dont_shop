@@ -2,8 +2,11 @@ class ApplicationsController < ApplicationController
 
   def show
     @application = Application.find(params[:id])
-    @pets = @application.pets
     @pet_search = Pet.search(params[:pet_name]) if params[:pet_name].present?
+    # if params[:description].present?
+    #   application = Application.update(params[:id], application_params)
+    #   redirect_to "/applications/#{application.id}"
+    # end
   end
 
   def new
@@ -20,11 +23,15 @@ class ApplicationsController < ApplicationController
     end
   end
 
+  def update
+    @application = Application.find(params[:id])
+    @application.update!(application_params)
+    redirect_to "/applications/#{@application.id}"
+  end
 
   private
 
   def application_params
      params.permit(:name, :street_address, :city, :state, :zip_code, :description, :application_status)
-    # params.permit(:id, :name, :address, :city, :state, :zipcode, :description)
   end
 end
