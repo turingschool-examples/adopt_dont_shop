@@ -1,10 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe Application, type: :feature do
-  context "new application form" do  
+  context "new application form" do
     it 'intakes all params' do
       visit '/applications/new'
-      
+
       expect(page).to have_content('New Application')
       expect(find('form')).to have_content('Name')
       expect(find('form')).to have_content('Street address')
@@ -16,7 +16,7 @@ RSpec.describe Application, type: :feature do
 
     it 'takes us to the new app show once submitted' do
       visit '/applications/new'
-      
+
       fill_in 'Name', with: 'Joann Smith'
       fill_in 'Street address', with: '111 Street Name'
       fill_in 'City', with: 'Denver'
@@ -24,7 +24,7 @@ RSpec.describe Application, type: :feature do
       fill_in 'Zipcode', with: '00012'
       fill_in 'Description', with: "I'm a great person"
       click_on 'Submit'
-
+      
       # expect(current_path).to eq("/applications/#{@application.id}")
       expect(page).to have_content("Joann Smith")
       expect(page).to have_content("111 Street Name")

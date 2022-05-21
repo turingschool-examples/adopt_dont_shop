@@ -1,7 +1,7 @@
 class ApplicationsController < ApplicationController
 
   def index
-  
+
   end
 
   def show
@@ -13,12 +13,17 @@ class ApplicationsController < ApplicationController
 
   def create
     @application = Application.create(application_params)
-    redirect_to "/applications/#{@application.id}"
+    if @application.save
+      redirect_to "/applications/#{@application.id}"
+    else
+      flash[:notice] = "Application not created: required information missing."
+      redirect_to '/applications/new'
+    end
   end
 
 private
 
   def application_params
     params.permit(:name, :street_address, :city, :state, :zipcode, :status, :description, :id)
-  end  
+  end
 end
