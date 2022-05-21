@@ -17,11 +17,23 @@ RSpec.describe 'the application show' do
     expect(page).to have_content('CO')
     expect(page).to have_content(80303)
     expect(page).to have_content('I need to combat loneliness')
-    expect(page).to have_content(app_1.status)
+    expect(page).to have_content('In Progress')
     expect(page).to_not have_content('Jenn')
     expect(page).to have_link('Lucille Bald')
     click_link 'Lucille Bald'
     expect(current_path).to eq("/pets/#{pet_1.id}")
+
+  end
+
+  it "allows you to add a pet to the application if the application has not been submitted" do
+    expect(page).to have_content('In Progress')
+    expect(page).to have_content('Add a Pet to this Application')
+
+    fill_in("Pet name", with: "Lucille Bald")
+    click_button "Submit"
+
+    expect(current_path).to eq("/applications/#{app_1.id}")
+    expect(page).to have_content('Lucille Bald')
 
   end
 end
