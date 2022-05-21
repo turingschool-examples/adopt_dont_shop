@@ -9,13 +9,15 @@ class ApplicationFormsController < ApplicationController
   end
 
   def new
+    # redirect_to '.......'
   end
 
   def create
     application_form = ApplicationForm.new(application_form_params)
     application_form.status = "In Progress"
     if application_form.save
-      redirect_to '/application_forms/'
+      # redirect_to '/application_forms/#{application_form.id}'
+      redirect_to "/application_forms/#{application_form.id}"
     else
       # binding.pry
       redirect_to '/application_forms/new'
