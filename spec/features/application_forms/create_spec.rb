@@ -73,8 +73,14 @@ RSpec.describe ApplicationForm, type: :feature do
 
       # fill_in 'City', with: 'Houston'
 
-      # expect(page).to have_content("Error: Name can't be blank, Rank can't be blank, Rank is not a number")
-      # expect(page).to have_current_path('/shelters/new')
+      expect(page).to have_content("Error: Name can't be blank, Street address can't be blank, City can't be blank, State can't be blank, Zip code can't be blank, Zip code is not a number")
+      expect(page).to have_current_path('/application_forms/new')
+
+      fill_in 'Name', with: 'Hank'
+      click_button 'Submit'
+      
+      expect(page).to have_content("Error: Street address can't be blank, City can't be blank, State can't be blank, Zip code can't be blank, Zip code is not a number")
+      expect(page).to have_current_path('/application_forms/new')
     end
   end
 end

@@ -17,8 +17,9 @@ class ApplicationFormsController < ApplicationController
     if application_form.save
       redirect_to '/application_forms/'
     else
-      redirect_to '/shelters/new'
-      flash[:alert] = "Error: #{error_message(shelter.errors)}"
+      # binding.pry
+      redirect_to '/application_forms/new'
+      flash[:alert] = "Error: #{error_message(application_form.errors)}"
     end
 
     # if shelter.save
