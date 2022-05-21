@@ -1,0 +1,13 @@
+<h1>Pet Application</h1>
+
+<%= "Applicant Name: #{@application.name}"%><br>
+<%= "Street Address: #{@application.street_address}"%><br>
+<%= "City, State Zip: #{@application.city}, #{@application.state}  #{@application.zipcode}"%><br>
+<%= "Description of Worthiness: #{@application.description}"%><br>
+PETS
+<section id = 'pets'>
+<p><% @application.pet.each do |pet| %>
+<%= link_to "#{pet.name}", "/pet/#{pet.id}" %><br>
+<% end %></p></section>
+<%= "#{@application.status}" %>
+
