@@ -39,9 +39,9 @@ RSpec.describe 'the application show' do
     end
   end
 
-  it "can add a searched for pet from the show page" do
+  it "can add a searched for pet from the show page, doesn't need to be case sensitive" do
     visit "/applications/#{app_1.id}"
-    fill_in("Search by name", with: "Lucille Bald")
+    fill_in("Search by name", with: "lucille bald")
     click_button "Search"
 
     within "#pet-#{pet_1.id}" do
@@ -69,5 +69,17 @@ RSpec.describe 'the application show' do
     expect(page).to_not have_content("Add a Pet to this Application:")
     expect(page).to have_link('Zucchini')
 
+  end
+
+  it "can add a searched for partial pet from the show page" do
+    visit "/applications/#{app_1.id}"
+    fill_in("Search by name", with: "ucille")
+    click_button "Search"
+
+    within "#pet-#{pet_1.id}" do
+      expect(page).to have_content('Lucille Bald')
+      click_button "Adopt this pet"
+      expect(current_path).to eq("/applications/#{app_1.id}")
+    end
   end
 end
