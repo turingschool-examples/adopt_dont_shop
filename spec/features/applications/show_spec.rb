@@ -162,4 +162,62 @@ RSpec.describe 'Application Show Page', type: :feature do
       expect(page).to_not have_content("#{pet_3.name}")
     end
   end
+
+  describe 'Add a Pet to an Application' do 
+    it 'has a button to adopt a pet' do 
+      shelter_1 = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
+      pet_1 = shelter_1.pets.create(name: 'Mr. Pirate', breed: 'tuxedo shorthair', age: 5, adoptable: true)
+      pet_2 = shelter_1.pets.create(name: 'Clawdia', breed: 'shorthair', age: 3, adoptable: true)
+      pet_3 = shelter_1.pets.create(name: 'Ann', breed: 'ragdoll', age: 3, adoptable: false)
+
+      application2 = Application.create!(
+          name: 'Spongebob',
+          street_address: '124 Conch lane',
+          city: 'Bikini Bottom',
+          state: 'Despair',
+          zip_code: 33025,
+          description: "I'm ready!",
+          status: 'In Progress'
+      )
+      
+      visit "/applications/#{application2.id}"
+      expect(page).to have_content(application2.name)
+
+      fill_in(:search, with: "Ann")
+      click_button("Submit")
+
+      click_button "Adopt this Pet"
+
+      expect(current_path).to eq("/applications/#{application2.id}")
+      expect(page).to have_link("#{pet_3.name}")
+      expect(page).to_not have_content("Pet(s) applied for: #{pet_2.name}")
+    end
+
+    it 'can produce multiple matches' do 
+      shelter_1 = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
+      pet_1 = shelter_1.pets.create(name: 'Annabelle', breed: 'tuxedo shorthair', age: 5, adoptable: true)
+      pet_2 = shelter_1.pets.create(name: 'Annie', breed: 'shorthair', age: 3, adoptable: true)
+      pet_3 = shelter_1.pets.create(name: 'Barbara Ann', breed: 'ragdoll', age: 3, adoptable: false)
+
+      application2 = Application.create!(
+        name: 'Spongebob',
+        street_address: '124 Conch lane',
+        city: 'Bikini Bottom',
+        state: 'Despair',
+        zip_code: 33025,
+        description: "I'm ready!",
+        status: 'In Progress'
+      )
+
+      visit "/applications/#{application2.id}"
+      expect(page).to have_content(application2.name)
+
+      fill_in(:search, with: "Ann")
+      click_button("Submit")
+
+      expect(page).to have_content(pet_1.name)
+      expect(page).to have_content(pet_2.name)
+      expect(page).to have_content(pet_3.name)
+    end
+  end
 end
