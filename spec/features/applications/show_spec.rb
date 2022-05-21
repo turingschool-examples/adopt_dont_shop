@@ -39,10 +39,11 @@ RSpec.describe Application, type: :feature do
         expect(page).to have_content('Hometown')
         expect(page).to have_content('CO')
         expect(page).to have_content('00004')
-        within '#pets' do
+        within '#current_pets' do
         expect(page).to have_content('Mr. Biggs')
         expect(page).to have_content('Spike')
         expect(page).to_not have_content('Evil Steve')
+        save_and_open_page
         end
         expect(page).to have_content('In Progress')
       end
