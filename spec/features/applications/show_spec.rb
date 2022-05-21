@@ -50,6 +50,7 @@ RSpec.describe 'the applications show page' do
   end
 
   it "can submit an application" do
+
     visit "applications/#{application.id}"
 
     expect(page).to_not have_content("Submit")
@@ -66,6 +67,7 @@ RSpec.describe 'the applications show page' do
     expect(page).to have_content(pet_1.name)
 
     fill_in "description", with: "I love dogs"
+
     click_button "Submit"
 
     expect(current_path).to eq("/applications/#{application.id}")
@@ -73,6 +75,7 @@ RSpec.describe 'the applications show page' do
     expect(page).to have_content(pet_1.name)
     expect(page).to_not have_content("Search")
   end
+
 
   it 'shows description of why the applicant would make a good owner' do
 
