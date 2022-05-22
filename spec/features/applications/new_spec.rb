@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'Start a new application' do
+
   describe "has a form and ability to create a new application" do
     it 'has form and saves application' do
       application_1 = Application.create!(name: 'Antonio', street_address: '1234 Drury Lane', city: 'San Francisco', state: 'CA', zip_code: '94016', description: 'God', status: 0)

@@ -9,4 +9,18 @@
   <% @application.pets.each do |pet| %>
     <p><%= link_to "#{pet.name}", "/pets/#{pet.id}" %></p>
     <% end %>
+    <div id="add-pet-to-application">
+      <h5>Add a Pet to this Application</h5>
+      <%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |f| %>
+        <%= f.label :search %>
+        <%= f.text_field :search %>
+        <%= f.submit "Search for pets by name" %>
+      <% end %>
+    <hr>
+    <% if params[:search].present? %>
+    <% @pets.each do |pet| %>
+      <%= pet.name %>
+      <% end %>
+      <% end %>
+  </div>
   <p>Status: <%= @application.status %></p>
