@@ -23,6 +23,7 @@ RSpec.describe 'the veterinarian update' do
       fill_in 'Name', with: 'Itchy'
       uncheck 'Adoptable'
       fill_in 'Age', with: 1
+      fill_in 'Breed', with: "unknown"
       click_button 'Save'
 
       expect(page).to have_current_path("/pets/#{pet.id}")

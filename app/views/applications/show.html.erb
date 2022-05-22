@@ -7,8 +7,8 @@
 
 Current pets
 
-<section id = "current_pets"
- <p><% @application.pet.each do |pet| %>
+<section id = "current_pets">
+<p><% @application.pet.each do |pet| %>
   <%= link_to "#{pet.name}", "/pet/#{pet.id}" %><br>
   <% end %></p></section>
 
