@@ -29,4 +29,14 @@ RSpec.describe 'new application' do
     expect(page).to have_content("12554")
     expect(page).to have_content("In Progress")
   end
+
+  describe 'form not completed' do
+    it 'shows a new form with Errors' do
+      visit "/applications/new"
+
+      click_button 'Submit'
+      expect(page).to have_current_path("/applications/new")
+      expect(page).to have_content("Error: Name can't be blank, Street address can't be blank, City can't be blank, State can't be blank, Zip can't be blank")
+    end
+  end
 end
