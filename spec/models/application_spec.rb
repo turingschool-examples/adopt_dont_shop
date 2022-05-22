@@ -14,5 +14,4 @@ RSpec.describe Application, type: :model do
         it { should validate_presence_of :zip_code }
         it { should validate_presence_of :status }
     end
-
 end
