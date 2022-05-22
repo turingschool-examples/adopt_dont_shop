@@ -29,10 +29,12 @@
     <% end %>
   <% end %>
   </div>
-  <%= form_with url:"/applications/#{@application.id}?submit=true", method: :patch, local: true do |f| %>
-    <%= f.label :description %>
-    <%= f.text_field :description %>
-    <%= f.submit "Submit Application" %>
+  <% if @application.pets.count > 0 %>
+    <%= form_with url:"/applications/#{@application.id}?submit=true", method: :patch, local: true do |f| %>
+      <%= f.label :description %>
+      <%= f.text_field :description %>
+      <%= f.submit "Submit Application" %>
+    <% end %>
   <% end %>
 <% end %>
     <p>Status: <%= @application.status %></p>

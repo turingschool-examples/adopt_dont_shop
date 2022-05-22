@@ -6,6 +6,7 @@ RSpec.describe 'application show page', type: :feature do
     @boulder_county = Shelter.create!(name: 'Boulder County Shelter', city: 'Boulder', rank: 7, foster_program: true)
     @application_1 = Application.create!(name: 'Antonio', street_address: '1234 Drury Lane', city: 'San Francisco', state: 'CA', zip_code: '94016', description: 'God', status: 0)
     @application_2 = Application.create!(name: 'Casey', street_address: '1564 Pearl Street', city: 'Boulder', state: 'C0', zip_code: '80037', description: 'Allah', status: 0)
+    @application_3 = Application.create!(name: 'Deannah', street_address: '154 Pearl Street', city: 'Boulder', state: 'C0', zip_code: '80037', description: 'Allah', status: 0)
     @rajah = @dumb_friends.pets.create!(name: 'Rajah', breed: 'cat', age: 5, adoptable: false)
     @stacks = @dumb_friends.pets.create!(name: 'Stacks', breed: 'german shepherd', age: 10, adoptable: true)
     @flaubert = @boulder_county.pets.create!(name: 'Flaubert', breed: 'terrier', age: 2, adoptable: true)
@@ -114,17 +115,6 @@ RSpec.describe 'application show page', type: :feature do
     expect(current_path).to eq("/applications/#{@application_2.id}")
   end
 
-# As a visitor
-# When I visit an application's show page
-# And I have added one or more pets to the application
-# Then I see a section to submit my application
-# And in that section I see an input to enter why I would make a good owner for these pet(s)
-# When I fill in that input
-# And I click a button to submit this application
-# Then I am taken back to the application's show page
-# And I see an indicator that the application is "Pending"
-# And I see all the pets that I want to adopt
-# And I do not see a section to add more pets to this application
   it 'has a section to submit application after pets are added' do
     visit "/applications/#{@application_1.id}"
 
@@ -141,4 +131,14 @@ RSpec.describe 'application show page', type: :feature do
     expect(page).to_not have_content("In Progress")
   end
 
+  # As a visitor
+  # When I visit an application's show page
+  # And I have not added any pets to the application
+  # Then I do not see a section to submit my application
+  it 'does not have a submit section if no pets are added' do
+    visit "/applications/#{@application_3.id}"
+
+    expect(page).to have_content("Deannah")
+    expect(page).to_not have_content("Submit Application")
+  end 
 end
