@@ -9,6 +9,7 @@ RSpec.describe 'admin shelters index' do
         end
         it 'has raw SQL for admin shelters query for reverse alphabetical order' do 
             visit '/admin/shelters'
+            save_and_open_page
              expect(@shelter_3.name).to appear_before(@shelter_2.name)
              expect(@shelter_2.name).to appear_before(@shelter_1.name)
         end
