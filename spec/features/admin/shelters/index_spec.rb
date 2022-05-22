@@ -8,10 +8,9 @@ RSpec.describe 'admin shelters index page' do
   describe "#order_by_name"
   it "can see all shelters in the system listed in reverse alphabetical order by name" do
     visit '/admin/shelters'
-    save_and_open_page
+    # save_and_open_page
 
     expect(current_path).to eq('/admin/shelters')
-    expect(shelter.order_by_name)
     expect('RGV animal shelter').to appear_before('Aurora shelter')
     expect('Fancy pets of Colorado').to appear_before('Aurora shelter')
     expect('Aurora shelter').to_not appear_before('RGV animal shelter')
