@@ -1,0 +1,12 @@
+Application for <%= @applications.name %>
+
+<p>Address: <%= @applications.street_address %> <%= @applications.city %>, <%= @applications.state %> <%= @applications.zip %></p>
+
+<p>Description: I would be a great parent because I love dogs.</p>
+
+<p>Pets Wanted:</p>
+<% @applications.pets.each do |pet| %>
+<%= link_to "#{pet.name}",  "/pets/#{pet.id}" %>
+<% end %>
+
+<p>Status:</p>
