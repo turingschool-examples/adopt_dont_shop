@@ -5,3 +5,11 @@
   <% @pets.each do |pet| %>
      <p><b> Pets: </b><%= link_to "#{pet.name}", "/pets/#{pet.id}" %> </p>
   <% end %>
+
+<section id="search-pet">
+<h2>"Add a Pet to this Application"</h2>
+<%= form_tag(url_for(action: 'show'), method: :get) do %>
+  <%=text_field_tag(:search, params[:search])  %>
+  <%= submit_tag("Search Pet Name") %>
+  <% end %>
+</section>
