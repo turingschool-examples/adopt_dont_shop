@@ -131,14 +131,10 @@ RSpec.describe 'application show page', type: :feature do
     expect(page).to_not have_content("In Progress")
   end
 
-  # As a visitor
-  # When I visit an application's show page
-  # And I have not added any pets to the application
-  # Then I do not see a section to submit my application
   it 'does not have a submit section if no pets are added' do
     visit "/applications/#{@application_3.id}"
 
     expect(page).to have_content("Deannah")
     expect(page).to_not have_content("Submit Application")
-  end 
+  end
 end
