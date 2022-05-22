@@ -50,6 +50,7 @@ RSpec.describe 'Application Show Page', type: :feature do
 
             expect(page).to have_link("#{pet_2.name}")
             expect(page).to have_link("#{pet_3.name}")
+          end 
         end
 
         it 'can test for multiple pets' do
@@ -99,7 +100,6 @@ RSpec.describe 'Application Show Page', type: :feature do
             expect(current_path).to eq("/pets/#{pet_3.id}")
             expect(page).to have_content(pet_3.name)
         end
-    end
 
   describe 'Searching for Pets for an Application' do
     it 'has a search section that shows up on applications that are in progress' do
@@ -290,6 +290,7 @@ RSpec.describe 'Application Show Page', type: :feature do
 
         visit "/applications/#{@application2.id}"
     end
+
     it 'can return pets whose name partially matches a search' do 
       fill_in(:search, with: "Ann")
       click_button("Submit")
@@ -308,6 +309,7 @@ RSpec.describe 'Application Show Page', type: :feature do
       expect(page).to have_content("Barbara Ann")
       expect(page).to_not have_content("Soup")
     end
+    
     it 'produces results even if case is different' do 
         fill_in(:search, with: "aNn")
         click_button("Submit")
