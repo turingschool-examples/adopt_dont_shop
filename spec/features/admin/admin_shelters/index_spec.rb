@@ -1,27 +1,25 @@
 require 'rails_helper'
 
-RSpec.describe 'admin shelters index' do
-    describe 'admin_shelters' do 
-        before :each do 
-            @shelter_1 = Shelter.create!(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
-            @shelter_2 = Shelter.create!(name: 'Boulder shelter', city: 'Boulder, CO', foster_program: false, rank: 9)
-            @shelter_3 = Shelter.create(name: 'Denver shelter', city: 'Denver, CO', foster_program: true, rank: 7)
-        end 
-        describe 'SQL only story' do 
-            it 'has raw SQL for admin shelters query for reverse alphabetical order' do 
-                visit '/admin/shelters'
-                # save_and_open_page
-
-                within "#orderedShelters" do 
-                    expect(@shelter_3.name).to appear_before(@shelter_2.name)
-                    expect(@shelter_2.name).to appear_before(@shelter_1.name)
-                end 
-            end
-        end
-        describe 'Shelters with Pending Applications' do 
+RSpec.describe 'admin shelters index', type: :feature do
+    describe 'SQL only story' do 
+        it 'has raw SQL for admin shelters query for reverse alphabetical order' do 
             shelter_1 = Shelter.create!(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
             shelter_2 = Shelter.create!(name: 'Boulder shelter', city: 'Boulder, CO', foster_program: false, rank: 9)
             shelter_3 = Shelter.create(name: 'Denver shelter', city: 'Denver, CO', foster_program: true, rank: 7)
+            visit '/admin/shelters'
+            # save_and_open_page
+
+            within "#orderedShelters" do 
+                expect(shelter_3.name).to appear_before(shelter_2.name)
+                expect(shelter_2.name).to appear_before(shelter_1.name)
+            end 
+        end
+    end
+    describe 'Shelters with Pending Applications' do 
+        it 'has a section for pending applications' do 
+            shelter_1 = Shelter.create!(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
+            shelter_2 = Shelter.create!(name: 'Boulder shelter', city: 'Boulder, CO', foster_program: false, rank: 9)
+            shelter_3 = Shelter.create!(name: 'Denver shelter', city: 'Denver, CO', foster_program: true, rank: 7)
 
             pet_1 = shelter_1.pets.create!(name: 'Mr. Pirate', breed: 'tuxedo shorthair', age: 5, adoptable: true)
             pet_2 = shelter_1.pets.create!(name: 'Clawdia', breed: 'shorthair', age: 3, adoptable: true)
@@ -76,17 +74,14 @@ RSpec.describe 'admin shelters index' do
             pet_application_8 = PetApplication.create!(pet: pet_2, application: application4)
             pet_application_9 = PetApplication.create!(pet: pet_4, application: application4)
             pet_application_10 = PetApplication.create!(pet: pet_5, application: application3)
+            visit '/admin/shelters'
 
-            it 'has a section for pending applications' do 
-                visit '/admin/shelters'
-
-                within "#pendingApplications" do 
-                    expect(page).to have_content("Shelter's with Pending Applications")
-                    expect(page).to have_content(shelter_1.name)
-                    expect(page).to have_content(shelter_2.name)
-                    expect(page).to_not have_content(shelter_3.name)
-                end
+            within "#pendingApplications" do 
+                expect(page).to have_content("Shelter's with Pending Applications")
+                expect(page).to have_content(shelter_1.name)
+                expect(page).to have_content(shelter_2.name)
+                expect(page).to_not have_content(shelter_3.name)
             end
         end
-    end 
+    end
 end
