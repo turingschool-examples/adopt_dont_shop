@@ -8,3 +8,10 @@
 <% end %>
 <p> Application Status: <%= @application.status %></p>
 <%= render partial: 'add_pet', locals: { path: "/applications/:id", method: :get, button_text: "Submit" } %>
+<% if @application.pets.count > 0 && @application.status == "In Progress" %>
+<%= form_with url: "/applications/#{@application.id}", method: :patch, local: true do |f| %>
+  <%= f.label "Please enter why you would make a good home for these pet(s)" %>
+  <%= f.text_field :description %>
+  <%= f.submit "Submit Application" %>
+  <% end %>
+<% end %>

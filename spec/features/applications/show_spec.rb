@@ -45,6 +45,11 @@ RSpec.describe 'Application Show Page', type: :feature do
             click_link "#{pet_1.name}"
             expect(current_path).to eq("/pets/#{pet_1.id}")
             expect(page).to have_content(pet_1.name)
+
+            visit "/applications/#{application2.id}"
+
+            expect(page).to have_link("#{pet_2.name}")
+            expect(page).to have_link("#{pet_3.name}")
         end
 
         it 'can test for multiple pets' do
@@ -163,8 +168,8 @@ RSpec.describe 'Application Show Page', type: :feature do
     end
   end
 
-  describe 'Add a Pet to an Application' do 
-    it 'has a button to adopt a pet' do 
+  describe 'Add a Pet to an Application' do
+    it 'has a button to adopt a pet' do
       shelter_1 = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
       pet_1 = shelter_1.pets.create(name: 'Mr. Pirate', breed: 'tuxedo shorthair', age: 5, adoptable: true)
       pet_2 = shelter_1.pets.create(name: 'Clawdia', breed: 'shorthair', age: 3, adoptable: true)
@@ -179,21 +184,21 @@ RSpec.describe 'Application Show Page', type: :feature do
           description: "I'm ready!",
           status: 'In Progress'
       )
-      
+
       visit "/applications/#{application2.id}"
       expect(page).to have_content(application2.name)
 
       fill_in(:search, with: "Ann")
       click_button("Submit")
 
-      click_button "Adopt this Pet"
+      click_button "Adopt #{pet_3.name}"
 
       expect(current_path).to eq("/applications/#{application2.id}")
       expect(page).to have_link("#{pet_3.name}")
       expect(page).to_not have_content("Pet(s) applied for: #{pet_2.name}")
     end
 
-    it 'can produce multiple matches' do 
+    it 'can produce multiple matches' do
       shelter_1 = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
       pet_1 = shelter_1.pets.create(name: 'Annabelle', breed: 'tuxedo shorthair', age: 5, adoptable: true)
       pet_2 = shelter_1.pets.create(name: 'Annie', breed: 'shorthair', age: 3, adoptable: true)
@@ -218,6 +223,51 @@ RSpec.describe 'Application Show Page', type: :feature do
       expect(page).to have_content(pet_1.name)
       expect(page).to have_content(pet_2.name)
       expect(page).to have_content(pet_3.name)
+    end
+  end
+
+  describe 'Application submission form' do
+    before(:each) do
+      shelter_1 = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
+      @pet_1 = shelter_1.pets.create(name: 'Annabelle', breed: 'tuxedo shorthair', age: 5, adoptable: true)
+      @pet_2 = shelter_1.pets.create(name: 'Annie', breed: 'shorthair', age: 3, adoptable: true)
+      @pet_3 = shelter_1.pets.create(name: 'Barbara Ann', breed: 'ragdoll', age: 3, adoptable: false)
+
+      @application2 = Application.create!(
+        name: 'Spongebob',
+        street_address: '124 Conch lane',
+        city: 'Bikini Bottom',
+        state: 'Despair',
+        zip_code: 33025,
+        description: "",
+        status: 'In Progress'
+      )
+    end
+    it 'shows up when application has pets and does not show up when application has no pets' do
+      visit "/applications/#{@application2.id}"
+      expect(page).to have_content(@application2.name)
+      expect(page).to_not have_content("Please enter why you would make a good home for these pet(s)")
+
+      pet_application_1 = PetApplication.create!(pet: @pet_3, application: @application2)
+
+      visit "/applications/#{@application2.id}"
+
+      expect(page).to have_content("Please enter why you would make a good home for these pet(s)")
+    end
+
+    it 'changes application status to pending when submitted' do
+      pet_application_1 = PetApplication.create!(pet: @pet_3, application: @application2)
+
+      visit "/applications/#{@application2.id}"
+
+      fill_in(:description, with: "I'm ready!")
+
+      click_on("Submit Application")
+
+      expect(page).to have_current_path("/applications/#{@application2.id}")
+      expect(page).to have_content("Application Status: Pending")
+      expect(page).to_not have_content("Add a Pet to this Application")
+      expect(page).to have_link("#{@pet_3.name}")
     end
   end
 end
