@@ -1,0 +1,41 @@
+<h1>Admin Application Show Page</h1>
+
+<h4><%= @application.name %><h4>
+  <p>Street Address: <%= @application.street_address %></p>
+  <p>City: <%= @application.city %></p>
+  <p>State: <%= @application.state %></p>
+  <p>Zip Code: <%= @application.zip_code %></p>
+  <p>Description: <%= @application.description %></p>
+  <p>Pets: </p>
+    <% @application.pets.each do |pet| %>
+        <p><%= link_to "#{pet.name}", "/pets/#{pet.id}" %></p>
+    <% end %>
+  <p>Status: <%= @application.status %></p>
+
+  <% @application.application_pets.each do |app_pet| %>
+<div id="pet-application-<%= "#{app_pet.pet.name}" %>">
+    <% if app_pet[:pet_status] == nil %>
+        <%= app_pet.pet.name %>
+        <% app_pet_status = [] %>
+
+        <% app_pet.pet.applications.each do |application| %>
+            <% app_pet_status << application[:status] %>
+        <% end %>
+
+        <% if app_pet_status.include?("Approved")%>
+            <%= "#{app_pet.pet.name} has been approved for adoption" %>
+        <% else %>
+            <%= button_to "Approve #{app_pet.pet.name}", "/admin/applications/#{@application.id}", method: :pathch, params: {app_id: app_pet.id, status: 'Approve'} %>
+            <%= button_to "Reject #{app_pet.pet.name}", "/admin/applications/#{@application.id}", method: :pathch, params: {app_id: app_pet.id, status: 'Reject'} %>
+        <% end %>
+    <% end %>
+<% end %>
+
+<% @application.application_pets.each do |app_pet| %>
+  <% if app_pet[:pet_status] == "Approved" %>
+    <%= "#{app_pet.pet.name} Approved" %><br>
+  <% elsif app_pet[:pet_status] == "Rejected" %>
+    <%= "#{app_pet.pet.name} Rejected" %><br>
+  <% end %>
+<% end %>
+</div>
