@@ -6,6 +6,7 @@ RSpec.describe 'application show page', type: :feature do
     @boulder_county = Shelter.create!(name: 'Boulder County Shelter', city: 'Boulder', rank: 7, foster_program: true)
     @application_1 = Application.create!(name: 'Antonio', street_address: '1234 Drury Lane', city: 'San Francisco', state: 'CA', zip_code: '94016', description: 'God', status: 0)
     @application_2 = Application.create!(name: 'Casey', street_address: '1564 Pearl Street', city: 'Boulder', state: 'C0', zip_code: '80037', description: 'Allah', status: 0)
+    @application_3 = Application.create!(name: 'Deannah', street_address: '154 Pearl Street', city: 'Boulder', state: 'C0', zip_code: '80037', description: 'Allah', status: 0)
     @rajah = @dumb_friends.pets.create!(name: 'Rajah', breed: 'cat', age: 5, adoptable: false)
     @stacks = @dumb_friends.pets.create!(name: 'Stacks', breed: 'german shepherd', age: 10, adoptable: true)
     @flaubert = @boulder_county.pets.create!(name: 'Flaubert', breed: 'terrier', age: 2, adoptable: true)
@@ -112,5 +113,28 @@ RSpec.describe 'application show page', type: :feature do
     expect(page).to have_content('Rajah')
     expect(page).to_not have_content('Flaubert')
     expect(current_path).to eq("/applications/#{@application_2.id}")
+  end
+
+  it 'has a section to submit application after pets are added' do
+    visit "/applications/#{@application_1.id}"
+
+    fill_in('Description', with: "I love dogs more than life itself")
+    click_button('Submit Application')
+
+    expect(current_path).to eq("/applications/#{@application_1.id}")
+    expect(page).to have_content("Pending")
+    expect(page).to have_content("Rajah")
+    expect(page).to have_content("Stacks")
+    expect(page).to have_content("Flaubert")
+    expect(page).to have_content("I love dogs more than life itself")
+    expect(page).to_not have_content("Add a Pet to this Application")
+    expect(page).to_not have_content("In Progress")
+  end
+
+  it 'does not have a submit section if no pets are added' do
+    visit "/applications/#{@application_3.id}"
+
+    expect(page).to have_content("Deannah")
+    expect(page).to_not have_content("Submit Application")
   end
 end
