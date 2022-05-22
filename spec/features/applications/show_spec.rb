@@ -81,7 +81,7 @@ RSpec.describe 'application show page', type: :feature do
     expect(current_path).to eq("/applications/#{@application_2.id}")
   end
 
-  it 'is case insensitive when searching pet names' do
+  it 'is case insensitive when searching pet names all lowercase' do
     visit "/applications/#{@application_2.id}"
 
     fill_in('Search', with: 'rajah')
@@ -90,5 +90,27 @@ RSpec.describe 'application show page', type: :feature do
     expect(page).to have_content('Rajah')
     expect(page).to_not have_content('Flaubert')
     expect(current_path).to eq("/applications/#{@application_2.id}")
-  end 
+  end
+
+  it 'is case insensitive when searching pet names all uppercase' do
+    visit "/applications/#{@application_2.id}"
+
+    fill_in('Search', with: 'RAJAH')
+    click_on("Search for pets by name")
+
+    expect(page).to have_content('Rajah')
+    expect(page).to_not have_content('Flaubert')
+    expect(current_path).to eq("/applications/#{@application_2.id}")
+  end
+
+  it 'is case insensitive when searching pet names' do
+    visit "/applications/#{@application_2.id}"
+
+    fill_in('Search', with: 'RaJah')
+    click_on("Search for pets by name")
+
+    expect(page).to have_content('Rajah')
+    expect(page).to_not have_content('Flaubert')
+    expect(current_path).to eq("/applications/#{@application_2.id}")
+  end
 end
