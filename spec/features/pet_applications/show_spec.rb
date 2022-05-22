@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe PetApplications, type: :feature do
+RSpec.describe PetApplication, type: :feature do
   context "create new" do
     before(:each) do
       @shelter1 = Shelter.create(name: 'Denver Dogs', city: 'Denver', foster_program: true, rank: 9)
@@ -18,7 +18,7 @@ RSpec.describe PetApplications, type: :feature do
       click_on('Search')
       expect(current_path).to eq("/applications/#{@application1.id}")
       expect(page).to have_content('Spike')
-      binding.pry
+    
       click_on 'Adopt this Pet'
       expect(current_path).to eq("/applications/#{@application1.id}")
 
