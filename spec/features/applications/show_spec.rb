@@ -69,4 +69,15 @@ RSpec.describe 'application show page', type: :feature do
       expect(page).to have_content("Pavel")
     end
   end
+
+  it 'returns partial pet name matches' do
+    visit "/applications/#{@application_2.id}"
+
+    fill_in('Search', with: 'Ra')
+    click_on("Search for pets by name")
+
+    expect(page).to have_content('Rajah')
+    expect(page).to_not have_content('Flaubert')
+    expect(current_path).to eq("/applications/#{@application_2.id}")
+  end
 end
