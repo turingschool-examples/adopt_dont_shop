@@ -12,6 +12,8 @@
     <% end %>
   </div>
 
+<% if @application.status == "In Progress" %>
+
   <div id="add-pet-to-application">
     <h5>Add a Pet to this Application</h5>
     <%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |f| %>
@@ -32,4 +34,5 @@
     <%= f.text_field :description %>
     <%= f.submit "Submit Application" %>
   <% end %>
+<% end %>
     <p>Status: <%= @application.status %></p>

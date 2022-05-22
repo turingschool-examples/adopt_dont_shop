@@ -136,6 +136,7 @@ RSpec.describe 'application show page', type: :feature do
     expect(page).to have_content("Rajah")
     expect(page).to have_content("Stacks")
     expect(page).to have_content("Flaubert")
+    expect(page).to have_content("I love dogs more than life itself")
     expect(page).to_not have_content("Add a Pet to this Application")
     expect(page).to_not have_content("In Progress")
   end

@@ -25,7 +25,8 @@ class ApplicationsController < ApplicationController
     if params[:pet_id].present?
       ApplicationPet.create!(application: application, pet: Pet.find(params[:pet_id]))
     elsif params[:submit].present?
-      application.status = 1
+      application.description = params[:description]
+      application.status = "Pending"
       application.save
     end
     redirect_to "/applications/#{application.id}"
