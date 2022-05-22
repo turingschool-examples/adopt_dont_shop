@@ -19,7 +19,7 @@ RSpec.describe 'admin applications show page', type: :feature do
       pet_application_1 = PetApplication.create!(pet: pet_1, application: application1)
       pet_application_2 = PetApplication.create!(pet: pet_2, application: application1)
 
-      visit "/admin/applications/:id"
+      visit "/admin/applications/#{application1.id}"
 
       expect(page).to have_content(pet_1.name)
       expect(page).to have_content(pet_2.name)
