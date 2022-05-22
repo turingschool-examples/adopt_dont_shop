@@ -32,19 +32,29 @@ RSpec.describe Application, type: :feature do
 
         visit "/applications/#{@application1.id}"
       end
-        
+
       it 'also shows status' do
         expect(page).to have_content('Chris')
         expect(page).to have_content('123 Main St')
         expect(page).to have_content('Hometown')
         expect(page).to have_content('CO')
         expect(page).to have_content('00004')
-        within '#pets' do
+        within '#current_pets' do
         expect(page).to have_content('Mr. Biggs')
         expect(page).to have_content('Spike')
         expect(page).to_not have_content('Evil Steve')
-        end  
+        end
         expect(page).to have_content('In Progress')
+      end
+
+      it 'allows for a user to add pets to an application before submitting' do
+        expect(page).to have_content("Add a Pet to this Application")
+        expect(find('form')).to have_content('Search')
+        fill_in 'Search', with: 'Spike'
+        click_on('Search')
+        expect(current_path).to eq("/applications/#{@application1.id}")
+        expect(page).to have_content('Spike')
+        expect(page).to_not have_content('Boots')
       end
     end
   end
