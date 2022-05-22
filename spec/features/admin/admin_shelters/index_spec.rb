@@ -11,8 +11,11 @@ RSpec.describe 'admin shelters index' do
             it 'has raw SQL for admin shelters query for reverse alphabetical order' do 
                 visit '/admin/shelters'
                 # save_and_open_page
-                expect(@shelter_3.name).to appear_before(@shelter_2.name)
-                expect(@shelter_2.name).to appear_before(@shelter_1.name)
+
+                within "#orderedShelters" do 
+                    expect(@shelter_3.name).to appear_before(@shelter_2.name)
+                    expect(@shelter_2.name).to appear_before(@shelter_1.name)
+                end 
             end
         end
         describe 'Shelters with Pending Applications' do 
@@ -77,10 +80,12 @@ RSpec.describe 'admin shelters index' do
             it 'has a section for pending applications' do 
                 visit '/admin/shelters'
 
-                expect(page).to have_content("Shelter's with Pending Applications")
-                expect(page).to have_content(shelter_1.name)
-                expect(page).to have_content(shelter_2.name)
-                expect(page).to_not have_content(shelter_3.name)
+                within "#pendingApplications" do 
+                    expect(page).to have_content("Shelter's with Pending Applications")
+                    expect(page).to have_content(shelter_1.name)
+                    expect(page).to have_content(shelter_2.name)
+                    expect(page).to_not have_content(shelter_3.name)
+                end
             end
         end
     end 
