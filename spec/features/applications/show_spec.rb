@@ -271,25 +271,26 @@ RSpec.describe 'Application Show Page', type: :feature do
     end
   end
 
-  describe 'partial matches for pet search' do 
+  describe 'wonky matches for pet search' do 
+    before(:each) do 
+        shelter_1 = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
+        @pet_1 = shelter_1.pets.create(name: 'Annabelle', breed: 'tuxedo shorthair', age: 5, adoptable: true)
+        @pet_2 = shelter_1.pets.create(name: 'Annie', breed: 'shorthair', age: 3, adoptable: true)
+        @pet_3 = shelter_1.pets.create(name: 'Barbara Ann', breed: 'ragdoll', age: 3, adoptable: false)
+        @pet_4 = shelter_1.pets.create(name: 'Soup', breed: 'box turtle', age: 45, adoptable: false)
+        @application2 = Application.create!(
+            name: 'Spongebob',
+            street_address: '124 Conch lane',
+            city: 'Bikini Bottom',
+            state: 'Despair',
+            zip_code: 33025,
+            description: "",
+            status: 'In Progress'
+        )
+
+        visit "/applications/#{@application2.id}"
+    end
     it 'can return pets whose name partially matches a search' do 
-      shelter_1 = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
-      pet_1 = shelter_1.pets.create(name: 'Annabelle', breed: 'tuxedo shorthair', age: 5, adoptable: true)
-      pet_2 = shelter_1.pets.create(name: 'Annie', breed: 'shorthair', age: 3, adoptable: true)
-      pet_3 = shelter_1.pets.create(name: 'Barbara Ann', breed: 'ragdoll', age: 3, adoptable: false)
-      pet_4 = shelter_1.pets.create(name: 'Soup', breed: 'box turtle', age: 45, adoptable: false)
-      application2 = Application.create!(
-        name: 'Spongebob',
-        street_address: '124 Conch lane',
-        city: 'Bikini Bottom',
-        state: 'Despair',
-        zip_code: 33025,
-        description: "",
-        status: 'In Progress'
-      )
-
-      visit "/applications/#{application2.id}"
-
       fill_in(:search, with: "Ann")
       click_button("Submit")
 
@@ -297,6 +298,33 @@ RSpec.describe 'Application Show Page', type: :feature do
       expect(page).to have_content("Ann")
       expect(page).to have_content("Barbara Ann")
       expect(page).to_not have_content("Soup")
+
+      visit "/applications/#{@application2.id}"
+      fill_in(:search, with: "n")
+      click_button("Submit")
+
+      expect(page).to have_content("Annabelle")
+      expect(page).to have_content("Ann")
+      expect(page).to have_content("Barbara Ann")
+      expect(page).to_not have_content("Soup")
+    end
+    it 'produces results even if case is different' do 
+        fill_in(:search, with: "aNn")
+        click_button("Submit")
+
+        expect(page).to have_content("Annabelle")
+        expect(page).to have_content("Ann")
+        expect(page).to have_content("Barbara Ann")
+        expect(page).to_not have_content("Soup")
+
+        visit "/applications/#{@application2.id}"
+        fill_in(:search, with: "ANN")
+        click_button("Submit")
+
+        expect(page).to have_content("Annabelle")
+        expect(page).to have_content("Ann")
+        expect(page).to have_content("Barbara Ann")
+        expect(page).to_not have_content("Soup")
     end
   end
 end
