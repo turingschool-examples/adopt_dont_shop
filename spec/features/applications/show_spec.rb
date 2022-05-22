@@ -45,6 +45,11 @@ RSpec.describe 'Application Show Page', type: :feature do
             click_link "#{pet_1.name}"
             expect(current_path).to eq("/pets/#{pet_1.id}")
             expect(page).to have_content(pet_1.name)
+
+            visit "/applications/#{application2.id}"
+
+            expect(page).to have_link("#{pet_2.name}")
+            expect(page).to have_link("#{pet_3.name}")
         end
 
         it 'can test for multiple pets' do
@@ -186,7 +191,7 @@ RSpec.describe 'Application Show Page', type: :feature do
       fill_in(:search, with: "Ann")
       click_button("Submit")
 
-      click_button "Adopt this Pet"
+      click_button "Adopt #{pet_3.name}"
 
       expect(current_path).to eq("/applications/#{application2.id}")
       expect(page).to have_link("#{pet_3.name}")
@@ -261,6 +266,8 @@ RSpec.describe 'Application Show Page', type: :feature do
 
       expect(page).to have_current_path("/applications/#{@application2.id}")
       expect(page).to have_content("Application Status: Pending")
+      expect(page).to_not have_content("Add a Pet to this Application")
+      expect(page).to have_link("#{@pet_3.name}")
     end
   end
 end
