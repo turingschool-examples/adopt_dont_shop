@@ -23,6 +23,7 @@ Add a Pet to this Application
 <% if @pets != nil %>
   <p><% @pets.each do |pet| %>
   <%= link_to "#{pet.name}", "/pet/#{pet.id}" %><br>
+  <%= button_to "Adopt this Pet", "/pet_applications", params: {pet_id: pet.id, application_id: @application.id}, method: :post%>
   <% end %></p></section>
 <% end %>
 <%= "#{@application.status}" %>
