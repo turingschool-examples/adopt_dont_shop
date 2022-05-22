@@ -4,8 +4,9 @@ Rails.application.routes.draw do
   get '/admin/shelters', to: 'admin_shelters#index'
   get '/admin/shelters/:id', to: 'admin_shelters#show'
 
+  get '/admin/applications', to: 'admin_applications#index'
   get '/admin/applications/:id', to: 'admin_applications#show'
-  post '/admin/applications/:id', to: 'admin_applications#update'
+  patch '/admin/applications/:id', to: 'admin_applications#update'
 
   get '/applications/new', to: 'applications#new'
   get '/applications/:id', to: 'applications#show'
