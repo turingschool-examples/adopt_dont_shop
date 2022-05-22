@@ -43,25 +43,16 @@ RSpec.describe 'application show page', type: :feature do
     expect(current_path).to eq("/pets/#{@flaubert.id}")
   end
 
-  # As a visitor
-  # When I visit an application's show page
-  # And that application has not been submitted,
-  # Then I see a section on the page to "Add a Pet to this Application"
-  # In that section I see an input where I can search for Pets by name
-  # When I fill in this field with a Pet's name
-  # And I click submit,
-  # Then I am taken back to the application show page
-  # And under the search bar I see any Pet whose name matches my search
   it 'has a section to "Add a Pet to this Application"' do
     visit "/applications/#{@application_1.id}"
     within ('#add-pet-to-application') do
       expect(page).to have_content("Add a Pet to this Application")
 
-      fill_in('Search for pets by name', with: 'Pavel')
-      click_button('Submit')
+      fill_in('Search', with: 'Pavel')
+      click_on("Search for pets by name")
 
       expect(current_path).to eq("/applications/#{@application_1.id}")
-      expect(page).to have_content('Pavel')
+      expect(page).to have_content(@pavel.name)
     end
   end
 end
