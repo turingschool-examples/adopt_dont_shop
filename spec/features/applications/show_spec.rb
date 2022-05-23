@@ -45,5 +45,19 @@ RSpec.describe 'application', type: :feature do
         expect(page).to_not have_content("Lobster")
       end
     end
+
+    it "has a link to adopt searched pet" do
+      visit "/applications/#{@bob.id}"
+
+      expect(page).to_not have_link("Adopt this Pet")
+      fill_in :pet_select, with: "Lobster"
+      click_button "submit"
+      expect(page).to have_link("Adopt this Pet")
+      # save_and_open_page
+      click_link("Adopt this Pet")
+      expect(current_path).to eq("/applications/#{@bob.id}")
+      expect(page).to_not have_link("Adopt this Pet")
+      expect(page).to have_content("Lobster")
+    end
   end
 end
