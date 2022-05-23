@@ -1,15 +1,18 @@
-<h1> Applicant Name: <%= @application.name %></h1>
-<p><b>Address:</b> <%= @application.street_address %>,
-             <%= @application.city  %>,
-             <%= @application.state %>,
-             <%= @application.zip_code %></p>
-<p><b>Why is <%= @application.name %> a good fit? </b> <%= @application.description %></p>
-<p><b>Pet Names: </b>
-  <% @application.pets.each do |pet| %>
-    <%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
-  <% end %>
-</p>
-<p><b> Application Status:</b> <%= @application.status %></p>
+<div id="application-display">
+  <h1> Applicant Name: <%= @application.name %></h1>
+  <p><b>Address:</b> <%= @application.street_address %>,
+  <%= @application.city  %>,
+  <%= @application.state %>,
+  <%= @application.zip_code %></p>
+  <p><b>Why is <%= @application.name %> a good fit? </b> <%= @application.description %></p>
+  <p><b>Pet Names: </b>
+    <% @application.pets.each do |pet| %>
+      <%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
+    <% end %>
+  </p>
+  <p><b> Application Status:</b> <%= @application.status %></p>
+</div>
+
 
 <% if @application.status == "In Progress" %>
   <h3> Add a Pet to this Application: </h3>
@@ -20,15 +23,17 @@
   <% end %>
 <% end %>
 
-<% if !@matching_pets.nil? %>
-  <% @matching_pets.each do |pet| %>
-    <div id="pet-<%=pet.id%>">
-      <p> <%= pet.name %>
-        <%= button_to "Adopt this pet", "/pet_applications", method: :post, params: {:application_id => @application.id, :pet_id => pet.id} %>
-      </p>
-    </div>
+
+
+<div id="matching-pets">
+  <% if !@matching_pets.nil? %>
+    <% @matching_pets.each do |pet| %>
+        <p> <%= pet.name %>
+          <%= button_to "Adopt this pet", "/pet_applications", method: :post, params: {:application_id => @application.id, :pet_id => pet.id} %>
+        </p>
+    <% end  %>
   <% end  %>
-<% end  %>
+</div>
 
 <% if @application.has_pets? && @application.status == "In Progress" %>
   <h3> Submit Application: </h3>
