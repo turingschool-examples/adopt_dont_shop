@@ -33,7 +33,7 @@ RSpec.describe 'Admin Shelter Show Page' do
             expect(page).to_not have_content("Location: Boulder")
         end
 
-        it "has sections for statistics and includses average age for adoptable pets" do
+        it "has sections for statistics and includes average age for adoptable pets" do
             visit "/admin/shelters/#{@dumb_friends.id}"
             within "#admin-shelter-pet-statistics" do
                 expect(page).to have_content("Pet Statistics")
@@ -41,6 +41,14 @@ RSpec.describe 'Admin Shelter Show Page' do
                 expect(page).to_not have_content("Denver Dumb Friends League")
                 expect(page).to_not have_content("Location: Denver")
                 expect(page).to_not have_content("Mr. Pirate")
+            end
+        end
+
+        it "has sections for statistics and includes count for adoptable pets" do
+            visit "/admin/shelters/#{@dumb_friends.id}"
+            within "#admin-shelter-pet-statistics" do
+                expect(page).to have_content("Pet Statistics")
+                expect(page).to have_content("Number of Adoptable Pets: 3")
             end
         end
     end
