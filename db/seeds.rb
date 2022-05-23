@@ -14,19 +14,19 @@ Shelter.destroy_all
 # vet_2 = Veterinarian.create(name: 'Jim', review_rating: 8, on_call: true, veterinary_office_id: vet_office.id)
 
 shelter = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
-# shelter_2 = Shelter.create(name: 'RGV animal shelter', city: 'Harlingen, TX', foster_program: false, rank: 5)
-# shelter_3 = Shelter.create(name: 'Fancy pets of Colorado', city: 'Denver, CO', foster_program: true, rank: 10)
+shelter_2 = Shelter.create(name: 'RGV animal shelter', city: 'Harlingen, TX', foster_program: false, rank: 5)
+shelter_3 = Shelter.create(name: 'Fancy pets of Colorado', city: 'Denver, CO', foster_program: true, rank: 10)
 
-shelter.pets.create(name: 'Mr. Pirate', breed: 'tuxedo shorthair', age: 5, adoptable: true)
-shelter.pets.create(name: 'Clawdia', breed: 'shorthair', age: 3, adoptable: true)
-shelter.pets.create(name: 'Lucille Bald', breed: 'sphynx', age: 8, adoptable: true)
+# shelter.pets.create(name: 'Mr. Pirate', breed: 'tuxedo shorthair', age: 5, adoptable: true)
+# shelter.pets.create(name: 'Clawdia', breed: 'shorthair', age: 3, adoptable: true)
+# shelter.pets.create(name: 'Lucille Bald', breed: 'sphynx', age: 8, adoptable: true)
 
 
 # application = Application.create!(name: 'Debbie Yang', street_address: '1234 dog way', city: "San Francisco", state: 'CA', zip_code: 66012)
 
 pet_1 = Pet.create(adoptable: true, age: 7, breed: 'sphynx', name: 'Bare-y Manilow', shelter_id: shelter.id)
-pet_2 = Pet.create(adoptable: true, age: 3, breed: 'domestic pig', name: 'Babe', shelter_id: shelter.id)
-pet_3 = Pet.create(adoptable: true, age: 4, breed: 'chihuahua', name: 'Elle', shelter_id: shelter.id)
+pet_2 = Pet.create(adoptable: true, age: 3, breed: 'domestic pig', name: 'Babe', shelter_id: shelter_2.id)
+pet_3 = Pet.create(adoptable: true, age: 4, breed: 'chihuahua', name: 'Elle', shelter_id: shelter_3.id)
 
 # pet_4 = shelter.pets.create!(adoptable: true, age: 3, breed: 'Yorkie', name: 'Pickle')
 # pet_5 = shelter.pets.create!(adoptable: true, age: 5, breed: 'German Shephard', name: 'Pickles')
