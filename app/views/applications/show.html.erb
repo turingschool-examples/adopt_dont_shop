@@ -2,6 +2,7 @@
   <p><b> Address:</b> <%= @application.address %>, <%=@application.city %>, <%=@application.state %>,<%=@application.zipcode %></p>
   <p><b> Rationale</b> <%= @application.rationale %></p>
   <p><b> Status:</b> <%= @application.status %></p>
+
   <% @pets.each do |pet| %>
      <p><b> Pets: </b><%= link_to "#{pet.name}", "/pets/#{pet.id}" %> </p>
   <% end %>
@@ -19,6 +20,8 @@
     <% @search_results.each do |pet| %>
     <li>
       <%= "Name: #{pet.name}" %>
+      <h3><%= link_to "Adopt #{pet.name}", "/applications/#{@application.id}" %></h3>
+      <h3><%= link_to "Adopt #{pet.name}", adopt: "adoption" %></h3>
     </li>
     <% end %>
   </ul>

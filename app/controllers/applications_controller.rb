@@ -7,6 +7,9 @@ class ApplicationsController < ApplicationController
     @application = Application.find(params[:id])
     @pets = @application.pets
     @search_results = Pet.search(params[:search]) if params[:search]
+    if params[:adopt] == "adoption"
+      @pets << @search_results
+    end
   end
 
   def new
