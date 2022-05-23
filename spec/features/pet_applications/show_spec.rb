@@ -36,6 +36,7 @@ RSpec.describe PetApplication, type: :feature do
 
     it "button is present if it has pets" do
       visit "/applications/#{@application1.id}"
+      expect(@application1.status).to eq("In Progress")
 
       expect(page).to_not have_button("Submit my Application")
       fill_in 'Search', with: 'Spike'
@@ -44,6 +45,7 @@ RSpec.describe PetApplication, type: :feature do
       click_on 'Adopt this Pet'
 
       expect(page).to have_button('Submit my Application')
+      expect(page).to_have content("Pending")
     end
   end
 end

@@ -9,4 +9,8 @@ class Application < ApplicationRecord
   validates_presence_of :status
 
   # enum :status, [:in_progress, :pending, :approved, :rejected]
+
+  def status_pending
+    update(status: "Pending")
+  end
 end
