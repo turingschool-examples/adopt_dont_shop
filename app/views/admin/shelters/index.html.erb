@@ -2,3 +2,10 @@
 <% @shelters.each do |shelter| %>
   <p> <%= shelter.name %> </p>
 <% end %>
+
+<div id = "pending-shelters">
+  <h3>Shelters with Pending Applications</h3>
+  <% @pending.each do |shelter| %>
+  <%= shelter.name %>
+  <% end %>
+</div>
