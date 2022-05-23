@@ -11,7 +11,6 @@ RSpec.describe 'application creation' do
       expect(find('form')).to have_content('City')
       expect(find('form')).to have_content('State')
       expect(find('form')).to have_content('Zip')
-      expect(find('form')).to have_content('Description')
     end
   end
 
@@ -25,7 +24,6 @@ RSpec.describe 'application creation' do
         fill_in 'City', with: 'Metropolis'
         fill_in 'State', with: 'NC'
         fill_in 'Zip', with: 12345
-        fill_in 'Description', with: "I like this dog."
         click_button 'Save'
         application_id = Application.last.id
         expect(page).to have_current_path("/applications/#{application_id}")
@@ -40,7 +38,7 @@ RSpec.describe 'application creation' do
         click_button 'Save'
         expect(page).to have_current_path("/applications/new")
         expect(page).to have_content("Error: Name can't be blank, Street can't be blank, " +
-             "City can't be blank, State can't be blank, Zip can't be blank, Description can't be blank")
+             "City can't be blank, State can't be blank, Zip can't be blank")
       end
     end
   end
