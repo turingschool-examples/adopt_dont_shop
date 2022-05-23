@@ -59,12 +59,13 @@ RSpec.describe "Applications Show Page" do
     expect(current_path).to eq("/applications/#{@application_1.id}")
     expect(@application_1.status).to eq("In-progress")
     expect(page).to have_content("Add a Pet to this Application")
-  
+
     within "#search-pet" do
       fill_in with: "#{@scooby.name}"
       click_on "Search Pet Name"
+    end
+    # save_and_open_page
       expect(current_path).to eq("/applications/#{@application_1.id}")
       expect(page).to have_content(@scooby.name)
-    end
   end
 end

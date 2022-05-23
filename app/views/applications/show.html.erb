@@ -7,9 +7,19 @@
   <% end %>
 
 <section id="search-pet">
-<h2>"Add a Pet to this Application"</h2>
-<%= form_tag(url_for(action: 'show'), method: :get) do %>
-  <%=text_field_tag(:search, params[:search])  %>
-  <%= submit_tag("Search Pet Name") %>
+<h2> Add a Pet to this Application </h2>
+<%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |form| %>
+  <%= form.label :search, "Search Pet" %>
+  <%= form.text_field :search %>
+  <%= form.submit "Search Pet Name" %>
   <% end %>
 </section>
+<% if @search_results %>
+  <ul>
+    <% @search_results.each do |pet| %>
+    <li>
+      <%= "Name: #{pet.name}" %>
+    </li>
+    <% end %>
+  </ul>
+<% end %>

@@ -23,6 +23,8 @@ RSpec.describe 'the shelter show' do
   end
 
   it "allows the user to delete a shelter" do
+    Pet.destroy_all
+    Shelter.destroy_all
     shelter = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
 
     visit "/shelters/#{shelter.id}"
