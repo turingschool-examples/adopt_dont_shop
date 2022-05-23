@@ -7,9 +7,23 @@ class ApplicationsController < ApplicationController
     @application = Application.find(params[:id])
     @pets = @application.pets
     @search_results = Pet.search(params[:search]) if params[:search]
+    if params[:adopt] == "adoption"
+      @pets << @search_results
+    end
   end
 
   def new
+  end
+
+  def update
+    @application = Application.find(params[:id])
+    @pets = @application.pets
+    # require "pry"; binding.pry
+    if params[:pet]
+      pet = Pet.find(params[:pet])
+      @pets << pet
+    end
+    redirect_to "/applications/#{@application.id}"
   end
 
   def create

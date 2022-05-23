@@ -12,13 +12,14 @@ RSpec.describe "Applications Show Page" do
     @application_2 = Application.create!(name: 'Michael Vick', address: '38747 Brooklyn Lane', city: 'Brooklyn', state: 'New York', zipcode: '11200', rationale: 'I need fighters for my underground dog fight club', status: 'In-progress')
     @application_3 = Application.create!(name: 'Michael Scott', address: '4543 Albuquerque Lane', city: 'Albuquerque', state: 'New Mexico', zipcode: '13579', rationale: 'I am sad and need company', status: 'In-progress')
 
-    @application_pet1 = ApplicationPet.create!(pet_id: @scooby.id, application_id: @application_1.id)
-    @application_pet2 = ApplicationPet.create!(pet_id: @piglet.id, application_id: @application_2.id)
-    @application_pet3 = ApplicationPet.create!(pet_id: @garfield.id, application_id: @application_3.id)
+    # @application_pet1 = ApplicationPet.create!(pet_id: @scooby.id, application_id: @application_1.id)
+    # @application_pet2 = ApplicationPet.create!(pet_id: @piglet.id, application_id: @application_2.id)
+    # @application_pet3 = ApplicationPet.create!(pet_id: @garfield.id, application_id: @application_3.id)
 
   end
 
     it "should display applicant and all their attributes" do
+    application_pet1 = ApplicationPet.create!(pet_id: @scooby.id, application_id: @application_1.id)
 
       visit "applications/#{@application_1.id}"
 
@@ -43,18 +44,7 @@ RSpec.describe "Applications Show Page" do
 
   end
 
-
-# As a visitor
-# When I visit an application's show page
-# And that application has not been submitted,
-# Then I see a section on the page to "Add a Pet to this Application"
-# In that section I see an input where I can search for Pets by name
-# When I fill in this field with a Pet's name
-# And I click submit,
-# Then I am taken back to the application show page
-# And under the search bar I see any Pet whose name matches my search
-
-  it "should have button to add pet to application" do
+  it "it can search for a pet by name" do
     visit "/applications/#{@application_1.id}"
     expect(current_path).to eq("/applications/#{@application_1.id}")
     expect(@application_1.status).to eq("In-progress")
@@ -64,8 +54,27 @@ RSpec.describe "Applications Show Page" do
       fill_in with: "#{@scooby.name}"
       click_on "Search Pet Name"
     end
-    # save_and_open_page
+
       expect(current_path).to eq("/applications/#{@application_1.id}")
       expect(page).to have_content(@scooby.name)
   end
-end
+
+  it "can add the searched pet to the application" do
+    visit "/applications/#{@application_1.id}"
+
+    within "#search-pet" do
+      fill_in with: "#{@scooby.name}"
+      click_on "Search Pet Name"
+    end
+
+    expect(page).to have_link("Adopt #{@scooby.name}")
+    within "#add-pet" do
+      click_on "Adopt #{@scooby.name}"
+    end
+
+    within "#attributes"
+      expect(current_path).to eq("/applications/#{@application_1.id}")
+      expect(page).to have_content(@scooby.name)
+      expect(page).to_not have_content(@piglet.name)
+    end
+  end

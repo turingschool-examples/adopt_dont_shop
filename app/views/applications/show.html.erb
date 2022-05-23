@@ -1,3 +1,4 @@
+<section id="attributes">
 <h1><%= @application.name %></h1>
   <p><b> Address:</b> <%= @application.address %>, <%=@application.city %>, <%=@application.state %>,<%=@application.zipcode %></p>
   <p><b> Rationale</b> <%= @application.rationale %></p>
@@ -5,6 +6,7 @@
   <% @pets.each do |pet| %>
      <p><b> Pets: </b><%= link_to "#{pet.name}", "/pets/#{pet.id}" %> </p>
   <% end %>
+</section>
 
 <section id="search-pet">
 <h2> Add a Pet to this Application </h2>
@@ -14,12 +16,16 @@
   <%= form.submit "Search Pet Name" %>
   <% end %>
 </section>
+
+<section id="add-pet">
 <% if @search_results %>
   <ul>
     <% @search_results.each do |pet| %>
     <li>
       <%= "Name: #{pet.name}" %>
+      <h3><%= link_to "Adopt #{pet.name}", "/applications/#{@application.id}", method: :patch, params: {pet: pet.id} %></h3>
     </li>
     <% end %>
   </ul>
+</section>
 <% end %>
