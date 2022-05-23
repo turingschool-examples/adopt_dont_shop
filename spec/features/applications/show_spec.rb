@@ -32,5 +32,22 @@ RSpec.describe 'application', type: :feature do
       expect(page).to have_link("#{@bob.pets.name}")
       click_link "#{@bob.pets.name}"
     end
+
+    it "displays pet search section" do
+      visit "/applications/#{@bob.id}"
+
+      within "#wanted" do
+        expect(page).to_not have_content("Lobster")
+      end
+save_and_open_page
+      fill_in "Add a Pet to this Application", with: "Lobster"
+      click_button "submit"
+
+      within "#wanted" do
+        expect(page).to have_content("Lobster")
+      end
+    end
+
+
   end
-end 
+end
