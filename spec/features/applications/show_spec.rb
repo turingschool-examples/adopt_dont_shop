@@ -59,7 +59,7 @@ RSpec.describe "Applications Show Page" do
       expect(page).to have_content(@scooby.name)
   end
 
-  it "it can add the searched pet to the application" do
+  it "can add the searched pet to the application" do
     visit "/applications/#{@application_1.id}"
 
     within "#search-pet" do
@@ -67,10 +67,14 @@ RSpec.describe "Applications Show Page" do
       click_on "Search Pet Name"
     end
 
-      expect(page).to have_link("Adopt #{@scooby.name}")
+    expect(page).to have_link("Adopt #{@scooby.name}")
+    within "#add-pet" do
       click_on "Adopt #{@scooby.name}"
+    end
 
+    within "#attributes"
       expect(current_path).to eq("/applications/#{@application_1.id}")
-      expect()
+      expect(page).to have_content(@scooby.name)
+      expect(page).to_not have_content(@piglet.name)
+    end
   end
-end
