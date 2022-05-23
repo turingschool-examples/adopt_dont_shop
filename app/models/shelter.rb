@@ -37,16 +37,7 @@ class Shelter < ApplicationRecord
     find_by_sql("SELECT * FROM shelters ORDER BY name DESC;")
   end
 
-  def pets_with_applications
-    #find pets that have an application  
-     require 'pry'; binding.pry
-    # pets.where("pet_applications != nil")
-    pets.where("pet_applications > 0")
+  def self.pending_applications
+    joins(pets: :applications).all.where('application_status = ?', "Pending")
   end
-
-  # def pending_applications
-  # Call pets_with_applications and find the ones where status == "Pending"
-  # I want to filter all of the shelters so this should be a class method that is called 
-  #in the index 
-  # end
 end

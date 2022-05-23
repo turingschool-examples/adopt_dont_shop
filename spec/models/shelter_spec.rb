@@ -79,16 +79,10 @@ RSpec.describe Shelter, type: :model do
       end
     end
 
-    describe '.pets_with_applications' do 
-      it 'returns pets that have applications' do 
-        expect(@shelter_1.pets_with_applications).to eq([@pet_1, @pet_2, @pet_3])
+    describe '.pending_applications' do 
+      it 'returns shelters that have pets with pending applications' do 
+        expect(Shelter.pending_applications).to eq([@shelter_1, @shelter_3])
       end
     end 
-
-    # describe '.pending_applications' do 
-    #   it 'returns shelters that have pets with pending applications' do 
-    #     expect(####pending_applications).to eq([@shelter_1, @shelter_3])
-    #   end
-    # end
   end
 end
