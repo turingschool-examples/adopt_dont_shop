@@ -26,6 +26,7 @@
 
 
 <div id="matching-pets">
+  <p>Matching Pets: </p>
   <% if !@matching_pets.nil? %>
     <% @matching_pets.each do |pet| %>
         <p> <%= pet.name %>
@@ -38,7 +39,7 @@
 <% if @application.has_pets? && @application.status == "In Progress" %>
   <h3> Submit Application: </h3>
   <%= form_with url:"/applications/#{@application.id}", method: :patch do |form| %>
-    <%= form.label :description, "Why would you be a good owner?" %>
+    <%= form.label :description, "What makes you a good fit?" %>
     <%= form.text_field :description %>
     <%= form.submit "Submit Application" %>
   <% end %>

@@ -3,7 +3,6 @@ class ApplicationsController < ApplicationController
 		@application = Application.find(params[:id])
 		if params[:search_by_name].present?
 			@matching_pets = Pet.search(params[:search_by_name])
-		# 	@matching_pets = []
 		end
 	end
 
