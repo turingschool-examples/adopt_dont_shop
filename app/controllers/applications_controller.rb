@@ -11,6 +11,7 @@ class ApplicationsController < ApplicationController
     else
       @pets = Application.show_pets
     end
+
   end
 
   def new
@@ -25,6 +26,14 @@ class ApplicationsController < ApplicationController
       redirect_to "/applications/new"
       flash[:alert] = "Error: #{error_message(application.errors)}"
     end
+  end
+
+  def adopt_pet
+    @application = Application.find(params[:id])
+    if params[:pet_id]
+      PetApplication.create!(pet_id: params[:pet_id], application_id: params[:id])
+    end
+    redirect_to "/applications/#{@application.id}"
   end
   private
 
