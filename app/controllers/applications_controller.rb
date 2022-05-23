@@ -6,6 +6,7 @@ class ApplicationsController < ApplicationController
   def show
     @application = Application.find(params[:id])
     @pets = @application.pets
+    @search_results = Pet.search(params[:search]) if params[:search]
   end
 
   def new
@@ -17,7 +18,6 @@ class ApplicationsController < ApplicationController
     if application_new.save
       redirect_to "/applications/#{application_new.id}"
     else
-      # flash[:alert] = "Error: #{error_message(application.errors)}"
       flash[:error] = "Error: Please fill out all fields"
       redirect_to "/applications/new"
     end
