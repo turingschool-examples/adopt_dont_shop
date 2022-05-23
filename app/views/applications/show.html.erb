@@ -13,6 +13,7 @@
 <% end %>
 
 <% if @application.application_status == 'In Progress' %>
+    <% if %>
     <h3>Please tell us why you would make an excellent candidate for adoption.</h3>
     <%= form_with url: "/applications/#{@application.id}", method: :patch, local: true do |f| %>
     <p><% f.label :description %>
