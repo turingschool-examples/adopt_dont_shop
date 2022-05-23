@@ -1,0 +1,11 @@
+<h1>Pets Applied for by <%= @application.name %></h1>
+
+<% @application.pets.each do |pet| %>
+<div id="pet<%= pet.id %>">
+  <% if pet.app_status(@application.id).nil?%>
+  <%= button_to "Approve #{pet.name}", "/admin/applications/#{@application.id}", method: :patch, params: {status: "Approved", pet_id: "#{pet.id}"} %>
+  <% else %>
+  <p><%= "#{pet.name}: #{pet.app_status(@application.id)}" %></p>
+  <% end %>
+  </div>
+  <% end %>
