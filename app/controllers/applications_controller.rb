@@ -12,6 +12,11 @@ class ApplicationsController < ApplicationController
       @pets = Application.show_pets
     end
 
+    if @application.pets.empty?
+      @pets_added = false
+    else
+      @pets_added = true
+    end
   end
 
   def new
