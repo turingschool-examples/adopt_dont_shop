@@ -1,4 +1,8 @@
 <h1>Shelter Show Page</h1>
+<h3>Name: <%= Shelter.make_name_readable(@shelter.id) %></h3>
+<h3>Location: <%= Shelter.make_city_readable(@shelter.id) %></h3>
 
-<h3>Name: <%= @shelter.name %></h3>
-<h3>Location: <%= @shelter.city %></h3>
+<div id="admin-shelter-pet-statistics">
+    <h3>Pet Statistics</h3>
+    <p>Average Pet Age: <%= @shelter.average_pet_age %></p>
+</div>

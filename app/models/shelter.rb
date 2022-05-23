@@ -23,6 +23,22 @@ class Shelter < ApplicationRecord
   def self.with_pending_applications
     Shelter.joins(pets: :applications).where("applications.status = ?", 1).distinct
   end
+
+  def self.make_city_readable(shelter_id)
+    if find(shelter_id).city
+      find_by_sql("SELECT id, city FROM shelters WHERE id=#{shelter_id}").first.city
+    end
+  end
+
+  def self.make_name_readable(shelter_id)
+    if find(shelter_id).name
+      find_by_sql("SELECT id, name FROM shelters WHERE id=#{shelter_id}").first.name
+    end
+  end
+  
+  def average_pet_age
+    pets.where(adoptable: :true).average(:age)
+  end
   
 
   def pet_count

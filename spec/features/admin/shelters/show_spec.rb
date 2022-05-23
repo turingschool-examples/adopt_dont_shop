@@ -7,10 +7,12 @@ RSpec.describe 'Admin Shelter Show Page' do
         @humane_society = Shelter.create!(name: 'Humane Society', city: 'Denver', rank: 12, foster_program: false)
         @max_fund = Shelter.create!(name: 'MaxFund Shelter', city: 'Oakland', rank: 2, foster_program: true)
 
-        @pet_1 = @dumb_friends.pets.create(name: 'Mr. Pirate', breed: 'tuxedo shorthair', age: 5, adoptable: false)
-        @pet_2 = @dumb_friends.pets.create(name: 'Clawdia', breed: 'shorthair', age: 3, adoptable: true)
-        @pet_3 = @max_fund.pets.create(name: 'Lucille Bald', breed: 'sphynx', age: 8, adoptable: true)
-        @pet_4 = @humane_society.pets.create(name: 'Ann', breed: 'ragdoll', age: 5, adoptable: true)
+        @pet_1 = @dumb_friends.pets.create!(name: 'Mr. Pirate', breed: 'tuxedo shorthair', age: 5, adoptable: false)
+        @pet_2 = @dumb_friends.pets.create!(name: 'Clawdia', breed: 'shorthair', age: 3, adoptable: true)
+        @pet_3 = @max_fund.pets.create!(name: 'Lucille Bald', breed: 'sphynx', age: 8, adoptable: true)
+        @pet_4 = @humane_society.pets.create!(name: 'Ann', breed: 'ragdoll', age: 5, adoptable: true)
+        @pet_5 = @dumb_friends.pets.create!(name: 'Santa', breed: 'tuxedo shorthair', age: 6, adoptable: true)
+        @pet_6 = @dumb_friends.pets.create!(name: 'Bunny', breed: 'shorthair', age: 3, adoptable: true)
 
         @application_1 = Application.create!(name: 'Antonio', street_address: '1234 Drury Lane', city: 'San Francisco', state: 'CA', zip_code: '94016', description: 'God', status: 1)
         @application_2 = Application.create!(name: 'Casey', street_address: '1564 Pearl Street', city: 'Boulder', state: 'C0', zip_code: '80037', description: 'Allah', status: 1)
@@ -29,6 +31,17 @@ RSpec.describe 'Admin Shelter Show Page' do
             expect(page).to have_content("Location: Denver")
             expect(page).to_not have_content("Boulder County Shelter")
             expect(page).to_not have_content("Location: Boulder")
+        end
+
+        it "has sections for statistics and includses average age for adoptable pets" do
+            visit "/admin/shelters/#{@dumb_friends.id}"
+            within "#admin-shelter-pet-statistics" do
+                expect(page).to have_content("Pet Statistics")
+                expect(page).to have_content("Average Pet Age: 4")
+                expect(page).to_not have_content("Denver Dumb Friends League")
+                expect(page).to_not have_content("Location: Denver")
+                expect(page).to_not have_content("Mr. Pirate")
+            end
         end
     end
     
