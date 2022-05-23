@@ -46,6 +46,8 @@ RSpec.describe 'the application show' do
 
         visit "/applications/#{application.id}"
 
+        expect(page).to_not have_content("Submit")
+        expect(page).to_not have_content("Please tell us why you would make an excellent candidate for adoption.")
         fill_in "Search", with: "Babe"
         click_button "Search"
 

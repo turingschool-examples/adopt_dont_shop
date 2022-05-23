@@ -13,11 +13,13 @@
 <% end %>
 
 <% if @application.application_status == 'In Progress' %>
-    <h3>Please tell us why you would make an excellent candidate for adoption.</h3>
-    <%= form_with url: "/applications/#{@application.id}", method: :patch, local: true do |f| %>
-    <p><% f.label :description %>
-    <%= f.text_area :description %></p>
-    <%= f.submit "Submit" %>
+    <% if @pets_added %>
+        <h3>Please tell us why you would make an excellent candidate for adoption.</h3>
+        <%= form_with url: "/applications/#{@application.id}", method: :patch, local: true do |f| %>
+        <p><% f.label :description %>
+        <%= f.text_area :description %></p>
+        <%= f.submit "Submit" %>
+        <% end %>
     <% end %>
 
     <h2>Add a Pet to this Application</h2>
