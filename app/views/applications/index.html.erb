@@ -1,5 +1,5 @@
 <% @applications.each do |application| %>
-  <h1><%= application.name %></h1>
+  <h2><a href="/applications/<%= application.id %>"><%= application.name %></a></h2>
   <h3><%= application.street %></h3>
   <h3><%= application.city %></h3>
   <h3><%= application.state %></h3>
