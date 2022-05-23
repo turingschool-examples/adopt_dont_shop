@@ -11,14 +11,4 @@ class Application < ApplicationRecord
     "In Progress"
   end
 
-  def find_pet
-    Pet.all.each do |pet|
-      require "pry"; binding.pry
-      if :pet_select == pet.name
-        return pet.name
-      else
-        return "Sorry No Pets Match Your Search"
-      end
-    end
-  end
 end

@@ -5,17 +5,19 @@ Application for <%= @applications.name %>
 <p>Description: I would be a great parent because I love dogs.</p>
 
 <%= form_with url: "/applications/#{@applications.id}", method: :get, local: true do |f| %>
-  <%= f.label :pet_select, "Add a Pet to this Application" %>
+  <%= f.label :pet_select %>
   <%= f.text_field :pet_select %>
   <%= f.submit "submit" %>
 <% end %>
-<% if @searched_pets %>
-  <% @searched_pets.each do |pet| %>
-  <h1>  <%= pet.name %> </h1>
+
+<% if @result %>
+  <% @result.each do |pet| %>
+    <%= pet.name %>
   <% end %>
 <% end %>
 
 
+<if
 <div id="wanted">
   <p>Pets Wanted:</p>
   <% @applications.pets.each do |pet| %>
