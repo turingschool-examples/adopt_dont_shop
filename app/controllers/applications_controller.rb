@@ -4,7 +4,6 @@ class ApplicationsController < ApplicationController
     @applications = Application.find(params[:id])
     if params[:pet_select].present?
       @result = Pet.search(params[:pet_select])
-      require "pry"; binding.pry
     else
       @result
     end
