@@ -1,7 +1,6 @@
 class ApplicationsController < ApplicationController
 
   def index
-
   end
 
   def show
@@ -25,6 +24,13 @@ class ApplicationsController < ApplicationController
       flash[:notice] = "Application not created: required information missing."
       redirect_to '/applications/new'
     end
+  end
+
+  def update
+    # binding.pry
+    application = Application.find(params[:id])
+    application.update(application_params)
+    redirect_to "/applications/#{application.id}"
   end
 
 private

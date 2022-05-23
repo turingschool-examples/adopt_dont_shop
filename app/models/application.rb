@@ -7,4 +7,6 @@ class Application < ApplicationRecord
   validates_presence_of :state
   validates_presence_of :zipcode
   validates_presence_of :status
+
+  # enum :status, [:in_progress, :pending, :approved, :rejected]
 end
