@@ -10,4 +10,5 @@ class Application < ApplicationRecord
   def status
     "In Progress"
   end
+
 end

@@ -8,9 +8,10 @@ RSpec.describe 'application', type: :feature do
       @shelter = Shelter.create!(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
       @pet_1 = @shelter.pets.create!(adoptable: true, age: 1, breed: 'sphynx', name: 'Lucille Bald', shelter_id: @shelter.id)
       @pet_2 = @shelter.pets.create!(adoptable: true, age: 3, breed: 'doberman', name: 'Lobster', shelter_id: @shelter.id)
-      @bob = @pet_1.applications.create!(name: "Bob Ross", street_address: "123 Trees St.", city: "Nantuket", state: "MA", zip: "12554")
-      ApplicationPet.create!(pet: @pet_1, application: @bob)
-      @bob.pets << @pet_1
+      @bob = Application.create!(name: "Bob Ross", street_address: "123 Trees St.", city: "Nantuket", state: "MA", zip: "12554")
+      # ApplicationPet.create!(pet: @pet_1, application: @bob)
+      # @bob.pets << @pet_1
+      # @bob.pets << @pet_2
 
 
     end
@@ -32,5 +33,17 @@ RSpec.describe 'application', type: :feature do
       expect(page).to have_link("#{@bob.pets.name}")
       click_link "#{@bob.pets.name}"
     end
+
+    it "displays pet search section" do
+      visit "/applications/#{@bob.id}"
+
+      fill_in :pet_select, with: "Lobster"
+      click_button "submit"
+
+      expect(page).to have_content("Lobster")
+      within "#wanted" do
+        expect(page).to_not have_content("Lobster")
+      end
+    end
   end
-end 
+end
