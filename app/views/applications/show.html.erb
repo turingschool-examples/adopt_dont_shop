@@ -5,6 +5,10 @@
 <h3><%= @application.zip %></h3>
 <h3><%= @application.description %></h3>
 <h3><%= @application.application_status %></h3>
+<h2> Pets: </h2>
+<% @application.pets.each do |pet| %>
+<h3><%= link_to "#{pet.name}", "/pets/#{pet.id}" %></h3>
+<% end %>
 
 <h2>Add a Pet to this Application</h2>
 <%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |f| %>
@@ -14,10 +18,13 @@
 <% end %>
 
 <% @pets.each do |pet| %>
-  <h3><%= link_to "#{pet.name}", "/pets/#{pet.id}" %></h3>
+  <h3><%= pet.name %></h3>
+  <%= form_with url: "/applications/#{@application.id}", method: :patch, local: true do |f| %>
+  <%= f.hidden_field :pet_id, value: "#{pet.id}" %>
+  <%= f.submit "Adopt #{pet.name}" %>
+  <% end %>
   <p>Age: <%= pet.age %></p>
   <p>Breed: <%= pet.breed %></p>
   <p>Adoptable: </p>
   <p>You can find <%= pet.name %> at <%= pet.shelter_name %>!</p>
 <% end %>
-
