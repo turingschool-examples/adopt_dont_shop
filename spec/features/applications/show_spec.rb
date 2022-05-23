@@ -67,6 +67,7 @@ RSpec.describe 'the application show' do
         fill_in "Search", with: "Babe"
         click_button "Search"
         click_button "Adopt Babe"
+        expect(page).to_not have_content("Adopt Babe")
         fill_in "description", with: "This is a description."
         click_button "Submit"
 
@@ -75,7 +76,6 @@ RSpec.describe 'the application show' do
         expect(page).to have_content("Babe")
         expect(page).to have_content("This is a description")
         expect(page).to_not have_content("Add a Pet to this Application")
-
     end
 
 end

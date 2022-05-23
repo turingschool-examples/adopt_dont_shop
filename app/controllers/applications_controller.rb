@@ -9,13 +9,7 @@ class ApplicationsController < ApplicationController
     if params[:search]
       @pets = Pet.search(params[:search])
     else
-      @pets = Application.show_pets
-    end
-
-    if @application.pets.empty?
-      @pets_added = false
-    else
-      @pets_added = true
+      @pets = @application.show_pets
     end
   end
 
