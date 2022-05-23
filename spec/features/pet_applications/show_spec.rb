@@ -10,14 +10,14 @@ RSpec.describe PetApplication, type: :feature do
       @application1 = Application.create!(name: 'Chris', street_address: '123 Main St', city: 'Hometown', state: 'CO', zipcode: "00004")
       @petapplication1 = PetApplication.create(pet_id: "#{@pet11.id}", application_id: "#{@application1.id}")
     end
-    
+
     it 'creates a new petapplication and redirects to application show page' do
       visit "/applications/#{@application1.id}"
       fill_in 'Search', with: 'Spike'
       click_on('Search')
       expect(current_path).to eq("/applications/#{@application1.id}")
       expect(page).to have_content('Spike')
-    
+
       click_on 'Adopt this Pet'
       expect(current_path).to eq("/applications/#{@application1.id}")
 
@@ -31,18 +31,19 @@ RSpec.describe PetApplication, type: :feature do
     before(:each) do
       @shelter1 = Shelter.create(name: 'Denver Dogs', city: 'Denver', foster_program: true, rank: 9)
       @pet12 = @shelter1.pets.create(name: 'Spike', age: 3, breed: 'doberman', adoptable: true)
+      @application1 = Application.create!(name: 'Chris', street_address: '123 Main St', city: 'Hometown', state: 'CO', zipcode: "00004")
     end
-  
+
     it "button is present if it has pets" do
       visit "/applications/#{@application1.id}"
-save_and_open_page
-      expect(page).to_not have_content("Submit my Application")
+
+      expect(page).to_not have_button("Submit my Application")
       fill_in 'Search', with: 'Spike'
       click_on 'Search'
-    
+
       click_on 'Adopt this Pet'
-save_and_open_page
-      expect(page).to have_content('Submit my Application')
+
+      expect(page).to have_button('Submit my Application')
     end
   end
 end

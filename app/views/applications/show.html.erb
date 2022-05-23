@@ -10,7 +10,7 @@ Current pets
 <section id = "current_pets">
 <p><% @application.pet.each do |pet| %>
   <%= link_to "#{pet.name}", "/pet/#{pet.id}" %><br>
-  <% end %></p></section>
+<% end %></p></section>
 
 
 Application status: <strong><%= "#{@application.status}" %></strong><br>
@@ -22,14 +22,13 @@ Add a Pet to this Application
   <%= f.submit "Search" %>
 <% end %>
 
-<% if @pets != nil && @application.status == "In Progress" %>
+<% if @pets.count != nil && @application.status == "In Progress" %>
   <p><% @pets.each do |pet| %>
   <%= link_to "#{pet.name}", "/pet/#{pet.id}" %><br>
   <%= button_to "Adopt this Pet", "/pet_applications", params: {pet_id: pet.id, application_id: @application.id}, method: :post %>
 <% end %></p>
 
-<% if @application.pet.count > 0 && @application.status == "In Progress" %> 
-<%= link_to 'Submit my Application', "/pet_applications", method: :create %>
+<% if @application.pet.count > 0 && @application.status == "In Progress" %>
+  <p><%= button_to 'Submit my Application', "/pet_applications", method: :create %></p>
 <% end %>
-
-
+<% end %>

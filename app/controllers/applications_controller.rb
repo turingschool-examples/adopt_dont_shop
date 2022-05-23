@@ -8,8 +8,8 @@ class ApplicationsController < ApplicationController
     # @pets = Pet.all
     if params[:search].present?
       @pets = Pet.search(params[:search])
-    # else
-    #   @pets = Pet.adoptable
+    else
+      @pets = Pet.adoptable
     end
   end
 
