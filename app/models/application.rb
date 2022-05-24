@@ -4,11 +4,17 @@ class Application < ApplicationRecord
   validates :city, presence: true
   validates :state, presence: true
   validates :zip, presence: true
+  validate :status
+  validate :description
   has_many :application_pets
   has_many :pets, through: :application_pets
 
-  def status
+  def status_display
+    if status == true
     "In Progress"
+    else
+    "Pending"
+    end
   end
 
 end

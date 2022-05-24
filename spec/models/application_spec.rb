@@ -14,9 +14,11 @@ RSpec.describe Application, type: :model do
   end
   describe 'instance methods' do
     it 'shows status of application as In Progress' do
-      application = Application.create!(name: "Bob Ross", street_address: "123 Trees St.", city: "Nantuket", state: "MA", zip: "12554")
+      application1 = Application.create!(name: "Bob Ross", street_address: "123 Trees St.", city: "Nantuket", state: "MA", zip: "12554", status: true)
+      application2 = Application.create!(name: "Bob Ross", street_address: "123 Trees St.", city: "Nantuket", state: "MA", zip: "12554", status: false)
 
-      expect(application.status).to eq("In Progress")
+      expect(application1.status_display).to eq("In Progress")
+      expect(application2.status_display).to eq("Pending")
     end
   end
 end
