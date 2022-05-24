@@ -11,7 +11,7 @@ Application for <%= @applications.name %>
   <% end %>
 <% end %>
 
-<% if @applications.status_display == "In Progress" %>
+<% if @applications.status == "In Progress" %>
   <%= form_with url: "/applications/#{@applications.id}", method: :get, local: true do |f| %>
     <%= f.label :pet_select, "Find Pet"%>
     <%= f.text_field :pet_select %>
@@ -25,9 +25,9 @@ Application for <%= @applications.name %>
   <% end %>
 <% end %>
 
-<p>Status: <%= @applications.status_display %></p>
+<p>Status: <%= @applications.status %></p>
 
-<% if !@applications.pets.empty? && @applications.status == true %>
+<% if !@applications.pets.empty? && @applications.status == "In Progress" %>
   <%= form_with url: "/applications/#{@applications.id}", method: :patch, location: true do |f| %>
     <%= f.label :good_owner, "Why do you think you would be a good pet owner?" %>
     <%= f.text_field :good_owner, :size => 150 %>
