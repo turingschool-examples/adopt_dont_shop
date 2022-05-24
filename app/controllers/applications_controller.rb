@@ -30,6 +30,7 @@ class ApplicationsController < ApplicationController
     # binding.pry
     application = Application.find(params[:id])
     application.update(application_params)
+    application.status_pending
     redirect_to "/applications/#{application.id}"
   end
 

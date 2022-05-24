@@ -31,6 +31,7 @@ RSpec.describe PetApplication, type: :feature do
     before(:each) do
       @shelter1 = Shelter.create(name: 'Denver Dogs', city: 'Denver', foster_program: true, rank: 9)
       @pet12 = @shelter1.pets.create(name: 'Spike', age: 3, breed: 'doberman', adoptable: true)
+      @pet11 = @shelter1.pets.create(name: 'Mr. Biggs', age: 2, breed: 'Great Dane', adoptable: true)
       @application1 = Application.create!(name: 'Chris', street_address: '123 Main St', city: 'Hometown', state: 'CO', zipcode: "00004")
     end
 
@@ -45,7 +46,24 @@ RSpec.describe PetApplication, type: :feature do
       click_on 'Adopt this Pet'
 
       expect(page).to have_button('Submit my Application')
-      expect(page).to_have content("Pending")
+      expect(page).to have_content("In Progress")
+    end
+
+    it "routes back to the appliccation show page once the application is submitted with pets" do
+      visit "/applications/#{@application1.id}"
+      fill_in 'Search', with: 'Spike'
+      click_on 'Search'
+      click_on 'Adopt this Pet'
+
+      fill_in 'Search', with: 'Mr. Biggs'
+      click_on 'Search'
+
+      click_on 'Adopt this Pet'
+
+      click_on 'Submit my Application'
+
+      expect(page).to_not have_button('Submit my Application')
+      expect(page).to have_content("Pending")
     end
   end
 end

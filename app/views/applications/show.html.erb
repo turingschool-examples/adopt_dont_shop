@@ -14,13 +14,15 @@ Current pets
 
 
 Application status: <strong><%= "#{@application.status}" %></strong><br>
+<% if @pets.count != nil && @application.status == "In Progress" %>
 Add a Pet to this Application
-
 <%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |f| %>
   <%= f.label :search %>
   <%= f.text_field :search %>
   <%= f.submit "Search" %>
 <% end %>
+<% end %>
+
 
 <% if @pets.count != nil && @application.status == "In Progress" %>
   <p><% @pets.each do |pet| %>
@@ -29,6 +31,6 @@ Add a Pet to this Application
 <% end %></p>
 
 <% if @application.pet.count > 0 && @application.status == "In Progress" %>
-  <p><%= button_to 'Submit my Application', "/pet_applications/#{:application_id}", method: :patch %></p>
+  <p><%= button_to 'Submit my Application', "/applications/#{@application.id}", method: :patch %></p>
 <% end %>
 <% end %>
