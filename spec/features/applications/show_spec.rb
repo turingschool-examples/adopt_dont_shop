@@ -41,9 +41,6 @@ RSpec.describe 'application', type: :feature do
       click_button "submit"
 
       expect(page).to have_content("Lobster")
-      within "#wanted" do
-        expect(page).to_not have_content("Lobster")
-      end
     end
 
     it "has a link to adopt searched pet" do
