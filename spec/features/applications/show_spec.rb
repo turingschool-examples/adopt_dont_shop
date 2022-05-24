@@ -15,7 +15,6 @@ RSpec.describe "Applications Show Page" do
     # @application_pet1 = ApplicationPet.create!(pet_id: @scooby.id, application_id: @application_1.id)
     # @application_pet2 = ApplicationPet.create!(pet_id: @piglet.id, application_id: @application_2.id)
     # @application_pet3 = ApplicationPet.create!(pet_id: @garfield.id, application_id: @application_3.id)
-
   end
 
     it "should display applicant and all their attributes" do
@@ -41,7 +40,6 @@ RSpec.describe "Applications Show Page" do
       expect(page).to have_content(2)
       expect(page).to have_content(true)
       expect(page).to have_content("#{@shelter.name}")
-
   end
 
   it "it can search for a pet by name" do
@@ -51,7 +49,7 @@ RSpec.describe "Applications Show Page" do
     expect(page).to have_content("Add a Pet to this Application")
 
     within "#search-pet" do
-      fill_in with: "#{@scooby.name}"
+      fill_in :search, with: "#{@scooby.name}"
       click_on "Search Pet Name"
     end
 
@@ -63,16 +61,16 @@ RSpec.describe "Applications Show Page" do
     visit "/applications/#{@application_1.id}"
 
     within "#search-pet" do
-      fill_in with: "#{@scooby.name}"
+      fill_in :search, with: "Scooby"
       click_on "Search Pet Name"
     end
 
-    expect(page).to have_link("Adopt #{@scooby.name}")
+    expect(page).to have_link("Adopt Scooby")
     within "#add-pet" do
-      click_on "Adopt #{@scooby.name}"
+      click_button "Adopt Scooby"
     end
 
-    within "#attributes"
+    save_and_open_page
       expect(current_path).to eq("/applications/#{@application_1.id}")
       expect(page).to have_content(@scooby.name)
       expect(page).to_not have_content(@piglet.name)
