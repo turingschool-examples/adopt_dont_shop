@@ -25,12 +25,12 @@ Add a Pet to this Application
 
 
 <% if @pets.count != nil && @application.status == "In Progress" %>
-  <p><% @pets.each do |pet| %>
-  <%= link_to "#{pet.name}", "/pet/#{pet.id}" %><br>
-  <%= button_to "Adopt this Pet", "/pet_applications", params: {pet_id: pet.id, application_id: @application.id}, method: :update %>
-<% end %></p>
+    <p><% @pets.each do |pet| %>
+    <%= link_to "#{pet.name}", "/pet/#{pet.id}" %><br>
+    <%= button_to "Adopt this Pet", "/pet_applications", params: {pet_id: pet.id, application_id: @application.id}, method: :update %>
+  <% end %></p>
+<% end %>
 
 <% if @application.pet.count > 0 && @application.status == "In Progress" %>
   <p><%= button_to 'Submit my Application', "/applications/#{@application.id}", method: :patch %></p>
-<% end %>
 <% end %>

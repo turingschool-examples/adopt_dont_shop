@@ -61,7 +61,7 @@ RSpec.describe PetApplication, type: :feature do
       click_on 'Adopt this Pet'
 
       click_on 'Submit my Application'
-
+      save_and_open_page
       expect(page).to_not have_button('Submit my Application')
       expect(page).to have_content("Pending")
     end
