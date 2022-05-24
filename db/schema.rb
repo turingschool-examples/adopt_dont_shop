@@ -31,7 +31,7 @@ ActiveRecord::Schema.define(version: 2022_05_20_210637) do
     t.string "state"
     t.integer "zip"
     t.string "description"
-    t.boolean "status"
+    t.boolean "status", default: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

@@ -25,7 +25,7 @@ RSpec.describe 'application', type: :feature do
     it 'displays a description' do
       visit "/applications/#{@bob.id}"
 
-      expect(page).to have_content("I would be a great parent because I love dogs.")
+      expect(page).to have_content("Description:")
     end
 
     it 'displays a list of the animals applied for' do
@@ -63,7 +63,7 @@ RSpec.describe 'application', type: :feature do
       fill_in :pet_select, with: "Lobster"
       click_button "submit"
       click_link("Adopt this Pet")
-
+# save_and_open_page
       fill_in :good_owner, with: "Because I love dogs."
 
       expect(page).to have_button("Submit This Application")
@@ -73,6 +73,7 @@ RSpec.describe 'application', type: :feature do
       expect(page).to have_content("Pending")
       expect(page).to have_content("Lobster")
       expect(page).to_not have_content("Find Pet")
+      expect(page).to_not have_content("Why do you think you would be a good pet owner?")
     end
   end
 end

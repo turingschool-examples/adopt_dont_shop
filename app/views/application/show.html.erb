@@ -2,7 +2,7 @@ Application for <%= @applications.name %>
 
 <p>Address: <%= @applications.street_address %> <%= @applications.city %>, <%= @applications.state %> <%= @applications.zip %></p>
 
-<p>Description: I would be a great parent because I love dogs.</p>
+<p>Description:  <%= @applications.description %> </p>
 <%#= require "pry"; binding.pry %>
 <% if !@applications.pets.empty? %>
   <p>Pets Wanted:</p>
@@ -11,16 +11,26 @@ Application for <%= @applications.name %>
   <% end %>
 <% end %>
 
-<%= form_with url: "/applications/#{@applications.id}", method: :get, local: true do |f| %>
-<%= f.label :pet_select "Find Pet"%>
-<%= f.text_field :pet_select %>
-<%= f.submit "submit" %>
+<% if @applications.status_display == "In Progress" %>
+  <%= form_with url: "/applications/#{@applications.id}", method: :get, local: true do |f| %>
+    <%= f.label :pet_select, "Find Pet"%>
+    <%= f.text_field :pet_select %>
+    <%= f.submit "submit" %>
+  <% end %>
 <% end %>
 
 <% if @result %>
-<% @result.each do |pet| %>
-<%= pet.name %> <%= link_to "Adopt this Pet", "/applications/#{@applications.id}?pet=#{pet.id}&", method: :get, local: true %>
-<% end %>
+  <% @result.each do |pet| %>
+    <%= pet.name %> <%= link_to "Adopt this Pet", "/applications/#{@applications.id}?pet=#{pet.id}", method: :get, local: true %>
+  <% end %>
 <% end %>
 
-<p>Status: <%= @applications.status %></p>
+<p>Status: <%= @applications.status_display %></p>
+
+<% if !@applications.pets.empty? && @applications.status == true %>
+  <%= form_with url: "/applications/#{@applications.id}", method: :patch, location: true do |f| %>
+    <%= f.label :good_owner, "Why do you think you would be a good pet owner?" %>
+    <%= f.text_field :good_owner, :size => 150 %>
+    <%= f.submit "Submit This Application" %>
+  <% end %>
+<% end %>

@@ -2,9 +2,7 @@ class ApplicationsController < ApplicationController
 
   def show
     @applications = Application.find(params[:id])
-    # require "pry"; binding.pry
     @applications.pets << Pet.find(params[:pet]) if params[:pet]
-
     if params[:pet_select].present?
       @result = Pet.search(params[:pet_select])
     else
@@ -30,9 +28,22 @@ class ApplicationsController < ApplicationController
     end
   end
 
+  def edit
+  end
+
+  def update
+    application = Application.find(params[:id])
+    # @applications.update(application_params)
+    if params[:good_owner].present?
+      # require "pry"; binding.pry
+      application.update(description: params[:good_owner], status: false)
+      redirect_to "/applications/#{application.id}"
+    end
+  end
+
   private
 
     def application_params
-      params.permit(:name, :street_address, :city, :state, :zip)
+      params.permit(:name, :street_address, :city, :state, :zip, :description, :status)
     end
 end
