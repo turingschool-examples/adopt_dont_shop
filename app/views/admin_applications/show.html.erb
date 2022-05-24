@@ -4,7 +4,7 @@
 <% @application.pet_applications.each do |pet_app| %>
   <div id="<%= pet_app.id %>">
     <strong><%= pet_app.pet_name %></strong>
-    <% if !pet_app.approved.nil? == true %>
+    <% if pet_app.approved == true %>
       <p>Approved</p>
     <% elsif pet_app.approved == false %>
       <p>Rejected</p>
