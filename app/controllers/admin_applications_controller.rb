@@ -13,18 +13,11 @@ class AdminApplicationsController < ApplicationController
       pet_application.update(approved: "false")
     end
      redirect_to "/admin/applications/#{params[:id]}"
-
-     # pet = Application.find(params[:id]).pets.find(params[:pet_id])
-    #   pet.pet_applications.where(application_id: params[:id]).first.update(approved: true)
-    # else params[:denied].present?
-    #   pet.pet_applications.where(application_id: params[:id]).first.update(approved: false)
-    # end
-    #  redirect_to "/admin/applications/#{pet.pet_applications.first.application_id}"
   end
 
   private
-    def pet_applications_params
-      params.permit(:approved)
-    end
+  def pet_applications_params
+    params.permit(:approved)
+  end
 
 end
