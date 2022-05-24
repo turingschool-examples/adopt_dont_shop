@@ -9,12 +9,5 @@ class Application < ApplicationRecord
   has_many :application_pets
   has_many :pets, through: :application_pets
 
-  def status_display
-    if status == true
-    "In Progress"
-    else
-    "Pending"
-    end
-  end
 
 end

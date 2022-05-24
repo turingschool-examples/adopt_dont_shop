@@ -36,7 +36,7 @@ class ApplicationsController < ApplicationController
     # @applications.update(application_params)
     if params[:good_owner].present?
       # require "pry"; binding.pry
-      application.update(description: params[:good_owner], status: false)
+      application.update(description: params[:good_owner], status: "Pending")
       redirect_to "/applications/#{application.id}"
     end
   end
