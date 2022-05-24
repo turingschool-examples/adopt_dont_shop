@@ -3,26 +3,24 @@ Application for <%= @applications.name %>
 <p>Address: <%= @applications.street_address %> <%= @applications.city %>, <%= @applications.state %> <%= @applications.zip %></p>
 
 <p>Description: I would be a great parent because I love dogs.</p>
+<%#= require "pry"; binding.pry %>
+<% if !@applications.pets.empty? %>
+  <p>Pets Wanted:</p>
+  <% @applications.pets.each do |pet| %>
+    <%= link_to "#{pet.name}",  "/pets/#{pet.id}" %>
+  <% end %>
+<% end %>
 
 <%= form_with url: "/applications/#{@applications.id}", method: :get, local: true do |f| %>
-  <%= f.label :pet_select %>
-  <%= f.text_field :pet_select %>
-  <%= f.submit "submit" %>
+<%= f.label :pet_select %>
+<%= f.text_field :pet_select %>
+<%= f.submit "submit" %>
 <% end %>
 
 <% if @result %>
-  <% @result.each do |pet| %>
-    <%= pet.name %>
-  <% end %>
+<% @result.each do |pet| %>
+<%= pet.name %> <%= link_to "Adopt this Pet", "/applications/#{@applications.id}?pet=#{pet.id}&", method: :get, local: true %>
 <% end %>
-
-
-<if
-<div id="wanted">
-  <p>Pets Wanted:</p>
-  <% @applications.pets.each do |pet| %>
-  <%= link_to "#{pet.name}",  "/pets/#{pet.id}" %>
-  <% end %>
-</div>
+<% end %>
 
 <p>Status: <%= @applications.status %></p>

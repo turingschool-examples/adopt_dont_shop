@@ -2,6 +2,9 @@ class ApplicationsController < ApplicationController
 
   def show
     @applications = Application.find(params[:id])
+    # require "pry"; binding.pry
+    @applications.pets << Pet.find(params[:pet]) if params[:pet]
+
     if params[:pet_select].present?
       @result = Pet.search(params[:pet_select])
     else
@@ -26,7 +29,6 @@ class ApplicationsController < ApplicationController
       flash[:alert] = "Error: #{error_message(application.errors)}"
     end
   end
-
 
   private
 
