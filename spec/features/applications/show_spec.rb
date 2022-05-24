@@ -75,5 +75,15 @@ RSpec.describe 'application', type: :feature do
       expect(page).to_not have_content("Find Pet")
       expect(page).to_not have_content("Why do you think you would be a good pet owner?")
     end
+
+    it 'should not show section for submitting until after a pet was added' do
+      visit "/applications/#{@bob.id}"
+
+      expect(page).to_not have_link("Submit This Application")
+      fill_in :pet_select, with: "Lobster"
+      click_button "submit"
+      click_link("Adopt this Pet")
+      expect(page).to have_button("Submit This Application")
+    end
   end
 end
