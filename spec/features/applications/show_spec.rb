@@ -12,7 +12,7 @@ RSpec.describe "Applications Show Page" do
     @application_2 = Application.create!(name: 'Michael Vick', address: '38747 Brooklyn Lane', city: 'Brooklyn', state: 'New York', zipcode: '11200', rationale: 'I need fighters for my underground dog fight club', status: 'In-progress')
     @application_3 = Application.create!(name: 'Michael Scott', address: '4543 Albuquerque Lane', city: 'Albuquerque', state: 'New Mexico', zipcode: '13579', rationale: 'I am sad and need company', status: 'In-progress')
 
-    # @application_pet1 = ApplicationPet.create!(pet_id: @scooby.id, application_id: @application_1.id)
+
     # @application_pet2 = ApplicationPet.create!(pet_id: @piglet.id, application_id: @application_2.id)
     # @application_pet3 = ApplicationPet.create!(pet_id: @garfield.id, application_id: @application_3.id)
   end
@@ -70,9 +70,29 @@ RSpec.describe "Applications Show Page" do
       click_button "Adopt Scooby"
     end
 
-    save_and_open_page
       expect(current_path).to eq("/applications/#{@application_1.id}")
       expect(page).to have_content(@scooby.name)
       expect(page).to_not have_content(@piglet.name)
     end
+
+    it "can submit the application with a description" do
+      application_pet1 = ApplicationPet.create!(pet_id: @scooby.id, application_id: @application_1.id)
+      application_pet2 = ApplicationPet.create!(pet_id: @piglet.id, application_id: @application_1.id)
+
+      visit "applications/#{@application_1.id}"
+
+      expect(page).to have_field("rationale")
+      fill_in :rationale, with: "I love pets"
+      click_button "Submit Application"
+
+      expect(current_path).to eq("/applications/#{@application_1.id}")
+      expect(page).to have_link("Scooby")
+      expect(page).to have_content("Piglet")
+      expect(page).to have_content("Status: Pending")
+      expect(page).to_not have_content("Status: In-Progress")
+      expect(page).to_not have_content("Garfield")
+      # expect(page).to_not have_field("rationale")
+      expect(page).to_not have_field(:search)
+
   end
+end

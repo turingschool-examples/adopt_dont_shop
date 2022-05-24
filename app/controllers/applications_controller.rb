@@ -9,7 +9,6 @@ class ApplicationsController < ApplicationController
       @pets = Pet.search(params[:search])
     else
       @pets = []
-      # @pets << @search_results
     end
   end
 
@@ -24,6 +23,15 @@ class ApplicationsController < ApplicationController
     else
       flash[:error] = "Error: Please fill out all fields"
       render :new
+    end
+  end
+
+  def update
+    application = Application.find(params[:id])
+    if params[:rationale]
+      application.update_attribute(:status, "Pending")
+      application.update_attribute(:rationale, params[:rationale])
+      redirect_to "/applications/#{application.id}?status=pending"
     end
   end
 

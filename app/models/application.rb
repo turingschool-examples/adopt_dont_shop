@@ -4,5 +4,8 @@ class Application < ApplicationRecord
   has_many :application_pets, dependent: :destroy
   has_many :pets, through: :application_pets
 
-  
+
+  def has_pets?
+    !pets.empty?
+  end
 end
