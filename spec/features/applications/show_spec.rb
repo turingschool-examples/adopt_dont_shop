@@ -56,6 +56,22 @@ RSpec.describe Application, type: :feature do
         expect(page).to have_content('Spike')
         expect(page).to_not have_content('Boots')
       end
+
+      it 'allows for partial search matches in the search bar' do
+        fill_in 'Search', with: 'ike'
+        click_on('Search')
+        expect(current_path).to eq("/applications/#{@application1.id}")
+        expect(page).to have_content('Spike')
+        expect(page).to_not have_content('Boots')
+      end
+
+      it 'allows for case insensetive mathces for the search bar' do
+        fill_in 'Search', with: 'SPIKE'
+        click_on('Search')
+        expect(current_path).to eq("/applications/#{@application1.id}")
+        expect(page).to have_content('Spike')
+        expect(page).to_not have_content('Boots')
+      end
     end
   end
 end
