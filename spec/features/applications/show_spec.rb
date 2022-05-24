@@ -85,5 +85,19 @@ RSpec.describe 'application', type: :feature do
       click_link("Adopt this Pet")
       expect(page).to have_button("Submit This Application")
     end
+
+    it 'can search for a partial name' do
+      visit "/applications/#{@bob.id}"
+
+      fill_in :pet_select, with: "Lob"
+      click_button "submit"
+
+      expect(page).to have_content("Lobster")
+
+      fill_in :pet_select, with: "LUCILLE"
+      click_button "submit"
+
+      expect(page).to have_content("Lucille Bald")
+    end
   end
 end
