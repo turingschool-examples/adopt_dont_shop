@@ -1,12 +1,11 @@
 class ApplicationsController < ApplicationController
 
   def index
-
   end
 
   def show
     @application=Application.find(params[:id])
-    # @pets = Pet.all
+    @pets = Pet.all
     if params[:search].present?
       @pets = Pet.search(params[:search])
     # else
@@ -27,9 +26,17 @@ class ApplicationsController < ApplicationController
     end
   end
 
+  def update
+    # binding.pry
+    application = Application.find(params[:id])
+    application.update(application_params)
+    application.status_pending
+    redirect_to "/applications/#{application.id}"
+  end
+
 private
 
   def application_params
-    params.permit(:name, :street_address, :city, :state, :zipcode, :status, :description, :id)
+    params.permit(:name, :pets, :street_address, :city, :state, :zipcode, :status, :description, :id)
   end
 end
