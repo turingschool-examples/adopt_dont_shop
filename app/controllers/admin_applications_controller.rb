@@ -8,13 +8,11 @@ class AdminApplicationsController < ApplicationController
   def update
     pet_application = PetApplication.where(application_id: params[:id], pet_id: params[:pet_id])
     if params[:approved] == "true"
-      # require "pry"; binding.pry
       pet_application.update(approved: "true")
     else params[:approved] == "false"
       pet_application.update(approved: "false")
     end
-     redirect_to "/admin/applications/#{pet_application.id}"
-     # redirect_to "/admin/applications/#{params[:id]}"
+     redirect_to "/admin/applications/#{params[:id]}"
 
      # pet = Application.find(params[:id]).pets.find(params[:pet_id])
     #   pet.pet_applications.where(application_id: params[:id]).first.update(approved: true)
