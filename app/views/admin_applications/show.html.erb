@@ -1,0 +1,12 @@
+
+<h1> <%= @application.name %> </h1>
+
+<h3>Pets Applied for </h3>
+<% @pets.each do |pet| %>
+  <div id="<%= pet.id %>">
+    <%= pet.name %>
+    #need to route to a specific pet application_id - this is returning multiple ids 
+    <%= button_to 'Approve', "/admin/applications/#{@pet_applications.id}", method: :patch, params: { approved: true } %>
+    <%# <%= button_to 'Approve', "/admin/applications/#{@pet_application.application.id}", method: :patch, params: { approved: true } %> %>
+  </div>
+<% end %>
