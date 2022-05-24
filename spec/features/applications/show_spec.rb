@@ -65,7 +65,7 @@ RSpec.describe "Applications Show Page" do
       click_on "Search Pet Name"
     end
 
-    expect(page).to have_link("Adopt Scooby")
+    expect(page).to have_button("Adopt Scooby")
     within "#add-pet" do
       click_button "Adopt Scooby"
     end
