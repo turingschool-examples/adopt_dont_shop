@@ -16,7 +16,7 @@ RSpec.describe 'admin application show page' do
     within("##{pet_1.id}") do 
       click_button "Approve"
       expect(current_path).to eq("/admin/applications/#{app_1.id}")
-      expect(page).to_not have_content("Approve") #Clicking the approve button removes the button for that pet 
+      expect(page).to have_no_button("Approve") #Clicking the approve button removes the button for that pet 
       expect(page).to have_content("Approved") #It will show that the pet has been approved for that application
     end 
   end

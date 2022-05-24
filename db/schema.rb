@@ -22,7 +22,7 @@ ActiveRecord::Schema.define(version: 2022_05_23_201346) do
     t.string "state"
     t.integer "zip_code"
     t.string "description"
-    t.string "application_status"
+    t.string "application_status", default: "In Progress"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -32,7 +32,7 @@ ActiveRecord::Schema.define(version: 2022_05_23_201346) do
     t.bigint "application_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.boolean "approved"
+    t.boolean "approved", default: false
     t.index ["application_id"], name: "index_pet_applications_on_application_id"
     t.index ["pet_id"], name: "index_pet_applications_on_pet_id"
   end

@@ -2,15 +2,17 @@ class AdminApplicationsController < ApplicationController
 
   def show 
     @application = Application.find(params[:id])
-    @pet_applications = @application.pet_applications #shows all pet_applications/we only want one
-    @pets = @application.pets #shows all pets on application 
-    #  require 'pry'; binding.pry
+    # require 'pry'; binding.pry
   end
 
   def update
-    pet_application = PetApplication.find(params[:id])
-    pet_application.update(pet_applications_params)
-    redirect_to "/admin/applications/#{pet_application.application.id}"
+    pet = Application.find(params[:id]).pets.find(params[:pet_id])
+    if params[:approved].present? 
+      pet.pet_applications.where(application_id: params[:id]).first.update(approved: true)
+    else params[:denied].present? 
+      pet.pet_applications.where(application_id: params[:id]).first.update(approved: false)
+    end 
+     redirect_to "/admin/applications/#{pet.pet_applications.first.application_id}"
   end
 
   private 
