@@ -13,6 +13,7 @@ RSpec.describe Shelter, type: :model do
   end
 
   before(:each) do
+    #shelters must be created nonsequentially to support .rev_alph method test
     @shelter_1 = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
     @shelter_2 = Shelter.create(name: 'RGV animal shelter', city: 'Harlingen, TX', foster_program: false, rank: 5)
     @shelter_3 = Shelter.create(name: 'Fancy pets of Colorado', city: 'Denver, CO', foster_program: true, rank: 10)
@@ -65,6 +66,12 @@ RSpec.describe Shelter, type: :model do
     describe '.pet_count' do
       it 'returns the number of pets at the given shelter' do
         expect(@shelter_1.pet_count).to eq(3)
+      end
+    end
+
+    describe '.rev_alpha' do
+      it 'returns list of all shelters in reverse alphebetical order' do
+        expect(Shelter.rev_alpha).to eq([@shelter_2, @shelter_3, @shelter_1])
       end
     end
   end
