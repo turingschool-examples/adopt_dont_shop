@@ -1,0 +1,11 @@
+<p>Pets for Approval</p>
+
+<p><% if @applications.status == "Pending" %>
+  <% @applications.pets.each do |pet| %>
+    <%= pet.name %> <%= button_to "Approve", "/admin/applications/#{@applications.id}", method: :patch, local: true %>
+  <% end %>
+<% else @applications.status == "Approved" %>
+  <%= @applications.pets.each do |pet| %>
+    <%= pet.name %> Approved!
+  <% end %>
+<% end %></p>
