@@ -19,5 +19,4 @@ class AdminApplicationsController < ApplicationController
   def pet_applications_params
     params.permit(:approved)
   end
-
 end

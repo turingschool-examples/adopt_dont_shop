@@ -11,4 +11,10 @@ class Application < ApplicationRecord
 
   attribute :description, :string, default: ' '
   attribute :application_status, :string, default: 'In Progress'
+
+  def approved_application
+    if pet_applications.count == pet_applications.where(approved: true).count
+      application_status = "Approved"
+    end
+  end
 end
