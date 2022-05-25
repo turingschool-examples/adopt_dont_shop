@@ -3,7 +3,9 @@
 <% @application.application_pets.each do |app_pet| %>
   <% if app_pet.status == "Approved"  %>
     <%= app_pet.pet.name %> Approved!
+    <% elsif app_pet.status == "Rejected" %>
+    <%= app_pet.pet.name %> Rejected!
   <% else app_pet.status == "Pending" %><br>
-    <%= app_pet.pet.name %> <%= button_to "Approve", "/admin/applications/#{@application.id}", method: :patch, local: true, params: { pet_id: app_pet.pet.id } %>
+    <%= app_pet.pet.name %> <%= button_to "Approve", "/admin/applications/#{@application.id}/?decision=approve", method: :patch, local: true, params: { pet_id: app_pet.pet.id } %> <%= button_to "Reject", "/admin/applications/#{@application.id}/?decision=reject", method: :patch, local: true, params: { pet_id: app_pet.pet.id } %>
   <% end %>
 <% end %>
