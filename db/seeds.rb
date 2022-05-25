@@ -21,7 +21,7 @@ Shelter.destroy_all
 @bob = Application.create!(name: "Bob Ross", street_address: "123 Trees St.", city: "Nantuket", state: "MA", zip: "12554")
 @bill = Application.create!(name: "Bill Nye", street_address: "1265 S Main St.", city: "Los Angeles", state: "CA", zip: "90006")
 
-# Creates playlist and associates it with a song. Under the hood, creates a row in the playlist_songs table
+# Creates application and associates it with a pet. Under the hood, creates a row in the playlist_songs table
 
 @oprah = @doggo.applications.create!(name: "Oprah", street_address: "12 Bellaire St.", city: "Los Angeles", state: "CA", zip: "90006")
 
