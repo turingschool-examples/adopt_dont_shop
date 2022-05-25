@@ -19,10 +19,10 @@ RSpec.describe Application, type: :feature do
   end
 
   context 'visiting the show page' do
-    it 'clicking on each pets approved button approves pet and removes buttons from page' do
+    it 'clicking on each pets approve button approves pet and removes buttons from page' do
         expect(@petapplication1.status).to eq("Pending")
       within "#pet-#{@pet11.id}" do 
-        click_on "Approved"
+        click_on "Approve"
         
         expect(current_path).to eq("/applications/#{@application1.id}")
         expect(@petapplication1.status).to eq("Approved")
@@ -30,6 +30,20 @@ RSpec.describe Application, type: :feature do
         expect(page).to_not have_button("Approved")
         expect(page).to_not have_button("Reject")
         expect(page).to_not have_content("Rejected")
+      end
+    end
+
+    it 'clicking on each pets approved button approves pet and removes buttons from page' do
+        expect(@petapplication1.status).to eq("Pending")
+      within "#pet-#{@pet11.id}" do 
+        click_on "Reject"
+      
+        expect(current_path).to eq("/applications/#{@application1.id}")
+        expect(@petapplication1.status).to eq("Rejected")
+        expect(page).to have_content("Rejected")
+        expect(page).to_not have_button("Approve")
+        expect(page).to_not have_button("Reject")
+        expect(page).to_not have_content("Approved")
       end
     end
   end

@@ -49,7 +49,7 @@ RSpec.describe PetApplication, type: :feature do
       expect(page).to have_content("In Progress")
     end
 
-    it "routes back to the appliccation show page once the application is submitted with pets" do
+    it "routes back to the application show page once the application is submitted with pets" do
       visit "/applications/#{@application1.id}"
       fill_in 'Search', with: 'Spike'
       click_on 'Search'
