@@ -14,37 +14,38 @@ RSpec.describe Application, type: :feature do
     @application2 = Application.create(name: 'Caden', street_address: '111 First Street', city: 'Denver', state: 'CO', zipcode: '07321')
     @petapplication1 = PetApplication.create(pet_id: "#{@pet11.id}", application_id: "#{@application1.id}")
     @petapplication2 = PetApplication.create(pet_id: "#{@pet12.id}", application_id: "#{@application1.id}")
+    @petapplication3 = PetApplication.create(pet_id: "#{@pet21.id}", application_id: "#{@application2.id}")
 
-    visit "/admin/applications/#{@application1.id}"
+
+      visit "/admin/applications/#{@application1.id}"
   end
+
+  it 'every pet on application has button to approve status and redirects back to admin application show page if clicked' do
+    expect(page).to have_button("Approve #{@pet11.name}")
+    expect(page).to have_button("Approve #{@pet12.name}")
+    expect(page).to_not have_button("Approve #{@pet23.name}")
+    click_button "Approve #{@pet11.name}"
+    expect(current_path).to eq("/admin/applications/#{@application1.id}")
+    expect(page).to_not have_button("Approve #{@pet11.name}")
+    expect(page).to have_content("Approved Pets: #{@pet11.name}")
+  end
+
+  it 'denies pets if deny button is clicked and indication shows pet has been denied' do
+    expect(page).to have_button("Deny #{@pet12.name}")
+    click_button("Deny #{@pet12.name}")
+    expect(current_path).to eq("/admin/applications/#{@application1.id}")
+    expect(page).to_not have_button("Deny #{@pet12.name}")
+    expect(page).to have_content("Denied Pets: #{@pet12.name}")
+  end
+
+  it 'approved or denied pets on one application do not affect another application' do
+    click_button "Approve #{@pet11.name}"
+    expect(page).to have_content("Approved Pets: #{@pet11.name}")
+    visit "/admin/applications/#{@application2.id}"
   
-  context 'visiting the show page' do
-    it 'clicking on each pets approve button approves pet and removes buttons from page' do
-      expect(@petapplication1.status).to eq("Pending")
-      within("#pet-#{@petapplication1.id}") do 
-        click_on "Approve"
-
-        expect(current_path).to eq("/admin/applications/#{@application1.id}")
-        # expect(@petapplication1.status).to eq("Approved")
-        expect(page).to have_content("Approval status: Approved")
-        expect(page).to_not have_button("Approve")
-        expect(page).to_not have_button("Reject")
-        expect(page).to_not have_content('Approval status: Rejected')
-      end
-    end
-
-    it 'clicking on each pets approved button approves pet and removes buttons from page' do
-        expect(@petapplication1.status).to eq("Pending")
-      within "#pet-#{@petapplication1.id}" do 
-        click_on "Reject"
-      save_and_open_page
-        expect(current_path).to eq("/admin/applications/#{@application1.id}")
-        # expect(@petapplication1.status).to eq("Rejected")
-        expect(page).to have_content("Rejected")
-        expect(page).to_not have_button("Approve")
-        expect(page).to_not have_button("Reject")
-        expect(page).to_not have_content("Approved")
-      end
-    end
+    expect(page).to have_button("Approve #{@pet21.name}")
+    expect(page).to have_button("Deny #{@pet21.name}")
+    expect(page).to_not have_button("Approve #{@pet11.name}")
+    expect(page).to_not have_content("Approved pets: #{@pet21.name}")
   end
 end
