@@ -34,7 +34,6 @@ RSpec.describe 'admin application show page' do
       expect(page).to have_button("Approve")
       expect(page).to have_button("Reject")
       click_button "Reject"
-      save_and_open_page
       expect(page).to have_content("Rejected")
       expect(page).to_not have_content("Approved")
     end
@@ -56,4 +55,17 @@ RSpec.describe 'admin application show page' do
       expect(page).to have_button("Approve")
     end
   end
+
+# All Pets Accepted on an Application
+#
+# As a visitor
+# When I visit an admin application show page
+# And I approve all pets for an application
+# Then I am taken back to the admin application show page
+# And I see the application's status has changed to "Approved"
+  #
+  # it "can see application's status is changed to 'Approved' when all pets are accepted on an application" do
+  #   visit "/admin/appplications/#{app_3.id}"
+  # end
+
 end
