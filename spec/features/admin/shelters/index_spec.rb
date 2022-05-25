@@ -14,8 +14,9 @@ RSpec.describe Shelter, type: :feature do
 
   it 'displays the shelters by their name in reverse alphabetical order' do
     visit '/admin/shelters'
-    expect(@shelter_1).to appear_before(@shelter_2)
-    expect(@shelter_2).to appear_before(@shelter_3)
+    save_and_open_page
+    expect(@shelter_2.name).to appear_before(@shelter_3.name)
+    expect(@shelter_3.name).to appear_before(@shelter_1.name)
     # expect(Shelter.order_by_name.to_a).to eq([@shelter_2, @shelter_3, @shelter_1])
   end
 end
