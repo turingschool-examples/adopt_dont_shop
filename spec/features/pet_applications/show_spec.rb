@@ -35,7 +35,7 @@ RSpec.describe PetApplication, type: :feature do
       @application1 = Application.create!(name: 'Chris', street_address: '123 Main St', city: 'Hometown', state: 'CO', zipcode: "00004")
     end
 
-    it "button is present if it has pets" do
+    it "button is present if it has pets and description" do
       visit "/applications/#{@application1.id}"
       expect(@application1.status).to eq("In Progress")
 
@@ -44,12 +44,13 @@ RSpec.describe PetApplication, type: :feature do
       click_on 'Search'
 
       click_on 'Adopt this Pet'
+      # fill_in :description with "Because"
 
-      expect(page).to have_button('Submit my Application')
+      expect(page).to have_button('Submit My Application')
       expect(page).to have_content("In Progress")
     end
 
-    it "routes back to the appliccation show page once the application is submitted with pets" do
+    it "routes back to the application show page once the application is submitted with pets" do
       visit "/applications/#{@application1.id}"
       fill_in 'Search', with: 'Spike'
       click_on 'Search'
@@ -59,9 +60,10 @@ RSpec.describe PetApplication, type: :feature do
       click_on 'Search'
 
       click_on 'Adopt this Pet'
+      # fill_in :description with "Because"
 
-      click_on 'Submit my Application'
-      save_and_open_page
+      click_on 'Submit My Application'
+      
       expect(page).to_not have_button('Submit my Application')
       expect(page).to have_content("Pending")
     end

@@ -13,4 +13,13 @@ class Application < ApplicationRecord
   def status_pending
     update(status: "Pending")
   end
+
+  def status_update
+    new_status = pet_applications.pluck(:status)
+    if new_status.include?("Approved")
+      update(status: "Approved")
+    elsif new_status.include?("Rejected")
+      update(status: "Rejected")
+    end
+  end
 end
