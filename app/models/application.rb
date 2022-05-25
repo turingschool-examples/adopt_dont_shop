@@ -17,4 +17,10 @@ class Application < ApplicationRecord
       application_status = "Approved"
     end
   end
+
+  def rejected_application
+    if pet_applications.where(approved: false).count >= 1
+      application_status = "Rejected"
+    end
+  end
 end

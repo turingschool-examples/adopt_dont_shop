@@ -16,4 +16,8 @@
   <% if @application.approved_application == "Approved" %>
     <p>Application Status: Approved</p>
   <% end %>
+
+  <% if @application.rejected_application == "Rejected" %>
+    <p>Application Status: Rejected</p>
+  <% end %>
 <% end %>
