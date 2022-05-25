@@ -23,7 +23,7 @@ Shelter.destroy_all
 
 # Creates application and associates it with a pet. Under the hood, creates a row in the playlist_songs table
 
-@oprah = @doggo.applications.create!(name: "Oprah", street_address: "12 Bellaire St.", city: "Los Angeles", state: "CA", zip: "90006")
+@oprah = @doggo.applications.create!(name: "Oprah", street_address: "12 Bellaire St.", city: "Los Angeles", state: "CA", zip: "90006", status: "Pending")
 
 # Creates song and associates it with a playlist. Under the hood, creates a row in the playlist_songs table
 
