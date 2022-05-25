@@ -15,31 +15,31 @@ RSpec.describe Application, type: :feature do
     @petapplication1 = PetApplication.create(pet_id: "#{@pet11.id}", application_id: "#{@application1.id}")
     @petapplication2 = PetApplication.create(pet_id: "#{@pet12.id}", application_id: "#{@application1.id}")
 
-    visit "/applications/#{@application1.id}"
+    visit "/admin/applications/#{@application1.id}"
   end
-
+  
   context 'visiting the show page' do
     it 'clicking on each pets approve button approves pet and removes buttons from page' do
-        expect(@petapplication1.status).to eq("Pending")
-      within "#pet-#{@pet11.id}" do 
+      expect(@petapplication1.status).to eq("Pending")
+      within("#pet-#{@petapplication1.id}") do 
         click_on "Approve"
-        
-        expect(current_path).to eq("/applications/#{@application1.id}")
-        expect(@petapplication1.status).to eq("Approved")
-        expect(page).to have_content("Approved")
-        expect(page).to_not have_button("Approved")
+
+        expect(current_path).to eq("/admin/applications/#{@application1.id}")
+        # expect(@petapplication1.status).to eq("Approved")
+        expect(page).to have_content("Approval status: Approved")
+        expect(page).to_not have_button("Approve")
         expect(page).to_not have_button("Reject")
-        expect(page).to_not have_content("Rejected")
+        expect(page).to_not have_content('Approval status: Rejected')
       end
     end
 
     it 'clicking on each pets approved button approves pet and removes buttons from page' do
         expect(@petapplication1.status).to eq("Pending")
-      within "#pet-#{@pet11.id}" do 
+      within "#pet-#{@petapplication1.id}" do 
         click_on "Reject"
-      
-        expect(current_path).to eq("/applications/#{@application1.id}")
-        expect(@petapplication1.status).to eq("Rejected")
+      save_and_open_page
+        expect(current_path).to eq("/admin/applications/#{@application1.id}")
+        # expect(@petapplication1.status).to eq("Rejected")
         expect(page).to have_content("Rejected")
         expect(page).to_not have_button("Approve")
         expect(page).to_not have_button("Reject")

@@ -1,21 +1,22 @@
 <h1>Pet Application</h1>
 
-<%= "Applicant Name: #{@application.name}"%><br>
+<p><%= "Applicant Name: #{@application.name}"%><br>
 <%= "Street Address: #{@application.street_address}"%><br>
 <%= "City, State Zip: #{@application.city}, #{@application.state}  #{@application.zipcode}"%><br>
-<%= "Description of Worthiness: #{@application.description}"%><br>
-
-Current pets
+<%= "Why you are a good candidate: #{@application.description}" %>
+<br></p>
+<div>
+<h2><strong>Current pets</strong></h2>
 
 <section id = "current_pets">
 <p><% @application.pet.each do |pet| %>
   <%= link_to "#{pet.name}", "/pet/#{pet.id}" %><br>
-<% end %></p></section>
+<% end %></p></section></div>
 
 
 Application status: <strong><%= "#{@application.status}" %></strong><br>
-<% if @pets.count != nil && @application.status == "In Progress" %>
-Add a Pet to this Application
+<% if @pets.count != nil && @application.status == "In Progress" %><br>
+Find a Pet to add to this Application
 <%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |f| %>
   <%= f.label :search %>
   <%= f.text_field :search %>
@@ -26,11 +27,21 @@ Add a Pet to this Application
 
 <% if @pets.count != nil && @application.status == "In Progress" %>
     <p><% @pets.each do |pet| %>
-    <%= link_to "#{pet.name}", "/pet/#{pet.id}" %><br>
-    <%= button_to "Adopt this Pet", "/pet_applications", params: {pet_id: pet.id, application_id: @application.id}, method: :update %>
+    <%= link_to "#{pet.name}", "/pets/#{pet.id}" %><br>
+    <%= button_to "Adopt this Pet", "/pet_applications", params: {pet_id: pet.id, application_id: @application.id}, method: :post %>
   <% end %></p>
 <% end %>
 
-<% if @application.pet.count > 0 && @application.status == "In Progress" %>
+<% if @application.pet.count > 0 && @application.status == "In Progress"%>
+Why do you think you are a capable pet owner? **required
+<%= form_with url: "/applications/#{@application.id}", method: :patch, local: true do |f| %>
+  <%= f.label :description %>
+  <%= f.text_field :description %>
+  <%= f.submit "Submit My Application" %>
+<% end %>
+<%# <%= else @application.description %> 
+<% end %>
+
+<% if @application.pet.count > 0 && @application.status == "In Progress" && @application.description.present? %>
   <p><%= button_to 'Submit my Application', "/applications/#{@application.id}", method: :patch %></p>
 <% end %>

@@ -1,5 +1,7 @@
 <h1>All pets</h1>
 
+<%= button_to "Start an Application", "/applications/new", method: :get %><br>
+
 <%= form_with url: "/pets", method: :get, local: true do |f| %>
   <%= f.label :search %>
   <%= f.text_field :search %>
@@ -17,4 +19,3 @@
   <%= link_to "Delete #{pet.name}", "/pets/#{pet.id}", method: :delete %>
 <% end %>
 
-<%= button_to "Start an Application", "/applications/new", method: :get %>

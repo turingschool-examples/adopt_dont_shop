@@ -23,4 +23,10 @@ VeterinaryOffice.destroy_all
     pet22 = shelter2.pets.create(name: 'Evil Steve', age: 4, breed: 'Unknown', adoptable: false)
     pet23 = shelter2.pets.create(name: 'Huckleberry', age: 17, breed: 'Tuxedo', adoptable: true)
     application2 = Application.create(name: 'Caden', street_address: '111 First Street', city: 'Denver', state: 'CO', zipcode: '07321')
+
+    pet_application1 = PetApplication.create(pet_id: pet11.id, application_id: application1.id)
+    pet_application2 = PetApplication.create(pet_id: pet12.id, application_id: application1.id)
+    pet_application3 = PetApplication.create(pet_id: pet21.id, application_id: application2.id)
+      
+
   
