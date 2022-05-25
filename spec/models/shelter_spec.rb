@@ -13,6 +13,7 @@ RSpec.describe Shelter, type: :model do
   end
 
   before(:each) do
+    #shelters must be created nonsequentially to support .rev_alph method test
     @shelter_1 = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
     @shelter_2 = Shelter.create(name: 'RGV animal shelter', city: 'Harlingen, TX', foster_program: false, rank: 5)
     @shelter_3 = Shelter.create(name: 'Fancy pets of Colorado', city: 'Denver, CO', foster_program: true, rank: 10)
@@ -65,6 +66,25 @@ RSpec.describe Shelter, type: :model do
     describe '.pet_count' do
       it 'returns the number of pets at the given shelter' do
         expect(@shelter_1.pet_count).to eq(3)
+      end
+    end
+
+    describe '.rev_alpha' do
+      it 'returns list of all shelters in reverse alphebetical order' do
+        expect(Shelter.rev_alpha).to eq([@shelter_2, @shelter_3, @shelter_1])
+      end
+    end
+
+    describe '#pending_applications' do
+      it 'lists the name of every shelter with pending applications' do
+        
+    @application2 = Application.create(name: 'Caden', street_address: '111 First Street', city: 'Denver', state: 'CO', zipcode: '07321', status: 'Pending')
+    @application1 = Application.create!(name: 'Chris', street_address: '123 Main St', city: 'Hometown', state: 'CO', zipcode: "00004")
+
+    @petapplication1 = PetApplication.create(pet_id: "#{@pet_1.id}", application_id: "#{@application1.id}")
+    @petapplication2 = PetApplication.create(pet_id: "#{@pet_2.id}", application_id: "#{@application2.id}")
+
+        expect(Shelter.pending_applications).to eq([@shelter_1])
       end
     end
   end
