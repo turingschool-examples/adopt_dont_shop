@@ -16,6 +16,7 @@ ActiveRecord::Schema.define(version: 2022_05_20_210637) do
   enable_extension "plpgsql"
 
   create_table "application_pets", force: :cascade do |t|
+    t.string "status", default: "Pending"
     t.bigint "pet_id"
     t.bigint "application_id"
     t.datetime "created_at", null: false

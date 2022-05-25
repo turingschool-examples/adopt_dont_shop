@@ -1,6 +1,7 @@
 class AdminApplicationsController < ApplicationController
   def show
-    @applications = Application.find(params[:id])
+    @application = Application.find(params[:id])
+    # @application_pets = ApplicationPets.find(params[:id])
   end
 
   def edit
@@ -8,9 +9,9 @@ class AdminApplicationsController < ApplicationController
   end
 
   def update
-    # require "pry"; binding.pry
     application = Application.find(params[:id])
-    application.update(status: "Approved!")
+    application_pet = application.application_pets.find { |pet| pet.pet_id == params[:pet_id].to_i }
+    application_pet.update(status: "Approved")
     redirect_to "/admin/applications/#{application.id}"
   end
 end
