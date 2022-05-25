@@ -12,14 +12,14 @@ RSpec.describe "Admin Application Show Page" do
   end
 
   it 'can see a button for each pet the application is for' do
-    visit "admin/applications/#{@oprah.id}"
+    visit "/admin/applications/#{@oprah.id}"
 
     expect(page).to have_content("Sylus")
     expect(page).to have_button("Approve")
   end
 
   it 'can click button, back to show page, see indicator that is approved' do
-    visit "admin/applications/#{@oprah.id}"
+    visit "/admin/applications/#{@oprah.id}"
 
     click_button "Approve"
     expect(current_path).to eq("/admin/applications/#{@oprah.id}")
