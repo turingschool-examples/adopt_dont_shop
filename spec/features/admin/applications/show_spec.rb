@@ -63,9 +63,14 @@ RSpec.describe 'admin application show page' do
 # And I approve all pets for an application
 # Then I am taken back to the admin application show page
 # And I see the application's status has changed to "Approved"
-  #
-  # it "can see application's status is changed to 'Approved' when all pets are accepted on an application" do
-  #   visit "/admin/appplications/#{app_3.id}"
-  # end
 
+  it "can see application's status is changed to 'Approved' when all pets are accepted on an application" do
+    visit "/admin/appplications/#{app_2.id}"
+    within("##{pet_app4.id}") do
+      click_button('Approve')
+
+      expect(current_path).to eq("/admin/applications/#{app_2.id}")
+      expect(page).to have_content("Application Status: Approved")
+    end
+  end
 end
