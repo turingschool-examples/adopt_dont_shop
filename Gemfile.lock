@@ -112,7 +112,6 @@ GEM
       coderay (~> 1.1)
       method_source (~> 1.0)
     public_suffix (4.0.7)
-    puma (3.12.6)
     racc (1.6.0)
     rack (2.2.4)
     rack-test (2.0.2)
@@ -233,7 +232,6 @@ DEPENDENCIES
   orderly
   pg (>= 0.18, < 2.0)
   pry
-  puma (~> 3.11)
   rails (~> 5.2.6)
   rspec-rails
   sass-rails (~> 5.0)
