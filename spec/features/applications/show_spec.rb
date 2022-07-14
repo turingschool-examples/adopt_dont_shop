@@ -26,7 +26,6 @@ RSpec.describe 'application show page' do
         pet1 = application.pets.create!(name: 'Scooby', age: 2, breed: 'Great Dane', adoptable: true, shelter_id: shelter.id)
 
         visit "/applications/#{application.id}"
-        save_and_open_page
 
         expect(page).to have_content(pet1.name)
 
