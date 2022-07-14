@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   get '/', to: 'application#welcome'
-
+  get '/applications/new', to: 'applications#new'
+  
   get '/shelters', to: 'shelters#index'
   get '/shelters/new', to: 'shelters#new'
   get '/shelters/:id', to: 'shelters#show'
@@ -38,4 +39,6 @@ Rails.application.routes.draw do
   post '/veterinary_offices/:veterinary_office_id/veterinarians', to: 'veterinarians#create'
 
   get '/applications/:application_id', to: 'applications#show'
+
+
 end

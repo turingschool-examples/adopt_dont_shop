@@ -105,5 +105,4 @@ RSpec.describe 'the pets index' do
 
     expect(current_path).to eq('/applications/new')
   end
-
 end
