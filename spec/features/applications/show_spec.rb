@@ -10,14 +10,19 @@ require 'rails_helper'
 # - The Application's status, either "In Progress", "Pending", "Accepted", or "Rejected"
 
 RSpec.describe 'the show page' do
+  before
   it "has a show page" do
     # shelter = Shelter.create(name: 'Mystery Building', city: 'Irvine CA', foster_program: false, rank: 9)
     # pet = Pet.create(name: 'Scooby', age: 2, breed: 'Great Dane', adoptable: true, shelter_id: shelter.id)
-    
+    @application_1 = Application.create!(applicant_name: 'Bob Ross', address: '8753 Main St Longmont CO 80765', description: 'I make a lot of money', status: 'rejected')
+    @application_2 = Application.create!(applicant_name: 'Meredith Grey', address: '3463 Collin St Denver CO 80035', description: 'I love animals', status: 'accepted')
 
     visit "/applications"
 
-    expect(page).to have_content(application.applicant_name)
+    expect(page).to have_content(@application_1.applicant_name)
+    expect(page).to have_content(@application_1.address)
+    expect(page).to have_content(@application_1.description)
+    expect(page).to have_content(@application_1.status)
     end
 
   end
