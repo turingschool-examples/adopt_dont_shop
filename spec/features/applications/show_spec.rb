@@ -17,7 +17,7 @@ RSpec.describe 'application show page' do
         expect(page).to have_content(application.street)
         expect(page).to have_content(application.city)
         expect(page).to have_content(application.state)
-        expect(page).to have_content(application.zip_code)
+        expect(page).to have_content(application.zipcode)
     end
 
      it 'displays the all pets the application is for' do
