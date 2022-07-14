@@ -48,13 +48,15 @@ RSpec.describe 'the application show' do
 
     visit "/applications/#{application.id}"
 
-    fill_in('Search for a Pet to Add to this Application', with: "Sco")
+    fill_in('Search for Pets by name:', with: "Sco")
     
     click_button("Search")
 
     expect(current_path).to eq("/applications/#{application.id}")
-    expect(page).to have_content("Scooby")
-    expect(page).to_not have_content("Clifford")
-    expect(page).to_not have_content("Rudolph")
+    within "#pet_search" do 
+      expect(page).to have_content("Scooby")
+      expect(page).to_not have_content("Clifford")
+      expect(page).to_not have_content("Rudolph")
+      end 
   end
 end
