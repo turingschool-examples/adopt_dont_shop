@@ -1,0 +1,10 @@
+<% @applications.each do |application| %>
+  <section id="application-<%= application.id %>">
+    <h1><%= application.name %></h1>
+    <p><%= application.address %></p>
+    <p><%= application.city %></p>
+    <p><%= application.state %></p>
+    <p><%= application.zip %></p>
+    <p><%= application.description %></p>
+  </section>
+<% end %>
