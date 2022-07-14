@@ -1,4 +1,9 @@
 Rails.application.routes.draw do
+  get 'applicants/index'
+  get 'applicants/new'
+  get 'applicants/edit'
+  get 'applicants/show'
+  get 'applicants/_form'
   get '/', to: 'application#welcome'
   get '/applicants/:id', to: 'applicants#show'
   get '/shelters', to: 'shelters#index'
