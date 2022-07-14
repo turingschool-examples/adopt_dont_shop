@@ -4,4 +4,6 @@ class Applicant < ApplicationRecord
     validates :description, presence: true
     validates :names_pets_wanted, presence: true
     validates :application_status, presence: true
+
+    has_many :pets
 end
