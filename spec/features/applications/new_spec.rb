@@ -2,21 +2,15 @@ require 'rails_helper'
 
 RSpec.describe 'the application new page' do
   it "has a link on the pet index to make an application" do
-    # application = Application.create(name: 'John Doe', street_address: '123 apple street', city: 'Denver', state: 'CA', zipcode: '90210', description: 'we love pets', status: 'in progress')
-    # shelter = Shelter.create(name: 'Mystery Building', city: 'Irvine CA', foster_program: false, rank: 9)
-    # pet = Pet.create(name: 'Scooby', age: 2, breed: 'Great Dane', adoptable: true, shelter_id: shelter.id)
-
-    # PetApplication.create!(pet: pet, application: application)
-
     visit "/pets"
 
     click_on('Start an Application')
 
-    expect(current_path).to eq('applications/new')
+    expect(current_path).to eq('/applications/new')
   end
 
   it 'the new page has a form to collect info to create a new application' do
-    visit '/application/new'
+    visit '/applications/new'
 
     fill_in('name', with: 'new person')
     fill_in('street_address', with: '456 pickup st')
@@ -33,7 +27,7 @@ RSpec.describe 'the application new page' do
     expect(page).to have_content('Bridgeport')
     expect(page).to have_content('CT')
     expect(page).to have_content('12345')
-    expect(page).to have_content('description of why I would make a good home')
+    expect(page).to have_content('Description Needed')
     expect(page).to have_content('In Progress')
    end
 end
