@@ -21,7 +21,7 @@ RSpec.describe 'the application show' do
     expect(page).to have_link('Scooby')
   end
 
-  it "has a field to Add a Pet to this Application" do
+  it "has a field to search and add a Pet to this Application" do
     application = Application.create(name: 'John Doe', street_address: '123 apple street', city: 'Denver', state: 'CO', zipcode: '90210', description: 'we love pets', status: 'In Progress')
     shelter = Shelter.create(name: 'Mystery Building', city: 'Irvine CA', foster_program: false, rank: 9)
     pet = Pet.create(name: 'Scooby', age: 2, breed: 'Great Dane', adoptable: true, shelter_id: shelter.id)
@@ -31,9 +31,30 @@ RSpec.describe 'the application show' do
     visit "/applications/#{application.id}"
 
     expect(page).to have_content('In Progress')
-    
+
     within "#pet_search" do 
-    expect(page).to have_content('Add a Pet to this Application')
+    expect(page).to have_content('Search for a Pet to Add to this Application')
     end 
+  end
+
+  it "will take you back to the application show page and show you pet names that match your search" do
+    application = Application.create(name: 'John Doe', street_address: '123 apple street', city: 'Denver', state: 'CO', zipcode: '90210', description: 'we love pets', status: 'In Progress')
+    shelter = Shelter.create(name: 'Mystery Building', city: 'Irvine CA', foster_program: false, rank: 9)
+    scooby = Pet.create(name: 'Scooby', age: 2, breed: 'Great Dane', adoptable: true, shelter_id: shelter.id)
+    clifford = Pet.create(name: 'Clifford', age: 1, breed: 'Red Dog', adoptable: true, shelter_id: shelter.id)
+    rudolph = Pet.create(name: 'Rudolph', age: 100, breed: 'Not Sure', adoptable: false, shelter_id: shelter.id)
+
+    PetApplication.create!(pet: scooby, application: application)
+
+    visit "/applications/#{application.id}"
+
+    fill_in('Search for a Pet to Add to this Application', with: "Sco")
+    
+    click_button("Search")
+
+    expect(current_path).to eq("/applications/#{application.id}")
+    expect(page).to have_content("Scooby")
+    expect(page).to_not have_content("Clifford")
+    expect(page).to_not have_content("Rudolph")
   end
 end

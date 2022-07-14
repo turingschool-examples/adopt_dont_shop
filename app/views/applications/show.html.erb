@@ -12,7 +12,7 @@
 <h3><%= @application.status %></h3>
 
 <div id="pet_search">
-    <h3>Add a Pet to this Application</h3>
+    <h3>Search for a Pet to Add to this Application</h3>
     <%= form_tag("/applications/#{@application.id}", method: :get, local: true) do %>
         <%= label_tag(:search, "Search for Pets by name:") %>
         <%= text_field_tag :search, params[:search] %>
