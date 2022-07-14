@@ -22,6 +22,7 @@ ActiveRecord::Schema.define(version: 2022_07_14_200816) do
     t.string "state"
     t.string "zip"
     t.string "description"
+    t.string "status"
   end
 
   create_table "pet_apps", force: :cascade do |t|
