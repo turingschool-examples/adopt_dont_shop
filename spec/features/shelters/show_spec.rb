@@ -6,7 +6,7 @@ RSpec.describe 'the shelter show' do
 
     visit "/shelters/#{shelter.id}"
 
-    expect(page).to have_content(shelter.name)scx
+    expect(page).to have_content(shelter.name)asdf
     expect(page).to have_content(shelter.rank)
     expect(page).to have_content(shelter.city)
   end
