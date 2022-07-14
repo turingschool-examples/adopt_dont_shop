@@ -31,6 +31,9 @@ RSpec.describe 'the application show' do
     visit "/applications/#{application.id}"
 
     expect(page).to have_content('In Progress')
+    
+    within "#pet_search" do 
     expect(page).to have_content('Add a Pet to this Application')
+    end 
   end
 end
