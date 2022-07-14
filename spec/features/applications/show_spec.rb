@@ -59,8 +59,8 @@ RSpec.describe 'the application show' do
       expect(page).to_not have_content("Rudolph")
     end 
   end
-  
-  it "show pet names that match the full name you put in" do
+
+  it "show pet names that contain a portion of what was searched for" do
     application = Application.create(name: 'John Doe', street_address: '123 apple street', city: 'Denver', state: 'CO', zipcode: '90210', description: 'we love pets', status: 'In Progress')
     shelter = Shelter.create(name: 'Mystery Building', city: 'Irvine CA', foster_program: false, rank: 9)
     scooby = Pet.create(name: 'Scooby', age: 2, breed: 'Great Dane', adoptable: true, shelter_id: shelter.id)
@@ -71,14 +71,14 @@ RSpec.describe 'the application show' do
 
     visit "/applications/#{application.id}"
 
-    fill_in('Search for Pets by name:', with: "Scooby")
+    fill_in('Search for Pets by name:', with: "ford")
     
     click_button("Search")
 
     expect(current_path).to eq("/applications/#{application.id}")
     within "#searched_pets" do 
-      expect(page).to have_content("Scooby")
-      expect(page).to_not have_content("Clifford")
+      expect(page).to have_content("Clifford")
+      expect(page).to_not have_content("Scooby")
       expect(page).to_not have_content("Rudolph")
     end 
   end
