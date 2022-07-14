@@ -39,11 +39,11 @@ gem 'bootsnap', '>= 1.1.0', require: false
 group :development, :test do
   gem 'capybara'
   gem 'shoulda-matchers'
-  gem 'launchy'
+  gem 'launchy' # save_and_open_page
   gem 'orderly'
   gem 'pry'
   gem 'rspec-rails'
-  gem 'simplecov'
+  gem 'simplecov' # open coverage/index.html
 end
 
 group :development do
