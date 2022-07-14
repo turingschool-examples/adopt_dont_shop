@@ -35,7 +35,8 @@ RSpec.describe Pet, type: :model do
 
     describe '#search' do
       it 'returns pet names that match the user input search' do
-        expect(Pet.search("Ann")).to eq([@pet_3])
+        expect(Pet.search("Claw")).to eq([@pet_2])
+        expect(Pet.search("PiRat")).to eq([@pet_1])
       end
     end
   end

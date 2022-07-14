@@ -20,3 +20,9 @@
         <%= submit_tag("Search", :name => nil) %>
     <% end %> 
 </div>
+
+<div id="searched_pets">
+    <% @pets.each do |pet|%>
+        <%= pet.name %>
+    <% end %>
+</div>
