@@ -22,9 +22,11 @@ RSpec.describe 'application show page' do
 
      it 'displays the all pets the application is for' do
         application = Application.create!(name: "Bob Bobbicus", street: "123 Main street", city: "Newtown", state: "Colorado", zipcode: 80009, status:"In Progress" )
-        pet1 = application.pet.create!(name: 'Scooby', age: 2, breed: 'Great Dane', adoptable: true, shelter_id: shelter.id)
+        shelter = Shelter.create!(name: 'Mystery Building', city: 'Irvine CA', foster_program: false, rank: 9)
+        pet1 = application.pets.create!(name: 'Scooby', age: 2, breed: 'Great Dane', adoptable: true, shelter_id: shelter.id)
 
         visit "/applications/#{application.id}"
+        save_and_open_page
 
         expect(page).to have_content(pet1.name)
 
