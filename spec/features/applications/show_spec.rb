@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'application show page' do
     it 'displays the name of the applicant' do
-        application = Application.create!(name: "Bob Bobbicus", street: "123 Main street", city: "Newtown", state: "State", zipcode: 80009, status:"In Progress" )
+        application = Application.create!(name: "Bob Bobbicus", street: "123 Main street", city: "Newtown", state: "State", zipcode: 80009, status:"In Progress", description:"I love dogs so much and have lots of food for them")
         
         visit "/applications/#{application.id}"
 
@@ -10,7 +10,7 @@ RSpec.describe 'application show page' do
     end
 
     it 'displays the full address of the applicant' do
-        application = Application.create!(name: "Bob Bobbicus", street: "123 Main street", city: "Newtown", state: "Colorado", zipcode: 80009, status:"In Progress" )
+        application = Application.create!(name: "Bob Bobbicus", street: "123 Main street", city: "Newtown", state: "State", zipcode: 80009, status:"In Progress", description:"I love dogs so much and have lots of food for them")
         
         visit "/applications/#{application.id}"
 
@@ -21,7 +21,7 @@ RSpec.describe 'application show page' do
     end
 
      it 'displays the all pets the application is for' do
-        application = Application.create!(name: "Bob Bobbicus", street: "123 Main street", city: "Newtown", state: "Colorado", zipcode: 80009, status:"In Progress" )
+        application = Application.create!(name: "Bob Bobbicus", street: "123 Main street", city: "Newtown", state: "State", zipcode: 80009, status:"In Progress", description:"I love dogs so much and have lots of food for them")
         shelter = Shelter.create!(name: 'Mystery Building', city: 'Irvine CA', foster_program: false, rank: 9)
         pet1 = application.pets.create!(name: 'Scooby', age: 2, breed: 'Great Dane', adoptable: true, shelter_id: shelter.id)
 
@@ -35,10 +35,18 @@ RSpec.describe 'application show page' do
     end
 
     it 'displays the application status' do
-        application = Application.create!(name: "Bob Bobbicus", street: "123 Main street", city: "Newtown", state: "Colorado", zipcode: 80009, status:"In Progress" )
+        application = Application.create!(name: "Bob Bobbicus", street: "123 Main street", city: "Newtown", state: "State", zipcode: 80009, status:"In Progress", description:"I love dogs so much and have lots of food for them")
         
         visit "/applications/#{application.id}"
 
         expect(page).to have_content(application.status)
+    end
+
+    it 'displays the description' do
+        application = Application.create!(name: "Bob Bobbicus", street: "123 Main street", city: "Newtown", state: "State", zipcode: 80009, status:"In Progress", description:"I love dogs so much and have lots of food for them")
+        
+        visit "/applications/#{application.id}"
+
+        expect(page).to have_content(application.description)
     end
 end 

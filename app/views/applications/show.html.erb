@@ -7,5 +7,6 @@
 <% @application.pets. each do |pet| %> 
 <p><%= link_to "#{pet.name}", "/pets/#{pet.id}" %> </p>
 <% end %>
+<p><%= @application.description %> </p>
 <p><%= @application.status %> </p>
 
