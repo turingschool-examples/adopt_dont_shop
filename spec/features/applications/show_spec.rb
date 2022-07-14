@@ -8,11 +8,11 @@ RSpec.describe "application show page" do
 #     names of all pets that this application is for (all names of pets should be links to their show page)
 #     The Application's status, either "In Progress", "Pending", "Accepted", or "Rejected"
     it 'displays the name, full address, description, names of all pets in the application, and the status of the application' do 
-        new_applicant = Applicant.create!(name: "Test", address: "5555 Test Avenue, City, State, 55555", name_of_pets: "Fido", description: "they love pets!", application_status: "In Progress")
-        visit "/applications/#{application.id}"
+        new_applicant = Applicant.create!(name: "Test", address: "5555 Test Avenue, City, State, 55555", names_pets_wanted: "Fido", description: "they love pets!", application_status: "In Progress")
+        visit "/applications/#{new_applicant.id}"
         expect(page).to have_content("name: Test")
         expect(page).to have_content("address: 5555 Test Avenue, City, State, 55555")
-        expect(page).to have_content("name_of_pets: Fido")
+        expect(page).to have_content("name of pets wanting to adopt: Fido")
         expect(page).to have_content("application_status: In Progress")
     end 
 end
