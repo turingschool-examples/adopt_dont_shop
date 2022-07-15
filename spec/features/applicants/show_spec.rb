@@ -23,7 +23,7 @@ RSpec.describe 'Application Show Page' do
     expect(page).to have_content("Nola")
     expect(page).to have_content("Pending")
 
-    expect(page).to have_selector(:link_or_button "Nola")
+    expect(page).to have_selector(:link_or_button, "Nola")
 
   end
 end

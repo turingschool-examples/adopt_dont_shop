@@ -1,5 +1,5 @@
 class Applicant < ApplicationRecord
-  has_many :pets, through: :applicant_pets, cache_counter: true
+  has_many :pets, through: :applicant_pets
 
   validates_presence_of :name, :address, :description, :status
 
