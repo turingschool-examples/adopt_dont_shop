@@ -1,5 +1,6 @@
 class ApplicantsController < ApplicationController
   def index
+    
   end
 
   def new
@@ -11,6 +12,6 @@ class ApplicantsController < ApplicationController
   def show
   end
 
-  def _form
+  def create
   end
 end

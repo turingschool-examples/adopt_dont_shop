@@ -91,3 +91,7 @@ yarn-debug.log*
 # Ignore uploaded files in development
 /storage/*
 !/storage/.keep
+
+# Ignore local log files and coverage files
+/.vscode
+/coverage/*
