@@ -76,4 +76,33 @@ RSpec.describe 'application show page' do
             expect(page).to have_content(pet1.name)
         end  
     end
+
+    it 'can add a description and submit an app' do
+        application = Application.create!(name: "Bob Bobbicus", street: "123 Main street", city: "Newtown", state: "State", zipcode: 80009, status:"In Progress", description:"I love dogs so much and have lots of food for them")
+        shelter = Shelter.create!(name: 'Mystery Building', city: 'Irvine CA', foster_program: false, rank: 9)
+        pet1 = Pet.create!(name: 'Scooby', age: 2, breed: 'Great Dane', adoptable: true, shelter_id: shelter.id)
+
+        visit "/applications/#{application.id}"
+
+        fill_in("search", with:"Scooby")
+        click_button("Search")
+        click_button("Adopt this pet")
+        fill_in("description", with:"I'm awesome")
+        click_button("Submit Application")
+
+        expect(page).to_not have_content("Submit Application")
+        expect(page).to_not have_content("search")
+        expect(page).to have_content("Application status: Pending")
+        expect(page).to have_content("Scooby")
+    end
+
+    it 'will not show submit application button if no pets added' do
+        application = Application.create!(name: "Bob Bobbicus", street: "123 Main street", city: "Newtown", state: "State", zipcode: 80009, status:"In Progress", description:"I love dogs so much and have lots of food for them")
+        shelter = Shelter.create!(name: 'Mystery Building', city: 'Irvine CA', foster_program: false, rank: 9)
+        pet1 = Pet.create!(name: 'Scooby', age: 2, breed: 'Great Dane', adoptable: true, shelter_id: shelter.id)
+
+        visit "/applications/#{application.id}"
+        
+        expect(page).to_not have_content("Submit Application")
+    end
 end 

@@ -12,13 +12,27 @@
 <% end %>
 <p>Application description: <%= @application.description %> </p>
 <p>Application status: <%= @application.status %> </p>
-<%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |form|%>
-    <%= form.label "Add a pet to this application:" %>
-    <%= form.text_field :search, placeholder: "Pet name", required: true %>
-    <%= form.submit "Search" %>
+
+<% if @application.status != "Pending" %>
+    <%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |form|%>
+        <%= form.label "Add a pet to this application:" %>
+        <%= form.text_field :search, placeholder: "Pet name", required: true %>
+        <%= form.submit "Search" %>
+    <% end %>
 <% end %>
+
 <% @pets.each do |pet| %> 
     <p><%= pet.name %> 
     <%= button_to "Adopt this pet", "/applications/#{@application.id}", method: :post, params: {:pet_id => pet.id} %>    
+<% end %>
+
+<% if @application.pets.count != 0 && @application.status != "Pending" %>
+    <%= form_with url: "/applications/#{@application.id}", method: :patch, local: true do |form|%>
+        <%= form.label "Add a description for why you are a good fit for these pets:" %>
+        <br>
+        <%= form.text_area :description, cols: 30, rows:10, placeholder: "Info goes here", required: true %>
+        <br>
+        <%= form.submit "Submit Application" %>
+    <% end %>
 <% end %>
 
