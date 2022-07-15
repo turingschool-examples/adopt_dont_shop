@@ -1,11 +1,15 @@
 Rails.application.routes.draw do
-  get 'applicants/index'
-  get 'applicants/new'
-  get 'applicants/edit'
-  get 'applicants/show'
-  get 'applicants/_form'
   get '/', to: 'application#welcome'
+
+  get '/applicants', to: 'applicants#index'
+  get '/applicants/new', to: 'applicants#new'
+  get '/applicants/edit', to: 'applicants#edit'
   get '/applicants/:id', to: 'applicants#show'
+  post '/applicants', to: 'applicants#create'
+  patch '/applicants/:id', to: 'applicants#update'
+  delete '/applicants/:id', to: 'applicants#destroy'
+ 
+
   get '/shelters', to: 'shelters#index'
   get '/shelters/new', to: 'shelters#new'
   get '/shelters/:id', to: 'shelters#show'
