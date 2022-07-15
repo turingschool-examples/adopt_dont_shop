@@ -1,6 +1,5 @@
 class ApplicantsController < ApplicationController
  def index
-   require "pry"; binding.pry
    @applicants = Applicant.all
  end
 
