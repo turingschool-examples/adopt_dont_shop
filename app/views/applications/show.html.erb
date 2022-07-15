@@ -1,0 +1,15 @@
+<h1>Application: <%= @application.name %></h1>
+
+<div id = "app_information">
+  <p>Name: <%= @application.name %> </p>
+  <p>Street Address: <%= @application.street_address %>, 
+  <%= @application.city %>, 
+  <%= @application.state %>, 
+  <%= @application.zipcode %></p>
+  <p>Description: <%= @application.description %></p>
+  <p>Pets Wanted: <%= @application.pets.each do |pet| %>
+    <%= pet.name %>
+  <% end %></p>
+  <p>Status: <%= @application.status %></p>
+</div>
+
