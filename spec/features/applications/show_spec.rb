@@ -129,8 +129,9 @@ RSpec.describe 'the application show' do
       expect(page).to have_content("Clifford")
       expect(page).to_not have_content("Fordie")
     end 
+  end
 
-  it "adopt this pet button adds the pet to the application and is case insensitive" do
+  it "adopt this pet button adds the pet to the application case insensitive" do
     application = Application.create!(name: 'John Doe', street_address: '123 apple street', city: 'Denver', state: 'CO', zipcode: '90210', description: 'we love pets', status: 'In Progress')
     shelter = Shelter.create!(name: 'Mystery Building', city: 'Irvine CA', foster_program: false, rank: 9)
     scooby = Pet.create!(name: 'Scooby', age: 2, breed: 'Great Dane', adoptable: true, shelter_id: shelter.id)
