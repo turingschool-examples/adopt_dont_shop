@@ -15,7 +15,7 @@
 <h3><%= @application.status %></h3>
 
 
-<% if @application.has_pets? %>
+<% if @application.has_pets? && @application.status == "In Progress"%>
     <div id="submit_application">
         <%= form_with url: "/applications/#{@application.id}", method: :patch, local: true do |f|%>
         <%= f.label :description, "description:" %>
