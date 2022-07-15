@@ -1,10 +1,10 @@
 require 'rails_helper'
 
-RSpec.describe 'applicant show page' do
+RSpec.describe 'application show page' do
   it 'shows the applicant and all of their attributes' do
     shelter = Shelter.create!(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
     pet = Pet.create!(adoptable: true, age: 3, breed: 'GSD', name: 'Charlie', shelter_id: shelter.id)
-    applicant = Applicant.create!(
+    applicant = Application.create!(
               name: 'Mike Dao',
               street_address: '245 Maple St',
               city: 'Centennial',
@@ -13,7 +13,7 @@ RSpec.describe 'applicant show page' do
               applicant_bio: 'My dog needs another to chase up trees.',
               application_status: 'Pending')
 
-      visit "/applicants/#{applicant.id}"
+      visit "/applications/#{applicant.id}"
 
       expect(page).to have_content('Mike Dao')
   end
@@ -21,7 +21,7 @@ RSpec.describe 'applicant show page' do
   xit 'is shows the names of all pets in which the applicant is applying' do
     shelter = Shelter.create!(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
     pet = Pet.create!(adoptable: true, age: 3, breed: 'GSD', name: 'Charlie', shelter_id: shelter.id)
-    applicant = Applicant.create!(
+    applicant = Application.create!(
               name: 'Mike Dao',
               street_address: '245 Maple St',
               city: 'Centennial',
@@ -30,7 +30,7 @@ RSpec.describe 'applicant show page' do
               applicant_bio: 'My dog needs another to chase up trees.',
               application_status: 'Pending')
 
-    visit "/applicants/#{applicant.id}"
+    visit "/applications/#{applicant.id}"
 
     expect(page).to have_content('Mike Dao')
     expect(page).to have_content('Charlie')

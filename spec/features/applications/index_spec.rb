@@ -1,8 +1,8 @@
 require 'rails_helper'
 
-RSpec.describe 'the applicant index' do
+RSpec.describe 'the application index' do
   it 'is a list of all applicants and their attributes' do
-    mike = Applicant.create!(
+    mike = Application.create!(
               name: 'Mike Dao',
               street_address: '245 Maple St',
               city: 'Centennial',
@@ -11,7 +11,7 @@ RSpec.describe 'the applicant index' do
               applicant_bio: 'My dog needs another to chase up trees.',
               application_status: 'Pending')
 
-    chris = Applicant.create!(
+    chris = Application.create!(
               name: 'Chris Simmons',
               street_address: '533 Oak St',
               city: 'Columbus',
@@ -20,7 +20,7 @@ RSpec.describe 'the applicant index' do
               applicant_bio: 'Because how much more work could a third cat be?',
               application_status: 'In Progress')
 
-    dani = Applicant.create!(
+    dani = Application.create!(
               name: 'Dani Coleman',
               street_address: '912 Willow St',
               city: 'Arvada',
@@ -29,7 +29,7 @@ RSpec.describe 'the applicant index' do
               applicant_bio: 'Because I am just awesome.',
               application_status: 'Accepted')
 
-    visit '/applicants'
+    visit '/applications'
 
     expect(page).to have_content(mike.name)
     expect(page).to have_content(chris.name)
