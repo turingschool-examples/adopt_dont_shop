@@ -18,7 +18,7 @@ RSpec.describe 'applicant show page' do
       expect(page).to have_content('Mike Dao')
   end
 
-  it 'is shows the names of all pets in which the applicant is applying' do
+  xit 'is shows the names of all pets in which the applicant is applying' do
     shelter = Shelter.create!(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
     pet = Pet.create!(adoptable: true, age: 3, breed: 'GSD', name: 'Charlie', shelter_id: shelter.id)
     applicant = Applicant.create!(
