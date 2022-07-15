@@ -97,4 +97,6 @@ RSpec.describe 'the pets index' do
 
     expect(page).to have_link("Start an Application")
   end
+
+
 end
