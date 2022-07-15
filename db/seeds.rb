@@ -32,7 +32,7 @@ dani = Applicant.create!(
               zip_code: '80003',
               applicant_bio: 'Because I am just awesome.',
               application_status: 'Accepted')
-              
+
 pet = Pet.create!(name: 'Scooby', age: 2, breed: 'Great Dane', adoptable: true, shelter_id: shelter.id)
 pet = Pet.create!(name: 'Scrappy', age: 1, breed: 'Great Dane', adoptable: true, shelter_id: shelter.id)
 pet = Pet.create!(adoptable: true, age: 1, breed: 'sphynx', name: 'George Hairlesson', shelter_id: shelter.id)
@@ -40,4 +40,4 @@ pet = Pet.create!(adoptable: true, age: 3, breed: 'GSD', name: 'Charlie', shelte
 
 shelter = Shelter.create!(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
 shelter = Shelter.create!(name: 'Mystery Building', city: 'Irvine CA', foster_program: false, rank: 9)
-sheltshelter = Shelter.create!(name: 'Heavenly pets', city: 'Aurora, CO', foster_program: true, rank: 7)
+shelter = Shelter.create!(name: 'Heavenly pets', city: 'Aurora, CO', foster_program: true, rank: 7)
