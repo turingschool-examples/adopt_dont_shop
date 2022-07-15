@@ -18,7 +18,6 @@ RSpec.describe 'applicant show page' do
     expect(page).to have_content("Billy Bob")
     expect(page).to have_content("Street address 6093")
     expect(page).to have_content("I'm bob")
-    expect(page).to have_content("Pending")
     expect(page).to have_content(22323)
 
     expect(page).to have_link('Mr. Pirate')
