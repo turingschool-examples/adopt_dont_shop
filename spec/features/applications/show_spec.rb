@@ -130,4 +130,43 @@ RSpec.describe 'the application show' do
       expect(page).to_not have_content("Fordie")
     end 
   end
+
+  it 'shows a submit section when pets are part of application' do
+    application = Application.create!(name: 'John Doe', street_address: '123 apple street', city: 'Denver', state: 'CO', zipcode: '90210', description: 'we love pets', status: 'In Progress')
+    shelter = Shelter.create!(name: 'Mystery Building', city: 'Irvine CA', foster_program: false, rank: 9)
+    scooby = Pet.create!(name: 'Scooby', age: 2, breed: 'Great Dane', adoptable: true, shelter_id: shelter.id)
+
+    PetApplication.create!(pet: scooby, application: application)
+
+    visit "/applications/#{application.id}"
+
+    expect(page).to have_button("Submit this Application")
+  end
+
+  it 'doesnt show a submit section without and pets in application'do
+    application = Application.create!(name: 'John Doe', street_address: '123 apple street', city: 'Denver', state: 'CO', zipcode: '90210', description: 'we love pets', status: 'In Progress')
+    shelter = Shelter.create!(name: 'Mystery Building', city: 'Irvine CA', foster_program: false, rank: 9)
+
+    visit "/applications/#{application.id}"
+
+    expect(page).to_not have_button("Submit this Application")
+  end
+
+  it 'when submitted the Application status is pending and I cant add more pets' do
+    application = Application.create!(name: 'John Doe', street_address: '123 apple street', city: 'Denver', state: 'CO', zipcode: '90210', description: 'Description needed', status: 'In Progress')
+    shelter = Shelter.create!(name: 'Mystery Building', city: 'Irvine CA', foster_program: false, rank: 9)
+    scooby = Pet.create!(name: 'Scooby', age: 2, breed: 'Great Dane', adoptable: true, shelter_id: shelter.id)
+    clifford = Pet.create!(name: 'Clifford', age: 1, breed: 'Red Dog', adoptable: true, shelter_id: shelter.id)
+
+    PetApplication.create!(pet: scooby, application: application)
+
+    visit "/applications/#{application.id}"
+    fill_in('decription', with: "We love pets")
+    click_button("Submit this Application")
+
+    expect(current_path).to eq("/applications/#{application.id}")
+    expect(page).to have_content("Pending")
+    expect(page).to have_content("Scooby")
+    expect(page).to_not have_content("Clifford")
+  end  
 end

@@ -14,6 +14,18 @@
 
 <h3><%= @application.status %></h3>
 
+
+<% if @application.has_pets? %>
+    <div id="submit_applcation">
+    <%= form_with url: "/applications/#{@application.id}", method: :patch, local: true do |f|%>
+    <%= f.label :description, "description:" %>
+    <%= f.text_area :description %>
+    <%= f.submit "Submit this Application" %>
+    <% end %>
+    </div>
+<% end %>
+
+
 <div id="pet_search">
     <h3>Search for a Pet to Add to this Application</h3>
     <%= form_tag("/applications/#{@application.id}?", method: :get, local: true, skip_enforcing_utf8: true) do %>
