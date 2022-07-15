@@ -17,7 +17,6 @@ class ApplicationsController < ApplicationController
         end 
     end
 
-
     def apppetscrreate
         application = Application.find(params[:application_id])
         pet = Pet.find(params[:pet_id])
@@ -29,6 +28,5 @@ class ApplicationsController < ApplicationController
     def application_params
         params.permit(:name, :street, :city, :state, :zipcode, :description)
     end 
-
 
 end  
