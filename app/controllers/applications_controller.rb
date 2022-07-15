@@ -5,11 +5,13 @@ class ApplicationsController < ApplicationController
     @pets = @application.pets
   end
 
+  def new
+  end
+
   def create
-    @application = Application.find(params[:id])
-      @application.pets.create(app_params)
-      redirect_to "/applications"
-    end
+    @application = Application.create(app_params)
+      redirect_to "/applications/#{@application.id}"
+  end
 
 private
 
