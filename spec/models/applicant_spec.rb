@@ -1,9 +1,9 @@
 require 'rails_helper'
 
-RSpec.describe Application do
+RSpec.describe Applicant do
   describe "relationships" do
-    it {should have_many(:application_pets)}
-    it {should have_many(:pets).through(:application_pets)}
+    it {should have_many(:applicant_pets)}
+    it {should have_many(:pets).through(:applicant_pets)}
   end
 
   describe "validations" do
