@@ -9,5 +9,6 @@ class ApplicantsController < ApplicationController
     end
 
     def create 
+        redirect_to "/applications/#{[:applicant_id]}/new"
     end
 end
