@@ -95,4 +95,14 @@ RSpec.describe 'application show page' do
         expect(page).to have_content("Application status: Pending")
         expect(page).to have_content("Scooby")
     end
+
+    it 'will not show submit application button if no pets added' do
+        application = Application.create!(name: "Bob Bobbicus", street: "123 Main street", city: "Newtown", state: "State", zipcode: 80009, status:"In Progress", description:"I love dogs so much and have lots of food for them")
+        shelter = Shelter.create!(name: 'Mystery Building', city: 'Irvine CA', foster_program: false, rank: 9)
+        pet1 = Pet.create!(name: 'Scooby', age: 2, breed: 'Great Dane', adoptable: true, shelter_id: shelter.id)
+
+        visit "/applications/#{application.id}"
+        
+        expect(page).to_not have_content("Submit Application")
+    end
 end 
