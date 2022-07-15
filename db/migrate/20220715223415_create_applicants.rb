@@ -7,7 +7,7 @@ class CreateApplicants < ActiveRecord::Migration[5.2]
       t.string :state
       t.string :zip_code
       t.string :description
-      t.string :application_status
+      t.string :application_status, default: "pending"
 
       t.timestamps
     end

@@ -1,9 +1,9 @@
 require 'rails_helper'
-# require "pry"; binding.pry
+
 RSpec.describe Applicant, type: :model do
 
   # describe 'relationships' do
-  #
+  #has many pets, through pet applications
   # end
 
   describe 'validations' do
