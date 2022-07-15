@@ -5,10 +5,18 @@ class ApplicantsController < ApplicationController
     end
 
     def new
-        @applicant = Applicant.find(params[:applicant_id])
+        # @applicant = Applicant.new
+        # @applicant.id = (params[:applicant_id])
     end
 
     def create 
-        redirect_to "/applications/#{[:applicant_id]}/new"
+        Applicant.create(applicant_params)
+        # applicant.submit
+        redirect_to "/applications" #this needs fixing
     end
+end
+
+private 
+def applicant_params 
+    params.permit(:name, :address, :city, :state, :zip, :description, :names_pets_wanted, :application_status)
 end

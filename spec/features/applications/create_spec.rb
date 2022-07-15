@@ -16,8 +16,9 @@ RSpec.describe "Create Application" do
          fido = shelter_1.pets.create(name: 'Fido', breed: 'Beagle', age: 5, adoptable: true)
          ApplicantPet.create!(pet: fido, applicant: new_applicant)
 
-         visit "/applications/#{new_applicant.id}/new"
+         visit "/applications/new"
          
+
          expect(find('form')).to have_content('Name')
          expect(find('form')).to have_content('Address')
          expect(find('form')).to have_content('City')
