@@ -1,0 +1,6 @@
+<% @applications.each do |application| %>
+  <h1><p><%= application.applicant_name %></p></h1>
+  <p><%= application.address %></p>
+  <p><%= application.description %></p>
+  <p><%= application.status %></p>
+<% end %>
