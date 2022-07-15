@@ -13,7 +13,17 @@ RSpec.describe 'New Application' do
     fill_in('Description', with: 'I love dogs so much and have lots of food for them')
 
     click_button('Submit')
-    
+
     expect(page).to have_content("Bob Bobbicus")
+  end
+
+  it 'clicking submit on an empty form' do
+
+    visit '/applications/new'
+
+    click_button('Submit')
+
+    expect(page).to have_content("*Fields can not be empty*")
+    expect(current_path).to eq('/applications')
   end
 end
