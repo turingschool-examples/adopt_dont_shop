@@ -44,7 +44,7 @@ end
             expect(page).to have_content('In Progress')
         end
 
-        it 'Applications gives warning for invalid data' do
+        it 'Application create gives warning for invalid data' do
             visit '/applications/new'
 
             click_on('Submit')
