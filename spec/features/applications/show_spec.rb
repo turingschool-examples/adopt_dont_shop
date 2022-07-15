@@ -25,18 +25,20 @@ RSpec.describe 'the show page' do
   
     visit "/applications/#{application_1.id}"
 
-    save_and_open_page
+    # save_and_open_page
 
     expect(page).to have_content(application_1.applicant_name)
     expect(page).to have_content(application_1.address)
     expect(page).to have_content(application_1.description)
     expect(page).to have_content(application_1.status)
-    expect(page).to have_content(application_2.applicant_name)
-    expect(page).to have_content(application_2.address)
-    expect(page).to have_content(application_2.description)
-    expect(page).to have_content(application_2.status)
-    # expect(page).to have_content(application_1.description)
-    # expect(page).to have_content(application_2.status)
+    expect(page).to_not have_content(application_2.applicant_name)
+    expect(page).to_not have_content(application_2.address)
+    expect(page).to_not have_content(application_2.description)
+    expect(page).to_not have_content(application_2.status)
+    expect(page).to have_content(pet_1.name)
+    expect(page).to have_content(pet_2.name)
     end
+
+    it "has a link, link goes to each pets show page"
 
   end

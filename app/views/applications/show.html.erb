@@ -5,6 +5,5 @@
     <p>Address: <%= @application.address %></p>
     <p>Description: <%= @application.description %></p>
     <h3><p>Pets: <%@pets.each do |pet| %></p></h3>
-    
     <h4><p><%= link_to pet.name, "/pets/#{pet.id}"  %></p></h4>
 <% end %>
