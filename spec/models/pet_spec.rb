@@ -41,7 +41,6 @@ RSpec.describe Pet, type: :model do
   end
 
   describe 'relationships' do
-    binding.pry
         it {should have_many :pet_applications}
         it {should have_many(:applications).through(:pet_applications)}
   end

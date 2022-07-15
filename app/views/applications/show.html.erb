@@ -1,8 +1,9 @@
-<h1>All Applications</h1>
-<% @applications.each do |application| %>
-    <h3>Applicants Name: <%= application.applicant_name %></h3>
-    <p>Status: <%= application.status %></p>
-    <p>Address: <%= application.address %></p>
-    <p>Description: <%= application.description %></p>
-    <p>Pets: <%= application.pet_id %></p>
+<h1>Application</h1>
+
+    <h3>Applicants Name: <%= @application.applicant_name %></h3>
+    <p>Status: <%= @application.status %></p>
+    <p>Address: <%= @application.address %></p>
+    <p>Description: <%= @application.description %></p>
+    <h3><p>Pets: <%@pets.each do |pet| %></p></h3>
+    <h4><p><%= link_to pet.name, "/pets/#{pet.id}"  %></p></h4>
 <% end %>
