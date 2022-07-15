@@ -7,8 +7,8 @@
   <%= @application.state %>, 
   <%= @application.zipcode %></p>
   <p>Description: <%= @application.description %></p>
-  <p>Pets Wanted: <%= @application.pets.each do |pet| %>
-    <%= pet.name %>
+  <p>Pets Wanted: <% @application.pets.each do |pet| %>
+    <%= link_to "#{pet.name}", "/pets/#{pet.id}", method: :get %>
   <% end %></p>
   <p>Status: <%= @application.status %></p>
 </div>
