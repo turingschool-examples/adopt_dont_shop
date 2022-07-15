@@ -8,6 +8,8 @@
 
 <% if @pets %>
   <% @pets.each do |pet| %>
-    <p><%= pet.name %></p>
+    <p><%= pet.name %>
+    <%= button_to "Adopt this Pet", "/apps/#{@app.id}", controller: :pet_app, action: :create, params: {pet: pet}, method: :post %></p>
   <% end %>
 <% end %>
+
