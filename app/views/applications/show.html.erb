@@ -1,0 +1,23 @@
+<h1><%= @application.first_name%> <%= @application.last_name%> </h1>
+<p>
+Street Address: <%= @application.street_address%>
+</p>
+<p>
+City: <%= @application.city%>
+</p>
+<p>
+State: <%= @application.state%>
+</p>
+<p>
+Zip: <%= @application.zip_code%>
+</p>
+<p>
+Bio: <%= @application.applicant_bio%>
+</p>
+<p>
+Bio: <%= @application.application_status%>
+</p>
+<p> Pets applied for: </p>
+<%= @pets.each_with_index do |pet,index| %>
+<p id="pet-<%=index+1%>"><%= link_to "#{pet.name}", "/pets/#{pet.id}"%></p>
+<% end %>
