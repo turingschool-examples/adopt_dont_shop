@@ -124,7 +124,7 @@ RSpec.describe 'the application show' do
     click_button("Adopt this Pet")
 
     expect(current_path).to eq("/applications/#{application.id}")
-  
+
     within "#pets_in_application" do 
       expect(page).to have_content("Clifford")
       expect(page).to_not have_content("Fordie")

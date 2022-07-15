@@ -25,6 +25,6 @@
 
 <div id="searched_pets">
     <% @pets.each do |pet|%>
-        <p><%= pet.name %><%= button_to "Adopt this Pet", "/applications/#{@application.id}", method: :get %></p>
+        <p><%= pet.name %><%= button_to "Adopt this Pet", "/pet_applications/#{pet.id}/#{@application.id}", method: :post %></p>
     <% end %>
 </div>
