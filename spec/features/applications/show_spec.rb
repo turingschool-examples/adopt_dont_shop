@@ -159,9 +159,10 @@ RSpec.describe 'the application show' do
     clifford = Pet.create!(name: 'Clifford', age: 1, breed: 'Red Dog', adoptable: true, shelter_id: shelter.id)
 
     PetApplication.create!(pet: scooby, application: application)
-
+    
     visit "/applications/#{application.id}"
-    fill_in('decription', with: "We love pets")
+    
+    fill_in('description', with: "We love pets")
     click_button("Submit this Application")
 
     expect(current_path).to eq("/applications/#{application.id}")
