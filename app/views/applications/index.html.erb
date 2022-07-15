@@ -1,0 +1,16 @@
+<h1>List of Applicants</h1>
+
+<ul>
+    <% @applications.each do |application| %>
+    <div id="application-<%=application.id%>">
+        <li><strong>Name: </strong><%= application.name %>
+        <ul>
+            <li>
+                <% application.pets.each do |pet| %>
+                    <strong>Pet Name: </strong><%= pet.name %>
+                <% end %>
+            </li>
+        </ul>
+    </div>
+    <% end %>
+</ul>
