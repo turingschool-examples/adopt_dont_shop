@@ -24,6 +24,6 @@ RSpec.describe 'New Application' do
     click_button('Submit')
 
     expect(page).to have_content("*Fields can not be empty*")
-    expect(current_path).to eq('/applications')
+    expect(current_path).to eq('/applications/new')
   end
 end
