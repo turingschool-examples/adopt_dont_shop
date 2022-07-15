@@ -25,6 +25,11 @@ RSpec.describe Pet, type: :model do
       it 'returns partial matches' do
         expect(Pet.search("Claw")).to eq([@pet_2])
       end
+
+      it 'return case insensitive matches' do
+        expect(Pet.search("pIrA")).to eq([@pet_1])
+        expect(Pet.search("Nn")).to eq([@pet_3])
+      end
     end
 
     describe "#find_by_name" do 

@@ -105,4 +105,32 @@ RSpec.describe 'application show page' do
         
         expect(page).to_not have_content("Submit Application")
     end
+
+    it 'will search all pets with a partial user input' do
+        application = Application.create!(name: "Bob Bobbicus", street: "123 Main street", city: "Newtown", state: "State", zipcode: 80009, status:"In Progress", description:"I love dogs so much and have lots of food for them")
+        shelter = Shelter.create!(name: 'Mystery Building', city: 'Irvine CA', foster_program: false, rank: 9)
+        pet1 = Pet.create!(name: 'Scooby', age: 2, breed: 'Great Dane', adoptable: true, shelter_id: shelter.id)
+        pet2 = Pet.create(adoptable: true, age: 1, breed: 'sphynx', name: 'Lucille Bald', shelter_id: shelter.id)
+
+        visit "/applications/#{application.id}"
+
+        fill_in("search", with: "cill")
+        click_button("Search")
+
+        expect(page).to have_content("Lucille Bald")
+    end
+
+    it 'returns a case insenstive search' do
+        application = Application.create!(name: "Bob Bobbicus", street: "123 Main street", city: "Newtown", state: "State", zipcode: 80009, status:"In Progress", description:"I love dogs so much and have lots of food for them")
+        shelter = Shelter.create!(name: 'Mystery Building', city: 'Irvine CA', foster_program: false, rank: 9)
+        pet1 = Pet.create!(name: 'Scooby', age: 2, breed: 'Great Dane', adoptable: true, shelter_id: shelter.id)
+        pet2 = Pet.create(adoptable: true, age: 1, breed: 'sphynx', name: 'Lucille Bald', shelter_id: shelter.id)
+
+        visit "/applications/#{application.id}"
+
+        fill_in("search", with: "UciLL")
+        click_button("Search")
+
+        expect(page).to have_content("Lucille Bald")
+    end
 end 
