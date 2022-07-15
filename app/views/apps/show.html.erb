@@ -1,6 +1,12 @@
 <h1>Name: <%= @app.name %></h1>
-<p>Address: <%= @app.address %> in</p>
-<p>City: <%= @app.city %> in</p>
-<p>State: <%= @app.state %> in</p>
-<p>ZIP: <%= @app.zip %> in</p>
-<p>Description: <%= @app.description %> in</p>
+<p>Address: <%= @app.address %></p>
+<p>City: <%= @app.city %></p>
+<p>State: <%= @app.state %></p>
+<p>ZIP: <%= @app.zip %></p>
+<p>Description: <%= @app.description %></p>
+<p>
+  Pets: <% @app.pets.each do |pet| %>
+  <p><%= pet.name %></p>
+  <% end %>
+</p>
+<p>Status: <%= @app.status %></p>
