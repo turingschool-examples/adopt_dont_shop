@@ -111,4 +111,22 @@ RSpec.describe 'the shelters index' do
 
     expect(page).to have_content("All Shelters")
   end
+
+  it 'has a section for shelters with pending applications' do
+    mystery_shelter = Shelter.create!(name: 'Mystery Building', city: 'Irvine CA', foster_program: false, rank: 9)
+
+    john_application = Application.create!(name: 'John Doe', street_address: '123 apple street', city: 'Denver', state: 'CO', zipcode: '90210', description: 'we love pets', status: 'Pending')
+    
+    scooby = Pet.create!(name: 'Scooby', age: 2, breed: 'Great Dane', adoptable: true, shelter_id: mystery_shelter.id)
+    clifford = Pet.create!(name: 'Clifford', age: 1, breed: 'Red Dog', adoptable: true, shelter_id: mystery_shelter.id)
+
+    PetApplication.create!(pet: scooby, application: john_application)
+    PetApplication.create!(pet: clifford, application: john_application)
+
+    visit '/admin/shelters'
+
+    expect(page).to have_content("Shelter's with Pending Applications")
+    expect(page).to have_content("Scooby")
+    expect(page).to have_content("Clifford")
+  end
 end
