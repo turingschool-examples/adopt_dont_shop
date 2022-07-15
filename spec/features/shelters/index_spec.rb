@@ -105,4 +105,10 @@ RSpec.describe 'the shelters index' do
     expect(page).to have_content(@shelter_2.name)
     expect(page).to_not have_content(@shelter_1.name)
   end
+
+  it 'admin routes to index page with priviledge' do
+    visit '/admin/shelters'
+
+    expect(page).to have_content("All Shelters")
+  end
 end
