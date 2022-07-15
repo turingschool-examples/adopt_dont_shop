@@ -10,6 +10,7 @@ Pet.destroy_all
 VeterinaryOffice.destroy_all
 Veterinarian.destroy_all
 Application.destroy_all
+PetApplication.destroy_all
 
 
 
@@ -33,4 +34,7 @@ Application.destroy_all
 @application_2 = Application.create!(applicant_name: 'Meredith Grey', address: '3463 Collin St Denver CO 80035', description: 'I love animals', status: 'accepted')
 @application_3 = Application.create!(applicant_name: 'Post Malone', address: '6543 Peoria St Denver CO 80056', description: 'I am a foster pet parent', status: 'pending')
 @application_4 = Application.create!(applicant_name: 'Doja Cat', address: '9742 Billings St Aurora CO 80245', description: 'I need an emotional support animal', status: 'in progress')
+
+PetApplication.create(pet_id: @pet_1.id, application_id: @application_1.id)
+PetApplication.create(pet_id: @pet_2.id, application_id: @application_1.id)
 

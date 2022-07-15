@@ -1,6 +1,6 @@
 class ApplicationsController < ApplicationController
     def show
-        @applications = Application.all
-        @pets = PetApplication.all
+        @application = Application.find(params[:id])
+        @pets = @application.pets
     end
 end
