@@ -1,2 +1,56 @@
-<h1>Applicants#_form</h1>
-<p>Find me in app/views/applicants/_form.html.erb</p>
+<%= form_with model: applicant do |form| %>
+    <% if @department_case.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@department_case.errors.count, "error") %> prohibited this case from being saved:</h2>
+
+        <ul>
+        <% @department_case.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="input-group" id="subject_group">
+        <%= form.label :subject, { class: "input-group-text" } %><br>
+        <%= form.text_area :subject, { class: "form-control", id: "text-input-area" } %></p>
+    </div>
+
+    <div class="input-group" id="uid_group">
+        <%= form.label :uid, { class: "input-group-text" } %><br>
+        <%= form.text_area :uid, { class: "form-control", id: "text-input-area" } %></p>
+    </div>
+
+    <div class="visually-hidden">
+      <div class="field">
+          <%= form.label :department_id %>
+          <%= form.text_field :department_id, { value: "#{@department.id}" } %></p>
+      </div>
+    </div>
+
+    <div class="input-group" id="active_leads_group">
+        <%= form.label :active_leads, { class: "input-group-text" } %><br>
+        <%= form.text_field :active_leads, { class: "form-control", id: "text-input-area" } %></p>
+    </div>
+
+    <div class="input-group" id="active_group">
+      <label class="input-group-text" for="inputGroupSelect01">Active?</label>
+        <%= form.select :active, [["True", true], ["False", false]], { class: "form-select", id: "inputGroupSelect"} %>
+    </div>
+
+    <div class="container" id="buttons_group">
+      <div class="row g-5">
+        <div class="col">
+          <%= form.submit "Save", type: :submit, class: "btn btn-primary" %>
+        </div>
+
+        <div class="col">
+          <%= form.button :cancel, type: "reset", class: "btn btn-outline-secondary" %>
+        </div>
+
+        <div class="col">
+          <%= link_to "Go Back", :back, { class: "btn btn-outline-primary"} %>
+        </div>
+      </div>
+    </div>
+<% end %>

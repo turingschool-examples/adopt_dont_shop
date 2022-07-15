@@ -1,2 +1,48 @@
-<h1>Applicants#show</h1>
-<p>Find me in app/views/applicants/show.html.erb</p>
+<h1><%= "#{@applicant.name}" %></h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name: </th>
+      <th>Address: </th>
+      <th>Description: </th>
+      <th>Pets: </th>
+      <th>Status: </th>
+      <th>Edit: </th>
+      <th>Delete: </th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+      <tr>
+        <td><%= @applicant.name %></td>
+        <td><%= @applicant.address %></td>
+        <td><%= @applicant.description %></td>
+        <td><%= link_to "#{@applicant.pets}", "/applicants/#{@applicant.id}/pets" %></td>
+        <td><%= @applicant.status %></td>
+        <td><a href="/applicants/#{@applicant.id}/edit %>" type="button" class="btn btn-outline-primary btn-sm" >Edit</a></td>
+        <td><%= button_to 'Delete', applicant_path(@applicant), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+  </tbody>
+</table>
+</div>
+
+<br>
+
+  <div class="container">
+    <div class="row g-5">
+        <div class="col">
+            <a class="btn btn-primary" href="<%= applicants_path %>" role="button">Back</a>
+        </div>
+
+        <div class="col">
+          <a href="<%= applicant_cases_path %>" type="button" class="btn btn-outline-primary">View All Cases</a>
+        </div>
+
+        <div class="col">
+              <a href="<%= new_applicant_path %>" type="button" class="btn btn-outline-primary">New Department</a>
+        </div>
+    </div>
+  </div>
+<p id="notice"><%= notice %></p>

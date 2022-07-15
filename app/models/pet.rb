@@ -1,5 +1,5 @@
 class Pet < ApplicationRecord
-  has_many :applicants, through: :applicant_pets, cache_counter: true
+  has_many :applicants, through: :applicant_pets
   
   validates :name, presence: true
   validates :age, presence: true, numericality: true
