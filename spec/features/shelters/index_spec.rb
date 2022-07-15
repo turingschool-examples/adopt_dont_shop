@@ -114,19 +114,23 @@ RSpec.describe 'the shelters index' do
 
   it 'has a section for shelters with pending applications' do
     mystery_shelter = Shelter.create!(name: 'Mystery Building', city: 'Irvine CA', foster_program: false, rank: 9)
-
-    john_application = Application.create!(name: 'John Doe', street_address: '123 apple street', city: 'Denver', state: 'CO', zipcode: '90210', description: 'we love pets', status: 'Pending')
-    
     scooby = Pet.create!(name: 'Scooby', age: 2, breed: 'Great Dane', adoptable: true, shelter_id: mystery_shelter.id)
     clifford = Pet.create!(name: 'Clifford', age: 1, breed: 'Red Dog', adoptable: true, shelter_id: mystery_shelter.id)
-
+    john_application = Application.create!(name: 'John Doe', street_address: '123 apple street', city: 'Denver', state: 'CO', zipcode: '90210', description: 'we love pets', status: 'Pending')
     PetApplication.create!(pet: scooby, application: john_application)
     PetApplication.create!(pet: clifford, application: john_application)
+
+
+    fancy_shelter = Shelter.create(name: 'Fancy pets of Colorado', city: 'Denver, CO', foster_program: true, rank: 10)
+    lucille = Pet.create!(name: 'Lucille Bald', breed: 'sphynx', age: 8, adoptable: true, shelter_id: fancy_shelter.id)
+    sarah_application = Application.create!(name: 'Sarah Smith', street_address: '456 banana street', city: 'Mars', state: 'AZ', zipcode: '07653', description: 'I love pets', status: 'In Progress')
+    PetApplication.create!(pet: lucille, application: sarah_application)
 
     visit '/admin/shelters'
 
     expect(page).to have_content("Shelter's with Pending Applications")
-    expect(page).to have_content("Scooby")
-    expect(page).to have_content("Clifford")
+    expect(page).to have_content("Mystery Building")
+    expect(page).to_not have_content("Fancy pets of Colorado")
+
   end
 end
