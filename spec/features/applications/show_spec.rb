@@ -9,7 +9,11 @@ RSpec.describe "application show page" do
 #     The Application's status, either "In Progress", "Pending", "Accepted", or "Rejected"
     it 'displays the name, full address, description, names of all pets in the application as links, and the status of the application' do 
         new_applicant = Applicant.create!(name: "Test", address: "5555 Test Avenue", city: "Denver", state: "CO", zip: 55555, names_pets_wanted: "Fido", description: "they love pets!", application_status: "In Progress")
+        shelter_1 = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
+        fido = shelter_1.pets.create(name: 'Fido', breed: 'Beagle', age: 5, adoptable: true)
+        ApplicantPet.create!(pet: fido, applicant: new_applicant)
         visit "/applications/#{new_applicant.id}"
+        
         # save_and_open_page
         expect(page).to have_content("name: Test")
         expect(page).to have_content("address: 5555 Test Avenue")
@@ -17,7 +21,7 @@ RSpec.describe "application show page" do
         expect(page).to have_content("state: CO")
         expect(page).to have_content("name of pets wanting to adopt: Fido")
         #Links to pets not currently working atm - Nick
-        
+
         expect(page).to have_content("application_status: In Progress")
 
     end 
