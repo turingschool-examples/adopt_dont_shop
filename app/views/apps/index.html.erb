@@ -1,6 +1,6 @@
-<% @applications.each do |application| %>
+<% @apps.each do |application| %>
   <section id="application-<%= application.id %>">
-    <h1><%= application.name %></h1>
+    <h1><%= link_to "#{application.name}", "/apps/#{application.id}" %></h1>
     <p><%= application.address %></p>
     <p><%= application.city %></p>
     <p><%= application.state %></p>

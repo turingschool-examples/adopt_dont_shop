@@ -11,9 +11,14 @@ class AppsController < ApplicationController
   end
 
   def create
-    app = App.create(app_params)
-    # PetApp.create!(pet: params[:pet], app: app)
-    redirect_to "/apps/#{app.id}"
+    app = App.new(app_params)
+
+    if app.save
+      redirect_to "/apps/#{app.id}"
+    else
+      redirect_to "/apps/new"
+      flash[:alert] = "Error: #{error_message(app.errors)}"
+    end
   end
 
   private

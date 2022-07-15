@@ -6,7 +6,7 @@
 <p>Description: <%= @app.description %></p>
 <p>
   Pets: <% @app.pets.each do |pet| %>
-  <p><%= pet.name %></p>
+  <p><%= link_to "#{pet.name}", "/pets/#{pet.id}" %></p>
   <% end %>
 </p>
 <p>Status: <%= @app.status %></p>
