@@ -1,0 +1,13 @@
+<h1>Add a Pet to this Application</h1>
+
+<p><%= form_with url: "/apps/#{@app.id}?search=#{:search}", method: :get, local: true, skip_enforcing_utf8: true do |form| %>
+  <p><%= form.label :search %>
+  <%= form.text_field :search %>
+  <%= form.submit 'Submit', name: nil %></p>
+<% end %></p>
+
+<% if @pets %>
+  <% @pets.each do |pet| %>
+    <p><%= pet.name %></p>
+  <% end %>
+<% end %>

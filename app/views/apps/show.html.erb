@@ -10,3 +10,7 @@
   <% end %>
 </p>
 <p>Status: <%= @app.status %></p>
+
+<% if @app.status == "in progress" %>
+  <%= render partial: 'search' %>
+<% end %>
