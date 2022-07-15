@@ -1,0 +1,6 @@
+class ApplicantsController < ApplicationController
+
+
+
+
+end
