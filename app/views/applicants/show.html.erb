@@ -1,10 +1,7 @@
 <h1>name: <%= @applicant.name %></h1>
 <h3>address: <%= @applicant.address %></h3>
-<h3>address: <%= @applicant.city %></h3>
-<h3>address: <%= @applicant.state %></h3>
-<h3>address: <%= @applicant.zip %></h3>
 
-<h3>name of pets wanting to adopt: <%= pets.each do |pet| %>
+<h3>name of pets wanting to adopt: <%= @applicant.pets.all.each do |pet| %>
 <%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
 <%end%></h3>
 
