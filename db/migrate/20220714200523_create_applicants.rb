@@ -5,7 +5,7 @@ class CreateApplicants < ActiveRecord::Migration[5.2]
       t.string :street_address
       t.string :city
       t.string :state
-      t.integer :zip_code
+      t.string :zip_code
       t.string :applicant_bio
       t.string :application_status
 
