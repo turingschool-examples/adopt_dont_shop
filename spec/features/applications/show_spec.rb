@@ -28,6 +28,8 @@ RSpec.describe 'application show page' do
         visit "/applications/#{application.id}"
 
         expect(page).to have_content(pet1.name)
+                save_and_open_page
+
 
         click_on(pet1.name)
 
@@ -60,5 +62,20 @@ RSpec.describe 'application show page' do
         click_button("Search")
 
         expect(page).to have_content(pet1.name)
+    end
+
+    it 'can add a pet to an application after searching based on name' do
+        application = Application.create!(name: "Bob Bobbicus", street: "123 Main street", city: "Newtown", state: "State", zipcode: 80009, status:"In Progress", description:"I love dogs so much and have lots of food for them")
+        shelter = Shelter.create!(name: 'Mystery Building', city: 'Irvine CA', foster_program: false, rank: 9)
+        pet1 = Pet.create!(name: 'Scooby', age: 2, breed: 'Great Dane', adoptable: true, shelter_id: shelter.id)
+
+        visit "/applications/#{application.id}"
+        fill_in("search", with:"Scooby")
+        click_button("Search")
+        click_button("Adopt this pet")
+
+        within("#pet-#{pet1.id}") do
+            expect(page).to have_content(pet1.name)
+        end  
     end
 end 

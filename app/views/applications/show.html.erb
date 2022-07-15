@@ -6,7 +6,9 @@
 <%= @application.zipcode %> </p>
 <h3>Application pets:</h3>
 <% @application.pets.each do |pet| %> 
+<div id="pet-<%= pet.id %>">
 <p><%= link_to "#{pet.name}", "/pets/#{pet.id}" %> </p>
+</div>
 <% end %>
 <p>Application description: <%= @application.description %> </p>
 <p>Application status: <%= @application.status %> </p>
@@ -16,6 +18,7 @@
     <%= form.submit "Search" %>
 <% end %>
 <% @pets.each do |pet| %> 
-<p><%= link_to "#{pet.name}", "/pets/#{pet.id}" %> </p>
+    <p><%= pet.name %> 
+    <%= button_to "Adopt this pet", "/applications/#{@application.id}", method: :post, params: {:pet_id => pet.id} %>    
 <% end %>
 
