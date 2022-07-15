@@ -11,11 +11,13 @@ class AppsController < ApplicationController
   end
 
   def create
-    
+    app = App.create(app_params)
+    # PetApp.create!(pet: params[:pet], app: app)
+    redirect_to "/apps/#{app.id}"
   end
 
   private
-  def pet_params
-    params.permit(:id, :name, :address, :city, :state, :zip, :description)
+  def app_params
+    params.permit(:id, :name, :address, :city, :state, :zip, :description, :status)
   end
 end

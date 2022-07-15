@@ -1,6 +1,6 @@
 <h1>Create Application</h1>
 
-<%= form_with url: "/applications/#{:id}", method: :post, local: true do |form| %>
+<%= form_with url: "/apps", method: :post, local: true do |form| %>
   <p><%= form.label :name %>
   <%= form.text_field :name %></p>
     <p><%= form.label :address %>
@@ -11,7 +11,8 @@
   <%= form.text_field :state %></p>
     <p><%= form.label :zip %>
   <%= form.number_field :zip %></p>
-    <p><%= form.label :description %>
-  <%= form.text_field :description %></p>
-  <p><%= form.submit 'Create Application' %></p>
+  <p><%= form.label :description %>
+    <%= form.text_area :description, size:'70x5', placeholder: 'Please write why you would make a good home for the furry being(s)' %></p>
+  <%= form.hidden_field :status, value: 'in progress' %>
+  <p><%= form.submit 'Submit' %></p>
 <% end %>
