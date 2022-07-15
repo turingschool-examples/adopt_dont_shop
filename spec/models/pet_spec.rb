@@ -27,11 +27,12 @@ RSpec.describe Pet, type: :model do
       end
     end
 
-    describe "self.find_by_name" do 
+    describe "#find_by_name" do 
       it 'will return a pet object when the pets name is entered' do 
         application = Application.create!(name: "Bob Bobbicus", street: "123 Main street", city: "Newtown", state: "State", zipcode: 80009, status:"In Progress", description:"I love dogs so much and have lots of food for them")
         shelter = Shelter.create!(name: 'Mystery Building', city: 'Irvine CA', foster_program: false, rank: 9)
         pet1 = Pet.create!(name: 'Scooby', age: 2, breed: 'Great Dane', adoptable: true, shelter_id: shelter.id)
+        
         expect(Pet.find_by_name("Scooby")).to eq([pet1])
       end
     end 

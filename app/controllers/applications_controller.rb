@@ -17,13 +17,19 @@ class ApplicationsController < ApplicationController
         end 
     end
 
-    def apppetscrreate
+    def apppetscreate
         application = Application.find(params[:application_id])
         pet = Pet.find(params[:pet_id])
         PetApplication.create(pet: pet, application: application)
         redirect_to "/applications/#{application.id}"
     end 
-    
+
+    def update
+        application = Application.find(params[:application_id])
+        application.update(description: params[:description], status:"Pending")
+        redirect_to "/applications/#{application.id}"
+    end 
+
     private
     def application_params
         params.permit(:name, :street, :city, :state, :zipcode, :description)
