@@ -1,5 +1,6 @@
 <h1>New Application</h1>
 <%= form_with url: '/applications', method: :post, local: true do |f| %>
+
    <%= f.label :name %>
    <%= f.text_field :name %>
 
@@ -8,6 +9,7 @@
 
    <%= f.label :city %>
    <%= f.text_field :city %>
+
 
    <%= f.label :state %>
    <%= f.text_field :state %>
