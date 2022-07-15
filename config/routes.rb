@@ -2,13 +2,15 @@ Rails.application.routes.draw do
   get '/', to: 'application#welcome'
 
   get '/applicants', to: 'applicants#index'
+  post '/applicants', to: 'applicants#create'
   get '/applicants/new', to: 'applicants#new'
   get '/applicants/edit', to: 'applicants#edit'
   get '/applicants/:id', to: 'applicants#show'
-  post '/applicants', to: 'applicants#create'
   patch '/applicants/:id', to: 'applicants#update'
+  put '/applicants/:id', to: 'applicants#update'
   delete '/applicants/:id', to: 'applicants#destroy'
- 
+
+  get '/applicants/:id/pets', to: 'applicants_pets#index'
 
   get '/shelters', to: 'shelters#index'
   get '/shelters/new', to: 'shelters#new'
