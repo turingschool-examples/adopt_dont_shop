@@ -8,5 +8,6 @@ class Applicant < ApplicationRecord
     validates :names_pets_wanted, presence: true
     validates :application_status, presence: true
 
-    has_many :pets
+    has_many :applicant_pets
+    has_many :pets, through: :applicant_pets
 end
