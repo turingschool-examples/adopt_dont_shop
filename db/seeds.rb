@@ -6,9 +6,9 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 Pet.destroy_all
-Applicant.destroy_all
+Application.destroy_all
 
-mike = Applicant.create!(
+mike = Application.create!(
               name: 'Mike Dao',
               street_address: '245 Maple St',
               city: 'Centennial',
@@ -16,7 +16,7 @@ mike = Applicant.create!(
               zip_code: '80112',
               applicant_bio: 'My dog needs another to chase up trees.',
               application_status: 'Pending')
-chris = Applicant.create!(
+chris = Application.create!(
               name: 'Chris Simmons',
               street_address: '533 Oak St',
               city: 'Columbus',
@@ -24,7 +24,7 @@ chris = Applicant.create!(
               zip_code: '43004',
               applicant_bio: 'Because how much more work could a third cat be?',
               application_status: 'In Progress')
-dani = Applicant.create!(
+dani = Application.create!(
               name: 'Dani Coleman',
               street_address: '912 Willow St',
               city: 'Arvada',

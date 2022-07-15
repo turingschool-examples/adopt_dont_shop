@@ -1,9 +1,9 @@
-class ApplicantsController < ApplicationController
+class ApplicationsController < ApplicationController
  def index
-   @applicants = Applicant.all
+   @applications = Application.all
  end
 
  def show
-   @applicant = Applicant.find(params[:id])
+   @application = Application.find(params[:id])
  end
 end
