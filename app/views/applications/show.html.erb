@@ -7,24 +7,37 @@
 <h3><%= @application.description %></h3>
 
 <div id="pets_in_application">
-<% @application.pets.each do |pet|%>
-    <h4><%= link_to "#{pet.name}","/pets/#{pet.id}" %></h4>
-<% end %>
+    <% @application.pets.each do |pet|%>
+        <h4><%= link_to "#{pet.name}","/pets/#{pet.id}" %></h4>
+    <% end %>
 </div>
 
 <h3><%= @application.status %></h3>
 
-<div id="pet_search">
-    <h3>Search for a Pet to Add to this Application</h3>
-    <%= form_tag("/applications/#{@application.id}?", method: :get, local: true, skip_enforcing_utf8: true) do %>
-        <%= label_tag(:search, "Search for Pets by name:") %>
-        <%= text_field_tag :search, params[:search] %>
-        <%= submit_tag("Search", :name => nil) %>
-    <% end %> 
-</div>
 
-<div id="searched_pets">
-    <% @pets.each do |pet|%>
-        <p><%= pet.name %><%= button_to "Adopt this Pet", "/pet_applications/#{pet.id}/#{@application.id}", method: :post %></p>
-    <% end %>
-</div>
+<% if @application.has_pets? %>
+    <div id="submit_application">
+        <%= form_with url: "/applications/#{@application.id}", method: :patch, local: true do |f|%>
+        <%= f.label :description, "description:" %>
+        <%= f.text_field :description %>
+        <%= f.submit "Submit this Application" %>
+        <% end %>
+    </div>
+<% end %>
+
+<% if @application.status == "In Progress" %>
+    <div id="pet_search">
+        <h3>Search for a Pet to Add to this Application</h3>
+        <%= form_tag("/applications/#{@application.id}?", method: :get, local: true, skip_enforcing_utf8: true) do %>
+            <%= label_tag(:search, "Search for Pets by name:") %>
+            <%= text_field_tag :search, params[:search] %>
+            <%= submit_tag("Search", :name => nil) %>
+        <% end %> 
+    </div>
+
+    <div id="searched_pets">
+        <% @pets.each do |pet|%>
+            <p><%= pet.name %><%= button_to "Adopt this Pet", "/pet_applications/#{pet.id}/#{@application.id}", method: :post %></p>
+        <% end %>
+    </div>
+<% end %>
