@@ -104,4 +104,30 @@ RSpec.describe 'the application show' do
       expect(page).to have_button("Adopt this Pet")
     end 
   end
+
+  it "adopt this pet button adds the pet to the application" do
+    application = Application.create!(name: 'John Doe', street_address: '123 apple street', city: 'Denver', state: 'CO', zipcode: '90210', description: 'we love pets', status: 'In Progress')
+    shelter = Shelter.create!(name: 'Mystery Building', city: 'Irvine CA', foster_program: false, rank: 9)
+    scooby = Pet.create!(name: 'Scooby', age: 2, breed: 'Great Dane', adoptable: true, shelter_id: shelter.id)
+    clifford = Pet.create!(name: 'Clifford', age: 1, breed: 'Red Dog', adoptable: true, shelter_id: shelter.id)
+    rudolph = Pet.create!(name: 'Rudolph', age: 100, breed: 'Not Sure', adoptable: false, shelter_id: shelter.id)
+    fordie = Pet.create!(name: 'Fordie', age: 3, breed: 'Lab', adoptable: true, shelter_id: shelter.id)
+
+    PetApplication.create!(pet: scooby, application: application)
+
+    visit "/applications/#{application.id}"
+
+    fill_in('Search for Pets by name:', with: "Cli")
+    
+    click_button("Search")
+
+    click_button("Adopt this Pet")
+
+    expect(current_path).to eq("/applications/#{application.id}")
+  
+    within "#pets_in_application" do 
+      expect(page).to have_content("Clifford")
+      expect(page).to_not have_content("Fordie")
+    end 
+  end
 end

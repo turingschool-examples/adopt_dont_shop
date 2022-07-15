@@ -6,9 +6,11 @@
 <h3><%= @application.zipcode %></h3>
 <h3><%= @application.description %></h3>
 
+<div id="pets_in_application">
 <% @application.pets.each do |pet|%>
     <h4><%= link_to "#{pet.name}","/pets/#{pet.id}" %></h4>
 <% end %>
+</div>
 
 <h3><%= @application.status %></h3>
 
