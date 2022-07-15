@@ -31,8 +31,8 @@ RSpec.describe 'user can create new application' do
    end
 
    it "has a form that creates a new application" do
-      visit "/applications/new" 
-      
+      visit "/applications/new"
+
       fill_in "name", with: "John"
       fill_in "address", with: "123 Main Street"
       fill_in "city", with: "Nashville"
@@ -48,5 +48,6 @@ RSpec.describe 'user can create new application' do
       expect(page).to have_content("TN")
       expect(page).to have_content(37067)
       expect(page).to have_content("I love dogs.")
-   end  
+      expect(page).to have_content("In Progress")
+   end
 end
