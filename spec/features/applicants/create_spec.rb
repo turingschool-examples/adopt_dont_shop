@@ -16,8 +16,6 @@ RSpec.describe 'New Applicant form page' do
     visit '/pets'
 
     click_link("Start an Application", :match => :first)
-    
-    save_and_open_page
 
     expect(page).to have_content("Pet Adoption Form")
     expect(find('form')).to have_content('Name')
