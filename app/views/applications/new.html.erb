@@ -1,6 +1,6 @@
 <h1>Start An Application</h1>
 
-<%= form_with url: "/applications/new", method: :get, local: true do |f| %>
+<%= form_with url: "/applications/new", method: :post, local: true do |f| %>
   <%= f.label :name %>
   <%= f.text_field :name %>
   <%= f.label :street_address %>
@@ -9,7 +9,7 @@
   <%= f.text_field :city %>
   <%= f.label :state %>
   <%= f.text_field :state %>
-  <%= f.label :zip_code %>
-  <%= f.text_field :zip_code %>
+  <%= f.label :zipcode %>
+  <%= f.text_field :zipcode %>
   <%= f.submit "Submit" %>
 <% end %>
