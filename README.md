@@ -1,7 +1,12 @@
 # Adopt, don't Shop
+#### Project started by Turing School of Software and Design
+#### The following work was completed by Bryce Simonds and Michael Bonini
 
 ### Existing database design
 ![visual-schema.png](https://i.postimg.cc/0ywZgQ1W/visual-schema.png)
+
+### Current database design
+![adopt_dont_shop](https://user-images.githubusercontent.com/16493270/179372459-b983a3d6-3269-473a-894b-39d6596714ae.png)
 
 ## Learning Goals
 
