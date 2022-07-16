@@ -159,4 +159,25 @@ RSpec.describe 'Applications Show Page' do
     expect(page).to have_content('Fluff')
     expect(page).to have_content('Mr. Fluff')
   end
+
+  it 'shows case-insensitive matches for the pet search' do 
+    app = Application.create!(name: 'Brigitte Bardot', street_address: '123 Main Street', city: 'Denver', state: 'CO', zip_code: '80111', description: 'I love animals!', status: 0)
+
+    shelter_1 = Shelter.create!(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
+    shelter_2 = Shelter.create!(name: 'RGV animal shelter', city: 'Harlingen, TX', foster_program: false, rank: 5)
+    shelter_3 = Shelter.create!(name: 'Fancy pets of Colorado', city: 'Denver, CO', foster_program: true, rank: 10)
+    fluff1 = shelter_1.pets.create!(name: 'Fluffy', breed: 'tuxedo shorthair', age: 5, adoptable: true)
+    fluff2 = shelter_1.pets.create!(name: 'FLUFF', breed: 'shorthair', age: 3, adoptable: true)
+    fluff3 = shelter_3.pets.create!(name: 'Mr. FlUfF', breed: 'sphynx', age: 8, adoptable: true)
+
+    visit "/applications/#{app.id}"
+    # save_and_open_page
+
+    fill_in 'Search', with: 'fluff'
+    click_button 'Submit'
+
+    expect(page).to have_content('Fluffy')
+    expect(page).to have_content('FLUFF')
+    expect(page).to have_content('Mr. FlUfF')
+  end
 end
