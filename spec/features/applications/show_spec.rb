@@ -59,10 +59,27 @@ RSpec.describe 'application show page' do
     vida = dani.pets.create!(adoptable: true, age: 4, breed: 'Yorkshire', name: 'Vida', shelter_id: shelter.id)
 
     visit "/applications/#{mike.id}"
-save_and_open_page
+
     expect(page).to have_content('Mike Dao')
-    expect(page).to have_content('Charlie')
+    expect(page).to have_link('Charlie')
     expect(page).to_not have_content('Mina')
     expect(page).to_not have_content('Chloe')
+    expect(page).to_not have_content('Vida')
+
+    visit "/applications/#{dani.id}"
+
+    expect(page).to have_content('Dani Coleman')
+    expect(page).to have_link('Mina')
+    expect(page).to have_link('Vida')
+    expect(page).to_not have_content('Charlie')
+    expect(page).to_not have_content('Chloe')
+
+    visit "/applications/#{chris.id}"
+
+    expect(page).to have_content('Chris Simmons')
+    expect(page).to have_link('Chloe')
+    expect(page).to_not have_content('Charlie')
+    expect(page).to_not have_content('Mina')
+    expect(page).to_not have_content('Vida')
   end
 end
