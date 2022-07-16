@@ -15,4 +15,18 @@
 
 <div id = "pet_search">
 <h2>Add a Pet to this Application</h2>
+<%= form_with url: "/applications/#{@application.id}?search=find_pet", method: :get, local: true do |f| %>
+  <%= f.label :search_name %>
+  <%= f.text_field :search_name %>
+  <%= f.submit "Search" %>
+<% end %>
+</div>
+
+<div id = "pet_found">
+<% if @located_pets.present? %>
+<% @located_pets.each do |pet| %>
+  <%= link_to "#{pet.name}", "/pets/#{pet.id}", method: :get %>
+<% end %>
+<% end %>
+</div>
 

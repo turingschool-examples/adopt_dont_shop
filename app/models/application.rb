@@ -2,7 +2,7 @@ class Application < ApplicationRecord
   has_many :pet_applications
   has_many :pets, through: :pet_applications  
 
-  def self.search(pet_name)
-    pets.where("name LIKE ?", "%#{pet_name}%")
+  def self.search(search)
+    pets.where("name LIKE ?", search)
   end
 end
