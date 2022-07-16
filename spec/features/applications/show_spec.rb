@@ -68,10 +68,7 @@ RSpec.describe 'Show application', type: :feature do
 
     within("#pet_found") do
       expect(page).to have_content("Bowow")
-      # expect(page).to have_content("labrador")
-      # expect(page).to have_content("3")
-      # expect(page).to have_content("Adoptable")
-      # expect(page).to have_content("Dog Homes")
+      expect(page).to have_button('Add to Application')
     end
   end
 
