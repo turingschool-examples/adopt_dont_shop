@@ -10,7 +10,7 @@
     <%= f.label :state %>    
     <%= f.text_field :state %>
     <%= f.label :zip_code, 'Zip Code' %>    
-    <%= f.text_field :zip_code %>
+    <%= f.text_field :zip_code, required: true %>
     <%= hidden_field_tag 'status', 'In Progress' %>
 
     <%= f.submit "Submit" %>

@@ -11,10 +11,12 @@ class ApplicationsController < ApplicationController
   end
 
   def create
-    params[:address] = "#{params[:street_address]}, #{params[:city]}, #{params[:state]} #{params[:zip_code]}"
-    application = Application.create(application_params)
-
-    redirect_to "/applications/#{application.id}"
+    application = Application.new(application_params)
+    if application.save 
+      redirect_to "/applications/#{application.id}"
+    else
+      redirect_to '/applications/new', notice: "Please fill in all fields."
+    end 
   end
   
   private 
