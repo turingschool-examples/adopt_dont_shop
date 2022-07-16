@@ -13,7 +13,7 @@ RSpec.describe 'applicant show page' do
     pet_4 = shelter_1.pets.create(name: 'Ann', breed: 'ragdoll', age: 5, adoptable: true)
     app_1 = ApplicantPet.create(applicant: bob_1, pet: pet_1)
     app_2 = ApplicantPet.create(applicant: bob_1, pet: pet_4)
-
+    visit "/applicants/#{bob_1.id}"
     expect(page).to have_content("Billy Bob")
     expect(page).to have_content("Street address 6093")
     expect(page).to have_content("I'm bob")
