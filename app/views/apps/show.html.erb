@@ -14,3 +14,7 @@
 <% if @app.status == "in progress" %>
   <%= render partial: 'search' %>
 <% end %>
+
+<% if !@app.pets.empty? %>
+  <%= render partial: 'submit' %>
+<% end %>
