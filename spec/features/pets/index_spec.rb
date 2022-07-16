@@ -82,5 +82,17 @@ RSpec.describe 'the pets index' do
     expect(page).to_not have_content(pet_3.name)
   end
 
-  it 'displays '
+  it 'displays the link to fill out the application from applicant#apply page' do
+    shelter = Shelter.create!(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
+    applicant_1 = Applicant.create!(name: 'Mary Smith', street_address: '123 W Lost Ln', city: 'Denver', state: 'CO', zip_code: '80239', description: 'Words that describe')
+    pet_1 = Pet.create!(adoptable: true, age: 7, breed: 'sphynx', name: 'Bare-y Manilow', shelter_id: shelter.id)
+    pet_2 = Pet.create!(adoptable: true, age: 3, breed: 'domestic pig', name: 'Babe', shelter_id: shelter.id)
+    pet_3 = Pet.create!(adoptable: true, age: 4, breed: 'chihuahua', name: 'Elle', shelter_id: shelter.id)
+
+    visit "/pets"
+
+    click_link("Start an Application", match: :first)
+
+    expect(current_path).to eq("/applicants/apply")
+  end
 end
