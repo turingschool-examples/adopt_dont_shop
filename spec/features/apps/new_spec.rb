@@ -33,7 +33,6 @@ RSpec.describe 'New Apps' do
     fill_in('City', with: app_1.city)
     fill_in('State', with: app_1.state)
     fill_in('Zip', with: app_1.zip)
-    fill_in('Description', with: app_1.description)
 
     click_on('Submit')
     expect(current_path).to eq("/apps/#{App.last.id}")
@@ -42,7 +41,6 @@ RSpec.describe 'New Apps' do
     expect(page).to have_content(app_1.city)
     expect(page).to have_content(app_1.state)
     expect(page).to have_content(app_1.zip)
-    expect(page).to have_content(app_1.description)
     expect(page).to have_content("in progress")
   end
 
@@ -64,6 +62,7 @@ RSpec.describe 'New Apps' do
     fill_in('Name', with: app_1.name)
     fill_in('Address', with: app_1.address)
     fill_in('City', with: app_1.city)
+    # no state
     fill_in('Zip', with: app_1.zip)
 
     click_on('Submit')

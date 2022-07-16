@@ -174,4 +174,46 @@ RSpec.describe 'app show' do
     click_link 'Lobster'
     expect(current_path).to eq("/pets/#{pet_2.id}")
   end
+
+  # Submit an Application
+
+  # As a visitor
+  # When I visit an application's show page
+  # And I have added one or more pets to the application
+  # Then I see a section to submit my application
+  # And in that section I see an input to enter why I would make a good owner for these pet(s)
+  # When I fill in that input
+  # And I click a button to submit this application
+  # Then I am taken back to the application's show page
+  # And I see an indicator that the application is "Pending"
+  # And I see all the pets that I want to adopt
+  # And I do not see a section to add more pets to this application
+
+  it 'can submit an application with pets' do
+    # without pets
+    no_pet_app = App.create!(name: "Dave", address: "22 Dexter St", city: "Denver", state: "CO", zip: "80200", description: "123", status: "in progress")
+    visit "/apps/#{no_pet_app.id}"
+    expect(page).to_not have_content('Submit Application')
+
+    # with pets
+    app_1 = App.create!(name: "Bob", address: "2020 Maple Lane", city: "Denver", state: "CO", zip: "80202", description: "ABC", status: "in progress")
+    shelter = Shelter.create!(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
+    pet_1 = Pet.create!(adoptable: true, age: 1, breed: 'sphynx', name: 'Lucille Bald', shelter_id: shelter.id)
+    pet_2 = Pet.create!(adoptable: true, age: 3, breed: 'doberman', name: 'Lobster', shelter_id: shelter.id)
+    pet_3 = Pet.create(adoptable: false, age: 2, breed: 'saint bernard', name: 'Beethoven', shelter_id: shelter.id)
+
+    PetApp.create!(pet: pet_1, app: app_1)
+    PetApp.create!(pet: pet_2, app: app_1)
+
+    visit "/apps/#{app_1.id}"
+
+    fill_in 'Add a description', with: 'I love dogs'
+    click_button 'Submit Application'
+
+    expect(current_path).to eq("/apps/#{app_1.id}")
+    expect(page).to have_content('Status: pending')
+    expect(page).to have_content('Lobster')
+    expect(page).to_not have_content('Beethoven')
+    expect(page).to_not have_content('Search')
+  end
 end
