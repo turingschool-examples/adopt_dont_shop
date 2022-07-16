@@ -42,6 +42,7 @@ RSpec.describe 'the applicant show page', type: :feature do
     visit "/applicants/#{applicant.id}"
     
     expect(page).to have_content(applicant.pets.first.name)
+    expect(page).to have_link('Scooby')
 
     click_link('Scooby')
     
