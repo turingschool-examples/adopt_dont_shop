@@ -11,8 +11,7 @@ shelter_1.pets.create(name: 'Clawdia', breed: 'shorthair', age: 3, adoptable: tr
 shelter_3.pets.create(name: 'Lucille Bald', breed: 'sphynx', age: 8, adoptable: true)
 
 vet_office_1 = VeterinaryOffice.create(name: 'Special Friends', boarding_services: true, max_patient_capacity: 100)
-vet_office_2 = VeterinaryOffice.create(name: 'Pet Emergency Room', boarding_services: true,
-                                       max_patient_capacity: 50)
+vet_office_2 = VeterinaryOffice.create(name: 'Pet Emergency Room', boarding_services: true, max_patient_capacity: 50)
 vet_office_3 = VeterinaryOffice.create(name: 'The Country Vet', boarding_services: true, max_patient_capacity: 200)
 vet_office_1.veterinarians.create(name: 'Morgan', on_call: true, review_rating: 10)
 vet_office_1.veterinarians.create(name: 'Heather', on_call: true, review_rating: 9)
