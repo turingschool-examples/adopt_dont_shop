@@ -75,7 +75,7 @@ GEM
     ffi (1.15.5)
     globalid (1.0.0)
       activesupport (>= 5.0)
-    i18n (1.11.0)
+    i18n (1.12.0)
       concurrent-ruby (~> 1.0)
     jbuilder (2.11.5)
       actionview (>= 5.0.0)
@@ -101,8 +101,6 @@ GEM
     nio4r (2.5.8)
     nokogiri (1.13.7)
       mini_portile2 (~> 2.8.0)
-      racc (~> 1.4)
-    nokogiri (1.13.7-x86_64-darwin)
       racc (~> 1.4)
     orderly (0.1.1)
       capybara (>= 1.1)
@@ -221,7 +219,6 @@ GEM
 
 PLATFORMS
   ruby
-  x86_64-darwin-19
 
 DEPENDENCIES
   bootsnap (>= 1.1.0)
@@ -250,4 +247,4 @@ RUBY VERSION
    ruby 2.7.4p191
 
 BUNDLED WITH
-   2.2.9
+   2.1.4
