@@ -4,7 +4,11 @@ class ApplicationsController < ApplicationController
  end
 
  def show
-   require "pry"; binding.pry
-   @application = Application.find(params[:id])
+      @application = Application.find(params[:id])
+      # require "pry"; binding.pry
+      # @pets = @application.applicant_pets
+    # else
+    #   @application = Application.find(params[:id])
+    # end
  end
 end
