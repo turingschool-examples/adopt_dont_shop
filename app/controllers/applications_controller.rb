@@ -9,4 +9,5 @@ class ApplicationsController < ApplicationController
       @located_pets = Pet.search(params[:search_name])
     end
   end
+
 end

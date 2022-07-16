@@ -25,9 +25,8 @@
 <div id = "pet_found">
 <% if @located_pets.present? %>
 <% @located_pets.each do |pet| %>
-  <%= link_to "#{pet.name}", "/pets/#{pet.id}", method: :get %>
+  <p><%= link_to "#{pet.name}", "/pets/#{pet.id}", method: :get %></p>
   <%= button_to "Add to Application", "/applications/#{@application.id}", method: :post, params: {:pet_id=> pet.id} %>
 <% end %>
 <% end %>
 </div>
-
