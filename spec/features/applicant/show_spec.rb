@@ -26,8 +26,6 @@ RSpec.describe 'the applicant show page', type: :feature do
     expect(page).to have_content(applicant.application_status)
   end 
 
-  # -names of all pets that this application is for 
-  # -(all names of pets should be links to their show page)
   it 'US26: can list all the pets an application is for & links to pets show page' do
      applicant = Applicant.create!(name: 'Oliver Smudger', 
                                   street_address: '1234 N Random Avenue', 
