@@ -1,6 +1,7 @@
 class ApplicationsController < ApplicationController
   def show
     @application = Application.find(params[:id])
+    @admin = params[:admin]
     if params[:search].present?
       @pets = Pet.search(params[:search])
     else 
@@ -28,6 +29,9 @@ class ApplicationsController < ApplicationController
     redirect_to "/applications/#{app.id}"
   end
 
+  def admin
+    redirect_to "/applications/#{params[:id]}?admin=true"
+  end
   private
 
   def application_params

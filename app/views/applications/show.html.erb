@@ -8,7 +8,13 @@
 
 <div id="pets_in_application">
     <% @application.pets.each do |pet|%>
-        <h4><%= link_to "#{pet.name}","/pets/#{pet.id}" %></h4>
+        <div id="pets-<%= pet.id %>">
+            <h4><%= link_to "#{pet.name}","/pets/#{pet.id}" %></h4>
+            <% unless @admin.nil? %>
+                <%= button_to "Approve", "/admin/applications/#{@application.id}" %>
+                <%= button_to "Reject", "/admin/applications/#{@application.id}" %>
+            <% end %>
+        </div>
     <% end %>
 </div>
 
