@@ -3,10 +3,14 @@
 <p>Description: <%= @application.description %></p>
 <p>Status: <%= @application.status %></p>
 
-<h2>Pets</h2>
-<% @application.pets.each_with_index do |pet| %>
-  <%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
-<% end %>
+<h2>Applying to Adopt:</h2>
+<div id="pets">
+<ul>
+  <% @application.pets.each_with_index do |pet| %>
+    <li><%= link_to "#{pet.name}", "/pets/#{pet.id}" %></li>
+  <% end %>
+</ul>
+</div>
 
 <h2>Add a Pet to this Application</h2>
 
@@ -21,5 +25,6 @@
 <% if @pets != nil %>
   <% @pets.each do |pet|%>
     <%= pet.name %>
+    <%= button_to 'Adopt this Pet', "/applications/#{@application.id}", params: {new_pet: pet}, method: :get %>
   <% end %>
 <% end %>
