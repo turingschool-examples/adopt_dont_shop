@@ -260,7 +260,7 @@ RSpec.describe 'the application show' do
       click_on("Approve")
     end 
 
-    expect(current_path).to eq("/admin/applications/#{applications.id}")
+    expect(current_path).to eq("/applications/#{application.id}")
 
     within "#pets-#{scooby.id}" do 
       expect(page).to have_content("Approved")
@@ -289,7 +289,7 @@ RSpec.describe 'the application show' do
       click_on("Reject")
     end 
 
-    expect(current_path).to eq("/admin/applications/#{applications.id}")
+    expect(current_path).to eq("/applications/#{application.id}")
 
     within "#pets-#{scooby.id}" do 
       expect(page).to have_content("Rejected")

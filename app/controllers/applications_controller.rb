@@ -29,6 +29,13 @@ class ApplicationsController < ApplicationController
     redirect_to "/applications/#{app.id}"
   end
 
+  def update
+    app = Application.find(params[:id])
+    pet_application = app.pet_applications.find_by(pet_id: params[:pet_id].to_i)
+    pet_application.update(pet_status: params[:pet_status])
+    redirect_to "/admin/applications/#{app.id}"
+  end
+
   def admin
     redirect_to "/applications/#{params[:id]}?admin=true"
   end

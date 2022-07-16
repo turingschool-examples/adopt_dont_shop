@@ -9,10 +9,17 @@
 <div id="pets_in_application">
     <% @application.pets.each do |pet|%>
         <div id="pets-<%= pet.id %>">
-            <h4><%= link_to "#{pet.name}","/pets/#{pet.id}" %></h4>
+            <h4><%= link_to "#{pet.name}","/pets/#{pet.id}?" %></h4>
             <% unless @admin.nil? %>
-                <%= button_to "Approve", "/admin/applications/#{@application.id}" %>
-                <%= button_to "Reject", "/admin/applications/#{@application.id}" %>
+                <% pet_application = @application.pet_applications.find_by(pet_id: pet.id) %>
+                <% if pet_application.pet_status == 'approved'%>
+                    <h4> Approved </h4>
+                <% elsif pet_application.pet_status == 'rejected' %>
+                    <h4> Rejected </h4>
+                <% else %>
+                    <%= button_to "Approve", "/admin/applications/#{@application.id}?pet_status=approved&pet_id=#{pet.id}", method: :patch %>
+                    <%= button_to "Reject", "/admin/applications/#{@application.id}?pet_status=rejected&pet_id=#{pet.id}", method: :patch %>
+                <% end %>
             <% end %>
         </div>
     <% end %>
