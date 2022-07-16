@@ -1,4 +1,5 @@
 class Applicant < ApplicationRecord
+  after_initialize :defaults
 
   validates :name, presence: true
   validates :street_address, presence: true
@@ -9,5 +10,8 @@ class Applicant < ApplicationRecord
   has_many :applicant_pets
   has_many :pets, :through => :applicant_pets
 
-
+  def defaults 
+    self.description ||= 'N/A'
+    self.application_status ||= 'In Progress'
+  end
 end
