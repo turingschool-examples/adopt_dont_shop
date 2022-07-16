@@ -6,3 +6,12 @@
 <% @applicant.pets.each do |pet|%>
   <p> <%= link_to "#{pet.name}", "/pets/#{pet.id}" %> </p>
 <% end %>
+
+<%= form_with url: "/applicants/#{@applicant.id}?pet_name=#{params[:pet_name]}", method: :get, local: true, skip_enforcing_utf8: true do |form|%>
+    <%= form.label :pet_name, "Add a Pet to this Application" %>
+    <%= form.text_field :pet_name %>
+    <%= form.submit "Submit", name: nil %>
+    <% end %>
+<% if @new_pets.present?%>
+  <%= @new_pets.name%>
+<% end %>

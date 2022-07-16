@@ -49,7 +49,7 @@ RSpec.describe 'applicant show page' do
     expect(page).to_not have_content('Clawdia')
     expect(page).to have_content("Add a Pet to this Application")
 
-    fill_in 'name', with: 'Clawdia'
+    fill_in 'pet_name', with: 'Clawdia'
     click_on 'Submit'
 
     expect(current_path).to eq("/applicants/#{bob_1.id}")
