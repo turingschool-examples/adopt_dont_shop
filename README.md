@@ -89,7 +89,7 @@ Then I can see the following:
 ```
 
 ```
-[ ] done
+[X] done
 
 Starting an Application
 

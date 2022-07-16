@@ -1,13 +1,3 @@
-<%= form_with url: '/applications/new', method: :post, local: true do |application| %>
-  <%= form.label :name %>
-  <%= form.text_field :name %><br/>
-  <%= form.label :street_address %>
-  <%= form.text_field :street_address %><br/>
-  <%= form.label :city %>
-  <%= form.text_field :city %>
-  <%= form.label :state %>
-  <%= form.text_field :state %>
-  <%= form.label :zip_code %>
-  <%= form.text_field :zip_code %><br/>
-  <%= form.submit 'Submit'%>
-<% end %>
+<h1>New Pet Application</h1>
+
+<%= render partial: "form", locals: { path: "/applications/#{@application.id}",  method: :post, local: true } %>

@@ -13,11 +13,6 @@ RSpec.describe Application, type: :model do
     it { should validate_presence_of(:state) }
     it { should validate_numericality_of(:zip_code) }
     it { should validate_length_of(:zip_code).is_equal_to(5) }
-    it { should validate_presence_of(:applicant_bio) }
-    it { should allow_value('In Progress').for(:application_status) }
-    it { should allow_value('Pending').for(:application_status) }
-    it { should allow_value('Accepted').for(:application_status) }
-    it { should allow_value('Rejected').for(:application_status) }
   end
 
   describe 'the pets in which an applicant is applying' do
