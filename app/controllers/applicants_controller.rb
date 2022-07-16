@@ -1,5 +1,9 @@
 class ApplicantsController < ApplicationController
-  # def new
+  def new
 
-  # end
+  end
+
+  def show
+    @app = Applicant.find(params[:id])
+  end
 end
