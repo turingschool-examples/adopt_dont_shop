@@ -14,11 +14,26 @@ class ApplicationsController < ApplicationController
   end
 
   def create
-    # binding.pry
-    @application = Application.create(application_params)
-    redirect_to "/applications/#{@application.id}"
+    application = Application.create(application_params)
+
+    if application.save
+      redirect_to "/applications/#{application.id}"
+    else
+      redirect_to "/applications/new"
+      flash[:alert] = "Error: #{error_message(application.errors)}"
+    end
   end
 
+  # def create
+  #   pet = Pet.new(pet_params)
+  #
+  #   if pet.save
+  #     redirect_to "/shelters/#{pet_params[:shelter_id]}/pets"
+  #   else
+  #     redirect_to "/shelters/#{pet_params[:shelter_id]}/pets/new"
+  #     flash[:alert] = "Error: #{error_message(pet.errors)}"
+  #   end
+  # end
 
   private
 
