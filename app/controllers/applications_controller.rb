@@ -3,6 +3,10 @@ class ApplicationsController < ApplicationController
    @applications = Application.all
  end
 
+ def new
+   @application = Application.new
+ end
+
  def show
       @application = Application.find(params[:id])
       # require "pry"; binding.pry

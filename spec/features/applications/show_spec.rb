@@ -75,7 +75,7 @@ RSpec.describe 'application show page' do
     expect(page).to_not have_content('Chloe')
 
     visit "/applications/#{chris.id}"
-
+    
     expect(page).to have_content('Chris Simmons')
     expect(page).to have_link('Chloe')
     expect(page).to_not have_content('Charlie')
