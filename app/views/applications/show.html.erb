@@ -2,6 +2,24 @@
 <p>Address: <%= "#{@application.street_address}, #{@application.city}, #{@application.state} #{@application.zip_code}" %></p>
 <p>Description: <%= @application.description %></p>
 <p>Status: <%= @application.status %></p>
+
+<h2>Pets</h2>
 <% @application.pets.each_with_index do |pet| %>
   <%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
+<% end %>
+
+<h2>Add a Pet to this Application</h2>
+
+<%= form_tag "/applications/#{@application.id}", method: :get do %>
+  <%= label_tag :search %>
+  <%= text_field_tag :search, params[:search] %>
+  <%= submit_tag 'Submit', name: nil %>
+  <%= hidden_field_tag 'application_id', "#{@application.id}" %>
+<% end %>
+<br>
+
+<% if @pets != nil %>
+  <% @pets.each do |pet|%>
+    <%= pet.name %>
   <% end %>
+<% end %>
