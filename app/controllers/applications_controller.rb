@@ -22,7 +22,7 @@ class ApplicationsController < ApplicationController
       :street_address, 
       :city,
       :state,
-      :zipcode
+      :zipcode,
       :description
     )
   end

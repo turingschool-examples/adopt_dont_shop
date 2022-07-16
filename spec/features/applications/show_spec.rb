@@ -21,7 +21,6 @@ RSpec.describe 'Show application', type: :feature do
     expect(page).to have_content("I love dogs")
     expect(page).to have_content("Roofus")
     expect(page).to have_content("Bowow")
-    expect(page).to have_content("pending")
 
 
     expect(page).to have_no_content("Jane Doe")
@@ -82,6 +81,18 @@ RSpec.describe 'Show application', type: :feature do
 
     visit "applications/#{application_1.id}"
 
+    within "#app_information" do
+      expect(page).to have_content("John Doe")
+      expect(page).to have_content("123 Main St")
+      expect(page).to have_content("New York")
+      expect(page).to have_content("NY")
+      expect(page).to have_content(10001)
+      expect(page).to have_content("I love dogs")
+      expect(page).to have_content("Roofus")
+      
+      expect(page).to have_no_content("Bowow")
+    end
+
     within("#pet_search") do
       fill_in "search_name", with: "Bowow"
       click_on("Search")
@@ -92,6 +103,13 @@ RSpec.describe 'Show application', type: :feature do
     end
 
     within "#app_information" do
+      expect(page).to have_content("John Doe")
+      expect(page).to have_content("123 Main St")
+      expect(page).to have_content("New York")
+      expect(page).to have_content("NY")
+      expect(page).to have_content(10001)
+      expect(page).to have_content("I love dogs")
+      expect(page).to have_content("Roofus")
       expect(page).to have_content("Bowow")
     end
   end
