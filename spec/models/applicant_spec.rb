@@ -7,9 +7,9 @@ RSpec.describe Applicant, type: :model do
         it { should validate_presence_of(:city) }
         it { should validate_presence_of(:state) }
         it { should validate_presence_of(:zip) }
-        it { should validate_presence_of(:names_pets_wanted) }
-        it { should validate_presence_of(:description) }
-        it { should validate_presence_of(:application_status) }
+        # it { should validate_presence_of(:names_pets_wanted) }
+        # it { should validate_presence_of(:description) }
+        # it { should validate_presence_of(:application_status) }
     end
     it {should have_many(:pets).through(:applicant_pets)}
 end

@@ -84,19 +84,15 @@ RSpec.describe 'the pets index' do
 # As a visitor
 # When I visit the pet index page
 # Then I see a link to "Start an Application"
-  it 'displays a link to "Start an Application"' do 
-    shelter = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
-    pet_1 = Pet.create(adoptable: true, age: 7, breed: 'sphynx', name: 'Bare-y Manilow', shelter_id: shelter.id)
-    pet_2 = Pet.create(adoptable: true, age: 3, breed: 'domestic pig', name: 'Babe', shelter_id: shelter.id)
-    pet_3 = Pet.create(adoptable: true, age: 4, breed: 'chihuahua', name: 'Elle', shelter_id: shelter.id)
-    new_applicant = Applicant.create!(name: "Test", address: "5555 Test Avenue", city: "Denver", state: "CO", zip: 55555, names_pets_wanted: "Fido", description: "they love pets!", application_status: "In Progress")
 
-    visit "/pets"
+  it 'takes user to the new application page to fill out an application' do 
 
-    find_link "Start an Application"
+    visit '/pets'
 
     expect(page).to have_link("Start an Application")
+    
+    click_link "Start an Application"
+
+    expect(current_path).to eq('/applications/new')
   end
-
-
 end
