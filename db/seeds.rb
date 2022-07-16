@@ -1,3 +1,8 @@
+Pet.destroy_all
+Veterinarian.destroy_all
+Shelter.destroy_all
+Application.destroy_all
+VeterinaryOffice.destroy_all
 
 mystery = Shelter.create!(name: 'Mystery Building', city: 'Irvine CA', foster_program: false, rank: 9)
 aurora = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
