@@ -21,7 +21,6 @@ RSpec.describe 'Show application', type: :feature do
     expect(page).to have_content("I love dogs")
     expect(page).to have_content("Roofus")
     expect(page).to have_content("Bowow")
-    expect(page).to have_content("pending")
 
 
     expect(page).to have_no_content("Jane Doe")
