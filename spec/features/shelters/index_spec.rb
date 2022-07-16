@@ -112,7 +112,7 @@ RSpec.describe 'the shelters index' do
     expect(page).to have_content("All Shelters")
   end
 
-  xit 'has a section for shelters with pending applications' do
+  it 'has a section for shelters with pending applications' do
     mystery_shelter = Shelter.create!(name: 'Mystery Building', city: 'Irvine CA', foster_program: false, rank: 9)
     scooby = Pet.create!(name: 'Scooby', age: 2, breed: 'Great Dane', adoptable: true, shelter_id: mystery_shelter.id)
     clifford = Pet.create!(name: 'Clifford', age: 1, breed: 'Red Dog', adoptable: true, shelter_id: mystery_shelter.id)
