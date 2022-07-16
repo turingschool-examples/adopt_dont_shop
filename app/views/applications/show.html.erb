@@ -12,10 +12,16 @@
 <% end %>
 
 <% if @application.status == "In Progress" %>
-<h3>Add a Pet to Application</h3>
+<h3>Add a Pet to this Application:</h3>
 <%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |f| %>
 <%= label_tag(:search, "Search for Pets") %>
 <%= text_field_tag(:search) %>
-<%= submit_tag("Submit") %>
+<%= submit_tag("Search") %>
 <% end %>
+<% end %>
+
+<% if @pet_results %>
+  <% @pet_results.map do |pet| %>
+    <%= pet.name %>
+  <% end %>
 <% end %>

@@ -2,6 +2,10 @@ class ApplicationsController < ApplicationController
   def show
     @application = Application.find(params[:id])
     @pets = @application.pets
+
+    if params.include?(:search)
+      @pet_results = Pet.search(params[:search])
+    end
   end
 
   def new
@@ -21,6 +25,6 @@ class ApplicationsController < ApplicationController
                   :state,
                   :zip,
                   :description,
-                  :status)
+                  :status, :search)
   end
 end
