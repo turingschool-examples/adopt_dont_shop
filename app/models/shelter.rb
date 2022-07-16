@@ -46,4 +46,8 @@ class Shelter < ApplicationRecord
     end
     return pending.uniq
   end
+
+  def self.order_by_reverse_alphabetical
+    Shelter.find_by_sql("Select * FROM shelters ORDER BY name DESC")
+  end
 end

@@ -2,6 +2,8 @@ class SheltersController < ApplicationController
   def index
     if params[:sort].present? && params[:sort] == "pet_count"
       @shelters = Shelter.order_by_number_of_pets
+    elsif params[:sort].present? && params[:sort] == "reverse_alpha"
+        @shelters = Shelter.order_by_reverse_alphabetical
     elsif params[:search].present?
       @shelters = Shelter.search(params[:search])
     elsif params[:admin] == 'true'
@@ -13,7 +15,7 @@ class SheltersController < ApplicationController
   end
 
   def admin
-    redirect_to '/shelters?admin=true'
+    redirect_to '/shelters?admin=true&sort=reverse_alpha'
   end
 
   def pets
