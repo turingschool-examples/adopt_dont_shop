@@ -22,7 +22,12 @@ RSpec.describe 'Applications#new' do
       expect(page).to have_content('In Progress')
     end
     it 'takes me back to /applications/new if all fields are not filled, and desplays an error' do
+      visit '/applications/new'
       
+      click_on 'Submit'
+
+      expect(current_path).to eq("/applications/new")
+      expect(page).to have_content "Error: Name can't be blank, Street address can't be blank, City can't be blank, State can't be blank, Zipcode can't be blank"
     end
   end
 end
