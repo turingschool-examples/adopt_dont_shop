@@ -18,7 +18,7 @@
 <% end %>
 
 <% unless @shelters_pending_app.nil? %>
-<div id="shelters_with_pending_apps"> %>
+<div id="shelters_with_pending_apps">
   <h3>Shelters with Pending Applications</h3>
     <% @shelters_pending_app.each do |shelter| %>
       <%= shelter.name %>
