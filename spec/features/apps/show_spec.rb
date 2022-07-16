@@ -207,8 +207,10 @@ RSpec.describe 'app show' do
 
     visit "/apps/#{app_1.id}"
 
-    fill_in 'Add a description', with: 'I love dogs'
-    click_button 'Submit Application'
+    within '#submit' do
+      fill_in 'Description', with: 'I love dogs'
+      click_button 'Submit Application'
+    end
 
     expect(current_path).to eq("/apps/#{app_1.id}")
     expect(page).to have_content('Status: pending')
