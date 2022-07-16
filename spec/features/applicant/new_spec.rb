@@ -24,6 +24,30 @@ RSpec.describe 'new application page', type: :feature do
   end
 end
 
+# Starting an Application, Form not Completed
+# As a visitor
+# When I visit the new application page
+# And I fail to fill in any of the form fields
+# And I click submit
+# Then I am taken back to the new applications page
+# And I see a message that I must fill in those fields.
+
+  it 'must have all the form fields filled in' do 
+    visit '/applicants/new'
+
+    fill_in 'Name', with: ''
+    fill_in 'Street address', with: '1234 N Random Avenue'
+    fill_in 'City', with: ''
+    fill_in 'State', with: 'Arizona'
+    fill_in 'Zip code', with: '12345'
+
+    expect(page).to have_button('Submit')
+    click_button('Submit') 
+
+    expect(current_path).to eq('/applicants/new')
+    expect(page).to have_content('You must fill in the name and city field before submitting an application.')
+  end
+
    
 
   #  shelter = Shelter.create!(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
