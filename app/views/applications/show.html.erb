@@ -3,7 +3,7 @@
 <p>Description: <%= @application.description %></p>
 <p>Status: <%= @application.status %></p>
 
-<h2>Applying to Adopt:</h2>
+<h4>Applying to Adopt:</h4>
 <div id="pets">
 <ul>
   <% @application.pets.each_with_index do |pet| %>
@@ -12,15 +12,27 @@
 </ul>
 </div>
 
-<h2>Add a Pet to this Application</h2>
+<% if @application.pets != [] && @application.status == 'In Progress' %>
+  <h4>Finalize and Submit Your Application</h4>
+  <%= form_with url: "/applications/#{@application.id}", method: :patch, local: :true do |form| %>
+    <%= form.label :description, 'Please tell us why you would make a good owner for the pets.' %><br>
+    <%= form.text_area(:description, size: '50x5') %><br>
 
-<%= form_tag "/applications/#{@application.id}", method: :get do %>
-  <%= label_tag :search %>
-  <%= text_field_tag :search, params[:search] %>
-  <%= submit_tag 'Submit', name: nil %>
-  <%= hidden_field_tag 'application_id', "#{@application.id}" %>
+    <%= form.submit 'Submit Application'%>
+  <% end %>
 <% end %>
-<br>
+
+<% if @application.status == 'In Progress' %>
+  <h4>Add a Pet to this Application</h4>
+
+  <%= form_tag "/applications/#{@application.id}", method: :get do %>
+    <%= label_tag :search %>
+    <%= text_field_tag :search, params[:search] %>
+    <%= submit_tag 'Submit', name: nil %>
+    <%= hidden_field_tag 'application_id', "#{@application.id}" %>
+  <% end %>
+  <br>
+<% end %>
 
 <% if @pets != nil %>
   <% @pets.each do |pet|%>

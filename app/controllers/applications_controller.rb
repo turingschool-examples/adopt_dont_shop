@@ -21,6 +21,13 @@ class ApplicationsController < ApplicationController
       redirect_to '/applications/new', notice: "Please fill in all fields."
     end 
   end
+
+  def update
+    params[:status] = 'Pending'
+    @application = Application.find(params[:id])
+    @application.update(application_params)
+    redirect_to "/applications/#{@application.id}"
+  end
   
   private 
   def application_params 

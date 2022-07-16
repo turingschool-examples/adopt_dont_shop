@@ -9,6 +9,7 @@ RSpec.describe 'applications new' do
         fill_in "State", with: "NJ" 
         fill_in "Zip Code", with: "12345"
         click_button "Submit"
+        save_and_open_page
 
         expect(current_path).to eq "/applications/#{Application.all.last.id}"
         expect(page).to have_content("Tony Soprano")
