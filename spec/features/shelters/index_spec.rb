@@ -134,4 +134,11 @@ RSpec.describe 'the shelters index' do
       expect(page).to_not have_content("Fancy pets of Colorado")
    end 
   end
+
+  it 'displays the admin index page in reverse alphabetical order' do
+    visit '/admin/shelters'
+
+    expect(@shelter_2.name).to appear_before(@shelter_3.name)
+    expect(@shelter_3.name).to appear_before(@shelter_1.name)
+  end
 end

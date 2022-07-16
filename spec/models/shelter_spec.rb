@@ -65,6 +65,12 @@ RSpec.describe Shelter, type: :model do
         expect(Shelter.shelters_with_pending_apps).to eq([mystery_shelter, love_shelter])
       end
     end
+
+    describe '#order_by_reverse_alphabetical' do
+      it 'on the admin index page it orders the shelters in reverse alphabetical' do
+        expect(Shelter.order_by_reverse_alphabetical).to eq([@shelter_2, @shelter_3, @shelter_1])
+      end
+    end
   end
 
   describe 'instance methods' do
