@@ -127,4 +127,15 @@ RSpec.describe 'Applications Show Page' do
     expect(page).to have_content 'Lucille Bald' 
     expect(page).to_not have_content 'Add a Pet to this Application' 
   end
+
+  it 'does not show section to submit application if there are no pets on the app' do 
+    app = Application.create!(name: 'Brigitte Bardot', street_address: '123 Main Street', city: 'Denver', state: 'CO', zip_code: '80111', status: 0)
+
+    visit "/applications/#{app.id}"
+    # save_and_open_page
+
+    expect(page).to_not have_content 'Finalize and Submit Your Application'
+    expect(page).to_not have_content 'Please tell us why you would make a good owner for the pets.'
+    expect(page).to_not have_button 'Submit Application'
+  end
 end
