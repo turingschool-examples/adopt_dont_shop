@@ -5,7 +5,7 @@ RSpec.describe 'applicant show page' do
     shelter_1 = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
     shelter_2 = Shelter.create(name: 'RGV animal shelter', city: 'Harlingen, TX', foster_program: false, rank: 5)
     shelter_3 = Shelter.create(name: 'Fancy pets of Colorado', city: 'Denver, CO', foster_program: true, rank: 10)
-    bob_1 = Applicant.create(name: "Billy Bob", address: "Street address 6093", description: "I'm bob", status: "Pending", zip: 22323)
+    bob_1 = Applicant.create(name: "Billy Bob", address: "Street address 6093", description: "I'm bob", status: "In Progress", zip: 22323, city: "denver", state: "CO")
     pet_1 = shelter_1.pets.create(name: 'Mr. Pirate', breed: 'tuxedo shorthair', age: 5, adoptable: false)
     pet_2 = shelter_2.pets.create(name: 'Clawdia', breed: 'shorthair', age: 3, adoptable: true)
     pet_3 = shelter_3.pets.create(name: 'Lucille Bald', breed: 'sphynx', age: 8, adoptable: true)
@@ -20,11 +20,15 @@ RSpec.describe 'applicant show page' do
     expect(page).to have_content("I'm bob")
     expect(page).to have_content(22323)
 
+    expect(page).to have_link('Ann')
     expect(page).to have_link('Mr. Pirate')
-    expect(page).to have_link('Lucille Bald')
 
-    click_link('Lucille Bald')
+    click_link('Mr. Pirate')
 
-    expect(current_path).to eq("/pets/#{pet_2.id}")
+    expect(current_path).to eq("/pets/#{pet_1.id}")
+  end
+
+  it 'user story 4' do
+
   end
 end
