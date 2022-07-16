@@ -218,4 +218,18 @@ RSpec.describe 'app show' do
     expect(page).to_not have_content('Beethoven')
     expect(page).to_not have_content('Search')
   end
+
+  # No Pets on a Application
+  
+  # As a visitor
+  # When I visit an application's show page
+  # And I have not added any pets to the application
+  # Then I do not see a section to submit my application
+
+  it 'cannot submit a petless application' do
+    # without pets
+    no_pet_app = App.create!(name: "Dave", address: "22 Dexter St", city: "Denver", state: "CO", zip: "80200", description: "123", status: "in progress")
+    visit "/apps/#{no_pet_app.id}"
+    expect(page).to_not have_content('Submit Application')
+  end
 end
