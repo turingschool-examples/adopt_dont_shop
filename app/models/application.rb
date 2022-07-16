@@ -9,4 +9,5 @@ class Application < ApplicationRecord
   validates :status, presence: true
 
   has_many :pets
+
 end
