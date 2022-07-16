@@ -50,4 +50,18 @@ RSpec.describe 'user can create new application' do
       expect(page).to have_content("I love dogs.")
       expect(page).to have_content("In Progress")
    end
+
+   xit "if user doesn't fill out all form fields, they'll get an error" do
+        visit "/applications/new"
+
+      fill_in "name", with: "John"
+      fill_in "address", with: "123 Main Street"
+      fill_in "city", with: "Nashville"
+      fill_in "state", with: "TN"
+
+      click_on("Submit")
+
+      expect(page).to have_content("Error")
+      expect(current_path).to eq("/applications/new")
+   end
 end
