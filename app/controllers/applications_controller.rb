@@ -38,7 +38,7 @@ class ApplicationsController < ApplicationController
 
     private
     def application_params
-        params.permit(:name, :street, :city, :state, :zipcode, :description)
+        params.permit(:name, :street, :city, :state, :zipcode, :description, :status)
     end 
 
 end  

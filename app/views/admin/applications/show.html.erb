@@ -11,6 +11,14 @@
 <% @application.pets.each do |pet| %> 
 <div id="pet-<%= pet.id %>">
 <p><%= link_to "#{pet.name}", "/pets/#{pet.id}" %> </p>
-  <%= button_to "Approve Application", "/applications/#{@application.id}", method: :post, params: {:status => 'Approved'} %> 
+<% pet.pet_applications.each do |pet_app|  %>
+  <% if pet_app.status == "Approved" %>
+  <p>Approved</p>
+  <% elsif pet_app.status == "Rejected" %>
+  <p>Rejected</p>
+  <% else pet_app.status.nil? %>
+  <%= button_to "Approve Application", "/admin/applications/#{@application.id}", method: :patch, params: {status: 'Approved', pet_id: pet.id } %> 
+  <% end %>
+  <% end %>
 </div>
 <% end %>
