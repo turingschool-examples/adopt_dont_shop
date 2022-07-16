@@ -1,5 +1,6 @@
 <h1>All pets</h1>
-
+<%= link_to "Start an application", "/applications/new" %>
+<p></p>
 <%= form_with url: "/pets", method: :get, local: true do |f| %>
   <%= f.label :search %>
   <%= f.text_field :search %>

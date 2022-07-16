@@ -7,6 +7,4 @@ class Application < ApplicationRecord
   validates :state, length: { maximum: 2 }
   validates :zip_code, numericality: true, length: { maximum: 5 }
   validates :status, inclusion: ["In Progress", "Pending", "Accepted", "Rejected"]
-
-  
 end
