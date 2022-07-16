@@ -41,6 +41,30 @@ RSpec.describe Shelter, type: :model do
         expect(Shelter.order_by_number_of_pets).to eq([@shelter_1, @shelter_3, @shelter_2])
       end
     end
+
+    describe '#shelters_with_pending_apps' do
+      it 'gets the shelters with pending applications' do
+        mystery_shelter = Shelter.create!(name: 'Mystery Building', city: 'Irvine CA', foster_program: false, rank: 9)
+        scooby = Pet.create!(name: 'Scooby', age: 2, breed: 'Great Dane', adoptable: true, shelter_id: mystery_shelter.id)
+        clifford = Pet.create!(name: 'Clifford', age: 1, breed: 'Red Dog', adoptable: true, shelter_id: mystery_shelter.id)
+        john_application = Application.create!(name: 'John Doe', street_address: '123 apple street', city: 'Denver', state: 'CO', zipcode: '90210', description: 'we love pets', status: 'Pending')
+        PetApplication.create!(pet: scooby, application: john_application)
+        PetApplication.create!(pet: clifford, application: john_application)
+    
+    
+        fancy_shelter = Shelter.create(name: 'Fancy pets of Colorado', city: 'Denver, CO', foster_program: true, rank: 10)
+        lucille = Pet.create!(name: 'Lucille Bald', breed: 'sphynx', age: 8, adoptable: true, shelter_id: fancy_shelter.id)
+        sarah_application = Application.create!(name: 'Sarah Smith', street_address: '456 banana street', city: 'Mars', state: 'AZ', zipcode: '07653', description: 'I love pets', status: 'In Progress')
+        PetApplication.create!(pet: lucille, application: sarah_application)
+
+        love_shelter = Shelter.create(name: 'Love Pets', city: 'Moon, MA', foster_program: true, rank: 24)
+        barry = Pet.create!(name: 'Barry', breed: 'pitbull', age: 54, adoptable: true, shelter_id: love_shelter.id)
+        joe_application = Application.create!(name: 'Joe Yams', street_address: '789 teach ave', city: 'Louisville', state: 'NY', zipcode: '56432', description: 'I deserve pets', status: 'Pending')
+        PetApplication.create!(pet: barry, application: joe_application)
+
+        expect(Shelter.shelters_with_pending_apps).to eq([mystery_shelter, love_shelter])
+      end
+    end
   end
 
   describe 'instance methods' do
