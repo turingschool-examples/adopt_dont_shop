@@ -1,0 +1,16 @@
+<h3><%= @application.name%></h3>
+<h3>Address:</h3>
+<p><%= @application.street %> 
+<%= @application.city %> 
+<%= @application.state %> 
+<%= @application.zipcode %> </p>
+<p>Application description: <%= @application.description %> </p>
+<p>Application status: <%= @application.status %> </p>
+
+<h3>Application pets:</h3>
+<% @application.pets.each do |pet| %> 
+<div id="pet-<%= pet.id %>">
+<p><%= link_to "#{pet.name}", "/pets/#{pet.id}" %> </p>
+  <%= button_to "Approve Application", "/applications/#{@application.id}", method: :post, params: {:status => 'Approved'} %> 
+</div>
+<% end %>
