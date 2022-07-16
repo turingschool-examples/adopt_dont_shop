@@ -11,7 +11,7 @@
     <%= f.text_field :state %>
     <%= f.label :zip_code, 'Zip Code' %>    
     <%= f.text_field :zip_code, required: true %>
-    <%= hidden_field_tag 'status', 'In Progress' %>
+    <%= f.hidden_field :status, :value => 'In Progress', readonly: true %>
 
     <%= f.submit "Submit" %>
 <% end %>
