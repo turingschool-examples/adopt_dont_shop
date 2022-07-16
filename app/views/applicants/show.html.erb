@@ -1,0 +1,14 @@
+<h1><%="#{@applicant.name}'s Application Form"%></h1>
+<p><%= "Applcant Name: #{@applicant.name}" %></p>
+<p><%= "Address: #{@applicant.street_address}" %></p>
+<p><%= "City: #{@applicant.city}" %></p>
+<p><%= "State: #{@applicant.state}" %></p>
+<p><%= "Zip Code: #{@applicant.zip_code}" %></p>
+<p><%= "Description: #{@applicant.description}" %></p>
+<p>Pet's applied for:</p>
+<% @applicant.pets.each do |pet| %>
+<div id="pet-<%= pet.id %>">
+<%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
+</div>
+<% end %>
+<p><%= "Application Statues: #{@applicant.application_status}" %></p>
