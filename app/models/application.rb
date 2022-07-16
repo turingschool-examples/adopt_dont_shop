@@ -9,4 +9,8 @@ class Application < ApplicationRecord
   validates_inclusion_of :application_status, in: ['In Progress', 'Pending', 'Accepted', 'Rejected']
   has_many :application_pets
   has_many :pets, through: :application_pets
+
+  def applicant_pets
+    self.pets
+  end
 end
