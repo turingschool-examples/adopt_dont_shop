@@ -1,0 +1,8 @@
+<h1> <%= @applicant.name %> </h1>
+<p> Address: <%= @applicant.address %>, <%= @applicant.city %> <%= @applicant.state%>, <%= @applicant.zip%> </p>
+<p> Description: <%= @applicant.description%> </p>
+<p> Status: <%= @applicant.status%> </p>
+<h1> Pets Applied for: </h1>
+<% @applicant.pets.each do |pet|%>
+  <p> <%= link_to "#{pet.name}", "/pets/#{pet.id}" %> </p>
+<% end %>
