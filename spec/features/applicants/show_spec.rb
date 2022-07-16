@@ -11,11 +11,15 @@ RSpec.describe 'the applicant show page' do
   # - The Application's status, either "In Progress", "Pending", "Accepted", or "Rejected"
   it "shows the applicant and the completed applicants form" do
     Applicant.destroy_all
-    shelter = Shelter.create(name: "Whacky Waldorf", city: "Waldorf", foster_program: false, rank: 2)
-    pet = Pet.create(name: 'Heeny', age: 2, breed:"wyvern", adoptable: true, shelter_id: shelter.id)
-    applicant = Applicant.create(name: "Hai Sall", street_address: "123 Florida funhouse st", city: "Waldorf", state: "Maryland", zip_code: "21401", description: "The bean needs more beans", application_status: "pending")
+    Pet.destroy_all
+    shelter = Shelter.create!(name: "Whacky Waldorf", city: "Waldorf", foster_program: false, rank: 2)
+    heeny = Pet.create!(name: 'Heeny', age: 2, breed:"wyvern", adoptable: true, shelter_id: shelter.id)
+    tistermickles = Pet.create!(name: 'TisterMickles', age:4, breed:'otter', adoptable: true, shelter_id: shelter.id)
+    haisall = Applicant.create!(name: "Hai Sall", street_address: "123 Florida funhouse st", city: "Waldorf", state: "Maryland", zip_code: "21401", description: "The bean needs more beans", application_status: "pending")
+    application = PetApplication.create!(applicant: haisall, pet: heeny)
+    application2 = PetApplication.create!(applicant: haisall, pet: tistermickles)
 
-    visit "/applicants/#{applicant.id}"
+    visit "/applicants/#{haisall.id}"
 
     expect(page).to have_content("Hai Sall")
     expect(page).to have_content("123 Florida funhouse st")
@@ -25,14 +29,21 @@ RSpec.describe 'the applicant show page' do
     expect(page).to have_content("The bean needs more beans")
     expect(page).to have_content("pending")
 
-    within "#pet-#{pet.id}" do
-      click_on "#{pet.name}"
-      expect(current_path).to eq("/pets/#{pet.id}")
-      expect(page).to have_content("Heeny")
-      expect(page).to have_content("wyvern")
-      expect(page).to have_content(2)
-      expect(page).to have_content(true)
+    within "#pet-#{heeny.id}" do
+      click_on "#{heeny.name}"
     end
+      expect(current_path).to eq("/pets/#{heeny.id}")
+      expect(page).to have_link("Heeny")
+      expect(page).to have_content("wyvern")
 
+      visit "/applicants/#{haisall.id}"
+
+    within "#pet-#{tistermickles.id}" do
+      click_on "#{tistermickles.name}"
+    end
+    
+    expect(current_path).to eq("/pets/#{tistermickles.id}")
+    expect(page).to have_link("TisterMickles")
+    expect(page).to have_content("otter")
   end
 end
