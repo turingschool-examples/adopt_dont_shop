@@ -25,4 +25,17 @@ end
       expect(page).to have_content(@pet_2.name)
     end
   end
+
+  it "user can search for pets in app's show page when app is in progress" do
+    visit "/applications/#{@application_1.id}"
+
+    expect(page).to have_content("Add a Pet to this Application")
+
+    fill_in :search, with: "#{@pet_1.name}"
+    click_on "Search"
+
+    expect(current_path).to eq("/applications/#{@application_1.id}")
+    expect(page).to have_content("#{@pet_1.name}")
+  end
+
 end
