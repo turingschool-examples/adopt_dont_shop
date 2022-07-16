@@ -27,9 +27,6 @@ RSpec.describe 'new applications' do
     fill_in('Zip code', with: '80021')
     click_button 'Submit'
 
-    applicant = Application.last.id
-
-    expect(current_path).to eq("/applications/#{applicant}")
     expect(page).to have_content('Ben Silverstein')
   end
 end
