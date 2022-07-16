@@ -5,10 +5,12 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-VeterinaryOffice.destroy_all
-Veterinarian.destroy_all
-Shelter.destroy_all
+
+ApplicationPet.destroy_all
 Pet.destroy_all
+Shelter.destroy_all
+Veterinarian.destroy_all
+VeterinaryOffice.destroy_all
 Application.destroy_all
 
 special_friends = VeterinaryOffice.create(name: 'Special Friends', boarding_services: true, max_patient_capacity: 100)
@@ -26,3 +28,19 @@ fancy_pets_of_colorado = Shelter.create(name: 'Fancy pets of Colorado', city: 'D
 aurora_shelter.pets.create(name: 'Mr. Pirate', breed: 'tuxedo shorthair', age: 5, adoptable: true)
 aurora_shelter.pets.create(name: 'Clawdia', breed: 'shorthair', age: 3, adoptable: true)
 fancy_pets_of_colorado.pets.create(name: 'Lucille Bald', breed: 'sphynx', age: 8, adoptable: true)
+
+blake_application = Application.create!(name: 'Blake Saylor',
+                                                street_address: '638 East Franklin Place',
+                                                city: 'Edmond',
+                                                state: 'CO',
+                                                zipcode: 80235,
+                                                description: 'I just want a cat and I will be nice to it.',
+                                                status: 'Pending')
+blue = Pet.create!(name: "blue",
+                  breed: "Golden",
+                  age: 3,
+                  adoptable: true,
+                  shelter_id: aurora_shelter.id)
+
+ApplicationPet.create!(pet: blue,
+                      application: blake_application)
