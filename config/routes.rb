@@ -43,4 +43,7 @@ Rails.application.routes.draw do
   post '/applications/:application_id', to: 'applications#apppetscreate'
   patch '/applications/:application_id', to: 'applications#update'
 
+  namespace :admin do
+    get '/shelters', to: 'shelters#index'
+  end
 end
