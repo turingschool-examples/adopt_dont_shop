@@ -2,20 +2,18 @@
 
 <%= form_with url: "/applications", method: :post, local: true do |f| %>
    <%= f.label :name%>
-   <%= f.text_field :name%>
+   <%= f.text_field :name, :required => true%>
    <%= f.label :street_address %>
-   <%= f.text_field :address_street %>
+   <%= f.text_field :address_street, :required => true %>
    <%= f.label :city %>
-   <%= f.text_field :address_city %>
+   <%= f.text_field :address_city, :required => true %>
    <%= f.label :state %>
-   <%= f.text_field :address_state %>
+   <%= f.text_field :address_state, :required => true %>
    <%= f.label :zip_code %>
-   <%= f.text_field :address_zip_code %>
+   <%= f.text_field :address_zip_code, :required => true %>
    <%= f.label :description %>
-   <%= f.text_field :description %>
+   <%= f.text_field :description, :required => true %>
    <%= f.text_field :status, :value => "pending" %>
 
    <%= f.submit "Submit" %>
 <% end %>
-
-   
