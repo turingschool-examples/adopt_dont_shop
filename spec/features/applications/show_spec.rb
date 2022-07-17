@@ -116,8 +116,8 @@ RSpec.describe 'Show application', type: :feature do
 
   it 'searches and finds a pet using only part of the name and locates that pet' do
     dog_homes = Shelter.create!(id: 1, name: 'Dog Homes', city: 'Miami', rank: 1, foster_program: true)
-    application_1 = Application.create!(id: 1, name: 'John Doe', street_address: "123 Main St", city: "New York", state: "NY", zipcode: 10001, description: "I love dogs", status: "pending")
-    application_2 = Application.create!(id: 2, name: 'Jane Doe', street_address: "456 Main St", city: "Boston", state: "MA", zipcode: 10002, description: "I love cats", status: "pending")
+    application_1 = Application.create!(id: 1, name: 'John Doe', street_address: "123 Main St", city: "New York", state: "NY", zipcode: 10001, description: "I love dogs")
+    application_2 = Application.create!(id: 2, name: 'Jane Doe', street_address: "456 Main St", city: "Boston", state: "MA", zipcode: 10002, description: "I love cats")
     roofus = Pet.create!(id: 1, name: 'Roofus', age: 2, breed: 'pit bull', adoptable: true, shelter_id: 1)
     bowow = Pet.create!(id: 2, name: 'Bowow', age: 3, breed: 'labrador', adoptable: true, shelter_id: 1)
     pet_application_1 = PetApplication.create!(id: 1, application_id: 1, pet_id: 1)
@@ -139,8 +139,8 @@ RSpec.describe 'Show application', type: :feature do
 
   it 'searches for and finds a pet with a partial match' do
     dog_homes = Shelter.create!(id: 1, name: 'Dog Homes', city: 'Miami', rank: 1, foster_program: true)
-    application_1 = Application.create!(id: 1, name: 'John Doe', street_address: "123 Main St", city: "New York", state: "NY", zipcode: 10001, description: "I love dogs", status: "pending")
-    application_2 = Application.create!(id: 2, name: 'Jane Doe', street_address: "456 Main St", city: "Boston", state: "MA", zipcode: 10002, description: "I love cats", status: "pending")
+    application_1 = Application.create!(id: 1, name: 'John Doe', street_address: "123 Main St", city: "New York", state: "NY", zipcode: 10001, description: "I love dogs")
+    application_2 = Application.create!(id: 2, name: 'Jane Doe', street_address: "456 Main St", city: "Boston", state: "MA", zipcode: 10002, description: "I love cats")
     roofus = Pet.create!(id: 1, name: 'Roofus', age: 2, breed: 'pit bull', adoptable: true, shelter_id: 1)
     bowow = Pet.create!(id: 2, name: 'Bowow', age: 3, breed: 'labrador', adoptable: true, shelter_id: 1)
     pet_application_1 = PetApplication.create!(id: 1, application_id: 1, pet_id: 1)
