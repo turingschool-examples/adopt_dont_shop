@@ -21,7 +21,7 @@ class ApplicantsController < ApplicationController
       redirect_to '/applicants/new'
     end
   end
-
+ 
   private
   def applicant_params
     params.permit(:name, :street_address, :city, :state, :zip_code)
