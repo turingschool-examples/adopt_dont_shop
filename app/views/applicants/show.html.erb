@@ -1,22 +1,22 @@
-<h1><%= @applicant.name %></h1>
-<p><%= @applicant.street_address %>, <%= @applicant.city %>, <%= @applicant.state %>, <%= @applicant.zip_code %></p>
+<br><h1><%= @applicant.name %></h1>
+<p><strong>Street address:</strong> <%= @applicant.street_address %>, <%= @applicant.city %>, <%= @applicant.state %>, <%= @applicant.zip_code %></p>
 
-<h3><% @applicant.pets.each do |pet| %></h3>
-  <h4><%=  pet.name  %></h4>
+<p><strong>Pets this application is for:</strong> <% @applicant.pets.each do |pet| %></p>
   <h4><%=link_to "#{pet.name}", "/pets/#{pet.id}", id: "pet-#{pet.id}" %></h4>
 <% end %>
 
-<p>Why I would make a good home <%= @applicant.description %></p>
-<p><%= @applicant.application_status %></p>
+<p><strong>Why I would make a good home:</strong> <%= @applicant.description %></p>
+<p><strong>Application status:</strong> <%= @applicant.application_status %></p><br>
 
-<%= form_with url: "/applicants/#{@applicant.id}", method: :get, local: true do |form| %>
- <p> Add a Pet to this Application <%= form.label :pet_name %></p>
+
+<%= form_with url: applicant_show_url, method: :get, local: true do |form| %>
+ <p><h3> Add a Pet to this Application <% form.label :pet_name %></h3></p>
   <%= form.text_field :pet_name %>
 
   <%= form.submit 'Submit' %>
 <% end %>
 
 <h3><% @pets.each do |pet| %></h3>
-  <h4><%=  pet.name  %></h4>
+  <p><h4><%= pet.name %></h4><%= button_to "Adopt this Pet", "/applicants/#{@applicant.id}/add_pets/#{pet.id}" %></p>
 <% end %>
 
