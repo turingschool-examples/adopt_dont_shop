@@ -51,7 +51,7 @@ RSpec.describe 'user can create new application' do
       expect(page).to have_content("In Progress")
    end
 
-   xit "if user doesn't fill out all form fields, they'll get an error" do
+   it "if user doesn't fill out all form fields, they'll get an error" do
         visit "/applications/new"
 
       fill_in "name", with: "John"
