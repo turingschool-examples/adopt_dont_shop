@@ -14,11 +14,11 @@ class ApplicationsController < ApplicationController
 
  def show
       @application = Application.find(params[:id])
-      # require "pry"; binding.pry
-      # @pets = @application.applicant_pets
-    # else
-    #   @application = Application.find(params[:id])
-    # end
+      @pets = Pet.search(params[:search]) if params[:search].present?
+      # if params[:search].present?
+      #   @application = Application.find(params[:id])
+      #   @pets = Pet.search(params[:pet_search])
+      # end
  end
 
  private
