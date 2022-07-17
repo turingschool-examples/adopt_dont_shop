@@ -14,10 +14,11 @@ class ApplicationsController < ApplicationController
 
  def show
       @application = Application.find(params[:id])
-      if params[:search].present?
-        @application = Application.find(params[:id])
-        @pets = Pet.search(params[:pet_search])
-      end
+      @pets = Pet.search(params[:search]) if params[:search].present?
+      # if params[:search].present?
+      #   @application = Application.find(params[:id])
+      #   @pets = Pet.search(params[:pet_search])
+      # end
  end
 
  private
