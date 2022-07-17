@@ -6,3 +6,9 @@
 <p> City: <%= shelter.city %> </p>
 <p> Rank: <%= shelter.rank %> </p>
 <% end %>
+
+<h2> Shelters With Pending Applications </h2>
+
+<%= @shelters_with_pending_apps.each do |shelter|%>
+ <p> <%= shelter.name %> </p>
+<% end %>
