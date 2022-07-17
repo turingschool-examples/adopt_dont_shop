@@ -12,7 +12,6 @@
 <% end %>
 <p>Application description: <%= @application.description %> </p>
 <p>Application status: <%= @application.status %> </p>
-
 <% if @application.status != "Pending" %>
     <%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |form|%>
         <%= form.label "Add a pet to this application:" %>
