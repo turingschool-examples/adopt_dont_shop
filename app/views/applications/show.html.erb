@@ -11,7 +11,18 @@
   <h3>Description</h3>
   <p> <%= @application.description %> </p>
 
+
   <h3>Pets</h3>
+  <p>Add a Pet to this Application</p>
+  <%= form_with url: "/applications/#{@application.id}", method: :get do |form| %>
+     <%= form.label :search %>
+     <%= form.text_field :search %>
+     <%= form.submit "Search" %>
+  <% end %>
+  <% @search.each do |pet| %>
+    <p><%= link_to "#{pet.name}", "/pets/#{pet.id}" %></p>
+  <% end %>
+
   <% @pets.each do |pet| %>
     <p><%= link_to "#{pet.name}", "/pets/#{pet.id}" %></p>
   <% end %>

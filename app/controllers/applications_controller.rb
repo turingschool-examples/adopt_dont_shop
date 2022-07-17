@@ -1,9 +1,12 @@
 class ApplicationsController < ApplicationController
   def index
   end
+
   def show
+    # binding.pry
     @application = Application.find(params[:id])
     @pets = @application.pets
+    @search = Pet.all.search(params[:search])
   end
 
   def new
@@ -21,7 +24,6 @@ class ApplicationsController < ApplicationController
   private
   def applications_params
     params.permit(:name, :address_street, :address_city, :address_state, :address_zip_code, :description, :status)
-  end
 
   def filled_in?(params)
     x = []
@@ -30,5 +32,4 @@ class ApplicationsController < ApplicationController
     end
     x.include?(true)
   end
-
 end
