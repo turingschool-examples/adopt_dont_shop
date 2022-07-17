@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'aplication show page' do
+RSpec.describe 'application show page' do
   before :each do
     @application = Application.create!(name: "Thomas Turner", address_street: "234 Sands St.", address_city: "Chicago", address_state: "Illinois", address_zip_code: 60007, description: "I love pets and have lots of space in the back yard", status: "pending")
     shelter = Shelter.create(name: 'Mystery Building', city: 'Irvine CA', foster_program: false, rank: 9)
@@ -22,7 +22,7 @@ RSpec.describe 'aplication show page' do
     expect(page).to have_content("pending")
   end
 
-  xit 'all pet names are links to their show page' do
+  it 'all pet names are links to their show page' do
     visit "/applications/#{@application.id}"
 
     click_link(@pet_1.name)
@@ -31,7 +31,7 @@ RSpec.describe 'aplication show page' do
     expect(page).to have_content("Bare-y Manilow")
   end
 
-  it 'has a search and select for pets' do
+  xit 'has a search and select for pets' do
     visit "/applications/#{@application.id}"
 
     expect(page).to have_content("Add a Pet to this Application")
@@ -47,11 +47,12 @@ RSpec.describe 'aplication show page' do
     PetApplication.create!(pet_id: @pet_1.id, application_id: @application.id)
 
     visit "/applications/#{@application.id}"
-    fill_in 'search', with: "Bare-y Manilow"
+    fill_in 'pet_name', with: "Bare-y Manilow"
     click_button "Search"
     click_button "Adopt this Pet"
 
     expect(current_path).to eq("/applications/#{@application.id}") 
+    expect(page).to have_button("Adopt this Pet")
   end 
 
 
