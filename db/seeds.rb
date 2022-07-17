@@ -3,12 +3,12 @@ dog_homes = Shelter.create!(name: "Dog Home", city: "Denver", rank: 1, foster_pr
 paw_place = Shelter.create!(name: "Paw Place", city: "Boulder", rank: 2, foster_program: true)
 furry_friends = Shelter.create!(name: "Furry Friends", city: "Aurora", rank: 3, foster_program: false)
 
-application_1 = Application.create!(name: "John Doe", street_address: "123 Main St", city: "New York", state: "NY", zipcode: 20001, description: "I love dogs", status: "in-process")
-application_2 = Application.create!(name: "Jane Doe", street_address: "456 Main St", city: "Boston", state: "MA", zipcode: 30002, description: "I love cats", status: "in-process")
-application_3 = Application.create!(name: "Joe Smith", street_address: "789 Main St", city: "Seattle", state: "WA", zipcode: 40003, description: "I love other animals", status: "pending")
-application_4 = Application.create!(name: "Sally Jackson", street_address: "123 Mulberry St", city: "Denver", state: "CO", zipcode: 50004, description: "I enjoy everything", status: "pending")
-application_5 = Application.create!(name: "Bob Jones", street_address: "456 Mulberry St", city: "Boulder", state: "CO", zipcode: 60005, description: "I want dogs", status: "approved")
-application_6 = Application.create!(name: "Sue Smith", street_address: "789 Mulberry St", city: "Aurora", state: "CO", zipcode: 70006, description: "I want cats", status: "denied")
+application_1 = Application.create!(name: "John Doe", street_address: "123 Main St", city: "New York", state: "NY", zipcode: 20001, description: "I love dogs")
+application_2 = Application.create!(name: "Jane Doe", street_address: "456 Main St", city: "Boston", state: "MA", zipcode: 30002, description: "I love cats")
+application_3 = Application.create!(name: "Joe Smith", street_address: "789 Main St", city: "Seattle", state: "WA", zipcode: 40003, description: "I love other animals")
+application_4 = Application.create!(name: "Sally Jackson", street_address: "123 Mulberry St", city: "Denver", state: "CO", zipcode: 50004, description: "I enjoy everything")
+application_5 = Application.create!(name: "Bob Jones", street_address: "456 Mulberry St", city: "Boulder", state: "CO", zipcode: 60005, description: "I want dogs")
+application_6 = Application.create!(name: "Sue Smith", street_address: "789 Mulberry St", city: "Aurora", state: "CO", zipcode: 70006, description: "I want cats")
 
 dog_1 = Pet.create!(name: "Fido", breed: "Poodle", age: 2, adoptable: true, shelter_id: dog_homes.id)
 dog_2 = Pet.create!(name: "Buddy", breed: "Poodle", age: 3, adoptable: true, shelter_id: dog_homes.id)
