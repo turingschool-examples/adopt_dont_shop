@@ -7,7 +7,7 @@ RSpec.describe 'Application Show' do
     @pet_2 = Pet.create!(adoptable: true, age: 7, breed: "Terrier", name: "Chewie", shelter_id: @shelter_1.id)
     @pet_3 = Pet.create!(adoptable: true, age: 4, breed: "Poodle", name: "Pepper", shelter_id: @shelter_1.id)
     @pet_4 = Pet.create!(adoptable: true, age: 2, breed: "Labrador", name: "Pepperoni", shelter_id: @shelter_1.id)
-    @pet_5 = Pet.create!(adoptable: true, age: 9, breed: "Husky", name: "Peanut", shelter_id: @shelter_1.id)
+    @pet_5 = Pet.create!(adoptable: true, age: 9, breed: "Husky", name: "Ms. PEANUT", shelter_id: @shelter_1.id)
     @application_1 = Application.create!(name: 'John', address: '123 Main Street', city: 'Nashville', state: 'TN', zip: 37067, description: "I want a nice dog.", status: "In Progress")
     @pet_application_1 = PetApplication.create!(pet_id: @pet_1.id, application_id: @application_1.id)
     @pet_application_1 = PetApplication.create!(pet_id: @pet_2.id, application_id: @application_1.id)
@@ -48,6 +48,15 @@ end
 
     expect(page).to have_content(@pet_3.name)
     expect(page).to have_content(@pet_4.name)
+    expect(page).to have_content(@pet_5.name)
+  end
+
+  it 'returns case insensitive matches' do
+    visit "/applications/#{@application_1.id}"
+
+    fill_in "Search", with: "peanut"
+    click_on "Search"
+
     expect(page).to have_content(@pet_5.name)
   end
 
