@@ -8,17 +8,18 @@ class ApplicationsController < ApplicationController
  end
 
  def create
-   @application = Application.create!(application_params)
-   redirect_to "/applications/#{@application.id}"
+   @application = Application.create(application_params)
+    if @application.save
+      redirect_to "/applications/#{@application.id}"
+    else
+      redirect_to '/applications/new'
+      flash[:alert] = "Error: #{error_message(@application.errors)}"
+    end
  end
 
  def show
-      @application = Application.find(params[:id])
-      @pets = Pet.search(params[:search]) if params[:search].present?
-      # if params[:search].present?
-      #   @application = Application.find(params[:id])
-      #   @pets = Pet.search(params[:pet_search])
-      # end
+   @application = Application.find(params[:id])
+   @pets = Pet.search(params[:search]) if params[:search].present?
  end
 
  private

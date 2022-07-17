@@ -25,8 +25,20 @@ RSpec.describe 'new applications' do
     fill_in('City', with: 'Westminster')
     fill_in('State', with: 'CO')
     fill_in('Zip code', with: '80021')
-    click_button 'Submit'
+    click_button 'Start Application'
 
     expect(page).to have_content('Ben Silverstein')
+  end
+
+  it 'is an incomplete form' do
+    visit '/applications/new'
+
+    fill_in('Name', with: 'Ben Silverstein')
+    fill_in('Street address', with: '621 Aspen Dr')
+    fill_in('City', with: 'Westminster')
+    fill_in('State', with: 'CO')
+    click_button 'Start Application'
+
+    expect(page).to have_content("Error: Zip code can't be blank, Zip code is not a number, Zip code is the wrong length (should be 5 characters")
   end
 end

@@ -11,7 +11,7 @@
 <p> Application Status: <%= @application.application_status %></p>
 
 <% @application.pets.each do |pet| %>
-  <%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
+<%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
 <% end %>
 
 <% if @application.application_status == "In Progress" %>
@@ -22,9 +22,9 @@
   <%= form.submit "Pet name search", name: nil %>
 <% end %>
 <% end %>
-
 <% if params[:search].present? %>
   <% @pets.each do |pet| %>
-  <h3><%= pet.name %></h3>  
+  <h3><%= pet.name %></h3>
+  <!-- # <%= button_to "Add #{pet.name} to your application", "/applications/#{@application.id}", method: :post, params: {pet_id: pet.id} %> -->
 <% end %>
 <% end %>

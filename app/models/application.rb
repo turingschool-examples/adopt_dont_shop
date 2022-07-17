@@ -5,7 +5,9 @@ class Application < ApplicationRecord
   validates :city, presence: true
   validates :state, presence: true
   validates :zip_code, presence: true, numericality: true, length: { is: 5 }
-  has_many :application_pets
+  # validates :applicant_bio
+  # validates :application_status
+  has_many :application_pets, dependent: :destroy
   has_many :pets, through: :application_pets
 
   def set_default_val
