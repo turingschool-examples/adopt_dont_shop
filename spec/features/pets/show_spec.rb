@@ -25,4 +25,6 @@ RSpec.describe 'the shelter show' do
     expect(page).to have_current_path('/pets')
     expect(page).to_not have_content(pet.name)
   end
+
+  
 end
