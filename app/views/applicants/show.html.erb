@@ -5,18 +5,24 @@
   <h4><%=link_to "#{pet.name}", "/pets/#{pet.id}", id: "pet-#{pet.id}" %></h4>
 <% end %>
 
-<p><strong>Why I would make a good home:</strong> <%= @applicant.description %></p>
-<p><strong>Application status:</strong> <%= @applicant.application_status %></p><br>
-
-
 <%= form_with url: applicant_show_url, method: :get, local: true do |form| %>
  <p><h3> Add a Pet to this Application <% form.label :pet_name %></h3></p>
   <%= form.text_field :pet_name %>
-
   <%= form.submit 'Submit' %>
 <% end %>
 
-<h3><% @pets.each do |pet| %></h3>
-  <p><h4><%= pet.name %></h4><%= button_to "Adopt this Pet", "/applicants/#{@applicant.id}/add_pets/#{pet.id}" %></p>
+<% @pets.each do |pet| %>
+  <p><%= pet.name %><%= button_to "Adopt this Pet", "/applicants/#{@applicant.id}/add_pets/#{pet.id}" %></p>
+<% end %><br>
+
+<h3>Submit my application:</h3>
+<h4><%= "Why #{@applicant.name}'s house would make a good home:" %></h4> 
+<%= form_with url: applicant_show_url, method: :post, local: true do |form| %>
+  <% form.label :description %></h3></p>
+  <%= form.text_area :description, :cols => '30', :rows => '10' %>
+  <p><%= form.submit 'Submit my application' %></p>
 <% end %>
+
+<%# <%= @applicant.description %></p>
+<p><strong>Application status:</strong> <%= @applicant.application_status %></p><br>
 

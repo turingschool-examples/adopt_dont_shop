@@ -20,6 +20,7 @@ Rails.application.routes.draw do
   get '/applicants/:id', to: 'applicants#show', as: 'applicant_show'
   post 'applicants/:id/add_pets/:pet_id', to: 'applicants#show'
   
+  
   get '/veterinary_offices', to: 'veterinary_offices#index'
   get '/veterinary_offices/new', to: 'veterinary_offices#new'
   get '/veterinary_offices/:id', to: 'veterinary_offices#show'

@@ -1,6 +1,7 @@
 class ApplicantsController < ApplicationController
  
   def show 
+    binding.pry
      @applicant = Applicant.find(params[:id])
       if params[:pet_name]
         @pets = Pet.search(params[:pet_name])
