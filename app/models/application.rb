@@ -9,4 +9,6 @@ class Application < ApplicationRecord
   validates :status, presence: true
 
   has_many :pets
+
+  attribute :status, :string, default: "In Progress"
 end
