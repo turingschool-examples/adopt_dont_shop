@@ -1,0 +1,32 @@
+class Admin::AppsController < ApplicationController
+  def index
+    @apps = App.all
+  end
+
+  def show
+    if params[:search].present?
+      @app = App.find(params[:id])
+      @pets = Pet.search(params[:search])
+    elsif app_params[:status] == "in progress"
+      @app = App.find(params[:id])
+      @pets = Pet.adoptable
+    else
+      @app = App.find(params[:id])
+    end
+  end
+
+  def update
+    app = App.find(params[:id])
+    if app.update(app_params)
+      redirect_to "/admin/apps/#{app.id}"
+    else
+      redirect_to "/admin/apps/#{app.id}"
+      flash[:alert] = "Error: #{error_message(app.errors)}"
+    end
+  end
+
+  private
+  def app_params
+    params.permit(:id, :name, :address, :city, :state, :zip, :description, :status)
+  end
+end

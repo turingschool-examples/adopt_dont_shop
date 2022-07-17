@@ -1,0 +1,8 @@
+<h1>Add Description</h1>
+
+<div id="submit"><%= form_with url: "/apps/#{@app.id}", method: :patch, local: true do |form| %>
+  <p><%= form.label :description %>
+  <%= form.text_area :description, size: '60x5' %></p>
+  <%= form.hidden_field :status, value: 'pending' %>
+  <p><%= form.submit 'Submit Application' %></p>
+<% end %></div>

@@ -9,6 +9,10 @@ Rails.application.routes.draw do
   patch '/apps/:id', to: 'apps#update'
   post '/apps/:id', to: 'pet_apps#create'
 
+  namespace :admin do
+    resources :apps, only: [:index, :show]
+  end
+
   get '/shelters', to: 'shelters#index'
   get '/shelters/new', to: 'shelters#new'
   get '/shelters/:id', to: 'shelters#show'
