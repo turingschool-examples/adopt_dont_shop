@@ -1,1 +1,5 @@
+<%= form_with url: "/applications/#{@application.id}", method: :get, local: true, skip_enforcing_utf8: true do |form| %>
+  <%= form.label :pet_search, "Search for pet by name" %>
+  <%= form.text_field :pet_search %>
+  <%= form.submit "Pet name search", name: nil %>
 <% end %>
