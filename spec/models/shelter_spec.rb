@@ -15,14 +15,14 @@ RSpec.describe Shelter, type: :model do
   before(:each) do
     Pet.destroy_all
     Shelter.destroy_all
-    @shelter_1 = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
-    @shelter_2 = Shelter.create(name: 'RGV animal shelter', city: 'Harlingen, TX', foster_program: false, rank: 5)
-    @shelter_3 = Shelter.create(name: 'Fancy pets of Colorado', city: 'Denver, CO', foster_program: true, rank: 10)
+    @shelter_1 = Shelter.create!(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
+    @shelter_2 = Shelter.create!(name: 'RGV animal shelter', city: 'Harlingen, TX', foster_program: false, rank: 5)
+    @shelter_3 = Shelter.create!(name: 'Fancy pets of Colorado', city: 'Denver, CO', foster_program: true, rank: 10)
 
-    @pet_1 = @shelter_1.pets.create(name: 'Mr. Pirate', breed: 'tuxedo shorthair', age: 5, adoptable: false)
-    @pet_2 = @shelter_1.pets.create(name: 'Clawdia', breed: 'shorthair', age: 3, adoptable: true)
-    @pet_3 = @shelter_3.pets.create(name: 'Lucille Bald', breed: 'sphynx', age: 8, adoptable: true)
-    @pet_4 = @shelter_1.pets.create(name: 'Ann', breed: 'ragdoll', age: 5, adoptable: true)
+    @pet_1 = @shelter_1.pets.create!(name: 'Mr. Pirate', breed: 'tuxedo shorthair', age: 5, adoptable: false)
+    @pet_2 = @shelter_1.pets.create!(name: 'Clawdia', breed: 'shorthair', age: 3, adoptable: true)
+    @pet_3 = @shelter_3.pets.create!(name: 'Lucille Bald', breed: 'sphynx', age: 8, adoptable: true)
+    @pet_4 = @shelter_1.pets.create!(name: 'Ann', breed: 'ragdoll', age: 5, adoptable: true)
   end
 
   describe 'class methods' do
@@ -47,6 +47,16 @@ RSpec.describe Shelter, type: :model do
     describe '#order_by_name' do 
       it 'orders Shelters by name in alpha order' do 
         expect(Shelter.order_by_name).to eq([@shelter_2, @shelter_3, @shelter_1])
+      end
+    end
+
+    describe '#apps_pending' do 
+      it 'returns Shelters with pending Applications' do 
+        Application.destroy_all
+        app0 = @pet_1.applications.create!(name: 'Brigitte Bardot', street_address: '123 Main Street', city: 'Denver', state: 'CO', zip_code: '80111', description: 'I love animals!', status: 0)
+        app1 = @pet_3.applications.create!(name: 'Calliope Carson', street_address: '124 Central Avenue', city: 'Denver', state: 'CO', zip_code: '80111', description: 'I really love animals!', status: 1)
+
+        expect(Shelter.apps_pending).to eq([@shelter_1])
       end
     end
   end

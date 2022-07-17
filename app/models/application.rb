@@ -9,10 +9,11 @@ class Application < ApplicationRecord
   has_many :pets, through: :application_pets
   enum status: ['In Progress', 'Pending', 'Accepted', 'Rejected']
 
-  # def check_fields?
-  #   binding.pry 
-  #   self.each do |key, value| 
-  #     binding.pry 
-  #   end
-  # end
+  def update_ap_status
+    app_pets = ApplicationPet.where("application_id = ?", self.id)
+    
+    app_pets.each do |app_pet| 
+      app_pet.update(status: 'Pending')
+    end
+  end
 end
