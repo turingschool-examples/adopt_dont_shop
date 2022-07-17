@@ -33,6 +33,11 @@
   	<% end %>
 <% end %>
 
-
+<%= form_with class: "#{"application" if @application.status != "In progress" || @application.pets.empty?}" ,url:  "/applications/#{@application.id}", method: :patch , local: true do |f|  %>
+  	<%= form.label :description, "Enter a short description about you:" %>
+  	<%= form.text_field :description %>
+  	<%= form.submit "Submit Application", required: true %>
+  
+  <% end %>
 
 
