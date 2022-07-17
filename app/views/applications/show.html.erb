@@ -25,3 +25,14 @@
     <%= pet.name %>
   <% end %>
 <% end %>
+
+<% if @pet_results %>
+  <% @pet_results.each do |pet| %>
+  		<%= pet.name %>
+  		<%= button_to "Adopt this Pet", "/applications/#{@application.id}", method: :patch, params: {pet_id: pet.id}  %>
+  	<% end %>
+<% end %>
+
+
+
+
