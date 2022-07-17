@@ -16,11 +16,3 @@
   <% end %>
 </p>
 <p>Status: <%= @app.status %></p>
-
-<% if @app.status == "in progress" %>
-  <%= render partial: 'adminsearch' %>
-<% end %>
-
-<% if !@app.pets.empty? %>
-  <%= render partial: 'adminsubmit' %>
-<% end %>
