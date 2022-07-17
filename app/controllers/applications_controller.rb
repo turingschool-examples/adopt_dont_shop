@@ -6,7 +6,11 @@ class ApplicationsController < ApplicationController
 
   def show
     @application = Application.find(params[:id])
-    @pets = @application.pets
+    if params[:search].present?
+      @pets = Pet.search(params[:search])
+    else
+      @pets = @application.pets
+    end
   end
 
   def new
@@ -23,17 +27,6 @@ class ApplicationsController < ApplicationController
       flash[:alert] = "Error: #{error_message(application.errors)}"
     end
   end
-
-  # def create
-  #   pet = Pet.new(pet_params)
-  #
-  #   if pet.save
-  #     redirect_to "/shelters/#{pet_params[:shelter_id]}/pets"
-  #   else
-  #     redirect_to "/shelters/#{pet_params[:shelter_id]}/pets/new"
-  #     flash[:alert] = "Error: #{error_message(pet.errors)}"
-  #   end
-  # end
 
   private
 
