@@ -15,7 +15,6 @@ RSpec.describe 'the admin shelter index' do
     @pet_application_1 = PetApplication.create!(pet_id: @pet_1.id, application_id: @application_1.id)
     @pet_application_2 = PetApplication.create!(pet_id: @pet_2.id, application_id: @application_2.id)
     @pet_application_3 = PetApplication.create!(pet_id: @pet_3.id, application_id: @application_3.id)
-
   end
 
   it 'list all shelters in descending alphabetical order' do
@@ -32,7 +31,7 @@ RSpec.describe 'the admin shelter index' do
 
     expect(page).to have_content("Shelters With Pending Applications")
 
-    within "#shelters-with-pending-apps" do
+    within "#shelters-with-pending-applications" do
       expect(page).to have_content(@shelter_2.name)
       expect(page).to have_content(@shelter_3.name)
       expect(page).to_not have_content(@shelter_1.name)

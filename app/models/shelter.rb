@@ -35,4 +35,9 @@ class Shelter < ApplicationRecord
   def self.shelters_by_name
     Shelter.find_by_sql("SELECT shelters.* FROM shelters ORDER BY shelters.name DESC")
   end
+
+  def self.shelters_with_pending_applications
+    Shelter.joins(pets: :applications).where("applications.status = 'Pending'")
+  end
+
 end

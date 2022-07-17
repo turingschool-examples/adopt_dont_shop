@@ -9,6 +9,9 @@
 
 <h2> Shelters With Pending Applications </h2>
 
-<%= @shelters_with_pending_apps.each do |shelter|%>
+<div id="shelters-with-pending-applications">
+<%= @shelters_with_pending_applications.each do |shelter|%>
  <p> <%= shelter.name %> </p>
 <% end %>
+
+<div>
