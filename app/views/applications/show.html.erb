@@ -37,7 +37,9 @@
   	<%= form.label :description, "Enter a short description about you:" %>
   	<%= form.text_field :description %>
   	<%= form.submit "Submit Application", required: true %>
-  
   <% end %>
+  <% elsif @application.status == "Pending" %>
+  		<p>Application is pending.</p>
+ 	<% end %>
 
 
