@@ -17,17 +17,26 @@ RSpec.describe Shelter, type: :model do
     @shelter_1 = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
     @shelter_2 = Shelter.create(name: 'RGV animal shelter', city: 'Harlingen, TX', foster_program: false, rank: 5)
     @shelter_3 = Shelter.create(name: 'Fancy pets of Colorado', city: 'Denver, CO', foster_program: true, rank: 10)
-
+    @application_1 = Application.create!(name: "Bob Bobbicus", street: "123 Main street", city: "Newtown", state: "CO", zipcode: 80009, status:"Pending", description:"I love dogs so much and have lots of food for them")
+    @application_2 = Application.create!(name: "Cindy Smith", street: "727 Lane road", city: "Rockville", state: "CA", zipcode: 95148, status:"In Progress", description:"I have a big yard them to run all day")
     @pet_1 = @shelter_1.pets.create(name: 'Mr. Pirate', breed: 'tuxedo shorthair', age: 5, adoptable: false)
     @pet_2 = @shelter_1.pets.create(name: 'Clawdia', breed: 'shorthair', age: 3, adoptable: true)
     @pet_3 = @shelter_3.pets.create(name: 'Lucille Bald', breed: 'sphynx', age: 8, adoptable: true)
     @pet_4 = @shelter_1.pets.create(name: 'Ann', breed: 'ragdoll', age: 5, adoptable: true)
+    PetApplication.create!(pet: @pet_1, application: @application_1)
+    PetApplication.create!(pet: @pet_2, application: @application_2)
   end
 
   describe 'class methods' do
     describe '#search' do
       it 'returns partial matches' do
         expect(Shelter.search("Fancy")).to eq([@shelter_3])
+      end
+    end
+
+    describe '#pending_apps' do
+      it 'returns shelters with pending applications' do
+        expect(Shelter.pending_apps).to eq([@shelter_1])
       end
     end
 
