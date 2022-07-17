@@ -113,4 +113,46 @@ RSpec.describe 'admin application index page' do
       expect(page).to have_button('Reject Application')
     end
   end
+
+  it 'changes the application status to approved when all pets on an app are approved' do
+    aurora = Shelter.create!(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
+    application_1 = Application.create!(name: "Bob Bobbicus", street: "123 Main street", city: "Newtown", state: "CO", zipcode: 80009, status:"Pending", description:"I love dogs so much and have lots of food for them")
+    lucille = Pet.create!(adoptable: true, age: 1, breed: 'sphynx', name: 'Lucille Bald', shelter_id: aurora.id)
+    lobster = Pet.create!(adoptable: true, age: 3, breed: 'doberman', name: 'Lobster', shelter_id: aurora.id)
+    PetApplication.create!(pet: lucille, application: application_1)
+    PetApplication.create!(pet: lobster, application: application_1)
+
+    visit "/admin/applications/#{application_1.id}"
+    
+    within ("#pet-#{lucille.id}") do
+      click_button('Approve Application')
+    end
+
+    within ("#pet-#{lobster.id}") do
+      click_button('Approve Application')
+    end
+
+    expect(page).to have_content("Approved") 
+  end
+
+  it 'changes app status to rejected if any pets on the app are rejected' do
+    aurora = Shelter.create!(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
+    application_1 = Application.create!(name: "Bob Bobbicus", street: "123 Main street", city: "Newtown", state: "CO", zipcode: 80009, status:"Pending", description:"I love dogs so much and have lots of food for them")
+    lucille = Pet.create!(adoptable: true, age: 1, breed: 'sphynx', name: 'Lucille Bald', shelter_id: aurora.id)
+    lobster = Pet.create!(adoptable: true, age: 3, breed: 'doberman', name: 'Lobster', shelter_id: aurora.id)
+    PetApplication.create!(pet: lucille, application: application_1)
+    PetApplication.create!(pet: lobster, application: application_1)
+
+    visit "/admin/applications/#{application_1.id}"
+    
+    within ("#pet-#{lucille.id}") do
+      click_button('Approve Application')
+    end
+
+    within ("#pet-#{lobster.id}") do
+      click_button('Reject Application')
+    end
+
+    expect(page).to have_content("Rejected") 
+  end
 end
