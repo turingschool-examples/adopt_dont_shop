@@ -13,8 +13,17 @@ class Application < ApplicationRecord
     pets.where("name ILIKE ?", search)
   end
   def status
-    # logic that searches all pets on this application, 
-    # And returns a status based on those pets status's
-    return 'In Progress'
+    binding.pry
+    if pet_applications.none? || description.nil?
+      return 'In Progress'
+    elsif pet_applications.where(status: 'Pending').any?
+      return 'Pending'
+    elsif pet_applications.where(status: 'Rejected').any?
+      return 'Rejected'
+    elsif pet_applications.where(status: 'Rejected').none? && pet_applications.where(status: 'Pending').none?
+      return 'Approved'
+    else
+      return 'Error'
+    end
   end
 end

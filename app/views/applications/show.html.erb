@@ -14,19 +14,45 @@
 </div>
 
 <div id = "pet_search">
-<h2>Add a Pet to this Application</h2>
-<%= form_with url: "/applications/#{@application.id}?search=find_pet", method: :get, local: true do |f| %>
-  <%= f.label :search_name %>
-  <%= f.text_field :search_name %>
-  <%= f.submit "Search" %>
-<% end %>
+  <% if @application.status != 'In Progress'  %>
+  <p>Application submitted</p>
+  <% else %>
+  <h2>Add a Pet to this Application</h2>
+    <%= form_with url: "/applications/#{@application.id}?search=find_pet", method: :get, local: true do |f| %>
+      <%= f.label :search_name %>
+      <%= f.text_field :search_name %>
+      <%= f.submit "Search" %>
+    <% end %>
+  <% end %>
+
 </div>
 
 <div id = "pet_found">
 <% if @located_pets.present? %>
-<% @located_pets.each do |pet| %>
-  <p><%= link_to "#{pet.name}", "/pets/#{pet.id}", method: :get %></p>
-  <%= button_to "Add to Application", "/pet_applications/#{@application.id}", method: :post, params: {:pet_id=> pet.id, :application_id=>@application.id} %>
+  <% @located_pets.each do |pet| %>
+    <p><%= link_to "#{pet.name}", "/pets/#{pet.id}", method: :get %></p>
+    <%= button_to "Add to Application", "/pet_applications/#{@application.id}", method: :post, params: {:pet_id=> pet.id, :application_id=>@application.id} %>
+  <% end %>
 <% end %>
-<% end %>
+</div>
+<div id = "application_description">
+  <% if @application.pets != [] && @application.status != 'Pending' %>
+    <p><h3><%= "When you are done adding pets to this application" %></h3></p>
+    <p><h3><%= "Please fill in why you want to adopt:" %></h3></p>
+    <%= form_with url: "/applications/#{@application.id}", method: :patch, local: true do |f| %>
+    <%= f.text_area(:description, rows: 4, cols: 50) %>
+    <%= f.submit "Submit Application" %>
+    <% end %>
+  <% end %>
+</div>
+<div id= 'application_pets'>
+  <% if @application.pets != [] && @application.status != 'In Progress' %>
+    <% @application.pets.each do |pet| %>
+      <h1>Pet Name: <%= pet.name %></h1>
+      <h3>Age: <%= pet.age %> years old</h3>
+      <h3>Breed: <%= pet.breed %></h3>
+      <h3>Adoptable: <%= pet.adoptable %></h3>
+      <h3>Shelter Name: <%= pet.shelter_name %></h3>
+    <% end %>
+  <% end %>
 </div>
