@@ -13,8 +13,12 @@ RSpec.describe "Create Application" do
             expect(page).to have_button('Submit')
       end
 ##i think we might neex to test this using #within blocks
-      it 'creates a user application and redirects it to the application show page' do 
-            mary = Applicant.create!(name: "Mary", address: "5555 Test Avenue", city: "Denver", state: "CO", zip: 55555)
+      describe 'the application create' do
+            context 'given valid data' do
+            it 'creates a user application and redirects it to the application show page' do 
+      
+            # mary = Applicant.create!(name: "Mary", address: "5555 Test Avenue", city: "Denver", state: "CO", zip: 55555)
+            visit "/applications/new"
 
             fill_in 'Name', with: 'Mary'
             fill_in 'Address', with: '5555 Test Avenue'
@@ -24,12 +28,25 @@ RSpec.describe "Create Application" do
 
             
             click_on 'Submit'
-            expect(current_path).to eq("applications/#{mary.id}")
+            @applicant = Applicant.order("created_at").last
+            expect(current_path).to eq("/applications/#{@applicant.id}")
 
             expect(page).to have_content('Mary')
             expect(page).to have_content('5555 Test Avenue')
             expect(page).to have_content('Denver')
             expect(page).to have_content('CO')
             expect(page).to have_content(55555)
+            end 
+      end 
+            context 'given invalid data' do
+            it 're-renders the new form' do
+            visit "/applications/new"
+      
+            click_on 'Submit'
+            expect(page).to have_current_path('/applications/new')
+            expect(page).to have_content("Error")
+            # expect(page).to have_content("Error: Name can't be blank, Age can't be blank, Age is not a number")
       end
+      end
+end
 end
