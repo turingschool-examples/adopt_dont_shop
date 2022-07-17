@@ -1,14 +1,28 @@
 <h1><%="#{@applicant.name}'s Application Form"%></h1>
-<p><%= "Applcant Name: #{@applicant.name}" %></p>
-<p><%= "Address: #{@applicant.street_address}" %></p>
-<p><%= "City: #{@applicant.city}" %></p>
-<p><%= "State: #{@applicant.state}" %></p>
-<p><%= "Zip Code: #{@applicant.zip_code}" %></p>
-<p><%= "Description: #{@applicant.description}" %></p>
-<p>Pet's applied for:</p>
+<h3><%= "Applcant Name: #{@applicant.name}" %></h3>
+<h3><%= "Address: #{@applicant.street_address}" %></h3>
+<h3><%= "City: #{@applicant.city}" %></h3>
+<h3><%= "State: #{@applicant.state}" %></h3>
+<h3><%= "Zip Code: #{@applicant.zip_code}" %></h3>
+<h3><%= "Description: #{@applicant.description}" %></h3>
+<h3>Pet's applied for:</h3>
+<h3><%= "Application Status: #{@applicant.application_status}" %></h3>
 <% @applicant.pets.each do |pet| %>
 <div id="pet-<%= pet.id %>">
-<%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
+  <%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
 </div>
 <% end %>
-<p><%= "Application Statues: #{@applicant.application_status}" %></p>
+
+<% if @applicant.application_status == "In Progress" %>
+<h3><%= "Add a Pet to this application" %></h3>
+  <%= form_with url: "/applicants/#{@applicant.id}", method: :get, local:true do |f| %>
+    <%= f.label :search %>
+    <%= f.text_field :search %>
+    <%= f.submit "Find by pet name" %>
+  <% end %>
+<% end %>
+<% if params[:search].present? %>
+  <% @pet_search.each do |pet| %>
+  <%= pet.name %>
+  <% end %>
+<% end %>
