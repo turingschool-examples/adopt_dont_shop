@@ -10,7 +10,7 @@ class Application < ApplicationRecord
 
 
   def self.search(search)
-    pets.where("name LIKE ?", search)
+    pets.where("name ILIKE ?", search)
   end
   def status
     # logic that searches all pets on this application, 
