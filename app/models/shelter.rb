@@ -33,6 +33,14 @@ class Shelter < ApplicationRecord
   end
 
   def self.order_by_name
-        Shelter.find_by_sql("SELECT * FROM shelters ORDER BY name DESC")
+    Shelter.find_by_sql("SELECT * FROM shelters ORDER BY name DESC")
+  end
+
+  def self.apps_pending
+    pets_with_pending_apps = Pet.joins(:application_pets).where(application_pets: {status: 1}).pluck(:id)
+    
+    @shelters = pets_with_pending_apps.flat_map do |pet_id| 
+      Shelter.joins(:pets).where(pets: {id: pet_id})
     end
+  end
 end

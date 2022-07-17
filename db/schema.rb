@@ -18,6 +18,7 @@ ActiveRecord::Schema.define(version: 2022_07_14_174524) do
   create_table "application_pets", force: :cascade do |t|
     t.bigint "application_id"
     t.bigint "pet_id"
+    t.integer "status"
     t.index ["application_id"], name: "index_application_pets_on_application_id"
     t.index ["pet_id"], name: "index_application_pets_on_pet_id"
   end
