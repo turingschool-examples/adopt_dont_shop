@@ -107,25 +107,21 @@ RSpec.describe 'application show page' do
               state: 'Colorado',
               zip_code: '80003',
               applicant_bio: 'Because I am just awesome.',
-              application_status: 'Accepted')
-    charlie = mike.pets.create!(adoptable: true, age: 3, breed: 'GSD', name: 'Charlie', shelter_id: shelter.id)
-    mina = dani.pets.create!(adoptable: true, age: 1, breed: 'ND', name: 'Mina', shelter_id: shelter.id)
-    chloe = chris.pets.create!(adoptable: true, age: 2, breed: 'Tabby', name: 'Chloe', shelter_id: shelter.id)
-    vida = dani.pets.create!(adoptable: true, age: 4, breed: 'Yorkshire', name: 'Vida', shelter_id: shelter.id)
+              application_status: 'In Progress')
+    charlie = Pet.create!(adoptable: true, age: 3, breed: 'GSD', name: 'Charlie', shelter_id: shelter.id)
+    mina = Pet.create!(adoptable: true, age: 1, breed: 'ND', name: 'Mina', shelter_id: shelter.id)
+    chloe = Pet.create!(adoptable: true, age: 2, breed: 'Tabby', name: 'Chloe', shelter_id: shelter.id)
+    vida = Pet.create!(adoptable: true, age: 4, breed: 'Yorkshire', name: 'Vida', shelter_id: shelter.id)
 
    visit "/applications/#{mike.id}"
-   expect(page).to have_content("Add a pet to this application")
+   # expect(page).to have_content("Add a pet to this application")
    expect(page).to have_content("Search for pet by name")
 
-   fill_in "Search for pet by name", with: "Charlie"
+   fill_in :search, with: "Charlie"
 
    click_on "Pet name search"
-   save_and_open_page
    expect(current_path).to eq("/applications/#{mike.id}")
-   # expect(page).to have_content(charlie.name)
-   # expect(page).to have_content(charlie.adoptable)
-   # expect(page).to have_content(charlie.age)
-   # expect(page).to have_content(charlie.breed)
-
+   expect(page).to have_content(charlie.name)
+   save_and_open_page
  end
 end
