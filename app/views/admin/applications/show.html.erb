@@ -9,16 +9,17 @@
 
 <h3>Application pets:</h3>
 <% @application.pets.each do |pet| %> 
-<div id="pet-<%= pet.id %>">
-<p><%= link_to "#{pet.name}", "/pets/#{pet.id}" %> </p>
-<% pet.pet_applications.each do |pet_app|  %>
-  <% if pet_app.status == "Approved" %>
-  <p>Approved</p>
-  <% elsif pet_app.status == "Rejected" %>
-  <p>Rejected</p>
-  <% else pet_app.status.nil? %>
-  <%= button_to "Approve Application", "/admin/applications/#{@application.id}", method: :patch, params: {status: 'Approved', pet_id: pet.id } %> 
-  <% end %>
+  <div id="pet-<%= pet.id %>">
+  <p><%= link_to "#{pet.name}", "/pets/#{pet.id}" %> </p>
+  <% pet.pet_applications.each do |pet_app|  %>
+    <% if pet_app.status == "Approved" %>
+      <p>Approved</p>
+    <% elsif pet_app.status == "Rejected" %>
+      <p>Rejected</p>
+    <% else pet_app.status.nil? %>
+      <%= button_to "Reject Application", "/admin/applications/#{@application.id}", method: :patch, params: {status: 'Rejected', pet_id: pet.id } %> 
+      <%= button_to "Approve Application", "/admin/applications/#{@application.id}", method: :patch, params: {status: 'Approved', pet_id: pet.id } %> 
+    <% end %>
   <% end %>
 </div>
 <% end %>
