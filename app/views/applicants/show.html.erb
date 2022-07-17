@@ -1,10 +1,24 @@
 <h1>name: <%= @applicant.name %></h1>
 <h3>address: <%= @applicant.address %> city: <%=@applicant.city%> state: <%=@applicant.state%> zip: <%= @applicant.zip%> </h3>
 
+<h3><%= @applicant.description %></h3>
+<h3>application_status: <%= @applicant.application_status %></h3>
+
 <h3>name of pets wanting to adopt: <%= @applicant.pets.all.each do |pet| %>
    <%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
 <% end %></h3>
 
-<h3><%= @applicant.description %></h3>
-<h3>application_status: <%= @applicant.application_status %></h3>
+<% if @applicant.application_status == "In Progress" %>
+<%= form_with url: "/applications/#{@applicant.id}?pet_name=#{params[:pet_name]}", method: :get, local: true, skip_enforcing_utf8: true do |form|%>
+      <%= form.label :pet_name, "Add a Pet to this Application" %>
+      <%= form.text_field :pet_name %>
+      <%= form.submit "Submit", name: nil %>
+   <% end %>
+   <% end %>
 
+<% if @pets %>
+   <% @pets.each do |pet| %>
+      <p><%= pet.name %>
+      <%= button_to "Adopt #{pet.name}", "/applications/#{@applicant.id}", controller: :pet_app, action: :create, params: {pet: pet}, method: :post %></p>
+   <% end %>
+   <% end %>

@@ -9,6 +9,7 @@ class ApplicantsController < ApplicationController
 
     def create 
         applicant = Applicant.new(applicant_params)
+        applicant.application_status = "In Progress"
         if applicant.save
             redirect_to "/applications/#{applicant.id}" 
         else
