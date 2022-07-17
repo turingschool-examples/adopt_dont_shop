@@ -1,2 +1,7 @@
 <h1>All Shelters-Admin View</h1>
 
+<div id = "pet_shelters_admin">
+<%@shelters.each do |shelter|%>
+  <p class = "shelter_name"><%=shelter.name%></p>
+<%end%>
+</div>
