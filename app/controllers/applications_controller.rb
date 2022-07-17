@@ -27,7 +27,6 @@ class ApplicationsController < ApplicationController
     @application = Application.find(params[:id])
     @application.update(application_params)
     @application.update_ap_status
-    # binding.pry 
     redirect_to "/applications/#{@application.id}"
   end
   
