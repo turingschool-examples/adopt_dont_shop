@@ -39,8 +39,9 @@ class Shelter < ApplicationRecord
   def self.apps_pending
     pets_with_pending_apps = Pet.joins(:application_pets).where(application_pets: {status: 1}).pluck(:id)
     
-    @shelters = pets_with_pending_apps.flat_map do |pet_id| 
+    shelters = pets_with_pending_apps.flat_map do |pet_id| 
       Shelter.joins(:pets).where(pets: {id: pet_id})
     end
+    shelters
   end
 end
