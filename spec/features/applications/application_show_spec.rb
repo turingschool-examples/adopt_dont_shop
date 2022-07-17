@@ -9,7 +9,7 @@ RSpec.describe 'aplication show page' do
 
   end
 
-  xit 'shows all application info' do
+  it 'shows all application info' do
     visit "/applications/#{@application.id}"
 
     expect(page).to have_content("Thomas Turner")
