@@ -1,4 +1,8 @@
 class SheltersController < ApplicationController
+  def admin_index
+    @shelters = Shelter.order_by_reverse_abc
+  end
+
   def index
     if params[:sort].present? && params[:sort] == "pet_count"
       @shelters = Shelter.order_by_number_of_pets
