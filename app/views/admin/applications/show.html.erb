@@ -8,18 +8,19 @@
 <p>Application status: <%= @application.status %> </p>
 
 <h3>Application pets:</h3>
-<% @application.pets.each do |pet| %> 
-  <div id="pet-<%= pet.id %>">
-  <p><%= link_to "#{pet.name}", "/pets/#{pet.id}" %> </p>
-  <% pet.pet_applications.each do |pet_app|  %>
-    <% if pet_app.status == "Approved" %>
-      <p>Approved</p>
-    <% elsif pet_app.status == "Rejected" %>
-      <p>Rejected</p>
-    <% else pet_app.status.nil? %>
-      <%= button_to "Reject Application", "/admin/applications/#{@application.id}", method: :patch, params: {status: 'Rejected', pet_id: pet.id } %> 
-      <%= button_to "Approve Application", "/admin/applications/#{@application.id}", method: :patch, params: {status: 'Approved', pet_id: pet.id } %> 
-    <% end %>
+<% num = 0 %>
+<% @pet_apps.each do |pet_app|  %>
+  <div id="pet-<%= pet_app.pet_id %>">
+  <p><%= link_to "#{@pets[num].name}", "/pets/#{@pets[num].id}" %> </p>
+  <% num += 1 %>
+  <% if pet_app.status == "Approved" %>
+    <p>Approved</p>
+  <% elsif pet_app.status == "Rejected" %>
+    <p>Rejected</p>
+  <% else pet_app.status.nil? %>
+    <%= button_to "Reject Application", "/admin/applications/#{@application.id}", method: :patch, params: {status: 'Rejected', pet_id: pet_app.pet_id } %> 
+    <%= button_to "Approve Application", "/admin/applications/#{@application.id}", method: :patch, params: {status: 'Approved', pet_id: pet_app.pet_id } %> 
   <% end %>
-</div>
+  </div>
 <% end %>
+
