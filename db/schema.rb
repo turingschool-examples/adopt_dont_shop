@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_07_14_200816) do
+ActiveRecord::Schema.define(version: 2022_07_17_183750) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -32,6 +32,7 @@ ActiveRecord::Schema.define(version: 2022_07_14_200816) do
     t.bigint "pet_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "approval"
     t.index ["app_id"], name: "index_pet_apps_on_app_id"
     t.index ["pet_id"], name: "index_pet_apps_on_pet_id"
   end
