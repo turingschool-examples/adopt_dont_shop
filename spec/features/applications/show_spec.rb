@@ -114,7 +114,7 @@ RSpec.describe 'Show application', type: :feature do
     end
   end
 
-  it 'searches for a pet using only part of the name and locates that pet' do
+  it 'searches and finds a pet using only part of the name and locates that pet' do
     dog_homes = Shelter.create!(id: 1, name: 'Dog Homes', city: 'Miami', rank: 1, foster_program: true)
     application_1 = Application.create!(id: 1, name: 'John Doe', street_address: "123 Main St", city: "New York", state: "NY", zipcode: 10001, description: "I love dogs", status: "pending")
     application_2 = Application.create!(id: 2, name: 'Jane Doe', street_address: "456 Main St", city: "Boston", state: "MA", zipcode: 10002, description: "I love cats", status: "pending")
@@ -126,6 +126,29 @@ RSpec.describe 'Show application', type: :feature do
 
     within("#pet_search") do
       fill_in "search_name", with: "Bo"
+      click_on("Search")
+    end
+
+    expect(current_path).to eq("/applications/1")
+
+    within("#pet_found") do
+      expect(page).to have_content("Bowow")
+      expect(page).to have_button('Add to Application')
+    end
+  end
+
+  it 'searches for and finds a pet with a partial match' do
+    dog_homes = Shelter.create!(id: 1, name: 'Dog Homes', city: 'Miami', rank: 1, foster_program: true)
+    application_1 = Application.create!(id: 1, name: 'John Doe', street_address: "123 Main St", city: "New York", state: "NY", zipcode: 10001, description: "I love dogs", status: "pending")
+    application_2 = Application.create!(id: 2, name: 'Jane Doe', street_address: "456 Main St", city: "Boston", state: "MA", zipcode: 10002, description: "I love cats", status: "pending")
+    roofus = Pet.create!(id: 1, name: 'Roofus', age: 2, breed: 'pit bull', adoptable: true, shelter_id: 1)
+    bowow = Pet.create!(id: 2, name: 'Bowow', age: 3, breed: 'labrador', adoptable: true, shelter_id: 1)
+    pet_application_1 = PetApplication.create!(id: 1, application_id: 1, pet_id: 1)
+
+    visit "applications/#{application_1.id}"
+
+    within("#pet_search") do
+      fill_in "search_name", with: "wo"
       click_on("Search")
     end
 
