@@ -91,7 +91,7 @@ RSpec.describe 'application show page' do
               state: 'Colorado',
               zip_code: '80112',
               applicant_bio: 'My dog needs another to chase up trees.',
-              application_status: 'Pending')
+              application_status: 'In Progress')
     chris = Application.create!(
               name: 'Chris Simmons',
               street_address: '533 Oak St',
