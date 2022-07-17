@@ -1,0 +1,5 @@
+<%= form_with url: "/applications/#{@application.id}",  method: :patch, local: true do |form| %>
+  <%= form.label 'Tell us why your home would be a good fit for this pet' %><br/>
+  <%= form.text_field :applicant_bio, required: true, :size=>"100", :minlength=>"5", :maxlength=>"250" %>
+  <%= form.submit 'Submit Application'%>
+<% end %>

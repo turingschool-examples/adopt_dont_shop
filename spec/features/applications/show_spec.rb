@@ -82,6 +82,7 @@ RSpec.describe 'application show page' do
     expect(page).to_not have_content('Mina')
     expect(page).to_not have_content('Vida')
   end
+
   it 'can search for pets for an application' do
     shelter = Shelter.create!(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
     mike = Application.create!(
@@ -114,14 +115,13 @@ RSpec.describe 'application show page' do
     vida = Pet.create!(adoptable: true, age: 4, breed: 'Yorkshire', name: 'Vida', shelter_id: shelter.id)
 
    visit "/applications/#{mike.id}"
-   # expect(page).to have_content("Add a pet to this application")
+   
    expect(page).to have_content("Search for pet by name")
 
    fill_in :search, with: "Charlie"
-
    click_on "Pet name search"
+
    expect(current_path).to eq("/applications/#{mike.id}")
    expect(page).to have_content(charlie.name)
-   save_and_open_page
  end
 end
