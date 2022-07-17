@@ -40,6 +40,18 @@ end
     expect(page).to have_content("#{@pet_1.name}")
   end
 
+  xit "can add pets" do
+    visit "applications/#{@application_1.id}"
+    fill_in :search, with: "#{@pet_1.name}"
+    click_on "Search"
+    expect(page).to have_button("Adopt this Pet")
+    click_button("Adopt this Pet")
+  end
+
+  it "can submit an application" do
+  
+  end
+
   it 'returns partial matches' do
     visit "/applications/#{@application_1.id}"
 
