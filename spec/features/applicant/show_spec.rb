@@ -11,9 +11,6 @@ RSpec.describe 'the applicant show page', type: :feature do
                                   description: 'I have a big yard and work from home.',
                                   application_status: 'In Progress'
                                 )
-    shelter = Shelter.create!(name: 'Fancy pets of Colorado', city: 'Denver, CO', foster_program: true, rank: 10)
-    pet = Pet.create!(name: 'Scooby', age: 2, breed: 'Great Dane', adoptable: true, shelter_id: shelter.id)
-    pet_2 = Pet.create!(adoptable: true, age: 1, breed: 'sphynx', name: 'Lucille Bald', shelter_id: shelter.id)
 
     visit "/applicants/#{applicant.id}"
                               
@@ -47,5 +44,32 @@ RSpec.describe 'the applicant show page', type: :feature do
     click_link('Scooby')
     
     expect(current_path).to eq("/pets/#{pet.id}")
+  end
+
+  it 'US23: can search for a pet by name to add to an application' do 
+    applicant = Applicant.create!(name: 'Oliver Smudger', 
+                                  street_address: '1234 N Random Avenue', 
+                                  city: 'Tucson', 
+                                  state: 'Arizona', 
+                                  zip_code: '12345',
+                                  description: 'I have a big yard and work from home.',
+                                  application_status: 'In Progress'
+                                )
+    shelter = Shelter.create!(name: 'Fancy pets of Colorado', city: 'Denver, CO', foster_program: true, rank: 10)
+    pet = Pet.create!(name: 'Scooby', age: 2, breed: 'Great Dane', adoptable: true, shelter_id: shelter.id)
+    pet_2 = applicant.pets.create!(adoptable: true, age: 1, breed: 'sphynx', name: 'Lucille Bald', shelter_id: shelter.id)
+
+    visit "/applicants/#{applicant.id}"
+    
+    expect(page).to have_content('Add a Pet to this Application')
+
+    fill_in 'Pet name', with: 'Lucille Bald'
+
+    expect(page).to have_button('Submit')
+    click_button('Submit')  
+
+    expect(current_path).to eq("/applicants/#{applicant.id}")
+    expect(page).to have_content('Lucille Bald')
+    expect(page).to_not have_content('Scooby')
   end
 end
