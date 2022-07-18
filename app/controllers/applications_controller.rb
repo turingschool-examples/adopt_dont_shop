@@ -6,10 +6,10 @@ class ApplicationsController < ApplicationController
 
   def show
     @application = Application.find(params[:id])
+    @pets = @application.pets
     if params[:search].present?
-      @pets = Pet.search(params[:search])
+      @search_pets = Pet.search(params[:search])
     else
-      @pets = @application.pets
     end
   end
 
@@ -26,6 +26,13 @@ class ApplicationsController < ApplicationController
       redirect_to "/applications/new"
       flash[:alert] = "Error: #{error_message(application.errors)}"
     end
+  end
+
+  def add_pet
+    application = Application.find(params[:id])
+    pet = Pet.find(params[:add_pet])
+    pet_application = PetApplication.create!(application_id: application.id, pet_id: pet.id, status: application.status)
+    redirect_to "/applications/#{application.id}"
   end
 
   private

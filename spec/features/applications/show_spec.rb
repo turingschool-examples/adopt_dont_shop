@@ -3,10 +3,13 @@ require 'rails_helper'
 RSpec.describe 'Application Show Page' do
   describe 'when i visit the applications show page' do
     it 'then i can see the name, full address, description, names of pets, and application status of the specified application' do
-      application = Application.create!(name: "Jerry Rice", street_address: "123 Main Street", city: "Honolulu", state: "HI", zip_code: 12345, description: "We love doggos!", status: "In Progress")
+      application = Application.create!(name: "Jerry Rice", street_address: "123 Main Street", city: "Honolulu", state: "HI", zip_code: 12345, description: "We love doggos!")
       shelter = Shelter.create!(foster_program: true, name: "North Shore Animal Hospital", city: "Long Island", rank: 3)
-      spot = Pet.create!(adoptable: true, age: 2, breed: "Dalmatian", name: "Spot", shelter_id: shelter.id, application_id: application.id)
-      frenchie = Pet.create!(adoptable: true, age: 1, breed: "French Bulldog", name: "Frenchie", shelter_id: shelter.id, application_id: application.id)
+      spot = Pet.create!(adoptable: true, age: 2, breed: "Dalmatian", name: "Spot", shelter_id: shelter.id)
+      frenchie = Pet.create!(adoptable: true, age: 1, breed: "French Bulldog", name: "Frenchie", shelter_id: shelter.id)
+      pancho = Pet.create!(adoptable: true, age: 5, breed: "Chiuahua", name: "Pancho", shelter_id: shelter.id)
+      spot_application = PetApplication.create!(application_id: application.id, pet_id: spot.id, status: application.status)
+      frenchie_application = PetApplication.create!(application_id: application.id, pet_id: frenchie.id, status: application.status)
       
       
       visit "/applications/#{application.id}"
@@ -48,6 +51,31 @@ RSpec.describe 'Application Show Page' do
       visit "/applications/#{application.id}"
 
       expect(page).to_not have_content("Add a Pet to this Application")
+    end
+
+    it 'when i search for a pet by name, i see a button next to the pets name and if i click the button it will add that pet to the application' do
+      application = Application.create!(name: "Jerry Rice", street_address: "123 Main Street", city: "Honolulu", state: "HI", zip_code: 12345, description: "We love doggos!")
+      shelter = Shelter.create!(foster_program: true, name: "North Shore Animal Hospital", city: "Long Island", rank: 3)
+      spot = Pet.create!(adoptable: true, age: 2, breed: "Dalmatian", name: "Spot", shelter_id: shelter.id)
+      frenchie = Pet.create!(adoptable: true, age: 1, breed: "French Bulldog", name: "Frenchie", shelter_id: shelter.id)
+      pancho = Pet.create!(adoptable: true, age: 5, breed: "Chiuahua", name: "Pancho", shelter_id: shelter.id)
+      spot_application = PetApplication.create!(application_id: application.id, pet_id: spot.id, status: application.status)
+      frenchie_application = PetApplication.create!(application_id: application.id, pet_id: frenchie.id, status: application.status)
+
+      visit "/applications/#{application.id}"
+
+      expect(page).to_not have_link("Pancho")
+
+      fill_in 'Search', with: "Pancho"
+      click_on 'Search'
+      click_on 'Adopt this Pet'
+
+      expect(current_path).to eq("/applications/#{application.id}")
+      expect(page).to have_link("Pancho")
+
+      click_on "Pancho"
+
+      expect(current_path).to eq("/pets/#{pancho.id}")
     end
   end
 end

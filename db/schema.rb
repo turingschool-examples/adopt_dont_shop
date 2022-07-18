@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_07_15_222048) do
+ActiveRecord::Schema.define(version: 2022_07_18_183628) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,6 +27,14 @@ ActiveRecord::Schema.define(version: 2022_07_15_222048) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "pet_applications", force: :cascade do |t|
+    t.bigint "application_id"
+    t.bigint "pet_id"
+    t.string "status"
+    t.index ["application_id"], name: "index_pet_applications_on_application_id"
+    t.index ["pet_id"], name: "index_pet_applications_on_pet_id"
+  end
+
   create_table "pets", force: :cascade do |t|
     t.boolean "adoptable"
     t.integer "age"
@@ -35,8 +43,6 @@ ActiveRecord::Schema.define(version: 2022_07_15_222048) do
     t.bigint "shelter_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "application_id"
-    t.index ["application_id"], name: "index_pets_on_application_id"
     t.index ["shelter_id"], name: "index_pets_on_shelter_id"
   end
 
@@ -67,7 +73,8 @@ ActiveRecord::Schema.define(version: 2022_07_15_222048) do
     t.datetime "updated_at", null: false
   end
 
-  add_foreign_key "pets", "applications"
+  add_foreign_key "pet_applications", "applications"
+  add_foreign_key "pet_applications", "pets"
   add_foreign_key "pets", "shelters"
   add_foreign_key "veterinarians", "veterinary_offices"
 end
