@@ -1,13 +1,12 @@
-<h1>Application</h1>
+<h1>Applications</h1>
 
 <% @applications.each_with_index do |application, index| %>
 <div id="application-<%= index %>"
-  <h3><%= application.name %></h3>
-  <p>
-    <%= application.street_address %>
-    <%= application.city %>
-    <%= application.state %>
-    <%= application.zip_code %>
-  </p>
+  <h3><b>Name: <%= application.name %></b></h3>
+  <p>Address: <%= application.street_address %></p>
+  <p>City: <%= application.city %></p>
+  <p>State: <%= application.state %></p>
+  <p>Zip: <%= application.zip_code %></p>
+  <br/>
 </div>
 <% end %>
