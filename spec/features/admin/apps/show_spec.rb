@@ -133,4 +133,93 @@ RSpec.describe 'admin app show' do
       expect(page).to have_content('Rejected')
     end
   end
+
+  # All Pets Accepted on an Application
+
+  # As a visitor
+  # When I visit an admin application show page
+  # And I approve all pets for an application
+  # Then I am taken back to the admin application show page
+  # And I see the application's status has changed to "Approved"
+
+  it 'can changed app status to accepted when all pets approved' do
+    app_1 = App.create!(name: "Bob", address: "2020 Maple Lane", city: "Denver", state: "CO", zip: "80202", description: "ABC", status: "pending")
+    shelter = Shelter.create!(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
+    pet_1 = Pet.create!(adoptable: true, age: 1, breed: 'sphynx', name: 'Lucille Bald', shelter_id: shelter.id)
+    pet_2 = Pet.create!(adoptable: true, age: 3, breed: 'doberman', name: 'Lobster', shelter_id: shelter.id)
+    pet_3 = Pet.create(adoptable: true, age: 2, breed: 'saint bernard', name: 'Beethoven', shelter_id: shelter.id)
+
+    PetApp.create!(pet: pet_1, app: app_1)
+    PetApp.create!(pet: pet_2, app: app_1)
+    PetApp.create!(pet: pet_3, app: app_1)
+
+    visit "/admin/apps/#{app_1.id}"
+    expect(page).to have_content('Status: pending')
+    
+    within "#pet_#{pet_1.id}" do
+      click_button 'Approve'
+    end
+
+    expect(current_path).to eq("/admin/apps/#{app_1.id}")
+    expect(page).to have_content('Status: pending')
+
+    within "#pet_#{pet_2.id}" do
+      click_button 'Approve'
+    end
+
+    expect(current_path).to eq("/admin/apps/#{app_1.id}")
+    expect(page).to have_content('Status: pending')
+
+    within "#pet_#{pet_3.id}" do
+      click_button 'Approve'
+    end
+
+    expect(current_path).to eq("/admin/apps/#{app_1.id}")
+    expect(page).to have_content('Status: accepted')
+  end
+
+  # One or More Pets Rejected on an Application
+
+  # As a visitor
+  # When I visit an admin application show page
+  # And I reject one or more pets for the application
+  # And I approve all other pets on the application
+  # Then I am taken back to the admin application show page
+  # And I see the application's status has changed to "Rejected"
+
+  it 'can changed app status to rejected when any pets rejected' do
+    app_1 = App.create!(name: "Bob", address: "2020 Maple Lane", city: "Denver", state: "CO", zip: "80202", description: "ABC", status: "pending")
+    shelter = Shelter.create!(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
+    pet_1 = Pet.create!(adoptable: true, age: 1, breed: 'sphynx', name: 'Lucille Bald', shelter_id: shelter.id)
+    pet_2 = Pet.create!(adoptable: true, age: 3, breed: 'doberman', name: 'Lobster', shelter_id: shelter.id)
+    pet_3 = Pet.create(adoptable: true, age: 2, breed: 'saint bernard', name: 'Beethoven', shelter_id: shelter.id)
+
+    PetApp.create!(pet: pet_1, app: app_1)
+    PetApp.create!(pet: pet_2, app: app_1)
+    PetApp.create!(pet: pet_3, app: app_1)
+
+    visit "/admin/apps/#{app_1.id}"
+    expect(page).to have_content('Status: pending')
+    
+    within "#pet_#{pet_1.id}" do
+      click_button 'Approve'
+    end
+
+    expect(current_path).to eq("/admin/apps/#{app_1.id}")
+    expect(page).to have_content('Status: pending')
+
+    within "#pet_#{pet_2.id}" do
+      click_button 'Approve'
+    end
+
+    expect(current_path).to eq("/admin/apps/#{app_1.id}")
+    expect(page).to have_content('Status: pending')
+
+    within "#pet_#{pet_3.id}" do
+      click_button 'Reject'
+    end
+
+    expect(current_path).to eq("/admin/apps/#{app_1.id}")
+    expect(page).to have_content('Status: rejected')
+  end
 end
