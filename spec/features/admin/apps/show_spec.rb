@@ -13,7 +13,7 @@ RSpec.describe 'admin app show' do
   # And instead I see an indicator next to the pet that they have been approved
 
   it 'can approve a pet for adoption' do
-    app_1 = App.create!(name: "Bob", address: "2020 Maple Lane", city: "Denver", state: "CO", zip: "80202", description: "ABC", status: "in progress")
+    app_1 = App.create!(name: "Bob", address: "2020 Maple Lane", city: "Denver", state: "CO", zip: "80202", description: "ABC", status: "pending")
     shelter = Shelter.create!(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
     pet_1 = Pet.create!(adoptable: true, age: 1, breed: 'sphynx', name: 'Lucille Bald', shelter_id: shelter.id)
     pet_2 = Pet.create!(adoptable: true, age: 3, breed: 'doberman', name: 'Lobster', shelter_id: shelter.id)
@@ -47,7 +47,7 @@ RSpec.describe 'admin app show' do
   # And instead I see an indicator next to the pet that they have been rejected
 
   it 'can reject a pet for adoption' do
-    app_1 = App.create!(name: "Bob", address: "2020 Maple Lane", city: "Denver", state: "CO", zip: "80202", description: "ABC", status: "in progress")
+    app_1 = App.create!(name: "Bob", address: "2020 Maple Lane", city: "Denver", state: "CO", zip: "80202", description: "ABC", status: "pending")
     shelter = Shelter.create!(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
     pet_1 = Pet.create!(adoptable: true, age: 1, breed: 'sphynx', name: 'Lucille Bald', shelter_id: shelter.id)
     pet_2 = Pet.create!(adoptable: true, age: 3, breed: 'doberman', name: 'Lobster', shelter_id: shelter.id)
@@ -81,9 +81,9 @@ RSpec.describe 'admin app show' do
   # And instead I see buttons to approve or reject the pet for this specific application
 
   it 'approval/rejection doesnt affect other applications for that same pet' do
-    app_1 = App.create!(name: "Bob", address: "2020 Maple Lane", city: "Denver", state: "CO", zip: "80202", description: "ABC", status: "in progress")
-    app_2 = App.create!(name: "John", address: "22 Dexter St", city: "Denver", state: "CO", zip: "80200", description: "123", status: "in progress")
-    app_3 = App.create!(name: "Terry", address: "8080 Elm St", city: "Boulder", state: "CO", zip: "80222", description: "LOL", status: "in progress")
+    app_1 = App.create!(name: "Bob", address: "2020 Maple Lane", city: "Denver", state: "CO", zip: "80202", description: "ABC", status: "pending")
+    app_2 = App.create!(name: "John", address: "22 Dexter St", city: "Denver", state: "CO", zip: "80200", description: "123", status: "pending")
+    app_3 = App.create!(name: "Terry", address: "8080 Elm St", city: "Boulder", state: "CO", zip: "80222", description: "LOL", status: "pending")
     shelter = Shelter.create!(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
     pet_1 = Pet.create!(adoptable: true, age: 1, breed: 'sphynx', name: 'Lucille Bald', shelter_id: shelter.id)
     pet_2 = Pet.create!(adoptable: true, age: 3, breed: 'doberman', name: 'Lobster', shelter_id: shelter.id)
@@ -96,7 +96,7 @@ RSpec.describe 'admin app show' do
     
     visit "/admin/apps/#{app_1.id}"
     within "#pet_#{pet_1.id}" do
-      click_button 'Accept'
+      click_button 'Approve'
     end
 
     expect(current_path).to eq("/admin/apps/#{app_1.id}")
@@ -104,7 +104,7 @@ RSpec.describe 'admin app show' do
     within "#pet_#{pet_1.id}" do
       expect(page).to_not have_button('Reject')
       expect(page).to_not have_button('Approve')
-      expect(page).to have_content('Accepted')
+      expect(page).to have_content('Approved')
     end
 
     visit "/admin/apps/#{app_2.id}"

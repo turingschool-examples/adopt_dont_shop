@@ -1,0 +1,18 @@
+<h1>Name: <%= @app.name %></h1>
+<p>Address: <%= @app.address %></p>
+<p>City: <%= @app.city %></p>
+<p>State: <%= @app.state %></p>
+<p>ZIP: <%= @app.zip %></p>
+<p>Description: <%= @app.description %></p>
+<p>
+  Pets: <% @app.pets.each do |pet| %>
+  <div id="pet_<%= pet.id %>"><p><%= link_to "#{pet.name}", "/pets/#{pet.id}" %></p>
+  <% if pet.pet_apps.find_by(app_id: @app.id).approval == nil %>
+  <p><%= button_to "Approve", "/admin/pet_apps/#{@app.id}", action: :update, params: {app_id: @app.id, pet_id: pet.id, approval: 'Approved'}, method: :patch %>
+  <%= button_to "Reject", "/admin/pet_apps/#{@app.id}", action: :update, params: {app_id: @app.id, pet_id: pet.id, approval: 'Rejected'}, method: :patch %></p>
+  <% else %>
+  <%= pet.pet_apps.find_by(app_id: @app.id).approval %>
+  <% end %></div>
+  <% end %>
+</p>
+<p>Status: <%= @app.status %></p>

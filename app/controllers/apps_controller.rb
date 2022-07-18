@@ -4,14 +4,11 @@ class AppsController < ApplicationController
   end
 
   def show
+    @app = App.find(params[:id])
     if params[:search].present?
-      @app = App.find(params[:id])
-      @pets = Pet.search(params[:search])
-    elsif app_params[:status] == "in progress"
-      @app = App.find(params[:id])
-      @pets = Pet.adoptable
+      @pets = Pet.adoptable.search(params[:search])
     else
-      @app = App.find(params[:id])
+      @pets = Pet.adoptable
     end
   end
 
