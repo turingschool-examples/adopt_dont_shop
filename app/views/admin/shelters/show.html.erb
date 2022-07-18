@@ -2,6 +2,8 @@
 <p> Address: <%= @shelter.address%></p>
 <p> City / State: <%= @shelter.city%></p>
 <p> Zip Code: <%= @shelter.zip%></p>
-<h4><%= @shelter.name %> Statistics:</h4>
-<p>Average pet age: <%= @shelter.average_pet_age%>
-g
+<% if @shelter.pets.count > 0 %>
+    <h4><%= @shelter.name %> Statistics:</h4>
+    <p>Average pet age: <%= @shelter.average_pet_age.round(2)%>
+    <p>Adoptable pets: <%= @shelter.adoptable_pet_count%>
+<%end %>

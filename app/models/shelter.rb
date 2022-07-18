@@ -25,6 +25,10 @@ class Shelter < ApplicationRecord
     pets.where(adoptable: true)
   end
 
+  def adoptable_pet_count
+    adoptable_pets.count
+  end
+
   def alphabetical_pets
     adoptable_pets.order(name: :asc)
   end
@@ -34,7 +38,11 @@ class Shelter < ApplicationRecord
   end
 
   def average_pet_age 
-    pets.average(:age)
+    pets.where('adoptable = ?', true).average(:age)
+  end 
+
+  def self.shelter_show(id)
+    find_by_sql("SELECT id, name, address, city, zip FROM shelters WHERE id = #{id}")[0]
   end 
 
   def self.reverse_order

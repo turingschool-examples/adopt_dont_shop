@@ -54,8 +54,13 @@ RSpec.describe Shelter, type: :model do
 
     describe '#reverse_order' do
       it 'displays all shelters in reverse alphabetical order by name' do
-
         expect(Shelter.reverse_order[0]).to eq(@shelter_2)
+      end
+    end
+
+    describe '#shelter_show' do
+      it 'returns the shelter and info for the show page' do
+        expect(Shelter.shelter_show("#{@shelter_2.id}")).to eq(@shelter_2)
       end
     end
   end
@@ -82,6 +87,18 @@ RSpec.describe Shelter, type: :model do
     describe '.pet_count' do
       it 'returns the number of pets at the given shelter' do
         expect(@shelter_1.pet_count).to eq(3)
+      end
+    end
+
+    describe '.average_pet_age' do
+      it 'returns average pet age for adoptable pets' do
+        expect(@shelter_1.average_pet_age).to eq(4)
+      end
+    end
+
+    describe '.adoptable_pet_count' do
+      it 'returns the number of adoptable pets for a shelter' do
+        expect(@shelter_1.adoptable_pet_count).to eq(2)
       end
     end
   end
