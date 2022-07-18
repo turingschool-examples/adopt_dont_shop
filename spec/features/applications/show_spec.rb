@@ -100,7 +100,33 @@ RSpec.describe "application show page" do
         expect(page).to have_content("Fido")
         fill_in 'description', with: 'We love pets and take care of all animals'
         click_on 'Submit Application'
-        save_and_open_page
+        # save_and_open_page
         expect(page).to have_content("application_status: Pending")
     end
+
+        # No Pets on an Application
+        # As a visitor
+        # When I visit an application's show page
+        # And I have not added any pets to the application
+        # Then I do not see a section to submit my application
+
+        it "doesn't show the option to submit application, if there are no pets selected" do
+            shelter_1 = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
+            fido = shelter_1.pets.create(name: 'Fido', breed: 'Beagle', age: 5, adoptable: true)
+            # applicant_pet = ApplicantPet.create!(pet: fido, applicant: new_applicant)
+    
+            visit "/applications/new"
+            
+            fill_in 'Name', with: 'Mary'
+            fill_in 'Address', with: '5555 Test Avenue'
+            fill_in 'City', with: 'Denver'
+            fill_in 'State', with: 'CO'
+            fill_in 'Zip', with: 55555
+            click_on 'Submit'
+            test_applicant = Applicant.order("created_at").last
+            expect(current_path).to eq("/applications/#{test_applicant.id}")
+            save_and_open_page
+            expect(page).to_not have_content("Submit")
+            expect(page).to_not have_content("Pending")
+        end
 end
