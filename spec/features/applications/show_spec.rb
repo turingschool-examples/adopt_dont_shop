@@ -143,4 +143,27 @@ RSpec.describe "application show page" do
             save_and_open_page
             expect(page).to have_content('Sunny')
         end
+
+
+
+# Case Insensitive Matches for Pet Names
+# As a visitor
+# When I visit an application show page
+# And I search for Pets by name
+# Then my search is case insensitive
+# For example, if I search for "fluff", my search would match pets with names "Fluffy", "FLUFF", and "Mr. FlUfF"
+
+        it "can search for pets, where the term is case insensitive" do 
+            shelter_1 = Shelter.create!(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
+            fido = shelter_1.pets.create!(name: 'Fido', breed: 'Beagle', age: 5, adoptable: true)
+            sunny = shelter_1.pets.create!(name: 'Sunny', breed: 'Mastif', age: 7, adoptable: true)
+            new_applicant = Applicant.create!(name: "Test", address: "5555 Test Avenue", city: "Denver", state: "CO", zip: 55555)
+    
+            visit "/applications/#{new_applicant.id}"
+    
+            fill_in('search', with: 'sunny')
+            click_on 'Search'
+            # save_and_open_page
+            expect(page).to have_content('Sunny')
+        end
 end
