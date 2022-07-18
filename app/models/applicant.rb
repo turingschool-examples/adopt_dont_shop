@@ -1,4 +1,5 @@
 class Applicant < ApplicationRecord 
+    before_save :set_default_val
     validates :name, presence: true
     validates :address, presence: true
     validates :city, presence: true
@@ -10,4 +11,8 @@ class Applicant < ApplicationRecord
 
     has_many :applicant_pets
     has_many :pets, through: :applicant_pets
+
+    def set_default_val
+        self.application_status = 'In Progress' 
+    end
 end
