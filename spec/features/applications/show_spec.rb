@@ -94,7 +94,7 @@ RSpec.describe 'Show application', type: :feature do
     dog_homes = Shelter.create!(id: 1, name: 'Dog Homes', city: 'Miami', rank: 1, foster_program: true)
     application_1 = Application.create!(id: 1, name: 'John Doe', street_address: "123 Main St", city: "New York", state: "NY", zipcode: 10001, description: "I love dogs")
     roofus = Pet.create!(id: 1, name: 'Roofus', age: 2, breed: 'pit bull', adoptable: true, shelter_id: 1)
-    bowow = Pet.create!(id: 2, name: 'Bowow', age: 3, breed: 'labrador', adoptable: true, shelter_id: 1)
+    doggo = Pet.create!(id: 2, name: 'Doggo', age: 3, breed: 'labrador', adoptable: true, shelter_id: 1)
     pet_application_1 = PetApplication.create!(id: 1, application_id: 1, pet_id: 1)
 
     visit "applications/#{application_1.id}"
@@ -104,7 +104,7 @@ RSpec.describe 'Show application', type: :feature do
     end
 
     within("#pet_search") do
-      fill_in "search_name", with: "Bowow"
+      fill_in "search_name", with: "Doggo"
       click_on("Search")
     end
 
@@ -113,11 +113,11 @@ RSpec.describe 'Show application', type: :feature do
     end
 
     within("#app_information") do
-      expect(page).to have_content("Bowow", count: 1)
+      expect(page).to have_content("Doggo", count: 1)
     end
 
     within("#pet_search") do
-      fill_in "search_name", with: "Bowow"
+      fill_in "search_name", with: "Doggo"
       click_on("Search")
     end
 
@@ -126,7 +126,7 @@ RSpec.describe 'Show application', type: :feature do
     end
 
     within("#app_information") do
-      expect(page).to have_content("Bowow", count: 1)
+      expect(page).to have_content("Doggo", count: 1)
     end
 
   end
