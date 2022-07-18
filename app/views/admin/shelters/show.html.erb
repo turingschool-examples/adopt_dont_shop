@@ -5,4 +5,5 @@
 <% if @shelter.pets.count > 0 %>
     <h4><%= @shelter.name %> Statistics:</h4>
     <p>Average pet age: <%= @shelter.average_pet_age.round(2)%>
-<% end %>
+    <p>Adoptable pets: <%= @shelter.adoptable_pet_count%>
+<%end %>

@@ -25,4 +25,16 @@ RSpec.describe 'admin shelter show page' do
         expect(page).to have_content("#{mystery.name} Statistics")
         expect(page).to have_content("Average pet age: 3.67")
     end 
+
+    it 'in the stats section, I see the number of adoptable pets' do 
+        mystery = Shelter.create!(name: 'Mystery Building', address: "323 Main St", city: 'Irvine, CA', zip: 76543, foster_program: false, rank: 9)
+        lucille = Pet.create(adoptable: true, age: 1, breed: 'sphynx', name: 'Lucille Bald', shelter_id: mystery.id)
+        lobster = Pet.create(adoptable: true, age: 3, breed: 'doberman', name: 'Lobster', shelter_id: mystery.id)
+        beethoven = Pet.create(adoptable: false, age: 2, breed: 'saint bernard', name: 'Beethoven', shelter_id: mystery.id) 
+        barey = Pet.create(adoptable: true, age: 7, breed: 'sphynx', name: 'Bare-y Manilow', shelter_id: mystery.id)
+       
+        visit "/admin/shelters/#{mystery.id}"    
+
+        expect(page).to have_content("Adoptable pets: 3")
+    end 
 end 
