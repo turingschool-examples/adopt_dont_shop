@@ -6,13 +6,17 @@
 <p>Description: <%= @app.description %></p>
 <p>
   Pets: <% @app.pets.each do |pet| %>
-  <div id="pet_<%= pet.id %>"><p><%= link_to "#{pet.name}", "/pets/#{pet.id}" %></p>
-  <% if pet.pet_apps.find_by(app_id: @app.id).approval == nil %>
-  <p><%= button_to "Approve", "/admin/pet_apps/#{@app.id}", action: :update, params: {app_id: @app.id, pet_id: pet.id, approval: 'Approved'}, method: :patch %>
-  <%= button_to "Reject", "/admin/pet_apps/#{@app.id}", action: :update, params: {app_id: @app.id, pet_id: pet.id, approval: 'Rejected'}, method: :patch %></p>
-  <% else %>
-  <%= pet.pet_apps.find_by(app_id: @app.id).approval %>
-  <% end %></div>
-  <% end %>
-</p>
+    <div id="pet_<%= pet.id %>"><p><%= link_to "#{pet.name}", "/pets/#{pet.id}" %></p>
+    <% if pet.pet_apps.find_by(app_id: @app.id).approval == nil %>
+      <p><%= button_to "Approve", "/admin/pet_apps/#{@app.id}", action: :update, params: {app_id: @app.id, pet_id: pet.id, approval: 'Approved'}, method: :patch %>
+      <%= button_to "Reject", "/admin/pet_apps/#{@app.id}", action: :update, params: {app_id: @app.id, pet_id: pet.id, approval: 'Rejected'}, method: :patch %></p>
+    <% else %>
+      <%= pet.pet_apps.find_by(app_id: @app.id).approval %>
+      <% if @app.pet_apps.any? { |petapp| petapp.approval == 'Rejected' }%>
+        <% @app.status = 'rejected' %>
+      <% elsif @app.pet_apps.all? { |petapp| petapp.approval == 'Approved' }%>
+        <% @app.status = "accepted" %>
+      <% end %>
+    <% end %></div>
+  <% end %></p>
 <p>Status: <%= @app.status %></p>
