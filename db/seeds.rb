@@ -1,4 +1,6 @@
-
+Shelter.destroy_all
+Appliction.destroy_all
+Pet.destroy_all
 dog_homes = Shelter.create!(name: "Dog Home", city: "Denver", rank: 1, foster_program: true)
 paw_place = Shelter.create!(name: "Paw Place", city: "Boulder", rank: 2, foster_program: true)
 furry_friends = Shelter.create!(name: "Furry Friends", city: "Aurora", rank: 3, foster_program: false)
