@@ -222,4 +222,48 @@ RSpec.describe 'admin app show' do
     expect(current_path).to eq("/admin/apps/#{app_1.id}")
     expect(page).to have_content('Status: rejected')
   end
+
+  # Application Approval makes Pets not adoptable
+
+  # As a visitor
+  # When I visit an admin application show page
+  # And I approve all pets on the application
+  # And when I visit the show pages for those pets
+  # Then I see that those pets are no longer "adoptable"
+
+  it 'can make pet unadoptable upon app accepted' do
+    app_1 = App.create!(name: "Bob", address: "2020 Maple Lane", city: "Denver", state: "CO", zip: "80202", description: "ABC", status: "pending")
+    shelter = Shelter.create!(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
+    pet_1 = Pet.create!(adoptable: true, age: 1, breed: 'sphynx', name: 'Lucille Bald', shelter_id: shelter.id)
+    pet_2 = Pet.create!(adoptable: true, age: 3, breed: 'doberman', name: 'Lobster', shelter_id: shelter.id)
+
+    PetApp.create!(pet: pet_1, app: app_1)
+    PetApp.create!(pet: pet_2, app: app_1)
+
+    visit "/admin/apps/#{app_1.id}"
+    expect(page).to have_content('Status: pending')
+    
+    within "#pet_#{pet_1.id}" do
+      click_button 'Approve'
+    end
+
+    expect(current_path).to eq("/admin/apps/#{app_1.id}")
+    expect(page).to have_content('Status: pending')
+
+    within "#pet_#{pet_2.id}" do
+      click_button 'Approve'
+    end
+
+    expect(current_path).to eq("/admin/apps/#{app_1.id}")
+    expect(page).to have_content('Status: accepted')
+
+    expect(pet_1.reload.adoptable).to be(false)
+    expect(pet_2.reload.adoptable).to be(false)
+    
+    visit "/pets/#{pet_1.id}"
+    expect(page).to have_content("Adoptable: false")
+
+    visit "/pets/#{pet_2.id}"
+    expect(page).to have_content("Adoptable: false")
+  end
 end
