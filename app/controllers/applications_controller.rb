@@ -16,10 +16,8 @@ class ApplicationsController < ApplicationController
   
   def update
     application = Application.find(params[:id])
-    application.update(description: params[:description])
-    
+    application.update!(description: params[:description], app_status: "Pending")
     redirect_to "/applications/#{application.id}"
-    #binding.pry
   end
   def show
     @application = Application.find(params[:id])
