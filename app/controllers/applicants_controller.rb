@@ -9,8 +9,13 @@ class ApplicantsController < ApplicationController
   end
 
   def create
-    applicant = Applicant.create!(applicant_params)
-    redirect_to "/applicants/#{applicant.id}"
+    if Applicant.create(applicant_params).valid?
+      applicant = Applicant.create(applicant_params)
+      redirect_to "/applicants/#{applicant.id}"
+    else
+      redirect_to "/applicants/new"
+      flash[:message] = "Please fill in all the required fields"
+    end
   end
 
   private
