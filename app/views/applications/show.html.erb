@@ -11,6 +11,7 @@
 </li><br>
 <li><b>Application Status:</b> <%= @application.status %></li>
 </ul><br>
+
 <% if @application.status == "In Progress" %>
 <%= form_with url: "/applications/#{@application.id}", method: :patch, local: true do |f|%>
   <%= f.label :good_owner, "What makes you a good owner?" %>
@@ -26,21 +27,17 @@
     <%= f.text_field :search %>
     <%= f.submit "Search" %>
   <% end %>
+<% else  %>
+<% end %>
 
-  <% @pets.each do |pet| %>
-    <h3><%= pet.name %></h3>
+<% if params[:search].present? %>
+  <% @search_pets.each do |pet| %>
+    <h3><%= pet.name %></h3> <%= button_to "Adopt this Pet", "/applications/#{@application.id}", params: {add_pet: pet.id} %>
     <p>Age: <%= pet.age %></p>
     <p>Breed: <%= pet.breed %></p>
     <p>Adoptable: </p>
     <p>You can find <%= pet.name %> at <%= pet.shelter_name %>!</p>
   <% end %>
+<% else %>
+<% end %>
 
-<% elsif @application.status == "Pending" %>
-<% @pets.each do |pet| %>
-  <h3><%= pet.name %></h3>
-  <p>Age: <%= pet.age %></p>
-  <p>Breed: <%= pet.breed %></p>
-  <p>Adoptable: </p>
-  <p>You can find <%= pet.name %> at <%= pet.shelter_name %>!</p>
-<% end %>
-<% end %>
