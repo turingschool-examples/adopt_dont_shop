@@ -2,5 +2,8 @@
 
 <% @shelters.each do |shelter| %>
 <p> <%= shelter.name %> </p>
-
 <% end %>
+<p><h3>Pending</h3></p>
+   <%= @shelters.pending.each do |shelter| %>
+      <%= shelter.name %> 
+   <% end %>
