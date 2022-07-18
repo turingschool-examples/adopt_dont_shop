@@ -38,5 +38,22 @@ RSpec.describe Pet, type: :model do
         expect(@pet_3.shelter_name).to eq(@shelter_1.name)
       end
     end
+
+    describe '.pending_applications' do
+      it 'returns the applications for the given pet' do
+        application1 = Application.create!(name: 'John Doe', street_address: '123 Main St', city: 'New York',
+                                            state: 'NY', zipcode: 10_001)
+        application2 = Application.create!(name: 'John ', street_address: '123 Main St', city: 'New York',
+                                            state: 'NY', zipcode: 10_001)
+        application3 = Application.create!(name: 'Jane Doe', street_address: '123 Main St', city: 'New York',
+                                    state: 'NY', zipcode: 10_001)
+        pet_application1 = PetApplication.create!(application_id: application1.id, pet_id: @pet_1.id, status: 'Pending')
+        pet_application2 = PetApplication.create!(application_id: application2.id, pet_id: @pet_1.id, status: 'Pending')
+        pet_application3 = PetApplication.create!(application_id: application3.id, pet_id: @pet_1.id, status: 'Rejected')
+
+        expect(@pet_1.pending_applications.length).to eq(2)
+        expect(@pet_1.pending_applications.first.id).to eq(application1.id)
+      end
+    end
   end
 end

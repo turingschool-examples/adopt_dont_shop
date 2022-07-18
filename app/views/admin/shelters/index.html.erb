@@ -1,7 +1,19 @@
-<h1>All Shelters-Admin View</h1>
+<h1>Admin View</h1>
 
 <div id = "pet_shelters_admin">
-<%@shelters.each do |shelter|%>
-  <p class = "shelter_name"><%=shelter.name%></p>
+    <h2>All Shelters</h2>
+    <%@shelters.each do |shelter|%>
+      <p class = "shelter_name"><%=shelter.name%></p>
 <%end%>
+</div>
+
+<div id = "pending_applications_admin">
+  <h2>Shelters With Pending Applications</h2>
+  <%@shelters.each do |shelter|%>
+    <%shelter.pets.each do |pet| %>
+      <% if pet.pending_applications != []%>
+        <p class = "shelter_name"><%=shelter.name%></p>
+      <% end %>
+    <% end %>
+  <%end%>
 </div>

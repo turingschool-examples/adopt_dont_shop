@@ -12,4 +12,8 @@ class Pet < ApplicationRecord
   def self.adoptable
     where(adoptable: true)
   end
+
+  def pending_applications
+    pet_applications.where(status: 'Pending')
+  end
 end
