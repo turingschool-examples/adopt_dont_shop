@@ -58,6 +58,7 @@ RSpec.describe 'Application Show Page' do
 
       visit "/applications/#{application.id}"
       expect(current_path).to eq("/applications/#{application.id}")
+      expect(page).to have_button("Submit Application")
       expect(page).to have_content("Application Status: In Progress")
       expect(page).to have_content("What makes you a good owner?")
       fill_in :good_owner, with: "I love dogs"
@@ -67,6 +68,15 @@ RSpec.describe 'Application Show Page' do
       expect(page).to have_content("Application Status: Pending")
       expect(page).to have_content("Spot")
       expect(page).to_not have_content("Add More Pets")
+    end
+
+    it 'has no pets on an application' do
+      application = Application.create!(name: "Jerry Rice", street_address: "123 Main Street", city: "Honolulu", state: "HI", zip_code: 12345, description: "We love doggos!", status: "In Progress")
+      shelter = Shelter.create!(foster_program: true, name: "North Shore Animal Hospital", city: "Long Island", rank: 3)
+
+      visit "/applications/#{application.id}"
+
+      expect(page).to_not have_button("Submit Application")
     end
   end
 end
