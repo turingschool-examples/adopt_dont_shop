@@ -46,6 +46,7 @@ class ApplicationsController < ApplicationController
                   :state,
                   :zip,
                   :description,
-                  :status, :search)
+                  :status, 
+                  :search)
   end
 end
