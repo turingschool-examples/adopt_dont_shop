@@ -45,4 +45,6 @@ Rails.application.routes.draw do
 
   post '/pet_applications/:id', to: 'pet_applications#create'
 
+  get 'admin/shelters', to: 'admin/shelters#index'
+
 end
