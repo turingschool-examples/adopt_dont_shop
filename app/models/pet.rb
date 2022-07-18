@@ -12,4 +12,17 @@ class Pet < ApplicationRecord
   def self.adoptable
     where(adoptable: true)
   end
+
+  def not_adoptable
+    update(adoptable: false)
+  end
+
+  def already_accepted?
+    apps.any? { |app| app.status == 'accepted' }
+  end
+
+  def pet_app_approval(app)
+    # require 'pry'; binding.pry
+    pet_apps.find_by(app_id: app.id).approval
+  end
 end
