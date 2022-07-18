@@ -47,8 +47,11 @@ end
     click_on "Search"
 
     expect(page).to have_button("Adopt this Pet")
-      
+
     click_on "Adopt this Pet"
+
+    expect(page).to have_content(@pet_1.name)
+    expect(PetApplication.where(pet_id:@pet_1.id,application_id:@application_1.id).any?).to eq(true)
   end
 
   xit "can submit an application" do
