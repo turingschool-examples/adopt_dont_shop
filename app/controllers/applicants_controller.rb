@@ -21,5 +21,5 @@ end
 
 private 
     def applicant_params 
-        params.permit(:name, :address, :city, :state, :zip) #took out description, name pets wanted etc
+        params.permit(:name, :address, :city, :state, :zip, :application_status) #took out, name pets wanted etc added status back in for admin shelters user stories
     end
