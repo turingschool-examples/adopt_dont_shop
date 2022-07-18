@@ -46,7 +46,7 @@ RSpec.describe 'the applicant show page', type: :feature do
     expect(current_path).to eq("/pets/#{pet.id}")
   end
 
-  it 'US23: can search for a pet by name to add to an application' do 
+  it 'US23: can search for a pet by name' do 
     applicant = Applicant.create!(name: 'Oliver Smudger', 
                                   street_address: '1234 N Random Avenue', 
                                   city: 'Tucson', 
@@ -63,13 +63,53 @@ RSpec.describe 'the applicant show page', type: :feature do
     
     expect(page).to have_content('Add a Pet to this Application')
 
-    fill_in 'Pet name', with: 'Lucille Bald'
-
+    fill_in 'pet_name', with: 'Lucille Bald'
     expect(page).to have_button('Submit')
     click_button('Submit')  
 
     expect(current_path).to eq("/applicants/#{applicant.id}")
     expect(page).to have_content('Lucille Bald')
     expect(page).to_not have_content('Scooby')
+  end
+
+# Add a Pet to an Application
+# As a visitor
+# When I visit an application's show page
+# And I search for a Pet by name
+# And I see the names Pets that match my search
+
+# Then next to each Pet's name I see a button to "Adopt this Pet"
+# When I click one of these buttons
+# Then I am taken back to the application show page
+# And I see the Pet I want to adopt listed on this application
+
+it 'US22: can add a pet to an application' do 
+  applicant = Applicant.create!(name: 'Oliver Smudger', 
+                                  street_address: '1234 N Random Avenue', 
+                                  city: 'Tucson', 
+                                  state: 'Arizona', 
+                                  zip_code: '12345',
+                                  description: 'I have a big yard and work from home.',
+                                  application_status: 'In Progress'
+                                )
+    shelter = Shelter.create!(name: 'Fancy pets of Colorado', city: 'Denver, CO', foster_program: true, rank: 10)
+    pet = Pet.create!(name: 'Scooby', age: 2, breed: 'Great Dane', adoptable: true, shelter_id: shelter.id)
+    pet_2 = applicant.pets.create!(adoptable: true, age: 1, breed: 'sphynx', name: 'Lucille Bald', shelter_id: shelter.id)
+
+    visit "/applicants/#{applicant.id}"
+
+    expect(page).to have_content('Add a Pet to this Application')
+
+    fill_in 'pet_name', with: 'Scooby'
+
+    expect(page).to have_button('Submit')
+    click_button('Submit')  
+
+    expect(current_path).to eq("/applicants/#{applicant.id}")
+    expect(page).to have_content('Scooby')
+    expect(page).to have_button('Adopt this Pet')
+    click_button('Adopt this Pet')  
+
+    expect(current_path).to eq("/applicants/#{applicant.id}") 
   end
 end
