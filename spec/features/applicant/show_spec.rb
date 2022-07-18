@@ -61,7 +61,7 @@ RSpec.describe 'the applicant show page', type: :feature do
 
     visit "/applicants/#{applicant.id}"
     
-    expect(page).to have_content('Add a Pet to this Application')
+    expect(page).to have_content('Add a Pet to Application')
 
     fill_in 'pet_name', with: 'Lucille Bald'
     expect(page).to have_button('Submit')
@@ -87,7 +87,7 @@ it 'US22: can add a pet to an application' do
 
     visit "/applicants/#{applicant.id}"
 
-    expect(page).to have_content('Add a Pet to this Application')
+    expect(page).to have_content('Add a Pet to Application')
 
     fill_in 'pet_name', with: 'Scooby'
 
@@ -107,7 +107,7 @@ it 'US22: can add a pet to an application' do
 # And I have added one or more pets to the application (pending)
 # Then I see a section to submit my application *
 # And in that section I see an input to enter why I would make a good owner for these pet(s) *
-# When I fill in that input
+# When I fill in that input *
 # And I click a button to submit this application
 # Then I am taken back to the application's show page
 # And I see an indicator that the application is "Pending"
@@ -134,10 +134,10 @@ it 'US21: can submit an application if pets are added' do
   fill_in 'description', with: applicant.description
   
   expect(page).to have_button('Submit my application')
-  click_button('Submit my application')   
+  click_button('Submit my application')  
 
-
-
+  expect(page).to have_content('Lucille Bald')
+  expect(page).to have_content('Pending')
   end
 end
  

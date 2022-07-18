@@ -1,18 +1,23 @@
 class ApplicantsController < ApplicationController
  
   def show 
-    binding.pry
-     @applicant = Applicant.find(params[:id])
-      if params[:pet_name]
-        @pets = Pet.search(params[:pet_name])
-      elsif params[:pet_id]
-        pet = Pet.where(id: params[:pet_id])
-        @applicant.pets << pet
-        @pets = []
-        redirect_to applicant_show_url
-      else
-        @pets =[]
+    @applicant = Applicant.find(params[:id])
+    if params[:pet_name]
+      @pets = Pet.search(params[:pet_name])
+    elsif params[:pet_id]
+      pet = Pet.where(id: params[:pet_id])
+      @applicant.pets << pet
+      @pets = []
+      redirect_to applicant_show_url
+    else
+      @pets =[]
     end
+  end
+  
+  def update 
+    applicant = Applicant.find(params[:id])
+    applicant.update(description: params[:description], application_status: 'Pending')
+    redirect_to "/applicants/#{applicant.id}"
   end
 
   def new
