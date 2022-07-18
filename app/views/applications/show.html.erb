@@ -7,6 +7,7 @@
 <% @pets.each do |pet| %>
 <br><%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
 <% end %>
+
 </li><br>
 <li><b>Application Status:</b> <%= @application.status %></li>
 </ul><br>
@@ -14,7 +15,9 @@
 <%= form_with url: "/applications/#{@application.id}", method: :patch, local: true do |f|%>
   <%= f.label :good_owner, "What makes you a good owner?" %>
   <%= f.text_field :good_owner %>
+  <% if @application.has_pets? %>
   <%= f.submit "Submit Application" %>
+  <% end %>
   <% end %>
 
 <h3> Add a Pet to this Application</h3>
@@ -31,6 +34,7 @@
     <p>Adoptable: </p>
     <p>You can find <%= pet.name %> at <%= pet.shelter_name %>!</p>
   <% end %>
+
 <% elsif @application.status == "Pending" %>
 <% @pets.each do |pet| %>
   <h3><%= pet.name %></h3>

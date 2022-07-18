@@ -29,7 +29,7 @@ class ApplicationsController < ApplicationController
 
   def submit
     @application = Application.find(params[:id])
-    if @application.status == "In Progress"
+    if @application.status == "In Progress" && @application.has_pets?
       @application.status = "Pending"
       @application.save
     end
