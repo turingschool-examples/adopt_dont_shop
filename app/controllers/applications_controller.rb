@@ -33,6 +33,7 @@ class ApplicationsController < ApplicationController
     pet = Pet.find(params[:add_pet])
     pet_application = PetApplication.create!(application_id: application.id, pet_id: pet.id, status: application.status)
     redirect_to "/applications/#{application.id}"
+  end
 
   def submit
     @application = Application.find(params[:id])
