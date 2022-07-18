@@ -1,7 +1,8 @@
+<br>
 <div id="shelter">
 <% @shelters.each do |shelter| %>
   <div class="shelters">
-  <%= shelter.name %>
+  <h2><%= link_to "#{shelter.name}", "/admin/shelters/#{shelter.id}" %> </h2>
   </div>
 <% end %>
 </div>

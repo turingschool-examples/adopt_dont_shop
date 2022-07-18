@@ -50,7 +50,7 @@ RSpec.describe 'application show page' do
         expect(page).to have_content(application.description)
     end
 
-     it 'has a an area to search for pets to add to an application' do
+    it 'has a an area to search for pets to add to an application' do
         application = Application.create!(name: "Bob Bobbicus", street: "123 Main street", city: "Newtown", state: "State", zipcode: 80009, status:"In Progress", description:"I love dogs so much and have lots of food for them")
         shelter = Shelter.create!(name: 'Mystery Building', city: 'Irvine CA', foster_program: false, rank: 9)
         pet1 = Pet.create!(name: 'Scooby', age: 2, breed: 'Great Dane', adoptable: true, shelter_id: shelter.id)
