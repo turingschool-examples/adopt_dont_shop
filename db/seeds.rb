@@ -1,5 +1,5 @@
 Shelter.destroy_all
-Appliction.destroy_all
+Application.destroy_all
 Pet.destroy_all
 dog_homes = Shelter.create!(name: "Dog Home", city: "Denver", rank: 1, foster_program: true)
 paw_place = Shelter.create!(name: "Paw Place", city: "Boulder", rank: 2, foster_program: true)
@@ -22,3 +22,7 @@ dog_7 = Pet.create!(name: "Jack", breed: "Labrador", age: 6, adoptable: true, sh
 dog_8 = Pet.create!(name: "Nick", breed: "Hound", age: 14, adoptable: true, shelter_id: furry_friends.id)
 dog_9 = Pet.create!(name: "Beast", breed: "Pit Bull", age: 10, adoptable: true, shelter_id: furry_friends.id)
 dog_10 = Pet.create!(name: "Randy", breed: "Hound", age: 6, adoptable: true, shelter_id: furry_friends.id)
+
+p "Created #{Shelter.count} Shelters"
+p "Created #{Application.count} Applications"
+p "Created #{Pet.count} Pets"
