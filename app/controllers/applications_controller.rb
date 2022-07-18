@@ -27,12 +27,13 @@ class ApplicationsController < ApplicationController
     @application = Application.find(params[:id])
 
     if params[:description]
+
       redirect_to "/applications/#{@application.id}"
       flash[:alert] = "Please provide a description."
-    elseif params[:pet_id]
-      PetApplication.create!(pet_id: params[:pet_id], application_id: application.id)
+    elsif params[:pet_id]
+      PetApplication.create(pet_id: params[:pet_id], application_id: @application.id)
+
       
-      @application.update
       redirect_to "/applications/#{@application.id}"
     end
   end
@@ -46,7 +47,8 @@ class ApplicationsController < ApplicationController
                   :state,
                   :zip,
                   :description,
-                  :status, 
-                  :search)
+                  :status,
+                  :search,
+                  :pet_id)
   end
 end
