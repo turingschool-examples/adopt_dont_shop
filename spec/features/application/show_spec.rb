@@ -40,7 +40,9 @@ end
     expect(page).to have_content("#{@pet_1.name}")
   end
 
-  xit "can adopt pets" do
+  it "can adopt pets" do
+    visit "/applications/#{@application_1.id}"
+
     fill_in :search, with: "#{@pet_1.name}"
     click_on "Search"
 
@@ -50,13 +52,14 @@ end
   end
 
   xit "can submit an application" do
+    visit "/applications/#{@application_1.id}"
+
     fill_in :search, with: "#{@pet_1.name}"
     click_on "Search"
     click_on "Adopt this Pet"
 
     expect(page).to have_button("Submit")
 
-    fill_in :description, with: "I love animals"
     click_on "Submit"
   end
 

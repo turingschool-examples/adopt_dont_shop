@@ -23,6 +23,20 @@ class ApplicationsController < ApplicationController
     end
   end
 
+  def update
+    @application = Application.find(params[:id])
+
+    if params[:description]
+      redirect_to "/applications/#{@application.id}"
+      flash[:alert] = "Please provide a description."
+    elseif params[:pet_id]
+      PetApplication.create!(pet_id: params[:pet_id], application_id: application.id)
+      
+      @application.update
+      redirect_to "/applications/#{@application.id}"
+    end
+  end
+
   private
 
   def application_params
