@@ -1,9 +1,16 @@
 class ApplicationsController < ApplicationController
   def show
-    # binding.pry
-    @application = Application.find(params[:id])
-    @pets = @application.pets
-    @search = Pet.all.search(params[:search])
+  @application = Application.find(params[:id])
+      if params[:pet_name]
+        @pets = Pet.search(params[:pet_name])
+      elsif params[:pet_id]
+        pet = Pet.where(id: params[:pet_id])
+        @application.pets << pet
+        @pets = []
+        redirect_to application_show_url
+      else
+        @pets =[]
+    end
   end
 
   def new
