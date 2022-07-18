@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   get '/shelters/:id/edit', to: 'shelters#edit'
   patch '/shelters/:id', to: 'shelters#update'
   delete '/shelters/:id', to: 'shelters#destroy'
+  get '/admin/shelters', to: 'shelters#index'
 
   get '/search', to: 'search#index'
 
@@ -22,8 +23,8 @@ Rails.application.routes.draw do
   get '/applicants/:id', to: 'applicants#show', as: 'applicant_show'
   post 'applicants/:id/add_pets/:pet_id', to: 'applicants#show'
   patch '/applicants/:id', to: 'applicants#update'
-  
-  
+
+
 
   get '/veterinary_offices', to: 'veterinary_offices#index'
   get '/veterinary_offices/new', to: 'veterinary_offices#new'
