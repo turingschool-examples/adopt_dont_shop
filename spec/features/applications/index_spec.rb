@@ -32,15 +32,23 @@ RSpec.describe 'the application index' do
               applicant_bio: 'Because I am just awesome.',
               application_status: 'Accepted')
 
-    pet = mike.pets.create!(adoptable: true, age: 3, breed: 'GSD', name: 'Charlie', shelter_id: shelter.id)
-    pet2 = dani.pets.create!(adoptable: true, age: 1, breed: 'ND', name: 'Mina', shelter_id: shelter.id)
-    pet3 = chris.pets.create!(adoptable: true, age: 2, breed: 'Tabby', name: 'Chloe', shelter_id: shelter.id)
-    pet4 = dani.pets.create!(adoptable: true, age: 4, breed: 'Yorkshire', name: 'Vida', shelter_id: shelter.id)
+    charlie = Pet.create!(adoptable: true, age: 3, breed: 'GSD', name: 'Charlie', shelter_id: shelter.id)
+    mina = Pet.create!(adoptable: true, age: 1, breed: 'ND', name: 'Mina', shelter_id: shelter.id)
+    chloe = Pet.create!(adoptable: true, age: 2, breed: 'Tabby', name: 'Chloe', shelter_id: shelter.id)
+    vida = Pet.create!(adoptable: true, age: 4, breed: 'Yorkshire', name: 'Vida', shelter_id: shelter.id)
 
     visit '/applications'
+    
+    within '#application-0' do
+      expect(page).to have_content('Name: Mike Dao')
+    end
 
-    expect(page).to have_content(mike.name)
-    expect(page).to have_content(chris.name)
-    expect(page).to have_content(dani.name)
+    within '#application-1' do
+      expect(page).to have_content('Name: Chris Simmons')
+    end
+
+    within '#application-2' do
+      expect(page).to have_content('Name: Dani Coleman')
+    end
   end
 end

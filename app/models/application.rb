@@ -13,8 +13,4 @@ class Application < ApplicationRecord
   def set_default_val
     self.application_status = 'In Progress'
   end
-
-  def applicant_pets
-    self.pets
-  end
 end

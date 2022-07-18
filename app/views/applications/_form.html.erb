@@ -1,13 +1,13 @@
 <%= form_with url: path, method: method, local: true do |form| %>
   <%= form.label :name %>
-  <%= form.text_field :name, required: true %><br/>
+  <%= form.text_field :name %><br/>
   <%= form.label :street_address %>
-  <%= form.text_field :street_address, required: true %><br/>
+  <%= form.text_field :street_address %><br/>
   <%= form.label :city %>
-  <%= form.text_field :city, required: true %>
+  <%= form.text_field :city %>
   <%= form.label :state %>
-  <%= form.text_field :state, required: true %>
+  <%= form.text_field :state %>
   <%= form.label :zip_code %>
-  <%= form.text_field :zip_code, required: true %><br/>
+  <%= form.text_field :zip_code %><br/>
   <%= form.submit 'Start Application'%>
 <% end %>

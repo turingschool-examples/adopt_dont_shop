@@ -1,16 +1,15 @@
 <h1>Applicant</h1>
 
-<h2>Name: <%= @application.name %></h2><br/>
+<h2>Name: <%= @application.name %></h2>
 <p>Address: <%= @application.street_address %></p>
 <p>
-  City: <%= @application.city %>
-  State: <%= @application.state %>
-  Zip Code: <%= @application.zip_code %>
+  <%= @application.city %>,
+  <%= @application.state %>
+  <%= @application.zip_code %>
 </p>
 <p> Applicant Bio: <%= @application.applicant_bio %></p>
 <p> Application Status: <%= @application.application_status %></p>
 
-<h3>Pets on Application</h3>
 <% @application.pets.each do |pet| %>
 <%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
 <% end %>
@@ -26,6 +25,6 @@
 <% if params[:search].present? %>
   <% @pets.each do |pet| %>
   <h3><%= pet.name %></h3>
-  <%= button_to "Adopt #{pet.name}", "/applications/#{@application.id}", method: :patch, params: {pet_id: pet.id} %>
-  <% end %>
+   <%= button_to "Adopt #{pet.name}", "/applications/#{@application.id}", method: :patch, params: {pet_id: pet.id} %>
+<% end %>
 <% end %>
