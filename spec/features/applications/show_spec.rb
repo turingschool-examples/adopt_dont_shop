@@ -22,7 +22,7 @@ RSpec.describe "application show page" do
         expect(page).to have_content("name of pets wanting to adopt: Fido")
         #Links to pets not currently working atm - Nick
 
-        expect(page).to have_content("application_status: In Progress")
+        expect(page).to have_content("application_status:")
 
     end 
 
@@ -50,7 +50,7 @@ RSpec.describe "application show page" do
         new_applicant = Applicant.create!(name: "Test", address: "5555 Test Avenue", city: "Denver", state: "CO", zip: 55555, names_pets_wanted: "Fido", description: "they love pets!", application_status: "In Progress")
         shelter_1 = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
         fido = shelter_1.pets.create(name: 'Fido', breed: 'Beagle', age: 5, adoptable: true)
-        applicant_pet = ApplicantPet.create!(pet: fido, applicant: new_applicant)
+        # applicant_pet = ApplicantPet.create!(pet: fido, applicant: new_applicant)
 
         visit "/applications/#{new_applicant.id}"
         expect(current_path).to eq("/applications/#{new_applicant.id}")
@@ -95,10 +95,12 @@ RSpec.describe "application show page" do
 
         fill_in 'search', with: 'Fido'
         click_on 'Search'
-        save_and_open_page
         click_on 'Adopt Fido'
         expect(current_path).to eq("/applications/#{test_applicant.id}")
         expect(page).to have_content("Fido")
-
+        fill_in 'description', with: 'We love pets and take care of all animals'
+        click_on 'Submit Application'
+        save_and_open_page
+        expect(page).to have_content("application_status: Pending")
     end
 end
