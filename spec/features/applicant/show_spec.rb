@@ -8,7 +8,7 @@ RSpec.describe 'the applicant show page', type: :feature do
                                   city: 'Tucson', 
                                   state: 'Arizona', 
                                   zip_code: '12345',
-                                  description: 'I have a big yard and work from home.',
+                                  description: '',
                                   application_status: 'In Progress'
                                 )
 
@@ -19,7 +19,7 @@ RSpec.describe 'the applicant show page', type: :feature do
     expect(page).to have_content(applicant.city)
     expect(page).to have_content(applicant.state)
     expect(page).to have_content(applicant.zip_code)
-    # expect(page).to have_content(applicant.description)
+    expect(page).to have_content(applicant.description)
     expect(page).to have_content(applicant.application_status)
   end 
 
@@ -112,15 +112,23 @@ RSpec.describe 'the applicant show page', type: :feature do
                                   application_status: 'In Progress'
                                   )
     shelter = Shelter.create!(name: 'Fancy pets of Colorado', city: 'Denver, CO', foster_program: true, rank: 10)
-    pet = applicant.pets.create!(name: 'Scooby', age: 2, breed: 'Great Dane', adoptable: true, shelter_id: shelter.id)
-    pet_2 = applicant.pets.create!(adoptable: true, age: 1, breed: 'sphynx', name: 'Lucille Bald', shelter_id: shelter.id)
+    pet = Pet.create!(name: 'Scooby', age: 2, breed: 'Great Dane', adoptable: true, shelter_id: shelter.id)
+    pet_2 = Pet.create!(adoptable: true, age: 1, breed: 'sphynx', name: 'Lucille Bald', shelter_id: shelter.id)
     
     visit "/applicants/#{applicant.id}"
 
+    expect(page).to have_content('Add a Pet to Application')
+    fill_in 'pet_name', with: 'Lucille Bald'
+    expect(page).to have_button('Submit')
+    click_button ('Submit')
+
+    expect(page).to have_content('Lucille Bald')
+    expect(page).to have_button('Adopt this Pet')
+    click_button('Adopt this Pet')
+   
     expect(page).to have_content('Submit my application')
 
     fill_in 'description', with: applicant.description
-  
     expect(page).to have_button('Submit my application')
     click_button('Submit my application')  
 
@@ -188,13 +196,6 @@ RSpec.describe 'the applicant show page', type: :feature do
     expect(page).to have_content('Scooby')
     expect(page).to have_button('Adopt this Pet')
   end
-
-# As a visitor
-# When I visit an application show page
-# And I search for Pets by name
-# Then my search is case insensitive
-# For example, if I search for "fluff", my search would match 
-# pets with names "Fluffy", "FLUFF", and "Mr. FlUfF"
 
   it 'US18: the search is case insensitive' do 
     applicant = Applicant.create!(name: 'Oliver Smudger', 
