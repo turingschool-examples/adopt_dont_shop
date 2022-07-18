@@ -16,10 +16,11 @@ class ApplicationsController < ApplicationController
   
   def update
     application = Application.find(params[:id])
-    application.update!(description: params[:description], application_status: "Pending")
+    application.update(description: params[:description])
+    
     redirect_to "/applications/#{application.id}"
+    #binding.pry
   end
-
   def show
     @application = Application.find(params[:id])
     if params[:search_name].present?
