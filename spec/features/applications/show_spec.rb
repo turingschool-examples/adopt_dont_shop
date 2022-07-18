@@ -22,7 +22,7 @@ RSpec.describe "application show page" do
         expect(page).to have_content("name of pets wanting to adopt: Fido")
         #Links to pets not currently working atm - Nick
 
-        expect(page).to have_content("application_status: In Progress")
+        expect(page).to have_content("application_status:")
 
     end 
 
@@ -50,15 +50,57 @@ RSpec.describe "application show page" do
         new_applicant = Applicant.create!(name: "Test", address: "5555 Test Avenue", city: "Denver", state: "CO", zip: 55555, names_pets_wanted: "Fido", description: "they love pets!", application_status: "In Progress")
         shelter_1 = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
         fido = shelter_1.pets.create(name: 'Fido', breed: 'Beagle', age: 5, adoptable: true)
-        applicant_pet = ApplicantPet.create!(pet: fido, applicant: new_applicant)
+        # applicant_pet = ApplicantPet.create!(pet: fido, applicant: new_applicant)
 
         visit "/applications/#{new_applicant.id}"
         expect(current_path).to eq("/applications/#{new_applicant.id}")
     
-        fill_in 'pet_name', with: 'Fido'
-        click_on 'Submit'
+        fill_in 'search', with: 'Fido'
+        click_on 'Search'
         expect(current_path).to eq("/applications/#{new_applicant.id}")
         expect(page).to have_link('Fido')
         # save_and_open_page
+    end
+
+
+    # Submit an Application
+
+    # As a visitor
+    # When I visit an application's show page
+    # And I have added one or more pets to the application
+    # Then I see a section to submit my application
+    # And in that section I see an input to enter why I would make a good owner for these pet(s)
+    # When I fill in that input
+    # And I click a button to submit this application
+    # Then I am taken back to the application's show page
+    # And I see an indicator that the application is "Pending"
+    # And I see all the pets that I want to adopt
+    # And I do not see a section to add more pets to this application
+
+    it " can submit an application " do 
+        shelter_1 = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
+        fido = shelter_1.pets.create(name: 'Fido', breed: 'Beagle', age: 5, adoptable: true)
+        # applicant_pet = ApplicantPet.create!(pet: fido, applicant: new_applicant)
+
+        visit "/applications/new"
+        
+        fill_in 'Name', with: 'Mary'
+        fill_in 'Address', with: '5555 Test Avenue'
+        fill_in 'City', with: 'Denver'
+        fill_in 'State', with: 'CO'
+        fill_in 'Zip', with: 55555
+        click_on 'Submit'
+        test_applicant = Applicant.order("created_at").last
+        expect(current_path).to eq("/applications/#{test_applicant.id}")
+
+        fill_in 'search', with: 'Fido'
+        click_on 'Search'
+        click_on 'Adopt Fido'
+        expect(current_path).to eq("/applications/#{test_applicant.id}")
+        expect(page).to have_content("Fido")
+        fill_in 'description', with: 'We love pets and take care of all animals'
+        click_on 'Submit Application'
+        save_and_open_page
+        expect(page).to have_content("application_status: Pending")
     end
 end
