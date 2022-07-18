@@ -47,5 +47,5 @@ vet_6 = vet_office_3.veterinarians.create!(on_call: false, review_rating: 2, nam
 
 #Applicants
 applicant_1 = Applicant.create!(name: 'Mary Smith', street_address: '123 W Lost Ln', city: 'Denver', state: 'CO', zip_code: '80239', description: 'Words that describe')
-applicant_1 = Applicant.create!(name: 'Larry Peters', street_address: '456 E Where Dr', city: 'Aurora', state: 'CO', zip_code: '80012', description: 'The reasons I want a pet')
-applicant_1 = Applicant.create!(name: 'Harry Boyd', street_address: '789 S Who Pl', city: 'Westminster', state: 'CO', zip_code: '80020', description: 'Fuzzy creatures are fun')
+applicant_2 = Applicant.create!(name: 'Larry Peters', street_address: '456 E Where Dr', city: 'Aurora', state: 'CO', zip_code: '80012', description: 'The reasons I want a pet')
+applicant_3 = Applicant.create!(name: 'Harry Boyd', street_address: '789 S Who Pl', city: 'Westminster', state: 'CO', zip_code: '80020', description: 'Fuzzy creatures are fun')
