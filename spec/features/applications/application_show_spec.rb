@@ -46,11 +46,15 @@ RSpec.describe 'application show page' do
     PetApplication.create!(pet_id: @pet_1.id, application_id: @application.id)
 
     visit "/applications/#{@application.id}"
-    fill_in 'pet_name', with: "Bare-y Manilow"
+    fill_in 'pet_name', with: "Lobster"
     click_button "Search"
-    click_button "Adopt this Pet"
+    
+    within "#pet-#{@pet_1.id}" do 
+    click_on "Adopt this Pet"
+    end
 
     expect(current_path).to eq("/applications/#{@application.id}") 
+    expect(page).to have_content("Lobster")
   end 
 
 

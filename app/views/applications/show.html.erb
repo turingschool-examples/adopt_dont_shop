@@ -8,8 +8,9 @@
   <p>state: <%= @application.address_state %> </p>
   <p>zip code: <%= @application.address_zip_code %> </p>
 
+  <h3> Pets Applied for </h3>
   <% @application.pets.each do |pet| %>
-    <%= link_to "#{pet.name}","/pets/#{pet.id}?" %>
+    <%= link_to "#{pet.name}","/pets/#{pet.id}" %>
   <% end %>
 
   <h3>Description</h3>
@@ -24,12 +25,13 @@
      <%= form.submit "Search" %>
   <% end %>
 
- <% @pets.each do |pet|%>
+ <% @pets.each do |pet| %>
+  <div id="pet-<%= pet.id %>">
      <p><%= pet.name %>
-     <%= button_to "Adopt this Pet", "/pet_applications/#{pet.id}/#{@application.id}", method: :post %></p>
+     <%= button_to "Adopt this Pet", "/pet_applications/#{@application.id}/#{pet.id}", method: :post %></p>
+  </div>
   <% end %>
   
-
   <h3>Status</h3>
   <p> <%= @application.status %> </p>
 

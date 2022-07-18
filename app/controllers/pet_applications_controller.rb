@@ -1,8 +1,11 @@
 class PetApplicationsController < ApplicationsController 
    def create 
-      @pet_application = PetApplication.create!(pet_application_params)
+      # binding.pry
+      # @pet = Pet.create!(params[:pet_id])
+      # @application = Application.create!(params[:application_id])
+      @pet_application = PetApplication.create(pet_application_params)
       redirect_to "/applications/#{@pet_application.application_id}"
-      @pet_application.save
+      # @pet_application.save
    end 
 
    private 
