@@ -1,24 +1,30 @@
 <h1>name: <%= @applicant.name %></h1>
 <h3>address: <%= @applicant.address %> city: <%=@applicant.city%> state: <%=@applicant.state%> zip: <%= @applicant.zip%> </h3>
-
-<h3><%= @applicant.description %></h3>
 <h3>application_status: <%= @applicant.application_status %></h3>
+<h3><%= @applicant.description %></h3>
 
 <h3>name of pets wanting to adopt: <%= @applicant.pets.all.each do |pet| %>
    <%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
 <% end %></h3>
 
-<% if @applicant.application_status == "In Progress" %>
+<h3> Add a Pet to this Application <h3> 
 <%= form_with url: "/applications/#{@applicant.id}?pet_name=#{params[:pet_name]}", method: :get, local: true, skip_enforcing_utf8: true do |form|%>
-      <%= form.label :pet_name, "Add a Pet to this Application" %>
-      <%= form.text_field :pet_name %>
-      <%= form.submit "Submit", name: nil %>
-   <% end %>
+      <%= form.label :search %>
+      <%= form.text_field :search %>
+      <%= form.submit "Search", name: nil %>
    <% end %>
 
-<% if @pets %>
-   <% @pets.each do |pet| %>
-      <p><%= pet.name %>
-      <%= button_to "Adopt #{pet.name}", "/applications/#{@applicant.id}", controller: :pet_app, action: :create, params: {pet: pet}, method: :post %></p>
+<% if params[:search].present? %>
+      <p> Pet Result: <% @pets.each do |pet| %>
+         <p><%= link_to pet.name %> <%= button_to "Adopt #{pet.name}", "/applications/#{@applicant.id}", method: :patch, params: {pet_id: pet.id}  %></p>
+      <%# redirect_to action: 'show', id: @applicant.id , alert: "You added a pet!"  %>
+      <% end %>
    <% end %>
+
+   <% if (@applicant.pets.count > 0) && (@applicant.application_status == "In Progress") %>
+         <%= form_with url: "/applications/#{@applicant.id}", method: :get, local: true do |f| %>
+         <%= f.submit "Submit" %>
+         <%= @applicant.application_status = "Pending"%>
+      
+      <% end %>
    <% end %>
