@@ -1,5 +1,4 @@
 <h2>Application #<%="#{@application.id}"  %> Information Page</h2>
-
 <ul>
 <li><b>Applicant's Name:</b> <%= @application.name %></li>
 <li><b>Applicant's Address:</b> <%= @application.street_address %>, <%= @application.city %>, <%= @application.state %>, <%= @application.zip_code %></li>
@@ -8,12 +7,21 @@
 <% @pets.each do |pet| %>
 <br><%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
 <% end %>
+
 </li><br>
 <li><b>Application Status:</b> <%= @application.status %></li>
 </ul><br>
 
 <% if @application.status == "In Progress" %>
-  <h3> Add a Pet to this Application</h3>
+<%= form_with url: "/applications/#{@application.id}", method: :patch, local: true do |f|%>
+  <%= f.label :good_owner, "What makes you a good owner?" %>
+  <%= f.text_field :good_owner %>
+  <% if @application.has_pets? %>
+  <%= f.submit "Submit Application" %>
+  <% end %>
+  <% end %>
+
+<h3> Add a Pet to this Application</h3>
   <%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |f| %>
     <%= f.label :search %>:
     <%= f.text_field :search %>
@@ -32,3 +40,4 @@
   <% end %>
 <% else %>
 <% end %>
+
