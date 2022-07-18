@@ -19,7 +19,7 @@ RSpec.describe 'Applications#new' do
       expect(page).to have_content('Portland')
       expect(page).to have_content('Oregon')
       expect(page).to have_content('97266')
-      expect(page).to have_content('In-Progress')
+      expect(page).to have_content('In Progress')
     end
     it 'takes me back to /applications/new if all fields are not filled, and desplays an error' do
       visit '/applications/new'
