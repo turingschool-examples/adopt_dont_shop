@@ -188,5 +188,38 @@ RSpec.describe 'the applicant show page', type: :feature do
     expect(page).to have_content('Scooby')
     expect(page).to have_button('Adopt this Pet')
   end
+
+# As a visitor
+# When I visit an application show page
+# And I search for Pets by name
+# Then my search is case insensitive
+# For example, if I search for "fluff", my search would match 
+# pets with names "Fluffy", "FLUFF", and "Mr. FlUfF"
+
+  it 'US18: the search is case insensitive' do 
+    applicant = Applicant.create!(name: 'Oliver Smudger', 
+                                  street_address: '1234 N Random Avenue', 
+                                  city: 'Tucson', 
+                                  state: 'Arizona', 
+                                  zip_code: '12345',
+                                  description: 'I have a big yard and work from home.',
+                                  application_status: 'In Progress'
+                                  )
+    shelter = Shelter.create!(name: 'Fancy pets of Colorado', city: 'Denver, CO', foster_program: true, rank: 10)
+    pet = Pet.create!(name: 'Scooby', age: 2, breed: 'Great Dane', adoptable: true, shelter_id: shelter.id)
+    pet_2 = Pet.create!(adoptable: true, age: 1, breed: 'sphynx', name: 'Lucille Bald', shelter_id: shelter.id)
+
+    visit "/applicants/#{applicant.id}"
+
+    expect(page).to have_content('Add a Pet to Application')
+
+    fill_in 'pet_name', with: 'LuciLLE bald'
+
+    expect(page).to have_button('Submit')
+    click_button('Submit')  
+
+    expect(page).to have_content('Lucille Bald')
+    expect(page).to have_button('Adopt this Pet')
+  end
 end
  
