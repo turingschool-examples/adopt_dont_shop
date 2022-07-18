@@ -26,12 +26,12 @@
    <% if @applicant.application_status == "Pending" %>
          <p>  Your application has been submitted, and is under review.</p>
    
-   <% elsif (@applicant.pets.count > 0) && (@applicant.application_status == "In Progress") %>
+   <% elsif (!@applicant.pets.empty?) && (@applicant.application_status == "In Progress") %>
          <%= form_with url: "/applications/#{@applicant.id}", method: :get, local: true do |f| %>
             <%= f.label :description %>
             <%= f.text_field :description %>
             <%= f.submit "Submit Application" %>
-            <% @applicant.application_status = "Pending"%>
+            <% @applicant.application_status = "Pending" %>
             <% end %>
    <% end %>
    <h3>application_status: <%= @applicant.application_status %></h3>
