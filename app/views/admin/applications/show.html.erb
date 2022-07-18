@@ -1,0 +1,15 @@
+<h1>Admin View-Applications</h1>
+
+<div id = "applications_admin">
+    <h2>Pets Requested on Application</h2>
+    <h3>Applicant Name: <%=@application.name%></h3>
+    <%@pet_applications.each do |pet_application|%>
+    <div id="<%=pet_application.id %>">
+     <p>Pet name: <%= pet_application.pet.name %></p>
+      <p>Status: <%= pet_application.status %></p>
+      <p><%= button_to "Approve", "/admin/#{pet_application.id}", method: :patch, params:{status=>"Approved"} %></p>
+      <p><%= button_to "Reject", "/admin/#{pet_application.id}", method: :patch, params:{status=>"Rejected"} %></p>
+    </div>
+    <%end%>
+
+</div>
