@@ -118,9 +118,78 @@ RSpec.describe 'application show page' do
     expect(page).to_not have_content('Name: Chris Simmons')
     expect(page).to_not have_content('Name: Mike Dao')
   end
+  describe 'search' do
+    it 'can search for pets for an application' do
+      shelter = Shelter.create!(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
+      mike = Application.create!(
+                name: 'Mike Dao',
+                street_address: '245 Maple St',
+                city: 'Centennial',
+                state: 'Colorado',
+                zip_code: '80112',
+                applicant_bio: 'My dog needs another to help chase bears up trees.',
+                application_status: 'In Progress')
+      chris = Application.create!(
+                name: 'Chris Simmons',
+                street_address: '533 Oak St',
+                city: 'Columbus',
+                state: 'Ohio',
+                zip_code: '43004',
+                applicant_bio: 'Because how much more work could a third cat be?',
+                application_status: 'In Progress')
+      dani = Application.create!(
+                name: 'Dani Coleman',
+                street_address: '912 Willow St',
+                city: 'Arvada',
+                state: 'Colorado',
+                zip_code: '80003',
+                applicant_bio: 'Because I am just awesome.',
+                application_status: 'In Progress')
+      charlie = Pet.create!(adoptable: true, age: 3, breed: 'GSD', name: 'Charlie', shelter_id: shelter.id)
+      mina = Pet.create!(adoptable: true, age: 1, breed: 'ND', name: 'Mina', shelter_id: shelter.id)
+      chloe = Pet.create!(adoptable: true, age: 2, breed: 'Tabby', name: 'Chloe', shelter_id: shelter.id)
+      vida = Pet.create!(adoptable: true, age: 4, breed: 'Yorkshire', name: 'Vida', shelter_id: shelter.id)
 
-  it 'can search for pets for an application' do
-    shelter = Shelter.create!(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
+     visit "/applications/#{mike.id}"
+
+     expect(page).to have_content("Search for pet by name")
+
+     fill_in :search, with: "Charlie"
+     click_on "Pet name search"
+
+     expect(current_path).to eq("/applications/#{mike.id}")
+     expect(page).to have_content(charlie.name)
+   end
+
+   it 'lists partial matches as search results' do
+     shelter = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
+     pet_1 = Pet.create(adoptable: true, age: 7, breed: 'sphynx', name: 'Bare-y Manilow', shelter_id: shelter.id)
+     pet_2 = Pet.create(adoptable: true, age: 3, breed: 'domestic pig', name: 'Babe', shelter_id: shelter.id)
+     pet_3 = Pet.create(adoptable: true, age: 4, breed: 'chihuahua', name: 'Elle', shelter_id: shelter.id)
+     mike = Application.create!(
+               name: 'Mike Dao',
+               street_address: '245 Maple St',
+               city: 'Centennial',
+               state: 'Colorado',
+               zip_code: '80112',
+               applicant_bio: 'My dog needs another to help chase bears up trees.',
+               application_status: 'In Progress')
+
+     visit "/applications/#{mike.id}"
+
+     fill_in 'Search', with: "Ba"
+     click_on("Pet name search")
+
+     expect(page).to have_content(pet_1.name)
+     expect(page).to have_content(pet_2.name)
+     expect(page).to_not have_content(pet_3.name)
+  end
+
+  it 'is a case insensitive search' do
+    shelter = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
+    pet_1 = Pet.create(adoptable: true, age: 7, breed: 'sphynx', name: 'Bare-y Manilow', shelter_id: shelter.id)
+    pet_2 = Pet.create(adoptable: true, age: 3, breed: 'domestic pig', name: 'Babe', shelter_id: shelter.id)
+    pet_3 = Pet.create(adoptable: true, age: 4, breed: 'chihuahua', name: 'Elle', shelter_id: shelter.id)
     mike = Application.create!(
               name: 'Mike Dao',
               street_address: '245 Maple St',
@@ -129,37 +198,17 @@ RSpec.describe 'application show page' do
               zip_code: '80112',
               applicant_bio: 'My dog needs another to help chase bears up trees.',
               application_status: 'In Progress')
-    chris = Application.create!(
-              name: 'Chris Simmons',
-              street_address: '533 Oak St',
-              city: 'Columbus',
-              state: 'Ohio',
-              zip_code: '43004',
-              applicant_bio: 'Because how much more work could a third cat be?',
-              application_status: 'In Progress')
-    dani = Application.create!(
-              name: 'Dani Coleman',
-              street_address: '912 Willow St',
-              city: 'Arvada',
-              state: 'Colorado',
-              zip_code: '80003',
-              applicant_bio: 'Because I am just awesome.',
-              application_status: 'In Progress')
-    charlie = Pet.create!(adoptable: true, age: 3, breed: 'GSD', name: 'Charlie', shelter_id: shelter.id)
-    mina = Pet.create!(adoptable: true, age: 1, breed: 'ND', name: 'Mina', shelter_id: shelter.id)
-    chloe = Pet.create!(adoptable: true, age: 2, breed: 'Tabby', name: 'Chloe', shelter_id: shelter.id)
-    vida = Pet.create!(adoptable: true, age: 4, breed: 'Yorkshire', name: 'Vida', shelter_id: shelter.id)
 
-   visit "/applications/#{mike.id}"
+    visit "/applications/#{mike.id}"
+    fill_in 'Search', with: "ba"
 
-   expect(page).to have_content("Search for pet by name")
+    click_on("Pet name search")
 
-   fill_in :search, with: "Charlie"
-   click_on "Pet name search"
-
-   expect(current_path).to eq("/applications/#{mike.id}")
-   expect(page).to have_content(charlie.name)
- end
+    expect(page).to have_content(pet_1.name)
+    expect(page).to have_content(pet_2.name)
+    expect(page).to_not have_content(pet_3.name)
+  end
+end
 
  it "adds a pet to an application" do
    aurora = Shelter.create!(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
