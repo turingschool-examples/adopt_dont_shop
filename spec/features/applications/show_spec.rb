@@ -125,8 +125,22 @@ RSpec.describe "application show page" do
             click_on 'Submit'
             test_applicant = Applicant.order("created_at").last
             expect(current_path).to eq("/applications/#{test_applicant.id}")
-            save_and_open_page
+            # save_and_open_page
             expect(page).to_not have_content("Submit")
             expect(page).to_not have_content("Pending")
+        end
+
+        it 'can search for pets using partial matches' do 
+            shelter_1 = Shelter.create!(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
+            fido = shelter_1.pets.create!(name: 'Fido', breed: 'Beagle', age: 5, adoptable: true)
+            sunny = shelter_1.pets.create!(name: 'Sunny', breed: 'Mastif', age: 7, adoptable: true)
+            new_applicant = Applicant.create!(name: "Test", address: "5555 Test Avenue", city: "Denver", state: "CO", zip: 55555)
+
+            visit "/applications/#{new_applicant.id}"
+
+            fill_in('search', with: 'Su')
+            click_on 'Search'
+            save_and_open_page
+            expect(page).to have_content('Sunny')
         end
 end
