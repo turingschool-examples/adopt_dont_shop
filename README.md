@@ -124,7 +124,7 @@ And I see a message that I must fill in those fields.
 ```
 
 ```
-[ ] done
+[x] done
 
 Searching for Pets for an Application
 
@@ -140,7 +140,7 @@ And under the search bar I see any Pet whose name matches my search
 ```
 
 ```
-[ ] done
+[x] done
 
 Add a Pet to an Application
 
