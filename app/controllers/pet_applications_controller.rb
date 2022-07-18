@@ -10,7 +10,7 @@ private
     params.permit(
       :pet_id,
       :application_id
-    )
+    ).merge(status: 'Pending')
   end
 
 end
