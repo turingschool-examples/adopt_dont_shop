@@ -13,6 +13,12 @@ class ApplicantsController < ApplicationController
         @pets =[]
     end
   end
+  
+  def update 
+    applicant = Applicant.find(params[:id])
+    applicant.update(description: params[:description], application_status: 'Pending')
+    redirect_to "/applicants/#{applicant.id}"
+  end
 
   def new
   end
