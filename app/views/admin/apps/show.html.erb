@@ -16,6 +16,9 @@
         <% @app.status = 'rejected' %>
       <% elsif @app.pet_apps.all? { |petapp| petapp.approval == 'Approved' }%>
         <% @app.status = "accepted" %>
+        <% @app.pets.each do |pet| %>
+          <% pet.adoptable = false %><% pet.save %>
+        <% end %>
       <% end %>
     <% end %></div>
   <% end %></p>
