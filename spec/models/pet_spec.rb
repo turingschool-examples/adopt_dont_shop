@@ -38,5 +38,29 @@ RSpec.describe Pet, type: :model do
         expect(@pet_3.shelter_name).to eq(@shelter_1.name)
       end
     end
+
+    describe '.not_adoptable' do
+      it 'makes adoptable false' do
+        @pet_1.not_adoptable
+        expect(@pet_1.adoptable).to be(false)
+      end
+    end
+
+    describe '.already_accepted?' do
+      it 'returns boolean if pet has been accepted on any  apps' do
+        app_1 = App.create!(name: "Bob", address: "2020 Maple Lane", city: "Denver", state: "CO", zip: "80202", description: "ABC", status: "accepted")
+        PetApp.create!(pet: @pet_1, app: app_1, approval: 'Approved')
+        expect(@pet_1.already_accepted?).to be(true)
+      end
+    end
+
+    describe '.pet_app_approval(app)' do
+      it 'returns petapp approval for app argument' do
+        pet_1 = @shelter_1.pets.create(name: 'Mr. Pirate', breed: 'tuxedo shorthair', age: 5, adoptable: true)
+        app_1 = App.create!(name: "Bob", address: "2020 Maple Lane", city: "Denver", state: "CO", zip: "80202", description: "ABC", status: "accepted")
+        PetApp.create!(pet: pet_1, app: app_1, approval: 'Approved')
+        expect(pet_1.pet_app_approval(app_1)).to eq('Approved')
+      end
+    end
   end
 end
