@@ -1,6 +1,6 @@
 class ApplicantsController < ApplicationController
- 
-  def show 
+
+  def show
      @applicant = Applicant.find(params[:id])
       if params[:pet_name]
         @pets = Pet.search(params[:pet_name])
@@ -17,7 +17,7 @@ class ApplicantsController < ApplicationController
   def new
   end
 
-  def create 
+  def create
     applicant = Applicant.new(applicant_params)
     if applicant.save
       redirect_to "/applicants/#{applicant.id}"
@@ -26,9 +26,9 @@ class ApplicantsController < ApplicationController
       redirect_to '/applicants/new'
     end
   end
-
-  private 
-  def applicant_params 
+ 
+  private
+  def applicant_params
     params.permit(:name, :street_address, :city, :state, :zip_code)
   end
 end
