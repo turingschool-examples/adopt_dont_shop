@@ -54,8 +54,13 @@ RSpec.describe Shelter, type: :model do
 
     describe '#reverse_order' do
       it 'displays all shelters in reverse alphabetical order by name' do
-
         expect(Shelter.reverse_order[0]).to eq(@shelter_2)
+      end
+    end
+
+    describe '#shelter_show' do
+      it 'returns the shelter and info for the show page' do
+        expect(Shelter.shelter_show("#{@shelter_2.id}")).to eq(@shelter_2)
       end
     end
   end
