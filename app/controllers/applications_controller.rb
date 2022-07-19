@@ -28,6 +28,7 @@ class ApplicationsController < ApplicationController
    # @application.pets << @pet
     if params[:applicant_bio].present?
      @application.update(applicant_bio: params[:applicant_bio], application_status: 'Pending')
+     @application.save
    end
    redirect_to("/applications/#{@application.id}")
  end
