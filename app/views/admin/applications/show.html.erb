@@ -4,7 +4,7 @@
     <h2>Pets Requested on Application</h2>
     <h3>Applicant Name: <%=@application.name%></h3>
     <%@pet_applications.each do |pet_application|%>
-    <div id="<%=pet_application.id %>">
+    <div id="pet-<%=pet_application.id %>">
      <p><b>Pet name:</b> <%= pet_application.pet.name %></p>
       <p><b>Status:</b><%= pet_application.status %></p>
       <% if pet_application.status == "Pending"%>
