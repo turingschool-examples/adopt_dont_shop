@@ -54,7 +54,7 @@ end
     expect(PetApplication.where(pet_id:@pet_1.id,application_id:@application_1.id).any?).to eq(true)
   end
 
-  xit "can submit an application" do
+  it "can submit an application" do
     visit "/applications/#{@application_1.id}"
 
     fill_in :search, with: "#{@pet_1.name}"
