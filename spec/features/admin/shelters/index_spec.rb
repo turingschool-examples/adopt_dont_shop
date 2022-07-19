@@ -53,12 +53,9 @@ RSpec.describe 'Admin/shelters#index' do
       end
     end
     it 'lists the shelters alphabetically in the shelters with pending applications' do
-      
       visit '/admin/shelters'
 
       within('#pending_applications_admin') do
-        save_and_open_page
-
         expect('Aurora shelter').to appear_before('RGV animal shelter')
         expect('Fancy pets of Colorado').to appear_before('RGV animal shelter')
       end
