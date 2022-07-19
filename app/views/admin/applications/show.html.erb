@@ -3,6 +3,7 @@
 <div id = "applications_admin">
     <h2>Pets Requested on Application</h2>
     <h3>Applicant Name: <%=@application.name%></h3>
+    <h4>Application Status:<%=@application.app_status%></h4>
     <%@pet_applications.each do |pet_application|%>
     <div id="pet-<%=pet_application.id %>">
      <p><b>Pet name:</b> <%= pet_application.pet.name %></p>
