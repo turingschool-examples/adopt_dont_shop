@@ -53,7 +53,7 @@ RSpec.describe 'Show application', type: :feature do
 
     within('#pet_found') do
       expect(page).to have_content('Bowow')
-      expect(page).to have_button('Add to Application')
+      expect(page).to have_button('Add To Application')
     end
   end
 
@@ -76,7 +76,7 @@ RSpec.describe 'Show application', type: :feature do
     end
 
     within('#pet_found') do
-      click_on('Add to Application')
+      click_on('Add To Application')
     end
 
     within '#app_information' do
@@ -109,7 +109,7 @@ RSpec.describe 'Show application', type: :feature do
     end
 
     within("#pet_found") do
-      click_on("Add to Application")
+      click_on("Add To Application")
     end
 
     within("#app_information") do
@@ -122,7 +122,7 @@ RSpec.describe 'Show application', type: :feature do
     end
 
     within("#pet_found") do
-      click_on("Add to Application")
+      click_on("Add To Application")
     end
 
     within("#app_information") do
@@ -143,7 +143,7 @@ RSpec.describe 'Show application', type: :feature do
 
     within('#pet_found') do
       expect(page).to have_content('Bowow')
-      expect(page).to have_button('Add to Application')
+      expect(page).to have_button('Add To Application')
     end
   end
 
@@ -160,7 +160,7 @@ RSpec.describe 'Show application', type: :feature do
 
     within('#pet_found') do
       expect(page).to have_content('Bowow')
-      expect(page).to have_button('Add to Application')
+      expect(page).to have_button('Add To Application')
     end
   end
 
