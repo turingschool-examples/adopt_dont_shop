@@ -9,6 +9,10 @@ class SheltersController < ApplicationController
     end
   end
 
+  def admin_index
+    @shelters = Shelter.find_by_sql("SELECT * FROM shelters ORDER BY name DESC")
+  end
+
   def pets
     @shelter = Shelter.find(params[:shelter_id])
 
