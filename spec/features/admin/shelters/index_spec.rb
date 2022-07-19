@@ -60,5 +60,15 @@ RSpec.describe 'Admin/shelters#index' do
         expect('Fancy pets of Colorado').to appear_before('RGV animal shelter')
       end
     end
+    it 'each shelter name is a link to that shelter show page' do
+      visit '/admin/shelters'
+      
+      within('#pet_shelters_admin') do
+        expect(page).to have_link('Aurora shelter')
+      end
+      within('#pending_applications_admin') do
+        expect(page).to_not have_link('Animal Helpers')
+      end
+    end
   end
 end
