@@ -30,6 +30,14 @@ class Shelter < ApplicationRecord
       .order("shelters.name")
       .distinct
   end
+  def pets_pending 
+    pets.select("pets.* ")
+      .joins("LEFT OUTER JOIN pet_applications ON pets.id = pet_applications.pet_id")
+      .where("pet_applications.status = 'Pending'")
+      .order("pets.name")
+      .distinct
+      
+  end
   def pet_count
     pets.count
   end

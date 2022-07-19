@@ -1,3 +1,13 @@
 <h1><%= @shelter[0].name %></h1>
 
 <p>City: <%= @shelter[0].city %></p>
+
+<div id = "action_required">
+  <h2>Action Required</h2>
+  <% Shelter.find(params[:id]).pets_pending.each do |pet|%> 
+    <p class = "pet_name"><%= pet.name%></p>
+    <%pet.pet_applications.each do |pet_app|%>
+      <p><%= link_to "Application ##{pet_app.application_id} Page", "/admin/applications/#{pet_app.application_id}"%></p>
+    <% end%> 
+  <%end%>
+</div>
