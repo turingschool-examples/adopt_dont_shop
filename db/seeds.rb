@@ -20,6 +20,7 @@ application = Application.create!(name: "Jerry Rice", street_address: "123 Main 
 shelter = Shelter.create!(foster_program: true, name: "North Shore Animal Hospital", city: "Long Island", rank: 3)
 spot = Pet.create!(adoptable: true, age: 2, breed: "Dalmatian", name: "Spot", shelter_id: shelter.id)
 frenchie = Pet.create!(adoptable: true, age: 1, breed: "French Bulldog", name: "Frenchie", shelter_id: shelter.id)
+fRENCHToasT = Pet.create!(adoptable: true, age: 4, breed: "French toast", name: "FReNCH ToAsT", shelter_id: shelter.id)
 pancho = Pet.create!(adoptable: true, age: 5, breed: "Chiuahua", name: "Pancho", shelter_id: shelter.id)
 spot_application = PetApplication.create!(application_id: application.id, pet_id: spot.id, status: application.status)
 frenchie_application = PetApplication.create!(application_id: application.id, pet_id: frenchie.id, status: application.status)
