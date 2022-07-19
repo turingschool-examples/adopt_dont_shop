@@ -28,7 +28,7 @@
    <%= button_to "Adopt #{pet.name}", "/applications/#{@application.id}", method: :post, params: {pet_id: pet.id} %>
 <% end %>
 <% end %>
-<%= render partial: "bio", locals: { path: "/applications/#{@application.id}",  method: :post, local: true } %>
+<%= render partial: "bio", locals: { path: "/applications/#{@application.id}",  method: :patch, local: true } %>
 <% if params[:applicant_bio].present? %>
 
 <% end %>

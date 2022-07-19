@@ -158,7 +158,7 @@ RSpec.describe 'application show page' do
      click_on "Pet name search"
 
      expect(current_path).to eq("/applications/#{mike.id}")
-     expect(page).to have_content('Charlie')
+     expect(page).to have_content(charlie.name)
    end
 
    it 'lists partial matches as search results' do
@@ -180,9 +180,9 @@ RSpec.describe 'application show page' do
      fill_in 'Search', with: "Ba"
      click_on("Pet name search")
 
-     expect(page).to have_content('Bare-y Manilow')
-     expect(page).to have_content('Babe')
-     expect(page).to_not have_content('Elle')
+     expect(page).to have_content(pet_1.name)
+     expect(page).to have_content(pet_2.name)
+     expect(page).to_not have_content(pet_3.name)
   end
 
   it 'is a case insensitive search' do
@@ -299,37 +299,39 @@ end
              street_address: '245 Maple St',
              city: 'Centennial',
              state: 'Colorado',
-             zip_code: '80112')
-             # application_status: 'In Progress')
+             zip_code: '80112',
+             application_status: 'In Progress')
+   # mike_brutus = ApplicationPet.create!(application_id: mike.id, pet_id: brutus.id)
    chris = Application.create!(
              name: 'Chris Simmons',
              street_address: '533 Oak St',
              city: 'Columbus',
              state: 'Ohio',
-             zip_code: '43004')
-             # application_status: 'In Progress')
+             zip_code: '43004',
+             application_status: 'In Progress')
    dani = Application.create!(
              name: 'Dani Coleman',
              street_address: '912 Willow St',
              city: 'Arvada',
              state: 'Colorado',
-             zip_code: '80003')
-             # application_status: 'In Progress')
+             zip_code: '80003',
+             application_status: 'In Progress')
    mina = Pet.create!(adoptable: true, age: 1, breed: 'ND', name: 'Mina', shelter_id: shelter.id)
    chloe = Pet.create!(adoptable: true, age: 2, breed: 'Tabby', name: 'Chloe', shelter_id: shelter.id)
    vida = Pet.create!(adoptable: true, age: 4, breed: 'Yorkshire', name: 'Vida', shelter_id: shelter.id)
    brutus = Pet.create!(adoptable: true, age: 3, breed: 'Karelian', name: 'Brutus', shelter_id: shelter.id)
 
-   mike_brutus = ApplicationPet.create!(pet_id: brutus.id, application_id: mike.id)
-
    visit "/applications/#{mike.id}"
+   fill_in :search, with: 'Brutus'
+   click_on 'Pet name search'
+   click_on "Adopt #{brutus.name}"
 
+   expect(current_path).to eq("/applications/#{mike.id}")
    expect(page).to have_content('Tell us why you would make a good home for this pet:')
 
-   fill_in 'Tell us why you would make a good home for this pet:', with: 'My dog needs another to help chase bears up trees.'
-
+   fill_in :applicant_bio, with: "I like dogs a lot."
    click_on 'Submit Application'
-   save_and_open_page
+
    expect(current_path).to eq("/applications/#{mike.id}")
    expect(page).to have_content('Application Status: Pending')
  end
