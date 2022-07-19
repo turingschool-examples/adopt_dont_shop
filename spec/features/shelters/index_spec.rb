@@ -121,4 +121,24 @@ RSpec.describe 'the shelters index' do
   expect(page).to have_content(@shelter_3.name)
   end
 
+  it "is able to show me all pending applicants" do
+    applicant = Applicant.create!(name: 'Oliver Smudger',
+                                  street_address: '1234 N Random Avenue',
+                                  city: 'Tucson',
+                                  state: 'Arizona',
+                                  zip_code: '12345',
+                                  description: '',
+                                  application_status: 'In Progress'
+                                )
+    shelter = Shelter.create!(name: 'Fancy pets of Colorado', city: 'Denver, CO', foster_program: true, rank: 10)
+    pet = applicant.pets.create!(name: 'Scooby', age: 2, breed: 'Great Dane', adoptable: true, shelter_id: shelter.id)
+    pet_2 = applicant.pets.create!(adoptable: true, age: 1, breed: 'sphynx', name: 'Lucille Bald', shelter_id: shelter.id)
+
+    visit "/admin/shelters"
+
+    expect(page).to have_content("Fancy pets of Colorado")
+    expect(page).to have_content("Application status: Pending")
+
+  end
+
 end
