@@ -2,7 +2,7 @@
 <p><strong>Street address:</strong> <%= @applicant.street_address %>, <%= @applicant.city %>, <%= @applicant.state %>, <%= @applicant.zip_code %></p>
 
 <p><strong>Pets this application is for:</strong> <% @applicant.pets.each do |pet| %></p>
-  <h4><%=link_to "#{pet.name}", "/pets/#{pet.id}", id: "pet-#{pet.id}" %></h4>
+  <h4><%=link_to "#{pet.name}", "/pets/#{pet.id}" %></h4>
 <% end %>
 
 <% if @applicant.application_status == "In Progress" %>
@@ -14,7 +14,7 @@
 <% end %>
 
 <% @pets.each do |pet| %>
-  <p><%= pet.name %><%= button_to "Adopt this Pet", "/applicants/#{@applicant.id}/add_pets/#{pet.id}" %></p>
+  <p><%= pet.name %><%= button_to 'Adopt this Pet', "/applicants/#{@applicant.id}/add_pets/#{pet.id}" %></p>
 <% end %><br>
 
 <% if !@applicant.pets.empty? && @applicant.application_status == "In Progress" %>

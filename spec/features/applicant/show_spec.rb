@@ -8,7 +8,7 @@ RSpec.describe 'the applicant show page', type: :feature do
                                   city: 'Tucson', 
                                   state: 'Arizona', 
                                   zip_code: '12345',
-                                  description: 'I have a big yard and work from home.',
+                                  description: '',
                                   application_status: 'In Progress'
                                 )
 
@@ -19,7 +19,7 @@ RSpec.describe 'the applicant show page', type: :feature do
     expect(page).to have_content(applicant.city)
     expect(page).to have_content(applicant.state)
     expect(page).to have_content(applicant.zip_code)
-    # expect(page).to have_content(applicant.description)
+    expect(page).to have_content(applicant.description)
     expect(page).to have_content(applicant.application_status)
   end 
 
@@ -72,8 +72,8 @@ RSpec.describe 'the applicant show page', type: :feature do
     expect(page).to_not have_content('Scooby')
   end
 
-it 'US22: can add a pet to an application' do 
-  applicant = Applicant.create!(name: 'Oliver Smudger', 
+  it 'US22: can add a pet to an application' do   
+    applicant = Applicant.create!(name: 'Oliver Smudger', 
                                   street_address: '1234 N Random Avenue', 
                                   city: 'Tucson', 
                                   state: 'Arizona', 
@@ -102,42 +102,107 @@ it 'US22: can add a pet to an application' do
     expect(current_path).to eq("/applicants/#{applicant.id}") 
   end
 
-
-# When I visit an application's show page *
-# And I have added one or more pets to the application (pending)
-# Then I see a section to submit my application *
-# And in that section I see an input to enter why I would make a good owner for these pet(s) *
-# When I fill in that input *
-# And I click a button to submit this application
-# Then I am taken back to the application's show page
-# And I see an indicator that the application is "Pending"
-# And I see all the pets that I want to adopt
-# And I do not see a section to add more pets to this application
-
-it 'US21: can submit an application if pets are added' do 
-  applicant = Applicant.create!(name: 'Oliver Smudger', 
-                                street_address: '1234 N Random Avenue', 
-                                city: 'Tucson', 
-                                state: 'Arizona', 
-                                zip_code: '12345',
-                                description: 'I have a big yard and work from home.',
-                                application_status: 'In Progress'
-                                )
-  shelter = Shelter.create!(name: 'Fancy pets of Colorado', city: 'Denver, CO', foster_program: true, rank: 10)
-  pet = applicant.pets.create!(name: 'Scooby', age: 2, breed: 'Great Dane', adoptable: true, shelter_id: shelter.id)
-  pet_2 = applicant.pets.create!(adoptable: true, age: 1, breed: 'sphynx', name: 'Lucille Bald', shelter_id: shelter.id)
+  it 'US21: can submit an application if pets are added' do 
+    applicant = Applicant.create!(name: 'Oliver Smudger', 
+                                  street_address: '1234 N Random Avenue', 
+                                  city: 'Tucson', 
+                                  state: 'Arizona', 
+                                  zip_code: '12345',
+                                  description: 'I have a big yard and work from home.',
+                                  application_status: 'In Progress'
+                                  )
+    shelter = Shelter.create!(name: 'Fancy pets of Colorado', city: 'Denver, CO', foster_program: true, rank: 10)
+    pet = Pet.create!(name: 'Scooby', age: 2, breed: 'Great Dane', adoptable: true, shelter_id: shelter.id)
+    pet_2 = Pet.create!(adoptable: true, age: 1, breed: 'sphynx', name: 'Lucille Bald', shelter_id: shelter.id)
     
-  visit "/applicants/#{applicant.id}"
+    visit "/applicants/#{applicant.id}"
 
-  expect(page).to have_content('Submit my application')
+    expect(page).to have_content('Add a Pet to Application')
+    fill_in 'pet_name', with: 'Lucille Bald'
+    expect(page).to have_button('Submit')
+    click_button ('Submit')
 
-  fill_in 'description', with: applicant.description
-  
-  expect(page).to have_button('Submit my application')
-  click_button('Submit my application')  
+    expect(page).to have_content('Lucille Bald')
+    expect(page).to have_button('Adopt this Pet')
+    click_button('Adopt this Pet')
+   
+    expect(page).to have_content('Submit my application')
 
-  expect(page).to have_content('Lucille Bald')
-  expect(page).to have_content('Pending')
+    fill_in 'description', with: applicant.description
+    expect(page).to have_button('Submit my application')
+    click_button('Submit my application')  
+
+    expect(page).to have_content('Lucille Bald')
+    expect(page).to have_content('Pending')
+  end
+
+  it 'US20: cannot submi an application with no pets added' do 
+    applicant = Applicant.create!(name: 'Oliver Smudger', 
+                                  street_address: '1234 N Random Avenue', 
+                                  city: 'Tucson', 
+                                  state: 'Arizona', 
+                                  zip_code: '12345',
+                                  description: 'I have a big yard and work from home.',
+                                  application_status: 'In Progress'
+                                  )
+                            
+    visit "/applicants/#{applicant.id}"
+                                 
+    expect(page).to have_content('Add a Pet to Application')
+    expect(page).to_not have_content('Submit my application')                              
+    expect(page).to_not have_button('Submit my application')
+  end
+
+  it 'US19: it can find partial matches for pet names' do
+    applicant = Applicant.create!(name: 'Oliver Smudger', 
+                                  street_address: '1234 N Random Avenue', 
+                                  city: 'Tucson', 
+                                  state: 'Arizona', 
+                                  zip_code: '12345',
+                                  description: 'I have a big yard and work from home.',
+                                  application_status: 'In Progress'
+                                  )
+    shelter = Shelter.create!(name: 'Fancy pets of Colorado', city: 'Denver, CO', foster_program: true, rank: 10)
+    pet = Pet.create!(name: 'Scooby', age: 2, breed: 'Great Dane', adoptable: true, shelter_id: shelter.id)
+    pet_2 = Pet.create!(adoptable: true, age: 1, breed: 'sphynx', name: 'Lucille Bald', shelter_id: shelter.id)
+
+    visit "/applicants/#{applicant.id}"
+
+    expect(page).to have_content('Add a Pet to Application')
+
+    fill_in 'pet_name', with: 'Sco'
+
+    expect(page).to have_button('Submit')
+    click_button('Submit')  
+
+    expect(page).to have_content('Scooby')
+    expect(page).to have_button('Adopt this Pet')
+  end
+
+  it 'US18: the search is case insensitive' do 
+    applicant = Applicant.create!(name: 'Oliver Smudger', 
+                                  street_address: '1234 N Random Avenue', 
+                                  city: 'Tucson', 
+                                  state: 'Arizona', 
+                                  zip_code: '12345',
+                                  description: 'I have a big yard and work from home.',
+                                  application_status: 'In Progress'
+                                  )
+    shelter = Shelter.create!(name: 'Fancy pets of Colorado', city: 'Denver, CO', foster_program: true, rank: 10)
+    pet = Pet.create!(name: 'Scooby', age: 2, breed: 'Great Dane', adoptable: true, shelter_id: shelter.id)
+    pet_2 = Pet.create!(adoptable: true, age: 1, breed: 'sphynx', name: 'Lucille Bald', shelter_id: shelter.id)
+
+    visit "/applicants/#{applicant.id}"
+
+    expect(page).to have_content('Add a Pet to Application')
+
+    fill_in 'pet_name', with: 'LuciLLE bald'
+
+    expect(page).to have_button('Submit')
+    click_button('Submit')  
+
+    expect(page).to have_content('Lucille Bald')
+    expect(page).to have_button('Adopt this Pet')
   end
 end
  
