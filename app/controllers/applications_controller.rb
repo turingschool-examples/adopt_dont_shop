@@ -25,9 +25,11 @@ class ApplicationsController < ApplicationController
 
   def update
     @application = Application.find(params[:id])
+    if @application.status == "Pending"
+      redirect_to "/applications/#{@application.id}", alert: "Your application is under review"
 
-    if params[:description]
-      @application.update(description: params[:description])
+    elsif params[:description]
+      @application.update(description: params[:description], status: "Pending")
       redirect_to "/applications/#{@application.id}"
       # flash[:alert] = "Please provide a description."
     elsif params[:pet_id]
