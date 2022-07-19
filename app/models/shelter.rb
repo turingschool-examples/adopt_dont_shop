@@ -7,6 +7,10 @@ class Shelter < ApplicationRecord
 
   def self.order_by_recently_created
     order(created_at: :desc)
+  end
+
+  def self.order_by_recently_created_and_abc
+    order(created_at: :desc)
     order(name: :desc)
   end
 
