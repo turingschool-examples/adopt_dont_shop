@@ -73,5 +73,19 @@ RSpec.describe Shelter, type: :model do
         expect(@shelter_1.pet_count).to eq(3)
       end
     end
+    describe '.filter_by_pets_pending_applications_alphabetically' do
+      it 'returns shelters that have pets w/pending apps, sorted alphabetically' do
+        @pet_5 = @shelter_2.pets.create(name: 'Buffy', breed: 'shorthair', age: 3, adoptable: true)
+        @app_1 = Application.create!(name: 'John Doe', street_address: '123 Main St', city: 'New York',
+                                        state: 'NY', zipcode: 10_001)
+        @app_2 = Application.create!(name: 'Jane Doe', street_address: '456 Main St', city: 'Boston',
+                                          state: 'MA', zipcode: 10_002)
+        @pet_app1 = PetApplication.create!(application_id: @app_1.id, pet_id: @pet_3.id, status: 'Pending')                                 
+        @pet_app2 = PetApplication.create!(application_id: @app_2.id, pet_id: @pet_5.id, status: 'Pending')                                 
+        filtered = Shelter.filter_by_pets_with_pending_applications_alphabetically
+        expect(filtered.length).to eq(2)
+        expect(filtered[0].name).to eq('Fancy pets of Colorado')
+      end
+    end
   end
 end
