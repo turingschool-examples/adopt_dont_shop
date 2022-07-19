@@ -76,13 +76,13 @@ RSpec.describe Shelter, type: :model do
                                       city: 'Tucson',
                                       state: 'Arizona',
                                       zip_code: '12345',
-                                      description: '',
-                                      application_status: 'In Progress'
+                                      description: 'Im the best',
+                                      application_status: 'Pending'
                                     )
 
         ApplicantPet.create!(pet: @pet_1, applicant: @applicant_1)
 
-        expect(Shelter.pending_apps).to eq(@shelter_1)
+        expect(Shelter.pending_apps.first).to eq(@shelter_1)
 
       end
     end
