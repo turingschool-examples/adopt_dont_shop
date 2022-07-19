@@ -125,5 +125,22 @@ RSpec.describe 'Application Show Page' do
       expect(page).to have_content("Frenchie")
       expect(page).to have_content("FREnCH ToAsT")
     end
+
+    it 'can find a pet with a case insensitive search' do
+      application = Application.create!(name: "Jerry Rice", street_address: "123 Main Street", city: "Honolulu", state: "HI", zip_code: 12345, description: "We love doggos!", status: "In Progress")
+      shelter = Shelter.create!(foster_program: true, name: "North Shore Animal Hospital", city: "Long Island", rank: 3)
+      spot = Pet.create!(adoptable: true, age: 2, breed: "Dalmatian", name: "Spot", shelter_id: shelter.id)
+      frenchie = Pet.create!(adoptable: true, age: 1, breed: "French Bulldog", name: "Frenchie", shelter_id: shelter.id)
+      fRENCHToasT = Pet.create!(adoptable: true, age: 4, breed: "French toast", name: "FREnCH ToAsT", shelter_id: shelter.id)
+      spot_application = PetApplication.create!(application_id: application.id, pet_id: spot.id, status: application.status)
+      frenchie_application = PetApplication.create!(application_id: application.id, pet_id: frenchie.id, status: application.status)
+
+      visit "/applications/#{frenchie_application.application.id}"
+      fill_in :search, with: "FrEnch"
+      click_on "Search"
+
+      expect(page).to have_content("Frenchie")
+      expect(page).to have_content("FREnCH ToAsT")
+    end
   end
 end
