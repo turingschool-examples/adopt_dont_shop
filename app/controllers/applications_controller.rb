@@ -24,8 +24,11 @@ class ApplicationsController < ApplicationController
 
  def update
    @application = Application.find(params[:id])
-   @pet = Pet.find(params[:pet_id])
-   @application.pets << @pet
+   # @pet = Pet.find(params[:pet_id])
+   # @application.pets << @pet
+    if params[:applicant_bio].present?
+     @application.update(applicant_bio: params[:applicant_bio], application_status: 'Pending')
+   end
    redirect_to("/applications/#{@application.id}")
  end
 
