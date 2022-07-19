@@ -13,6 +13,12 @@ class ApplicationsController < ApplicationController
     end
   end
 
+  def admin_show
+    @application = Application.find(params[:id])
+    # @pets = @application.pets
+    # @pet_app = @application.pet_applications
+  end
+
   def new
     @application = Application.new
   end

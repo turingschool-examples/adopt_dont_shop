@@ -13,9 +13,6 @@ Pet.destroy_all
 Application.destroy_all
 
 
-
-
-
 application = Application.create!(name: "Jerry Rice", street_address: "123 Main Street", city: "Honolulu", state: "HI", zip_code: 12345, description: "We love doggos!")
 
 northshore = Shelter.create!(foster_program: true, name: "North Shore Animal Hospital", city: "Long Island", rank: 3)

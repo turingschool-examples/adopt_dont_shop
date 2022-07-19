@@ -1,0 +1,11 @@
+<h1>Admin Applications Show Page</h1>
+
+<h3><%= @application.name %></h3>
+
+<% @application.pet_applications.each do |pet_application| %>
+  <b><%= pet_application.pet.name %></b> <%= pet_application.status %>
+  <% if pet_application.status == "In Progress" %>
+    <%= button_to "Approve", "/admin/pet_applications/#{pet_application.id}", method: :patch %>
+  <% end %>
+  <br><br>
+<% end %>
