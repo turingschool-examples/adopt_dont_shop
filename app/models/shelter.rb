@@ -45,6 +45,10 @@ class Shelter < ApplicationRecord
     pets.where('adoptable = ?', true).average(:age)
   end 
 
+  def action_required
+    pets.joins(:applications).where('applications.status = ?', "Pending")
+  end
+
   def self.shelter_show(id)
     find_by_sql("SELECT id, name, address, city, zip FROM shelters WHERE id = #{id}")[0]
   end 

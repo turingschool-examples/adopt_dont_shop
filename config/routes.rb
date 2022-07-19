@@ -50,6 +50,4 @@ Rails.application.routes.draw do
     get '/applications/:application_id', to: 'applications#show'
     patch '/applications/:application_id', to: 'applications#update'
   end
-
- 
 end
