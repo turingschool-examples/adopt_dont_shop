@@ -25,6 +25,10 @@
 <% if params[:search].present? %>
   <% @pets.each do |pet| %>
   <h3><%= pet.name %></h3>
-   <%= button_to "Adopt #{pet.name}", "/applications/#{@application.id}", method: :patch, params: {pet_id: pet.id} %>
+   <%= button_to "Adopt #{pet.name}", "/applications/#{@application.id}", method: :post, params: {pet_id: pet.id} %>
 <% end %>
+<% end %>
+<%= render partial: "bio", locals: { path: "/applications/#{@application.id}",  method: :post, local: true } %>
+<% if params[:applicant_bio].present? %>
+
 <% end %>
