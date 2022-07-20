@@ -1,4 +1,10 @@
 <h2>Applicant name: <%= @application.name %></h2>
+<p>Address: <%= @application.address %></p>
+<p>City: <%= @application.city %></p>
+<p>State: <%= @application.state %></p>
+<p>Zip: <%= @application.zip %></p>
+<p>Description: <%= @application.description %></p>
+
 	<h4>Pets on application:</h4>
 
 	<% @application.pets.each do |pet|%>
@@ -10,4 +16,3 @@
 			   <p><%= pet.name %> has been approved!</p>
 		<% end %>
    <% end %>
-
