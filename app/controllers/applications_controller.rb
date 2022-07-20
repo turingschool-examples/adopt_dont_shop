@@ -31,11 +31,9 @@ class ApplicationsController < ApplicationController
     elsif params[:description]
       @application.update(description: params[:description], status: "Pending")
       redirect_to "/applications/#{@application.id}"
-      # flash [:alert] = "Please provide a description."
     
     elsif params[:pet_id]
       PetApplication.create(pet_id: params[:pet_id], application_id: @application.id)
-
       redirect_to "/applications/#{@application.id}"
     end
   end

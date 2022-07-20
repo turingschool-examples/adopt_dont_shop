@@ -6,13 +6,15 @@ RSpec.describe Application, type: :model do
     it { should have_many(:pets).through(:pet_applications) }
   end
 
-  describe 'application requirements' do
-    @application_1 = Application.create!(name: 'John', address: '123 Main Street', city: 'Nashville', state: 'TN', zip: 37067, description: "I want a nice dog.", status: "In Progress")
-    
+  describe 'validations' do    
     it { is_expected.to validate_presence_of(:name)}
     it { is_expected.to validate_presence_of(:address)}
     it { is_expected.to validate_presence_of(:state)}
     it { is_expected.to validate_presence_of(:city)}
     it { is_expected.to validate_presence_of(:zip)}
+    it {should allow_value("In Progress").for(:status)}
+    it {should allow_value("Pending").for(:status)}
+    it {should allow_value("Accepted").for(:status)}
+    it {should allow_value("Rejected").for(:status)}
   end
 end
