@@ -74,4 +74,17 @@ RSpec.describe Application do
         expect(@application_1.app_status).to eq('Approved')
       end
     end
+
+    describe '#pets_no_longer_adoptable' do
+      it 'should change the pet status to "No Longer Adoptable"' do
+        @application_3.pets_no_longer_adoptable
+        expect(@application_1.pets[0].adoptable).to eq(false)
+        expect(@application_2.pets[0].adoptable).to eq(false)
+        expect(@application_3.pets[0].adoptable).to eq(false)
+        expect(@application_1.pets[1].adoptable).to eq(false)
+        expect(@application_2.pets[1].adoptable).to eq(false)
+        expect(@application_3.pets[1].adoptable).to eq(false)
+        expect(@application_1.pets[2].adoptable).to eq(true)
+      end
+    end
 end

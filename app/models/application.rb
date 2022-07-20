@@ -29,4 +29,8 @@ class Application < ApplicationRecord
   def approve_application
     update!(app_status: "Approved")
   end
+
+  def pets_no_longer_adoptable
+    pets.update_all(adoptable: false)
+  end
 end

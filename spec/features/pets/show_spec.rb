@@ -9,7 +9,7 @@ RSpec.describe 'the shelter show' do
 
     expect(page).to have_content(pet.name)
     expect(page).to have_content(pet.age)
-    expect(page).to have_content(pet.adoptable)
+    expect(page).to have_content("Pet Available")
     expect(page).to have_content(pet.breed)
     expect(page).to have_content(pet.shelter_name)
   end

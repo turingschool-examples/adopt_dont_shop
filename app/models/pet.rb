@@ -16,4 +16,5 @@ class Pet < ApplicationRecord
   def pending_applications
     pet_applications.where(status: 'Pending')
   end
+  
 end
