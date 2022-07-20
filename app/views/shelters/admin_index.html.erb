@@ -2,7 +2,7 @@
 
 <% @shelters.each_with_index do |shelter, index| %>
 <div id = "shelter-<%= index %>">
-<p><%= shelter.name %></p>
+<p><%= link_to "#{shelter.name}", "/admin/shelters/#{shelter.id}" %></p>
 </div>
 <% end %>
 <br>
@@ -10,6 +10,6 @@
 <h3>Shelter's with Pending Applications:</h3>
 <%@pending_shelters.each_with_index do |shelter, index| %>
 <div id = "pending_shelter-<%= index %>">
-<p><%= shelter.name %></p>
+<p><%= link_to "#{shelter.name}", "/admin/shelters/#{shelter.id}" %></p>
 </div>
 <% end %>
