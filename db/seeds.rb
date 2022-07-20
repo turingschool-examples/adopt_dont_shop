@@ -4,10 +4,10 @@ Shelter.destroy_all
 Application.destroy_all
 VeterinaryOffice.destroy_all
 
-mystery = Shelter.create!(name: 'Mystery Building', city: 'Irvine CA', foster_program: false, rank: 9)
-aurora = Shelter.create!(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
-hollywood = Shelter.create!(name: 'Hollywood shelter', city: 'Irvine, CA', foster_program: false, rank: 7)
-rgv = Shelter.create!(name: 'RGV animal shelter', city: 'Harlingen, TX', foster_program: false, rank: 5)
+mystery = Shelter.create(name: 'Mystery Building', city: 'Irvine CA', foster_program: false, rank: 9)
+aurora = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
+hollywood = Shelter.create(name: 'Hollywood shelter', city: 'Irvine, CA', foster_program: false, rank: 7)
+rgv = Shelter.create(name: 'RGV animal shelter', city: 'Harlingen, TX', foster_program: false, rank: 5)
 
 
 lucille = Pet.create(adoptable: true, age: 1, breed: 'sphynx', name: 'Lucille Bald', shelter_id: mystery.id)
@@ -30,8 +30,15 @@ sarah = Veterinarian.create(name: 'Sarah', review_rating: 9, on_call: false, vet
 sam = Veterinarian.create(name: 'Sam', review_rating: 10, on_call: false, veterinary_office_id: best_vets.id)
 
 
-application_1 = Application.create!(name: "Bob Bobbicus", street: "123 Main street", city: "Newtown", state: "CO", zipcode: 80009, status:"In Progress", description:"I love dogs so much and have lots of food for them")
-application_2 = Application.create!(name: "Cindy Smith", street: "727 Lane road", city: "Rockville", state: "CA", zipcode: 95148, status:"In Progress", description:"I have a big yard them to run all day")
-application_3 = Application.create!(name: "Ryan Scott", street: "21 Longwalk street", city: "Denver", state: "CO", zipcode: 34687, status:"In Progress", description:"I have lots of time to play fetch")
-application_4 = Application.create!(name: "Jean Frisco", street: "546 Uphill Road", city: "Springs", state: "TX", zipcode: 57465, status:"In Progress", description:"I will give them all of the pets I can")
+application_1 = Application.create(name: "Bob Bobbicus", street: "123 Main street", city: "Newtown", state: "CO", zipcode: 80009, status:"In Progress", description:"I love dogs so much and have lots of food for them")
+application_2 = Application.create(name: "Cindy Smith", street: "727 Lane road", city: "Rockville", state: "CA", zipcode: 95148, status:"In Progress", description:"I have a big yard them to run all day")
+application_3 = Application.create(name: "Ryan Scott", street: "21 Longwalk street", city: "Denver", state: "CO", zipcode: 34687, status:"In Progress", description:"I have lots of time to play fetch")
+application_4 = Application.create(name: "Jean Frisco", street: "546 Uphill Road", city: "Springs", state: "TX", zipcode: 57465, status:"In Progress", description:"I will give them all of the pets I can")
 
+PetApplication.create(pet: lucille, application: application_1)
+PetApplication.create(pet: lobster, application: application_1)
+PetApplication.create(pet: lucille, application: application_2)
+PetApplication.create(pet: lucille, application: application_4)
+PetApplication.create(pet: barey, application: application_3)
+PetApplication.create(pet: charlie, application: application_3)
+PetApplication.create(pet: beethoven, application: application_4)
