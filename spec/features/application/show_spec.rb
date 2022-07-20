@@ -66,6 +66,14 @@ end
     click_on "Submit"
   end
 
+  it "need a pet on application in order to submit" do
+    visit "/applications/#{@application_1.id}"
+
+    click_on "Adopt this Pet"
+
+    expect(page).to_not have_content("Submit")
+  end
+
   it 'returns partial matches' do
     visit "/applications/#{@application_1.id}"
 
