@@ -11,7 +11,7 @@ class SheltersController < ApplicationController
 
   def admin_index
     @shelters = Shelter.descending_order
-    @pending_shelters = Shelter.pending_applications
+    @pending_shelters = Shelter.pending_applications.alphabetical_order
   end
 
   def pets

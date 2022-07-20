@@ -46,4 +46,8 @@ class Shelter < ApplicationRecord
   def self.descending_order
     Shelter.find_by_sql("SELECT * FROM shelters ORDER BY name DESC")
   end
+
+  def self.alphabetical_order
+    Shelter.order(name: :asc)
+  end
 end
