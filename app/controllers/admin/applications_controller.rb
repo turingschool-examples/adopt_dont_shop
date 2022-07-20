@@ -9,10 +9,14 @@ class Admin::ApplicationsController < ApplicationController
    end
 
    def update
-		@application = Application.find(params[:id])
-		@application.adopt_pets(application_params)
-
-		redirect_to "/admin/applications/#{@application.id}"
+		# @application = Application.find(params[:id])
+		# @application.adopt_pets(application_params)
+    #
+		# redirect_to "/admin/applications/#{@application.id}"
+    application = Application.find(params[:id])
+    application_pet = PetApplication.find_by(pet_id: params[:pet_id], application_id: params[:id])
+      application_pet.update(status: params[:status])
+      redirect_to "/admin/applications/#{application.id}"
 	end
 
 	private

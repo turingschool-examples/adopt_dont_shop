@@ -1,4 +1,4 @@
-<h2>Applicant name: <%= @application.name %></h2>
+<h2>Applicant Name: <%= @application.name %></h2>
 <p>Address: <%= @application.address %></p>
 <p>City: <%= @application.city %></p>
 <p>State: <%= @application.state %></p>
@@ -7,12 +7,12 @@
 
 	<h4>Pets on application:</h4>
 
-	<% @application.pets.each do |pet|%>
-		<% if pet.adoptable %>
-			<%= pet.name %>
-			<%= button_to "Approve", "/admin/applications/#{@application.id}", method: :patch, params: {approve: pet.id}%>
-			<%= button_to "Reject", "/admin/applications/#{@application.id}", method: :patch, params: {reject: pet.id}%>
-			<% else %>
-			   <p><%= pet.name %> has been approved!</p>
-		<% end %>
-   <% end %>
+	<% @application.pets.each do |pet| %>
+	<%= link_to "#{pet.name}","/pets/#{pet.id}" %>
+	<% if !@application.application_pending?(pet.id) %>
+				<p>You have been <%= @application.application_status(pet.id).downcase %></p>
+	<% else %>
+		<%= button_to "Approve Application", "/admin/applications/#{@application.id}", method: :patch, params: { pet_id: pet.id, status: "Approved" }  %>
+		<%= button_to "Reject Application", "/admin/applications/#{@application.id}", method: :patch, params: { pet_id: pet.id, status: "Rejected"}  %>
+	<% end %>
+<% end %>
