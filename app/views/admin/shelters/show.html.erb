@@ -2,6 +2,12 @@
 
 <p>City: <%= @shelter[0].city %></p>
 
+<div id = "shelter_statistics">
+  <h2>Shelter Statistics</h2>
+  <p><h3>Average Age of Adoptable Pets: <%= Shelter.find(params[:id]).average_age_adoptable_pets%></h3></p>
+  <p><h3>Adoptable Pets: <%= Shelter.find(params[:id]).adoptable_pets.count%></h3></p>
+</div>
+
 <div id = "action_required">
   <h2>Action Required</h2>
   <% Shelter.find(params[:id]).pets_pending.each do |pet|%> 

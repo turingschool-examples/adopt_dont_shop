@@ -50,7 +50,7 @@ RSpec.describe 'Admin/Shelters/Show page' do
     visit "/admin/shelters/#{@shelter_1.id}"
 
     expect(page).to have_content('Action Required')
-    save_and_open_page
+    
     within('#action_required') do
       expect(page).to have_content(@pet_1.name)
       expect(page).to have_link("Application ##{@app_2.id} Page")
@@ -58,5 +58,25 @@ RSpec.describe 'Admin/Shelters/Show page' do
     click_on "Application ##{@app_2.id} Page"
     expect(current_path).to eq("/admin/applications/#{@app_2.id}")
     expect(page).to have_content(@pet_1.name)
+  end
+  it 'has a statistics section that shows average age of adoptable pets' do
+    pet_6 = @shelter_1.pets.create(name: 'Hooty', age: 6, breed: 'cat', adoptable: true)
+    pet_7 = @shelter_1.pets.create(name: 'Blowfish', age: 7, breed: 'cat', adoptable: true)
+    pet_8 = @shelter_1.pets.create(name: 'Creedo', age: 8, breed: 'cat', adoptable: true)
+
+    visit "/admin/shelters/#{@shelter_1.id}"
+    within('#shelter_statistics') do
+      expect(page).to have_content('Average Age of Adoptable Pets: 5.75')
+    end
+  end
+  it 'statistics section has number of adoptable pets at that shelter' do
+    pet_6 = @shelter_1.pets.create(name: 'Hooty', age: 6, breed: 'cat', adoptable: true)
+    pet_7 = @shelter_1.pets.create(name: 'Blowfish', age: 7, breed: 'cat', adoptable: true)
+    pet_8 = @shelter_1.pets.create(name: 'Creedo', age: 8, breed: 'cat', adoptable: true)
+    visit "/admin/shelters/#{@shelter_1.id}"
+    save_and_open_page
+    within('#shelter_statistics') do
+      expect(page).to have_content('Adoptable Pets: 4')
+    end
   end
 end
