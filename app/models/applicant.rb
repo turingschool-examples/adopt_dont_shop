@@ -6,6 +6,7 @@ class Applicant < ApplicationRecord
   validates :city, presence: true
   validates :state, presence: true
   validates :zip_code, presence: true
+  validates :description, presence: true
 
   has_many :applicant_pets
   has_many :pets, :through => :applicant_pets
