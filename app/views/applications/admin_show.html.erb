@@ -1,7 +1,6 @@
 <h1>Admin Applications Show Page</h1>
 
 <h3><%= @application.name %></h3>
-
 <% @application.pet_applications.each_with_index do |pet_application, index| %>
 <div id="pet-<%= index %>">
   <b><%= pet_application.pet.name %></b> <%= pet_application.status %>
