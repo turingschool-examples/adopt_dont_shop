@@ -2,11 +2,13 @@
 
 <h3><%= @application.name %></h3>
 
-<% @application.pet_applications.each do |pet_application| %>
+<% @application.pet_applications.each_with_index do |pet_application, index| %>
+<div id="pet-<%= index %>">
   <b><%= pet_application.pet.name %></b> <%= pet_application.status %>
   <% if pet_application.status == "In Progress" %>
     <%= button_to "Approve", "/admin/pet_applications/#{pet_application.id}/approve", method: :patch %>
     <%= button_to "Reject", "/admin/pet_applications/#{pet_application.id}/reject", method: :patch %>
   <% end %>
   <br><br>
+</div>
 <% end %>
