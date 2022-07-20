@@ -30,6 +30,10 @@ class SheltersController < ApplicationController
     @shelter = Shelter.find(params[:id])
   end
 
+  def admin_show
+    @shelter = Shelter.find_by_sql("SELECT ")
+  end
+
   def new
   end
 
