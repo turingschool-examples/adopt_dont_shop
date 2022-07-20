@@ -52,7 +52,7 @@ RSpec.describe Pet, type: :model do
         pet_application3 = PetApplication.create!(application_id: application3.id, pet_id: @pet_1.id, status: 'Rejected')
 
         expect(@pet_1.pending_applications.length).to eq(2)
-        expect(@pet_1.pending_applications.first.id).to eq(application1.id)
+        expect(@pet_1.pending_applications.first.application_id).to eq(application1.id)
       end
     end
   end
