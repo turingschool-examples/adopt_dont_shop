@@ -34,11 +34,3 @@ application_1 = Application.create(name: "Bob Bobbicus", street: "123 Main stree
 application_2 = Application.create(name: "Cindy Smith", street: "727 Lane road", city: "Rockville", state: "CA", zipcode: 95148, status:"In Progress", description:"I have a big yard them to run all day")
 application_3 = Application.create(name: "Ryan Scott", street: "21 Longwalk street", city: "Denver", state: "CO", zipcode: 34687, status:"In Progress", description:"I have lots of time to play fetch")
 application_4 = Application.create(name: "Jean Frisco", street: "546 Uphill Road", city: "Springs", state: "TX", zipcode: 57465, status:"In Progress", description:"I will give them all of the pets I can")
-
-PetApplication.create(pet: lucille, application: application_1)
-PetApplication.create(pet: lobster, application: application_1)
-PetApplication.create(pet: lucille, application: application_2)
-PetApplication.create(pet: lucille, application: application_4)
-PetApplication.create(pet: barey, application: application_3)
-PetApplication.create(pet: charlie, application: application_3)
-PetApplication.create(pet: beethoven, application: application_4)
