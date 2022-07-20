@@ -10,7 +10,7 @@ class SheltersController < ApplicationController
   end
 
   def admin_index
-    @shelters = Shelter.find_by_sql("SELECT * FROM shelters ORDER BY name DESC")
+    @shelters = Shelter.descending_order
     @pending_shelters = Shelter.pending_applications
   end
 
@@ -28,6 +28,10 @@ class SheltersController < ApplicationController
 
   def show
     @shelter = Shelter.find(params[:id])
+  end
+
+  def admin_show
+    @shelter = Shelter.name_and_full_address(params[:id])
   end
 
   def new
@@ -67,6 +71,6 @@ class SheltersController < ApplicationController
   private
 
   def shelter_params
-    params.permit(:id, :name, :city, :foster_program, :rank)
+    params.permit(:id, :name, :street_address, :city, :state, :zip_code, :foster_program, :rank)
   end
 end
