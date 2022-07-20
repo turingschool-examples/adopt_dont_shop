@@ -1,11 +1,13 @@
-<h3>Pets with pending applications:</h3>
-<% if @adopted_pets && @application.status == "In Progress" %>
-  <% @adopted_pets.map do |pet| %>
-		<%= pet.name %>
-		<%= button_to "Approve", "/admin/applications/#{@application_1.id}", method: :patch, params: {approve: pet.id} %>
-      <%= button_to "Reject", "/admin/applications/#{@application_1.id}", method: :patch, params: {reject: pet.id}%>
-   <% elseif %>
-	   <p><%= pet.name %> is approved for adoption.</p> 
+<h2>Applicant name: <%= @application.name %></h2>
+	<h4>Pets on application:</h4>
+
+	<% @application.pets.each do |pet|%>
+		<% if pet.adoptable %>
+			<%= pet.name %>
+			<%= button_to "Approve", "/admin/applications/#{@application.id}", method: :patch, params: {approve: pet.id}%>
+			<%= button_to "Reject", "/admin/applications/#{@application.id}", method: :patch, params: {reject: pet.id}%>
+			<% else %>
+			   <p><%= pet.name %> has been approved!</p>
+		<% end %>
    <% end %>
-<% end %>
 
