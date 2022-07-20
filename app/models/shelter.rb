@@ -50,4 +50,8 @@ class Shelter < ApplicationRecord
   def self.alphabetical_order
     Shelter.order(name: :asc)
   end
+
+  def average_age
+    adoptable_pets.average(:age).to_f.round
+  end
 end

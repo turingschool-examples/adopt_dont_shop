@@ -1,3 +1,8 @@
-<h2><u><%= @shelter.name %></u></h2>
-Address: <%= @shelter.street_address %>, <%= @shelter.city %><br>
-         <%= @shelter.state %>, <%= @shelter.zip_code %>
+<h2><u><%= @shelter_info.name %></u></h2>
+<p>Address: <%= @shelter_info.street_address %>, <%= @shelter_info.city %></p>
+         <p><%= @shelter_info.state %>, <%= @shelter_info.zip_code %></p>
+
+<h3><u>Statistics</u></h3>
+<div id = "average_age-<%= @shelter.id %>">
+Average age of all adoptable pets: <%= @shelter.average_age %>
+</div>
