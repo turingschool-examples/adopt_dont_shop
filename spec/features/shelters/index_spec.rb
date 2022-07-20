@@ -127,7 +127,7 @@ RSpec.describe 'the shelters index' do
                                   city: 'Tucson',
                                   state: 'Arizona',
                                   zip_code: '12345',
-                                  description: '',
+                                  description: 'Text',
                                   application_status: 'In Progress'
                                 )
     shelter = Shelter.create!(name: 'Fancy pets of Colorado', city: 'Denver, CO', foster_program: true, rank: 10)
@@ -135,10 +135,7 @@ RSpec.describe 'the shelters index' do
     pet_2 = applicant.pets.create!(adoptable: true, age: 1, breed: 'sphynx', name: 'Lucille Bald', shelter_id: shelter.id)
 
     visit "/admin/shelters"
-
+    
     expect(page).to have_content("Fancy pets of Colorado")
-    expect(page).to have_content("Application status: Pending")
-
   end
-
 end

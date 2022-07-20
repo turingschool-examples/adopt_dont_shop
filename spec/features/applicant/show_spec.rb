@@ -8,9 +8,11 @@ RSpec.describe 'the applicant show page', type: :feature do
                                   city: 'Tucson', 
                                   state: 'Arizona', 
                                   zip_code: '12345',
-                                  description: '',
+                                  description: 'Text',
                                   application_status: 'In Progress'
                                 )
+    shelter = Shelter.create!(name: 'Fancy pets of Colorado', city: 'Denver, CO', foster_program: true, rank: 10)
+    pet = applicant.pets.create!(name: 'Scooby', age: 2, breed: 'Great Dane', adoptable: true, shelter_id: shelter.id)
 
     visit "/applicants/#{applicant.id}"
                               
@@ -19,7 +21,7 @@ RSpec.describe 'the applicant show page', type: :feature do
     expect(page).to have_content(applicant.city)
     expect(page).to have_content(applicant.state)
     expect(page).to have_content(applicant.zip_code)
-    expect(page).to have_content(applicant.description)
+    expect(page).to have_content(pet.name)
     expect(page).to have_content(applicant.application_status)
   end 
 
@@ -29,7 +31,7 @@ RSpec.describe 'the applicant show page', type: :feature do
                                   city: 'Tucson', 
                                   state: 'Arizona', 
                                   zip_code: '12345',
-                                  description: '',
+                                  description: 'N/A',
                                   application_status: 'In Progress'
                                 )
     shelter = Shelter.create!(name: 'Fancy pets of Colorado', city: 'Denver, CO', foster_program: true, rank: 10)
@@ -52,7 +54,7 @@ RSpec.describe 'the applicant show page', type: :feature do
                                   city: 'Tucson', 
                                   state: 'Arizona', 
                                   zip_code: '12345',
-                                  description: '',
+                                  description: 'N/A',
                                   application_status: 'In Progress'
                                 )
     shelter = Shelter.create!(name: 'Fancy pets of Colorado', city: 'Denver, CO', foster_program: true, rank: 10)
@@ -78,7 +80,7 @@ RSpec.describe 'the applicant show page', type: :feature do
                                   city: 'Tucson', 
                                   state: 'Arizona', 
                                   zip_code: '12345',
-                                  description: '',
+                                  description: 'N/A',
                                   application_status: 'In Progress'
                                 )
     shelter = Shelter.create!(name: 'Fancy pets of Colorado', city: 'Denver, CO', foster_program: true, rank: 10)
@@ -185,7 +187,7 @@ RSpec.describe 'the applicant show page', type: :feature do
                                   city: 'Tucson', 
                                   state: 'Arizona', 
                                   zip_code: '12345',
-                                  description: 'I have a big yard and work from home.',
+                                  description: 'N/A',
                                   application_status: 'In Progress'
                                   )
     shelter = Shelter.create!(name: 'Fancy pets of Colorado', city: 'Denver, CO', foster_program: true, rank: 10)
