@@ -8,3 +8,17 @@
     <p>Adoptable pets: <%= @shelter.adoptable_pet_count%>
     <p>Adopted pets: <%= @shelter.adopted_pet_count%>
 <%end %>
+<br>
+<h4>Action Required</h4>
+<% if !@shelter.action_required.empty? %>
+    <% @shelter.action_required.each do |pet|  %>
+    <div id="pets-<%= pet.id %>">
+        <%= pet.name %>
+        <% pet.pet_applications.each do |pet_application| %>
+        <p><%= link_to "Review Application", "/admin/applications/#{pet_application.application_id}" %></p>
+    </div>
+        <% end %>
+    <% end %>
+<% end %>
+
+
