@@ -7,7 +7,7 @@
   <%= @application.state %>
   <%= @application.zip_code %>
 </p>
-<p> Applicant Bio: <%= @application.applicant_bio %></p>
+<p>Applicant Bio: <%= @application.applicant_bio %></p>
 <p> Application Status: <%= @application.application_status %></p>
 
 <% @application.pets.each do |pet| %>
@@ -15,7 +15,5 @@
 <% end %>
 
 <%= render partial: "add_pet", locals: { path: "/applications/#{@application.id}",  method: :patch, local: true } %>
+<br/>
 <%= render partial: "bio", locals: { path: "/applications/#{@application.id}",  method: :patch, local: true } %>
-<% if params[:applicant_bio].present? %>
-
-<% end %>

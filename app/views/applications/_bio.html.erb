@@ -3,3 +3,7 @@
   <%= form.text_area :applicant_bio, required: true, :size=>"100", :minlength=>"5", :maxlength=>"250" %>
   <%= form.submit 'Submit Application' %>
 <% end %>
+
+<% if params[:applicant_bio].present? %>
+  <% require "pry"; binding.pry %>
+<% end %>

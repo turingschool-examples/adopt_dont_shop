@@ -330,9 +330,11 @@ end
    expect(page).to have_content('Tell us why you would make a good home for this pet:')
 
    fill_in :applicant_bio, with: "I like dogs a lot."
-   click_on 'Submit Application'
 
+   click_on 'Submit Application'
+   
    expect(current_path).to eq("/applications/#{mike.id}")
+   expect(page).to have_content('Applicant Bio: I like dogs a lot')
    expect(page).to have_content('Application Status: Pending')
  end
 
