@@ -59,7 +59,6 @@ RSpec.describe 'admin application show page' do
 
     expect(current_path).to eq("/admin/applicants/#{applicant.id}")
     expect(page).to_not have_content('Reject application')
-    save_and_open_page
     expect(page).to have_content('Rejected')
   end
 end
