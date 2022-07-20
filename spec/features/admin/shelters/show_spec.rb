@@ -7,10 +7,11 @@ RSpec.describe 'admin shelter show page' do
 
         visit "/admin/shelters/#{mystery.id}"
 
-        expect(page).to have_content(mystery.name)
+        expect(page).to have_content('Mystery Building')
         expect(page).to have_content(mystery.address)
         expect(page).to have_content(mystery.city)
         expect(page).to have_content(mystery.zip)
+        expect(page).to_not have_content(aurora.name)
     end 
 
     it 'there is a section for stats where you see average age of all adoptable pets for that shelter' do 

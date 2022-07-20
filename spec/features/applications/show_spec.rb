@@ -6,7 +6,7 @@ RSpec.describe 'application show page' do
         
         visit "/applications/#{application.id}"
 
-        expect(page).to have_content(application.name)
+        expect(page).to have_content("Bob Bobbicus")
     end
 
     it 'displays the full address of the applicant' do
@@ -27,9 +27,9 @@ RSpec.describe 'application show page' do
 
         visit "/applications/#{application.id}"
 
-        expect(page).to have_content(pet1.name)
+        expect(page).to have_content('Scooby')
 
-        click_on(pet1.name)
+        click_on('Scooby')
 
         expect(current_path).to eq("/pets/#{pet1.id}")
     end
@@ -54,18 +54,21 @@ RSpec.describe 'application show page' do
         application = Application.create!(name: "Bob Bobbicus", street: "123 Main street", city: "Newtown", state: "State", zipcode: 80009, status:"In Progress", description:"I love dogs so much and have lots of food for them")
         shelter = Shelter.create!(name: 'Mystery Building', city: 'Irvine CA', foster_program: false, rank: 9)
         pet1 = Pet.create!(name: 'Scooby', age: 2, breed: 'Great Dane', adoptable: true, shelter_id: shelter.id)
+        pet2 = Pet.create!(name: 'Alfred', age: 4, breed: 'GSD', adoptable: true, shelter_id: shelter.id)
 
         visit "/applications/#{application.id}"
         fill_in("search", with:"Scooby")
         click_button("Search")
 
-        expect(page).to have_content(pet1.name)
+        expect(page).to have_content("Scooby")
+        expect(page).to_not have_content("Alfred")
     end
 
     it 'can add a pet to an application after searching based on name' do
         application = Application.create!(name: "Bob Bobbicus", street: "123 Main street", city: "Newtown", state: "State", zipcode: 80009, status:"In Progress", description:"I love dogs so much and have lots of food for them")
         shelter = Shelter.create!(name: 'Mystery Building', city: 'Irvine CA', foster_program: false, rank: 9)
         pet1 = Pet.create!(name: 'Scooby', age: 2, breed: 'Great Dane', adoptable: true, shelter_id: shelter.id)
+        pet2 = Pet.create!(name: 'Alfred', age: 4, breed: 'GSD', adoptable: true, shelter_id: shelter.id)
 
         visit "/applications/#{application.id}"
         fill_in("search", with:"Scooby")
@@ -74,6 +77,7 @@ RSpec.describe 'application show page' do
 
         within("#pet-#{pet1.id}") do
             expect(page).to have_content(pet1.name)
+            expect(page).to_not have_content("Alfred")
         end  
     end
 
@@ -109,8 +113,8 @@ RSpec.describe 'application show page' do
     it 'will search all pets with a partial user input' do
         application = Application.create!(name: "Bob Bobbicus", street: "123 Main street", city: "Newtown", state: "State", zipcode: 80009, status:"In Progress", description:"I love dogs so much and have lots of food for them")
         shelter = Shelter.create!(name: 'Mystery Building', city: 'Irvine CA', foster_program: false, rank: 9)
-        pet1 = Pet.create!(name: 'Scooby', age: 2, breed: 'Great Dane', adoptable: true, shelter_id: shelter.id)
-        pet2 = Pet.create(adoptable: true, age: 1, breed: 'sphynx', name: 'Lucille Bald', shelter_id: shelter.id)
+        lucille = Pet.create!(adoptable: true, age: 1, breed: 'sphynx', name: 'Lucille Bald', shelter_id: shelter.id)
+        pet2 = Pet.create!(name: 'Alfred', age: 4, breed: 'GSD', adoptable: true, shelter_id: shelter.id)
 
         visit "/applications/#{application.id}"
 
@@ -118,13 +122,14 @@ RSpec.describe 'application show page' do
         click_button("Search")
 
         expect(page).to have_content("Lucille Bald")
+        expect(page).to_not have_content("Alfred")
     end
 
     it 'returns a case insenstive search' do
         application = Application.create!(name: "Bob Bobbicus", street: "123 Main street", city: "Newtown", state: "State", zipcode: 80009, status:"In Progress", description:"I love dogs so much and have lots of food for them")
         shelter = Shelter.create!(name: 'Mystery Building', city: 'Irvine CA', foster_program: false, rank: 9)
-        pet1 = Pet.create!(name: 'Scooby', age: 2, breed: 'Great Dane', adoptable: true, shelter_id: shelter.id)
-        pet2 = Pet.create(adoptable: true, age: 1, breed: 'sphynx', name: 'Lucille Bald', shelter_id: shelter.id)
+        lucille = Pet.create(adoptable: true, age: 1, breed: 'sphynx', name: 'Lucille Bald', shelter_id: shelter.id)
+        pet2 = Pet.create!(name: 'Alfred', age: 4, breed: 'GSD', adoptable: true, shelter_id: shelter.id)
 
         visit "/applications/#{application.id}"
 
@@ -132,5 +137,6 @@ RSpec.describe 'application show page' do
         click_button("Search")
 
         expect(page).to have_content("Lucille Bald")
+        expect(page).to_not have_content("Alfred")
     end
 end 

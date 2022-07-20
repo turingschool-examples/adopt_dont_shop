@@ -25,8 +25,8 @@ RSpec.describe 'admin shelter index page' do
 
       visit '/admin/shelters'
 
-      expect(page).to have_content(mystery.name)
-      click_on(mystery.name)
+      expect(page).to have_content('Mystery Building')
+      click_on('Mystery Building')
       expect(current_path).to eq("/admin/shelters/#{mystery.id}")
     end
   end
@@ -76,6 +76,7 @@ RSpec.describe 'admin shelter index page' do
         expect(page.all('.shelter')[0]).to have_content(aurora.name)
         expect(page.all('.shelter')[1]).to have_content(hollywood.name)
         expect(page.all('.shelter')[2]).to have_content(mystery.name)
+        expect(page).to_not have_content(rgv.name)
       end
     end
   end

@@ -18,7 +18,6 @@ class Admin::ApplicationsController < ApplicationController
   end
 
   def update_pet_status(pets)
-    # pets.each { |pet| pet.update({adoptable: false}) }
     pets.update({adoptable: false})
   end
 end

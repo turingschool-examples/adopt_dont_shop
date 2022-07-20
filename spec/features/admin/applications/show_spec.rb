@@ -133,6 +133,8 @@ RSpec.describe 'admin application index page' do
     end
 
     expect(page).to have_content("Approved") 
+    expect(page).to_not have_content("Pending") 
+    expect(page).to_not have_content('Approve Application') 
   end
 
   it 'changes app status to rejected if any pets on the app are rejected' do
@@ -153,10 +155,11 @@ RSpec.describe 'admin application index page' do
       click_button('Reject Application')
     end
 
-    expect(page).to have_content("Rejected") 
+    expect(page).to have_content("Application status: Rejected") 
+    expect(page).to_not have_content("Application status: Approved") 
   end
 
-  it 'when application approved pet no longer adoptable' do
+  it 'when application approved, pet no longer adoptable' do
     aurora = Shelter.create!(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
     application_1 = Application.create!(name: "Bob Bobbicus", street: "123 Main street", city: "Newtown", state: "CO", zipcode: 80009, status:"Pending", description:"I love dogs so much and have lots of food for them")
     lucille = Pet.create!(adoptable: true, age: 1, breed: 'sphynx', name: 'Lucille Bald', shelter_id: aurora.id)
@@ -177,10 +180,12 @@ RSpec.describe 'admin application index page' do
     visit "/pets/#{lucille.id}"
 
     expect(page).to have_content(false) 
+    expect(page).to_not have_content(true) 
 
     visit "/pets/#{lobster.id}"
     
     expect(page).to have_content(false)
+    expect(page).to_not have_content(true) 
   end
 
   it 'pet can only have one approved application at a time' do
