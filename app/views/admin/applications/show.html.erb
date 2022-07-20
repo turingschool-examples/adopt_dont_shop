@@ -8,8 +8,11 @@
     <div id="pet-<%=pet_application.id %>">
      <p><b>Pet name:</b> <%= pet_application.pet.name %></p>
       <p><b>Status: </b><%= pet_application.status %></p>
-      <% if pet_application.status == "Pending"%>
+      <% if pet_application.status == "Pending" && pet_application.pet.adoptable == true %>
       <p><%= button_to "Approve", "/admin/applications/#{pet_application.id}", method: :patch, params:{:status=>"Approved"} %></p>
+      <p><%= button_to "Reject", "/admin/applications/#{pet_application.id}", method: :patch, params:{:status=>"Rejected"} %></p>
+      <% elsif pet_application.status == "Pending" && pet_application.pet.adoptable == false %>
+      <p>Pet no longer available</p>
       <p><%= button_to "Reject", "/admin/applications/#{pet_application.id}", method: :patch, params:{:status=>"Rejected"} %></p>
     <br>
     <% end %>

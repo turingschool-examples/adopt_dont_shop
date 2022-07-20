@@ -32,5 +32,6 @@ class Application < ApplicationRecord
 
   def pets_no_longer_adoptable
     pets.update_all(adoptable: false)
+    
   end
 end
