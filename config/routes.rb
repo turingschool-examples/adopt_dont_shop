@@ -3,10 +3,11 @@ Rails.application.routes.draw do
 
   get '/applications', to: 'applications#index'
   get '/applications/new', to: 'applications#new'
-  post '/applications', to: 'applications#create'
   get '/applications/:id', to: 'applications#show'
-  post '/applications/:application_id', to: 'application_pets#create'
+  post '/applications', to: 'applications#create'
   patch '/applications/:id', to: 'applications#update'
+
+  post '/applications/:application_id', to: 'application_pets#create'
 
   get '/shelters', to: 'shelters#index'
   get '/shelters/new', to: 'shelters#new'

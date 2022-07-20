@@ -14,20 +14,7 @@
 <%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
 <% end %>
 
-<% if @application.application_status == "In Progress" %>
-<h3> Add a pet to this application </h3>
-<%= form_with url: "/applications/#{@application.id}?search=#{params[:search]}", method: :get, local: true, skip_enforcing_utf8: true do |form| %>
-  <%= form.label :search, "Search for pet by name" %>
-  <%= form.text_field :search %>
-  <%= form.submit "Pet name search", name: nil %>
-<% end %>
-<% end %>
-<% if params[:search].present? %>
-  <% @pets.each do |pet| %>
-  <h3><%= pet.name %></h3>
-   <%= button_to "Adopt #{pet.name}", "/applications/#{@application.id}", method: :post, params: {pet_id: pet.id} %>
-<% end %>
-<% end %>
+<%= render partial: "add_pet", locals: { path: "/applications/#{@application.id}",  method: :patch, local: true } %>
 <%= render partial: "bio", locals: { path: "/applications/#{@application.id}",  method: :patch, local: true } %>
 <% if params[:applicant_bio].present? %>
 
