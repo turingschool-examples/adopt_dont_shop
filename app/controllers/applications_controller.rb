@@ -15,8 +15,6 @@ class ApplicationsController < ApplicationController
 
   def admin_show
     @application = Application.find(params[:id])
-    # @pets = @application.pets
-    # @pet_app = @application.pet_applications
   end
 
   def new
