@@ -9,6 +9,15 @@ class AdminController < ApplicationController
     end
   end
 
+  def show 
+    @applicant = Applicant.find(params[:id])
+  end
+
+  def approve_pet 
+    ApplicantPet.where(applicant_id: params[:id], pet_id: params[:pet_id]).first.update(status: "Approved")
+    redirect_to "/admin/applicants/#{params[:id]}"
+  end
+
 
   private
 

@@ -14,11 +14,16 @@ class ApplicantsController < ApplicationController
     end
   end
   
-  def update 
+   def update 
     applicant = Applicant.find(params[:id])
-    applicant.update(description: params[:description], application_status: 'Pending')
-    redirect_to "/applicants/#{applicant.id}"
+    if applicant.update(description: params[:description], application_status: 'Pending')
+      redirect_to "/applicants/#{applicant.id}"
+    else
+    flash[:alert] = "Error: #{error_message(applicant.errors)}"
+      redirect_to "/applicants/#{applicant.id}"
+    end 
   end
+  
 
   def new
   end
