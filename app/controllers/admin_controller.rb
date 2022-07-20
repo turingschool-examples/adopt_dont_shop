@@ -14,7 +14,11 @@ class AdminController < ApplicationController
   end
 
   def approve_pet 
-    ApplicantPet.where(applicant_id: params[:id], pet_id: params[:pet_id]).first.update(status: "Approved")
+    if params[:approved]
+      ApplicantPet.where(applicant_id: params[:id], pet_id: params[:pet_id]).first.update(status: "Approved")
+    elsif params[:rejected]
+      ApplicantPet.where(applicant_id: params[:id], pet_id: params[:pet_id]).first.update(status: "Rejected")
+    end
     redirect_to "/admin/applicants/#{params[:id]}"
   end
 

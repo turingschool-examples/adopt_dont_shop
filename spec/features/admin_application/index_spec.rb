@@ -70,5 +70,4 @@ RSpec.describe 'the admin shelters index' do
         expect(page).to_not have_content('RGV animal shelter')
       end
   end
-
 end
