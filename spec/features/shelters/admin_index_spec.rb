@@ -8,7 +8,7 @@ RSpec.describe 'Shelter Admin Index' do
       banfield = Shelter.create!(foster_program: true, name: "Banfield Animal Hospital", city: "Orlando", rank: 9, street_address:"923 Oscar Meyer Lane", state: "FL", zip_code: 65425)
 
       visit '/admin/shelters'
-      
+
       within '#shelter-0' do
         expect(page).to have_content("North Shore Animal Hospital")
       end
@@ -39,9 +39,9 @@ RSpec.describe 'Shelter Admin Index' do
       visit '/admin/shelters'
 
       expect(page).to have_content("Shelter's with Pending Applications")
-    
+
       within '#pending_shelter-0' do
-        expect(page).to have_content("Island Lake Animal Hospital")
+      expect(page).to have_content("Island Lake Animal Hospital")
       end
     end
 
@@ -64,11 +64,11 @@ RSpec.describe 'Shelter Admin Index' do
       visit '/admin/shelters'
 
       within '#pending_shelter-0' do
-        expect(page).to have_content(islandlake.name)
+      expect(page).to have_content(islandlake.name)
       end
 
       within '#pending_shelter-1' do
-        expect(page).to have_content(northshore.name)
+      expect(page).to have_content(northshore.name)
       end
     end
 
@@ -91,23 +91,23 @@ RSpec.describe 'Shelter Admin Index' do
       visit '/admin/shelters'
 
       within '#shelter-0' do
-        expect(page).to have_link("#{northshore.name}")
+      expect(page).to have_link("#{northshore.name}")
       end
 
       within '#shelter-1' do
-        expect(page).to have_link("#{islandlake.name}")
+      expect(page).to have_link("#{islandlake.name}")
       end
 
       within '#shelter-2' do
-        expect(page).to have_link("#{banfield.name}")
+      expect(page).to have_link("#{banfield.name}")
       end
 
       within '#pending_shelter-0' do
-        expect(page).to have_link("#{islandlake.name}")
+      expect(page).to have_link("#{islandlake.name}")
       end
 
       within '#pending_shelter-1' do
-        expect(page).to have_link("#{northshore.name}")
+      expect(page).to have_link("#{northshore.name}")
       end
     end
   end
