@@ -206,4 +206,34 @@ RSpec.describe 'Admin/applications#show' do
 
     expect(page).to have_content("Pet No Longer Adopta")
   end
+
+  it "if an application has been approved and I visit another application's admin page, I no longer see a button to approve that pet and see the pet has been adopted" do
+    shelter_1 = Shelter.create!(id: 1, name: "Dog Home", city: "Denver", rank: 1, foster_program: true)
+    application_1 = Application.create!(id: 1, name: "John Doe", street_address: "123 Main St", city: "New York", state: "NY", zipcode: 20001)
+    application_2 = Application.create!(id: 2, name: "Jane Doe", street_address: "1423 Main St", city: "New York", state: "NY", zipcode: 20002)
+    pet_1 = Pet.create!(id: 1, name: "Fido", breed: "Poodle", age: 2, adoptable: true, shelter_id: shelter_1.id)
+    pet_2 = Pet.create!(id: 2, name: "Buddy", breed: "Poodle", age: 3, adoptable: true, shelter_id: shelter_1.id)
+    pet_application_1 = PetApplication.create!(id: 1, application_id: application_1.id, pet_id: pet_1.id)
+    pet_application_2 = PetApplication.create!(id: 2, application_id: application_1.id, pet_id: pet_2.id)
+    pet_application_3 = PetApplication.create!(id: 3, application_id: application_2.id, pet_id: pet_1.id)
+
+    visit "/admin/applications/#{application_1.id}"
+
+    within("#pet-#{pet_application_1.id}") do
+      click_button "Approve"
+    end
+
+    within("#pet-#{pet_application_2.id}") do
+      click_button "Approve"
+    end
+
+   visit "/admin/applications/#{application_2.id}"
+
+    within("#pet-#{pet_application_3.id}") do
+      expect(page).to have_content("Fido")
+      expect(page).to_not have_content("Approve")
+      expect(page).to have_content("Pet No Longer Adoptable")
+      expect(page).to have_button("Reject")
+    end
+  end
 end

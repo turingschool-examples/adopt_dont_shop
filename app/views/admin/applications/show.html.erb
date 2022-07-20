@@ -12,7 +12,7 @@
       <p><%= button_to "Approve", "/admin/applications/#{pet_application.id}", method: :patch, params:{:status=>"Approved"} %></p>
       <p><%= button_to "Reject", "/admin/applications/#{pet_application.id}", method: :patch, params:{:status=>"Rejected"} %></p>
       <% elsif pet_application.status == "Pending" && pet_application.pet.adoptable == false %>
-      <p>Pet no longer available</p>
+      <p>Pet No Longer Adoptable</p>
       <p><%= button_to "Reject", "/admin/applications/#{pet_application.id}", method: :patch, params:{:status=>"Rejected"} %></p>
     <br>
     <% end %>
