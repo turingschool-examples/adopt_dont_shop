@@ -41,8 +41,8 @@ class Shelter < ApplicationRecord
 
   def self.pending_apps
     joins(pets: :applicants)
-      .where("applicants.application_status = ?", "Pending")
-      .distinct
-      .order(:name)
+    .where("applicants.application_status = ?", "Pending")
+    .distinct
+    .order(:name)
   end
 end

@@ -76,7 +76,7 @@ RSpec.describe Shelter, type: :model do
                                       city: 'Tucson',
                                       state: 'Arizona',
                                       zip_code: '12345',
-                                      description: 'Im the best',
+                                      description: 'N/A',
                                       application_status: 'Pending'
                                     )
 
