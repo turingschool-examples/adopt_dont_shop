@@ -8,7 +8,10 @@ Rails.application.routes.draw do
   get '/shelters/:id/edit', to: 'shelters#edit'
   patch '/shelters/:id', to: 'shelters#update'
   delete '/shelters/:id', to: 'shelters#destroy'
+
   get '/admin/shelters', to: 'admin#index'
+  get '/admin/applicants/:id', to: 'admin#show'
+  post '/admin/applicants/:id', to: 'admin#approve_pet'
 
   get '/search', to: 'search#index'
 

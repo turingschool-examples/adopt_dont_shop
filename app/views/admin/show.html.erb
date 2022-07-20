@@ -1,0 +1,18 @@
+<h2><%= @applicant.name%>'s Application</h2>
+<h4>Pets Applied For:</h4>
+
+<% @applicant.pets.each do |pet| %>
+  <div id="pets-<%= pet.id %>">
+  <p><%= pet.name %>
+  <% if !pet.applicant_pets.where(applicant_id: @applicant.id, pet_id: pet.id).first.status %>
+    <%= button_to 'Approve application', "/admin/applicants/#{@applicant.id}?pet_id=#{pet.id}&approved=true" %></p>
+  <% elsif pet.applicant_pets.where(applicant_id: @applicant.id, pet_id: pet.id).first.status == "Approved"%>
+    <h4>Application Status: Approved</h4> 
+  <% end %>
+    </div>
+<% end %>
+
+
+ 
+
+
