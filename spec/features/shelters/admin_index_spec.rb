@@ -109,7 +109,6 @@ RSpec.describe 'Shelter Admin Index' do
       within '#pending_shelter-1' do
         expect(page).to have_link("#{northshore.name}")
       end
-      save_and_open_page
     end
   end
 end
