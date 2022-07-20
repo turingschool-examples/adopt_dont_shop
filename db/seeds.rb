@@ -30,5 +30,4 @@ spot_application = PetApplication.create!(application_id: jerry_application.id, 
 fRENCHToasT_application = PetApplication.create!(application_id: jerry_application.id, pet_id: fRENCHToasT.id, status: jerry_application.status)
 spot_application1 = PetApplication.create!(application_id: tony_application.id, pet_id: spot.id, status: tony_application.status)
 fRENCHToasT_application1 = PetApplication.create!(application_id: tony_application.id, pet_id: fRENCHToasT.id, status: tony_application.status)
-
 frenchie_application = PetApplication.create!(application_id: larry_application.id, pet_id: frenchie.id, status: larry_application.status)

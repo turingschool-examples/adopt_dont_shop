@@ -2,9 +2,9 @@ require 'rails_helper'
 
 RSpec.describe 'the shelters index' do
   before(:each) do
-    @shelter_1 = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
-    @shelter_2 = Shelter.create(name: 'RGV animal shelter', city: 'Harlingen, TX', foster_program: false, rank: 5)
-    @shelter_3 = Shelter.create(name: 'Fancy pets of Colorado', city: 'Denver, CO', foster_program: true, rank: 10)
+    @shelter_1 = Shelter.create!(foster_program: true, name: "North Shore Animal Hospital", city: "Long Island", rank: 3, street_address: "456 Shore Drive", state: "NY", zip_code: 15151)
+    @shelter_2 = Shelter.create!(foster_program: true, name: "Island Lake Animal Hospital", city: "Denver", rank: 8, street_address: "789 River Road", state: "CO", zip_code: 11556)
+    @shelter_3 = Shelter.create!(foster_program: true, name: "Banfield Animal Hospital", city: "Orlando", rank: 9, street_address:"923 Oscar Meyer Lane", state: "FL", zip_code: 65425)
     @shelter_1.pets.create(name: 'Mr. Pirate', breed: 'tuxedo shorthair', age: 5, adoptable: true)
     @shelter_1.pets.create(name: 'Clawdia', breed: 'shorthair', age: 3, adoptable: true)
     @shelter_3.pets.create(name: 'Lucille Bald', breed: 'sphynx', age: 8, adoptable: true)
@@ -99,7 +99,7 @@ RSpec.describe 'the shelters index' do
   it 'lists partial matches as search results' do
     visit "/shelters"
 
-    fill_in 'Search', with: "RGV"
+    fill_in 'Search', with: "Island Lake Animal Hospital"
     click_on("Search")
 
     expect(page).to have_content(@shelter_2.name)

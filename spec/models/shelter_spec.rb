@@ -10,14 +10,17 @@ RSpec.describe Shelter, type: :model do
     it { should validate_presence_of(:city) }
     it { should validate_presence_of(:rank) }
     it { should validate_numericality_of(:rank) }
+    it { should validate_presence_of(:street_address) }
+    it { should validate_numericality_of(:zip_code) }
+    it { should validate_length_of(:state) }
   end
 
   before(:each) do
     @larry_application = Application.create!(name: "Larry Bird", street_address: "456 Boston Road", city: "Boston", state: "MA", zip_code: 67891, description: "Dogs Love Me", status: "Pending")
 
-    @shelter_1 = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
-    @shelter_2 = Shelter.create(name: 'RGV animal shelter', city: 'Harlingen, TX', foster_program: false, rank: 5)
-    @shelter_3 = Shelter.create(name: 'Fancy pets of Colorado', city: 'Denver, CO', foster_program: true, rank: 10)
+    @shelter_1 = Shelter.create(name: 'Aurora shelter', city: 'Aurora', foster_program: false, rank: 9, street_address: "123 Old Road", zip_code: 54689, state: 'CO')
+    @shelter_2 = Shelter.create(name: 'RGV animal shelter', city: 'Harlingen', foster_program: false, rank: 5, street_address: "9898 Heaven Drive", zip_code: 87954, state: 'TX')
+    @shelter_3 = Shelter.create(name: 'Fancy pets of Colorado', city: 'Denver', foster_program: true, rank: 10, street_address: "989 Nike Lane", zip_code: 12548, state: "CO")
 
     @pet_1 = @shelter_1.pets.create(name: 'Mr. Pirate', breed: 'tuxedo shorthair', age: 5, adoptable: false)
     @pet_2 = @shelter_1.pets.create(name: 'Clawdia', breed: 'shorthair', age: 3, adoptable: true)
@@ -48,6 +51,20 @@ RSpec.describe Shelter, type: :model do
     describe '#pending_applications' do
       it 'returns shelters that have pending applications' do
         expect(Shelter.pending_applications).to eq([@shelter_1])
+      end
+    end
+    describe '#name_and_full_address' do
+      it 'returns name and full address of specified shelter' do
+        expect(Shelter.name_and_full_address(@shelter_2.id).name).to eq("RGV animal shelter")
+        expect(Shelter.name_and_full_address(@shelter_2.id).city).to eq("Harlingen")
+        expect(Shelter.name_and_full_address(@shelter_2.id).street_address).to eq("9898 Heaven Drive")
+        expect(Shelter.name_and_full_address(@shelter_2.id).state).to eq("TX")
+        expect(Shelter.name_and_full_address(@shelter_2.id).zip_code).to eq(87954)
+      end
+    end
+    describe '#descending_order' do
+      it 'returns the shelters in reverse alphabetical order' do
+        expect(Shelter.descending_order).to eq([@shelter_2, @shelter_3, @shelter_1])
       end
     end
     end

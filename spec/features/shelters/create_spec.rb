@@ -19,7 +19,10 @@ RSpec.describe 'shelter creation' do
         visit '/shelters/new'
 
         fill_in 'Name', with: 'Houston Shelter'
+        fill_in 'Street address', with: '451 Merry Lane'
         fill_in 'City', with: 'Houston'
+        fill_in 'State', with: 'TX'
+        fill_in 'Zip code', with: 45645
         check 'Foster program'
         fill_in 'Rank', with: 7
         click_button 'Save'

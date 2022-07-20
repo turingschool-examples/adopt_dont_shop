@@ -2,6 +2,9 @@ class Shelter < ApplicationRecord
   validates :name, presence: true
   validates :rank, presence: true, numericality: true
   validates :city, presence: true
+  validates_presence_of :street_address
+  validates :state, length: { maximum: 2 }
+  validates :zip_code, numericality: true, length: { maximum: 5 }
 
   has_many :pets, dependent: :destroy
 
@@ -34,5 +37,13 @@ class Shelter < ApplicationRecord
 
   def self.pending_applications
     Shelter.joins(pets: :applications).where("applications.status = 'Pending'")
+  end
+
+  def self.name_and_full_address(shelter_id)
+    Shelter.find_by_sql("SELECT name, city, street_address, zip_code, state FROM shelters WHERE shelters.id = #{shelter_id}").first
+  end
+
+  def self.descending_order
+    Shelter.find_by_sql("SELECT * FROM shelters ORDER BY name DESC")
   end
 end
