@@ -25,11 +25,10 @@ RSpec.describe 'Admin Shelter Show' do
 
       expect(page).to have_content("Statistics")
       expect(page).to have_content("Average age of all adoptable pets")
-      
+
       within "#average_age-#{northshore.id}" do
         expect(page).to have_content(5)
       end
-      save_and_open_page
     end
   end
 end
