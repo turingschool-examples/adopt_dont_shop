@@ -5,6 +5,10 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+ApplicantPet.destroy_all
+Pet.destroy_all
+Applicant.destroy_all
+Shelter.destroy_all
 
 
 @shelter_1 = Shelter.create!(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
@@ -15,13 +19,13 @@
 @shelter_1.pets.create!(name: 'Clawdia', breed: 'shorthair', age: 3, adoptable: true)
 @shelter_3.pets.create!(name: 'Lucille Bald', breed: 'sphynx', age: 8, adoptable: true)
 
-@applicant_1 = Applicant.create!(name: 'Oliver Smudger', 
-                                  street_address: '1234 N Random Avenue', 
-                                  city: 'Tucson', 
-                                  state: 'Arizona', 
+@applicant_1 = Applicant.create!(name: 'Oliver Smudger',
+                                  street_address: '1234 N Random Avenue',
+                                  city: 'Tucson',
+                                  state: 'Arizona',
                                   zip_code: '12345',
                                   description: 'I have a big yard and work from home.',
-                                  application_status: 'In Progress'
+                                  application_status: 'Pending'
                                 )
 
 # @applicant_1.pets << @shelter_1.pets[0]
