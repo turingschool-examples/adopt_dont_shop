@@ -5,7 +5,8 @@
 <% @application.pet_applications.each do |pet_application| %>
   <b><%= pet_application.pet.name %></b> <%= pet_application.status %>
   <% if pet_application.status == "In Progress" %>
-    <%= button_to "Approve", "/admin/pet_applications/#{pet_application.id}", method: :patch %>
+    <%= button_to "Approve", "/admin/pet_applications/#{pet_application.id}/approve", method: :patch %>
+    <%= button_to "Reject", "/admin/pet_applications/#{pet_application.id}/reject", method: :patch %>
   <% end %>
   <br><br>
 <% end %>
