@@ -231,7 +231,7 @@ RSpec.describe 'Admin/applications#show' do
 
     within("#pet-#{pet_application_3.id}") do
       expect(page).to have_content("Fido")
-      expect(page).to_not have_content("Approve")
+      expect(page).to_not have_button("Approve")
       expect(page).to have_content("Pet No Longer Adoptable")
       expect(page).to have_button("Reject")
     end
