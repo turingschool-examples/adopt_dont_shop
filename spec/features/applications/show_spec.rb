@@ -1,3 +1,5 @@
 require 'rails_helper'
 
-RSpec.describe 'applications show page'
+RSpec.describe 'applications show page' do
+
+end
