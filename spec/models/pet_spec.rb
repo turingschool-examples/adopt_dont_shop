@@ -39,4 +39,9 @@ RSpec.describe Pet, type: :model do
       end
     end
   end
+
+  describe 'many-to-many relationship with pets' do
+    it { should have_many(:pet_applications)}
+    it { should have_many(:applications).through(:pet_applications) }
+  end
 end
