@@ -27,7 +27,6 @@ RSpec.describe 'create a new application', type: :feature do
     click_button("Submit")
 
     expect(Application.last.name).to eq("John Doe")
-
     expect(current_path).to eq("/applications/#{Application.last.id}")
     expect(page).to have_content("John Doe")
     expect(page).to have_content("654 Main St.")
@@ -35,6 +34,7 @@ RSpec.describe 'create a new application', type: :feature do
     expect(page).to have_content("AL")
     expect(page).to have_content("98798")
     expect(page).to have_content("I'm good at pets.")
+    expect(page).to have_content("Application Status: In Progress")
   end
 
 end

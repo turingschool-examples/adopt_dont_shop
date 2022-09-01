@@ -9,6 +9,8 @@ class ApplicationsController < ApplicationController
 
   def create
     new_app = Application.create(application_params)
+    new_app.status = 'In Progress'
+    new_app.save
     redirect_to "/applications/#{new_app.id}"
   end
 
