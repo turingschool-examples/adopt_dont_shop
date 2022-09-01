@@ -1,3 +1,6 @@
+![Screen Shot 2022-09-01 at 4 20 19 PM](https://user-images.githubusercontent.com/102636892/188028535-d056c81e-0695-45e1-925a-ef29964360ce.png)
+
+
 # Adopt, don't Shop
 
 ### Existing database design
