@@ -2,6 +2,10 @@
 <p><%= @application.street_address %></p>
 <p><%= @application.city %>, <%= @application.state %> <%= @application.zip_code %></p>
 <p><%= @application.description %></p>
+<p>Pets On This Application:<br>
+<% @pets.each do |pet| %>
+  <%= pet.name %><br>
+<% end %>
 <p>Application Status: <%= @application.status %></p>
 
 
