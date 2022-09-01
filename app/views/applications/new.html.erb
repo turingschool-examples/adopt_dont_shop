@@ -15,9 +15,6 @@
   <%= f.label :zip_code, "Zip Code" %>
   <%= f.number_field :zip_code, in: 0..99999, required: true %><br>
 
-  <%= f.label :description, "Why would you make a good home for these pets?" %><br>
-  <%= f.text_area :description, size: "70x5" %><br>
-
   <%= f.submit "Submit" %>
 
 <% end %>
