@@ -5,11 +5,15 @@
 <p>City: <%= @application.city %> </p>
 <p>State: <%= @application.state %> </p>
 <p>Zip code: <%= @application.zip_code %> </p>
-<p>Description: <%= @application.description %> </p>
 <p>Status: <%= @application.status %> </p>
 
-    <% @application.pets.each do |pet| %> 
-      <p> <%= pet.name %> </p>
-    <% end %>
+<%= form_with url: "/applications/#{@application.id}", method: :patch, local: true do |f| %>
+  <h3><%= f.label :description, "What Would Make You A Great Owner?" %></h3>
+  <%= f.text_area :description, value: @application.description %>
+  <br />
+  <%= f.submit "Submit" %>
+<% end %>
+<% @application.pets.each do |pet| %>
+  <p> <%= pet.name %> </p>
+<% end %>
 
-    
