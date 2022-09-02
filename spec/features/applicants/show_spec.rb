@@ -4,6 +4,7 @@ RSpec.describe 'the applicants show' do
   before :each do
     @shelter = Shelter.create!(name: 'Mystery Building', city: 'Irvine CA', foster_program: false, rank: 9)
     @pet = Pet.create!(name: 'Scooby', age: 2, breed: 'Great Dane', adoptable: true, shelter_id: @shelter.id)
+    @pet_2 = Pet.create!(name: 'Jake', age: 5, breed: 'Pug', adoptable: true, shelter_id: @shelter.id)
     @applicant = Applicant.create!(first_name: 'John', last_name: 'Dough', street_address: '123 Fake Street', city: 'Denver',
       state: 'CO', zip: 80205, description: "I'm awesome", status: 'pending')
   end
@@ -25,9 +26,18 @@ RSpec.describe 'the applicants show' do
     expect(page).to have_content(@applicant.zip)
   end
 
-  it 'shows the description of why the applicant says they would be a good home for this pets'
+  it 'shows the description of why the applicant says they would be a good home for this pets' do
+    visit "/applicants/#{@applicant.id}"
 
-  it 'names of all pets that this application is for (all names of pets should be links to their show page)'
+    expect(page).to have_content(@applicant.description)
+  end
+
+  it 'names of all pets that this application is for (all names of pets should be links to their show page)' do 
+    visit "/applicants/#{@applicant.id}"
+
+    expect(page).to have_content(@pet.name)
+    expect(page).to have_content(@pet_2.name)
+  end
 
   it 'The Applications status, either In Progress, Pending, Accepted, or Rejected'
 end
