@@ -1,24 +1,24 @@
 require 'rails_helper'
 
-# Then I can see the following:
-# - Name of the Applicant
-# - Full Address of the Applicant including street address, city, state, and zip code
-# - Description of why the applicant says they'd be a good home for this pet(s)
-# - names of all pets that this application is for (all names of pets should be links to their show page)
-# - The Application's status, either "In Progress", "Pending", "Accepted", or "Rejected"
-
 RSpec.describe 'application show page', type: :feature do
   describe 'As a visitor' do
     before :each do
       @shelter = Shelter.create!(name: "Happy Paws Shelter", foster_program: true, city: "Denver", rank: 5)
-      @pet = @shelter.pets.create!(name: "Fluffy", adoptable: true, age: 3, breed: "doberman")
-      @application = Application.create!(name: "Samantha Smith", street_address: "123 Mulberry Street", city: "Denver", state: "CO", zip_code: 20202, description: "I would like this dog for these reasons.", status: "In Progress")
-      @pet_application1 = PetApplication.create!(pet: @pet, application: @application)
+      @pet1 = @shelter.pets.create!(name: "Fluffy", adoptable: true, age: 3, breed: "doberman")
+      @pet2 = @shelter.pets.create!(name: "Floofy", adoptable: true, age: 7, breed: "mixed breed")
+      @pet3 = @shelter.pets.create!(name: "Butters", adoptable: true, age: 6, breed: "lab")
+      @application1 = Application.create!(first_name: "Samantha", last_name: "Smith", street_address: "123 Mulberry Street", city: "Denver", state: "CO", zip_code: 20202, description: "I would like this dog for these reasons.", status: "In Progress")
+      @application2 = Application.create!(first_name: "Peter", last_name: "Pinckens", street_address: "123 Pineapple Street", city: "Denver", state: "CO", zip_code: 72641, description: "I would really like an animal to keep me company", status: "In Progress")
+      @pet_application1 = PetApplication.create!(pet: @pet1, application: @application1)
+      @pet_application2 = PetApplication.create!(pet: @pet2, application: @application1)
+      @pet_application3 = PetApplication.create!(pet: @pet3, application: @application2)
+
     end
     it 'I can see all attributes of the application' do
-      visit "/application/#{@application.id}"
+      visit "/applications/#{@application1.id}"
 
-      expect(page).to have_content('Samantha Smith')
+      expect(page).to have_content('Samantha')
+      expect(page).to have_content('Smith')
       expect(page).to have_content('123 Mulberry Street')
       expect(page).to have_content('Denver')
       expect(page).to have_content('CO')
@@ -26,6 +26,38 @@ RSpec.describe 'application show page', type: :feature do
       expect(page).to have_content('I would like this dog for these reasons.')
       expect(page).to have_content('In Progress')
       expect(page).to have_content('Fluffy')
+      expect(page).to have_content('Floofy')
+    end
+
+    it 'I has links for the first pet that leads to a show page' do
+      visit "/applications/#{@application1.id}"
+
+      expect(page).to have_content('Fluffy')
+      click_link('Fluffy')
+      expect(current_path).to eq("/pets/#{@pet1.id}")
+    end
+
+    it 'I has links for the second pet that leads to that show page' do
+      visit "/applications/#{@application1.id}"
+
+      expect(page).to have_content('Floofy')
+      click_link('Floofy')
+      expect(current_path).to eq("/pets/#{@pet2.id}")
+    end
+
+
+
+    it 'I has links for the second pet that leads to that show page' do
+      visit "/applications/#{@application1.id}"
+
+      expect(page).to have_content('Add a Pet to this Application')
+      expect(page).to have_content('Search for Pet by Name')
+      fill_in('Search for Pet by Name', with: "Floofy")
+      # click_on('Submit')
+      
+      # expect(current_path).to eq("/applications/#{@application1.id}")
+      # expect(page).to have_content('Floofy')
+
     end
   end
 end
