@@ -68,23 +68,23 @@ RSpec.describe Pet, type: :model do
             expect(page).to have_content("Add a Pet to this Application")
           end
 
-          xit 'a search for Pets by name with input' do
+          it 'a search for Pets by name with input' do
             visit "/applications/#{@app2.id}"
             
             expect(page).to have_content('Search For Your Future Pet!')
             expect(page).to have_button('Search All Pets')
           end
 
-          xit 'a search returns pets with that name on the show page' do
+          it 'a search returns pets with that name on the show page' do
             visit "/applications/#{@app2.id}"
             
-            fill_in "Search for Your Pet", with: 'Nacho'
+            fill_in 'Search For Your Future Pet!', with: 'Nacho'
             click_button 'Search All Pets'
 
             expect(current_path).to eq("/applications/#{@app2.id}")
 
-            expect(page).to have_content(pet2.name)
-            expect(page).to_not have_content(pet1.name)
+            expect(page).to have_content(@pet2.name)
+            expect(page).to_not have_content(@pet1.name)
           end
         end
       end

@@ -1,6 +1,10 @@
 class ApplicationsController < ApplicationController
   def show
     @application = Application.find(params[:id])
+    @searched_pets = 
+      if params[:search_partial]
+        Pet.search(params[:search_partial])
+      end
   end
 
   def new
