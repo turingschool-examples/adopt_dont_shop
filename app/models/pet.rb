@@ -14,6 +14,6 @@ class Pet < ApplicationRecord
   end
 
   def self.search(query)
-    require 'pry'; binding.pry
+    
   end
 end

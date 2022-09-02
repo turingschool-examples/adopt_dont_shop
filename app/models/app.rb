@@ -4,6 +4,13 @@ class App < ApplicationRecord
 end
 
 def search(query)
-  query.downcase!
-  Pet.all.where("lower(name) LIKE :search", search: "%#{query}%")
+  if query != nil
+    query.downcase!
+    Pet.all.where("lower(name) LIKE :search", search: "%#{query}%")
+  end
+end
+
+public
+def adopt(pet)
+  self.pets << pet
 end

@@ -9,7 +9,7 @@ Description: <%= @app.description %>
 links_to_pets: <%= @app.links_to_pets %>
 Status: <%= @app.status %>
 
-<%= form_with url: "/apps/#{@app.id}", method: :get do |form| %>
+<%= form_with url: "/apps/#{@app.id}", method: :get, local: :true do |form| %>
   <p>Add a Pet to this Application:</p>
   <%= form.label :query, "Search" %>
   <%= form.text_field :query %>
@@ -18,6 +18,9 @@ Status: <%= @app.status %>
 
 <% if !@results.nil? %>
   <% @results.each do |pet| %>
-    <%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
+    <div id="pet_<%= pet.id %>">
+      <%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
+      <%= button_to "Adopt this pet", "/apps/#{@app.id}", method: :get, params: { pet_id: pet.id }, local: :true %>
+    </div>
   <% end %>
 <% end %>

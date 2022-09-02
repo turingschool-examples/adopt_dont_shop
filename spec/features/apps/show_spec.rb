@@ -6,6 +6,8 @@ RSpec.describe 'Application show page' do
 
     @pet_1 = @shelter.pets.create!(name: "King Trash Mouth", age: 14)
     @pet_2 = @shelter.pets.create!(name: "Princess Dumptruck", age: 18)
+    @pet_3 = @shelter.pets.create!(name: "Eggs Sinclair", age: 10)
+    @pet_4 = @shelter.pets.create!(name: "Monster Truck Wendy", age: 5)
 
     @app = App.create!(
       name: "Gob Beldof", 
@@ -14,9 +16,12 @@ RSpec.describe 'Application show page' do
       state: "NE", 
       zip_code: "19593",
       description: "We love raccoons and would like more please. They will live a good life and will not have to eat carrots. Ever.",
-      links_to_pets: "/pets/#{@pet_1.id}, /pets/#{@pet_2.id}", #this will need to find all of an applications pets, then "pluck" their id's and integrate them into the concatenation here somehow
+      links_to_pets: "/pets/#{@pet_2.id}, /pets/#{@pet_3.id}",
       status: "In Progress"
     )
+
+    @app.pets << @pet_2
+    @app.pets << @pet_3
 
     visit "apps/#{@app.id}"
   end
@@ -42,9 +47,18 @@ RSpec.describe 'Application show page' do
       fill_in("Search", with: "#{@pet_1.name}")
       click_on("Submit")
 
-      save_and_open_page
       expect(current_path).to eq("/apps/#{@app.id}")
       expect(page).to have_content(@pet_1.name)
+    end
+
+    it 'can add pets' do
+      fill_in("Search", with: "#{@pet_1.name}")
+      click_on("Submit")
+      save_and_open_page
+      click_on("Adopt this pet")
+
+      expect(current_path).to eq("/apps/#{@app.id}")
+      expect(@app.pets).to include(@pet_1)
     end
   end
 end
