@@ -10,7 +10,6 @@ RSpec.describe 'create a new application', type: :feature do
     expect(find('form')).to have_content "City"
     expect(find('form')).to have_content "State"
     expect(find('form')).to have_content "Zip Code"
-    expect(find('form')).to have_content "Why would you make a good home for these pets?"
     expect(find('form')).to have_button "Submit"
   end
 
@@ -22,7 +21,6 @@ RSpec.describe 'create a new application', type: :feature do
     fill_in("City", with: "Birmingham")
     fill_in("State", with: "AL")
     fill_in("Zip Code", with: "98798")
-    fill_in(:description, with: "I'm good at pets.")
 
     click_button("Submit")
 
@@ -33,7 +31,6 @@ RSpec.describe 'create a new application', type: :feature do
     expect(page).to have_content("Birmingham")
     expect(page).to have_content("AL")
     expect(page).to have_content("98798")
-    expect(page).to have_content("I'm good at pets.")
     expect(page).to have_content("Application Status: In Progress")
   end
 

@@ -2,6 +2,7 @@ class ApplicationsController < ApplicationController
 
   def show
       @application = Application.find(params[:id])
+      @pets = @application.pets
   end
   
   def new
@@ -21,7 +22,7 @@ class ApplicationsController < ApplicationController
   private
 
   def application_params
-    params.permit(:name, :street_address, :city, :state, :zip_code, :description)
+    params.permit(:name, :street_address, :city, :state, :zip_code)
   end
 
 end
