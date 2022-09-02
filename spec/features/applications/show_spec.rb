@@ -18,8 +18,6 @@ RSpec.describe 'application show page' do
 
         visit "/applications/#{@application.id}"
 
-        save_and_open_page
-
         expect(page).to have_content("Shelby Waters")
         expect(page).to have_content("274 West 11th St, Myers Flatt, NJ, 12447")
         expect(page).to have_content("In Progress")
