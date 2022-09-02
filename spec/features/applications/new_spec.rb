@@ -21,7 +21,6 @@ RSpec.describe 'application new page', type: :feature do
       expect(page).to have_content("City:")
       expect(page).to have_content("State:")
       expect(page).to have_content("Zip Code:")
-      expect(page).to have_content("Description")
 
     end
 
@@ -34,18 +33,17 @@ RSpec.describe 'application new page', type: :feature do
       fill_in('City:', with: 'Baton Rouge')
       fill_in('State:', with: 'CO')
       fill_in('Zip Code:', with: 10243)
-      fill_in('Description', with: "I would really like this animal, please please!")
 
       click_on('Apply for Pet')
+        # save_and_open_page 
       expect(page).to have_content("Penny")
       expect(page).to have_content("Smith")
       expect(page).to have_content("182 Stuart Street")
       expect(page).to have_content("Baton Rouge")
       expect(page).to have_content("CO")
       expect(page).to have_content("10243")
-      expect(page).to have_content("I would really like this animal, please please!")
       expect(page).to have_content("In Progress")
-      
+
     end
 
     it 'If I do not fill out a field & click submit I am taking to the new app page & I see a message that I must fill in those fields' do
@@ -55,14 +53,13 @@ RSpec.describe 'application new page', type: :feature do
       fill_in('Address:', with: "182 Stuart Street" )
       fill_in('City:', with: 'Baton Rouge')
       fill_in('State:', with: 'CO')
-      fill_in('Description', with: "I would really like this animal, please please!")
 
       click_on('Apply for Pet')
-      
+
       expect(current_path).to eq("/applications/new")
       expect(page).to have_content("Error: You must fill in the missing information before proceeding.")
     end
 
-  
+
   end
 end
