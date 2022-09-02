@@ -18,17 +18,26 @@ RSpec.describe 'application show page' do
         expect(page).to have_content(@john_doe_app.street_address)
         expect(page).to have_content(@john_doe_app.description)
         expect(page).to have_content(@scooby.name)
-        save_and_open_page
+        # save_and_open_page
 
         click_link("#{@scooby.name}")
         expect(current_path).to eq("/pets/#{@scooby.id}")
     end
 
-    it "Can add pets to unfinished application" do
+    it "Can search pets to unfinished application" do
         visit "/applications/#{@john_doe_app.id}"
         expect(page).to have_content("Add a Pet to this Application")
         fill_in("search", with: @clifford.name)
         click_button("Search")
         expect(page).to have_content(@clifford.name)
+    end
+
+    it "Can add pets to unfinished application" do
+        visit "/applications/#{@john_doe_app.id}"
+        fill_in("search", with: @clifford.name)
+        click_button("Search")
+        expect(page).to have_content(@clifford.name)
+        click_button("Adopt this Pet")
+        expect(@john_doe_app.pets).to include(@clifford)
     end
 end
