@@ -44,5 +44,21 @@ RSpec.describe 'application show page', type: :feature do
       click_link('Floofy')
       expect(current_path).to eq("/pets/#{@pet2.id}")
     end
+
+
+
+    it 'I has links for the second pet that leads to that show page' do
+      visit "/applications/#{@application1.id}"
+
+      expect(page).to have_content('Add a Pet to this Application')
+      expect(page).to have_content('Search for Pet by Name')
+      fill_in('Search for Pet by Name', with: "Floofy")
+      click_on('Submit')
+      
+      expect(current_path).to eq("/applications/#{@application1.id}")
+      expect(page).to have_content('Floofy')
+      #need to make this plural to match the card
+
+    end
   end
 end

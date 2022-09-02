@@ -1,6 +1,7 @@
 class ApplicationsController < ApplicationController
  
   def show
+    require 'pry' ; binding.pry
     @application = Application.find(params[:id])
     @pets = Application.find_associated_pets
   end
