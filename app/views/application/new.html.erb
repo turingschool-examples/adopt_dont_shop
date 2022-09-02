@@ -1,9 +1,17 @@
 <h1>New Application</h1>
-<%= form_with url: "/applications/new", method: :post, local: true do |f| %>
+<%= form_with url: "/applications", method: :post, local: true do |f| %>
+  <% if @application.errors.any? %>
+    <ul>
+      <% @application.errors.full_messages.each do |msg| %>
+        <li>Error: <%= msg %></li>
+      <% end %>
+    </ul>
+  <% end %>
+
   <p> <%= f.label :name %> </p>
   <%= f.text_field :name %>
 
-  <p> <%= f.label :street_address, "Address" %> </p>
+  <p> <%= f.label :street_address, "Street address" %> </p>
   <%= f.text_field :street_address %>
 
   <p> <%= f.label :city %> </p>
@@ -15,7 +23,7 @@
   <p> <%= f.label :zip_code, "Zipcode" %> </p>
   <%= f.number_field :zip_code %>
 
-  <p> <%= f.label :description %> </p>
+  <p> <%= f.label :description, "Description" %> </p>
   <%= f.text_field :description %>
   
   <br>
