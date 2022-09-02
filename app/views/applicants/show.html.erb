@@ -9,6 +9,24 @@
                       <li> <%= pet.name %></li>
                           <% end %>
   <br>
-  <br>
   Application Status: <%= @applicant.status %>
 </div>
+  <br>
+  <br>
+<% if @applicant.pets.present? && @applicant.status == "In Progress" %>
+    <div id="add_pets">
+      Section to add more pets
+    </div>
+
+    <div id="submit">
+      <%= form_with url: "/applicants/#{@applicant.id}", method: :patch do |form| %>
+        <%= form.label :description, "Why would I make a good owner for these pet(s)?" %>
+        <%= form.text_area :description %>
+        <%= form.submit "Submit" %>
+      <% end %>
+    </div>
+<% elsif !@applicant.pets.present? && @applicant.status == "In Progress" %>
+   <div id="add_pets">
+      Section to add more pets
+    </div>
+<% end %>
