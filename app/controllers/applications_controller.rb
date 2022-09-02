@@ -11,7 +11,7 @@ class ApplicationsController < ApplicationController
   end
 
   def create
-    new_app = Application.new(application_params)
+    new_app = Application.create(application_params)
 
     if new_app.save
       new_app.update(status: "In Progress")

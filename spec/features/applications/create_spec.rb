@@ -19,11 +19,11 @@ RSpec.describe("application creation") do
   end
 
   it ("can click submit and take me to the new applications show page and see the information just submitted, and an indicator that this application is \"In Progress\"") do
-    shelter = Shelter.create(    name: "Aurora shelter",     city: "Aurora, CO",     foster_program: false,     rank: 9)
+    shelter = Shelter.create!(    name: "Aurora shelter",     city: "Aurora, CO",     foster_program: false,     rank: 9)
     jimmy_application = Application.create!(    name: "Jimmy John",     street_address: "303 Broadway",     city: "Denver",     state: "CO",     zip_code: 80122,     description: "I would love to have a companion",     status: "Pending")
-    pet_1 = Pet.create(    adoptable: true,     age: 7,     breed: "sphynx",     name: "Bare-y Manilow",     shelter_id: shelter.id)
-    pet_2 = Pet.create(    adoptable: true,     age: 3,     breed: "domestic pig",     name: "Babe",     shelter_id: shelter.id)
-    pet_3 = Pet.create(    adoptable: true,     age: 4,     breed: "chihuahua",     name: "Elle",     shelter_id: shelter.id)
+    pet_1 = Pet.create!(    adoptable: true,     age: 7,     breed: "sphynx",     name: "Bare-y Manilow",     shelter_id: shelter.id)
+    pet_2 = Pet.create!(    adoptable: true,     age: 3,     breed: "domestic pig",     name: "Babe",     shelter_id: shelter.id)
+    pet_3 = Pet.create!(    adoptable: true,     age: 4,     breed: "chihuahua",     name: "Elle",     shelter_id: shelter.id)
     visit "applications/new"
     fill_in("Name",     :with => "Jimmy John")
     fill_in("street_address",     :with => "303 Broadway")

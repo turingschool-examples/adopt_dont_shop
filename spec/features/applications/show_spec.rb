@@ -53,5 +53,18 @@ RSpec.describe("Applications show page") do
 
       expect(page).to have_content(@jimmy_application.status)
     end
+
+    it 'Story 5, if the application has not been submitted/in progress, then i will see a section where i can search for pets by name ' do
+
+      visit "/applications/#{@jimmy_application.id}"
+
+      fill_in "Search", with: "Spot"
+      click_on "Search"
+
+      expect(current_path).to eq("/applications/#{@jimmy_application.id}")
+      expect(page).to have_content("Fido")
+      expect(page).to_not have_content("Frenchie")
+    end
+
   end
 end
