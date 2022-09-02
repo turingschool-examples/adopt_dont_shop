@@ -1,24 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'application' do
-  it 'displays a link to all pets' do
-    visit '/'
-    expect(page).to have_content("Adopt, don't shop!")
-    expect(page).to have_link("Pets")
-    click_link("Pets")
-    expect(page).to have_current_path('/pets')
-  end
-
-  it 'displays a link to all shelters' do
-    visit '/'
-
-    expect(page).to have_link("Shelters")
-    click_link("Shelters")
-    expect(page).to have_current_path('/shelters')
-    expect(page).to have_link("Shelters")
-    expect(page).to have_link("Pets")
-  end
-
+RSpec.describe 'the applications show' do
   describe 'As a visitor' do
     before :each do
       @application1 = Application.create!(name:"Becka Hendricks", street_address:"6210 Castlegate Dr.", city:"Castle Rock", state:"Colorado", zipcode:"80108", description:"I love dogs and would be such a good dog mom", status: "In Progress")
