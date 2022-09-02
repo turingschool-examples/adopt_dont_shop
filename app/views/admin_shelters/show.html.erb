@@ -1,0 +1,5 @@
+<h1><%= @shelter.name %> Admin Page</h1>
+<h2>Action Required</h2>
+<% @action_needed_pets.each do |pet| %>
+  <p><%= pet.name %></p>
+<% end %>
