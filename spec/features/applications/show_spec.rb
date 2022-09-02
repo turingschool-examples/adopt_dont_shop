@@ -45,7 +45,11 @@ RSpec.describe Pet, type: :model do
           visit "/applications/#{@app1.id}"
 
           expect(page).to have_content("#{@app1.pets.first.name}")
+          expect(page).to_not have_content("#{@pet2.name}")
           expect(page).to have_link("#{@app1.pets.first.name}")
+
+          click_link("#{@app1.pets.first.name}")
+          expect(current_path).to eq("/pets/#{@app1.pets.first.id}")
         end
 
         it 'displays app status' do
