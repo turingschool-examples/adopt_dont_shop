@@ -34,9 +34,7 @@ RSpec.describe 'the applicants show' do
   
   it 'names of all pets that this application is for (all names of pets should be links to their show page)' do 
     visit "/applicants/#{@applicant.id}"
-    save_and_open_page
     
-  
     within("#applicant-#{@applicant.id}") do
       expect(page).to have_content(@pet.name)
       expect(page).to have_content(@pet_2.name)
@@ -46,7 +44,12 @@ RSpec.describe 'the applicants show' do
     
     click_link "#{@pet.name}"
     expect(current_path).to eq("/pets/#{@pet.id}")
+
   end
 
-  it 'The Applications status, either In Progress, Pending, Accepted, or Rejected'
+  it 'The Applications status, either In Progress, Pending, Accepted, or Rejected' do
+    visit "/applicants/#{@applicant.id}"
+
+    expect(page).to have_content(@applicant.status)
+  end
 end
