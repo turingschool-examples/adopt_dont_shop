@@ -13,7 +13,8 @@ class Pet < ApplicationRecord
     where(adoptable: true)
   end
 
-  # def self.search(name)
-  #   self.where(name: name)
-  # end
+  def pending_apps
+    applications.where(status: 'Pending')
+  end
+  
 end
