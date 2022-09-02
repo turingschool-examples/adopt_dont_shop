@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'applications show page' do
+RSpec.describe 'applicant show page' do
 
   # User Story 2
   # As a visitor
@@ -20,11 +20,16 @@ RSpec.describe 'applications show page' do
       dog2 = shelter.pets.create!(adoptable: true, age: 2, breed: 'Terrier', name: 'Rosco')
       cat1 = shelter.pets.create!(adoptable: true, age: 7, breed: 'Persian', name: 'SlimJim')
       cat2 = shelter.pets.create!(adoptable: true, age: 1, breed: 'Tabby', name: 'Catmobile')
-      applicant1 = Application.create!(first_name: 'Sally', last_name: 'Field', address: '115 Oakview Avenue, Topeka, Kansas, 65119', description: 'I dislike every bird, therefore I require many cats.')
-      applicant2 = Application.create!(first_name: 'Burt', last_name: 'Reynolds', address: '400 Pine Drive, Bend, Oregon, 91123', description: 'I find tiny barking dogs to be extremely soothing and it is important to me that my neighbors know that.')
+      app1 = Applicant.create!(first_name: 'Sally', last_name: 'Field', address: '115 Oakview Avenue, Topeka, Kansas, 65119', description: 'I dislike every bird, therefore I require many cats.', status: 'pending')
+      app2 = Applicant.create!(first_name: 'Burt', last_name: 'Reynolds', address: '400 Pine Drive, Bend, Oregon, 91123', description: 'I find tiny barking dogs to be extremely soothing and it is important to me that my neighbors know that.', status: 'pending')
 
-      PetApplication.create!(pet_id: dog1, application_id: applicant2)
-      
+      app1.pets << cat1
+      app1.pets << cat2
+      app2.pets << dog1
+      app2.pets << dog2
+
+      visit "/applicants/#{app1.id}"
+      save_and_open_page
     end
   end
 end
