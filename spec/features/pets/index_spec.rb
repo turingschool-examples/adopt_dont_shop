@@ -69,11 +69,16 @@ RSpec.describe("the pets index") do
 
   describe("story 3") do
     describe("When I visit the pet index page") do
-      it("see a link to \"Start an Application\", click the link, taken to new application page") do
+      it("see a link to \"Start Application\", click the link, taken to new application page") do
+        shelter = Shelter.create(        name: "Aurora shelter",         city: "Aurora, CO",         foster_program: false,         rank: 9)
+        pet_1 = Pet.create(        adoptable: true,         age: 7,         breed: "sphynx",         name: "Bare-y Manilow",         shelter_id: shelter.id)
+        pet_2 = Pet.create(        adoptable: true,         age: 3,         breed: "domestic pig",         name: "Babe",         shelter_id: shelter.id)
+        pet_3 = Pet.create(        adoptable: true,         age: 4,         breed: "chihuahua",         name: "Elle",         shelter_id: shelter.id)
+        visit("/pets")
         visit("/pets")
         expect(page).to(have_link("Start Application"))
         click_link("Start Application")
-        expect(current_path).to(eq("/applicants/new"))
+        expect(current_path).to(eq("/applications/new"))
       end
     end
   end
