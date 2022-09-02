@@ -1,0 +1,36 @@
+<head>
+<style>
+  table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+  th, td {
+  padding: 15px;
+  text-align: center;
+}
+</style>
+</head>
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Address</th>
+    <th>Good Home Argument</th>
+    <th>Status</th>
+    <th>Created</th>
+    <th>Last updated</th>
+  </tr>
+  <tr id="application_<%= @application.id %>">
+    <td><%= "#{@application.fname} #{@application.lname}" %></td>
+    <td><%= "#{@application.street_address}" %><br><%= "#{@application.city}, #{@application.state} #{@application.zip_code}"%></td>
+    <td><%= @application.good_home_argument %></td>
+    <td><%= @application.status %></td>
+    <td><%= @application.created_at %></td>
+    <td><%= @application.updated_at %></td>
+  </tr>
+</table>
+
+<ul>
+<% @application.pets.each do |pet| %>
+  <li id="application_pet_<%=pet.id%>" ><%= link_to "#{pet.name}", "/pets/#{pet.id}" %></li>
+<% end %>
+</ul>
