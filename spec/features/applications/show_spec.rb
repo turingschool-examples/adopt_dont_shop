@@ -6,9 +6,9 @@ RSpec.describe 'the application show' do
     @app_1 = Application.create!(name: "Carter Ball", street_address: "123 Easy Street", city: "Atlanta", state: "GA", zip_code: 30307, status: "In Progress")
     @app_2 = Application.create!(name: "Mary Ballantyne", street_address: "888 EZ Lane", city: "Denver", state: "CO", zip_code: 12345, status: "Pending")
     @shelter_1 = Shelter.create!(name: 'Mystery Building', city: 'Irvine CA', foster_program: false, rank: 9)
-    @pet_1 = Pet.create!(name: 'Scooby', age: 2, breed: 'Great Dane', adoptable: true, shelter_id: @shelter_1.id)
-    @pet_2 = Pet.create!(name: 'Gilbert', age: 4, breed: 'Mutt', adoptable: true, shelter_id: @shelter_1.id)
-    @pet_app_1 = ApplicationPet.create!(application_id: @app_1.id, pet_id: @pet_1.id)
+    @pet_1 = @shelter_1.pets.create!(name: 'Scooby', age: 2, breed: 'Great Dane', adoptable: true)
+    @pet_2 = @shelter_1.pets.create!(name: 'Gilbert', age: 4, breed: 'Mutt', adoptable: true)
+    @pet_app_1 = ApplicationPet.create!(application: @app_1, pet: @pet_1)
     visit "/applications/#{@app_1.id}"
   end
   

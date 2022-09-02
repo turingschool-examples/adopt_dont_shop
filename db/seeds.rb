@@ -13,10 +13,10 @@ app_2 = Application.create!(name: "Mary Ballantyne", street_address: "888 EZ Lan
 shelter_1 = Shelter.create!(name: 'Mystery Building', city: 'Irvine CA', foster_program: false, rank: 9)
 shelter_2 = Shelter.create!(name: 'Humane Society', city: 'Humboldt CA', foster_program: true, rank: 4)
 
-pet_1 = Pet.create!(name: 'Scooby', age: 2, breed: 'Great Dane', adoptable: true, shelter_id: shelter_1.id)
-pet_2 = Pet.create!(name: 'Fran', age: 4, breed: 'French Bulldog', adoptable: true, shelter_id: shelter_1.id)
-pet_3 = Pet.create!(name: 'Gilbert', age: 4, breed: 'Mutt', adoptable: true, shelter_id: shelter_2.id)
+pet_1 = shelter_1.pets.create!(name: 'Scooby', age: 2, breed: 'Great Dane', adoptable: true)
+pet_2 = shelter_1.pets.create!(name: 'Fran', age: 4, breed: 'French Bulldog', adoptable: true)
+pet_3 = shelter_2.pets.create!(name: 'Gilbert', age: 4, breed: 'Mutt', adoptable: true)
 
-pet_app_1 = ApplicationPet.create!(application_id: app_1.id, pet_id: pet_1.id)
-pet_app_2 = ApplicationPet.create!(application_id: app_2.id, pet_id: pet_2.id)
-pet_app_3 = ApplicationPet.create!(application_id: app_2.id, pet_id: pet_3.id)
+pet_app_1 = ApplicationPet.create!(application: app_1, pet: pet_1)
+pet_app_2 = ApplicationPet.create!(application: app_2, pet: pet_2)
+pet_app_3 = ApplicationPet.create!(application: app_2, pet: pet_3)
