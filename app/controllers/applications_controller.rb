@@ -8,10 +8,14 @@ class ApplicationsController < ApplicationController
   end
 
   def create
-    new_app = Application.create(application_params)
-    new_app.status = 'In Progress'
-    new_app.save
-    redirect_to "/applications/#{new_app.id}"
+    new_app = Application.new(application_params)
+    if new_app.save
+      new_app.update(status: "In Progress")
+      redirect_to "/applications/#{new_app.id}"
+    else
+      flash[:notice] = "Application not Submitted. Please fill out all fields."
+      redirect_to("/applications/new")
+    end 
   end
 
   private
