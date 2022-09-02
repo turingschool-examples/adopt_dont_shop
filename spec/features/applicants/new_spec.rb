@@ -11,6 +11,7 @@ RSpec.describe 'Application creation' do #USER STORY 3
     fill_in 'City', with: 'Denver'
     fill_in 'State', with: 'CO'
     fill_in 'Zip code', with: '80123'
+    fill_in 'Description', with: 'I Like Dogs'
 
     expect(page).to have_button('submit')
 
@@ -21,5 +22,6 @@ RSpec.describe 'Application creation' do #USER STORY 3
     expect(page).to have_content('Denver')
     expect(page).to have_content('CO')
     expect(page).to have_content('80123')
+    expect(page).to have_content('I Like Dogs')
   end
 end 
