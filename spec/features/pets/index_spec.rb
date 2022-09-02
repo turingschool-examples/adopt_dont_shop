@@ -81,4 +81,25 @@ RSpec.describe 'the pets index' do
     expect(page).to have_content(pet_2.name)
     expect(page).to_not have_content(pet_3.name)
   end
+
+  describe 'story 3' do
+    describe 'When I visit the pet index page' do
+      it 'see a link to "Start an Application", click the link, taken to new application page' do
+        #visit the pet index
+        #link to "Start Application"
+        #click link
+        #route to /applications/application.id/new
+      end
+
+      it 'takes the user to a form with Name,Street Address,City,State, and Zip Code, Why this is a good home'
+        # visit /applications/application.id/new
+        # fill in all the fiels of the form
+        # route to /applications/application.id
+
+      it 'can click submit and take me to the new applications show page and see the information just submitted, and an indicator that this application is "In Progress"'
+        # visit /applications/application.id
+        # verify all information is on page of new application
+
+
+  end
 end

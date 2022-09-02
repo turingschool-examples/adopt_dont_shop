@@ -36,13 +36,15 @@ RSpec.describe 'Applications show page' do
 
       visit "/applications/#{@jimmy_application.id}"
 
-      click_on("Pets individual show page", match: :first)
+      click_on("#{@fido.name} show page")
       expect(page).to have_content("Fido")
       expect(current_path).to eq("/pets/#{@fido.id}")
 
-      # click_on("Pets individual show page", match: :second)
-      # expect(page).to have_content("Purrs")
-      # expect(current_path).to eq("/pets/#{@purrs.id}")
+      visit "/applications/#{@jimmy_application.id}"
+
+      click_on("#{@purrs.name} show page")
+      expect(page).to have_content("Purrs")
+      expect(current_path).to eq("/pets/#{@purrs.id}")
     end
 
     it 'shows the application status as either "In Progress", "Pending", "Accepted", or "Rejected"' do

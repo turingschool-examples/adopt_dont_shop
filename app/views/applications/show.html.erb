@@ -8,5 +8,5 @@
 <p><%= @application.description %></p>
 <p><%= @application.status %></p>
 <% @application.pets.each do |pet| %>
-<p><%= pet.name%> <%= link_to "Pets individual show page", "/pets/#{pet.id}" %></p>
+<p><%= pet.name%> <%= link_to "#{pet.name} show page", "/pets/#{pet.id}" %></p>
 <%end%>
