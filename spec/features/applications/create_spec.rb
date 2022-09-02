@@ -12,6 +12,7 @@ RSpec.describe 'the application creation' do
       expect(find('form')).to have_content('City')
       expect(find('form')).to have_content('State')
       expect(find('form')).to have_content('Zipcode')
+      expect(find('form')).to have_content('Description')
     end
   end
 
@@ -25,6 +26,7 @@ RSpec.describe 'the application creation' do
           fill_in 'City', with: "Atlanta"
           fill_in 'State', with: "GA"
           fill_in 'Zipcode', with: 30307
+          fill_in 'Description', with: "I want a pet"
   
           click_on "Submit"
 
