@@ -90,7 +90,7 @@ RSpec.describe("the pets index") do
       it 'can click submit and take me to the new applications show page and see the information just submitted, and an indicator that this application is "In Progress"'
         # visit /applications/application.id
         # verify all information is on page of new application
-    end
+
 
   end
 end
