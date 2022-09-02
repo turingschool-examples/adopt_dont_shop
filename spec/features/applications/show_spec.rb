@@ -22,9 +22,7 @@ RSpec.describe("Applications show page") do
 
     it("shows the attributes of the applicant shows the description of why the applicant says the would be a good home") do
       visit("/applications/#{@jimmy_application.id}")
-      require "pry"
 
-      binding.pry
       expect(current_path).to(eq("/applications/#{@jimmy_application.id}"))
       expect(page).to(have_content(@jimmy_application.name))
       expect(page).to(have_content(@jimmy_application.street_address))

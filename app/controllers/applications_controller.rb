@@ -4,7 +4,7 @@ class ApplicationsController < ApplicationController
   end
 
   def show
-    @application = Application.find(params[:application_id])
+    @application = Application.find(params[:id])
   end
 
   def new
@@ -14,13 +14,14 @@ class ApplicationsController < ApplicationController
     new_app = Application.new(application_params)
 
     if new_app.save
-      new_app.update(      status: "In Progress")
+      new_app.update(status: "In Progress")
       redirect_to("/applications/#{new_app.id}")
     else
       flash[:notice] = "Application not Submitted. Please fill out all fields."
       redirect_to("/applications/new")
     end
   end
+
 
   private
 
