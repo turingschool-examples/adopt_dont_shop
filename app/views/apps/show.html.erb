@@ -8,3 +8,16 @@ Zip Code: <%= @app.zip_code %>
 Description: <%= @app.description %>
 links_to_pets: <%= @app.links_to_pets %>
 Status: <%= @app.status %>
+
+<%= form_with url: "/apps/#{@app.id}", method: :get do |form| %>
+  <p>Add a Pet to this Application:</p>
+  <%= form.label :query, "Search" %>
+  <%= form.text_field :query %>
+  <%= form.submit "Submit" %>
+<% end %>
+
+<% if !@results.nil? %>
+  <% @results.each do |pet| %>
+    <%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
+  <% end %>
+<% end %>
