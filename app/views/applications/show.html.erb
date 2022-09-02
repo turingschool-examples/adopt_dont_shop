@@ -1,7 +1,7 @@
 <h1><%= @application.name %>'s Application</h1>
 <p><%= @application.street_address %></p>
 <p><%= @application.city %>, <%= @application.state %> <%= @application.zip_code %></p>
-<p><%= @application.description %></p>
+<p>description: <%= @application.description %></p>
 <p>Pets On This Application:<br>
 <% @pets.each do |pet| %>
   <%= link_to pet.name, "/pets/#{pet.id}" %><br>
@@ -13,7 +13,7 @@
   <%= form_with url: "/applications/#{@application.id}", method: :get, local: true, id: 'pet_search_form' do |f| %>
     <%= f.label :search, "search pet's name" %>
     <%= f.text_field :search, value: params[:search]%><br>
-    <%= f.submit "Search" %>
+    <%= f.submit "Search" %><br>
   <% end %>
 
   <% if params[:search]%>
@@ -22,4 +22,12 @@
     <% end %>
   <% end %>
 
+<% end %>
+
+<% if !@pets.empty? %>
+    <%= form_with url: "/applications/#{@application.id}", method: :patch, local: true, id: 'application_submission' do |f| %>
+    <%= f.label :description, "Why would you make a good owner for these pets?" %><br>
+    <%= f.text_area :description, size: "60x5" %><br>
+    <%= f.submit "Submit Application" %>
+  <% end %>
 <% end %>

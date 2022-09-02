@@ -7,7 +7,7 @@ RSpec.describe 'application show page' do
         @clifford = Pet.create(name: 'Clifford', age: 5, breed: 'Big Red Dog', adoptable: true, shelter_id: @shelter.id)
 
         @john_doe_app = Application.create!(name: 'John Doe', street_address: '656 Main St.', city: 'Birmingham', 
-                        state: 'AL', zip_code: 85267, description: "I've been a dog trainer for 40 years and I spend most of my days at home.", 
+                        state: 'AL', zip_code: 85267, #description: "I've been a dog trainer for 40 years and I spend most of my days at home.", 
                         status: 'In Progress')
         @john_doe_app.pets << @scooby
     end
@@ -39,5 +39,18 @@ RSpec.describe 'application show page' do
         expect(page).to have_content(@clifford.name)
         click_button("Adopt this Pet")
         expect(@john_doe_app.pets).to include(@clifford)
+    end
+
+    it "Can submit a finished application" do
+        visit "/applications/#{@john_doe_app.id}"
+        expect(page).to have_content("Why would you make a good owner for these pets?")
+        fill_in("description", with: "cuz i am")
+        # binding.pry
+
+        click_button("Submit Application")
+        expect(page).to have_content("cuz i am")
+        expect(page).to have_content("Pending")
+        # binding.pry
+        expect(@john_doe_app.reload.description).to eq("cuz i am")
     end
 end
