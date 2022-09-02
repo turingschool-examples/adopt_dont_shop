@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Pet, type: :model do
   before :each do
-    @app1 = Application.create!(fname: 'John', lname: 'Smithson', street_address: '12324 Turing Blvd.', city: 'Dtown', state: 'CO', zip_code: 12345, good_home_argument: 'Because reasons', status: "In Progress" )
+    @app1 = Application.create!(fname: 'John', lname: 'Smithson', street_address: '12324 Turing Blvd.', city: 'Dtown', state: 'CO', zip_code: 12345, good_home_argument: 'Because reasons', status: "Pending" )
 
     @shelter1 = Shelter.create!(foster_program: true, name: 'Happy Shelter', city: 'Dmetro', rank: 3 )
 
@@ -54,7 +54,7 @@ RSpec.describe Pet, type: :model do
 
         it 'displays app status' do
           visit "/applications/#{@app1.id}"
-          
+
           expect(page).to have_content("#{@app1.status}")
         end
       end
