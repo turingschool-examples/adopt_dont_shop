@@ -44,7 +44,6 @@ RSpec.describe Applicant do
       visit "/applicants/#{app1.id}"
 
       expect(page).to have_css("#submit")
-save_and_open_page
       expect(page).to have_css("#add_pets")
 
       within "#submit" do
