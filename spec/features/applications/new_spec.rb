@@ -35,7 +35,6 @@ RSpec.describe 'application new page', type: :feature do
       fill_in('Zip Code:', with: 10243)
 
       click_on('Apply for Pet')
-        # save_and_open_page 
       expect(page).to have_content("Penny")
       expect(page).to have_content("Smith")
       expect(page).to have_content("182 Stuart Street")

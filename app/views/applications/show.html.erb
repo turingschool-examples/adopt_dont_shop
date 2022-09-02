@@ -2,7 +2,6 @@
   <p>First Name: <%= @application.first_name %></p>
   <p>Last Name: <%= @application.last_name %></p>
   <p>Address: <%= @application.street_address %>, <%= @application.city %>, <%= @application.state %> <%= @application.zip_code %></p>
-  <p>Description: <%= @application.description %></p>
   <br>
 
 <p>Status: <%= @application.status %></p>
@@ -13,10 +12,19 @@
 
   <p><%= form.label :desired_pet, "Search for pet by name:", require: :true %></p>
   <%= form.text_field :desired_pet %>
-<%= form.submit "Search for Pet" %> 
-<% end %>
+  <%= form.submit "Search for Pet" %> 
+  <% end %>
 
   <% @pets.each do |pet| %>
+  <div id= "pet_<%=pet.id%>">
   <p><%= link_to "#{pet.name}", "/pets/#{pet.id}" %></p>
+  <p><%= link_to "Adopt this Pet", "/pet_applications/#{pet.id}/#{@application.id}", method: :post %></p>
+  </div>
   <% end %>
+
+ <% @application.pets.each do |app_pet| %>
+ <div id= "pet_<%=app_pet.id%>">
+  <p><%= app_pet.name %></p>
+  </div>
+  <p><% end %></p>
 

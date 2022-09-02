@@ -7,6 +7,8 @@ RSpec.describe 'application show page', type: :feature do
       @pet1 = @shelter.pets.create!(name: "Fluffy", adoptable: true, age: 3, breed: "doberman")
       @pet2 = @shelter.pets.create!(name: "Floofy", adoptable: true, age: 7, breed: "mixed breed")
       @pet3 = @shelter.pets.create!(name: "Butters", adoptable: true, age: 6, breed: "lab")
+      @pet4 = @shelter.pets.create!(name: "Fluffy", adoptable: true, age: 10, breed: "pomeranian")
+
       @application1 = Application.create!(first_name: "Samantha", last_name: "Smith", street_address: "123 Mulberry Street", city: "Denver", state: "CO", zip_code: 20202, description: "I would like this dog for these reasons.", status: "In Progress")
       @application2 = Application.create!(first_name: "Peter", last_name: "Pinckens", street_address: "123 Pineapple Street", city: "Denver", state: "CO", zip_code: 72641, description: "I would really like an animal to keep me company", status: "In Progress")
 
@@ -20,7 +22,6 @@ RSpec.describe 'application show page', type: :feature do
       expect(page).to have_content('Denver')
       expect(page).to have_content('CO')
       expect(page).to have_content('20202')
-      expect(page).to have_content('I would like this dog for these reasons.')
       expect(page).to have_content('In Progress')
     end
 
@@ -37,8 +38,38 @@ RSpec.describe 'application show page', type: :feature do
       click_on('Search for Pet')
 
       expect(page).to have_content('Fluffy')
-      click_link('Fluffy')
     end
 
+    it 'I can see a button to "Adopt this Pet" ' do
+      visit "/applications/#{@application1.id}"
+   
+      fill_in('Search for pet by name:', with: 'Fluffy')
+      click_on('Search for Pet')
+      
+      within("#pet_#{@pet1.id}") do
+      expect(page).to have_content("Adopt this Pet")
+    end
+
+    within("#pet_#{@pet4.id}") do
+      expect(page).to have_content("Adopt this Pet")
+    end
+
+    end
+
+    it 'I can click the adopt pet button & Im taken to the app/show page where I see the pet I want to adopt listed on the application ' do
+
+      visit "/applications/#{@application1.id}"
+   
+      fill_in('Search for pet by name:', with: 'Fluffy')
+      click_on('Search for Pet')
+      
+      within("#pet_#{@pet1.id}") do
+        click_on('Adopt this Pet')
+
+      end
+      expect(current_path).to eq("/applications/#{@application1.id}")
+      expect(page).to have_content("Fluffy")
+    end
+    
   end
 end

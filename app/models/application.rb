@@ -13,4 +13,9 @@ class Application < ApplicationRecord
   def self.find_desired_pets(pet_name)
     Pet.where(name: pet_name)
   end
+
+  def self.find_desired_application(desired_id)
+    where(id: desired_id)
+  end
+
 end
