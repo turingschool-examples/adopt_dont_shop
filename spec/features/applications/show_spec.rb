@@ -7,8 +7,11 @@ RSpec.describe 'the application show' do
     @app_2 = Application.create!(name: "Mary Ballantyne", street_address: "888 EZ Lane", city: "Denver", state: "CO", zip_code: 12345, status: "Pending")
     @shelter_1 = Shelter.create!(name: 'Mystery Building', city: 'Irvine CA', foster_program: false, rank: 9)
     @pet_1 = Pet.create!(name: 'Scooby', age: 2, breed: 'Great Dane', adoptable: true, shelter_id: @shelter_1.id)
+    @pet_2 = Pet.create!(name: 'Gilbert', age: 4, breed: 'Mutt', adoptable: true, shelter_id: @shelter_1.id)
+    @pet_app_1 = ApplicationPet.create!(application_id: @app_1.id, pet_id: @pet_1.id)
     visit "/applications/#{@app_1.id}"
   end
+  
   it "shows the application and all its attributes" do
     expect(page).to have_content(@app_1.name)
     expect(page).to have_content(@app_1.street_address)
@@ -17,6 +20,9 @@ RSpec.describe 'the application show' do
     expect(page).to have_content(@app_1.zip_code)
     expect(page).to have_content(@app_1.description)
     expect(page).to have_content(@app_1.status)
+    expect(page).to have_content(@pet_1.name)
+
+    expect(page).to_not have_content(@pet_2.name)
     expect(page).to_not have_content(@app_2.status)
     expect(page).to_not have_content(@app_2.name)
   end
