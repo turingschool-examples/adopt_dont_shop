@@ -1,0 +1,33 @@
+<h1>New Application</h1>
+
+<%= form_with url: "/applications/#{@application.id}", method: :post, local: true do |form| %>
+  <%= form.label :name %>
+  <%= form.text_field :name, required: :true %>
+  <br>
+  <br>
+  <%= form.label :street_address %>
+  <%= form.text_field :street_address, required: :true %>
+  <br>
+  <br>
+  <%= form.label :city %>
+  <%= form.text_field :city %>
+  <br>
+  <br>
+  <%= form.label :state %>
+  <%= form.select :state, options_for_select(us_states) %>
+  <br>
+  <br>
+  <%= form.label :zipcode %>
+  <%= form.text_field :zipcode, required: :true %>
+  <br>
+  <br>
+  <%= form.label :description, "Please add a description for why you would make a good home:" %>
+  <%= form.text_field :description, required: :true %>
+  <br>
+  <br>
+  <%= form.submit "Submit" %>
+  <% end %>
+
+  
+
+
