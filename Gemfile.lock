@@ -227,7 +227,7 @@ DEPENDENCIES
   launchy
   listen (>= 3.0.5, < 3.2)
   orderly
-  pg (>= 0.18, < 2.0)
+  pg
   pry
   puma
   rails (~> 5.2.6)
