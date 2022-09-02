@@ -5,4 +5,8 @@ class ApplicationsController < ApplicationController
     @pets = Application.find_associated_pets
   end
 
+  def new
+    
+  end
+
 end
