@@ -24,4 +24,26 @@ RSpec.describe 'Application creation' do #USER STORY 3
     expect(page).to have_content('80123')
     expect(page).to have_content('I Like Dogs')
   end
+
+  it 'cant submit incomplete forms' do #STORY 4
+    visit '/applicants/new' 
+
+    fill_in 'Name', with: 'Ash Ketchum'
+    fill_in 'Street address', with: '123 S Street Way'
+    fill_in 'City', with: 'Denver'
+    fill_in 'State', with: 'CO'
+    
+    fill_in 'Description', with: 'I Like Dogs'
+
+    click_button('submit') 
+
+    expect(current_path).to eq('/applicants/new')
+    expect(current_path).to_not eq('/applicants')
+
+    visit '/applicants'
+
+    expect(page).to_not have_content("Ash Ketchum")
+  end 
+
+
 end 
