@@ -48,4 +48,16 @@ RSpec.describe 'the applicants new' do
 
     expect(page).to have_content("In Progress")
   end
+  
+  it "If I fail to fill in any of the form fields and I click submit, then I am taken back to the new applications page and I see a message that I must fill in those fields." do
+    visit '/applicants/new'
+    
+    fill_in("street_address", with: "567 Fake Street")
+    
+    click_button('Submit')
+    
+    expect(current_path).to eq("/applicants/new")
+    expect(page).to have_content("Missing Required Info")
+
+  end
 end
