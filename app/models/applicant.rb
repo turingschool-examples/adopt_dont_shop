@@ -1,5 +1,5 @@
 class Applicant < ApplicationRecord
-  enum status: [:in_progress, :pending, :accepted, :rejected]
+  enum status: ["In Progress", "Pending", "Accepted", "Rejected"]
 
   validates_presence_of :name, :street_address, :city, :state, :zip_code, :description, :status
 

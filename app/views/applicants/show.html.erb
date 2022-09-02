@@ -1,0 +1,14 @@
+<br>
+<h2> Applicant Information</h2>
+
+<div id="applicant-<%=@applicant.id%>">
+<h4>  Name:</h4> <%= @applicant.name %> <br>
+<h4>  Address:</h4> <%= @applicant.street_address %>, <%= @applicant.city %>, <%= @applicant.state %> <%= @applicant.zip_code %> <br>
+<h4>  Why I would make a good home:</h4> <%= @applicant.description %> <br>
+<h4>  Pets Applied For:</h4> <% @applicant.pets.each do |pet|%>
+                      <li> <%= pet.name %></li>
+                          <% end %>
+  <br>
+  <br>
+  Application Status: <%= @applicant.status %>
+</div>
