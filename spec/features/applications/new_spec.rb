@@ -12,7 +12,7 @@ RSpec.describe 'application new page', type: :feature do
     end
 
     it 'I expect to see a form to fill out with 8 fields' do
-      
+
       visit "/applications/new"
 
       expect(page).to have_content("First Name:")
@@ -26,7 +26,7 @@ RSpec.describe 'application new page', type: :feature do
 
     end
 
-    xit 'I can fill in the form & I am taken to the show page where I see my information' do
+    it 'I can fill in the form & I am taken to the show page where I see my information' do
       visit "/applications/new"
 
       fill_in('First Name:', with: "Penny")
@@ -39,8 +39,6 @@ RSpec.describe 'application new page', type: :feature do
       fill_in('Status:', with: "In Progress")
 
       click_on('Apply for Pet')
-      
-      expect(current_path).to eq("/applications/#{@application1.id}")
       expect(page).to have_content("Penny")
       expect(page).to have_content("Smith")
       expect(page).to have_content("182 Stuart Street")

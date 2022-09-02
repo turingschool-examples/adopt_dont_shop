@@ -6,14 +6,17 @@ class ApplicationsController < ApplicationController
   end
 
   def new
-    @application = Application.find(params[:id])
   end
 
   def create
-    #step 3 in the process - the back end
-    @application = Application.find(params[:id])
+    @application = Application.create(application_params)
+    redirect_to "/applications/#{@application.id}"  
     #step 4 directing the user to a diff page
-    redirect_to "/applications/"  
+  end
+
+  private
+  def application_params
+    params.permit(:first_name, :last_name, :street_address, :city, :state, :zip_code, :description, :status)
   end
 
 end
