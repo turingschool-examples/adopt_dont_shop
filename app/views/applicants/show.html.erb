@@ -1,3 +1,6 @@
 <p><%= @applicant.first_name %> <%= @applicant.last_name %></p>
 <p> <%="#{@applicant.street_address} #{@applicant.city}, #{@applicant.state} #{@applicant.zip}"%></p>
 <p><%= @applicant.description %></p>
+<p id="applicant-<%= @applicant.id %>" ><% @applicant.pets.each do |pet|%>
+    <%= link_to "#{pet.name}", "/pets/#{pet.id}"%>
+    <% end %> </p>
