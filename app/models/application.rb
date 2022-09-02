@@ -8,4 +8,6 @@ class Application < ApplicationRecord
               :state,
               :zip_code,
               presence: true
+
+
 end

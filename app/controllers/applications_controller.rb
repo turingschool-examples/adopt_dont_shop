@@ -3,9 +3,16 @@ class ApplicationsController < ApplicationController
   def show
       @application = Application.find(params[:id])
       @pets = @application.pets
+      @search_results = Pet.search(params[:search])
   end
   
   def new
+  end
+
+  def update
+    @application = Application.find(params[:id])
+    @application.pets << Pet.find(params[:pet_id])
+    redirect_to("/applications/#{@application.id}")
   end
 
   def create
