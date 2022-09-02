@@ -101,7 +101,7 @@ RSpec.describe Pet, type: :model do
 
           it 'a search returns pets with that name that partially match search' do
             visit "/applications/#{@app2.id}"
-            
+
             fill_in 'Search For Your Future Pet!', with: 'na'
             click_button 'Search All Pets'
 
@@ -109,6 +109,50 @@ RSpec.describe Pet, type: :model do
 
             expect(page).to have_content(@pet2.name)
             expect(page).to_not have_content(@pet1.name)
+          end
+        end
+      end
+
+      describe 'visit apps show page and app has not been submitted' do
+        describe 'when i search for a pet' do
+          it 'there is a button to adopt pet next to the name' do
+            visit "/applications/#{@app2.id}"
+
+            fill_in 'Search For Your Future Pet!', with: 'na'
+            click_button 'Search All Pets'
+
+            within "#application_pet_#{@pet2.id}" do
+              expect(page).to have_button("Adopt this Pet")
+            end
+          end
+
+          it 'Adopt pet button is clicked and returns to show page' do
+            visit "/applications/#{@app2.id}"
+
+            fill_in 'Search For Your Future Pet!', with: 'na'
+            click_button 'Search All Pets'
+
+            within "#application_pet_#{@pet2.id}" do
+              click_button "Adopt this Pet"
+            end
+
+            expect(current_path).to eq("/applications/#{@app2.id}")
+          end
+          
+          it 'Adopt pet button is clicked and returns to show page' do
+            visit "/applications/#{@app2.id}"
+
+            expect(page).to_not have_content(@pet2.name)
+
+            fill_in 'Search For Your Future Pet!', with: 'na'
+
+            click_button 'Search All Pets'
+
+            within "#application_pet_#{@pet2.id}" do
+              click_button "Adopt this Pet"
+            end
+
+            expect(page).to have_content(@pet2.name)
           end
         end
       end

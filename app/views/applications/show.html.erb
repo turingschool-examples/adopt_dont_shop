@@ -44,7 +44,7 @@
 <% if @searched_pets %>
   <ul>
     <% @searched_pets.each do |pet|%>
-      <li id="application_pet_<%=pet.id%>"><%=pet.name%></li>
+      <li id="application_pet_<%=pet.id%>"><%=pet.name%> <%= button_to "Adopt this Pet", pet_id: pet.id %></li>
     <% end %>
   </ul>
 <% end %>
