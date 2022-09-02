@@ -15,7 +15,7 @@ RSpec.describe 'application show page', type: :feature do
 
     end
     it 'I can see all attributes of the application' do
-      visit "/application/#{@application1.id}"
+      visit "/applications/#{@application1.id}"
 
       expect(page).to have_content('Samantha')
       expect(page).to have_content('Smith')
@@ -30,7 +30,7 @@ RSpec.describe 'application show page', type: :feature do
     end
 
     it 'I has links for the first pet that leads to a show page' do
-      visit "/application/#{@application1.id}"
+      visit "/applications/#{@application1.id}"
 
       expect(page).to have_content('Fluffy')
       click_link('Fluffy')
@@ -38,7 +38,7 @@ RSpec.describe 'application show page', type: :feature do
     end
 
     it 'I has links for the second pet that leads to that show page' do
-      visit "/application/#{@application1.id}"
+      visit "/applications/#{@application1.id}"
 
       expect(page).to have_content('Floofy')
       click_link('Floofy')

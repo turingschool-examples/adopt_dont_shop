@@ -1,0 +1,22 @@
+<%= form_with url:"/applications", method: :post, local: true do |form|  %>
+#client requests this information to go through this route url
+#this is step 1 of a 4 step process
+  <p><%= form.label :first_name, "First Name:", require: :true %></p>
+  <%= form.text_field :first_name %>
+  <p><%= form.label :last_name, "Last Name:" %></p>
+  <%= form.text_field :last_name %>
+  <p><%= form.label :address, "Address:" %></p>
+    <%= form.text_field :address %>
+  <p><%= form.label :city, "City:" %></p>
+      <%= form.text_field :city %>
+  <p><%= form.label :state, "State:" %></p>
+      <%= form.text_field :state %>
+  <p><%= form.label :state, "Zip Code:" %></p>
+      <%= form.text_field :zip_code %>
+  <p><%= form.label :description, "Description:" %></p>
+      <%= form.text_field :description %>
+  <p><%= form.label :status, "Status:" %></p>
+  <%= form.text_field :status %>
+
+  <%= form.submit "Apply for Pet" %>
+<% end %>
