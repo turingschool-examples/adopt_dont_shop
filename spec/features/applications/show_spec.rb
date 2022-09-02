@@ -86,6 +86,30 @@ RSpec.describe Pet, type: :model do
             expect(page).to have_content(@pet2.name)
             expect(page).to_not have_content(@pet1.name)
           end
+
+          it 'a search returns pets with that name that partially match search' do
+            visit "/applications/#{@app2.id}"
+            
+            fill_in 'Search For Your Future Pet!', with: 'Na'
+            click_button 'Search All Pets'
+
+            expect(current_path).to eq("/applications/#{@app2.id}")
+
+            expect(page).to have_content(@pet2.name)
+            expect(page).to_not have_content(@pet1.name)
+          end
+
+          it 'a search returns pets with that name that partially match search' do
+            visit "/applications/#{@app2.id}"
+            
+            fill_in 'Search For Your Future Pet!', with: 'na'
+            click_button 'Search All Pets'
+
+            expect(current_path).to eq("/applications/#{@app2.id}")
+
+            expect(page).to have_content(@pet2.name)
+            expect(page).to_not have_content(@pet1.name)
+          end
         end
       end
     end
