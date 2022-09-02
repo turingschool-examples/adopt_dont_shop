@@ -26,4 +26,26 @@ RSpec.describe 'the application show' do
     expect(page).to_not have_content(@app_2.status)
     expect(page).to_not have_content(@app_2.name)
   end
+
+  describe 'the Add A Pet To This Application section'
+    it 'exists and has a form with a button to search a pet' do
+      within("#addPet") do
+        expect(page).to have_content('Add a Pet to this Application')
+        expect(find('form')).to have_content('Search')
+        expect(page).to have_button("Search Pets By Name")
+        expect(page).to_not have_content(@app_1.name)        
+      end
+    end
+
+    it 'searches for a pet' do
+      fill_in('Search', with: 'gil')
+      click_button("Search Pets By Name")
+      
+      expect(page).to have_content(@pet_2.name)
+      expect(page).to have_content(@pet_2.age)
+      expect(page).to_not have_content(@pet_1.name) 
+    end
+
+
+
 end
