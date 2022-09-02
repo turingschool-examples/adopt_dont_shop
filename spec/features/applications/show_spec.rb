@@ -34,19 +34,26 @@ RSpec.describe("Applications show page") do
       expect(page).to(have_content(@jimmy_application.description))
     end
 
-    it("names all pets that this application is for with links to the pets show page") do
-      visit("/applications/#{@jimmy_application.id}")
-      click_on("Pets individual show page",       match: :first)
-      expect(page).to(have_content("Fido"))
-      expect(current_path).to(eq("/pets/#{@fido.id}"))
+    it 'names all pets that this application is for with links to the pets show page' do
+
+      visit "/applications/#{@jimmy_application.id}"
+
+      click_on("#{@fido.name} show page")
+      expect(page).to have_content("Fido")
+      expect(current_path).to eq("/pets/#{@fido.id}")
+
+      visit "/applications/#{@jimmy_application.id}"
+
+      click_on("#{@purrs.name} show page")
+      expect(page).to have_content("Purrs")
+      expect(current_path).to eq("/pets/#{@purrs.id}")
     end
 
-      # click_on("Pets individual show page", match: :second)
-      # expect(page).to have_content("Purrs")
-      # expect(current_path).to eq("/pets/#{@purrs.id}")
-    it("shows the application status as either \"In Progress\", \"Pending\", \"Accepted\", or \"Rejected\"") do
-      visit("/applications/#{@jimmy_application.id}")
-      expect(page).to(have_content(@jimmy_application.status))
+    it 'shows the application status as either "In Progress", "Pending", "Accepted", or "Rejected"' do
+
+      visit "/applications/#{@jimmy_application.id}"
+
+      expect(page).to have_content(@jimmy_application.status)
     end
   end
 end
