@@ -1,5 +1,8 @@
 class Application < ApplicationRecord
   has_many :pet_applications
   has_many :pets, through: :pet_applications
-  @pets = Pet.joins(:pet_application).where(application_id: params[:id])
+
+  def self.find_associated_pets
+    @pets = Application.all.first.pets
+  end
 end
