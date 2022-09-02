@@ -4,5 +4,9 @@ class AdminSheltersController < ApplicationController
     @shelter = Shelter.find(params[:id])
     @action_needed_pets = @shelter.action_needed_pets
   end
+
+  def index
+    @shelters = Shelter.order_by_reverse_alphabetical
+  end
   
 end
