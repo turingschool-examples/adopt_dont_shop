@@ -1,11 +1,14 @@
 <h1><%= @application.first_name%>'s Application</h1>
 <p>First Name: <%= @application.first_name %></p>
 <p>Last Name: <%= @application.last_name %></p>
-
 <p>Address: <%= @application.street_address %>, <%= @application.city %>, <%= @application.state %> <%= @application.zip_code %></p>
 <p>Description: <%= @application.description %></p>
+<br>
 <p>Applying for:</p>
 <% @pets.each do |pet| %>
-<p><%= pet.name %><p>
+<p><%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
+<p>
 <% end %>
 <p>Status: <%= @application.status %></p>
+
+
