@@ -1,4 +1,4 @@
-<h1>Applications show page</h1>
+<h1>Application show page</h1>
 
 <h3><%= @application.name %></h3>
 <p><%= @application.street_address %></p>
@@ -6,3 +6,7 @@
 <p><%= @application.state %></p>
 <p><%= @application.zip_code %></p>
 <p><%= @application.description %></p>
+<p><%= @application.status %></p>
+<% @application.pets.each do |pet| %>
+<p><%= pet.name%> <%= link_to "Pets individual show page", "/pets/#{pet.id}" %></p>
+<%end%>
