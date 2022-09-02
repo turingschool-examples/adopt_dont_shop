@@ -13,8 +13,8 @@ class ApplicantsController < ApplicationController
   end
 
   def create
-    applicant = Applicant.create!(applicant_params)
-    if applicant.save
+    applicant = Applicant.create(applicant_params)
+    if applicant.valid?
       redirect_to "/applicants/#{applicant.id}"
     else
     flash[:notice] = "Unable to create application"
