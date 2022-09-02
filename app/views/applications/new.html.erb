@@ -1,12 +1,13 @@
 <h1>New Application</h1>
 
+
 <%= form_with url: "/applications", method: :post, local: true do |form| %>
   <%= form.label :name %>
-  <%= form.text_field :name, required: :true %>
+  <%= form.text_field :name %>
   <br>
   <br>
   <%= form.label :street_address %>
-  <%= form.text_field :street_address, required: :true %>
+  <%= form.text_field :street_address %>
   <br>
   <br>
   <%= form.label :city %>
@@ -18,11 +19,15 @@
   <br>
   <br>
   <%= form.label :zipcode %>
-  <%= form.text_field :zipcode, required: :true %>
+  <%= form.text_field :zipcode %>
   <br>
   <br>
   <%= form.label :description, "Please add a description for why you would make a good home:" %>
-  <%= form.text_field :description, required: :true %>
+  <%= form.text_field :description %>
+  <br>
+  <br>
+  <%= form.label :status %>
+  <%= form.text_field :status, value: "In Progress" %>
   <br>
   <br>
   <%= form.submit "Submit" %>
