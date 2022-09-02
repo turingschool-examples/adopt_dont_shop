@@ -10,10 +10,12 @@
   </head>
 
   <body>
-    <% flash.each do |type, msg| %>
-      <div>
-        <%= msg %>
-      </div>
+    <% if alert %>
+      <% flash.each do |type, msg| %>
+        <div>
+          <h1>**<%= msg %>**</h1>
+        </div>
+        <% end %>
     <% end %>
     <section>
       <p><%= link_to "Pets", "/pets" %></p>
