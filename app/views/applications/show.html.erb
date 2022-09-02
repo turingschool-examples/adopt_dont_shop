@@ -4,8 +4,22 @@
 <p><%= @application.description %></p>
 <p>Pets On This Application:<br>
 <% @pets.each do |pet| %>
-  <%= pet.name %><br>
+  <%= link_to pet.name, "/pets/#{pet.id}" %><br>
 <% end %>
 <p>Application Status: <%= @application.status %></p>
 
+<% if @application.status == "In Progress" %>
+  <h4><%= "Add a Pet to this Application" %></h4>
+  <%= form_with url: "/applications/#{@application.id}", method: :get, local: true, id: 'pet_search_form' do |f| %>
+    <%= f.label :search, "search pet's name" %>
+    <%= f.text_field :search, value: params[:search]%><br>
+    <%= f.submit "Search" %>
+  <% end %>
 
+  <% if params[:search]%>
+    <% @search_results.each do |pet| %>
+    <%= link_to pet.name, "/pets/#{pet.id}" %><br>
+    <% end %>
+  <% end %>
+
+<% end %>
