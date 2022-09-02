@@ -34,4 +34,17 @@ RSpec.describe 'create a new application', type: :feature do
     expect(page).to have_content("Application Status: In Progress")
   end
 
+  it 'redirects to the new application page with an error displayed' do
+    visit("/applications/new")
+    fill_in("Name", with: "John Doe")
+    fill_in(:street_address, with: "654 Main St.")
+    fill_in("City", with: "Birmingham")
+    fill_in("State", with: "AL")
+    click_button("Submit")
+
+    expect(Application.last).to be nil
+    expect(current_path).to eq("/applications/new")
+    expect(page).to have_content("Application not Submitted. Please fill out all fields.")
+  end
+
 end
