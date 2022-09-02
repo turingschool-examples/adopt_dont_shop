@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe Pet, type: :model do
   before :each do
     @app1 = Application.create!(fname: 'John', lname: 'Smithson', street_address: '12324 Turing Blvd.', city: 'Dtown', state: 'CO', zip_code: 12345, good_home_argument: 'Because reasons', status: "Pending" )
-
+    @app2 = Application.create!(fname: 'John', lname: 'Smith', street_address: '1234 Turig Blvd.', city: 'Ttown', state: 'CO', zip_code: 12345, good_home_argument: 'Because reasonsable', status: "In Progress" )
     @shelter1 = Shelter.create!(foster_program: true, name: 'Happy Shelter', city: 'Dmetro', rank: 3 )
 
     @pet1 = @shelter1.pets.create!(adoptable: true, age: 5, breed: 'dog', name: 'Roofus')
@@ -56,6 +56,36 @@ RSpec.describe Pet, type: :model do
           visit "/applications/#{@app1.id}"
 
           expect(page).to have_content("#{@app1.status}")
+        end
+      end
+
+      describe 'visit apps show page and app has not been submitted' do
+        describe 'I see' do
+          it 'a section for adding a pet to the app' do
+            visit "/applications/#{@app2.id}"
+            expect(page).to have_content("In Progress")
+
+            expect(page).to have_content("Add a Pet to this Application")
+          end
+
+          xit 'a search for Pets by name with input' do
+            visit "/applications/#{@app2.id}"
+            
+            expect(page).to have_content('Search For Your Future Pet!')
+            expect(page).to have_button('Search All Pets')
+          end
+
+          xit 'a search returns pets with that name on the show page' do
+            visit "/applications/#{@app2.id}"
+            
+            fill_in "Search for Your Pet", with: 'Nacho'
+            click_button 'Search All Pets'
+
+            expect(current_path).to eq("/applications/#{@app2.id}")
+
+            expect(page).to have_content(pet2.name)
+            expect(page).to_not have_content(pet1.name)
+          end
         end
       end
     end
