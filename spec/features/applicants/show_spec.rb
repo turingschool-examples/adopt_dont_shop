@@ -22,7 +22,6 @@ RSpec.describe Applicant do
         expect(page).to have_content("Why I would make a good home:\nI Like Dogs")
         expect(page).to have_content("Pets Applied For:\nRosy Lundy")
         expect(page).to have_content("Application Status: In Progress")
-        save_and_open_page
       end
     end
   end
