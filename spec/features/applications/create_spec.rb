@@ -36,7 +36,7 @@ RSpec.describe 'the pets index' do
       end
 
       describe 'taken to the new application page where I see a form' do
-        xit 'form is present to fill in and a submit button (another test same as this in spec/features/applications/show_spec.rb)' do
+        it 'form is present to fill in and a submit button (another test same as this in spec/features/applications/show_spec.rb)' do
           visit "/pets"
           click_link "Start Adoption Application"
 
@@ -49,7 +49,7 @@ RSpec.describe 'the pets index' do
           expect(page).to have_button("Submit")
         end
 
-        xit "Submit takes user to application's show page (another test same as this in spec/features/applications/show_spec.rb)" do
+        it "Submit takes user to application's show page (another test same as this in spec/features/applications/show_spec.rb)" do
           visit "/pets"
 
           click_link "Start Adoption Application"
@@ -63,12 +63,12 @@ RSpec.describe 'the pets index' do
 
           click_button 'Submit'
 
-          expect(current_path).to eq("/applications/#{applications.id}")
+          expect(current_path).to eq("/applications/#{Application.last.id}")
         end
       end
 
       describe "When submit button on pet's index page is clicked" do
-        xit 'sees Name, address, and good home argument' do
+        it 'sees Name, address, and good home argument' do
           visit "/pets"
   
           click_link "Start Adoption Application"
@@ -81,11 +81,11 @@ RSpec.describe 'the pets index' do
           fill_in 'Zip Code', with: '54637'
   
           click_button 'Submit'
-  
-          expect(page).to have_content("Name: Bruce Willis")
-          expect(page).to have_content("Address: 9876 Miller Dr. Whoville, KS 54637")
-          expect(page).to have_content("Good home argument")
-          expect(page).to have_content("Application Status: In Progress")
+
+          expect(page).to have_content("Bruce Willis")
+          expect(page).to have_content("9876 Miller Dr.Whoville, KS 54637")
+          expect(page).to have_content("Good Home Argument")
+          expect(page).to have_content("In Progress")
         end
       end
     end

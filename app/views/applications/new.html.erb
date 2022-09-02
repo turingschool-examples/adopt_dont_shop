@@ -18,5 +18,6 @@
   <%= f.label :zip_code, 'Zip Code' %>
   <%= f.number_field :zip_code %>
 
-  <%= f.submit %>
+  <%= f.hidden_field :status, value: "In Progress" %>
+  <%= f.submit "Submit" %>
 <% end %>
