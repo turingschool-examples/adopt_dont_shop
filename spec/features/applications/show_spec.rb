@@ -35,7 +35,6 @@ RSpec.describe 'application show page', type: :feature do
       expect(page).to have_content('Fluffy')
       click_link('Fluffy')
       expect(current_path).to eq("/pets/#{@pet1.id}")
-      #  (all names of pets should be links to their show page)
     end
 
     it 'I has links for the second pet that leads to that show page' do
