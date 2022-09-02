@@ -5,16 +5,18 @@
   <p>Description: <%= @application.description %></p>
   <br>
 
-  <p>Applying for:</p>
-  <% @pets.each do |pet| %>
-  <p><%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
-  <p>
-  <% end %>
-
 <p>Status: <%= @application.status %></p>
 
+ <h4><%= "Add a Pet to this Application" %> </h4>
 
- <p><%= link_to "Add a Pet to this Application", "/applications/#{@application.id}" %>
-  <p>
+ <%= form_with url:"/applications/#{@application.id}", method: :get, local: true do |form|  %>
 
+  <p><%= form.label :desired_pet, "Search for pet by name:", require: :true %></p>
+  <%= form.text_field :desired_pet %>
+<%= form.submit "Search for Pet" %> 
+<% end %>
+
+  <% @pets.each do |pet| %>
+  <p><%= link_to "#{pet.name}", "/pets/#{pet.id}" %></p>
+  <% end %>
 

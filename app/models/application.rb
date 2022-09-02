@@ -10,7 +10,7 @@ class Application < ApplicationRecord
   validates_presence_of :zip_code
   validates_presence_of :status
 
-  def self.find_associated_pets
-    @pets = Application.all.first.pets
+  def self.find_desired_pets(pet_name)
+    Pet.where(name: pet_name)
   end
 end
