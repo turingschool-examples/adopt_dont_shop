@@ -21,6 +21,10 @@ class ApplicationsController < ApplicationController
     end
   end
 
+  def update
+    require 'pry'; binding.pry
+  end
+
   private
 
   def app_params
