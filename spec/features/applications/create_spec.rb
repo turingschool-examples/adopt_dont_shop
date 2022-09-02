@@ -88,6 +88,40 @@ RSpec.describe 'the pets index' do
           expect(page).to have_content("In Progress")
         end
       end
+
+      describe 'when any of the fields are not filled in and the form is submitted' do
+        it 'redirects back to the new application page' do
+          visit "/pets"
+  
+          click_link "Start Adoption Application"
+  
+          fill_in 'First Name', with: 'Bruce'
+          fill_in 'Street Address', with: '9876 Miller Dr.'
+          fill_in 'City', with: 'Whoville'
+          fill_in 'State', with: 'KS'
+          fill_in 'Zip Code', with: '54637'
+  
+          click_button 'Submit'
+
+          expect(current_path).to eq("/applications/new")
+        end
+
+        it 'has a message that I must fill out those fields' do
+          visit "/pets"
+  
+          click_link "Start Adoption Application"
+  
+          fill_in 'First Name', with: 'Bruce'
+          fill_in 'Street Address', with: '9876 Miller Dr.'
+          fill_in 'City', with: 'Whoville'
+          fill_in 'State', with: 'KS'
+          fill_in 'Zip Code', with: '54637'
+  
+          click_button 'Submit'
+
+          expect(page).to have_content("You must fill out all fields to submit the application")
+        end
+      end
     end
   end
 end
