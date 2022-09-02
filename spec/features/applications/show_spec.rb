@@ -15,7 +15,16 @@ RSpec.describe 'applications show page' do
 
   describe 'hen I visit an applications show page' do
     it 'I see Name of the Applicant' do
-      applicant = Applicant.create!(name: '', address: '', description: '', pets: '',)
+      shelter = Shelter.create!(foster_program: true, name: "Pet Friends of Kansas", city: "Topeka", rank: 8)
+      dog1 = shelter.pets.create!(adoptable: true, age: 5, breed: 'Poodle', name: 'Fiona')
+      dog2 = shelter.pets.create!(adoptable: true, age: 2, breed: 'Terrier', name: 'Rosco')
+      cat1 = shelter.pets.create!(adoptable: true, age: 7, breed: 'Persian', name: 'SlimJim')
+      cat2 = shelter.pets.create!(adoptable: true, age: 1, breed: 'Tabby', name: 'Catmobile')
+      applicant1 = Application.create!(first_name: 'Sally', last_name: 'Field', address: '115 Oakview Avenue, Topeka, Kansas, 65119', description: 'I dislike every bird, therefore I require many cats.')
+      applicant2 = Application.create!(first_name: 'Burt', last_name: 'Reynolds', address: '400 Pine Drive, Bend, Oregon, 91123', description: 'I find tiny barking dogs to be extremely soothing and it is important to me that my neighbors know that.')
+
+      PetApplication.create!(pet_id: dog1, application_id: applicant2)
+      
     end
   end
 end
