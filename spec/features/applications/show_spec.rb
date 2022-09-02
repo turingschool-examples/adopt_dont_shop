@@ -60,28 +60,4 @@ RSpec.describe Pet, type: :model do
       end
     end
   end
-
-  describe 'Starting an Application' do
-    describe "When submit button on pet's index page is clicked" do
-      xit 'sees Name, address, and good home argument' do
-        visit "/pets/#{@pet2.id}"
-
-        click_link "Start Adoption Application"
-
-        fill_in 'First Name', with: 'Bruce'
-        fill_in 'Last Name', with: 'Willis'
-        fill_in 'Street Address', with: '9876 Miller Dr.'
-        fill_in 'City', with: 'Whoville'
-        fill_in 'State', with: 'KS'
-        fill_in 'Zip Code', with: '54637'
-
-        click_button 'Submit'
-
-        expect(page).to have_content("Name: Bruce Willis")
-        expect(page).to have_content("Address: 9876 Miller Dr. Whoville, KS 54637")
-        expect(page).to have_content("Good home argument")
-        expect(page).to have_content("Application Status: In Progress")
-      end
-    end
-  end
 end

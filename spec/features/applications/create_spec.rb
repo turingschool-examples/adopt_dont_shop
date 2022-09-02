@@ -20,22 +20,24 @@ RSpec.describe 'the pets index' do
 
   describe "Starting an Application" do
     describe 'when I visit the pet index page' do
-      describe 'I see a link to Start an Application' do
+      describe 'I see a link to Start an Application in Pet Index' do
         it 'has a link to Start an Application' do 
-          visit "/pets/#{@pet2.id}"
+          visit "/pets"
 
-          expect(page).to have_link("Start Adoption Applcation")
+          expect(page).to have_link("Start Adoption Application")
         end
-        
-        xit 'when link is clicked, route to new application page' do
-          visit "/pets/#{@pet2.id}"
+
+        it 'when link is clicked, route to new application page' do
+          visit "/pets"
           click_link "Start Adoption Application"
 
           expect(current_path).to eq("/applications/new")
         end
+      end
 
+      describe 'taken to the new application page where I see a form' do
         xit 'form is present to fill in and a submit button (another test same as this in spec/features/applications/show_spec.rb)' do
-          visit "/pets/#{@pet2.id}"
+          visit "/pets"
           click_link "Start Adoption Application"
 
           expect(page).to have_content("First Name")
@@ -48,7 +50,7 @@ RSpec.describe 'the pets index' do
         end
 
         xit "Submit takes user to application's show page (another test same as this in spec/features/applications/show_spec.rb)" do
-          visit "/pets/#{@pet2.id}"
+          visit "/pets"
 
           click_link "Start Adoption Application"
 
@@ -62,6 +64,28 @@ RSpec.describe 'the pets index' do
           click_button 'Submit'
 
           expect(current_path).to eq("/applications/#{applications.id}")
+        end
+      end
+
+      describe "When submit button on pet's index page is clicked" do
+        xit 'sees Name, address, and good home argument' do
+          visit "/pets"
+  
+          click_link "Start Adoption Application"
+  
+          fill_in 'First Name', with: 'Bruce'
+          fill_in 'Last Name', with: 'Willis'
+          fill_in 'Street Address', with: '9876 Miller Dr.'
+          fill_in 'City', with: 'Whoville'
+          fill_in 'State', with: 'KS'
+          fill_in 'Zip Code', with: '54637'
+  
+          click_button 'Submit'
+  
+          expect(page).to have_content("Name: Bruce Willis")
+          expect(page).to have_content("Address: 9876 Miller Dr. Whoville, KS 54637")
+          expect(page).to have_content("Good home argument")
+          expect(page).to have_content("Application Status: In Progress")
         end
       end
     end
