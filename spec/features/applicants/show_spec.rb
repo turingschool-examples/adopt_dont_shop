@@ -14,10 +14,16 @@ RSpec.describe 'the applicants show' do
     expect(page).to have_content(@applicant.first_name)
     expect(page).to have_content(@applicant.last_name)
 
-
   end
 
-  it 'shows the full Address of the Applicant including street address, city, state, and zip code'
+  it 'shows the full Address of the Applicant including street address, city, state, and zip code' do
+    visit "/applicants/#{@applicant.id}"
+
+    expect(page).to have_content(@applicant.street_address)
+    expect(page).to have_content(@applicant.city)
+    expect(page).to have_content(@applicant.state)
+    expect(page).to have_content(@applicant.zip)
+  end
 
   it 'shows the description of why the applicant says they would be a good home for this pets'
 
