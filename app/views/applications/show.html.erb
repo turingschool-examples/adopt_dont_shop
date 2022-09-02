@@ -5,5 +5,11 @@
 <p> <%= @application.city %> </p>
 <p> <%= @application.state %> </p>
 <p> <%= @application.zip_code %> </p>
+<p> <%= @application.description %> </p>
 <p> <%= @application.status %> </p>
 
+    <% @application.pets.each do |pet| %> 
+      <p> <%= pet.name %> </p>
+    <% end %>
+
+    
