@@ -9,9 +9,14 @@ class ApplicationsController < ApplicationController
   end
 
   def create
-    @application = Application.create(application_params)
-    redirect_to "/applications/#{@application.id}"  
-    #step 4 directing the user to a diff page
+    @application = Application.new(application_params)
+    @application[:status] = "In Progress"
+    if @application.save
+      redirect_to "/applications/#{@application.id}"  
+    else
+      redirect_to "/applications/new"
+      flash[:alert] = "Error: You must fill in the missing information before proceeding."
+    end
   end
 
   private
