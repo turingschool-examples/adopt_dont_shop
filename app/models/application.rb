@@ -11,7 +11,7 @@ class Application < ApplicationRecord
   validates_presence_of :status
 
   def self.find_desired_pets(pet_name)
-    Pet.where(name: pet_name)
+    Pet.where('LOWER(name) LIKE LOWER(?)', "%#{pet_name}%")
   end
 
   def self.find_desired_application(desired_id)
