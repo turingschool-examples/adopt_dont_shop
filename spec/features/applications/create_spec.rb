@@ -53,17 +53,5 @@ describe 'the application create' do
       end
     end
   end
-
-  #   context 'given invalid data' do
-  #     it 're-renders the new form' do
-  #       visit "/shelters/#{@shelter.id}/pets/new"
-
-  #       click_button 'Save'
-  #       expect(page).to have_current_path("/shelters/#{@shelter.id}/pets/new")
-  #       expect(page).to have_content("Error: Name can't be blank, Age can't be blank, Age is not a number")
-  #     end
-  #   end
-  # end
-
 end
 
