@@ -1,8 +1,6 @@
 class ApplicationsController < ApplicationController
-
   def show
     @application = Application.find(params[:id])
-    # require "pry"; binding.pry
     if params[:search]
       @pets = Pet.search(params[:search])
     else
@@ -18,8 +16,8 @@ class ApplicationsController < ApplicationController
       redirect_to "/applications/new"
       flash[:alert] = "Please fill in all fields"
     else
-    application = Application.create!(applications_params)
-    redirect_to "/applications/#{application.id}"
+      application = Application.create!(applications_params)
+      redirect_to "/applications/#{application.id}"
     end
   end
 
