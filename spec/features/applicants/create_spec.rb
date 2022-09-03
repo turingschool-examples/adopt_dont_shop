@@ -25,8 +25,7 @@ RSpec.describe 'application creation' do
         fill_in 'First name ', with: 'Linda'
         fill_in 'Last name', with: 'Smith'
         fill_in 'Street address', with: '737 Royal lane'
-        fill_in 'City', with: 'Columbus'
-        fill_in 'State', with: 'Ohio' #this could be drop down select 50 states
+        select 'OH', :from => 'state'
         fill_in 'Zip code', with: '39053'
         fill_in 'Description', with: 'I would make a great pet owner'
         click_button 'Create Application'
@@ -37,7 +36,7 @@ RSpec.describe 'application creation' do
         expect(page).to have_content('Smith')
         expect(page).to have_content('737 Royal Lane')
         expect(page).to have_content('Columbus')
-        expect(page).to have_content('Ohio')
+        expect(page).to have_content('OH')
         expect(page).to have_content('I would make a great pet owner')
         expect(page).to have_content('Status: In Progress')
 
