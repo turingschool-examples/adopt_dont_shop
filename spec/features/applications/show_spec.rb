@@ -216,6 +216,17 @@ RSpec.describe Pet, type: :model do
           expect(@app2.pets.count).to eq(1)
         end
       end
+
+      describe 'when visiting app show page, if no pets added to app' do
+        it 'does not have a section to submit the application' do
+          visit "/applications/#{@app2.id}"
+
+          expect(@app2.pets.count).to eq(0)
+          expect(page).to_not have_content("Submit your Application")
+          expect(page).to_not have_content("Why I would make a good owner for these pet(s)")
+          expect(page).to_not have_button("Submit this Application")
+        end
+      end
     end
   end
 end
