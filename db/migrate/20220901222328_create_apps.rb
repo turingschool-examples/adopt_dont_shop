@@ -7,7 +7,6 @@ class CreateApps < ActiveRecord::Migration[5.2]
       t.string :state
       t.string :zip_code
       t.string :description
-      t.string :links_to_pets
       t.string :status
       t.timestamps
     end

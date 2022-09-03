@@ -16,7 +16,6 @@ RSpec.describe 'Application show page' do
       state: "NE", 
       zip_code: "19593",
       description: "We love raccoons and would like more please. They will live a good life and will not have to eat carrots. Ever.",
-      links_to_pets: "/pets/#{@pet_2.id}, /pets/#{@pet_3.id}",
       status: "In Progress"
     )
 
