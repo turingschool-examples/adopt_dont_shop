@@ -31,7 +31,6 @@ class ApplicantsController < ApplicationController
   private
 
   def applicant_params
-  #  params.permit(:first_name, :last_name, :street_address, :city, :state, :zip, :status, :description)
    begin
     params.require(:first_name)
     params.require(:last_name)
@@ -40,7 +39,7 @@ class ApplicantsController < ApplicationController
     params.require(:state)
     params.require(:zip)
     params.require(:description)
-   rescue #ActionController::ParameterMissing
+   rescue
       return
    end
 
