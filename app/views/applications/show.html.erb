@@ -24,7 +24,10 @@
 
 <% if @searched_pets.present? %>
   <% @searched_pets.each do |pet|%>
-    <%= pet.name %>
+    <p> <%= pet.name %>  </p>
+    <%= form_with url: "/applications/#{@application.id}", method: :post, local: true do |f| %>
+      <%f.submit "Adopt This Pet"%>
+      <% end %>
   <% end %>
 <% end %>
 
