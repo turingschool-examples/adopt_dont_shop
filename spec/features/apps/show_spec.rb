@@ -32,7 +32,10 @@ RSpec.describe 'Application show page' do
     expect(page).to have_content(@app.state)
     expect(page).to have_content(@app.zip_code)
     expect(page).to have_content(@app.description)
-    expect(page).to have_content(@app.links_to_pets)
+    expect(page).to have_link(@pet_2.name)
+    expect(page).to have_link(@pet_3.name)
+    expect(page).to_not have_link(@pet_1.name)
+    expect(page).to_not have_link(@pet_4.name)
     expect(page).to have_content(@app.status)
   end
 
@@ -53,7 +56,6 @@ RSpec.describe 'Application show page' do
     it 'can add pets' do
       fill_in("Search", with: "#{@pet_1.name}")
       click_on("Submit")
-      save_and_open_page
       click_on("Adopt this pet")
 
       expect(current_path).to eq("/apps/#{@app.id}")
