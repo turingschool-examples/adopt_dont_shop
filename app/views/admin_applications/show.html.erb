@@ -1,0 +1,20 @@
+<h1>Application Admin</h1>
+<h2><%= @application.name %>'s Application</h2>
+<p><%= @application.street_address %></p>
+<p><%= @application.city %>, <%= @application.state %> <%= @application.zip_code %></p>
+<p>description: <%= @application.description %></p>
+<p>Pets On This Application:<br>
+<% @application_pets.each do |app_pet| %>
+  <div id="<%= app_pet.name.downcase %>"><span><%= app_pet.name %>:</span>
+    <span>
+      <% if !app_pet.status %>
+        <%= button_to "Approve", "/admin/applications/#{@application.id}", method: :patch, params: {status: 'approved', ap_id: app_pet.id} %>
+        <%= button_to "Reject", "/admin/applications/#{@application.id}", method: :patch, params: {status: 'rejected', ap_id: app_pet.id} %>
+      <% end %>
+      <% if app_pet.status %>
+        <br>The application for <%= app_pet.name %> has been <%= app_pet.status %>.
+      <% end %>
+    </span>
+  </div>
+<% end %>
+<p>Application Status: <%= @application.status %></p>
