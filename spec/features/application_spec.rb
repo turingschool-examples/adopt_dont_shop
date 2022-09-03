@@ -17,7 +17,5 @@ RSpec.describe 'application' do
     expect(page).to have_current_path('/shelters')
     expect(page).to have_link("Shelters")
     expect(page).to have_link("Pets")
-    expect(page).to have_link("Veterinarians")
-    expect(page).to have_link("Veterinary Offices")
   end
 end
