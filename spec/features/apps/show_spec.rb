@@ -53,6 +53,16 @@ RSpec.describe 'Application show page' do
       expect(page).to have_content(@pet_1.name)
     end
 
+    it 'ignores case and finds partial matches' do
+      fill_in("Search", with: "king")
+      click_on("Submit")
+      expect(page).to have_content(@pet_1.name)
+
+      fill_in("Search", with: "wend")
+      click_on("Submit")
+      expect(page).to have_content(@pet_4.name)
+    end
+
     it 'can add pets' do
       fill_in("Search", with: "#{@pet_1.name}")
       click_on("Submit")
