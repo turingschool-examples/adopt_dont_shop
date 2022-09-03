@@ -1,4 +1,6 @@
-<h1> New Application </h1>  #vv this needs fixed
+<% states = [ 'AL', 'AK', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'FL', 'GA', 'HI', 'ID', 'IL', 'IN', 'IA', 'KS', 'KY', 'LA', 'ME', 'MD', 'MA', 'MI', 'MN', 'MS', 'MO', 'MT', 'NE', 'NV', 'NH', 'NJ', 'NM', 'NY', 'NC', 'ND', 'OH', 'OK', 'OR', 'PA', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VT', 'VA', 'WA', 'WV', 'WI', 'WY' ]  %>
+
+<h1> New Application </h1>
 <%= form_with url: "/applicants", method: :post, local: true do |f| %>
   <%= f.label :first_name %>
   <%= f.text_field :first_name %>
@@ -12,14 +14,17 @@
   <%= f.label :city %>
   <%= f.text_field :city %>
 
-  <%= f.label :state %>
-  <%= f.text_field :state %>
+  <%= f.label :state, 'State: ' %>
+  <%= f.select :state, states %>
 
-  <%= f.label :zip_code %>
-  <%= f.number_field :zip_code %>
+  <%= f.label :zipcode %>
+  <%= f.text_field :zipcode %>
 
-  <%= f.label :City %>
-  <%= f.check_box :adoptable, value: true %>
+  <%= f.label :description %>
+  <%= f.text_field :description %>
 
-  <%= f.submit "Create Application"%> #should route to new app
+  <%= f.label :status %>
+  <%= f.text_field :status %>
+
+  <%= f.submit "Create Application"%>
 <% end %>
