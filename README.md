@@ -1,5 +1,5 @@
-![Screen Shot 2022-09-01 at 4 20 19 PM](https://user-images.githubusercontent.com/102636892/188028535-d056c81e-0695-45e1-925a-ef29964360ce.png)
 
+![Screen Shot 2022-09-02 at 5 25 02 PM](https://user-images.githubusercontent.com/102636892/188248559-86b6da99-1aba-4a37-b642-ba3430f5a505.png)
 
 # Adopt, don't Shop
 
