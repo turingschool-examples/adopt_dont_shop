@@ -8,6 +8,15 @@
 <h4>  Pets Applied For:</h4> <% @applicant.pets.each do |pet|%>
                       <li> <%= pet.name %></li>
                           <% end %>
+<p>Add a pet to application:</p>
+#IF LOGIC WILL GO HERE: if status is in progress and application has not been submited
+      #you see search bar for add a pet. 
+      <% if!@applicant.pets%>
+<%= form_with url: applicant_show_url, method: :get, local: true do |f| %>
+  <%= f.label :search %>
+  <%= f.text_field :search %>
+  <%= f.submit "Search" %>
+<% end %>
   <br>
   <br>
   Application Status: <%= @applicant.status %>

@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   get '/applicants/new', to: 'applicants#new' #us_3 (delete later)
   get '/applicants', to: 'applicants#index'
   post'/applicants', to: 'applicants#create' #us_3
-  get '/applicants/:applicant_id', to: 'applicants#show'
+  get '/applicants/:applicant_id', to: 'applicants#show', as:'applicant_show'
 
   get '/shelters', to: 'shelters#index'
   get '/shelters/new', to: 'shelters#new'

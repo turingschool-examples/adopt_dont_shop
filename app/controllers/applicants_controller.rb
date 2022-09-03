@@ -6,6 +6,7 @@ class ApplicantsController < ApplicationController
 
   def show
     @applicant = Applicant.find(params[:applicant_id])
+    #update show method to account for pet search name. 
   end
 
   def new
@@ -17,10 +18,13 @@ class ApplicantsController < ApplicationController
     if applicant.valid?
       redirect_to "/applicants/#{applicant.id}"
     else
-    flash[:notice] = "Unable to create application"
+    flash[:notice] = "Unable to create application. You must fill in all fields required."
       redirect_to '/applicants/new'
     end 
   end
+
+
+
 
   private
   def applicant_params 
