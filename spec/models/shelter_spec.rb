@@ -41,6 +41,45 @@ RSpec.describe Shelter, type: :model do
         expect(Shelter.order_by_number_of_pets).to eq([@shelter_1, @shelter_3, @shelter_2])
       end
     end
+
+    describe '#order_alpha' do
+      it 'orders shelters alpha descending' do
+        expect(Shelter.order_alpha).to eq([@shelter_2, @shelter_3, @shelter_1])
+      end
+    end
+
+    describe '#pending_apps' do
+      it 'displays shelters with pending apps' do
+        @beldof = @shelter_1.apps.create!(
+          name: "Gob Beldof", 
+          address: "152 Animal Ave.", 
+          city: "Omaha, NE", 
+          zip_code: "19593",
+          description: "We love raccoons and would like more please. They will live a good life and will not have to eat carrots. Ever.",
+          status: "Pending"
+        )
+        @garbo = @shelter_2.apps.create!(
+          name: "Luut Garbo",
+          address: "asdf",
+          city: "asdfa",
+          zip_code: "asdfs",
+          description: "asdfaw",
+          status: "Pending",
+        )
+        
+        @smooch = @shelter_3.apps.create!(
+          name: "Carter Smooch",
+          address: " asdgw",
+          city: "asdgwe",
+          zip_code: "agwef",
+          description: "asdhge",
+          status: "In Progress",
+        )
+
+        expect(Shelter.pending_apps).to include(@shelter_1, @shelter_2)
+        expect(Shelter.pending_apps).to_not include(@shelter_3)
+      end
+    end
   end
 
   describe 'instance methods' do
