@@ -8,16 +8,11 @@ RSpec.describe 'application show page' do
     @pet_1 = Pet.create(adoptable: true, age: 1, breed: 'sphynx', name: 'Lucille Bald', shelter_id: @shelter.id)
     @pet_2 = Pet.create(adoptable: true, age: 348, breed: 'Wookie', name: 'Bark Hamill', shelter_id: @shelter.id)
     @application.pets << @pet_1
-
-
   end
 
   describe 'when i visit an applications show page' do
-
     describe 'I can see the following: applicant name, address and status' do
-
       it 'can display application info' do
-
         visit "/applications/#{@application.id}"
 
         expect(page).to have_content("Shelby Waters")
@@ -28,7 +23,6 @@ RSpec.describe 'application show page' do
     end
 
     describe 'I can see the name of the pet the application is for' do
-
       it 'links to pets show page' do
         visit "/applications/#{@application.id}"
 
@@ -36,37 +30,59 @@ RSpec.describe 'application show page' do
         expect(current_path).to eq("/pets/#{@pet_1.id}")
       end
     end
-  end
 
-  describe 'can search for and add pets to application' do
+    describe 'can search for and add pets to application' do
+      it 'can search for a pet' do
+        visit "/applications/#{@application.id}"
+        expect(page).to have_content("Add a Pet to this Application")
+        expect(page).to_not have_content("Bark Hamill")
 
-    it 'can search for a pet' do
-      visit "/applications/#{@application.id}"
-      expect(page).to have_content("Add a Pet to this Application")
+        fill_in("Search", with: "Bark")
+        
+        click_on 'Submit'
+      
+        expect(current_path).to eq("/applications/#{@application.id}")
+        expect(page).to have_content("Bark Hamill")
+      end
 
-      expect(page).to_not have_content("Bark Hamill")
+      it 'can click button to add pet to adoption application' do
+        visit "/applications/#{@application.id}"
 
-      fill_in("Search", with: "Bark")
-      click_on 'Submit'
+        fill_in("Search", with: "Bark")
 
-      expect(current_path).to eq("/applications/#{@application.id}")
-      expect(page).to have_content("Bark Hamill")
+        click_on 'Submit'
+
+        click_on 'Adopt this Pet'
+
+        expect(current_path).to eq("/applications/#{@application.id}")
+        expect(page).to have_content("Bark Hamill")
+      end
     end
 
-    it 'can click button to add pet to adoption application' do
-      visit "/applications/#{@application.id}"
-      fill_in("Search", with: "Bark")
-      click_on 'Submit'
+    describe 'When I have added one or more pets to the application' do
+      describe 'I see a section to submit my application' do
+        it 'has a form to submit a description of why applicant would be a good home for pet' do
+          visit "/applications/#{@application.id}"
 
-      click_on 'Adopt this Pet'
+          fill_in("Search", with: "Bark")
+          click_on 'Submit'
+          click_on 'Adopt this Pet'
 
-      expect(current_path).to eq("/applications/#{@application.id}")
-      expect(page).to have_content("Bark Hamill")
+          expect(page).to have_content("Please describe why you would make a good home for this pet")
 
+          fill_in("Please describe why you would make a good home for this pet", with: "I love animals")
+
+          click_on("Submit")
+
+          expect(current_path).to eq("applications/#{@application.id}")
+        end
+
+        it 'marks application as pending'
+
+        it 'shows all the pets interested in on the adoption application'
+
+        it 'does not show a section to add more pets'
+      end
     end
-
   end
-
-
-
 end
