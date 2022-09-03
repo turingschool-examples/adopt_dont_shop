@@ -3,3 +3,8 @@
 <% @shelters.each do |shelter|%>
 <h3><%= shelter.name %></h3>
 <% end %>
+
+<div id="#pending_shelters" >
+<% @pending_shelters.each do |shelter| %>
+<h3><%= shelter.name %></h3>
+<% end %>
