@@ -25,15 +25,15 @@ RSpec.describe 'new application' do
         fill_in('Zip Code', with: '45678')
         fill_in('Description', with: 'We love raccoons and would like more please.')
         click_on("Submit")
-        # @app = App.find_by( name:"Gob Beldof")
-        # # Then I am taken to the new application's show page
-        # expect(current_path).to eq("/apps/#{@app.id}")
-        # # And I see my Name, address information, description of why I would make a good home
-        # expect(page).to have_content('Gob Beldof')
-        # expect(page).to have_content('123 Sesame St')
-        # expect(page).to have_content('We love raccoons and would like more please.')
-        # # And I e an indicator that this application is "In Progress"
-        # expect(page).to have_content('In Progress')
+        @app = App.find_by( name:"Gob Beldof")
+        # Then I am taken to the new application's show page
+        expect(current_path).to eq("/apps/#{@app.id}")
+        # And I see my Name, address information, description of why I would make a good home
+        expect(page).to have_content('Gob Beldof')
+        expect(page).to have_content('123 Sesame St')
+        expect(page).to have_content('We love raccoons and would like more please.')
+        # And I e an indicator that this application is "In Progress"
+        expect(page).to have_content('In Progress')
     end
 
 end

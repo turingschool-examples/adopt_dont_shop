@@ -7,4 +7,18 @@ class AppsController < ApplicationController
       @app.adopt(@new_pet)
     end
   end
+
+  def new
+  end
+
+  def create
+    @app = App.create!(app_params)
+
+    redirect_to "/apps/#{@app.id}"
+  end
+
+  private
+  def app_params
+    params.permit(:name, :address, :city, :state, :zip_code, :description)
+  end
 end
