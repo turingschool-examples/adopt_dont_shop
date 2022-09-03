@@ -35,4 +35,10 @@ class Shelter < ApplicationRecord
   def shelter_pets_filtered_by_age(age_filter)
     adoptable_pets.where('age >= ?', age_filter)
   end
+
+  def self.find_pending_apps
+    # require 'pry' ; binding.pry
+  end
+
+
 end
