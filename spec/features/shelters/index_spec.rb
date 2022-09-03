@@ -66,8 +66,9 @@ RSpec.describe 'the shelters index' do
     within "#shelter-#{@shelter_3.id}" do
       expect(page).to have_link("Update #{@shelter_3.name}")
     end
-
+    
     click_on("Update #{@shelter_1.name}")
+   
     expect(page).to have_current_path("/shelters/#{@shelter_1.id}/edit")
   end
 
