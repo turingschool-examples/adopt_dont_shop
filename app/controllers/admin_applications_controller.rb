@@ -1,7 +1,6 @@
 class AdminApplicationsController < ApplicationController
 
   def show
-    require 'pry' ; binding.pry
-    @pending_pets 
+    @pending_pets = PetApplication.pending_pets
   end
 end
