@@ -19,7 +19,7 @@ RSpec.describe 'the application show' do
     expect(page).to have_content(@app_1.state)
     expect(page).to have_content(@app_1.zip_code)
     expect(page).to have_content(@app_1.description)
-    expect(page).to have_content(@app_1.status)
+    expect(page).to have_content("In Progress")
     expect(page).to have_content(@pet_1.name)
     
 
@@ -54,10 +54,13 @@ RSpec.describe 'the application show' do
         click_button("Search Pets By Name")
         
         click_on "Adopt This Pet"
+
+        expect(page).to have_content('Scooby')
     end
   end
 
   it 'shows the filled out application with pending status and the pets the user wants to adopt' do
+    within("#submitForm")
     visit "/applications/#{@app_1.id}"
     fill_in 'What Would Make You A Great Owner?', with: "#{@app_1.description}"
 
