@@ -52,4 +52,18 @@ RSpec.describe 'the applicants show' do
 
     expect(page).to have_content(@applicant.status)
   end
+
+  it "When I search for a Pet by name I see the names Pets that match my search, next to each Pet's name I see a button to 'Adopt this Pet'"
+  visit "/applicants/#{@applicant.id}"
+    fill_in("street_address", with: "567 Fake Street")
+    
+    click_button('Submit')
+    
+    expect(current_path).to eq("/applicants/new")
+    expect(page).to have_content("Missing Required Info")
+
+
+
+  it "When I click one of these 'Adopt this Pet' buttons I am taken back to the application show page and I see the Pet I want to adopt listed on this application"
+  visit "/applicants/#{@applicant.id}"
 end
