@@ -11,6 +11,15 @@ class ApplicationsController < ApplicationController
   def new
   end
 
+  def update
+    @application = Application.find(params[:id])
+    @application.description = params[:description]
+    @application.status = "Pending"
+    @application.save
+
+    redirect_to "/applications/#{@application.id}"
+  end
+
   def create
     @application = Application.new(application_params)
     @application[:status] = "In Progress"

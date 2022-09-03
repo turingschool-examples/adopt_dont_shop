@@ -6,14 +6,16 @@
 
 <p>Status: <%= @application.status %></p>
 
+<%if @application.status != "Pending" %>
+<div id= "searching_for_pets" >
  <h4><%= "Add a Pet to this Application" %> </h4>
-
  <%= form_with url:"/applications/#{@application.id}", method: :get, local: true do |form|  %>
-
   <p><%= form.label :desired_pet, "Search for pet by name:", require: :true %></p>
   <%= form.text_field :desired_pet %>
   <%= form.submit "Search for Pet" %> 
   <% end %>
+  </div>
+  <%end%>
 
   <% @pets.each do |pet| %>
   <div id= "pet_<%=pet.id%>">
@@ -22,9 +24,19 @@
   </div>
   <% end %>
 
- <% @application.pets.each do |app_pet| %>
+ <p><% @application.pets.each do |app_pet| %></p>
  <div id= "pet_<%=app_pet.id%>">
   <p><%= app_pet.name %></p>
-  </div>
+</div>
   <p><% end %></p>
+
+<%if @application.pets.first != nil %>
+<div id= "submission_section">
+ <%= form_with url: "/applications/#{@application.id}", to: 'applications#update', method: :patch, local: true do |form|  %>
+  <p><%= form.label :description, "Please describe why you would like to adopt these pets."%></p>
+ <p> <%= form.text_field :description, size: 90 %></p>
+ <p> <%= form.submit "Submit My Application" %> </p>
+  <p><% end %></p>
+ </div>
+ <% end %>
 
