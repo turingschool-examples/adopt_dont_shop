@@ -36,6 +36,7 @@
     <li id="pet_<%=pet.id%>" ><%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
       <% if !pet.pet_status  %>
         <%= button_to "Approve #{pet.name} Adoption", params: {pet_status: "Adoption Approved", pet_id: pet.id} %>
+        <%= button_to "Reject #{pet.name} Adoption", params: {pet_status: "Adoption Rejected", pet_id: pet.id} %>
       <% else %>
         <%= pet.pet_status %>
       <% end  %>

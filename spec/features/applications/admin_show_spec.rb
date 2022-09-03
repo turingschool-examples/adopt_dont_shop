@@ -23,7 +23,6 @@ RSpec.describe 'Approving/rejecting applications' do
       it 'for every pet on app there is a button to approve adoption of specific pet' do
         visit "/admin/applications/#{@app1.id}"
 
-        # pets = [@pet1, @pet4, @pet5]
         @app1.pets.each do |pet|
           within "#pet_#{pet.id}" do
             expect(page).to have_button("Approve #{pet.name} Adoption")
@@ -47,6 +46,35 @@ RSpec.describe 'Approving/rejecting applications' do
         within "#pet_#{@pet4.id}" do
           expect(page).to have_content("Adoption Approved")
           expect(page).to_not have_button("Approve #{@pet4.name} Adoption")
+        end
+      end
+
+      it 'for every pet on app there is a button to reject adoption of specific pet' do
+        visit "/admin/applications/#{@app1.id}"
+
+        @app1.pets.each do |pet|
+          within "#pet_#{pet.id}" do
+            expect(page).to have_button("Reject #{pet.name} Adoption")
+          end
+        end
+      end
+
+      it 'when adoption rejected is clicked taken back to admin/app/:id' do
+        visit "/admin/applications/#{@app1.id}"
+
+        click_button "Reject #{@pet4.name} Adoption"
+
+        expect(current_path).to eq("/admin/applications/#{@app1.id}")
+      end
+
+      it "when adoption rejected is clicked do not see button instead show 'rejected'" do
+        visit "/admin/applications/#{@app1.id}"
+
+        click_button "Reject #{@pet4.name} Adoption"
+
+        within "#pet_#{@pet4.id}" do
+          expect(page).to have_content("Adoption Rejected")
+          expect(page).to_not have_button("Reject #{@pet4.name} Adoption")
         end
       end
     end
