@@ -16,7 +16,8 @@
 
 <% if @pets != nil %>
   <% @pets.each do |pet| %>
-    <%= pet.name %>
+    <p> <%= pet.name %> </p>
+    <%= button_to "Adopt this Pet", "/applicants/#{@applicant.id}", method: :patch, id: "#{pet.id}", params: {pet_id: "#{pet.id}"}, local: true %>
   <% end %>
 <% end %>
 
