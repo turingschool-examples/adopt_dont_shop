@@ -9,6 +9,7 @@ class ApplicantsController < ApplicationController
 
   def create
     @applicant = Applicant.create!(app_params)
+    redirect_to "/applicants/#{@applicant.id}"
   end
 
 private
