@@ -1,5 +1,5 @@
-<h1> New Application </h1>  #vv this needs fixed
-<%= form_with url: "/applicants", method: :post, local: true do |f| %>
+<h1> New Application </h1>
+<%= form_with url: "/applicants/:id", method: :post, local: true do |f| %>
   <%= f.label :first_name %>
   <%= f.text_field :first_name %>
 
@@ -18,8 +18,8 @@
   <%= f.label :zip_code %>
   <%= f.number_field :zip_code %>
 
-  <%= f.label :City %>
-  <%= f.check_box :adoptable, value: true %>
+  <%= f.label :description %>
+  <%= f.number_field :description %>
 
-  <%= f.submit "Create Application"%> #should route to new app
+  <%= f.submit "Create Application"%> 
 <% end %>
