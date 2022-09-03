@@ -27,6 +27,7 @@ RSpec.describe Application, type: :model do
 
   it 'searches for a pet' do
     expect(@app_1.search_pet("fr")).to eq([@pet_2])
+    expect(@app_2.search_pet("g")).to eq([@pet_3])
   end
 
 end

@@ -38,13 +38,11 @@ RSpec.describe 'the application show' do
     end
 
     it 'searches for a pet' do
-      fill_in('Search', with: 'gil')
+      fill_in('Search', with: 'scoo')
       click_button("Search Pets By Name")
-      # binding.pry
-      # save_and_open_page
-      # expect(page).to have_content(@pet_2.name)
-      # expect(page).to have_content(@pet_2.age)
-      # expect(page).to_not have_content(@pet_1.name) 
+      
+      expect(page).to have_content(@pet_1.name)
+      expect(page).to_not have_content(@pet_2.name) 
     end
 
 
