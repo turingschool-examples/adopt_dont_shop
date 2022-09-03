@@ -1,0 +1,7 @@
+<h1>This is the show page</h1>
+
+<% @pending_pets.each do |pet| %>
+<%= pet.name  %>
+<p><%= button_to "Approve This Pet", "path", method: :post %></p>
+
+<%% end %>
