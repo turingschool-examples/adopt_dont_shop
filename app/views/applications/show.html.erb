@@ -30,7 +30,7 @@
 </div>
   <p><% end %></p>
 
-<%if @application.pets.first != nil %>
+<%if @application.status == "In Progress" %>
 <div id= "submission_section">
  <%= form_with url: "/applications/#{@application.id}", to: 'applications#update', method: :patch, local: true do |form|  %>
   <p><%= form.label :description, "Please describe why you would like to adopt these pets."%></p>
