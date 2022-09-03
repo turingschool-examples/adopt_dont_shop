@@ -67,7 +67,19 @@ RSpec.describe 'the applicants show' do
     expect(page).to have_button("Submit")
   end
 
-  it 'I fill in this field with a Pets name and click submit'
-   it 'when I click submit I am taken back to the application show page'
-    it 'under the search bar I see any Pet whose name matches my search'
+  it 'I fill in the field and click submit then I see the Pet I searched' do
+    pet_3 = Pet.create!(name: 'Frank', age: 10,
+      breed: 'Lab', adoptable: true, shelter_id: @shelter.id)
+    pet_4 = Pet.create!(name: 'Gizmo', age: 8,
+      breed: 'Bulldog', adoptable: true, shelter_id: @shelter.id)
+    visit "/applicants/#{@applicant.id}"
+
+    fill_in "Search pet's name", with: "Frank"
+    click_on("Submit")
+
+    expect(current_path).to eq("/applicants/#{@applicant.id}")
+    expect(page).to have_content(pet_3.name)
+    save_and_open_page
+    expect(page).to_not have_content(pet_4.name)
+  end
 end
