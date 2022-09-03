@@ -25,13 +25,13 @@
 <h3> Add a Pet to this Application</h3>
   <%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |f| %>
     <%= f.label :pet_name %>:
-    <%= f.text_field :pet_name %>
+    <%= f.text_field :pet_name, value: params[:pet_name] %>
     <%= f.submit "Search" %>
   <% end %>
   <% end %>
 
 <% @pets.each do |pet| %>
-  <p><%= pet.name %><%= button_to 'Adopt this Pet', "/applications/#{@application.id}/add_pets/#{pet.id}" %></p>
+  <p><%= pet.name %><%= button_to 'Adopt', "/applications/#{@application.id}/add_pets/#{pet.id}" %></p>
 <% end %><br>
 
 <p>Application status: <%= @application.status %></p>

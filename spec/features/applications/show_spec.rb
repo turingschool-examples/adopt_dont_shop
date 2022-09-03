@@ -79,15 +79,16 @@ RSpec.describe("Applications show page") do
 
     describe 'Story 6' do
       it 'can see a button to adopt the pet after searching by name and to add to adoptable pets' do
+        @baldy = Pet.create!(adoptable: true, age: 9, breed: 'cat', name: 'Baldy', shelter_id: @shelter.id)
         visit "/applications/#{@jimmy_application.id}"
 
         fill_in 'pet_name', with: 'Baldy'
         expect(page).to have_button('Search')
         click_button('Search')
 
-        expect(page).to have_button('Adopt this Pet')
-        click_button('Adopt this Pet')
-        expet(current_path).to eq("/applications/#{@jimmy_application.id}/add_pets/#{@baldy.id}")
+        expect(page).to have_button('Adopt')
+        click_button('Adopt')
+        expect(current_path).to eq("/applications/#{@jimmy_application.id}/add_pets/#{@baldy.id}")
       end
     end
 

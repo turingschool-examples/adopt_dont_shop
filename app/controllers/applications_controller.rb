@@ -9,8 +9,8 @@ class ApplicationsController < ApplicationController
       @pets = Pet.search(params[:pet_name])
     elsif params[:pet_id]
       pet = Pet.where(id: params[:pet_id])
-      @applicant.pets << pet
-      @pets = []
+      @application.pets << pet
+      @pets = @application.pets
       redirect_to "/applications/#{@application.id}"
     else
       @pets =[]
