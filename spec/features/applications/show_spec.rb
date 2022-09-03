@@ -121,7 +121,6 @@ RSpec.describe 'application show page', type: :feature do
           within("#pet_#{@pet1.id}") do
             click_button('Adopt this Pet')
           end
-
           fill_in('Search for pet by name:', with: 'Butters')
           click_on('Search for Pet')
           within("#pet_#{@pet3.id}") do
@@ -148,7 +147,7 @@ RSpec.describe 'application show page', type: :feature do
             within("#pet_#{@pet3.id}") do
             click_button('Adopt this Pet')
             end
-
+            
           fill_in('Please describe why you would like to adopt these pets.', with: 'I think I would make a great pet owner.')
           click_on('Submit My Application')
 
@@ -195,7 +194,6 @@ RSpec.describe 'application show page', type: :feature do
 
           fill_in('Please describe why you would like to adopt these pets.', with: 'I think I would make a great pet owner.')
           click_on('Submit My Application')
-          save_and_open_page
 
           expect(page).to have_content("Fluffy")
           expect(page).to have_content("Butters")
@@ -227,7 +225,6 @@ RSpec.describe 'application show page', type: :feature do
       
       it "I do not see a button submit my application until I have selected pets" do
         visit "/applications/#{@application1.id}"
-  
         expect(page).to_not have_button("Submit My Application")
 
         fill_in('Search for pet by name:', with: 'Fluffy')
