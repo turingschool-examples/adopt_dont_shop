@@ -7,6 +7,7 @@ RSpec.describe 'the applicants show' do
     @pet = @applicant.pets.create!(name: 'Scooby', age: 2, breed: 'Great Dane', adoptable: true, shelter_id: @shelter.id)
     @pet_2 = @applicant.pets.create!(name: 'Jake', age: 5, breed: 'Pug', adoptable: true, shelter_id: @shelter.id)
   end
+
   describe 'applicant info' do
     it "shows the name of the applicant" do
       visit "/applicants/#{@applicant.id}"
@@ -52,53 +53,64 @@ RSpec.describe 'the applicants show' do
 
       expect(page).to have_content(@applicant.status)
     end
-end
+  end
 
   describe 'pet search' do 
     before :each do
-      pet_3 = Pet.create!(name: 'Frank', age: 10,
+      @pet_3 = Pet.create!(name: 'Frank', age: 10,
         breed: 'Lab', adoptable: true, shelter_id: @shelter.id)
-      pet_4 = Pet.create!(name: 'Gizmo', age: 8,
+      @pet_4 = Pet.create!(name: 'Gizmo', age: 8,
         breed: 'Bulldog', adoptable: true, shelter_id: @shelter.id)
-      visit "/applicants/#{@applicant.id}"
     end
+
     it 'I see a section on the page to add a pet to this application' do
+      visit "/applicants/#{@applicant.id}"
 
       expect(page).to have_content("Add a Pet to This Application")
     end
 
     it 'In that section I see an input where I can search for Pets by name' do
+      visit "/applicants/#{@applicant.id}"
 
       expect(page).to have_content("Search pet's name")
       expect(page).to have_button("Submit")
     end
 
     it 'I fill in the field and click submit then I see the Pet I searched' do
+      visit "/applicants/#{@applicant.id}"
       
       fill_in "Search pet's name", with: "Frank"
       click_on("Submit")
 
       expect(current_path).to eq("/applicants/#{@applicant.id}")
-      expect(page).to have_content(pet_3.name)
-      save_and_open_page
-      expect(page).to_not have_content(pet_4.name)
+      expect(page).to have_content(@pet_3.name)
+      expect(page).to_not have_content(@pet_4.name)
     end
 
     it "When I search for a Pet by name I see the names Pets that match my search, next to each Pet's name I see a button to 'Adopt this Pet'" do
+      visit "/applicants/#{@applicant.id}"
 
       fill_in "Search pet's name", with: "Frank"
       click_on("Submit")
 
-      expect(page).to have_button("Adopt this Pet" id: pet_3.id)
-      save_and_open_page
+      expect(page).to have_button('Adopt this Pet')
+      expect(find_button({value:'Adopt this Pet', id:"#{@pet_3.id}"}).visible?).to be true
+      # save_and_open_page
       # expect(page).to_not have_content(pet_4.name)
-
-
     end
 
 
 
-    it "When I click one of these 'Adopt this Pet' buttons I am taken back to the application show page and I see the Pet I want to adopt listed on this application"
-    visit "/applicants/#{@applicant.id}"
+    it "When I click one of these 'Adopt this Pet' buttons I am taken back to the application show page and I see the Pet I want to adopt listed on this application" do
+     visit "/applicants/#{@applicant.id}"
+
+      fill_in "Search pet's name", with: "Frank"
+      click_on("Submit")
+      click_on("Adopt this Pet")
+
+      expect(current_path).to eq("/applicants/#{@applicant.id}")
+      expect(page).to have_content(@pet_3.name)
+      expect(find_link("#{@pet_3.name}").visible?).to be true
+    end
   end
 end

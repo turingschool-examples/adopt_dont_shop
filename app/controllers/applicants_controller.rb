@@ -4,7 +4,6 @@ class ApplicantsController < ApplicationController
     @applicant = Applicant.find(params[:id])
     if params[:search].present?
       @pets = Pet.search(params[:search])
-      
     end
   end
 
@@ -20,6 +19,13 @@ class ApplicantsController < ApplicationController
       @applicant = Applicant.create!(applicant_params)
       redirect_to "/applicants/#{@applicant.id}"
     end
+  end
+
+  def update
+    @applicant = Applicant.find(params[:id])
+    @pet = Pet.find(params[:pet_id])
+    @applicant.pets << @pet
+    redirect_to "/applicants/#{@applicant.id}"
   end
 
   private
