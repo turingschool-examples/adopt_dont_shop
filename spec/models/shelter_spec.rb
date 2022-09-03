@@ -25,7 +25,7 @@ RSpec.describe Shelter, type: :model do
 
   describe 'class methods' do
     describe '#find_pending_apps' do
-      xit 'returns the name of each shelter that has a pending applcication' do
+      it 'returns the name of each shelter that has a pending applcication' do
         application1 = Application.create!(first_name: "Samantha", last_name: "Smith", street_address: "123 Mulberry Street", city: "Denver", state: "CO", zip_code: 20202, description: "I would like this dog for these reasons.", status: "Pending")
         mrpirate_app = PetApplication.create!(pet: @pet_1, application: application1)
 
@@ -35,7 +35,7 @@ RSpec.describe Shelter, type: :model do
         application3 = Application.create!(first_name: "Molly", last_name: "Johnson", street_address: "123 Stuart Street", city: "Baton Rouge", state: "CO", zip_code: 88263, description: "I would really like a dog!", status: "In Progress")
         licille_app = PetApplication.create!(pet: @pet_3, application: application3)
 
-        expect(Shelter.find_pending_apps).to eq([application1, application2])
+        expect(Shelter.find_pending_apps).to eq([@shelter_1])
       end
     end
 

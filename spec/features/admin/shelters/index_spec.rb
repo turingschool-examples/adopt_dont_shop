@@ -26,7 +26,7 @@ RSpec.describe 'the admin shelters index' do
     expect(page).to have_content(@shelter_3.name)
   end
 
-    xit 'I see the name of one shelter that has a pending application' do
+    it 'I see the name of one shelter that has a pending application' do
       visit "/applications/#{@application1.id}"
       fill_in('Search for pet by name:', with: 'Mr. Pirate')
       click_on('Search for Pet')
@@ -45,14 +45,14 @@ RSpec.describe 'the admin shelters index' do
       end
     end
 
-    xit 'I see the name of every shelter that has a pending application' do
+    it 'I see the name of every shelter that has a pending application' do
       visit "/applications/#{@application1.id}"
       fill_in('Search for pet by name:', with: 'Mr. Pirate')
       click_on('Search for Pet')
       within("#pet_#{@pet1.id}") do
         click_button("Adopt this Pet")
       end
-  
+
       fill_in('Please describe why you would like to adopt these pets.', with: 'I think I would make a great pet owner.')
       click_on('Submit My Application')
 
@@ -62,7 +62,7 @@ RSpec.describe 'the admin shelters index' do
       within("#pet_#{@pet2.id}") do
         click_button("Adopt this Pet")
       end
-  
+
       fill_in('Please describe why you would like to adopt these pets.', with: 'I would love this animal!')
       click_on('Submit My Application')
 
@@ -72,12 +72,12 @@ RSpec.describe 'the admin shelters index' do
       within("#pet_#{@pet3.id}") do
         click_button("Adopt this Pet")
       end
-  
+
       fill_in('Please describe why you would like to adopt these pets.', with: 'Please give me this pet!')
       click_on('Submit My Application')
 
       visit "/admin/shelters"
-  
+
       within("#pending_shelters") do
         expect(page).to have_content('Aurora shelter')
         expect(page).to_not have_content('RGV animal shelter')
