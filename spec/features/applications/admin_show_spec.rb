@@ -106,5 +106,22 @@ RSpec.describe 'Approving/rejecting applications' do
         end
       end
     end
+
+    describe 'when all pets are approved for an application' do
+      it 'reloads the admin app show page where the app status has changed to approved' do
+        visit "/admin/applications/#{@app2.id}"
+
+        within "#application_#{@app2.id}" do
+          expect(page).to_not have_content("Approved")
+        end
+
+        click_button "Approve #{@pet1.name} Adoption"
+        click_button "Approve #{@pet5.name} Adoption"
+
+        within "#application_#{@app2.id}" do
+          expect(page).to have_content("Approved")
+        end
+      end
+    end
   end
 end
