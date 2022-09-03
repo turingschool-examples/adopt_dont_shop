@@ -24,6 +24,22 @@ RSpec.describe Shelter, type: :model do
   end
 
   describe 'class methods' do
+    describe '#find_pending_apps' do
+      it 'returns the name of each shelter that has a pending applcication' do
+        application1 = Application.create!(first_name: "Samantha", last_name: "Smith", street_address: "123 Mulberry Street", city: "Denver", state: "CO", zip_code: 20202, description: "I would like this dog for these reasons.", status: "Pending")
+        mrpirate_app = PetApplication.create!(pet: @pet_1, application: application1)
+
+        application2 = Application.create!(first_name: "Peter", last_name: "Pinckens", street_address: "123 Pineapple Street", city: "Denver", state: "CO", zip_code: 72641, description: "I would really like an animal to keep me company", status: "Pending")
+        clawdia_app = PetApplication.create!(pet: @pet_2, application: application2)
+
+        application3 = Application.create!(first_name: "Molly", last_name: "Johnson", street_address: "123 Stuart Street", city: "Baton Rouge", state: "CO", zip_code: 88263, description: "I would really like a dog!", status: "In Progress")
+        licille_app = PetApplication.create!(pet: @pet_3, application: application3)
+
+        expect(Shelter.find_pending_apps).to eq([application1, application2])
+      end
+    end
+
+
     describe '#search' do
       it 'returns partial matches' do
         expect(Shelter.search("Fancy")).to eq([@shelter_3])
