@@ -2,6 +2,10 @@ class ApplicantsController < ApplicationController
 
   def show
     @applicant = Applicant.find(params[:id])
+    if params[:search].present?
+      @pets = Pet.search(params[:search])
+      
+    end
   end
 
   def new
@@ -13,16 +17,16 @@ class ApplicantsController < ApplicationController
       redirect_to "/applicants/new"
       flash.alert = "Missing Required Info"
     else
-      Applicant.create!(applicant_params)
+      @applicant = Applicant.create!(applicant_params)
       redirect_to "/applicants/#{@applicant.id}"
     end
   end
 
   private
 
-  def applicant_params 
-  #  params.permit(:first_name, :last_name, :street_address, :city, :state, :zip, :status, :description) 
-   begin 
+  def applicant_params
+  #  params.permit(:first_name, :last_name, :street_address, :city, :state, :zip, :status, :description)
+   begin
     params.require(:first_name)
     params.require(:last_name)
     params.require(:street_address)
