@@ -47,11 +47,11 @@ RSpec.describe 'application show page', type: :feature do
       click_on('Search for Pet')
       
       within("#pet_#{@pet1.id}") do
-      expect(page).to have_content("Adopt this Pet")
+      expect(page).to have_button("Adopt this Pet")
     end
 
     within("#pet_#{@pet4.id}") do
-      expect(page).to have_content("Adopt this Pet")
+      expect(page).to have_button("Adopt this Pet")
     end
 
     end
@@ -64,10 +64,12 @@ RSpec.describe 'application show page', type: :feature do
       click_on('Search for Pet')
       
       within("#pet_#{@pet1.id}") do
-        click_on('Adopt this Pet')
-
+        click_button('Adopt this Pet')
       end
+
       expect(current_path).to eq("/applications/#{@application1.id}")
+    
+
       expect(page).to have_content("Fluffy")
     end
     

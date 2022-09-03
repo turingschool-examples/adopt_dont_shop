@@ -18,7 +18,7 @@
   <% @pets.each do |pet| %>
   <div id= "pet_<%=pet.id%>">
   <p><%= link_to "#{pet.name}", "/pets/#{pet.id}" %></p>
-  <p><%= link_to "Adopt this Pet", "/pet_applications/#{pet.id}/#{@application.id}", method: :post %></p>
+  <p><%= button_to "Adopt this Pet", "/pet_applications/#{pet.id}/#{@application.id}", method: :post %></p>
   </div>
   <% end %>
 
