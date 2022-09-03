@@ -19,29 +19,29 @@ RSpec.describe 'the applicants show' do
   it 'shows the full Address of the Applicant including street address, city, state, and zip code' do
     visit "/applicants/#{@applicant.id}"
 
-    
+
     expect(page).to have_content(@applicant.street_address)
     expect(page).to have_content(@applicant.city)
     expect(page).to have_content(@applicant.state)
     expect(page).to have_content(@applicant.zip)
   end
-  
+
   it 'shows the description of why the applicant says they would be a good home for this pets' do
     visit "/applicants/#{@applicant.id}"
-    
+
     expect(page).to have_content(@applicant.description)
   end
-  
-  it 'names of all pets that this application is for (all names of pets should be links to their show page)' do 
+
+  it 'names of all pets that this application is for (all names of pets should be links to their show page)' do
     visit "/applicants/#{@applicant.id}"
-    
+
     within("#applicant-#{@applicant.id}") do
       expect(page).to have_content(@pet.name)
       expect(page).to have_content(@pet_2.name)
       expect(find_link("#{@pet.name}").visible?).to be true
       expect(find_link("#{@pet_2.name}").visible?).to be true
     end
-    
+
     click_link "#{@pet.name}"
     expect(current_path).to eq("/pets/#{@pet.id}")
 
@@ -52,4 +52,22 @@ RSpec.describe 'the applicants show' do
 
     expect(page).to have_content(@applicant.status)
   end
+
+
+  it 'I see a section on the page to add a pet to this application' do
+    visit "/applicants/#{@applicant.id}"
+
+    expect(page).to have_content("Add a Pet to This Application")
+  end
+
+  it 'In that section I see an input where I can search for Pets by name' do
+    visit "/applicants/#{@applicant.id}"
+
+    expect(page).to have_content("Search pet's name")
+    expect(page).to have_button("Submit")
+  end
+
+  it 'I fill in this field with a Pets name and click submit'
+   it 'when I click submit I am taken back to the application show page'
+    it 'under the search bar I see any Pet whose name matches my search'
 end
