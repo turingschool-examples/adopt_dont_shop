@@ -5,7 +5,8 @@ RSpec.describe 'the applications show page' do
     before(:each) do
       @application = Application.create!(first_name: "Jon", last_name: "Duttko", str_address: "1018 O St NW", city: "Washington", state: "DC", zip: 20001, home_description: "friendly", status: "Pending")
       @shelter = Shelter.create(name: 'Mystery Building', city: 'Irvine CA', foster_program: false, rank: 9)
-      @pet = Pet.create(name: 'Scooby', age: 2, breed: 'Great Dane', adoptable: true, shelter_id: @shelter.id)
+      @pet_1 = Pet.create(name: 'Scooby', age: 2, breed: 'Great Dane', adoptable: true, shelter_id: @shelter.id)
+      @application.pets << @pet_1
 
     end
 
@@ -21,6 +22,15 @@ RSpec.describe 'the applications show page' do
       expect(page).to have_content(@application.zip)
       expect(page).to have_content(@application.home_description)
       expect(page).to have_content(@application.status)
+    end
+
+    it "I see links for all the pet names that this application is for" do
+      visit "/applications/#{@application.id}"
+
+      save_and_open_page
+
+      expect(page).to have_link(href: "/pets/#{@pet_1.id}")
+
     end
   end
 end

@@ -16,5 +16,7 @@
 
 @application_1 = Application.create!(first_name: "Jon", last_name: "Duttko", str_address: "1018 O St NW", city: "Washington", state: "DC", zip: 20001, home_description: "friendly", status: "Pending")
 
+@application_1.pets << @pet_1
+
 # @application_1 = Application.create!(name: , address: , description: , pets_applied_for: , status: )
 
