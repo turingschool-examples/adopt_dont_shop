@@ -6,12 +6,13 @@ RSpec.describe 'application creation' do
       visit '/applicants/new'
 
       expect(page).to have_content("New Application")
-      expect(find('form')).to have_content('Name')
-      expect(find('form')).to have_content('Street Address')
+      expect(find('form')).to have_content('First name')
+      expect(find('form')).to have_content('Last name')
+      expect(find('form')).to have_content('Street address')
       expect(find('form')).to have_content('City')
       expect(find('form')).to have_content('State')
-      expect(find('form')).to have_content('Zip Code')
-      expect(page).to have_button("Submit Application")
+      expect(find('form')).to have_content('Zip code')
+      expect(page).to have_button("Create Application")
     end
   end
 
