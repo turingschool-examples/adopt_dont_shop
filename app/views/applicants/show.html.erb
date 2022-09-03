@@ -1,1 +1,15 @@
 <h2> Pet Application for <%= @applicant.first_name %> <%= @applicant.last_name %></h2>
+
+<p><b>Name: </b><%= @applicant.first_name %> <%= @applicant.last_name %></p>
+<p><b>Address: </b><%= @applicant.street_address %></p>
+<p><b>City: </b><%= @applicant.city %></p>
+<p><b>State: </b><%= @applicant.state %></p>
+<p><b>Zipcode: </b><%= @applicant.zipcode %></p>
+<p><b>Description: </b><%= @applicant.description %></p>
+<p><b>Application Status: </b><i><%= @applicant.status %></i></b></p><br>
+
+<h3> Pet(s) Applying for : </h3>
+
+  <% @applicant.pets.each do |pet| %>
+  <h4><%= link_to "#{pet.name}", "/pets/#{pet.id}" %></h4>
+  <% end %>
