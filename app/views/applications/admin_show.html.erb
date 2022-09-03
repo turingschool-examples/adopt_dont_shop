@@ -1,0 +1,45 @@
+<head>
+<style>
+  table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+  th, td {
+  padding: 15px;
+  text-align: center;
+}
+</style>
+</head>
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Address</th>
+    <th>Good Home Argument</th>
+    <th>Status</th>
+    <th>Created</th>
+    <th>Last updated</th>
+  </tr>
+  <tr id="application_<%= @application.id %>">
+    <td><%= "#{@application.fname} #{@application.lname}" %></td>
+    <td><%= "#{@application.street_address}" %><br><%= "#{@application.city}, #{@application.state} #{@application.zip_code}"%></td>
+    <td><%= @application.good_home_argument %></td>
+    <td><%= @application.status %></td>
+    <td><%= @application.created_at %></td>
+    <td><%= @application.updated_at %></td>
+  </tr>
+</table>
+
+<h3>Application for Pets</h3>
+<% if @application.status == "Pending" %>
+  <ul>
+  <% @application_pet_join.each do |pet| %>
+    <li id="pet_<%=pet.id%>" ><%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
+      <% if !pet.pet_status  %>
+        <%= button_to "Approve #{pet.name} Adoption", params: {pet_status: "Adoption Approved", pet_id: pet.id} %>
+      <% else %>
+        <%= pet.pet_status %>
+      <% end  %>
+    </li>
+  <% end %>
+  </ul>
+<% end %>
