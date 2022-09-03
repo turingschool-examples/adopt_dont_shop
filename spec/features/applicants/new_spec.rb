@@ -27,7 +27,7 @@ RSpec.describe 'the applicants new' do
     expect(page.has_field? "state").to be true
     expect(page.has_field? "zip").to be true
     expect(page.has_field? "description").to be true
-    find_button('Submit').visible?
+    find_button('Next Step').visible?
 
   end
 
@@ -42,7 +42,7 @@ RSpec.describe 'the applicants new' do
     fill_in("zip", with: 80205)
     fill_in("description", with: "I'm more awesome than John")
     
-    click_button('Submit')
+    click_button('Next Step')
 
     expect(current_path).to eq("/applicants/#{Applicant.last.id}")
 
@@ -54,7 +54,7 @@ RSpec.describe 'the applicants new' do
     
     fill_in("street_address", with: "567 Fake Street")
     
-    click_button('Submit')
+    click_button('Next Step')
     
     expect(current_path).to eq("/applicants/new")
     expect(page).to have_content("Missing Required Info")
