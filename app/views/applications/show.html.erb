@@ -16,7 +16,7 @@
 
  <h2> Add a Pet to this Application </h2>
 
-<%= form_with url: "/pets", method: :get, local: true do |f| %>
+<%= form_with url: "/applications/#{@application.id}?search=search_pet", method: :get, local: true do |f| %>
   <%= f.label :search %>
   <%= f.text_field :search %>
   <%= f.submit "Search Pets By Name" %>
