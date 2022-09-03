@@ -5,15 +5,16 @@ class ApplicationsController < ApplicationController
 
   def show
     @application = Application.find(params[:id])
+
     if params[:pet_name]
       @pets = Pet.search(params[:pet_name])
     elsif params[:pet_id]
-      pet = Pet.where(id: params[:pet_id])
+      pet = Pet.where(      id: params[:pet_id])
       @applicant.pets << pet
       @pets = []
-      redirect_to "/applications/#{@application.id}"
+      redirect_to("/applications/#{@application.id}")
     else
-      @pets =[]
+      @pets = []
     end
   end
 
@@ -21,10 +22,8 @@ class ApplicationsController < ApplicationController
   end
 
   def create
-
     #new_app = Application.create(application_params)
-    new_app = Application.create(    name: params[:name],     street_address: params[:street_address],     city: params[:city],     state: params[:state],     zip_code: params[:zip_code],     description: params[:description],     status: "In Progress")
-
+    new_app = Application.new(    name: params[:name],     street_address: params[:street_address],     city: params[:city],     state: params[:state],     zip_code: params[:zip_code],     description: params[:description],     status: "In Progress")
 
     if new_app.valid?
       new_app.update(      status: "In Progress")
