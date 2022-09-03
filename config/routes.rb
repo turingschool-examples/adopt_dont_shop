@@ -2,8 +2,9 @@ Rails.application.routes.draw do
   # root 'welcome#index'
   get '/', to: 'application#welcome'
   get '/applications/new', to: 'applications#new'
-  get '/applications/:id', to: 'applications#show'
+  get '/applications/:id', to: 'applications#show', as: "applications"
   post '/applications', to: 'applications#create'
+  patch '/applications/:id', to: 'applications#update'
 
   get '/shelters', to: 'shelters#index'
   get '/shelters/new', to: 'shelters#new'

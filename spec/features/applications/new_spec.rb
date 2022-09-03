@@ -57,13 +57,36 @@ RSpec.describe 'starting an application' do
 
       fill_in("search", with: "Indy")
       click_on("Search Pets")
-      save_and_open_page
 
       expect(current_path).to eq("/applications/#{Application.last.id}")
 
       expect(page).to have_content("Indy")
 
       expect(page).to_not have_content("Scooby")
+    end
+
+    it 'I see a link to adopt each pet' do
+      visit '/applications/new'
+
+        fill_in('First Name', with: 'Jon')
+        fill_in('Last Name', with: 'Duttko')
+        fill_in('Street Address', with: '1018 O Street NW')
+        fill_in('City', with: 'Washington')
+        fill_in('State', with: 'DC')
+        fill_in('Zip Code', with: '20001')
+        click_button('Create Application')
+
+      expect(page).to have_content("Add a Pet")
+
+      fill_in("search", with: "Indy")
+      click_on("Search Pets")
+
+      expect(page).to have_link("Adopt #{@pet_2.name}")
+
+      click_link("Adopt #{@pet_2.name}")
+
+      expect(current_path).to eq("/applications/#{Application.last.id}")
+      expect(page).to have_content("Indy")
     end
   end
 end
