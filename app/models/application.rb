@@ -13,10 +13,8 @@ class Application < ApplicationRecord
   #   Pets.select{ |pet| pet.name.include?(search) }
   # end
 
-  def self.search_pets_by_name(search_param)
-    select("applications.*, pets.id AS pets_count")
-      .joins("LEFT OUTER JOIN pets ON pets.application_id = applications.id")
-      .group("applications.id")
-      .order("pets_count DESC")
-  end
+  # def self.search_pets_by_name(search_param)
+  #
+  # end
+
 end

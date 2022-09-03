@@ -4,7 +4,7 @@ class ApplicationsController < ApplicationController
     @application = Application.find(params[:id])
     # require "pry"; binding.pry
     if params[:search]
-      @application = @application.show_matching_pets
+      @pets = Pet.search(params[:search])
     else
       @application = Application.find(params[:id])
     end

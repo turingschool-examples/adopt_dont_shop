@@ -18,3 +18,11 @@
   <%= form.text_field :search %>
   <%= form.submit "Submit" %>
 <% end %>
+
+<% if @pets != nil %>
+
+  <% @pets.each do |pet|%>
+    <p><%= pet.name %></p>
+  <% end %>
+
+<% end %>
