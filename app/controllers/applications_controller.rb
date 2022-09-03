@@ -1,13 +1,23 @@
 class ApplicationsController < ApplicationController
 
   def show
+    @pets = Application.find_desired_pets(params["desired_pet"])
     @application = Application.find(params[:id])
-    #binding.pry
-    #if a pet has been selected, then assign the variable to the associated pets
-    @pets = Application.find_associated_pets
+    if params[:commit] == "Search for Pet"
+    @pets = Application.find_desired_pets(params["desired_pet"])
+    end
   end
 
   def new
+  end
+
+  def update
+    @application = Application.find(params[:id])
+    @application.description = params[:description]
+    @application.status = "Pending"
+    @application.save
+
+    redirect_to "/applications/#{@application.id}"
   end
 
   def create
