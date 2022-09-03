@@ -22,12 +22,14 @@ class ApplicationsController < ApplicationController
   end
 
   def update
-    require 'pry'; binding.pry
+    application = Application.find(params[:id])
+    application.update(app_params)
+    redirect_to "/applications/#{application.id}"
   end
 
   private
 
   def app_params
-    params.permit(:fname, :lname, :street_address, :city, :state, :zip_code, :good_home_argument, :status)
+    params.permit(:id, :fname, :lname, :street_address, :city, :state, :zip_code, :good_home_argument, :status)
   end
 end

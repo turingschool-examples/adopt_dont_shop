@@ -121,7 +121,7 @@ RSpec.describe Pet, type: :model do
             fill_in 'Search For Your Future Pet!', with: 'na'
             click_button 'Search All Pets'
 
-            within "#application_pet_#{@pet2.id}" do
+            within "#search_pet_#{@pet2.id}" do
               expect(page).to have_button("Adopt this Pet")
             end
           end
@@ -132,7 +132,7 @@ RSpec.describe Pet, type: :model do
             fill_in 'Search For Your Future Pet!', with: 'na'
             click_button 'Search All Pets'
 
-            within "#application_pet_#{@pet2.id}" do
+            within "#search_pet_#{@pet2.id}" do
               click_button "Adopt this Pet"
             end
 
@@ -148,7 +148,7 @@ RSpec.describe Pet, type: :model do
 
             click_button 'Search All Pets'
 
-            within "#application_pet_#{@pet2.id}" do
+            within "#search_pet_#{@pet2.id}" do
               click_button "Adopt this Pet"
             end
 
@@ -158,39 +158,63 @@ RSpec.describe Pet, type: :model do
       end
 
       describe 'visit apps show page and added pets' do
-          it 'has section to submit application' do
-            visit "/applications/#{@app2.id}"
+        it 'has section to submit application' do
+          visit "/applications/#{@app2.id}"
 
-            fill_in 'Search For Your Future Pet!', with: 'na'
-            click_button 'Search All Pets'
+          fill_in 'Search For Your Future Pet!', with: 'na'
+          click_button 'Search All Pets'
 
-            within "#application_pet_#{@pet2.id}" do
-              click_button "Adopt this Pet"
-            end
-
-            expect(page).to have_content("Submit your Application")
-            expect(page).to have_content("Why I would make a good owner for these pet(s)")
-            expect(page).to have_button("Submit this Application")
+          within "#search_pet_#{@pet2.id}" do
+            click_button "Adopt this Pet"
           end
 
-          it 'when fill in and click submit button, taken back to show page with app status as pending' do
-            visit "/applications/#{@app2.id}"
+          expect(page).to have_content("Submit your Application")
+          expect(page).to have_content("Why I would make a good owner for these pet(s)")
+          expect(page).to have_button("Submit this Application")
+        end
 
-            fill_in 'Search For Your Future Pet!', with: 'na'
-            click_button 'Search All Pets'
+        it 'when fill in and click submit button, taken back to show page with app status as pending' do
+          visit "/applications/#{@app2.id}"
 
-            within "#application_pet_#{@pet2.id}" do
-              click_button "Adopt this Pet"
-            end
+          fill_in 'Search For Your Future Pet!', with: 'na'
+          click_button 'Search All Pets'
 
-            fill_in "Why I would make a good owner for these pet(s)", with: 'beacaslkdhjfghjkl'
-            click_button "Submit this Application"
-
-            expect(current_path).to eq("/applications/#{@app2.id}")
-            expect(page).to have_content("Pending")
-            expect(page).to have_content(@pet2.name)
-            expect(page).to_not have_content("Add a Pet to this Application")
+          within "#search_pet_#{@pet2.id}" do
+            click_button "Adopt this Pet"
           end
+
+          fill_in "Why I would make a good owner for these pet(s)", with: 'beacaslkdhjfghjkl'
+          click_button "Submit this Application"
+
+          expect(current_path).to eq("/applications/#{@app2.id}")
+          expect(page).to have_content("Pending")
+          expect(page).to have_content(@pet2.name)
+          expect(page).to_not have_content("Add a Pet to this Application")
+        end
+
+        it 'can only add a certain pet once to the application' do
+          visit "/applications/#{@app2.id}"
+
+          fill_in 'Search For Your Future Pet!', with: 'na'
+          click_button 'Search All Pets'
+
+          within "#search_pet_#{@pet2.id}" do
+            click_button "Adopt this Pet"
+          end
+
+          expect(@app2.pets.count).to eq(1)
+
+          visit "/applications/#{@app2.id}"
+
+          fill_in 'Search For Your Future Pet!', with: 'na'
+          click_button 'Search All Pets'
+
+          within "#search_pet_#{@pet2.id}" do
+            click_button "Adopt this Pet"
+          end
+
+          expect(@app2.pets.count).to eq(1)
+        end
       end
     end
   end
