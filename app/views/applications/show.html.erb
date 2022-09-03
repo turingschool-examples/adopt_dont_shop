@@ -23,6 +23,8 @@
 
   <% @pets.each do |pet|%>
     <p><%= pet.name %></p>
+    <%=button_to "Adopt this Pet", "/pet_applications/#{@application.id}/#{pet.id}", local: true, method: :post %>
+
   <% end %>
 
 <% end %>
