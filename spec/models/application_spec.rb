@@ -34,11 +34,8 @@ RSpec.describe Application, type: :model do
       it 'can return pets that match the inputted pet name' do
         expect(Application.find_desired_pets("Fluffy")).to eq([@pet1])
       end
-      it 'can return pets that partially match the inputted pet name' do
-        expect(Application.find_desired_pets("Fluff")).to eq([@pet1, @pet4])
-      end
       it 'can return pets that partially match the inputted pet name, ignoring case' do
-        expect(Application.find_desired_pets("Fluff")).to eq([@pet1, @pet4])
+        expect(Application.find_desired_pets("Fluff")).to eq([@pet1, @pet4, @pet5])
       end
     end
   end
