@@ -47,7 +47,7 @@ RSpec.describe 'Approving/rejecting applications' do
         visit "/admin/applications/#{@app1.id}"
 
         click_button "Approve #{@pet4.name} Adoption"
-
+        
         within "#pet_#{@pet4.id}" do
           expect(page).to have_content("Adoption Approved")
           expect(page).to_not have_button("Approve #{@pet4.name} Adoption")
