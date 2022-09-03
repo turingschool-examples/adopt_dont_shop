@@ -80,6 +80,8 @@ RSpec.describe("Applications show page") do
     describe 'Story 6' do
       it 'can see a button to adopt the pet after searching by name and to add to adoptable pets' do
         @baldy = Pet.create!(adoptable: true, age: 9, breed: 'cat', name: 'Baldy', shelter_id: @shelter.id)
+        @todd = Pet.create!(adoptable: false, age: 3, breed: 'alpaca', name: 'Todd', shelter_id: @shelter.id)
+
         visit "/applications/#{@jimmy_application.id}"
 
         fill_in 'pet_name', with: 'Baldy'
@@ -90,9 +92,46 @@ RSpec.describe("Applications show page") do
 
         click_button('Adopt')
         expect(current_path).to eq("/applications/#{@jimmy_application.id}")
+        expect(page).to have_content('Baldy')
+        expect(page).to_not have_content('Todd')
       end
     end
 
+    it 'can search for pets with only partial information of the name' do
+      @baldy = Pet.create!(adoptable: true, age: 9, breed: 'cat', name: 'Baldy', shelter_id: @shelter.id)
+      @todd = Pet.create!(adoptable: false, age: 3, breed: 'alpaca', name: 'Todd', shelter_id: @shelter.id)
+
+      visit "/applications/#{@jimmy_application.id}"
+      fill_in 'pet_name', with: 'al'
+      click_button('Search')
+      expect(page).to have_content('Baldy')
+      expect(page).to_not have_content('Todd')
+
+      visit "/applications/#{@jimmy_application.id}"
+      fill_in 'pet_name', with: 'd'
+      click_button('Search')
+
+      expect(page).to have_content('Baldy')
+      expect(page).to have_content('Todd')
+    end
+
+    it 'can search for pets and be case insensitive in the search' do
+      @baldy = Pet.create!(adoptable: true, age: 9, breed: 'cat', name: 'Baldy', shelter_id: @shelter.id)
+      @todd = Pet.create!(adoptable: false, age: 3, breed: 'alpaca', name: 'Todd', shelter_id: @shelter.id)
+
+      visit "/applications/#{@jimmy_application.id}"
+      fill_in 'pet_name', with: 'aL'
+      click_button('Search')
+      expect(page).to have_content('Baldy')
+      expect(page).to_not have_content('Todd')
+
+      visit "/applications/#{@jimmy_application.id}"
+      fill_in 'pet_name', with: 'D'
+      click_button('Search')
+
+      expect(page).to have_content('Baldy')
+      expect(page).to have_content('Todd')
+    end
 
   end
 end
