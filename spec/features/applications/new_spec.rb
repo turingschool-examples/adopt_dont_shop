@@ -39,6 +39,17 @@ RSpec.describe 'new application' do
             expect(page).to have_content("I'm lonely")
             expect(page).to have_content("In Progress")
           end
+
+          it 're-renders the application form if any fields are not filled in' do
+            visit '/applications/new'
+
+            fill_in("Name", with: "Shelby Waters")
+            fill_in("Street address", with: "274 West 11th St")
+
+            click_on "Submit"
+
+            expect(page).to have_content("Please fill in all fields")
+          end
         end
       end
     end
