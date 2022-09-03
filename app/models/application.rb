@@ -7,5 +7,4 @@ class Application < ApplicationRecord
   def search_pet(name)
     Pet.all.where("name ILIKE ?", "%#{name}%")
   end
- 
 end
