@@ -22,10 +22,16 @@ class ApplicantsController < ApplicationController
   end
 
   def update
-    @applicant = Applicant.find(params[:id])
-    @pet = Pet.find(params[:pet_id])
-    @applicant.pets << @pet
-    redirect_to "/applicants/#{@applicant.id}"
+    applicant = Applicant.find(params[:id])
+    
+    # require "pry"; binding.pry
+    if params[:pet_id] != nil
+      pet = Pet.find(params[:pet_id])
+      applicant.pets << pet
+    elsif params[:status] != nil
+      applicant.update({status: params[:status], description: params[:description]})
+    end
+    redirect_to "/applicants/#{applicant.id}"
   end
 
   private

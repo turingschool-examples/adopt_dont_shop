@@ -1,24 +1,47 @@
-<p><%= @applicant.first_name %> <%= @applicant.last_name %></p>
-<p> <%="#{@applicant.street_address} #{@applicant.city}, #{@applicant.state} #{@applicant.zip}"%></p>
-<p><%= @applicant.description %></p>
-<div id="applicant-<%= @applicant.id %>" ><% @applicant.pets.each do |pet|%>
-    <p><%= link_to "#{pet.name}", "/pets/#{pet.id}"%></p>
-<% end %></div>
-<%= @applicant.status%>
-<section>
-  <h1>Add a Pet to This Application</h1>
+<h2> Applicant info: </h2>
+<p>Name: <%= @applicant.first_name %> <%= @applicant.last_name %></p>
+<p>Address: <%="#{@applicant.street_address} #{@applicant.city}, #{@applicant.state} #{@applicant.zip}"%></p>
+<p>Why I would make a good home: <%= @applicant.description %></p>
+<p>Application Status: <%= @applicant.status%></p>
 
+<section>
+<% if @applicant.pets.count > 0 %>
+    <h3>Pets I want to Adopt: </h3>
+    <div id="applicant-<%= @applicant.id %>" ><% @applicant.pets.each do |pet|%>
+        <p><%= link_to "#{pet.name}", "/pets/#{pet.id}"%></p>
+    <% end %></div>
+
+    <% if @applicant.status == "In Progress"%>
+
+        <%= form_with url: "/applicants/#{@applicant.id}", method: :patch, local: true do |form| %>
+        <%= form.label :description, "Why would you make a good owner for these pet(s):" %>
+        <p><%= form.text_area :description, required: true %></p>
+        <%= form.hidden_field :status, value: "Pending" %>
+        <%= form.submit "Apply for these Pets" %>
+        <% end %>
+    <% end %>
+
+<% end %>
+</section>
+
+
+
+<section>
+<% if @applicant.status == "In Progress"%>
+  <h2>Add a Pet to This Application</h2>
+  
   <%= form_with url: "/applicants/#{@applicant.id}", method: :get, local: true do |form| %>
     <%= form.label :search, "Search pet's name" %>
     <%= form.text_field :search %>
-    <%= form.submit "Submit" %>
+    <%= form.submit "Search" %>
+  <% end %>
+  
+  <% if @pets != nil %>
+    <% @pets.each do |pet| %>
+        <p><%= pet.name %> </p>
+        <%= button_to "Adopt this Pet", "/applicants/#{@applicant.id}", method: :patch, id: "#{pet.id}", params: {pet_id: "#{pet.id}"}, local: true %>
+    <% end %>
   <% end %>
 
-<% if @pets != nil %>
-  <% @pets.each do |pet| %>
-    <p> <%= pet.name %> </p>
-    <%= button_to "Adopt this Pet", "/applicants/#{@applicant.id}", method: :patch, id: "#{pet.id}", params: {pet_id: "#{pet.id}"}, local: true %>
-  <% end %>
 <% end %>
-
 </section>

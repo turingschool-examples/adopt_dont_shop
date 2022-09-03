@@ -73,14 +73,14 @@ RSpec.describe 'the applicants show' do
       visit "/applicants/#{@applicant.id}"
 
       expect(page).to have_content("Search pet's name")
-      expect(page).to have_button("Submit")
+      expect(page).to have_button("Search")
     end
 
     it 'I fill in the field and click submit then I see the Pet I searched' do
       visit "/applicants/#{@applicant.id}"
       
       fill_in "Search pet's name", with: "Frank"
-      click_on("Submit")
+      click_on("Search")
 
       expect(current_path).to eq("/applicants/#{@applicant.id}")
       expect(page).to have_content(@pet_3.name)
@@ -91,12 +91,11 @@ RSpec.describe 'the applicants show' do
       visit "/applicants/#{@applicant.id}"
 
       fill_in "Search pet's name", with: "Frank"
-      click_on("Submit")
+      click_on("Search")
 
       expect(page).to have_button('Adopt this Pet')
       expect(find_button({value:'Adopt this Pet', id:"#{@pet_3.id}"}).visible?).to be true
       # save_and_open_page
-      # expect(page).to_not have_content(pet_4.name)
     end
 
 
@@ -105,31 +104,60 @@ RSpec.describe 'the applicants show' do
      visit "/applicants/#{@applicant.id}"
 
       fill_in "Search pet's name", with: "Frank"
-      click_on("Submit")
+      click_on("Search")
       click_on("Adopt this Pet")
 
       expect(current_path).to eq("/applicants/#{@applicant.id}")
       expect(page).to have_content(@pet_3.name)
       expect(find_link("#{@pet_3.name}").visible?).to be true
+    end
+
+    it "Before I have added one or more pets to the application, I do not see a section to submit my application." do 
+
+      applicant = Applicant.create!(first_name: 'Jimmy', last_name: 'Dough', street_address: '567 Fake Street', city: 'Denver', state: 'CO', zip: 80205, description: "I'm awesome", status: 'In Progress')
+
+      visit "/applicants/#{applicant.id}"
+
+      expect(page).to_not have_button('Apply for these Pets')
+    
     end
 
     it "Once I have added one or more pets to the application, then I see a section to submit my application and in that section I see an input to enter why I would make a good owner for these pet(s)" do 
-      visit "/applicants/#{@applicant.id}"
+      applicant = Applicant.create!(first_name: 'Jimmy', last_name: 'Dough', street_address: '567 Fake Street', city: 'Denver', state: 'CO', zip: 80205, description: "I'm awesome", status: 'In Progress')
 
-      expect(find_button('Apply for these Pets').visible?).to be false
+      visit "/applicants/#{applicant.id}"
 
       fill_in "Search pet's name", with: "Frank"
-      click_on("Submit")
+      click_on("Search")
       click_on("Adopt this Pet")
 
       expect(page).to have_button('Apply for these Pets')
-      expect(find_button({value:'Apply for these Pets', id:"#{@pet_3.id}"}).visible?).to be true
-
-      expect(current_path).to eq("/applicants/#{@applicant.id}")
-      expect(page).to have_content(@pet_3.name)
-      expect(find_link("#{@pet_3.name}").visible?).to be true
+      expect(current_path).to eq("/applicants/#{applicant.id}")
+      expect(page.has_field? "description").to be true
+      # expect(page).to have_content(@pet_3.name)
+      # expect(find_link("#{@pet_3.name}").visible?).to be true
     end
 
-    it "When I fill in that input and I click a button to submit this application I am taken back to the application's show page, and I see an indicator that the application is 'Pending', and I see all the pets that I want to adopt. I do not see a section to add more pets to this application"
+    it "When I fill in that input and I click a button to submit this application I am taken back to the application's show page, and I see an indicator that the application is 'Pending', and I see all the pets that I want to adopt. I do not see a section to add more pets to this application" do
+      applicant = Applicant.create!(first_name: 'Jimmy', last_name: 'Dough', street_address: '567 Fake Street', city: 'Denver', state: 'CO', zip: 80205, description: "I'm awesome", status: 'In Progress')
+
+      visit "/applicants/#{applicant.id}"
+
+      fill_in "Search pet's name", with: "Frank"
+      click_on("Search")
+      click_on("Adopt this Pet")
+      
+      fill_in "description", with: "I love cuddles with Frank"
+      click_on("Apply for these Pets")
+
+      expect(page).to have_content("Pending")
+      expect(page).to have_content(@pet_3.name)
+      expect(find_link("#{@pet_3.name}").visible?).to be true
+      
+      expect(page).to_not have_content("Search pet's name")
+      expect(page).to_not have_button("Search")
+      expect(page).to_not have_button('Apply for these Pets')
+
+    end
   end
 end
