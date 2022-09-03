@@ -30,11 +30,11 @@ RSpec.describe Shelter, type: :model do
       end
     end
 
-    describe '#order_by_recently_created' do
-      it 'returns shelters with the most recently created first' do
-        expect(Shelter.order_by_recently_created).to eq([@shelter_3, @shelter_2, @shelter_1])
-      end
-    end
+    # describe '#order_by_recently_created' do
+    #   it 'returns shelters with the most recently created first' do
+    #     expect(Shelter.order_by_recently_created).to eq([@shelter_3, @shelter_2, @shelter_1])
+    #   end
+    # end
 
     describe '#order_by_number_of_pets' do
       it 'orders the shelters by number of pets they have, descending' do
@@ -65,6 +65,12 @@ RSpec.describe Shelter, type: :model do
     describe '.pet_count' do
       it 'returns the number of pets at the given shelter' do
         expect(@shelter_1.pet_count).to eq(3)
+      end
+    end
+
+    describe '#order_by_reverse_alpha' do
+      it 'returns shelters in reverse alphabetical order by name' do
+        expect(Shelter.order_by_reverse_alpha).to eq([@shelter_2, @shelter_3, @shelter_1])
       end
     end
   end

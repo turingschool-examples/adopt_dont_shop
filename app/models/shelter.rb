@@ -5,9 +5,9 @@ class Shelter < ApplicationRecord
 
   has_many :pets, dependent: :destroy
 
-  def self.order_by_recently_created
-    order(created_at: :desc)
-  end
+  # def self.order_by_recently_created
+  #   order(created_at: :desc)
+  # end
 
   def self.order_by_number_of_pets
     select("shelters.*, count(pets.id) AS pets_count")
@@ -30,5 +30,9 @@ class Shelter < ApplicationRecord
 
   def shelter_pets_filtered_by_age(age_filter)
     adoptable_pets.where('age >= ?', age_filter)
+  end
+
+  def self.order_by_reverse_alpha
+    Shelter.find_by_sql("SELECT * FROM shelters ORDER BY shelters.name DESC")
   end
 end
