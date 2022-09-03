@@ -12,7 +12,7 @@ require "rails_helper"
 RSpec.describe("Applications show page") do
   describe("When I visit an applications show page Then I can see the following:") do
     before(:each) do
-      @jimmy_application = Application.create!(      name: "Jimmy John",       street_address: "303 Broadway",       city: "Denver",       state: "CO",       zip_code: 80122,       description: "I would love to have a companion",       status: "Pending")
+      @jimmy_application = Application.create!(      name: "Jimmy John",       street_address: "303 Broadway",       city: "Denver",       state: "CO",       zip_code: 80122,       description: "I would love to have a companion",       status: "In Progress")
       @shelter = Shelter.create!(      foster_program: true,       name: "Sara's Safehouse",       city: "Inglewood",       rank: 3)
       @fido = Pet.create!(      adoptable: true,       age: 3,       breed: "dog",       name: "Fido",       shelter_id: @shelter.id)
       @purrs = Pet.create!(      adoptable: true,       age: 10,       breed: "cat",       name: "Purrs",       shelter_id: @shelter.id)
@@ -20,7 +20,7 @@ RSpec.describe("Applications show page") do
       PetApplication.create!(      application: @jimmy_application,       pet: @purrs)
     end
 
-    it("shows the attributes of the applicant shows the description of why the applicant says the would be a good home") do
+    it("shows the attributes of the applicant") do
       visit("/applications/#{@jimmy_application.id}")
 
       expect(current_path).to(eq("/applications/#{@jimmy_application.id}"))
@@ -29,7 +29,6 @@ RSpec.describe("Applications show page") do
       expect(page).to(have_content(@jimmy_application.city))
       expect(page).to(have_content(@jimmy_application.state))
       expect(page).to(have_content(@jimmy_application.zip_code))
-      expect(page).to(have_content(@jimmy_application.description))
     end
 
     it 'names all pets that this application is for with links to the pets show page' do
@@ -54,17 +53,44 @@ RSpec.describe("Applications show page") do
       expect(page).to have_content(@jimmy_application.status)
     end
 
-    it 'Story 5, if the application has not been submitted/in progress, then i will see a section where i can search for pets by name ' do
+    describe 'Story 5' do
+      describe 'wehn I go the application show page and that app has not been submitted' do
+        it 'I see a section to Add a Pet to this Application' do
+          visit "/applications/#{@jimmy_application.id}"
 
-      visit "/applications/#{@jimmy_application.id}"
+          expect(current_path).to eq("/applications/#{@jimmy_application.id}")
+          expect(page).to have_content("Add a Pet to this Application")
+        end
 
-      fill_in "Search", with: "Spot"
-      click_on "Search"
+        it 'can search for pets by name and route back to the application show page' do
+          @baldy = Pet.create!(adoptable: true, age: 9, breed: 'cat', name: 'Baldy', shelter_id: @shelter.id)
+          visit "/applications/#{@jimmy_application.id}"
 
-      expect(current_path).to eq("/applications/#{@jimmy_application.id}")
-      expect(page).to have_content("Fido")
-      expect(page).to_not have_content("Frenchie")
+          fill_in 'pet_name', with: 'Baldy'
+          expect(page).to have_button('Search')
+          click_button('Search')
+
+          expect(current_path).to eq("/applications/#{@jimmy_application.id}")
+          expect(page).to have_content('Baldy')
+          expect(page).to_not have_content('Shouldnt be here')
+        end
+      end
     end
+
+    describe 'Story 6' do
+      it 'can see a button to adopt the pet after searching by name and to add to adoptable pets' do
+        visit "/applications/#{@jimmy_application.id}"
+
+        fill_in 'pet_name', with: 'Baldy'
+        expect(page).to have_button('Search')
+        click_button('Search')
+
+        expect(page).to have_button('Adopt this Pet')
+        click_button('Adopt this Pet')
+        expet(current_path).to eq("/applications/#{@jimmy_application.id}/add_pets/#{@baldy.id}")
+      end
+    end
+
 
   end
 end

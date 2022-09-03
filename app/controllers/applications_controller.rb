@@ -5,6 +5,16 @@ class ApplicationsController < ApplicationController
 
   def show
     @application = Application.find(params[:id])
+    if params[:pet_name]
+      @pets = Pet.search(params[:pet_name])
+    elsif params[:pet_id]
+      pet = Pet.where(id: params[:pet_id])
+      @applicant.pets << pet
+      @pets = []
+      redirect_to "/applications/#{@application.id}"
+    else
+      @pets =[]
+    end
   end
 
   def new
