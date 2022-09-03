@@ -27,8 +27,6 @@ RSpec.describe 'the applications show page' do
     it "I see links for all the pet names that this application is for" do
       visit "/applications/#{@application.id}"
 
-      save_and_open_page
-
       expect(page).to have_link(href: "/pets/#{@pet_1.id}")
 
     end

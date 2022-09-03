@@ -10,3 +10,24 @@
   <p> <%= link_to "#{pet.name}", "/pets/#{pet.id}", method: :get %> </p>
 <% end %>
 
+<div class="addpet">
+<h2> Add a Pet </h2>
+<%= form_tag "/applications/#{@application.id}", method: :get do %>
+  <%= label_tag(:search, "Search Pets") %>
+  <%= text_field_tag :search, params[:search] %>
+  <%= submit_tag("Search Pets", name: :nil) %>
+<% end %>
+</div>
+
+
+<% if @pets != nil %>
+  <% @pets.each do |pet| %>
+    <h3><%= pet.name %></h3>
+    <p>Age: <%= pet.age %></p>
+    <p>Breed: <%= pet.breed %></p>
+    <p>Adoptable: </p>
+    <p>You can find <%= pet.name %> at <%= pet.shelter_name %>!</p>
+  <% end %>
+<% end %>
+
+
