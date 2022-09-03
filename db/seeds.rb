@@ -8,10 +8,10 @@
 @craigs = Shelter.create!(name: "Craig's Raccoon Emporium", rank: 1, city: "Omaha")
 @aurora = Shelter.create!(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
 
-@pet_1 = @craigs.pets.create!(name: "King Trash Mouth", age: 14)
-@pet_2 = @craigs.pets.create!(name: "Princess Dumptruck", age: 18)
-@pet_3 = @aurora.pets.create!(name: "Eggs Sinclair", age: 10)
-@pet_4 = @aurora.pets.create!(name: "Monster Truck Wendy", age: 5)
+@pet_1 = @craigs.pets.create!(adoptable: true, name: "King Trash Mouth", age: 14, breed: "Torch Key")
+@pet_2 = @craigs.pets.create!(adoptable: true, name: "Princess Dumptruck", age: 18, breed: "Cozumel")
+@pet_3 = @aurora.pets.create!(adoptable: true, name: "Eggs Sinclair", age: 10, breed: "Tres Marias")
+@pet_4 = @aurora.pets.create!(adoptable: true, name: "Monster Truck Wendy", age: 5, breed: "Vancouver Island")
 
 @app = App.create!(
   name: "Gob Beldof", 
