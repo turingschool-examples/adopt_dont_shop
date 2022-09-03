@@ -14,14 +14,7 @@ RSpec.describe Application, type: :model do
       @pet_1 = Pet.create(adoptable: true, age: 1, breed: 'sphynx', name: 'Lucille Bald', shelter_id: @shelter_1.id)
       @pet_2 = Pet.create(adoptable: true, age: 348, breed: 'Wookie', name: 'Bark Hamill', shelter_id: @shelter_1.id)
     end
-    # describe 'search_pets_by_name' do
-    #
-    #   it 'can search for pets by name' do
-    #     expect(Application.search_pets_by_name('Lucille Bald')).to eq([@pet_1])
-    #
-    #   end
-    #
-    # end
+    
 
   end
 
