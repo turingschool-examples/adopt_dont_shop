@@ -82,15 +82,5 @@ RSpec.describe("the pets index") do
       end
     end
 
-      it 'takes the user to a form with Name,Street Address,City,State, and Zip Code, Why this is a good home'
-        # visit /applications/application.id/new
-        # fill in all the fiels of the form
-        # route to /applications/application.id
-
-      it 'can click submit and take me to the new applications show page and see the information just submitted, and an indicator that this application is "In Progress"'
-        # visit /applications/application.id
-        # verify all information is on page of new application
-
-
   end
 end
