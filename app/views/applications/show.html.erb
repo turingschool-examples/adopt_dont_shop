@@ -16,6 +16,7 @@
 
  <h2> Add a Pet to this Application </h2>
 
+
 <%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |f| %>
   <%= f.label :search_pet %>
   <%= f.text_field :search_pet %>
@@ -30,6 +31,7 @@
       <% end %>
   <% end %>
 <% end %>
+
 
 
  </section>

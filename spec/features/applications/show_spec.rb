@@ -38,20 +38,25 @@ RSpec.describe 'the application show' do
     end
 
     it 'searches for a pet' do
-      fill_in('Search', with: 'scoo')
-      click_button("Search Pets By Name")
+      within("#addPet") do
+        fill_in('Search', with: 'scoo')
+        click_button("Search Pets By Name")
 
-      expect(current_path).to eq("/applications/#{@app_1.id}")
-      expect(page).to have_content(@pet_1.name)
-      expect(page).to_not have_content(@pet_2.name) 
+        expect(current_path).to eq("/applications/#{@app_1.id}")
+        expect(page).to have_content(@pet_1.name)
+        expect(page).to_not have_content(@pet_2.name)
+      end
     end
+
 
     it 'has a button Adopt this Pet that adds a pet to an application' do
-      fill_in('Search', with: 'scoo')
-      click_button("Search Pets By Name")
-      
-      click_on "Adopt This Pet"
+      within("#addPet") do
+        fill_in('Search', with: 'scoo')
+        click_button("Search Pets By Name")
+        
+        click_on "Adopt This Pet"
     end
+  end
 
 
 
