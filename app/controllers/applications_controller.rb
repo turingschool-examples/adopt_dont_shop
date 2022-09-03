@@ -2,9 +2,9 @@ class ApplicationsController < ApplicationController
   def show
     @application = Application.find(params[:id])
     @searched_pets = 
-      if params[:search_partial]
-        Pet.search(params[:search_partial])
-      end
+    if params[:search_partial]
+      Pet.search(params[:search_partial])
+    end
   end
 
   def new
@@ -25,6 +25,11 @@ class ApplicationsController < ApplicationController
     application = Application.find(params[:id])
     application.update(app_params)
     redirect_to "/applications/#{application.id}"
+  end
+
+  def admin_show
+    @application = Application.find(params[:id])
+    @application_pet_join = @application.pets.add_pet_status
   end
 
   private

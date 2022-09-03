@@ -12,4 +12,8 @@ class Pet < ApplicationRecord
   def self.adoptable
     where(adoptable: true)
   end
+
+  def self.add_pet_status
+    select('pets.*, pet_applications.pet_status').joins(:pet_applications)
+  end
 end
