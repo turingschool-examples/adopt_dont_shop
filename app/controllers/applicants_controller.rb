@@ -6,7 +6,12 @@ class ApplicantsController < ApplicationController
 
   def show
     @applicant = Applicant.find(params[:applicant_id])
-    #update show method to account for pet search name. 
+    if params[:description].present?
+      @applicant.description = params[:description]
+      @applicant.status = "Pending"
+      @applicant.save
+    end
+    @applicant
   end
 
   def new
