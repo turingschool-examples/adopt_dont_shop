@@ -62,8 +62,10 @@ RSpec.describe 'the applicants show' do
         breed: 'Lab', adoptable: true, shelter_id: @shelter.id)
       @pet_4 = Pet.create!(name: 'Gizmo', age: 8,
         breed: 'Bulldog', adoptable: true, shelter_id: @shelter.id)
-      @pet_5 = Pet.create!(name: 'Frappcinco', age: 2,
+      @pet_5 = Pet.create!(name: 'frappacino', age: 2,
         breed: 'Poodle', adoptable: true, shelter_id: @shelter.id)
+      @pet_6 = Pet.create!(name: 'MR FROSTY', age: 3,
+        breed: 'Mut', adoptable: true, shelter_id: @shelter.id)
     end
 
     it 'I see a section on the page to add a pet to this application' do
@@ -164,7 +166,7 @@ RSpec.describe 'the applicants show' do
       expect(page).to_not have_button('Apply for these Pets')
     end
 
-    it 'Then I see any pet whose name PARTIALLY matches my search' do
+    it 'I search for Pets by name and I see any pet whose name PARTIALLY matches my search' do
 
       visit "/applicants/#{@applicant.id}"
 
@@ -176,5 +178,20 @@ RSpec.describe 'the applicants show' do
       expect(page).to have_content(@pet_5.name)
       expect(page).to_not have_content(@pet_4.name)
     end
+
+    it 'I search for Pets by name and my search is case insensitive' do
+
+      visit "/applicants/#{@applicant.id}"
+
+      fill_in "Search pet's name", with: "fR"
+      click_on("Search")
+
+      expect(current_path).to eq("/applicants/#{@applicant.id}")
+      expect(page).to have_content(@pet_3.name)
+      expect(page).to have_content(@pet_5.name)
+      expect(page).to have_content(@pet_6.name)
+      expect(page).to_not have_content(@pet_4.name)
+    end
+
   end
 end
