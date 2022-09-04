@@ -13,6 +13,16 @@ Status: <%= @app.status %>
   <% end %>
 <% end %>
 
+Pets Interested in:
+<ul id="pets_wanted">
+<% @app.pets.each do |pet| %>
+  <li>
+  Name: <%= pet.name %>
+  Age: <%= pet.age %>
+  </li>
+<% end %>
+</ul>
+
 <%= form_with url: "/apps/#{@app.id}", method: :get, local: :true do |form| %>
   <p>Add a Pet to this Application:</p>
   <%= form.label :search, "Search" %>
