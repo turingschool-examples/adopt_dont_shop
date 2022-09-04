@@ -1,0 +1,14 @@
+<h1>Admin Applications View</h1>
+
+<section>
+  <h2>Pets Requested</h2>
+  <% @pet_apps.each do |pet_application| %>
+    <% pet_application.id %>
+    <h3>Pet name: <%= pet_application.pet.name %></h3>
+    <p>Applicant name: <%= pet_application.application.name %></p>
+    <p>Application status: <%= pet_application.application.status %></p>
+    <% if pet_application.application.pending? %>
+      <%= button_to "Approve", "/admin/applications/#{pet_application.id}", method: :patch, params: { :status => :approved } %>
+    <% end %>
+  <% end %>
+</section>
