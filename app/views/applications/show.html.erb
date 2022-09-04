@@ -22,6 +22,7 @@
 <% if @pets != nil %>
   <% @pets.each do |pet| %>
     <h3><%= pet.name %></h3>
-    <h4><%= button_to("Adopt #{pet.name}", "/applications/#{@application.id}",method: "patch", data: {pet_id: "#{pet.id}"}) %> </h4>
+    <p> <%= link_to pet.name, "/pets/#{pet.id}" %> <%= button_to "Adopt #{pet.name}", "/applications/#{@application.id}", method: :patch, params: {pet_id: pet.id} %> </p>
+
   <% end %>
 <% end %>

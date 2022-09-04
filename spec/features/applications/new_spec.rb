@@ -81,12 +81,13 @@ RSpec.describe 'starting an application' do
       fill_in("search", with: "Indy")
       click_on("Search Pets")
 
-      expect(page).to have_link("Adopt #{@pet_2.name}")
+      expect(page).to have_button("Adopt #{@pet_2.name}")
 
-      click_link("Adopt #{@pet_2.name}")
+      click_button("Adopt #{@pet_2.name}")
 
       expect(current_path).to eq("/applications/#{Application.last.id}")
       expect(page).to have_content("Indy")
+      expect(page).to_not have_content("Scooby")
     end
   end
 end
