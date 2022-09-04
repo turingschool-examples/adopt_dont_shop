@@ -49,21 +49,26 @@ RSpec.describe 'the applications show' do
         expect(page).to have_content(@application1.status)
       end
 
-      # describe 'And that application has not been submitted' do
-      #   xit 'I can see a section on the page to "Add a Pet to this Application"' do
-      #     visit ''
-      #   end
-      #
-      #   xit 'In that section I see an input where I can search for Pets by name' do
-      #
-      #   end
-      # end
-      #
-      # describe 'When I fill in this field with a Pets name and I click submit' do
-      #   xit 'I am taken back to the application show page and under the search bar I see any pet whose name matches my search' do
-      #
-      #   end
-      # end
+        describe 'And that application has not been submitted' do
+          it 'I can see a section on the page to "Add a Pet to this Application"' do
+            visit "/applications/#{@application1.id}"
+
+            expect(page).to have_content("Add a Pet to this Application")
+          end
+
+          it 'In that section I see an input where I can search for Pets by name' do
+            visit "/applications/#{@application1.id}"
+
+            expect(page).to have_content("Search")
+            expect(page).has_field? 
+          end
+        end
+
+        describe 'When I fill in this field with a Pets name and I click submit' do
+          xit 'I am taken back to the application show page and under the search bar I see any pet whose name matches my search' do
+
+          end
+        end
     end
   end
 end
