@@ -1,4 +1,4 @@
-class ApplicationsPetsController < ApplicationController
+class PetApplicationsController < ApplicationController
 
 
   def associate_pet_app
@@ -14,6 +14,17 @@ class ApplicationsPetsController < ApplicationController
     search_hash = {pet_id: params[:pet_id], application_id: params[:id]}
     pet_app_record = PetApplication.where(search_hash)
     pet_app_record.update(pet_status: params[:pet_status])
+    if PetApplication.pet_count(params[:id]) == PetApplication.pets_app_rej_count(params[:id])
+      application = Application.find(params[:id])
+      if PetApplication.pets_rej_count(params[:id]) > 0
+        application.update(status: "Rejected")
+      else
+        application.update(status: "Accepted")
+        application.pets.each  do |pet|
+          pet.update(adoptable: false)
+        end
+      end
+    end
     redirect_to "/admin/applications/#{params[:id]}"
   end
 
