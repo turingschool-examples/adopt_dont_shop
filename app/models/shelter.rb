@@ -6,7 +6,7 @@ class Shelter < ApplicationRecord
   has_many :pets, dependent: :destroy
 
   def self.order_by_name
-    Shelter.find_by_sql("SELECT  shelters.* FROM shelters ORDER BY shelters.name DESC")
+    Shelter.find_by_sql("SELECT DISTINCT shelters.* FROM shelters ORDER BY shelters.name DESC")
   end
 
   def self.order_by_recently_created
@@ -18,6 +18,10 @@ class Shelter < ApplicationRecord
       .joins("LEFT OUTER JOIN pets ON pets.shelter_id = shelters.id")
       .group("shelters.id")
       .order("pets_count DESC")
+  end
+
+  def self.shelters_with_pending_applications
+    joins(pets: :applications).select("shelters.*").distinct.where("applications.status"=>"Pending")
   end
 
   def pet_count
