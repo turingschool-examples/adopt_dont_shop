@@ -59,6 +59,10 @@ class SheltersController < ApplicationController
     shelter.destroy
     redirect_to '/shelters'
   end
+  
+  def admin_index
+    @pending_app_shelters = Pet.pending_apps
+  end
 
   private
 
