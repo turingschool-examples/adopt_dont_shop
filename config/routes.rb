@@ -3,7 +3,11 @@ Rails.application.routes.draw do
   
   get '/apps/', to: 'apps#index'
   get '/admin/shelters', to: 'shelters#admin_index'
+  get '/apps/new', to: 'apps#new'
+  post '/apps/:id', to: 'apps#create'
   get '/apps/:id', to: 'apps#show'
+  get '/apps/:id/search', to: 'apps#search'
+
   get '/shelters', to: 'shelters#index'
   get '/shelters/new', to: 'shelters#new'
   get '/shelters/:id', to: 'shelters#show'
