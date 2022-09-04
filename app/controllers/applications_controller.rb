@@ -8,8 +8,13 @@ class ApplicationsController < ApplicationController
   end
 
   def create
-    application = Application.create(application_params)
-    redirect_to "/applications/#{application.id}"
+    application = Application.new(application_params)
+    if application.save
+      redirect_to "/applications/#{application.id}"
+    else
+      redirect_to "/applications/new"
+      flash[:notice] = "Application not submitted: Required information missing."
+    end
   end
 
   def show

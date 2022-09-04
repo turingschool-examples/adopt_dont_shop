@@ -76,7 +76,7 @@ RSpec.describe 'Application creation' do
         click_on 'Submit'
 
         expect(current_path).to eq('/applications/new')
-        expect(page).to have_content("Please complete all fields.")
+        expect(page).to have_content("Application not submitted: Required information missing.")
         expect(Application.count).to eq(1) #no new application was created
       end
     end
