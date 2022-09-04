@@ -3,10 +3,12 @@ require 'rails_helper'
 RSpec.describe 'application show page' do
 
   before :each do
-    @application = Application.create!(name: "Shelby Waters", street_address: "274 West 11th St", city: "Myers Flatt", state: "NJ", zipcode: 12447, status: "In Progress", description: "I'm Lonely", id: 1)
+    @application = Application.create!(name: "Shelby Waters", street_address: "274 West 11th St", city: "Myers Flatt", state: "NJ", zipcode: 12447, status: "In Progress", description: "I'm Lonely")
+    @application_2 = Application.create!(name: "Chelsea Marks", street_address: "211 N Clay Ave", city: "Winnebago", state: "MN", zipcode: 55012, status: "In Progress", description: "Idk")
     @shelter = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
     @pet_1 = Pet.create(adoptable: true, age: 1, breed: 'sphynx', name: 'Lucille Bald', shelter_id: @shelter.id)
     @pet_2 = Pet.create(adoptable: true, age: 348, breed: 'Wookie', name: 'Bark Hamill', shelter_id: @shelter.id)
+    @pet_3 = Pet.create(adoptable: true, age: 13, breed: 'Maine Coon', name: 'Pepper', shelter_id: @shelter.id)
     @application.pets << @pet_1
   end
 
@@ -93,10 +95,10 @@ RSpec.describe 'application show page' do
             it 'marks application as pending' do
               visit "/applications/#{@application.id}"
 
-              fill_in 'Search', with: 'Bald'
+              fill_in 'Search', with: 'Pepper'
               click_on 'Search for Pet'
 
-              within("#pet_#{@pet_1.id}") do
+              within("#pet_#{@pet_3.id}") do
                 click_on 'Adopt this Pet'
               end
 
@@ -150,6 +152,16 @@ RSpec.describe 'application show page' do
 
           expect(page).to_not have_content('Add a Pet to this Application')
         end
+      end
+    end
+  end
+
+  describe 'When I have not added any pets to the application' do
+    describe 'I do not see a section to submit my application' do
+      it 'Will not allow an application to be submitted without a pet' do
+        visit "/applications/#{@application_2.id}"
+        
+        expect(page).to_not have_content('Submit application')
       end
     end
   end
