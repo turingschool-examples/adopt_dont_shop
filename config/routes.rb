@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   # root 'welcome#index'
-  get '/', to: 'application#welcome'
+  get '/', to: 'applications#welcome'
   get '/applications/new', to: 'applications#new'
   get '/applications/:id', to: 'applications#show', as: "applications"
   patch '/applications/:id', to: 'applications#update'
