@@ -5,3 +5,6 @@
 <h3>State: <%= @application.state %></h3>
 <h3>Description: <%= @application.description %></h3>
 <h3>Status: <%= @application.status %></h3>
+<h3>Pets I am interested in: <ul><% @application.pets.each do |pet| %>
+    <li><%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
+  <% end %></ul></h3>

@@ -19,7 +19,7 @@ RSpec.describe 'Application creation' do
       end
     end
 
-    describe 'when I click the "start an application" link' do
+    describe 'when I click the "start an application" button' do
       it 'I am taken to the new application page where I see a form' do
         visit '/pets'
         click_on "Start an Application"
