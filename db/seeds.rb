@@ -5,23 +5,24 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-@craigs = Shelter.create!(name: "Craig's Raccoon Emporium", rank: 1, city: "Omaha")
+@craigs = Shelter.create!(name: "Craig's Raccoon Emporium", rank: 1, city: "Omaha, NE")
 @aurora = Shelter.create!(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
+@fontaine = Shelter.create!(name: 'Fontainebleu Institute of Varmint Husbandry', city: 'Golden, CO', foster_program: true, rank: 6)
+@damon = Shelter.create!(name: 'Matt Damon Memorial Rodent Hotel', city: 'Boulder, CO', foster_program: false, rank: 3)
 
-@pet_1 = @craigs.pets.create!(adoptable: true, name: "King Trash Mouth", age: 14, breed: "Torch Key")
-@pet_2 = @craigs.pets.create!(adoptable: true, name: "Princess Dumptruck", age: 18, breed: "Cozumel")
-@pet_3 = @aurora.pets.create!(adoptable: true, name: "Eggs Sinclair", age: 10, breed: "Tres Marias")
-@pet_4 = @aurora.pets.create!(adoptable: true, name: "Monster Truck Wendy", age: 5, breed: "Vancouver Island")
+@trash = @craigs.pets.create!(adoptable: true, name: "King Trash Mouth", age: 14, breed: "Torch Key")
+@princess = @craigs.pets.create!(adoptable: true, name: "Princess Dumptruck", age: 18, breed: "Cozumel")
+@eggs = @aurora.pets.create!(adoptable: true, name: "Eggs Sinclair", age: 10, breed: "Tres Marias")
+@wendy = @aurora.pets.create!(adoptable: true, name: "Monster Truck Wendy", age: 5, breed: "Vancouver Island")
 
 @app = App.create!(
   name: "Gob Beldof", 
   address: "152 Animal Ave.", 
-  city: "Omaha", 
-  state: "NE", 
+  city: "Omaha, NE", 
   zip_code: "19593",
   description: "We love raccoons and would like more please. They will live a good life and will not have to eat carrots. Ever.",
   status: "In Progress"
 )
 
-@app.pets << @pet_2
-@app.pets << @pet_3
+@app.pets << @princess
+@app.pets << @eggs

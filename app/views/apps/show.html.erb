@@ -1,10 +1,9 @@
 <h1>Application Show Page</h1>
 
-Name: <%= @app.name %>
-Address: <%= @app.address %>
-City <%= @app.city %>
-State: <%= @app.state %>
-Zip Code: <%= @app.zip_code %>
+<p>Name: <%= @app.name %></p>
+<p>Address:</p>
+<p><%= @app.address %></p>
+<p><%= "#{@app.city}, #{@app.zip_code}" %></p>
 Description: <%= @app.description %>
 Status: <%= @app.status %>
 <h3>Links to Pets</h3>
