@@ -24,6 +24,6 @@
 
 <% if @pets != nil %>
   <% @pets.each do |pet| %>
-    <h4><%= pet.name %></h4>
+    <p><%= pet.name %><%= button_to "Adopt this Pet", "/applicants/#{@applicant.id}?params=pet_adopt", method: :patch %></p>
   <% end %>
 <% end %>

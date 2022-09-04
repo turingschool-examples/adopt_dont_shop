@@ -120,15 +120,70 @@ RSpec.describe 'applicant show page' do
       
       expect(has_field?).to be(true)
       expect(have_field('Add a Pet to this Application'))
+    end
+
+    it 'when I fill in the field and search for a pet, the pet name appears under the search bar' do
+      visit "/applicants/#{@app.id}"
 
       fill_in 'pet_search', with: "SlimJim"
 
       click_on 'Submit'
-      save_and_open_page
+
       expect(current_path).to eq("/applicants/#{@app.id}")
 
       expect(page).to have_content(@cat1.name)
+    end
+  end
 
+  # User Story 6
+
+  # As a visitor
+  # When I visit an application's show page
+  # And I search for a Pet by name
+  # And I see the names Pets that match my search
+  # Then next to each Pet's name I see a button to "Adopt this Pet"
+  # When I click one of these buttons
+  # Then I am taken back to the application show page
+  # And I see the Pet I want to adopt listed on this application
+
+  describe 'When I visit applications show page and search for pet' do
+    before :each do
+      @shelter = Shelter.create!(foster_program: true, name: "Pet Friends of Kansas", city: "Topeka", rank: 8)
+      @cat1 = @shelter.pets.create!(adoptable: true, age: 7, breed: 'Persian', name: 'SlimJim')
+      @cat2 = @shelter.pets.create!(adoptable: true, age: 1, breed: 'Tabby', name: 'Catmobile')
+      @app = Applicant.create!(first_name: 'Sally', last_name: 'Field', street_address: '115 Oakview Avenue', city: 'Topeka', state: 'Kansas', zipcode: '65119', description: 'I dislike every bird, therefore I require many cats.', status: 'In Progress')
+    end
+
+    it 'And I see the names Pets that match my search' do
+      visit "/applicants/#{@app.id}"
+
+      fill_in 'pet_search', with: "#{@cat2.name}"
+
+      click_on 'Submit'
+
+      expect(current_path).to eq("/applicants/#{@app.id}")
+
+      expect(page).to have_content(@cat2.name)
+    end
+
+    it 'Then next to each Pets name I see a button to "Adopt this Pet"' do
+      visit "/applicants/#{@app.id}"
+
+      fill_in 'pet_search', with: "#{@cat2.name}"
+
+      click_on 'Submit'
+
+      expect(page).to have_button('Adopt this Pet')
+    end
+
+    it 'When I click adopt pet I am taking back to show page and that pet is now listed on application' do
+      visit "/applicants/#{@app.id}"
+
+      fill_in 'pet_search', with: "#{@cat2.name}"
+
+      click_on 'Submit'
+
+      
     end
   end
 end

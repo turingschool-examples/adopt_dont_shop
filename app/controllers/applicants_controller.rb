@@ -4,6 +4,10 @@ class ApplicantsController < ApplicationController
     if params[:pet_search].present?
       @pets = Pet.search(params[:pet_search])
     end
+    if params[:pet_adopt]
+      @applicant.pets << @pets
+      binding.pry
+    end
   end
 
   def new
