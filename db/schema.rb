@@ -18,14 +18,19 @@ ActiveRecord::Schema.define(version: 2022_09_01_213024) do
   create_table "application_pets", force: :cascade do |t|
     t.bigint "pet_id"
     t.bigint "application_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
     t.index ["application_id"], name: "index_application_pets_on_application_id"
     t.index ["pet_id"], name: "index_application_pets_on_pet_id"
   end
 
   create_table "applications", force: :cascade do |t|
-    t.string "name"
+    t.string "first_name"
+    t.string "last_name"
+    t.string "str_address"
+    t.string "city"
+    t.string "state"
+    t.bigint "zip"
+    t.string "home_description"
+    t.string "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
