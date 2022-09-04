@@ -1,23 +1,37 @@
 <h1>Application Show Page</h1>
 
-Name: <%= @app.name %>
-Address: <%= @app.address %>
-City <%= @app.city %>
-State: <%= @app.state %>
-Zip Code: <%= @app.zip_code %>
+<p>Name: <%= @app.name %></p>
+<p>Address:</p>
+<p><%= @app.address %></p>
+<p><%= "#{@app.city}, #{@app.zip_code}" %></p>
 Description: <%= @app.description %>
-links_to_pets: <%= @app.links_to_pets %>
 Status: <%= @app.status %>
+<h3>Links to Pets</h3>
+<% if @app.pets %>
+  <% @app.pets.each do |pet| %>
+    <p><%= link_to pet.name, "/pets/#{pet.id}" %></p>
+  <% end %>
+<% end %>
+
+Pets Interested in:
+<ul id="pets_wanted">
+<% @app.pets.each do |pet| %>
+  <li>
+  Name: <%= pet.name %>
+  Age: <%= pet.age %>
+  </li>
+<% end %>
+</ul>
 
 <%= form_with url: "/apps/#{@app.id}", method: :get, local: :true do |form| %>
   <p>Add a Pet to this Application:</p>
-  <%= form.label :query, "Search" %>
-  <%= form.text_field :query %>
+  <%= form.label :search, "Search" %>
+  <%= form.text_field :search %>
   <%= form.submit "Submit" %>
 <% end %>
 
-<% if !@results.nil? %>
-  <% @results.each do |pet| %>
+<% if !@pets.nil? %>
+  <% @pets.each do |pet| %>
     <div id="pet_<%= pet.id %>">
       <%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
       <%= button_to "Adopt this pet", "/apps/#{@app.id}", method: :get, params: { pet_id: pet.id }, local: :true %>
