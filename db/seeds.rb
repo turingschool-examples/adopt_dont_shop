@@ -5,7 +5,7 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-@craigs = Shelter.create!(name: "Craig's Raccoon Emporium", rank: 1, city: "Omaha, NE")
+@craigs = Shelter.create!(name: "Craig's Raccoon Emporium", rank: 1, city: "Omaha, NE", foster_program: 'false')
 @aurora = Shelter.create!(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
 @fontaine = Shelter.create!(name: 'Fontainebleu Institute of Varmint Husbandry', city: 'Golden, CO', foster_program: true, rank: 6)
 @damon = Shelter.create!(name: 'Matt Damon Memorial Rodent Hotel', city: 'Boulder, CO', foster_program: false, rank: 3)
@@ -15,14 +15,40 @@
 @eggs = @aurora.pets.create!(adoptable: true, name: "Eggs Sinclair", age: 10, breed: "Tres Marias")
 @wendy = @aurora.pets.create!(adoptable: true, name: "Monster Truck Wendy", age: 5, breed: "Vancouver Island")
 
-@app = App.create!(
+@beldof = @craigs.apps.create!(
   name: "Gob Beldof", 
   address: "152 Animal Ave.", 
   city: "Omaha, NE", 
   zip_code: "19593",
   description: "We love raccoons and would like more please. They will live a good life and will not have to eat carrots. Ever.",
-  status: "In Progress"
+  status: "Pending"
+)
+@garbo = @aurora.apps.create!(
+  name: "Luut Garbo",
+  address: "asdf",
+  city: "asdfa",
+  zip_code: "asdfs",
+  description: "asdfaw",
+  status: "Pending",
 )
 
-@app.pets << @princess
-@app.pets << @eggs
+@smooch = @fontaine.apps.create!(
+  name: "Carter Smooch",
+  address: " asdgw",
+  city: "asdgwe",
+  zip_code: "agwef",
+  description: "asdhge",
+  status: "Pending",
+)
+
+@laver = @damon.apps.create!(
+  name: "Rod Laver",
+  address: "asdgwe",
+  city: "asd2e",
+  zip_code: "ad23dfs",
+  description: "asdgsda",
+  status: "In Progress",
+)
+
+@beldof.pets << @princess
+@beldof.pets << @eggs
