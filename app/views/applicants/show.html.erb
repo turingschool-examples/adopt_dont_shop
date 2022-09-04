@@ -10,6 +10,18 @@
 
 <h3> Pet(s) Applying for : </h3>
 
-  <% @applicant.pets.each do |pet| %>
-  <h4><%= link_to "#{pet.name}", "/pets/#{pet.id}" %></h4>
-  <% end %>
+<% @applicant.pets.each do |pet| %>
+<h4><%= link_to "#{pet.name}", "/pets/#{pet.id}" %></h4>
+<% end %><br>
+
+<h3> Add a Pet to this Application </h3>
+
+<%= form_with url: "/applicants/#{@applicant.id}", method: :get, local: true do |form| %>
+  <%= form.label :pet_search, "Search: " %>
+  <%= form.text_field :pet_search %>
+  <%= form.submit "Submit" %>
+<% end %>
+
+<% @pets.each do |pet| %>
+  <h4><%= pet.name %></h4>
+<% end %>

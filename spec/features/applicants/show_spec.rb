@@ -94,4 +94,41 @@ RSpec.describe 'applicant show page' do
       expect(page).to have_content(@app2.status)
     end
   end
+
+  # User Story 10 
+
+  # As a visitor
+  # When I visit an application's show page
+  # And that application has not been submitted,
+  # Then I see a section on the page to "Add a Pet to this Application"
+  # In that section I see an input where I can search for Pets by name
+  # When I fill in this field with a Pet's name
+  # And I click submit,
+  # Then I am taken back to the application show page
+  # And under the search bar I see any Pet whose name matches my search
+
+  describe 'When I visit an applications show page and the application has not been submitted' do
+    before :each do
+      @shelter = Shelter.create!(foster_program: true, name: "Pet Friends of Kansas", city: "Topeka", rank: 8)
+      @cat1 = @shelter.pets.create!(adoptable: true, age: 7, breed: 'Persian', name: 'SlimJim')
+      @cat2 = @shelter.pets.create!(adoptable: true, age: 1, breed: 'Tabby', name: 'Catmobile')
+      @app = Applicant.create!(first_name: 'Sally', last_name: 'Field', street_address: '115 Oakview Avenue', city: 'Topeka', state: 'Kansas', zipcode: '65119', description: 'I dislike every bird, therefore I require many cats.', status: 'In Progress')
+    end
+
+    it 'Then I see a section on the page to "Add a Pet to this Application"' do
+      visit "/applicants/#{@app.id}"
+      
+      expect(has_field?).to be(true)
+      expect(have_field('Add a Pet to this Application'))
+
+      fill_in 'pet_search', with: "SlimJim"
+
+      click_on 'Submit'
+      save_and_open_page
+      expect(current_path).to eq("/applicants/#{@app.id}")
+
+      expect(page).to have_content(@cat1.name)
+
+    end
+  end
 end

@@ -1,6 +1,12 @@
 class ApplicantsController < ApplicationController
   def show
     @applicant = Applicant.find(params[:id])
+    if !params[:pet_search].blank?
+      @pets = Pet.where(name: "#{params[:pet_search]}")
+      binding.pry
+    else
+      
+    end
   end
 
   def new
