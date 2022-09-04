@@ -6,23 +6,34 @@
 <p>Why they would be a good home: <%= @application.home_description %> </p>
 <p>Status: <%= @application.status %> </p>
 
+<p>Pets applying for:</p>
 <% @application.pets.each do |pet| %>
   <p> <%= link_to "#{pet.name}", "/pets/#{pet.id}", method: :get %> </p>
 <% end %>
 
-<div class="addpet">
-<h2> Add a Pet </h2>
-<%= form_tag "/applications/#{@application.id}", method: :get do %>
-  <%= label_tag(:search, "Search Pets") %>
-  <%= text_field_tag :search, params[:search] %>
-  <%= submit_tag("Search Pets", name: :nil) %>
+<% if @application.status == "In Progress" %>
+  <div class="addpet">
+  <h2> Add a Pet </h2>
+  <%= form_tag "/applications/#{@application.id}", method: :get do %>
+    <%= label_tag(:search, "Search Pets") %>
+    <%= text_field_tag :search, params[:search] %>
+    <%= submit_tag("Search Pets", name: :nil) %>
+  <% end %>
+  </div>
 <% end %>
-</div>
 
 <% if @pets != nil %>
   <% @pets.each do |pet| %>
     <h3><%= pet.name %></h3>
-    <p> <%= link_to pet.name, "/pets/#{pet.id}" %> <%= button_to "Adopt #{pet.name}", "/applications/#{@application.id}", method: :patch, params: {pet_id: pet.id} %> </p>
+    <p><%= link_to pet.name, "/pets/#{pet.id}" %></p>
+    <p><%= button_to "Adopt #{pet.name}", "/applications/#{@application.id}", method: :patch, params: {pet_id: pet.id} %> </p>
+  <% end %>
+<% end %>
 
+<% if @application.pets != [] && @application.status == "In Progress" %>
+  <%= form_with url: "/applications/#{@application.id}", method: :patch, local: true do |f| %>
+    <%= f.label :home_description %>
+    <%= f.text_field :home_description %>  
+    <%= f.submit "Submit Application" %>
   <% end %>
 <% end %>
