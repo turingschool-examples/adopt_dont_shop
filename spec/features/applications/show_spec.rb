@@ -38,7 +38,7 @@ RSpec.describe 'application show page' do
         expect(page).to have_content("Add a Pet to this Application")
         expect(page).to_not have_content("Bark Hamill")
 
-        fill_in("Search", with: "Bark")
+        fill_in "Search", with: "Bark"
 
         click_on 'Search for Pet'
 
@@ -49,8 +49,8 @@ RSpec.describe 'application show page' do
       it 'can click button to add pet to adoption application' do
         visit "/applications/#{@application.id}"
 
-        fill_in("Search", with: "Bark")
-        click_on('Search for Pet')
+        fill_in "Search", with: "Bark"
+        click_on 'Search for Pet'
 
         within("#pet_#{@pet_2.id}") do
         click_button('Adopt this Pet')
@@ -64,21 +64,23 @@ RSpec.describe 'application show page' do
     describe 'When I have added one or more pets to the application' do
       describe 'I see a section to submit my application' do
         describe 'And in that section I see an input to enter why I would make a good home' do
-          it 'has a form to submit a description of why applicant would be a good home for pet' do
+          it 'updates the description of why applicant would be a good home for pet' do
             visit "/applications/#{@application.id}"
 
-            fill_in("Search", with: "Bark")
+            expect(page).to have_content("I'm Lonely")
+
+            fill_in "Search", with: "Bark"
             click_on 'Search for Pet'
-            
+
             within("#pet_#{@pet_2.id}") do
               click_on 'Adopt this Pet'
             end
 
             expect(page).to have_content("Please describe why you would make a good home for this pet")
 
-            fill_in("Please describe why you would make a good home for this pet", with: "I love animals")
+            fill_in "Please describe why you would make a good home for this pet", with: "I love animals"
 
-            click_on("Submit description")
+            click_on "Submit application"
 
             expect(current_path).to eq("/applications/#{@application.id}")
           end
@@ -88,17 +90,67 @@ RSpec.describe 'application show page' do
       describe 'When I click a button to submit the application' do
         describe 'I am taken back to the applications show page' do
           describe 'And I see an indicator that the application is pending' do
-            xit 'marks application as pending' do
+            it 'marks application as pending' do
+              visit "/applications/#{@application.id}"
 
+              fill_in 'Search', with: 'Bald'
+              click_on 'Search for Pet'
+
+              within("#pet_#{@pet_1.id}") do
+                click_on 'Adopt this Pet'
+              end
+
+              fill_in "Please describe why you would make a good home for this pet", with: "I love animals"
+
+              click_on 'Submit application'
+
+              expect(page).to have_content('Status: Pending')
             end
           end
+
+          it 'shows all the pets interested in on the adoption application' do
+            visit "/applications/#{@application.id}"
+
+            fill_in 'Search', with: 'Bald'
+            click_on 'Search for Pet'
+
+            within("#pet_#{@pet_1.id}") do
+              click_on 'Adopt this Pet'
+            end
+
+            fill_in 'Search', with: 'Bark'
+            click_on 'Search for Pet'
+
+            within("#pet_#{@pet_2.id}") do
+              click_on 'Adopt this Pet'
+            end
+
+            fill_in "Please describe why you would make a good home for this pet", with: "I love animals"
+
+            click_on 'Submit application'
+
+            expect(page).to have_content('Lucille Bald')
+            expect(page).to have_content('Bark Hamill')
+          end
+        end
+
+        it 'does not show a section to add more pets' do
+          visit "/applications/#{@application.id}"
+
+          fill_in 'Search', with: 'Bald'
+          click_on 'Search for Pet'
+
+          within("#pet_#{@pet_1.id}") do
+            click_on 'Adopt this Pet'
+          end
+
+          fill_in "Please describe why you would make a good home for this pet", with: "I love animals"
+
+          click_on 'Submit application'
+
+          expect(page).to_not have_content('Search for Pet')
         end
       end
     end
   end
 end
-      
-        
-          # it 'shows all the pets interested in on the adoption application'
-        
-          # it 'does not show a section to add more pets'
