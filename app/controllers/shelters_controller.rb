@@ -61,7 +61,7 @@ class SheltersController < ApplicationController
   end
   
   def admin_index
-    binding.pry
+    @pending_app_shelters = Pet.pending_apps
   end
 
   private

@@ -20,4 +20,8 @@ class Pet < ApplicationRecord
     # require 'pry'; binding.pry
     select('pets.*, pet_applications.pet_status, pet_applications.application_id as app_id').joins(:pet_applications).distinct
   end
+
+  def self.pending_apps
+    Pet.joins(:applications, :shelter).select('shelters.*').where("applications.status = ?", "Pending").distinct
+  end
 end
