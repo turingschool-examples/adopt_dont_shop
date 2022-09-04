@@ -2,7 +2,7 @@ require 'rails_helper'
 require 'database_cleaner/active_record'
 DatabaseCleaner.start
 
-RSpec.describe 'the applications show page' do
+RSpec.describe 'Applications show page:' do
   before(:each) do
     DatabaseCleaner.clean
     @application_2 = Application.create!(first_name: "Sam", last_name: "Smith", str_address: "1018 O St NW", city: "Washington", state: "DC", zip: 20001, status: "In Progress")
@@ -28,6 +28,14 @@ RSpec.describe 'the applications show page' do
       expect(page).to have_content("In Progress")
     end
 
+    it "does not allow me to submit an application with no pets" do
+
+      visit "/applications/#{@application_2.id}"
+
+      expect(page).to_not have_content("Indy")
+      expect(page).to_not have_button("Submit Application")
+    end
+
     it "I see links for all the pet names that this application is for" do
 
       visit "/applications/#{@application_2.id}"
@@ -39,7 +47,6 @@ RSpec.describe 'the applications show page' do
 
       expect(page).to have_link(href: "/pets/#{@pet_2.id}")
       expect(page).to_not have_link(href: "/pets/#{@pet_1.id}")
-
     end
     it 'returns partial matches for my search' do
 

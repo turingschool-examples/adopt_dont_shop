@@ -27,11 +27,10 @@
     <h3><%= pet.name %></h3>
     <p><%= link_to pet.name, "/pets/#{pet.id}" %></p>
     <p><%= button_to "Adopt #{pet.name}", "/applications/#{@application.id}", method: :patch, params: {pet_id: pet.id} %> </p>
-
   <% end %>
 <% end %>
 
-<% if @application.pets != nil && @application.status == "In Progress" %>
+<% if @application.pets != [] && @application.status == "In Progress" %>
   <%= form_with url: "/applications/#{@application.id}", method: :patch, local: true do |f| %>
     <%= f.label :home_description %>
     <%= f.text_field :home_description %>  
