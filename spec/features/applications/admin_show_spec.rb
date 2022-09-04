@@ -143,17 +143,23 @@ RSpec.describe 'Approving/rejecting applications' do
 
     describe 'when all pets are approved for an application' do
       it 'visiting show page for each pets shows they are no longer adoptable' do
-        # visit "/admin/applications/#{@app2.id}"
+        visit "/admin/applications/#{@app2.id}"
 
-        # within "#application_#{@app2.id}" do
-        #   expect(page).to_not have_content("Accepted")
-        # end
+        click_button "Approve #{@pet1.name} Adoption"
+        click_button "Approve #{@pet5.name} Adoption"
 
-        # click_button "Approve #{@pet1.name} Adoption"
-        # click_button "Approve #{@pet5.name} Adoption"
+        within "#application_#{@app2.id}" do
+          expect(page).to have_content("Accepted")
+        end
 
-        # within "#application_#{@app2.id}" do
-        #   expect(page).to have_content("Accepted")
+        visit "/pets/#{@pet1.id}"
+        within "#adoptable" do
+          expect(page).to have_content("false")
+        end 
+
+        visit "/pets/#{@pet5.id}"
+        within "#adoptable" do
+          expect(page).to have_content("false")
         end
       end
     end

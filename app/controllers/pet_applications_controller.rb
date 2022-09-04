@@ -20,7 +20,9 @@ class PetApplicationsController < ApplicationController
         application.update(status: "Rejected")
       else
         application.update(status: "Accepted")
-        application.pets.each {|pet| pet.update(adoptable: false)}
+        application.pets.each  do |pet|
+          pet.update(adoptable: false)
+        end
       end
     end
     redirect_to "/admin/applications/#{params[:id]}"
