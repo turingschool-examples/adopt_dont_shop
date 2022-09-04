@@ -28,7 +28,7 @@ RSpec.describe 'new application' do
             fill_in("City", with: "Myers Flatt")
             select("NJ", from: "State")
             fill_in("Zipcode", with: "12447")
-            fill_in("Please add a description for why you would make a good home:", with: "I'm lonely")
+            # fill_in("Please add a description for why you would make a good home:", with: "I'm lonely")
 
             click_on "Submit"
 
@@ -36,7 +36,7 @@ RSpec.describe 'new application' do
 
             expect(page).to have_content("Shelby Waters")
             expect(page).to have_content("274 West 11th St, Myers Flatt, NJ, 12447")
-            expect(page).to have_content("I'm lonely")
+            # expect(page).to have_content("I'm lonely")
             expect(page).to have_content("In Progress")
           end
 

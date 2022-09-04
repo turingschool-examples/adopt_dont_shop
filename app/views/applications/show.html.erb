@@ -11,32 +11,36 @@
   <p><%= link_to "#{pet.name}", "/pets/#{pet.id}" %></p>
 <%end%>
 
-<div id="search">
-<h3>Add a Pet to this Application</h3>
+<% if @application.description == nil %>
+  <div id="search">
+  <h3>Add a Pet to this Application</h3>
 
-<%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |form| %>
-  <%= form.label :search %>
-  <%= form.text_field :search %>
-  <%= form.submit "Submit" %>
-<% end %>
-</div>
-
-<div id="adoption">
-<% if @pets != nil %>
-  <% @pets.each do |pet|%>
-    <p><%= pet.name %></p>
-    <%=button_to "Adopt this Pet", "/pet_applications/#{@application.id}/#{pet.id}", local: true, method: :post %>
-  <% end %>
-<% end %>
-</div>
-
-<div id="description">
-  <div>
-  <% if params[:description] %>
-    <%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |form| %>
-    <%= form.label :description, "Please describe why you would make a good home for this pet" %>
-    <%= form.text_field :description %>
+  <%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |form| %>
+    <%= form.label :search %>
+    <%= form.text_field :search %>
     <%= form.submit "Submit" %>
   <% end %>
+  </div>
+
+  <div id="adoption">
+  <div>
+  <% if @pets != nil %>
+    <% @pets.each do |pet|%>
+      <p><%= link_to "#{pet.name}", "/applications/#{pet}" %></p>
+      <%=button_to "Adopt this Pet", "/pet_applications/#{@application.id}/#{pet.id}", local: true, method: :post %>
+    <% end %>
+  <% end %>
+  </div>
 <% end %>
+
+<div id="description">
+<div>
+
+  <% if @application.pets.count >= 1 && @application.description == nil%>
+    <%= form_with url: "/applications/#{@application.id}/update", method: :patch, local: true do |form| %>
+      <%= form.label :description, "Please describe why you would make a good home for this pet" %>
+      <%= form.text_field :description %>
+        <%= form.submit "Submit" %>
+    <% end %>
+  <% end %>
 </div>

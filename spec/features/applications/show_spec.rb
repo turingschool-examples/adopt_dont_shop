@@ -23,8 +23,12 @@ RSpec.describe 'application show page' do
     end
 
     describe 'I can see the name of the pet the application is for' do
-      it 'links to pets show page' do
+      it 'links pet to application show page' do
         visit "/applications/#{@application.id}"
+        fill_in("Name", with: "Bark")
+        fill_in("street_address", with: "Bark")
+        fill_in("Search", with: "Bark")
+        fill_in("Search", with: "Bark")
 
         click_on 'Lucille Bald'
         expect(current_path).to eq("/pets/#{@pet_1.id}")
@@ -33,14 +37,14 @@ RSpec.describe 'application show page' do
 
     describe 'can search for and add pets to application' do
       it 'can search for a pet' do
-        visit "/applications/#{@application.id}"
+        visit "/applications/new"
         expect(page).to have_content("Add a Pet to this Application")
         expect(page).to_not have_content("Bark Hamill")
 
         fill_in("Search", with: "Bark")
-        
+
         click_on 'Submit'
-      
+
         expect(current_path).to eq("/applications/#{@application.id}")
         expect(page).to have_content("Bark Hamill")
       end
@@ -74,14 +78,14 @@ RSpec.describe 'application show page' do
 
           click_on("Submit")
 
-          expect(current_path).to eq("applications/#{@application.id}")
+          expect(current_path).to eq("/applications/#{@application.id}")
         end
 
-        it 'marks application as pending'
-
-        it 'shows all the pets interested in on the adoption application'
-
-        it 'does not show a section to add more pets'
+        # it 'marks application as pending'
+        #
+        # it 'shows all the pets interested in on the adoption application'
+        #
+        # it 'does not show a section to add more pets'
       end
     end
   end
