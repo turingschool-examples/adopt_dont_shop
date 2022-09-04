@@ -1,8 +1,4 @@
 class ApplicationsController < ApplicationController
-  def index
-    @applications = Application.all
-  end
-
   def new
     @pets = Pet.adoptable
   end
@@ -19,7 +15,11 @@ class ApplicationsController < ApplicationController
 
   def show
     @application = Application.find(params[:id])
-    @pets = @application.pets
+    if params[:query]
+      @pets = Pet.search(params[:query])
+    else
+      @pets = @application.pets
+    end
   end
 
   private

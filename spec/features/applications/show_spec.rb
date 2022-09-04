@@ -60,13 +60,21 @@ RSpec.describe 'the applications show' do
             visit "/applications/#{@application1.id}"
 
             expect(page).to have_content("Search")
-            expect(page).has_field? 
+            expect(page.has_field?).to eq(true)
           end
         end
 
         describe 'When I fill in this field with a Pets name and I click submit' do
-          xit 'I am taken back to the application show page and under the search bar I see any pet whose name matches my search' do
+          it 'I am taken back to the application show page and under the search bar I see any pet whose name matches my search' do
+            visit "/applications/#{@application1.id}"
 
+            fill_in 'query', with: "#{@pet1.name}"
+            click_on 'Search'
+
+            expect(current_path).to eq("/applications/#{@application1.id}/")
+            within("#results") do
+              expect(page).to have_content("#{@pet1.name}")
+            end
           end
         end
     end
