@@ -66,7 +66,6 @@ RSpec.describe 'the applicants show' do
         breed: 'Poodle', adoptable: true, shelter_id: @shelter.id)
       @pet_6 = Pet.create!(name: 'MR FROSTY', age: 3,
         breed: 'Mut', adoptable: true, shelter_id: @shelter.id)
-
     end
 
     it 'I see a section on the page to add a pet to this application' do
@@ -193,5 +192,6 @@ RSpec.describe 'the applicants show' do
       expect(page).to have_content(@pet_6.name)
       expect(page).to_not have_content(@pet_4.name)
     end
+
   end
 end
