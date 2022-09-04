@@ -14,12 +14,19 @@ class AppsController < ApplicationController
   end
 
   def new
+    if params[:errors].present?
+      @errors = params[:errors]
+    end
   end
 
   def create
-    @app = App.create!(app_params)
-
-    redirect_to "/apps/#{@app.id}"
+    @app = App.create(app_params)
+    if @app.save
+      redirect_to "/apps/#{@app.id}"
+    else
+      @errors = @app.errors.full_messages.to_sentence
+      redirect_to "/apps/new?errors=#{@errors}"
+    end
   end
 
   private
