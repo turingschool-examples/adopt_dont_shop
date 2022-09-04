@@ -2,29 +2,34 @@
 
 <h1> New Application </h1>
 <%= form_with url: "/applicants", method: :post, local: true do |f| %>
-  <%= f.label :first_name %>
+  <%= f.label :first_name, 'First Name:' %>
   <%= f.text_field :first_name %>
 
-  <%= f.label :last_name %>
+  <%= f.label :last_name, 'Last Name:' %>
   <%= f.text_field :last_name %>
 
-  <%= f.label :street_address %>
+  <%= f.label :street_address, 'Street Address:' %>
   <%= f.text_field :street_address %>
 
-  <%= f.label :city %>
+  <%= f.label :city, 'City:' %>
   <%= f.text_field :city %>
 
   <%= f.label :state, 'State: ' %>
   <%= f.select :state, states %>
 
-  <%= f.label :zipcode %>
+  <%= f.label :zipcode, 'Zipcode:'%>
   <%= f.text_field :zipcode %>
 
-  <%= f.label :description %>
+  <%= f.label :description, 'Description:' %>
   <%= f.text_field :description %>
 
-  <%= f.label :status %>
+  <%= f.label :status, 'Status' %>
   <%= f.text_field :status %>
 
   <%= f.submit "Create Application"%>
+
+  <% if flash[:alert].present? %>
+    <p style='font-size:150%; color:red;'><%= flash[:alert] %></p>
+  <% end %>
+
 <% end %>
