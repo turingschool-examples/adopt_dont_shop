@@ -9,12 +9,4 @@ class Application < ApplicationRecord
   has_many :pet_applications
   has_many :pets, through: :pet_applications
 
-  # def show_matching_pets(search)
-  #   Pets.select{ |pet| pet.name.include?(search) }
-  # end
-
-  # def self.search_pets_by_name(search_param)
-  #
-  # end
-
 end

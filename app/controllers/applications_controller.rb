@@ -1,10 +1,8 @@
 class ApplicationsController < ApplicationController
-
   def show
-    @application = Application.find(params[:id])
-    # require "pry"; binding.pry
     if params[:search]
       @pets = Pet.search(params[:search])
+      @application = Application.find(params[:id])
     else
       @application = Application.find(params[:id])
     end
@@ -14,13 +12,22 @@ class ApplicationsController < ApplicationController
   end
 
   def create
-    if params[:name].blank? || params[:street_address].blank? || params[:city].blank? || params[:state].blank? || params[:zipcode].blank? || params[:status].blank? || params[:description].blank?
+    if params[:name].blank? || params[:street_address].blank? || params[:city].blank? || params[:state].blank? || params[:zipcode].blank? || params[:status].blank?
       redirect_to "/applications/new"
       flash[:alert] = "Please fill in all fields"
     else
-    application = Application.create!(applications_params)
-    redirect_to "/applications/#{application.id}"
+      application = Application.create!(applications_params)
+
+      redirect_to "/applications/#{application.id}"
     end
+  end
+
+  def update
+    @application = Application.find(params[:id])
+    @application.update(description: params[:description])
+    @application.update(status: 'Pending')
+    @application.save
+    redirect_to "/applications/#{@application.id}"
   end
 
 private
