@@ -15,7 +15,7 @@ RSpec.describe 'Application creation' do
       it 'I see a link to start an application' do
         visit '/pets'
 
-        expect(page).to have_link("Start an Application")
+        expect(page).to have_button("Start an Application")
       end
     end
 
@@ -24,36 +24,39 @@ RSpec.describe 'Application creation' do
         visit '/pets'
         click_on "Start an Application"
 
-        expect(current_path).to eq('/application/new')
+        expect(current_path).to eq('/applications/new')
       end
     end
 
     describe 'when I fill in this form with my information, and I click submit' do
       it 'Then I am taken to the new applications show page' do
-        visit '/application/new'
+        visit '/applications/new'
 
-        fill_in 'name', with: "#{@application1.name}"
-        fill_in 'street_address', with: "#{@application1.street_address}"
-        fill_in 'city', with: "#{@application1.city}"
-        fill_in 'zipcode', with: "#{@application1.zipcode}"
-        fill_in 'description', with: "#{@application1.description}"
+        fill_in 'name', with: "Joe"
+        fill_in 'street_address', with: "Shmoe"
+        fill_in 'city', with: "Miami"
+        fill_in 'state', with: "FL"
+        fill_in 'zipcode', with: "11111"
+        fill_in 'description', with: "I'm pretty great."
 
         click_on 'Submit'
-        expect(current_path).to eq("/application/#{@application1.id}")
+
+        expect(current_path).to eq("/applications/#{Application.last.id}")
       end
 
       it 'and I see my name, address information, and description of why I would make a good home' do
-        visit "/application/#{@application1.id}"
+        visit "/applications/#{@application1.id}"
 
         expect(page).to have_content(@application1.name)
         expect(page).to have_content(@application1.street_address)
         expect(page).to have_content(@application1.city)
+        expect(page).to have_content(@application1.state)
         expect(page).to have_content(@application1.zipcode)
         expect(page).to have_content(@application1.description)
       end
 
       it 'and I see an indicator that this application is "In Progress"' do
-        visit "/application/#{@application1.id}"
+        visit "/applications/#{@application1.id}"
 
         expect(page).to have_content("In Progress")
       end
