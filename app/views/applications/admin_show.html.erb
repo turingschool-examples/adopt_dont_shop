@@ -34,8 +34,11 @@
   <ul>
   <% @application_pet_join.each do |pet| %>
     <li id="pet_<%=pet.id%>" ><%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
-      <% if !pet.pet_status  %>
+      <% if pet.pet_status.nil? && pet.adoptable  %>
         <%= button_to "Approve #{pet.name} Adoption", params: {pet_status: "Adoption Approved", pet_id: pet.id} %>
+        <%= button_to "Reject #{pet.name} Adoption", params: {pet_status: "Adoption Rejected", pet_id: pet.id} %>
+      <% elsif !pet.adoptable && pet.pet_status.nil? %>
+        <div>*Already approved for adoption*</div>
         <%= button_to "Reject #{pet.name} Adoption", params: {pet_status: "Adoption Rejected", pet_id: pet.id} %>
       <% else %>
         <%= pet.pet_status %>

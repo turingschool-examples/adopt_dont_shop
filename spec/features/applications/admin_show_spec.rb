@@ -153,13 +153,53 @@ RSpec.describe 'Approving/rejecting applications' do
         end
 
         visit "/pets/#{@pet1.id}"
+
         within "#adoptable" do
           expect(page).to have_content("false")
         end 
 
         visit "/pets/#{@pet5.id}"
+
         within "#adoptable" do
           expect(page).to have_content("false")
+        end
+      end
+    end
+
+    describe 'a pet with one pending application and one approved application' do
+      it 'when I visit the pending application, I do not see a button to approve that pet' do
+        visit "/admin/applications/#{@app2.id}"
+
+        click_button "Approve #{@pet1.name} Adoption"
+        click_button "Approve #{@pet5.name} Adoption"
+
+        visit "/admin/applications/#{@app1.id}"
+
+        within "#pet_#{@pet1.id}" do
+          expect(page).to_not have_button("Approve #{@pet1.name} Adoption")
+        end
+
+        within "#pet_#{@pet5.id}" do
+          expect(page).to_not have_button("Approve #{@pet5.name} Adoption")
+        end
+      end
+
+      it 'when I visit the pending app, I do see a message that pet has been approved and a reject button' do
+        visit "/admin/applications/#{@app2.id}"
+
+        click_button "Approve #{@pet1.name} Adoption"
+        click_button "Approve #{@pet5.name} Adoption"
+
+        visit "/admin/applications/#{@app1.id}"
+
+        within "#pet_#{@pet1.id}" do
+          expect(page).to have_content("*Already approved for adoption*")
+          expect(page).to have_button("Reject #{@pet1.name} Adoption")
+        end
+
+        within "#pet_#{@pet5.id}" do
+          expect(page).to have_content("*Already approved for adoption*")
+          expect(page).to have_button("Reject #{@pet5.name} Adoption")
         end
       end
     end
