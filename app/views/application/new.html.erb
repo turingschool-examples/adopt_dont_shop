@@ -1,0 +1,24 @@
+<h1>New Application</h1>
+<%= form_with url: "/applications", method: :post, local: true do |f| %>
+  <%= f.label :name %>
+  <%= f.text_field :name %><br>
+
+  <%= f.label :street_address %>
+  <%= f.text_field :street_address %><br>
+
+  <%= f.label :city %>
+  <%= f.text_field :city %><br>
+
+  <%= f.label :state %>
+  <%= f.text_field :state %><br>
+
+  <%= f.label :zipcode %>
+  <%= f.text_field :zipcode %><br>
+
+  <%= f.label :description %><br>
+  <%= text_area_tag(:description, "Why I would make a great pet owner...", size: "24x6") %><br>
+
+  <%= f.hidden_field :status, value: "In Progress" %>
+
+  <%= f.submit "Submit"%>
+<% end %>

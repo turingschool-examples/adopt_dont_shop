@@ -8,13 +8,6 @@
 @shelter1 = Shelter.create!(foster_program: true, name: "Moms and Mutts", city: "Denver", rank:1)
 @shelter2 = Shelter.create!(foster_program: false, name: "Pet Supermarket", city: "Plano", rank:999)
 
-# @shelter1.pets.create!(adoptable: true, age:3, breed:"Pitbull", name:"Scrappy")
-# @shelter1.pets.create!(adoptable: true, age:5, breed:"German Shepherd", name:"Gossamer")
-# @shelter1.pets.create!(adoptable: false, age:1, breed:"Lab Mix", name:"Montana")
-# @shelter1.pets.create!(adoptable: true, age:2, breed:"Golden Retreiver", name:"Gus")
-# @shelter2.pets.create!(adoptable: true, age:2, breed:"French Bulldog", name:"Bella")
-# @shelter2.pets.create!(adoptable: false, age:1, breed:"Tabby", name:"Nugget")
-
 @pet1 = @shelter1.pets.create!(adoptable: true, age:3, breed:"Pitbull", name:"Scrappy")
 @pet2 = @shelter1.pets.create!(adoptable: true, age:5, breed:"German Shepherd", name:"Gossamer")
 @pet3 = @shelter1.pets.create!(adoptable: false, age:1, breed:"Lab Mix", name:"Montana")
