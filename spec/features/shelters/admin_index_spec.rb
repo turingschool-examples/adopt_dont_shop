@@ -30,7 +30,7 @@ RSpec.describe 'Approving/rejecting applications' do
 
       it 'displays name of shelter(s) with pending applications' do
         visit '/admin/shelters'
-        
+
         expect(page).to have_content("Happy Shelter")
         expect(page).to_not have_content("Aurora Shelter")
       end
