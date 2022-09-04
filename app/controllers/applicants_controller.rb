@@ -22,16 +22,21 @@ class ApplicantsController < ApplicationController
   end
 
   def update
-    @applicant = Applicant.find(params[:id])
-    @pet = Pet.find(params[:pet_id])
-    @applicant.pets << @pet
-    redirect_to "/applicants/#{@applicant.id}"
+    applicant = Applicant.find(params[:id])
+    
+    # require "pry"; binding.pry
+    if params[:pet_id] != nil
+      pet = Pet.find(params[:pet_id])
+      applicant.pets << pet
+    elsif params[:status] != nil
+      applicant.update({status: params[:status], description: params[:description]})
+    end
+    redirect_to "/applicants/#{applicant.id}"
   end
 
   private
 
   def applicant_params
-  #  params.permit(:first_name, :last_name, :street_address, :city, :state, :zip, :status, :description)
    begin
     params.require(:first_name)
     params.require(:last_name)
@@ -40,7 +45,7 @@ class ApplicantsController < ApplicationController
     params.require(:state)
     params.require(:zip)
     params.require(:description)
-   rescue #ActionController::ParameterMissing
+   rescue
       return
    end
 

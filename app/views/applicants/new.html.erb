@@ -1,18 +1,19 @@
 <%= form_with url: "/applicants", method: :post, local: true do |form|%>
-  <%= form.label :first_name, "First Name" %>
-  <%= form.text_field :first_name, required: true %>
-  <%= form.label :last_name, "Last Name" %>
-  <%= form.text_field :last_name, required: true %>
-  <%= form.label :street_address %>
-  <%= form.text_field :street_address, required: true%>
-  <%= form.label :city %>
+  <p><%= form.label :first_name, "First Name:" %>
+  <%= form.text_field :first_name, required: true %>  
+  <%= form.label :last_name, " Last Name:" %>
+  <%= form.text_field :last_name, required: true %></p>
+  <p> Address: </p>
+  <p><%= form.label :street_address, "Street:" %>
+  <%= form.text_field :street_address, required: true%></p>
+  <p><%= form.label :city, "City:" %>
   <%= form.text_field :city, required: true %>
-  <%= form.label :state %>
-  <%= form.text_field :state, required: true %>
-  <%= form.label :zip %>
-  <%= form.number_field :zip, in: 0..99999, required: true %>
-  <%= form.label :description, "Tell us what makes you a great pet owner:"%>
-  <%= form.text_area :description, required: true %>
-  <%= form.hidden_field :status, value: "In Progress" %>
-  <%= form.submit "Submit"%>
+  <%= form.label :state, "State:"%>
+  <%= form.text_field :state, required: true %></p>
+  <p><%= form.label :zip, "Zip:"%>
+  <%= form.number_field :zip, in: 0..99999, required: true %></p>
+  <p><%= form.label :description, "Tell us why you would make a good home:"%>
+  <p><%= form.text_area :description, required: true %>
+  <%= form.hidden_field :status, value: "In Progress" %></p>
+  <%= form.submit "Next Step"%>
 <% end %>
