@@ -9,17 +9,18 @@ RSpec.describe 'the application show' do
     @pet_1 = @shelter_1.pets.create!(name: 'Scooby', age: 2, breed: 'Great Dane', adoptable: true)
     @pet_2 = @shelter_1.pets.create!(name: 'Gilbert', age: 4, breed: 'Mutt', adoptable: true)
     @pet_app_1 = ApplicationPet.create!(application: @app_1, pet: @pet_1)
-    visit "/applications/#{@app_1.id}"
   end
-  
+
   it "shows the application and all its attributes" do
+    visit "/applications/#{@app_1.id}"
+
     expect(page).to have_content(@app_1.name)
     expect(page).to have_content(@app_1.street_address)
     expect(page).to have_content(@app_1.city)
     expect(page).to have_content(@app_1.state)
     expect(page).to have_content(@app_1.zip_code)
     expect(page).to have_content(@app_1.description)
-    expect(page).to have_content(@app_1.status)
+    expect(page).to have_content("In Progress")
     expect(page).to have_content(@pet_1.name)
     
 
@@ -29,6 +30,8 @@ RSpec.describe 'the application show' do
 
   describe 'the Add A Pet To This Application section'
     it 'exists and has a form with a button to search a pet' do
+      visit "/applications/#{@app_1.id}"
+
       within("#addPet") do
         expect(page).to have_content('Add a Pet to this Application')
         expect(find('form')).to have_content('Search')
@@ -38,6 +41,8 @@ RSpec.describe 'the application show' do
     end
 
     it 'searches for a pet' do
+      visit "/applications/#{@app_1.id}"
+
       within("#addPet") do
         fill_in('Search', with: 'scoo')
         click_button("Search Pets By Name")
@@ -49,15 +54,22 @@ RSpec.describe 'the application show' do
     end
 
     it 'has a button Adopt this Pet that adds a pet to an application' do
+      visit "/applications/#{@app_1.id}"
+
       within("#addPet") do
         fill_in('Search', with: 'scoo')
         click_button("Search Pets By Name")
         
         click_on "Adopt This Pet"
+
+        expect(page).to have_content('Scooby')
     end
   end
 
   it 'shows the filled out application with pending status and the pets the user wants to adopt' do
+    visit "/applications/#{@app_1.id}"
+
+    within("#submitForm")
     visit "/applications/#{@app_1.id}"
     fill_in 'What Would Make You A Great Owner?', with: "#{@app_1.description}"
 
@@ -68,5 +80,12 @@ RSpec.describe 'the application show' do
     expect(current_path).to eq("/applications/#{@app_1.id}")
     expect(page).to have_content("#{@app_1.description}")
     expect(page).to have_content('Status: Pending')
+  end
+
+  it 'does not display a submit button if pets have not been added' do
+    visit "/applications/#{@app_2.id}"
+
+    expect(page).to_not have_content('What Would Make You A Great Owner?')
+    expect(page).to_not have_button('Submit')
   end
 end

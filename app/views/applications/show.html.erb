@@ -5,38 +5,37 @@
 <p>City: <%= @application.city %> </p>
 <p>State: <%= @application.state %> </p>
 <p>Zip code: <%= @application.zip_code %> </p>
-<p>Status: <%= @application.status %> </p>
+<p>Status: <%= @application.aasm.human_state %> </p>
 
-<%= form_with url: "/applications/#{@application.id}", method: :patch, local: true do |f| %>
-  <h3><%= f.label :description, "What Would Make You A Great Owner?" %></h3>
-  <%= f.text_area :description, value: @application.description %>
-  <br />
-  <%= f.submit "Submit" %>
-<% end %>
-<% @application.pets.each do |pet| %>
-  <p> <%= pet.name %> </p>
-<% end %>
-
-
- <section id="addPet" > 
-
- <h2> Add a Pet to this Application </h2>
-
-
-<%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |f| %>
-  <%= f.label :search_pet %>
-  <%= f.text_field :search_pet %>
-  <%= f.submit "Search Pets By Name" %>
-<% end %>
-
-<% if @searched_pets.present? %>
-  <% @searched_pets.each do |pet|%>
-    <p> <%= pet.name %>  </p>
-    <%= form_with url: "/applications/#{@application.id}", method: :post, local: true do |f| %>
-      <%f.submit "Adopt This Pet"%>
-      <% end %>
+<section id="addPet">
+  <h2> Add a Pet to this Application </h2>
+  <%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |f| %>
+    <%= f.label :search_pet %>
+    <%= f.text_field :search_pet %>
+    <%= f.submit "Search Pets By Name" %>
   <% end %>
+
+  <% if @searched_pets.present? %>
+    <% @searched_pets.each do |pet| %>
+      <p> <%= pet.name %>  </p>
+      <%= form_with url: "/applications/#{@application.id}", method: :post, local: true do |f| %>
+        <%= f.hidden_field :pet_id, value: pet.id %>
+        <%= f.submit "Adopt This Pet" %>
+      <% end %>
+    <% end %>
+  <% end %>
+  <% @application.pets.each do |pet| %>
+    <p> <%= pet.name %> </p>
+  <% end %>
+</section>
+
+<% if @application.pets.any? %>
+  <section id="submitForm">
+  <%= form_with url: "/applications/#{@application.id}", method: :patch, local: true do |f| %>
+    <h3><%= f.label :description, "What Would Make You A Great Owner?" %></h3>
+    <%= f.text_area :description, value: @application.description %>
+    <br/>
+    <%= f.submit "Submit"%>
+  <% end %>
+  </section>
 <% end %>
- </section>
-
-
