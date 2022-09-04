@@ -8,3 +8,15 @@
 <h3>Pets I am interested in: <ul><% @application.pets.each do |pet| %>
     <li><%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
   <% end %></ul></h3>
+
+<h3>Add a Pet to this Application</h3>
+<%= form_with url: "/applications/#{@application.id}/", method: :patch, local: true do |f| %>
+  <%= f.label :query, "Search for:" %>
+  <%= f.text_field :query %>
+  <%= f.submit "Search" %>
+<% end %>
+<ul id="results">
+<% @pets.each do |pet| %>
+  <li><%= pet.name %>
+<% end %>
+</ul>
