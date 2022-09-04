@@ -64,7 +64,7 @@ RSpec.describe 'the application show' do
     expect(page).to have_content('Scooby')
   end
 
-  it 'returns all pets with partial matches when typed into the search bar' do
+  it 'returns all pets with partial matches when typed into the search bar and is case insensitive' do
     shelter_1 = Shelter.create!(name: 'Mystery Building', city: 'Irvine CA', foster_program: false, rank: 9)
     fancy_francis = shelter_1.pets.create!(name: "Sir Francis", breed: "Sphinx", age: 6, adoptable: true)
     fran = shelter_1.pets.create!(name: "Fran", breed: "Calico", age: 3, adoptable: true)
