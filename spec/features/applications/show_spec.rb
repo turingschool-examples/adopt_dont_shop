@@ -148,7 +148,7 @@ RSpec.describe 'application show page' do
 
           click_on 'Submit application'
 
-          expect(page).to_not have_content('Search for Pet')
+          expect(page).to_not have_content('Add a Pet to this Application')
         end
       end
     end
