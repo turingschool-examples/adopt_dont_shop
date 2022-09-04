@@ -14,24 +14,20 @@ RSpec.describe 'Application show page' do
       address: "152 Animal Ave.", 
       city: "Omaha, NE", 
       zip_code: "19593",
-      description: "We love raccoons and would like more please. They will live a good life and will not have to eat carrots. Ever.",
       status: "In Progress"
     )
-
-    @app.pets << @pet_2
-    @app.pets << @pet_3
-
-    visit "apps/#{@app.id}"
   end
 
   it 'displays the attributes of the selected application' do
+    # @app.pets << @pet_2
+    # @app.pets << @pet_3
+    visit "apps/#{@app.id}"
     expect(page).to have_content(@app.name)
     expect(page).to have_content(@app.address)
     expect(page).to have_content(@app.city)
     expect(page).to have_content(@app.zip_code)
-    expect(page).to have_content(@app.description)
-    expect(page).to have_link(@pet_2.name)
-    expect(page).to have_link(@pet_3.name)
+    # expect(page).to have_link(@pet_2.name)
+    # expect(page).to have_link(@pet_3.name)
     expect(page).to_not have_link(@pet_1.name)
     expect(page).to_not have_link(@pet_4.name)
     expect(page).to have_content(@app.status)
@@ -39,6 +35,8 @@ RSpec.describe 'Application show page' do
 
   describe 'if the application has not been submitted' do
     it 'shows a field to search for adoptable pets' do
+      
+      visit "apps/#{@app.id}"
       expect(page).to have_content("In Progress")
 
       expect(page).to have_content("Add a Pet to this Application")
@@ -52,6 +50,7 @@ RSpec.describe 'Application show page' do
     end
     
     it 'ignores case and finds partial matches' do
+      visit "apps/#{@app.id}"
       fill_in("Search", with: "king")
       click_on("Submit")
       expect(page).to have_content(@pet_1.name)
@@ -59,8 +58,12 @@ RSpec.describe 'Application show page' do
       fill_in("Search", with: "wend")
       click_on("Submit")
       expect(page).to have_content(@pet_4.name)
+    end
 
     it 'shows a list of all pets currently interested in adopting' do
+      @app.pets << @pet_2
+      @app.pets << @pet_3
+      visit "apps/#{@app.id}"
       within("#pets_wanted") do
         @app.pets.each do |pet|
           expect(page).to have_content(pet.name)
@@ -75,6 +78,7 @@ RSpec.describe 'Application show page' do
     end
 
     it 'can add pets' do
+      visit "apps/#{@app.id}"
       fill_in("Search", with: "#{@pet_1.name}")
       click_on("Submit")
       within("#pet_#{@pet_1.id}") do
@@ -82,7 +86,25 @@ RSpec.describe 'Application show page' do
       end
       expect(current_path).to eq("/apps/#{@app.id}")
       expect(@app.pets).to include(@pet_1)
-      within("#")
+    end
+
+    it 'does not show an option to submit if no pets added' do
+      visit "apps/#{@app.id}"
+      expect(page).to_not have_button("Submit Application")
+
+    end
+
+    it 'can submit an application' do
+      @app.pets << @pet_2
+      @app.pets << @pet_3
+      visit "apps/#{@app.id}"
+      expect(page).to have_field("Description")
+      expect(page).to have_button("Submit Application")
+      fill_in("Description", with: "Because Racoon Jesus told me to.")
+      click_on("Submit Application")
+      expect(current_path).to eq("/apps/#{@app.id}")
+      expect(page).to have_content("Pending")
+      expect(page).to_not have_content("Submit Application")
     end
   end
 end
