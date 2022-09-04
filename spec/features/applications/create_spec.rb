@@ -33,7 +33,7 @@ RSpec.describe 'Application creation' do
         visit '/applications/new'
 
         fill_in 'name', with: "Joe"
-        fill_in 'street_address', with: "Shmoe"
+        fill_in 'street_address', with: "4545 Cool St."
         fill_in 'city', with: "Miami"
         fill_in 'state', with: "FL"
         fill_in 'zipcode', with: "11111"
@@ -59,6 +59,25 @@ RSpec.describe 'Application creation' do
         visit "/applications/#{@application1.id}"
 
         expect(page).to have_content("In Progress")
+      end
+    end
+
+    describe 'when I fail to fill in any of the form fields and I click submit' do
+      it 'Then I am taken back to the new applications page and I see a message that I must fill in those forms' do
+        visit '/applications/new'
+
+        fill_in 'name', with: "Joe"
+        #'street_address' is not filled in
+        fill_in 'city', with: "Miami"
+        fill_in 'state', with: "FL"
+        fill_in 'zipcode', with: "11111"
+        fill_in 'description', with: "I'm pretty great."
+
+        click_on 'Submit'
+
+        expect(current_path).to eq('/applications/new')
+        expect(page).to have_content("Please complete all fields.")
+        expect(Application.count).to eq(1) #no new application was created
       end
     end
   end
