@@ -7,9 +7,14 @@ class Application < ApplicationRecord
   aasm column: :status do
     state :in_progress, initial: true, display: 'In Progress'
     state :pending, display: 'Pending'
+    state :approved, display: 'Approved'
 
     event :submit do
       transitions from: :in_progress, to: :pending
+    end
+
+    event :approve do
+      transitions from: :pending, to: :approved
     end
   end
 
