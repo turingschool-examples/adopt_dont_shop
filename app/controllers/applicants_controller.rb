@@ -11,14 +11,14 @@ class ApplicantsController < ApplicationController
   end
 
   def create
-    applicant = Applicant.create!(app_params)
-    # if applicant.save
-    #   flash.clear
+    applicant = Applicant.create(app_params)
+    if applicant.save
+      flash.clear
       redirect_to "/applicants/#{applicant.id}"
-    # else
-    #   redirect_to "/applicants/new"
-    #   flash[:alert] = "Please Enter Data For Each Field"
-    # end
+    else
+      redirect_to "/applicants/new"
+      flash[:alert] = "Please Enter Data For Each Field"
+    end
   end
 
 private

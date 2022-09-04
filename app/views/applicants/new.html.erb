@@ -28,4 +28,8 @@
 
   <%= f.submit "Create Application"%>
 
+  <% if flash[:alert].present? %>
+    <p style='font-size:150%; color:red;'><%= flash[:alert] %></p>
+  <% end %>
+
 <% end %>

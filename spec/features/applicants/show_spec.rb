@@ -95,7 +95,7 @@ RSpec.describe 'applicant show page' do
     end
   end
 
-  # User Story 10 
+  # User Story 10
 
   # As a visitor
   # When I visit an application's show page
@@ -117,14 +117,14 @@ RSpec.describe 'applicant show page' do
 
     it 'Then I see a section on the page to "Add a Pet to this Application"' do
       visit "/applicants/#{@app.id}"
-      
+
       expect(has_field?).to be(true)
       expect(have_field('Add a Pet to this Application'))
 
       fill_in 'pet_search', with: "SlimJim"
 
       click_on 'Submit'
-      save_and_open_page
+      # save_and_open_page
       expect(current_path).to eq("/applicants/#{@app.id}")
 
       expect(page).to have_content(@cat1.name)
