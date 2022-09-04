@@ -29,6 +29,15 @@ class AppsController < ApplicationController
     end
   end
 
+  def update
+    @app = App.find(params[:id])
+    @app.update(
+      {description: params[:description],
+      status: params[:status]}
+    )
+    redirect_to "/apps/#{@app.id}"
+  end
+
   private
   def app_params
     params.permit(:name, :address, :city, :state, :zip_code, :description)
