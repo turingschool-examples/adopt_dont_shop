@@ -16,7 +16,7 @@ class ApplicationsController < ApplicationController
       redirect_to "/applications/new"
       flash[:alert] = "Please fill in all fields"
     else
-      application = Application.create!(new_params)
+      application = Application.create!(applications_params)
 
       redirect_to "/applications/#{application.id}"
     end
@@ -34,15 +34,4 @@ private
   def applications_params
     params.permit(:name, :street_address, :city, :state, :zipcode, :status, :description)
   end
-
-  def new_params
-    params.permit(:name, :street_address, :city, :state, :zipcode, :status)
-  end
-
-#   {name: params[:name]},
-#                                 {street_address: params[:street_address]},
-#                                 {city: params[:city]},
-#                                 {state: params[:state]},
-#                                 {zipcode: params[:zipcode]},
-#                                 {status: params[:status]}
 end
