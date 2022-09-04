@@ -67,7 +67,6 @@ RSpec.describe 'Admin Shelters Index' do
         expect(page).to have_link(@fontaine.name)
         expect(page).to_not have_link(@damon.name)
       end
-      save_and_open_page
     end
   end
 end
