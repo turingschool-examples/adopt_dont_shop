@@ -22,6 +22,8 @@
   <%= form.submit "Submit" %>
 <% end %>
 
-<% @pets.each do |pet| %>
-  <h4><%= pet.name %></h4>
+<% if @pets != nil %>
+  <% @pets.each do |pet| %>
+    <h4><%= pet.name %></h4>
+  <% end %>
 <% end %>
