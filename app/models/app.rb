@@ -1,6 +1,8 @@
 class App < ApplicationRecord
   has_many :app_pets
   has_many :pets, through: :app_pets
+  
+  attribute :status, :string, default: "In Progress"
 end
 
 def search(query)
