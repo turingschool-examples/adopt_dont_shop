@@ -22,55 +22,66 @@ RSpec.describe 'the application show' do
     expect(page).to have_content(@app_1.description)
     expect(page).to have_content("In Progress")
     expect(page).to have_content(@pet_1.name)
-    
 
     expect(page).to_not have_content(@pet_2.name)
     expect(page).to_not have_content(@app_2.name)
   end
 
   describe 'the Add A Pet To This Application section'
-    it 'exists and has a form with a button to search a pet' do
-      visit "/applications/#{@app_1.id}"
+  it 'exists and has a form with a button to search a pet' do
+    visit "/applications/#{@app_1.id}"
 
-      within("#addPet") do
-        expect(page).to have_content('Add a Pet to this Application')
-        expect(find('form')).to have_content('Search')
-        expect(page).to have_button("Search Pets By Name")
-        expect(page).to_not have_content(@app_1.name)        
-      end
+    within("#addPet") do
+      expect(page).to have_content('Add a Pet to this Application')
+      expect(find('form')).to have_content('Search')
+      expect(page).to have_button("Search Pets By Name")
+      expect(page).to_not have_content(@app_1.name)
     end
+  end
 
-    it 'searches for a pet' do
-      visit "/applications/#{@app_1.id}"
+  it 'searches for a pet' do
+    visit "/applications/#{@app_1.id}"
 
-      within("#addPet") do
-        fill_in('Search', with: 'scoo')
-        click_button("Search Pets By Name")
+    within("#addPet") do
+      fill_in('Search', with: 'scoo')
+      click_button("Search Pets By Name")
 
-        expect(current_path).to eq("/applications/#{@app_1.id}")
-        expect(page).to have_content(@pet_1.name)
-        expect(page).to_not have_content(@pet_2.name)
-      end
+      expect(current_path).to eq("/applications/#{@app_1.id}")
+      expect(page).to have_content(@pet_1.name)
+      expect(page).to_not have_content(@pet_2.name)
     end
+  end
 
-    it 'has a button Adopt this Pet that adds a pet to an application' do
-      visit "/applications/#{@app_1.id}"
+  it 'has a button Adopt this Pet that adds a pet to an application' do
+    visit "/applications/#{@app_1.id}"
 
-      within("#addPet") do
-        fill_in('Search', with: 'scoo')
-        click_button("Search Pets By Name")
-        
-        click_on "Adopt This Pet"
+    # within("#addPet") do
+    fill_in('Search', with: 'scoo')
+    click_button("Search Pets By Name")
 
-        expect(page).to have_content('Scooby')
+    click_on "Adopt This Pet"
+
+    expect(page).to have_content('Scooby')
+  end
+
+  it 'returns all pets with partial matches when typed into the search bar' do
+    shelter_1 = Shelter.create!(name: 'Mystery Building', city: 'Irvine CA', foster_program: false, rank: 9)
+    fancy_francis = shelter_1.pets.create!(name: "Sir Francis", breed: "Sphinx", age: 6, adoptable: true)
+    fran = shelter_1.pets.create!(name: "Fran", breed: "Calico", age: 3, adoptable: true)
+    visit "/applications/#{@app_2.id}"
+
+    within("#addPet") do
+      fill_in('Search', with: 'fran')
+      click_button("Search Pets By Name")
+
+      expect(page).to have_content(fancy_francis.name)
+      expect(page).to have_content(fran.name)
     end
   end
 
   it 'shows the filled out application with pending status and the pets the user wants to adopt' do
     visit "/applications/#{@app_1.id}"
 
-    within("#submitForm")
-    visit "/applications/#{@app_1.id}"
     fill_in 'What Would Make You A Great Owner?', with: "#{@app_1.description}"
 
     expect(page).to have_content('What Would Make You A Great Owner?')
@@ -89,3 +100,4 @@ RSpec.describe 'the application show' do
     expect(page).to_not have_button('Submit')
   end
 end
+
