@@ -81,4 +81,18 @@ RSpec.describe 'the pets index' do
     expect(page).to have_content(pet_2.name)
     expect(page).to_not have_content(pet_3.name)
   end
+
+  it 'user story 2 can start an application' do
+    shelter = Shelter.create!(name: "Craig's Raccoon Emporium", rank: 1, city: "Omaha")
+
+    pet_1 = @shelter.pets.create!(name: "Pope Francis Bacon", age: 14)
+    # When I visit the pet index page
+    visit "/pets"
+    # Then I see a link to "Start an Application"
+    expect(page).to have_link("Start an Application")
+    # When I click this link
+    click_on("Start an Application")
+    # Then I am taken to the new application page where I see a form
+    expect(current_path).to eq('/apps/new')
+  end
 end

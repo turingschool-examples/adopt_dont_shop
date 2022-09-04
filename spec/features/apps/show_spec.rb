@@ -52,7 +52,7 @@ RSpec.describe 'Application show page' do
       expect(current_path).to eq("/apps/#{@app.id}")
       expect(page).to have_content(@pet_1.name)
     end
-
+    
     it 'ignores case and finds partial matches' do
       fill_in("Search", with: "king")
       click_on("Submit")
@@ -61,15 +61,30 @@ RSpec.describe 'Application show page' do
       fill_in("Search", with: "wend")
       click_on("Submit")
       expect(page).to have_content(@pet_4.name)
+
+    it 'shows a list of all pets currently interested in adopting' do
+      within("#pets_wanted") do
+        @app.pets.each do |pet|
+          expect(page).to have_content(pet.name)
+          expect(page).to have_content(pet.age)
+        end
+        expect(page).to_not have_content(@pet_1.name)
+        expect(page).to_not have_content(@pet_1.age)
+        expect(page).to_not have_content(@pet_4.name)
+        expect(page).to_not have_content(@pet_4.age)
+      end
+      
     end
 
     it 'can add pets' do
       fill_in("Search", with: "#{@pet_1.name}")
       click_on("Submit")
-      click_on("Adopt this pet")
-
+      within("#pet_#{@pet_1.id}") do
+        click_on("Adopt this pet")
+      end
       expect(current_path).to eq("/apps/#{@app.id}")
       expect(@app.pets).to include(@pet_1)
+      within("#")
     end
   end
 end
