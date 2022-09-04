@@ -60,4 +60,5 @@ RSpec.describe 'the applicants new' do
     expect(page).to have_content("Missing Required Info")
 
   end
+  
 end

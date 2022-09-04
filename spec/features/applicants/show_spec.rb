@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe 'the applicants show' do
   before :each do
     @shelter = Shelter.create!(name: 'Mystery Building', city: 'Irvine CA', foster_program: false, rank: 9)
-    @applicant = Applicant.create!(first_name: 'John', last_name: 'Dough', street_address: '123 Fake Street', city: 'Denver', state: 'CO', zip: 80205, description: "I'm awesome", status: 'In Progress')
+    @applicant = Applicant.create!(first_name: 'John', last_name: 'Dough', street_address: '123 Fake Street', city: 'Denver', state: 'CO', zip: 80205, description: "I'm awesome", status: 'Pending')
     @pet = @applicant.pets.create!(name: 'Scooby', age: 2, breed: 'Great Dane', adoptable: true, shelter_id: @shelter.id)
     @pet_2 = @applicant.pets.create!(name: 'Jake', age: 5, breed: 'Pug', adoptable: true, shelter_id: @shelter.id)
   end
@@ -57,6 +57,7 @@ RSpec.describe 'the applicants show' do
 
   describe 'pet search' do 
     before :each do
+      @applicant = Applicant.create!(first_name: 'Jimmy', last_name: 'Dough', street_address: '567 Fake Street', city: 'Denver', state: 'CO', zip: 80205, description: "I'm awesome", status: 'In Progress')
       @pet_3 = Pet.create!(name: 'Frank', age: 10,
         breed: 'Lab', adoptable: true, shelter_id: @shelter.id)
       @pet_4 = Pet.create!(name: 'Gizmo', age: 8,
@@ -95,12 +96,11 @@ RSpec.describe 'the applicants show' do
 
       expect(page).to have_button('Adopt this Pet')
       expect(find_button({value:'Adopt this Pet', id:"#{@pet_3.id}"}).visible?).to be true
-      # save_and_open_page
+
     end
 
-
-
     it "When I click one of these 'Adopt this Pet' buttons I am taken back to the application show page and I see the Pet I want to adopt listed on this application" do
+
      visit "/applicants/#{@applicant.id}"
 
       fill_in "Search pet's name", with: "Frank"
@@ -114,34 +114,29 @@ RSpec.describe 'the applicants show' do
 
     it "Before I have added one or more pets to the application, I do not see a section to submit my application." do 
 
-      applicant = Applicant.create!(first_name: 'Jimmy', last_name: 'Dough', street_address: '567 Fake Street', city: 'Denver', state: 'CO', zip: 80205, description: "I'm awesome", status: 'In Progress')
-
-      visit "/applicants/#{applicant.id}"
+      visit "/applicants/#{@applicant.id}"
 
       expect(page).to_not have_button('Apply for these Pets')
     
     end
 
     it "Once I have added one or more pets to the application, then I see a section to submit my application and in that section I see an input to enter why I would make a good owner for these pet(s)" do 
-      applicant = Applicant.create!(first_name: 'Jimmy', last_name: 'Dough', street_address: '567 Fake Street', city: 'Denver', state: 'CO', zip: 80205, description: "I'm awesome", status: 'In Progress')
-
-      visit "/applicants/#{applicant.id}"
+     
+      visit "/applicants/#{@applicant.id}"
 
       fill_in "Search pet's name", with: "Frank"
       click_on("Search")
       click_on("Adopt this Pet")
 
       expect(page).to have_button('Apply for these Pets')
-      expect(current_path).to eq("/applicants/#{applicant.id}")
+      expect(current_path).to eq("/applicants/#{@applicant.id}")
       expect(page.has_field? "description").to be true
-      # expect(page).to have_content(@pet_3.name)
-      # expect(find_link("#{@pet_3.name}").visible?).to be true
+
     end
 
     it "When I fill in that input and I click a button to submit this application I am taken back to the application's show page, and I see an indicator that the application is 'Pending', and I see all the pets that I want to adopt. I do not see a section to add more pets to this application" do
-      applicant = Applicant.create!(first_name: 'Jimmy', last_name: 'Dough', street_address: '567 Fake Street', city: 'Denver', state: 'CO', zip: 80205, description: "I'm awesome", status: 'In Progress')
-
-      visit "/applicants/#{applicant.id}"
+      
+      visit "/applicants/#{@applicant.id}"
 
       fill_in "Search pet's name", with: "Frank"
       click_on("Search")
@@ -158,6 +153,13 @@ RSpec.describe 'the applicants show' do
       expect(page).to_not have_button("Search")
       expect(page).to_not have_button('Apply for these Pets')
 
+    end
+
+    it "If I have not added any pets to the application, then I do not see a section to submit my application" do
+      
+      visit "/applicants/#{@applicant.id}"
+
+      expect(page).to_not have_button('Apply for these Pets')
     end
   end
 end
