@@ -16,7 +16,6 @@ RSpec.describe 'Application show page' do
       state: "NE", 
       zip_code: "19593",
       description: "We love raccoons and would like more please. They will live a good life and will not have to eat carrots. Ever.",
-      links_to_pets: "/pets/#{@pet_2.id}, /pets/#{@pet_3.id}",
       status: "In Progress"
     )
 
@@ -33,7 +32,10 @@ RSpec.describe 'Application show page' do
     expect(page).to have_content(@app.state)
     expect(page).to have_content(@app.zip_code)
     expect(page).to have_content(@app.description)
-    expect(page).to have_content(@app.links_to_pets)
+    expect(page).to have_link(@pet_2.name)
+    expect(page).to have_link(@pet_3.name)
+    expect(page).to_not have_link(@pet_1.name)
+    expect(page).to_not have_link(@pet_4.name)
     expect(page).to have_content(@app.status)
   end
 
