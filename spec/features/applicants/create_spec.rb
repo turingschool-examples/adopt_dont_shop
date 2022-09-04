@@ -52,8 +52,8 @@ RSpec.describe 'application creation' do
 
       fill_in 'First Name', with: 'Linda'
       fill_in 'Last Name', with: 'Smith'
-      fill_in 'Street Address', with: '737 Royal Lane'
-      fill_in 'City', with: 'Columbus'
+      # street address left out
+      #city left out
       select 'OH', :from => 'state'
       #zipcode was purposely not filled
       fill_in 'Description', with: 'I would make a great pet owner'
@@ -62,9 +62,7 @@ RSpec.describe 'application creation' do
 
       expect(current_path).to eq('/applicants/new')
 
-      it "And I see a message that I must fill in those fields." do
-        expect(page).to have_content("Please Enter Data For Each Field")
-      end
+      expect(page).to have_content("Please Enter Data For Each Field")
     end
   end
 end
