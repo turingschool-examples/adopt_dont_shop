@@ -183,7 +183,11 @@ RSpec.describe 'applicant show page' do
 
       click_on 'Submit'
 
-      
+      click_button 'Adopt this Pet'
+
+      expect(current_path).to eq("/applicants/#{@app.id}")
+      save_and_open_page
+      expect(page).to have_content(@cat2.name)
     end
   end
 end

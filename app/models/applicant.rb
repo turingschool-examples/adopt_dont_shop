@@ -8,4 +8,8 @@ class Applicant < ApplicationRecord
 
   has_many :pet_applications
   has_many :pets, through: :pet_applications
+  
+  def adopt_pet(pet)
+    self.pets << pet
+  end
 end
