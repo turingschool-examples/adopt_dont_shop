@@ -8,7 +8,7 @@
     <p>Applicant name: <%= pet_application.application.name %></p>
     <p>Application status: <%= pet_application.application.status %></p>
     <% if pet_application.application.status == "Pending" %>
-      <%= button_to "Approve", "/admin/applications/#{pet_application.id}", method: :patch, params: { :status => :Approved } %>
+      <%= button_to "Approve", "/admin/applications/#{pet_application.id}", method: :patch, params: { :status => :approved } %>
     <% end %>
   <% end %>
 </section>
