@@ -81,6 +81,7 @@ class SheltersController < ApplicationController
   def avg_age_adoptable_pets(param)
     shelter = Shelter.find(param)
     @avg_age = shelter.pets.avg_age
+    @count_adoptable = shelter.pets.count_adoptable
   end
 
   private

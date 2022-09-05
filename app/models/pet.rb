@@ -24,4 +24,8 @@ class Pet < ApplicationRecord
   def self.avg_age
     adoptable.average(:age).round(1)
   end
+
+  def self.count_adoptable
+    adoptable.count
+  end
 end

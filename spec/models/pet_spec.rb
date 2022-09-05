@@ -23,15 +23,23 @@ RSpec.describe Pet, type: :model do
       it 'returns partial matches' do
         expect(Pet.search("Claw")).to eq([@pet_2])
       end
-
+    end
+    
+    describe '#adoptable' do
+      it 'returns adoptable pets' do
+        expect(Pet.adoptable).to eq([@pet_1, @pet_2])
+      end
+    end
+    
+    describe '#avg_age' do
       it 'returns average age of adoptable pets' do
         expect(Pet.avg_age).to eq(4.0)
       end
     end
 
-    describe '#adoptable' do
-      it 'returns adoptable pets' do
-        expect(Pet.adoptable).to eq([@pet_1, @pet_2])
+    describe '#count_adoptable' do
+      it 'returns count of adoptable pets' do
+        expect(Pet.count_adoptable).to eq(2)
       end
     end
   end

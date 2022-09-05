@@ -47,10 +47,16 @@ RSpec.describe 'Approving/rejecting applications' do
           expect(page).to have_content("Shelter Statistics")
         end
 
-        it 'displays averager age of adopable pet in section' do
+        it 'displays average age of adopable pet in section' do
           visit "/admin/shelters/#{@shelter1.id}"
 
           expect(page).to have_content("Average Age of Adoptable Pets: 8.5")
+        end
+
+        it 'displays count of adoptable pets' do
+          visit "/admin/shelters/#{@shelter1.id}"
+
+          expect(page).to have_content("Number of Adoptable Pets: 2")
         end
       end
     end
