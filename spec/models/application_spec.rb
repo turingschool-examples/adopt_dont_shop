@@ -20,15 +20,8 @@ RSpec.describe Application, type: :model do
     @pet_application3 = PetApplication.create!(pet: @pet3, application: @application2)
   end
 
-  describe '#instance methods' do
-
-
-  end
 
   describe '#class methods' do
-    xit 'should find all associated pets with an application' do
-      expect(Application.find_associated_pets).to eq([@pet1, @pet2])
-    end
 
     describe '#find_desired_pets' do
       it 'can return pets that match the inputted pet name' do
