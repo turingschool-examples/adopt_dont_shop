@@ -73,5 +73,12 @@ RSpec.describe Shelter, type: :model do
         expect(Shelter.order_by_reverse_alpha).to eq([@shelter_2, @shelter_3, @shelter_1])
       end
     end
+
+    describe '#show_shelter' do
+      it 'returns a shelter name and city using SQL' do
+        param = @shelter_1.id.to_s
+        expect(Shelter.show_shelter(param).first.name).to eq("Aurora shelter")
+      end
+    end
   end
 end

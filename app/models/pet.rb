@@ -20,4 +20,12 @@ class Pet < ApplicationRecord
   def self.pending_apps
     joins(:applications, :shelter).select('shelters.*').where("applications.status = ?", "Pending").distinct
   end
+
+  def self.avg_age
+    adoptable.average(:age).round(1)
+  end
+
+  def self.count_adoptable
+    adoptable.count
+  end
 end

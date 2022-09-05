@@ -24,4 +24,4 @@ shelter2 = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_pro
 pet4 = shelter2.pets.create(adoptable: true, age: 1, breed: 'sphynx', name: 'Lucille Bald')
 pet5 = shelter2.pets.create(adoptable: true, age: 3, breed: 'doberman', name: 'Lobster')
 
-PetApplication.create(pet_id: pet2.id, application_id: app2.id)
+# PetApplication.create(pet_id: pet2.id, application_id: app2.id)
