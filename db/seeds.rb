@@ -6,9 +6,9 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-Application.destroy_all
-Shelter.destroy_all
-Pet.destroy_all
+# Application.destroy_all
+# Shelter.destroy_all
+# Pet.destroy_all
 
 app1 = Application.create(fname: 'John', lname: 'Smithson', street_address: '12324 Turing Blvd.', city: 'Dtown', state: 'CO', zip_code: 12345, good_home_argument: 'Because reasons', status: "In Progress" )
 app2 = Application.create(fname: 'Jane', lname: 'Smithsonion', street_address: '34521 Avening Blvd.', city: 'Tdown', state: 'CO', zip_code: 12345, good_home_argument: 'Because reasons', status: "Pending" )
@@ -24,4 +24,4 @@ shelter2 = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_pro
 pet4 = shelter2.pets.create(adoptable: true, age: 1, breed: 'sphynx', name: 'Lucille Bald')
 pet5 = shelter2.pets.create(adoptable: true, age: 3, breed: 'doberman', name: 'Lobster')
 
-PetApplication.create(pet_id: pet2.id, application_id: app2.id)
+# PetApplication.create(pet_id: pet2.id, application_id: app2.id)
