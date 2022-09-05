@@ -4,11 +4,9 @@ RSpec.describe 'the applications show' do
   describe 'As a visitor' do
     before :each do
       @shelter1 = Shelter.create!(foster_program: true, name: "Moms and Mutts", city: "Denver", rank:1)
-      @application1 = Application.create!(name:"Becka Hendricks", street_address:"6210 Castlegate Dr.", city:"Castle Rock", state:"Colorado", zipcode:"80108", description:"I love dogs and would be such a good dog mom", status: "In Progress")
+      @application1 = Application.create!(name:"Becka Hendricks", street_address:"6210 Castlegate Dr.", city:"Castle Rock", state:"Colorado", zipcode:"80108", status: "In Progress", description: "NO DESC[N/A]")
       @pet1 = @shelter1.pets.create!(adoptable: true, age:3, breed:"Pitbull", name:"Scrappy")
       @pet2 = @shelter1.pets.create!(adoptable: true, age:5, breed:"German Shepherd", name:"Gossamer")
-      PetApplication.create!(pet: @pet1, application: @application1)
-      PetApplication.create!(pet: @pet2, application: @application1)
     end
 
     describe 'when I visit an applications show page' do
@@ -25,15 +23,12 @@ RSpec.describe 'the applications show' do
         expect(page).to have_content(@application1.city)
         expect(page).to have_content(@application1.state)
         expect(page).to have_content(@application1.zipcode)
-      end
-
-      it 'I can see a description of why the applicant says theyd be a good home for this pet(s)' do
-        visit "/applications/#{@application1.id}"
-
         expect(page).to have_content(@application1.description)
       end
 
       it 'I can see the names of all pets that this application is for (all names of pets should be links to their show page)' do
+        PetApplication.create!(pet: @pet1, application: @application1)
+        PetApplication.create!(pet: @pet2, application: @application1)
         visit "/applications/#{@application1.id}"
 
         expect(page).to have_content(@pet1.name)
@@ -80,6 +75,9 @@ RSpec.describe 'the applications show' do
           it "I see a button to 'adopt this pet'" do
             visit "/applications/#{@application1.id}"
 
+            fill_in 'query', with: "#{@pet1.name}"
+            click_on 'Search'
+
             expect(page).to have_button("Adopt this pet")
           end
 
@@ -89,15 +87,74 @@ RSpec.describe 'the applications show' do
             fill_in 'query', with: "#{@pet1.name}"
             click_on 'Search'
 
-            first(:button, "Adopt this pet")
+            first(:button, "Adopt this pet").click
 
-            expect(current_path).to eq "/applications/#{@application1.id}/"
+            expect(current_path).to eq "/applications/#{@application1.id}"
 
             within("#pets") do
               expect(page).to have_content(@pet1.name)
             end
           end
+
+          it "I can add more than one pet" do
+            visit "/applications/#{@application1.id}"
+
+            fill_in 'query', with: "#{@pet1.name}"
+            click_on 'Search'
+
+            first(:button, "Adopt this pet").click
+
+            fill_in 'query', with: "#{@pet2.name}"
+            click_on 'Search'
+
+            first(:button, "Adopt this pet").click
+
+            within("#pets") do
+              expect(page).to have_content(@pet1.name)
+              expect(page).to have_content(@pet2.name)
+            end
+          end
+
+          describe "I see a section to submit my application, I see an input to enter why I would be great for these pets" do
+            it "when I fill in description and I click a button to submit an application then, I am taken back to the application show page" do
+              visit "/applications/#{@application1.id}"
+
+              fill_in 'query', with: "#{@pet1.name}"
+              click_on 'Search'
+
+              first(:button, "Adopt this pet").click
+
+              expect(page.has_css?("#add_pet")).to eq true
+              fill_in 'description', with: "I'm a great person"
+              click_on 'Submit'
+
+              expect(current_path).to eq "/applications/#{@application1.id}"
+            end
+
+            it "I see a indicator that the application is pending" do
+              visit "/applications/#{@application1.id}"
+
+              fill_in 'query', with: "#{@pet1.name}"
+              click_on 'Search'
+
+              first(:button, "Adopt this pet").click
+
+              fill_in 'description', with: "I'm a great person"
+              click_on 'Submit'
+
+              expect(current_path).to eq "/applications/#{@application1.id}"
+
+              expect(page).to have_content "Pending"
+              expect(page.has_css?("#add_pet")).to eq false
+            end
+
+            it "When I visit a applications show page, I cannot submit my application without pets" do
+              visit "/applications/#{@application1.id}"
+
+              expect(page.has_css?("#submit_description")).to eq false
+            end
+          end
         end
+      end
     end
   end
-end

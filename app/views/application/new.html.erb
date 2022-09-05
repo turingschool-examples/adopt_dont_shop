@@ -15,9 +15,7 @@
   <%= f.label :zipcode %>
   <%= f.text_field :zipcode %><br>
 
-  <%= f.label :description %><br>
-  <%= text_area_tag(:description, "Why I would make a great pet owner...", size: "24x6") %><br>
-
+  <%= f.hidden_field :description, value: "NO DESC[N/A]" %>
   <%= f.hidden_field :status, value: "In Progress" %>
 
   <%= f.submit "Submit"%>

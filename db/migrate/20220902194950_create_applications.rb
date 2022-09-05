@@ -6,7 +6,7 @@ class CreateApplications < ActiveRecord::Migration[5.2]
       t.string :city, null: false
       t.string :state, null: false
       t.string :zipcode, null: false
-      t.string :description, null: false
+      t.string :description
       t.string :status
 
       t.timestamps

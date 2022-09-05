@@ -17,15 +17,19 @@ class ApplicationsController < ApplicationController
     @application = Application.find(params[:id])
     @pets = @application.pets
     if params[:query]
-      @pets = Pet.search(params[:query])
+      @pet_results = Pet.search(params[:query])
     elsif params[:pet_name]
-      @pet = Pet.find(params[:pet_name])
-      PetApplication.create!(pet: @pet, application: @application)
+      PetApplication.associate(params[:pet_name], @application)
     end
+  end
+
+  def update
+    Application.update(params[:id], :description => params[:description], :status => "Pending")
+    redirect_to "/applications/#{params[:id]}"
   end
 
   private
   def application_params
-    params.permit(:id, :name, :street_address, :city, :zipcode, :state, :description, :status, :pets, :created_at, :updated_at)
+    params.permit(:id, :name, :street_address, :city, :zipcode, :state, :description, :status, :created_at, :updated_at)
   end
 end

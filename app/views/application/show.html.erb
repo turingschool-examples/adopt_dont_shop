@@ -3,20 +3,34 @@
 <h3>City: <%= @application.city %></h3>
 <h3>Zipcode: <%= @application.zipcode %></h3>
 <h3>State: <%= @application.state %></h3>
-<h3>Description: <%= @application.description %></h3>
 <h3>Status: <%= @application.status %></h3>
+<h3>Description: <%= @application.description %></h3>
 <h3 id="pets">Pets I am interested in: <ul><% @application.pets.each do |pet| %>
     <li><%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
   <% end %></ul></h3>
-
-<h3>Add a Pet to this Application</h3>
-<%= form_with url: "/applications/#{@application.id}/", method: :patch, local: true do |f| %>
-  <%= f.label :query, "Search for:" %>
-  <%= f.text_field :query %>
-  <%= f.submit "Search" %>
+<% if @application.status == "In Progress" %>
+  <div id="add_pet">
+    <h3>Add a Pet to this Application</h3>
+    <%= form_with url: "/applications/#{@application.id}/", method: :patch, local: true do |f| %>
+      <%= f.label :query, "Search for:" %>
+      <%= f.text_field :query %>
+      <%= f.submit "Search" %>
+    <% end %>
+    <ul id="results">
+      <% if @pet_results %>
+        <% @pet_results.each do |pet| %>
+          <li><%= pet.name %><%= button_to("Adopt this pet", :pet_name => pet.id) %>
+        <% end %>
+      <% end %>
+    </ul>
+    <% unless @pets.empty? %>
+      <div id="submit_description">
+        <h3>Why I would be a good pet owner</h3>
+        <%= form_with url: "/applications/#{@application.id}/update", method: :patch, local: true do |f| %>
+          <%= f.text_area :description, size: "24x6" %><br>
+          <%= f.submit "Submit" %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
 <% end %>
-<ul id="results">
-<% @pets.each do |pet| %>
-  <li><%= pet.name %><%= button_to("Adopt this pet", :pet_name => pet.id) %>
-<% end %>
-</ul>

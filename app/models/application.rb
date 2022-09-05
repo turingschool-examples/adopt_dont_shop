@@ -4,7 +4,7 @@ class Application < ApplicationRecord
   validates :city, presence: true, allow_blank: false
   validates :state, presence: true, allow_blank: false
   validates :zipcode, presence: true, allow_blank: false
-  validates :description, presence: true, allow_blank: false
+  validates :description, presence: true
   validates :status, presence: true
 
   has_many :pet_applications
