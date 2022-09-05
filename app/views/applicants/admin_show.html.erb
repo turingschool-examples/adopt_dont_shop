@@ -14,8 +14,8 @@
           <%= button_to "Approve Addoption for #{pet.name}", "/admin/applicants/#{@applicant.id}", params: {adoptable: false, pet_id: "#{pet.id}"}, method: :patch %>
         <% elsif pet.adoptable == false %>
           <%= " - Adoption Aprroved for #{pet.name}" %>
-        <% elsif @approval == "rejected" %>
-          <%= " - Adoption Rejected for #{pet.name}" %>
+        <%# <% elsif @approval == "rejected" %>
+          <%# <%= " - Adoption Rejected for #{pet.name}" %> %> %>
         <% end %>
         </p>
       <% end %>
