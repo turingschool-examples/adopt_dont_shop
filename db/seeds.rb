@@ -7,6 +7,7 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 @shelter1 = Shelter.create!(foster_program: true, name: "Moms and Mutts", city: "Denver", rank:1)
 @shelter2 = Shelter.create!(foster_program: false, name: "Pet Supermarket", city: "Plano", rank:999)
+@shelter3 = Shelter.create!(foster_program: false, name: "A Safe Haven", city: "Miami", rank:250)
 
 @pet1 = @shelter1.pets.create!(adoptable: true, age:3, breed:"Pitbull", name:"Scrappy")
 @pet2 = @shelter1.pets.create!(adoptable: true, age:5, breed:"German Shepherd", name:"Gossamer")
