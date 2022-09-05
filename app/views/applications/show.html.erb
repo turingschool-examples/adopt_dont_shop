@@ -35,7 +35,7 @@
     <section id="submitForm">
       <%= form_with url: "/applications/#{@application.id}", method: :patch, local: true do |f| %>
         <h3><%= f.label :description, "What Would Make You A Great Owner?" %></h3>
-        <%= f.text_area :description, value: @application.description %>
+        <%= f.text_area :description, value: @application.description %> currently things can be submitted without a description being added
         <br/>
         <%= f.submit "Submit"%>
       <% end %>
