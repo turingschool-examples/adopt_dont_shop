@@ -36,6 +36,7 @@
     <p><%= form.label :description, "Please describe why you would like to adopt these pets."%></p>
     <p><%= form.text_field :description, size: 90 %></p>
     <p><%= form.submit "Submit My Application" %> </p>
+     <p><%= form.hidden_field :adding_description, value: 'update_description' %></p>
     <p><% end %></p>
   </div>
 <% end %>
