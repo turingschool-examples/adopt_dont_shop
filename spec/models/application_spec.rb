@@ -14,7 +14,7 @@ RSpec.describe Application, type: :model do
       @pet_3 = @shelter_1.pets.create(name: 'Ann', breed: 'ragdoll', age: 3, adoptable: false)
       @app = Application.create(name: "John Smith", address: "123 Main St, Denver, CO, 80120", about: "I love a dogs. One please.", status: "Pending")
       ApplicationPet.create!(application_id: @app.id, pet_id: @pet_1.id)
-      ApplicationPet.create!(application_id: @app.id, pet_id: @pet_2.id) 
+      ApplicationPet.create!(application_id: @app.id, pet_id: @pet_3.id) 
     end
 
     it '#list_pets - can find all pets that belong on an application' do
