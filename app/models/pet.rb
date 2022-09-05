@@ -13,3 +13,4 @@ class Pet < ApplicationRecord
     where(adoptable: true)
   end
 end
+

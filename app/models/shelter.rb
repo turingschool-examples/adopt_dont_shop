@@ -21,8 +21,9 @@ class Shelter < ApplicationRecord
   end
 
   def self.active_applications
-      joins(:applications).distinct.select("shelters.*")
+      # joins(:applications).distinct.select("shelters.*")
       #.where("applications.status" => "Pending")
+      Application.joins(pets: :shelter).where(status: "Pending").pluck("shelters.name")
   end
 
   # def self.with_applications

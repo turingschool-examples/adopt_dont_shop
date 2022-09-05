@@ -8,6 +8,8 @@ RSpec.describe 'As an admin, when I visit the admin shelters index' do
     @shelter_1.pets.create(name: 'Mr. Pirate', breed: 'tuxedo shorthair', age: 5, adoptable: true)
     @shelter_1.pets.create(name: 'Clawdia', breed: 'shorthair', age: 3, adoptable: true)
     @shelter_3.pets.create(name: 'Lucille Bald', breed: 'sphynx', age: 8, adoptable: true)
+    @application_1 = Application.create!(first_name: "Jon", last_name: "Duttko", str_address: "1018 O St NW", city: "Washington", state: "DC", zip: 20001, home_description: "friendly", status: "Pending")
+    @application_1.pets << @shelter_3.pets
   end
 
   it 'lists all the shelter names in reverse alphabetical order' do
@@ -15,5 +17,13 @@ RSpec.describe 'As an admin, when I visit the admin shelters index' do
 
     expect("#{@shelter_2.name}").to appear_before("#{@shelter_3.name}", only_text: true)
     expect("#{@shelter_3.name}").to appear_before("#{@shelter_1.name}", only_text: true)
+  end
+
+  it 'returns the name of every shelter that has a pending application' do
+    visit "/admin/shelters/"
+
+    # within "Shelters with pending applications" do
+  save_and_open_page
+      expect("Shelters with pending applications").to appear_before("#{@shelter_1.name}")
   end
 end
