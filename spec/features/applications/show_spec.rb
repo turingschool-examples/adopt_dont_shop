@@ -20,7 +20,7 @@ RSpec.describe 'the application show' do
     expect(page).to have_content(@app_1.state)
     expect(page).to have_content(@app_1.zip_code)
     expect(page).to have_content(@app_1.description)
-    expect(page).to have_content("In Progress")
+    expect(page).to have_content(@app_1.status) 
     expect(page).to have_content(@pet_1.name)
 
     expect(page).to_not have_content(@pet_2.name)
