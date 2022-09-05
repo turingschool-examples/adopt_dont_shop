@@ -54,4 +54,13 @@ RSpec.describe("application creation") do
     expect(current_path).to(eq("/applications/new"))
     expect(page).to(have_content("Application not Submitted. Please fill out all fields."))
   end
+
+  it 'will not show a submit application button until there are pets attached to the application' do
+    jimmy_application = Application.create!(    name: "Jimmy John",     street_address: "303 Broadway",     city: "Denver",     state: "CO",     zip_code: 80122,     description: "I would love to have a companion",     status: "Pending")
+
+    visit "/applications/#{jimmy_application.id}"
+
+    expect(page).to_not have_button('submit')
+    expect(page).to have_content('Pending')
+  end
 end

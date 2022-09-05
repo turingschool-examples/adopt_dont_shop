@@ -9,11 +9,10 @@ class ApplicationsController < ApplicationController
     if params[:pet_name]
       @pets = Pet.search(params[:pet_name])
     elsif params[:pet_id]
-      pet = Pet.where(id: params[:pet_id])
+      pet = Pet.where(      id: params[:pet_id])
       @application.pets << pet
       @pets = @application.pets
-      redirect_to "/applications/#{@application.id}"
-
+      redirect_to("/applications/#{@application.id}")
     else
       @pets = []
     end
@@ -35,9 +34,20 @@ class ApplicationsController < ApplicationController
     end
   end
 
+  def update
+    application = Application.find(params[:id])
+
+    if application.update(    description: params[:description],     status: "Pending")
+      redirect_to("/applications/#{application.id}")
+    else
+      redirect_to("/applications/#{application.id}")
+      flash[:alert] = "Error: #{error_message(application.errors)}"
+    end
+  end
+
   private
 
   def application_params
-    params.permit(:name, :street_address, :city, :state, :zip_code, :description, :status)
+    params.permit(:name, :street_address, :city, :state, :zip_code)
   end
 end

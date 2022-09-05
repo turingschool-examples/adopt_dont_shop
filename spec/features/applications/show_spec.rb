@@ -22,7 +22,6 @@ RSpec.describe("Applications show page") do
 
     it("shows the attributes of the applicant") do
       visit("/applications/#{@jimmy_application.id}")
-
       expect(current_path).to(eq("/applications/#{@jimmy_application.id}"))
       expect(page).to(have_content(@jimmy_application.name))
       expect(page).to(have_content(@jimmy_application.street_address))
@@ -31,55 +30,48 @@ RSpec.describe("Applications show page") do
       expect(page).to(have_content(@jimmy_application.zip_code))
     end
 
-    it 'names all pets that this application is for with links to the pets show page' do
-
-      visit "/applications/#{@jimmy_application.id}"
-
+    it("names all pets that this application is for with links to the pets show page") do
+      visit("/applications/#{@jimmy_application.id}")
       click_on("#{@fido.name} show page")
-      expect(page).to have_content("Fido")
-      expect(current_path).to eq("/pets/#{@fido.id}")
-
-      visit "/applications/#{@jimmy_application.id}"
-
+      expect(page).to(have_content("Fido"))
+      expect(current_path).to(eq("/pets/#{@fido.id}"))
+      visit("/applications/#{@jimmy_application.id}")
       click_on("#{@purrs.name} show page")
-      expect(page).to have_content("Purrs")
-      expect(current_path).to eq("/pets/#{@purrs.id}")
+      expect(page).to(have_content("Purrs"))
+      expect(current_path).to(eq("/pets/#{@purrs.id}"))
     end
 
-    it 'shows the application status as either "In Progress", "Pending", "Accepted", or "Rejected"' do
-
-      visit "/applications/#{@jimmy_application.id}"
-
-      expect(page).to have_content(@jimmy_application.status)
+    it("shows the application status as either \"In Progress\", \"Pending\", \"Accepted\", or \"Rejected\"") do
+      visit("/applications/#{@jimmy_application.id}")
+      expect(page).to(have_content(@jimmy_application.status))
     end
 
-    describe 'Story 5' do
-      describe 'wehn I go the application show page and that app has not been submitted' do
-        it 'I see a section to Add a Pet to this Application' do
-          visit "/applications/#{@jimmy_application.id}"
-
-          expect(current_path).to eq("/applications/#{@jimmy_application.id}")
-          expect(page).to have_content("Add a Pet to this Application")
+    describe("Story 5") do
+      describe("wehn I go the application show page and that app has not been submitted") do
+        it("I see a section to Add a Pet to this Application") do
+          visit("/applications/#{@jimmy_application.id}")
+          expect(current_path).to(eq("/applications/#{@jimmy_application.id}"))
+          expect(page).to(have_content("Add a Pet to this Application"))
         end
 
-        it 'can search for pets by name and route back to the application show page' do
-          @baldy = Pet.create!(adoptable: true, age: 9, breed: 'cat', name: 'Baldy', shelter_id: @shelter.id)
-          visit "/applications/#{@jimmy_application.id}"
-
-          fill_in 'pet_name', with: 'Baldy'
-          expect(page).to have_button('Search')
-          click_button('Search')
-
-          expect(current_path).to eq("/applications/#{@jimmy_application.id}")
-          expect(page).to have_content('Baldy')
-          expect(page).to_not have_content('Shouldnt be here')
+        it("can search for pets by name and route back to the application show page") do
+          @baldy = Pet.create!(          adoptable: true,           age: 9,           breed: "cat",           name: "Baldy",           shelter_id: @shelter.id)
+          visit("/applications/#{@jimmy_application.id}")
+          fill_in("pet_name",           with: "Baldy")
+          expect(page).to(have_button("Search"))
+          click_button("Search")
+          expect(current_path).to(eq("/applications/#{@jimmy_application.id}"))
+          expect(page).to(have_content("Baldy"))
+          expect(page).to_not(have_content("Shouldnt be here"))
         end
       end
     end
-
+    
     describe 'Story 6' do
       it 'can see a button to adopt the pet after searching by name and to add to adoptable pets' do
         @baldy = Pet.create!(adoptable: true, age: 9, breed: 'cat', name: 'Baldy', shelter_id: @shelter.id)
+        @todd = Pet.create!(adoptable: false, age: 3, breed: 'alpaca', name: 'Todd', shelter_id: @shelter.id)
+
         visit "/applications/#{@jimmy_application.id}"
 
         fill_in 'pet_name', with: 'Baldy'
@@ -90,9 +82,70 @@ RSpec.describe("Applications show page") do
 
         click_button('Adopt')
         expect(current_path).to eq("/applications/#{@jimmy_application.id}")
+        expect(page).to have_content('Baldy')
+        expect(page).to_not have_content('Todd')
       end
     end
 
+    it 'can search for pets with only partial information of the name' do
+      @baldy = Pet.create!(adoptable: true, age: 9, breed: 'cat', name: 'Baldy', shelter_id: @shelter.id)
+      @todd = Pet.create!(adoptable: false, age: 3, breed: 'alpaca', name: 'Todd', shelter_id: @shelter.id)
+
+      visit "/applications/#{@jimmy_application.id}"
+      fill_in 'pet_name', with: 'al'
+      click_button('Search')
+      expect(page).to have_content('Baldy')
+      expect(page).to_not have_content('Todd')
+
+      visit "/applications/#{@jimmy_application.id}"
+      fill_in 'pet_name', with: 'd'
+      click_button('Search')
+
+      expect(page).to have_content('Baldy')
+      expect(page).to have_content('Todd')
+    end
+
+    it 'can search for pets and be case insensitive in the search' do
+      @baldy = Pet.create!(adoptable: true, age: 9, breed: 'cat', name: 'Baldy', shelter_id: @shelter.id)
+      @todd = Pet.create!(adoptable: false, age: 3, breed: 'alpaca', name: 'Todd', shelter_id: @shelter.id)
+
+      visit "/applications/#{@jimmy_application.id}"
+      fill_in 'pet_name', with: 'aL'
+      click_button('Search')
+      expect(page).to have_content('Baldy')
+      expect(page).to_not have_content('Todd')
+
+      visit "/applications/#{@jimmy_application.id}"
+      fill_in 'pet_name', with: 'D'
+      click_button('Search')
+
+      expect(page).to have_content('Baldy')
+      expect(page).to have_content('Todd')
+    end
+
+    describe("Story 6") do
+      it("can see a button to adopt the pet after searching by name and to add to adoptable pets") do
+        @baldy = Pet.create!(        adoptable: true,         age: 9,         breed: "cat",         name: "Baldy",         shelter_id: @shelter.id)
+        visit("/applications/#{@jimmy_application.id}")
+        fill_in("pet_name",         with: "Baldy")
+        expect(page).to(have_button("Search"))
+        click_button("Search")
+        expect(page).to(have_button("Adopt"))
+        click_button("Adopt")
+        expect(current_path).to(eq("/applications/#{@jimmy_application.id}"))
+      end
+    end
+
+    describe("story 7") do
+      it("And in that section I see an input to enter why I would make a good owner for these pet(s)") do
+        visit("/applications/#{@jimmy_application.id}")
+        fill_in("description",         :with => "this is the description")
+        click_button("Submit my application")
+        expect(current_path).to(eq("/applications/#{@jimmy_application.id}"))
+        expect(page).to(have_content("Pending"))
+        expect(page).not_to(have_content("Add a Pet to this Application"))
+      end
+    end
 
   end
 end
