@@ -9,7 +9,7 @@ class PetApplicationsController < ApplicationController
     end
     redirect_to "/applications/#{params[:id]}"
   end
-  
+
   def admin_update
     search_hash = {pet_id: params[:pet_id], application_id: params[:id]}
     pet_app_record = PetApplication.where(search_hash)
