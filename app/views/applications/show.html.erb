@@ -5,9 +5,9 @@
 <p>City: <%= @application.city %> </p>
 <p>State: <%= @application.state %> </p>
 <p>Zip code: <%= @application.zip_code %> </p>
-<p>Status: <%= @application.aasm.human_state %> </p>
+<%# <p>Status: <%= @application.aasm.human_state %> </p> %>
 
-<% if @application.in_progress? %>
+<% if @application.status == "In Progress" %>
   <section id="addPet">
     <h2> Add a Pet to this Application </h2>
     <%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |f| %>
@@ -43,7 +43,7 @@
   <% end %>
 <% end %>
 
-<% if @application.pending? %>
+<% if @application.status == "Pending" %>
   <h5>Pets you've applied to adopt:</h5>
   <ul>
     <% @application.pets.each do |pet| %>
