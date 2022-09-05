@@ -13,7 +13,7 @@ class AdminController < ApplicationController
     if params[:approved]
       @application.update_attribute(:status, "Approved")
     elsif params[:rejected]
-      @application.update_attribute(:status, "Denied")
+      @application.update_attribute(:status, "Rejected")
     end
     redirect_to "/admin/applications/#{@application.id}"
   end
