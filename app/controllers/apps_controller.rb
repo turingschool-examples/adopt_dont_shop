@@ -13,6 +13,12 @@ class AppsController < ApplicationController
     end
   end
 
+  def admin_show
+    @app = App.find(params[:id])
+    @pets = @app.pets
+    @pet_status = pet_status(params[:id], @pets)
+  end
+
   def new
     if params[:errors].present?
       @errors = params[:errors]
