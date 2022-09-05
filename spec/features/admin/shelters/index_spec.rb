@@ -36,9 +36,9 @@ RSpec.describe 'the shelters index' do
         visit '/admin/shelters'
 
         within("#pending_apps") do
-          expect(page).to have_content("#{@shelter1.name}")
-          expect(page).to have_content("#{@shelter3.name}")
-          expect(page).to_not have_content("#{@shelter2.name}")
+          expect(page).to have_content("#{@shelter_1.name}")
+          expect(page).to have_content("#{@shelter_3.name}")
+          expect(page).to_not have_content("#{@shelter_2.name}")
         end
       end
      end

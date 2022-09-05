@@ -21,6 +21,15 @@ RSpec.describe Shelter, type: :model do
     @pet_2 = @shelter_1.pets.create(name: 'Clawdia', breed: 'shorthair', age: 3, adoptable: true)
     @pet_3 = @shelter_3.pets.create(name: 'Lucille Bald', breed: 'sphynx', age: 8, adoptable: true)
     @pet_4 = @shelter_1.pets.create(name: 'Ann', breed: 'ragdoll', age: 5, adoptable: true)
+
+    @application1 = Application.create!(name:"Becka Hendricks", street_address:"6210 Castlegate Dr.", city:"Castle Rock", state:"Colorado", zipcode:"80108", description:"I love dogs and would be such a good dog mom", status: "In Progress")
+    @application2 = Application.create!(name:"Dominic OD", street_address:"5250 Town and Country Blvd.", city:"Frisco", state:"Texas", zipcode:"75034", description:"I like cats.", status: "Pending")
+
+    PetApplication.create!(pet: @pet_1, application: @application1)
+    PetApplication.create!(pet: @pet_1, application: @application2)
+    PetApplication.create!(pet: @pet_3, application: @application1)
+    PetApplication.create!(pet: @pet_3, application: @application2)
+    PetApplication.create!(pet: @pet_2, application: @application1)
   end
 
   describe 'class methods' do
@@ -71,6 +80,12 @@ RSpec.describe Shelter, type: :model do
     describe '.alphabetical_shelter' do
       it 'returns the shelters in descending alphabetical order' do
         expect(Shelter.alphabetical_shelter).to eq([@shelter_2, @shelter_3, @shelter_1])
+      end
+    end
+
+    describe '.pending_apps' do
+      it 'returns the shelters with pending applications' do
+        expect(Shelter.pending_apps).to eq([@shelter_1, @shelter_3])
       end
     end
   end
