@@ -17,7 +17,13 @@ class ApplicationsController < ApplicationController
     @application.status = "Pending"
     @application.save
 
-    redirect_to "/applications/#{@application.id}"
+    # redirect_to "/applications/#{@application.id}"
+
+    if params[:status] == "approved"
+      @application.status = "Approved"
+      @application.save
+      redirect_to "/admin/applications/#{@application.id}"
+    end
   end
 
   def create

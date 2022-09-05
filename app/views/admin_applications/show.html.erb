@@ -1,7 +1,9 @@
 <h1>This is the show page</h1>
 
 <% @pending_pets.each do |pet| %>
+<div id= "pet_<%=pet.id%>">
 <%= pet.name  %>
-<p><%= button_to "Approve This Pet", "path", method: :post %></p>
+<p><%= button_to "Approve This Pet", "/applications/#{@application.id}?status=approved", method: :patch, class: "order_type" %></p>
+</div>
 
 <% end %>
