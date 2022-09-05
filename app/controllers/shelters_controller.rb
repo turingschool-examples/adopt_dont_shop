@@ -64,6 +64,11 @@ class SheltersController < ApplicationController
     @pending_app_shelters = Pet.pending_apps
   end
 
+  def admin_show
+    search_shelter = Shelter.show_shelter(params[:shelter_id])
+    @shelter = search_shelter.first
+  end
+
   private
 
   def shelter_params
