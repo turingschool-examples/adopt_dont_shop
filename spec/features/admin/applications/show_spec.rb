@@ -47,7 +47,7 @@ RSpec.describe 'the admin applications show page' do
       expect(page).to_not have_content("Approve This Pet")
     end
 
-    xit "And instead I see an indicator next to the pet that they have been approved" do
+    it "And instead I see an indicator next to the pet that they have been approved" do
 
       happypaws = Shelter.create!(name: "Happy Paws Shelter", foster_program: true, city: "Denver", rank: 5)
       fluffy = happypaws.pets.create!(name: "Fluffy", adoptable: true, age: 3, breed: "doberman")
@@ -56,16 +56,15 @@ RSpec.describe 'the admin applications show page' do
       fluffy_application = PetApplication.create!(pet: fluffy, application: samantha_application)
 
       visit "/admin/applications/#{samantha_application.id}"
-
-      within("#pet_#{fluffy.id}") do #change this specific ID
+     
+      within("#pet_#{fluffy.id}") do
       click_button("Approve This Pet")
       end
       
-      expect(current_path).to be("/admin/applications/#{samantha_application.id}")
+      expect(current_path).to eq("/admin/applications/#{samantha_application.id}")
 
-      within("#pet_#{fluffy.id}") do #change this specific ID
       expect(page).to have_content("Approved")
-      end
+
     end
 
   end
