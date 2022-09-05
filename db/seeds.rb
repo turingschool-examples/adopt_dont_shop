@@ -4,8 +4,8 @@
 # Examples:
 #
 Shelter.destroy_all
-Pet.destroy_all
-Applicant.destroy_all
+# Pet.destroy_all
+# Applicant.destroy_all
 
 @shelter_1 = Shelter.create!(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
 @shelter_2 = Shelter.create!(name: 'RGV animal shelter', city: 'Harlingen, TX', foster_program: false, rank: 5)
