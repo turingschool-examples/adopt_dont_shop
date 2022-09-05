@@ -4,6 +4,7 @@ Rails.application.routes.draw do
 
   get '/admin/shelters', to: 'admin#index'
   get "/admin/applications/:id", to: 'admin#show'
+  post "/admin/applications/:id", to: 'admin#approve_deny'
 
   get '/apps/:id', to: 'apps#show'
   get '/shelters', to: 'shelters#index'

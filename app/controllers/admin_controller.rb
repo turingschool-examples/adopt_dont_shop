@@ -6,6 +6,15 @@ class AdminController < ApplicationController
 
   def show
     @application = Application.find(params[:id])
-    require 'pry' ; binding.pry
+  end
+
+  def approve_deny
+    @application = Application.find(params[:id])
+    if params[:approved]
+      @application.update_attribute(:status, "Approved")
+    elsif params[:rejected]
+      @application.update_attribute(:status, "Denied")
+    end
+    redirect_to "/admin/applications/#{@application.id}"
   end
 end
