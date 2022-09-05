@@ -1,0 +1,18 @@
+<p>THIS IS THE ADMIN PAGE World</p>
+
+<% @shelters.each do |shelter| %>
+  <div id="shelter-<%= shelter.id %>">
+    <h3><%= shelter.name %></h3>
+    <p>Created at: <%= shelter.created_at %></p>
+    <%= link_to "Update #{shelter.name}", "/shelters/#{shelter.id}/edit" %>
+    <%= link_to "Delete #{shelter.name}", "/shelters/#{shelter.id}", method: :delete %>
+  </div>
+<% end %>
+
+<div>
+  <h3> Shelters with pending applications </h3>
+  <% @shelters_with_apps.each do |shelter| %>
+  <h5><%= shelter.name %></h5>
+  <% end %>
+</div>
+

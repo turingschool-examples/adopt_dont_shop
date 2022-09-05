@@ -5,6 +5,10 @@ class Shelter < ApplicationRecord
 
   has_many :pets, dependent: :destroy
 
+  def self.order_by_alph
+    find_by_sql("SELECT *  FROM shelters ORDER BY name DESC")
+  end
+
   def self.order_by_recently_created
     order(created_at: :desc)
   end
@@ -16,9 +20,20 @@ class Shelter < ApplicationRecord
       .order("pets_count DESC")
   end
 
-  def pet_count
-    pets.count
+  def self.active_applications
+      joins(:applications).distinct.select("shelters.*")
+      #.where("applications.status" => "Pending")
   end
+
+  # def self.with_applications
+
+  #   self.where ANY of pets(params[:application_id])
+
+  #   # look through the pets of each shelter (pets)
+  #   # iterate through pets, if param[:application_id] exists,
+  #   # if true, end process and return shelter.name
+  #   # if false, continue looking through pets
+  # end
 
   def adoptable_pets
     pets.where(adoptable: true)
