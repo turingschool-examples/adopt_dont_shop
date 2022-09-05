@@ -15,10 +15,12 @@ class ApplicationsController < ApplicationController
 
   def show
     @application = Application.find(params[:id])
+    @pets = @application.pets
     if params[:query]
       @pets = Pet.search(params[:query])
-    else
-      @pets = @application.pets
+    elsif params[:pet_name]
+      @pet = Pet.find(params[:pet_name])
+      PetApplication.create!(pet: @pet, application: @application)
     end
   end
 

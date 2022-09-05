@@ -76,6 +76,27 @@ RSpec.describe 'the applications show' do
               expect(page).to have_content("#{@pet1.name}")
             end
           end
+
+          it "I see a button to 'adopt this pet'" do
+            visit "/applications/#{@application1.id}"
+
+            expect(page).to have_button("Adopt this pet")
+          end
+
+          it "When I click one of these buttons, then I am taken back to the application show page and I see the pet I want to adopt listed on this application" do
+            visit "/applications/#{@application1.id}"
+
+            fill_in 'query', with: "#{@pet1.name}"
+            click_on 'Search'
+
+            first(:button, "Adopt this pet")
+
+            expect(current_path).to eq "/applications/#{@application1.id}/"
+
+            within("#pets") do
+              expect(page).to have_content(@pet1.name)
+            end
+          end
         end
     end
   end
