@@ -6,7 +6,7 @@ class PetApplicationsController < ApplicationController
   def show
     @application = Application.find(params[:id])
     @pending_pets = PetApplication.pending_pets
-    @pet_application = PetApplication.find(params[:application_id])
+    @pet_application = PetApplication.where(application_id: params[:id]).first
   end
 
   def create
@@ -18,13 +18,12 @@ class PetApplicationsController < ApplicationController
 
   def update
     @application = Application.find(params[:application_id])
-    @pet_application = PetApplication.find(params[:application_id])
+    @pet_application = PetApplication.where(application_id: params[:application_id]).first
     if params[:status] == "approved"
       @pet_application.pet_application_status = "Approved"
       @pet_application.save
       redirect_to "/admin/applications/#{@application.id}"
     elsif 
-      require 'pry' ; binding.pry
       @pet_application.save
       redirect_to "/admin/applications/#{@application.id}"
     end

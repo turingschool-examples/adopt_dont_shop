@@ -7,7 +7,7 @@
   <p><%= button_to "Approve This Pet", "/pet_applications/#{pet.id}/#{@pet_application.application_id}?status=approved", method: :patch %></p>
 <% elsif @pet_application.pet_application_status == "Approved"  %>
   <%= pet.name  %>
-  <p><%= "Approved" %></p>
+  <p>Approved</p>
 <% end %>
 </div>
 

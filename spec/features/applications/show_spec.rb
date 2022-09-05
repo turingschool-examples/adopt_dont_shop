@@ -16,8 +16,8 @@ RSpec.describe 'application show page', type: :feature do
     end
     
     it 'I can see all attributes of the application' do
-      visit "/applications/#{@application1.id}"
 
+      visit "/applications/#{@application1.id}"
       expect(page).to have_content('Samantha')
       expect(page).to have_content('Smith')
       expect(page).to have_content('123 Mulberry Street')
