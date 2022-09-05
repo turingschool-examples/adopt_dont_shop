@@ -64,6 +64,26 @@ class SheltersController < ApplicationController
     @pending_app_shelters = Pet.pending_apps
   end
 
+  def admin_show
+    # @shelter = Shelter.find(params[:shelter_id])
+    @search_shelter = Shelter.show_shelter(params[:shelter_id])
+    @shelter = @search_shelter.first
+    avg_age_adoptable_pets(params[:shelter_id])
+    # binding.pry
+  end
+
+  # def admin_display
+  #   search_shelter = Shelter.show_shelter(params[:shelter_id])
+  #   @shelter_display = search_shelter.first
+  # end
+
+
+  def avg_age_adoptable_pets(param)
+    shelter = Shelter.find(param)
+    @avg_age = shelter.pets.avg_age
+    @count_adoptable = shelter.pets.count_adoptable
+  end
+
   private
 
   def shelter_params

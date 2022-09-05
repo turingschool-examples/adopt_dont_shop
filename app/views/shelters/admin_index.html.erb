@@ -3,7 +3,7 @@
 <ul>
 <% @pending_app_shelters.each do |shelter| %>
   <li id="shelter_<%=shelter.id%>" >
-    <h3><%= link_to "#{shelter.name}", "/shelters/#{shelter.id}" %></h3>
+    <h3><%= link_to "#{shelter.name}", "/admin/shelters/#{shelter.id}" %></h3>
   </li>
 <% end %>
 </ul>
