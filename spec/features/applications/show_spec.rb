@@ -27,6 +27,7 @@ RSpec.describe 'the app show' do
     expect(page).to have_content(@app.about)
     expect(page).to have_link(@pet.name)
     expect(page).to have_content(@app.status)
+    save_and_open_page
     click_link("#{@pet.name}")
     expect(current_path).to eq("/pets/#{@pet.id}")
   end

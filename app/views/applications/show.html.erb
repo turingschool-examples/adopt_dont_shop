@@ -1,0 +1,14 @@
+<h1><%= @app.name %></h1>
+<h3><%= @app.address %></h3>
+<br>
+<h4>About:</h4>
+<p><%= @app.about %></p>
+<table>
+  <tr>
+    <th><h4>Pets Applied for:</h4></th>
+  </tr>
+<%@pets.each do |pet|%>
+  <tr><td><%= link_to pet.name, "/pets/#{pet.id}"%></td></tr>
+<%end%>
+</table>
+<h3><%= @app.status %></h3>
