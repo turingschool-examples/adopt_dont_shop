@@ -36,17 +36,14 @@ class ApplicantsController < ApplicationController
 
   def admin_show
     @applicant = Applicant.find(params[:id])
-    if params[:pet_id] != nil
-      pet = Pet.find(params[:pet_id])
-      pet.update(pet_params)
-    end
   end
 
-  # def admin_update
-  #   @applicant = Applicant.find(params[:id])
-  #   @approved = params[:approved]
-  #   # redirect_to "/admin/applicants/#{@applicant.id}"
-  # end
+  def admin_update
+    @applicant = Applicant.find(params[:id])
+    pet = Pet.find(params[:pet_id])
+    pet.update(pet_params)
+    redirect_to "/admin/applicants/#{@applicant.id}"
+  end
 
   private
 

@@ -34,7 +34,6 @@ RSpec.describe 'the applicants show' do
 
         click_on("Approve Addoption for Scooby")
 
-        save_and_open_page
         expect(page).to have_content("Adoption Aprroved for #{@pet.name}")
         expect(page).to have_content(@pet_2.name)
         expect(page).to_not have_button("Approve Addoption for Scooby")
