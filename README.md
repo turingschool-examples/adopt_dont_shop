@@ -1,5 +1,19 @@
 # Adopt, don't Shop
 
+## Our README info
+---
+### Updated Schema
+![adopt_dont_shop_schema.png](https://i.postimg.cc/wBfMr2JW/adopt-dont-shop-schema.png)
+Above is our updated schema with tables for applications and the app-pets join table  
+<br/><br/>
+
+
+
+
+
+
+## Old README (schema, user stories, etc)
+---
 ### Existing database design
 ![visual-schema.png](https://i.postimg.cc/0ywZgQ1W/visual-schema.png)
 
