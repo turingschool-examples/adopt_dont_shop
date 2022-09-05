@@ -28,7 +28,7 @@ RSpec.describe 'the admin application show page' do
     expect(@pet_app_1.application.status).to eq("Pending")
     expect(page).to have_button("Approve")
     click_button "Approve"
-   
+
     # expect(@pet_app_1.application.status).to eq("Approved")
     expect(page).to have_content("Application status: Approved")
   end
