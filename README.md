@@ -59,7 +59,7 @@ During the evaluation, you will present your user story:
 ## Deploy
 
 ```
-[ ] done
+[X] done
 
 Deploy your application to Heroku
 
