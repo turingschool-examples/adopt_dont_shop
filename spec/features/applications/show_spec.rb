@@ -21,7 +21,6 @@ RSpec.describe 'the app show' do
 
   it "shows the app and all it's attributes" do
     visit "/applications/#{@app.id}"
-
     expect(page).to have_content(@app.name)
     expect(page).to have_content(@app.address)
     expect(page).to have_content(@app.about)
