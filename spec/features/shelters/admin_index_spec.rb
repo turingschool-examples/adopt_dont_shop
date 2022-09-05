@@ -34,6 +34,22 @@ RSpec.describe 'Approving/rejecting applications' do
         expect(page).to have_content("Happy Shelter")
         expect(page).to_not have_content("Aurora Shelter")
       end
+
+      it 'displays shelters in alphabetical order by name' do
+        @app3 = Application.create!(fname: 'ohn', lname: 'mith', street_address: '234 Turig Blvd.', city: 'Ttown', state: 'CO', zip_code: 12345, good_home_argument: 'Because reasonsae', status: "Pending" )
+        @app4 = Application.create!(fname: 'hn', lname: 'ith', street_address: '34 Turig Blvd.', city: 'Ttown', state: 'CO', zip_code: 12345, good_home_argument: 'Because reasonsa', status: "Pending" )
+        @shelter_2 = Shelter.create(name: 'RGV animal shelter', city: 'Harlingen, TX', foster_program: false, rank: 5)
+        @shelter_3 = Shelter.create(name: 'Fancy pets of Colorado', city: 'Denver, CO', foster_program: true, rank: 10)
+        @pet_4 = @shelter_2.pets.create(name: 'Ann', breed: 'ragdoll', age: 5, adoptable: true)
+        @pet_5 = @shelter_3.pets.create(name: 'Banann', breed: 'doll', age: 7, adoptable: true)
+        @app3.pets << @pet_4
+        @app4.pets << @pet_5
+
+        visit '/admin/shelters'
+
+        expect('Fancy pets of Colorado').to appear_before('Happy Shelter')
+        expect('Happy Shelter').to appear_before('RGV animal shelter')
+      end
     end
   end
 end
