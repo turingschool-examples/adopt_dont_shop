@@ -10,11 +10,9 @@
   </head>
 
   <body>
-    <% flash.each do |type, msgs| %>
+    <% flash.each do |type, msg| %>
       <div>
-        <% msgs.each do |msg| %>
-          <p><%= msg %></p>
-        <% end %>
+      <p><%= msg %></p>
       </div>
     <% end %>
     <section>
