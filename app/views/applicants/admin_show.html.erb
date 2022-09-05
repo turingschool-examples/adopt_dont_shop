@@ -1,0 +1,23 @@
+<h2> Applicant info: </h2>
+<p>Name: <%= @applicant.first_name %> <%= @applicant.last_name %></p>
+<p>Address: <%="#{@applicant.street_address} #{@applicant.city}, #{@applicant.state} #{@applicant.zip}"%></p>
+<p>Why I would make a good home: <%= @applicant.description %></p>
+<p>Application Status: <%= @applicant.status%></p>
+
+<section>
+    <h3>Pets I want to Adopt: </h3>
+    <div id="applicant-<%= @applicant.id %>" >
+      <% @applicant.pets.each do |pet|%>
+        <p>
+        <%= link_to "#{pet.name}", "/pets/#{pet.id}"%>
+        <% if pet.adoptable == true %>
+          <%= button_to "Approve Addoption for #{pet.name}", "/admin/applicants/#{@applicant.id}", params: {adoptable: false, pet_id: "#{pet.id}"}, method: :patch %>
+        <% elsif pet.adoptable == false %>
+          <%= " - Adoption Aprroved for #{pet.name}" %>
+        <% elsif @approval == "rejected" %>
+          <%= " - Adoption Rejected for #{pet.name}" %>
+        <% end %>
+        </p>
+      <% end %>
+    </div>
+</section>
