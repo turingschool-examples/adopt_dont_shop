@@ -19,15 +19,17 @@ RSpec.describe 'the admin application show page' do
     visit "/admin/applications/#{@app_1.id}"
 
     expect(page).to have_content(@pet_app_1.pet.name)
+    expect(page).to have_content(@pet_app_1.application.name)
+    expect(page).to_not have_content(@pet_app_2.pet.name)
   end
 
   it 'shows an an approve button for that specific pet and when pressed changes status from pending to approved' do
     visit "/admin/applications/#{@app_1.id}"
-
+    expect(@pet_app_1.application.status).to eq("Pending")
     expect(page).to have_button("Approve")
-
     click_button "Approve"
    
+    # expect(@pet_app_1.application.status).to eq("Approved")
     expect(page).to have_content("Application status: Approved")
   end
 
@@ -36,6 +38,7 @@ RSpec.describe 'the admin application show page' do
     click_button "Approve"
 
     expect(page).to_not have_button("Approve")
+    expect(page).to_not have_button("Reject")
   end
 
   it 'displays a Reject button that rejects a pet' do
@@ -45,6 +48,29 @@ RSpec.describe 'the admin application show page' do
     click_button "Reject"
 
     expect(page).to_not have_button("Approve")
+    expect(page).to_not have_button("Reject")
+  end
+
+  it 'does not effect other applications when rejected' do
+    visit "/admin/applications/#{@app_1.id}"
+
+    click_button "Reject"
+
+    visit "/admin/applications/#{@app_2.id}"
+
+    expect(page).to have_button("Reject")
+    expect(page).to have_button("Approve")
+  end
+
+  it 'does not effect other applications when approved' do
+    visit "/admin/applications/#{@app_1.id}"
+
+    click_button "Approve"
+
+    visit "/admin/applications/#{@app_2.id}"
+
+    expect(page).to have_button("Reject")
+    expect(page).to have_button("Approve")
   end
 
 end
