@@ -41,7 +41,6 @@ RSpec.describe 'Admin application show page' do
     within "#pets-#{@pet_1.id}" do
       click_button('Reject application')
     end
-
     within "#pets-#{@pet_3.id}" do
       click_button('Reject application')
     end
