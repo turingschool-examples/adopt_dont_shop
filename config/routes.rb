@@ -1,14 +1,18 @@
-Rails.application.routes.draw do
-  root("welcome#index")
-  get("/",   to: "application#welcome")
-  get("/apps/:id",   to: "apps#show")
-  get("/shelters",   to: "shelters#index")
-  get("/shelters/new",   to: "shelters#new")
-  get("/shelters/:id",   to: "shelters#show")
-  post("/shelters",   to: "shelters#create")
-  get("/shelters/:id/edit",   to: "shelters#edit")
-  patch("/shelters/:id",   to: "shelters#update")
-  delete("/shelters/:id",   to: "shelters#destroy")
+
+  root 'welcome#index'
+  get '/', to: 'application#welcome'
+
+  get '/admin/shelters', to: 'admin#index'
+
+  get '/apps/:id', to: 'apps#show'
+  get '/shelters', to: 'shelters#index'
+  get '/shelters/new', to: 'shelters#new'
+  get '/shelters/:id', to: 'shelters#show'
+  post '/shelters', to: 'shelters#create'
+  get '/shelters/:id/edit', to: 'shelters#edit'
+  patch '/shelters/:id', to: 'shelters#update'
+  delete '/shelters/:id', to: 'shelters#destroy'
+
   get("/applications/new",   to: "applications#new")
   get("/applications/:id",   to: "applications#show")
   post("/applications",   to: "applications#create")
