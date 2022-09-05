@@ -43,4 +43,15 @@ RSpec.describe 'the shelter show' do
 
     expect(page).to have_current_path("/shelters/#{shelter.id}/pets")
   end
+
+  it 'displays a link to apply to adopt pets' do
+    shelter = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: true, rank: 9)
+
+    visit "/shelters/#{shelter.id}"
+
+    expect(page).to have_link("Begin a new application")
+    click_link("Begin a new application")
+
+    expect(current_path).to eq("/shelters/#{shelter.id}/apps/new")
+  end
 end
