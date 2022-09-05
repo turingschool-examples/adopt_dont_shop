@@ -1,7 +1,14 @@
 <h1>This is the show page</h1>
 
 <% @pending_pets.each do |pet| %>
-<%= pet.name  %>
-<p><%= button_to "Approve This Pet", "path", method: :post %></p>
+<div id= "pet_<%=pet.id%>">
+<% if pet.applications.first.status == "Pending"  %>
+  <%= pet.name  %>
+  <p><%= button_to "Approve This Pet", "/applications/#{@application.id}?status=approved", method: :patch, class: "order_type" %></p>
+<% elsif @applications.first.status == "Approved"  %>
+  <%= pet.name  %>
+  <p><%= "Approved" %></p>
+<% end %>
+</div>
 
 <% end %>

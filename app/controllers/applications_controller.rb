@@ -13,11 +13,19 @@ class ApplicationsController < ApplicationController
 
   def update
     @application = Application.find(params[:id])
-    @application.description = params[:description]
-    @application.status = "Pending"
-    @application.save
+    if params[:adding_description] == "update_description"
+      @application.description = params[:description]
+      @application.status = "Pending"
+      @application.save
 
-    redirect_to "/applications/#{@application.id}"
+      redirect_to "/applications/#{@application.id}"
+
+    elsif params[:status] == "approved"
+      @application.status = "Approved"
+      @application.save
+      
+      redirect_to "/admin/applications/#{@application.id}"
+    end
   end
 
   def create
