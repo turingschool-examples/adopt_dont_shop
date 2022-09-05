@@ -5,7 +5,7 @@
 <p>City: <%= @application.city %> </p>
 <p>State: <%= @application.state %> </p>
 <p>Zip code: <%= @application.zip_code %> </p>
-<%# <p>Status: <%= @application.aasm.human_state %> </p> %>
+<p>Status: <%= @application.status %> </p>
 
 <% if @application.status == "In Progress" %>
   <section id="addPet">

@@ -10,7 +10,7 @@ class ApplicationPetsController < ApplicationController
 
   def update
     @pet_app = ApplicationPet.find(params[:id])
-    @pet_app.application.approve!
+    @pet_app.application.update(status: "Approved")
 
     redirect_to "/admin/applications/#{@pet_app.application_id}"
   end
