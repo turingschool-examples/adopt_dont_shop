@@ -1,0 +1,6 @@
+<h1><%= @application.name%> Application </h1>
+
+<h4>Current pets applied for:</h4>
+<% @application.pets.each do |pet| %>
+<div id="pets-<%= pet.id %>">
+<p></p>
