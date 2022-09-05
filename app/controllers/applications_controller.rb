@@ -19,12 +19,6 @@ class ApplicationsController < ApplicationController
       @application.save
 
       redirect_to "/applications/#{@application.id}"
-
-    elsif params[:status] == "approved"
-      @application.status = "Approved"
-      @application.save
-      
-      redirect_to "/admin/applications/#{@application.id}"
     end
   end
 

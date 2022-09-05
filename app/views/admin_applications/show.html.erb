@@ -2,10 +2,10 @@
 
 <% @pending_pets.each do |pet| %>
 <div id= "pet_<%=pet.id%>">
-<% if pet.applications.first.status == "Pending"  %>
+<% if @pet_application.pet_application_status == "Pending"  %>
   <%= pet.name  %>
-  <p><%= button_to "Approve This Pet", "/applications/#{@application.id}?status=approved", method: :patch, class: "order_type" %></p>
-<% elsif @applications.first.status == "Approved"  %>
+  <p><%= button_to "Approve This Pet", "/pet_applications/#{pet.id}/#{@pet_application.application_id}?status=approved", method: :patch %></p>
+<% elsif @pet_application.pet_application_status == "Approved"  %>
   <%= pet.name  %>
   <p><%= "Approved" %></p>
 <% end %>
