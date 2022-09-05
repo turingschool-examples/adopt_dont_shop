@@ -55,9 +55,15 @@ RSpec.describe 'the applicants new' do
     fill_in("street_address", with: "567 Fake Street")
     
     click_button('Next Step')
-    
+
+    expect(Applicant.count).to eq(0)    
     expect(current_path).to eq("/applicants/new")
-    expect(page).to have_content("Missing Required Info")
+    expect(page).to have_content("First name can't be blank")
+    expect(page).to have_content("Last name can't be blank")
+    expect(page).to have_content("City can't be blank")
+    expect(page).to have_content("State can't be blank")
+    expect(page).to have_content("Zip can't be blank")
+    expect(page).to have_content("Description can't be blank")
 
   end
   
