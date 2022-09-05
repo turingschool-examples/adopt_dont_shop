@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe 'Application creation' do
   before :each do
     @shelter1 = Shelter.create!(foster_program: true, name: "Moms and Mutts", city: "Denver", rank:1)
-    @application1 = Application.create!(name:"Becka Hendricks", street_address:"6210 Castlegate Dr.", city:"Castle Rock", state:"Colorado", zipcode:"80108", description:"I love dogs and would be such a good dog mom", status: "In Progress")
+    @application1 = Application.create!(name:"Becka Hendricks", street_address:"6210 Castlegate Dr.", city:"Castle Rock", state:"Colorado", zipcode:"80108", description:"NO DESC[N/A]", status: "In Progress")
     @pet1 = @shelter1.pets.create!(adoptable: true, age:3, breed:"Pitbull", name:"Scrappy")
     @pet2 = @shelter1.pets.create!(adoptable: true, age:5, breed:"German Shepherd", name:"Gossamer")
     PetApplication.create!(pet: @pet1, application: @application1)
@@ -37,7 +37,6 @@ RSpec.describe 'Application creation' do
         fill_in 'city', with: "Miami"
         fill_in 'state', with: "FL"
         fill_in 'zipcode', with: "11111"
-        fill_in 'description', with: "I'm pretty great."
 
         click_on 'Submit'
 
@@ -52,7 +51,6 @@ RSpec.describe 'Application creation' do
         expect(page).to have_content(@application1.city)
         expect(page).to have_content(@application1.state)
         expect(page).to have_content(@application1.zipcode)
-        expect(page).to have_content(@application1.description)
       end
 
       it 'and I see an indicator that this application is "In Progress"' do
@@ -71,7 +69,6 @@ RSpec.describe 'Application creation' do
         fill_in 'city', with: "Miami"
         fill_in 'state', with: "FL"
         fill_in 'zipcode', with: "11111"
-        fill_in 'description', with: "I'm pretty great."
 
         click_on 'Submit'
 
