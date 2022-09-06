@@ -21,7 +21,7 @@ RSpec.describe 'the admin applications show page' do
 
       visit "/admin/applications/#{samantha_application.id}"
 
-      within("#pet_#{fluffy.id}") do 
+      within("#pet_#{fluffy.id}") do
         click_button("Approve This Pet")
       end
       expect(current_path).to eq("/admin/applications/#{samantha_application.id}")
@@ -36,7 +36,7 @@ RSpec.describe 'the admin applications show page' do
 
       visit "/admin/applications/#{samantha_application.id}"
 
-      within("#pet_#{fluffy.id}") do 
+      within("#pet_#{fluffy.id}") do
       click_button("Approve This Pet")
       end
 
@@ -57,7 +57,7 @@ RSpec.describe 'the admin applications show page' do
       within("#pet_#{fluffy.id}") do
       click_button("Approve This Pet")
       end
-      
+
       expect(current_path).to eq("/admin/applications/#{samantha_application.id}")
 
       expect(page).to have_content("Approved")
@@ -68,43 +68,43 @@ RSpec.describe 'the admin applications show page' do
 
   describe "For each pet on the app I see a button to reject the application" do
     before :each do
-      happypaws = Shelter.create!(name: "Happy Paws Shelter", foster_program: true, city: "Denver", rank: 5)
-      fluffy = happypaws.pets.create!(name: "Fluffy", adoptable: true, age: 3, breed: "doberman")
-      samantha_application = Application.create!(first_name: "Samantha", last_name: "Smith", street_address: "123 Mulberry Street", city: "Denver", state: "CO", zip_code: 20202, description: "I would like this dog for these reasons.", status: "Pending")
+      @happypaws = Shelter.create!(name: "Happy Paws Shelter", foster_program: true, city: "Denver", rank: 5)
+      @fluffy = @happypaws.pets.create!(name: "Fluffy", adoptable: true, age: 3, breed: "doberman")
+      @samantha_application = Application.create!(first_name: "Samantha", last_name: "Smith", street_address: "123 Mulberry Street", city: "Denver", state: "CO", zip_code: 20202, description: "I would like this dog for these reasons.", status: "Pending")
 
-      fluffy_application = PetApplication.create!(pet: fluffy, application: samantha_application)
+      @fluffy_application = PetApplication.create!(pet: @fluffy, application: @samantha_application)
     end
-     xit "Has a button to reject each pet" do
+     it "Has a button to reject each pet" do
 
-       visit "/admin/applications/#{samantha_application.id}"
+       visit "/admin/applications/#{@samantha_application.id}"
 
        expect(page).to have_button("Reject This Pet")
      end
 
-     xit 'when I click that button I am taken back to the application show page' do
+     it 'when I click that button I am taken back to the application show page' do
 
-       visit "/admin/applications/#{samantha_application.id}"
+       visit "/admin/applications/#{@samantha_application.id}"
 
        click_button('Reject This Pet')
 
-       expect(current_path).to eq("#{samantha_application.id}")
+       expect(current_path).to eq("/admin/applications/#{@samantha_application.id}")
      end
 
-     xit 'when I click that button I am taken back to the application show page & I do not see a buton to reject the pet' do
-       visit "/admin/applications/#{samantha_application.id}"
+     it 'when I click that button I am taken back to the application show page & I do not see a buton to reject the pet' do
+       visit "/admin/applications/#{@samantha_application.id}"
 
        within("#pet_#{@fluffy.id}") do
-         click_button('Reject this Pet')
+         click_button('Reject This Pet')
 
          expect(page).to_not have_button("Reject This Pet")
        end
      end
 
-     xit "And instead I see an indicator next to the pet that they have been rejected" do
-       visit "/admin/applications/#{samantha_application.id}"
+     it "And instead I see an indicator next to the pet that they have been rejected" do
+       visit "/admin/applications/#{@samantha_application.id}"
 
        within("#pet_#{@fluffy.id}") do
-         click_button('Reject this Pet')
+         click_button('Reject This Pet')
 
          expect(page).to have_content("Rejected")
        end
