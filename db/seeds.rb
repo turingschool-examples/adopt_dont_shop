@@ -18,3 +18,8 @@
 @shelter_1.pets.create(name: 'Mr. Pirate', breed: 'tuxedo shorthair', age: 5, adoptable: true)
 @shelter_1.pets.create(name: 'Clawdia', breed: 'shorthair', age: 3, adoptable: true)
 @shelter_3.pets.create(name: 'Lucille Bald', breed: 'sphynx', age: 8, adoptable: true)
+
+@app = Application.create(name: "John Smith", address: "123 Main St, Denver, CO, 80120", about: "I love a dogs. One please.", status: "Pending")
+@app_2 = Application.create(name: "Bapple Snapples", address: "3 three St, Denver, CO, 33333", about: "pets pets pets pest auauaua", status: "Accepted")
+ApplicationPet.create(application_id: @app.id, pet_id: @pet_1.id)
+ApplicationPet.create(application_id: @app_2.id, pet_id: @pet_3.id)
