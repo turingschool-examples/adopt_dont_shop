@@ -34,9 +34,11 @@
 
 
   <div id="adoption">
+  <% if @pets != nil %>
     <% @pets.each do |pet|%>
     <div id= "pet_<%=pet.id%>">
       <p><%= link_to "#{pet.name}", "/applications/#{pet.id}" %>
-      <%= button_to "Adopt this Pet", "/applications/#{@application.id}/#{pet.id}", local: true, method: :post %></div>
+      <%= button_to "Adopt this Pet", "/pet_applications/#{@application.id}/#{pet.id}", local: true, method: :post %></div>
+    <% end %>
   <% end %>
   </div>
