@@ -1,15 +1,17 @@
 <%= render "shared/banner" %>
-<h1>This is the show page</h1>
+<h1>This is the show page for <%= @application.first_name %>'s Application</h1>
 
-<% @pending_pets.each do |pet| %>
+<% @application_pets.each do |pet| %>
 <div id= "pet_<%=pet.id%>">
-<% if @pet_application.pet_application_status == "Pending"  %>
-  <%= pet.name  %>
-  <p><%= button_to "Approve This Pet", "/pet_applications/#{pet.id}/#{@pet_application.application_id}?status=approved", method: :patch %></p>
-<% elsif @pet_application.pet_application_status == "Approved"  %>
-  <%= pet.name  %>
-  <p>Approved</p>
+<% if pet.pet_application_status == "Pending"  %>
+    <%= pet.name  %>
+    <%= button_to "Approve This Pet", "/pet_applications/#{pet.id}/#{@pet_application.application_id}?status=approved", method: :patch %>
+    <%= button_to "Reject This Pet", "/pet_applications/#{pet.id}/#{@pet_application.application_id}?status=rejected", method: :patch %>
+<% elsif pet.pet_application_status == "Approved"  %>
+    <p><%= pet.name  %>: Approved</p>
+  <% else pet.pet_application_status == "Rejected"  %>
+    <p><%= pet.name  %>: Rejected</p>
 <% end %>
 </div>
-
+<br>
 <% end %>
