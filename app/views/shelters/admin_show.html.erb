@@ -22,13 +22,13 @@
 </table>
 
 <h3>Shelter Statistics</h3>
-<ul>
-  <li id="shelter_stats_<%=@shelter.name%>" >
-    <%= "Average Age of Adoptable Pets: #{@avg_age}" %>
-    <%= "Number of Adoptable Pets: #{@count_adoptable}" %>
-    <%= "Number of Pets Adopted: #{@adopted_pet_count}"%>
-  </li>
-</ul>
+  <div id="shelter_stats_<%=@shelter.name%>" >
+  <ul>
+    <li> <%= "Average Age of Adoptable Pets: #{@avg_age}" %> </li>
+    <li> <%= "Number of Adoptable Pets: #{@count_adoptable}" %> </li>
+    <li> <%= "Number of Pets Adopted: #{@adopted_pet_count}"%> </li>
+  </ul>
+</div>
 
 <div id="actionrequired"><h3>Action Required</h3>
 <% @pending_pets_list.each do |pet| %>
