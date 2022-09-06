@@ -9,9 +9,10 @@
   </div>
 <% end %>
 
-<div id="Shelters with pending applications">
+<div id="Pending">
   <h3> Shelters with pending applications </h3>
   <% @shelters_with_apps.each do |shelter| %>
+  <h3><a href="/admin/shelters/<%= shelter.id %>"><%= shelter.name %><a></h3>
   <h5><%= shelter %></h5>
   <% end %>
 </div>

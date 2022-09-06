@@ -33,5 +33,7 @@ RSpec.describe 'As an admin, when I visit the admin shelters index' do
     
     find("div#Pending").click_link("#{@shelter_3.name}")
     expect(current_path).to eq("/admin/shelters/#{@shelter_3.id}")
+    
+    expect(page).to have_content('Fancy pets of Colorado')
   end
 end
