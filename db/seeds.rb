@@ -16,10 +16,10 @@
 @pet5 = @shelter2.pets.create!(adoptable: true, age:2, breed:"French Bulldog", name:"Bella")
 @pet6 = @shelter2.pets.create!(adoptable: false, age:1, breed:"Tabby", name:"Nugget")
 
-@application1 = Application.create!(name:"Becka Hendricks", street_address:"6210 Castlegate Dr.", city:"Castle Rock", state:"Colorado", zipcode:"80108", description:"I love dogs and would be such a good dog mom")
-@application2 = Application.create!(name:"Dominic OD", street_address:"5250 Town and Country Blvd.", city:"Frisco", state:"Texas", zipcode:"75034", description:"I like cats.",)
-@application3 = Application.create!(name:"Carla Whipkey", street_address:"4801 Dargate Lane", city:"Murrysville", state:"PA", zipcode:"15668", description:"I want to adopt all the dogs")
-@application4 = Application.create!(name:"Corey Whitehall", street_address:"1234 Oak Lane", city:"Nichols", state:"Iowa", zipcode:"12345", description:"Pets are cool")
+@application1 = Application.create!(name:"Becka Hendricks", street_address:"6210 Castlegate Dr.", city:"Castle Rock", state:"Colorado", zipcode:"80108", description:"I love dogs and would be such a good dog mom", status: "In Progress")
+@application2 = Application.create!(name:"Dominic OD", street_address:"5250 Town and Country Blvd.", city:"Frisco", state:"Texas", zipcode:"75034", description:"I like cats.", status: "In Progress")
+@application3 = Application.create!(name:"Carla Whipkey", street_address:"4801 Dargate Lane", city:"Murrysville", state:"PA", zipcode:"15668", description:"I want to adopt all the dogs", status: "In Progress")
+@application4 = Application.create!(name:"Corey Whitehall", street_address:"1234 Oak Lane", city:"Nichols", state:"Iowa", zipcode:"12345", description:"Pets are cool", status: "In Progress")
 
 PetApplication.create!(pet: @pet1, application: @application1)
 PetApplication.create!(pet: @pet2, application: @application1)

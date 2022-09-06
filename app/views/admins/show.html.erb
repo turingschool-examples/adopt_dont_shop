@@ -12,12 +12,13 @@
   <% @application.pets.each do |pet| %>
     <section id= <%= "pet-#{pet.id}" %>>
     <%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
-        <% if @application.status == "Pending" %>
-          <%= button_to "Approve Pet", params: {app_status: "Approved", pet_id: pet.id} %>
-        <% elsif @application.status == "Approved" && !pet.app_approval?(pet.id, @application.id) %>
-          <%= button_to "Approve Pet", params: {app_status: "Approved", pet_id: pet.id} %>
-        <% elsif @application.status == "Approved" && pet.app_approval?(pet.id, @application.id) %>
+        <% if pet.app_approval?(pet.id, @application.id) %>
           <p>You have been approved for <%= "#{pet.name}" %></p>
+        <% elsif pet.app_rejected?(pet.id, @application.id) %>
+          <p>You have been rejected for <%= "#{pet.name}" %></p>
+        <% else %>
+          <%= button_to "Approve Pet", params: {app_status: "Approved", pet_id: pet.id} %>
+          <%= button_to "Reject Pet", params: {app_status: "Rejected", pet_id: pet.id} %>
         <% end %>
     </section>
   <% end %>

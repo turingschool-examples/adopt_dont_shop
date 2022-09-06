@@ -17,4 +17,8 @@ class Pet < ApplicationRecord
   def app_approval?(pet_id, application_id)
     PetApplication.find_by(pet_id: pet_id, application: application_id).approved?
   end
+
+  def app_rejected?(pet_id, application_id)
+    PetApplication.find_by(pet_id: pet_id, application: application_id).rejected?
+  end
 end
