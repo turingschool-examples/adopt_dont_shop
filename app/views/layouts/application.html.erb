@@ -15,10 +15,17 @@
         <%= msg %>
       </div>
     <% end %>
-    <section>
-      <p><%= link_to "Pets", "/pets" %></p>
-      <p><%= link_to "Shelters", "/shelters" %></p>
-    </section>
+
+    <header>
+      <h1> <a href='/'><span id='title' style='margin-right:20px'>Pets R Us</span> </a>
+        <nav id='navbox'>
+          <a class='navigation divider' href='/pets'>Pets</a>
+          <a class='navigation div_2'href='/shelters' >Shelters</a>
+        </nav>
+      </h1>
+    </header>
+    <article>
     <%= yield %>
+    </article>
   </body>
 </html>
