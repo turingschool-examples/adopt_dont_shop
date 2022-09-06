@@ -14,17 +14,17 @@
     <%= form_with url:"/applications/#{@application.id}", method: :get, local: true do |form|  %>
     <p><%= form.label :desired_pet, "Search for pet by name:", require: :true %></p>
     <%= form.text_field :desired_pet %>
-    <%= form.submit "Search for Pet" %> 
+    <%= form.submit "Search for Pet" %>
     <% end %>
   </div>
+  
+  <% @pets.each do |pet| %>
+    <div id= "pet_<%=pet.id%>">
+      <p><%= link_to "#{pet.name}", "/pets/#{pet.id}" %></p>
+      <p><%= button_to "Adopt this Pet", "/pet_applications/#{pet.id}/#{@application.id}", method: :post %></p>
+    </div>
+  <% end %>
 <%end%>
-
-<% @pets.each do |pet| %>
-  <div id= "pet_<%=pet.id%>">
-    <p><%= link_to "#{pet.name}", "/pets/#{pet.id}" %></p>
-    <p><%= button_to "Adopt this Pet", "/pet_applications/#{pet.id}/#{@application.id}", method: :post %></p>
-  </div>
-<% end %>
 
 <p><% @application.pets.each do |app_pet| %></p>
  <div id= "pet_<%=app_pet.id%>">
@@ -42,4 +42,3 @@
     <p><% end %></p>
   </div>
 <% end %>
-
