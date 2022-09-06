@@ -68,5 +68,64 @@ RSpec.describe 'Approving/rejecting applications' do
         end
       end
     end
+
+    describe 'has an Action Required section' do
+      describe 'see a list of pets that are in the shelter' do
+        it 'that have a pending application and havent been marked approved/rejected' do
+          @app3 = Application.create!(fname: 'ohn', lname: 'mith', street_address: '234 Turig Blvd.', city: 'Ttown', state: 'CO', zip_code: 12345, good_home_argument: 'Because reasonsae', status: "Pending" )
+          @app4 = Application.create!(fname: 'hn', lname: 'ith', street_address: '34 Turig Blvd.', city: 'Ttown', state: 'CO', zip_code: 12345, good_home_argument: 'Because reasonsa', status: "Pending" )
+          @shelter_2 = Shelter.create(name: 'RGV animal shelter', city: 'Harlingen, TX', foster_program: false, rank: 5)
+          @shelter_3 = Shelter.create(name: 'Fancy pets of Colorado', city: 'Denver, CO', foster_program: true, rank: 10)
+          @pet_4 = @shelter_2.pets.create(name: 'Ann', breed: 'ragdoll', age: 5, adoptable: true)
+          @pet_5 = @shelter_3.pets.create(name: 'Banann', breed: 'doll', age: 7, adoptable: true)
+          @app3.pets << @pet_4
+          @app4.pets << @pet_5
+          @app2.pets << @pet2
+          @app3.pets << @pet2
+
+          visit "/admin/shelters/#{@shelter1.id}"
+          # save_and_open_page
+          expect(page).to have_content("Action Required")
+
+          within "#actionrequired" do
+            expect(page).to have_content("#{@pet1.name} on app #{@app1.id}")
+            expect(page).to have_content("#{@pet2.name} on app #{@app1.id}")
+            expect(page).to have_content("#{@pet2.name} on app #{@app2.id}")
+            expect(page).to have_content("#{@pet2.name} on app #{@app3.id}")
+          end
+        end
+
+        it 'has a link for each pending pet that goes to its application page' do
+          @app3 = Application.create!(fname: 'ohn', lname: 'mith', street_address: '234 Turig Blvd.', city: 'Ttown', state: 'CO', zip_code: 12345, good_home_argument: 'Because reasonsae', status: "Pending" )
+          @app4 = Application.create!(fname: 'hn', lname: 'ith', street_address: '34 Turig Blvd.', city: 'Ttown', state: 'CO', zip_code: 12345, good_home_argument: 'Because reasonsa', status: "Pending" )
+          @shelter_2 = Shelter.create(name: 'RGV animal shelter', city: 'Harlingen, TX', foster_program: false, rank: 5)
+          @shelter_3 = Shelter.create(name: 'Fancy pets of Colorado', city: 'Denver, CO', foster_program: true, rank: 10)
+          @pet_4 = @shelter_2.pets.create(name: 'Ann', breed: 'ragdoll', age: 5, adoptable: true)
+          @pet_5 = @shelter_3.pets.create(name: 'Banann', breed: 'doll', age: 7, adoptable: true)
+          @app3.pets << @pet_4
+          @app4.pets << @pet_5
+          @app2.pets << @pet2
+          @app3.pets << @pet2
+
+          visit "/admin/shelters/#{@shelter1.id}"
+          within "#actionrequired" do
+            click_link("#{@pet1.name} on app #{@app1.id}")
+          end
+          expect(current_path).to eq("/admin/applications/#{@app1.id}")
+
+          visit "/admin/shelters/#{@shelter1.id}"
+          within "#actionrequired" do
+            click_link("#{@pet2.name} on app #{@app1.id}")
+          end
+          expect(current_path).to eq("/admin/applications/#{@app1.id}")
+
+          visit "/admin/shelters/#{@shelter1.id}"
+          within "#actionrequired" do
+            click_link("#{@pet2.name} on app #{@app2.id}")
+          end
+          expect(current_path).to eq("/admin/applications/#{@app2.id}")
+        end
+      end
+    end
   end
 end

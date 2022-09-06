@@ -67,6 +67,7 @@ class SheltersController < ApplicationController
   def admin_show
     @search_shelter = Shelter.show_shelter(params[:shelter_id])
     @shelter = @search_shelter.first
+    @pending_pets_list = Pet.pet_app_pending(params[:shelter_id])
     shelter_statistics(params[:shelter_id])
   end
 
