@@ -37,8 +37,6 @@ RSpec.describe Shelter do
         expect(page).to_not have_link(shelter2.name)
         expect(page).to_not have_link(shelter3.name)
       end
-
-      #Left off in the spec/models/shelter_spec.rb:52
     end
 
   end
