@@ -103,9 +103,36 @@ RSpec.describe 'the applicants show' do
         expect(page).to_not have_content(@applicant_1.street_address)
 
       end
-      it 'I visit another applications show page and I do not see that same pet has been rejected/accepted on this application' 
-      it 'I see buttons to approve or reject the pets for this specific application'
+      it 'I visit another applications show page and I do not see that same pet has been rejected/accepted on this application' do
 
+        visit "/admin/applicants/#{@applicant.id}"
+
+        click_on("Approve Adoption for Jake")
+        click_on("Reject Adoption for Scooby")
+
+        visit "/admin/applicants/#{@applicant_1.id}"
+
+        expect(page).to_not have_content("Adoption Rejected for #{@pet.name}")
+        expect(page).to_not have_content("Adoption Approved for #{@pet.name}")
+
+        expect(page).to_not have_content(@pet_2.name)
+        expect(page).to_not have_content(@applicant.street_address)
+        expect(page).to have_content(@applicant_1.street_address)
+        expect(page).to have_content(@pet.name)
+        expect(page).to have_content(@pet_1.name)
+      end
+
+      it 'I see buttons to approve or reject the pets for this specific application' do
+
+        visit "/admin/applicants/#{@applicant_1.id}"
+
+        expect(page).to have_button("Reject Adoption for Scooby")
+        expect(page).to have_button("Approve Adoption for Scooby")
+        expect(page).to have_button("Reject Adoption for Mr. Pirate")
+        expect(page).to have_button("Approve Adoption for Mr. Pirate")
+        expect(page).to_not have_button("Approve Adoption for Jake")
+        expect(page).to_not have_button("Reject Adoption for Jake")
+      end 
     end
   end
 end
