@@ -1,0 +1,7 @@
+<h3> Add a Pet to this Application </h3>
+
+<%= form_with url: path, method: method, local: true do |form| %>
+  <%= form.label :pet_search, "Search: " %>
+  <%= form.text_field :pet_search %>
+  <%= form.submit button_text %>
+<% end %>

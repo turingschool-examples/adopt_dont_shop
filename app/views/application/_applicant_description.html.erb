@@ -1,0 +1,7 @@
+<h3> Please briefly let us know why you feel you are able to provide a good home to a pet. </h3>
+
+<%= form_with url: path, method: method, local: true do |form| %>
+  <%= form.label :description, "Description: " %>
+  <%= form.text_field :description, :size=>"50" %>
+  <%= form.submit button_text %>
+<% end %>
