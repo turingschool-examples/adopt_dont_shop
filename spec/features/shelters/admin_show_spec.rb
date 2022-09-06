@@ -18,6 +18,9 @@ RSpec.describe 'Approving/rejecting applications' do
     @pet4 = Pet.create!(adoptable: true, age: 1, breed: 'sphynx', name: 'Lucille Bald', shelter_id: @shelter2.id)
     @pet5 = Pet.create!(adoptable: true, age: 3, breed: 'doberman', name: 'Lobster', shelter_id: @shelter2.id)
 
+    @app1.pets << @pet1
+    @app1.pets << @pet2
+
     @pet_app1 = PetApplication.create(pet_id: @pet1.id, application_id: @app1.id,  pet_status: "Adoption Rejected")
     @pet_app2 = PetApplication.create(pet_id: @pet2.id, application_id: @app1.id,  pet_status: "Adoption Approved")
   end
@@ -84,7 +87,7 @@ RSpec.describe 'Approving/rejecting applications' do
           @app3.pets << @pet2
 
           visit "/admin/shelters/#{@shelter1.id}"
-          # save_and_open_page
+
           expect(page).to have_content("Action Required")
 
           within "#actionrequired" do

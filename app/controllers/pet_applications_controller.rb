@@ -13,7 +13,8 @@ class PetApplicationsController < ApplicationController
   def admin_update
     search_hash = {pet_id: params[:pet_id], application_id: params[:id]}
     pet_app_record = PetApplication.where(search_hash)
-    pet_app_record.update(pet_status: params[:pet_status])
+    # pet_app_record.update(pet_status: params[:pet_status])
+    pet_app_record.update(app_pet_params)
     if PetApplication.pet_count(params[:id]) == PetApplication.pets_app_rej_count(params[:id])
       application = Application.find(params[:id])
       if PetApplication.pets_rej_count(params[:id]) > 0
