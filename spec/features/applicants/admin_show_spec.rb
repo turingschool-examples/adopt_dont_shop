@@ -31,7 +31,7 @@ RSpec.describe 'the applicants show' do
 
       it "Next to the pet that I approved, I do not see a button to approve this pet, instead I see an indicator next to the pet that they have been approved" do
         visit "/admin/applicants/#{@applicant.id}"
-
+        
         click_on("Approve Addoption for Scooby")
 
         expect(page).to have_content("Adoption Aprroved for #{@pet.name}")
