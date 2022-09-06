@@ -43,7 +43,6 @@ RSpec.describe 'admin show page' do
                 expect(page).to have_button("Reject #{pet.name}")
             end
         end 
-        save_and_open_page
     end
 
     it 'approves a pet for the application' do
@@ -60,7 +59,7 @@ RSpec.describe 'admin show page' do
         click_button "Approve #{@pet_2.name}"
         click_button "Approve #{@pet_3.name}"
         click_button "Approve #{@pet_4.name}"
-
+        
         expect(current_path).to eq "/admin/apps/#{@app.id}"
         within("#app_status") do
             expect(page).to have_content("Approved")

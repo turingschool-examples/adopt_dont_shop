@@ -12,17 +12,6 @@ def adopt(pet)
   self.pets << pet if !self.pets.include?(pet)
 end
 
-def update_status(pet_status)
-  if pet_status.none?("pending")
-    if pet_status.all?("approved")
-      self.update(status: "Approved")
-    elsif pet_status.any?("rejected")
-      self.update(status: "Rejected")
-    end
-    # render :admin_show
-  end
-end
-
 def pet_status
   status_hash = Hash.new
   self.pets.each do |pet|
@@ -30,4 +19,14 @@ def pet_status
     status_hash[pet] = status
   end
   status_hash
+end
+
+def update_status(pet_status)
+  if pet_status.none?("pending")
+    if pet_status.all?("approved")
+      self.update(status: "Approved")
+    elsif pet_status.any?("rejected")
+      self.update(status: "Rejected")
+    end
+  end
 end
