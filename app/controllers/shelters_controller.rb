@@ -75,7 +75,7 @@ class SheltersController < ApplicationController
     shelter = Shelter.find(param)
     @avg_age = shelter.pets.avg_age
     @count_adoptable = shelter.pets.count_adoptable
-    @adopted_pet_count = PetApplication.adopted_pet_count
+    @adopted_pet_count = shelter.pets.adopted_pet_count
   end
 
   private

@@ -38,13 +38,13 @@ RSpec.describe Pet, type: :model do
         expect(Pet.search("Claw")).to eq([@pet_2])
       end
     end
-    
+
     describe '#adoptable' do
       it 'returns adoptable pets' do
         expect(Pet.adoptable).to eq([@pet_1, @pet_2])
       end
     end
-    
+
     describe '#avg_age' do
       it 'returns average age of adoptable pets' do
         expect(Pet.avg_age).to eq(4.0)
@@ -54,6 +54,12 @@ RSpec.describe Pet, type: :model do
     describe '#count_adoptable' do
       it 'returns count of adoptable pets' do
         expect(Pet.count_adoptable).to eq(2)
+      end
+    end
+
+    describe '#adopted_pet_count' do
+      it 'counts adopted pets' do
+        expect(described_class.adopted_pet_count).to eq(1)
       end
     end
   end

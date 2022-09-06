@@ -29,6 +29,10 @@ class Pet < ApplicationRecord
     adoptable.count
   end
 
+  def self.adopted_pet_count
+    where(adoptable: false).count
+  end
+
   def self.pet_app_pending(shelter_id)
     Pet.select("pets.name as pet_name", "pets.shelter_id as shelter_id", "pet_applications.pet_status as pet_status", "applications.id as application_id", "applications.status as application_status").joins(:applications).where("applications.status = ?", "Pending").where("shelter_id = ?", shelter_id)
   end

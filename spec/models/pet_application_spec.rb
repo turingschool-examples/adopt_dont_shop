@@ -26,25 +26,19 @@ RSpec.describe PetApplication, type: :model do
   end
 
   describe 'class tests' do
-    describe '#pet_count' do
+    describe '.pet_count' do
       it 'counts pets on an application' do
         expect(described_class.pet_count(@app1)).to eq(2)
       end
-
-      describe '#adopted_pet_count' do
-        it 'counts adopted pets' do
-          expect(described_class.adopted_pet_count).to eq(1)
-        end
-      end
     end
 
-    describe '#pets_app_rej_count' do
+    describe '.pets_app_rej_count' do
       it 'counts pets on rejected app' do
         expect(described_class.pets_app_rej_count(@app1)).to eq(2)
       end
     end
 
-    describe '#pets_rej_count(app_id)' do
+    describe '.pets_rej_count(app_id)' do
       it 'counts rejected pets' do
         expect(described_class.pets_rej_count(@app1)).to eq(1)
       end
