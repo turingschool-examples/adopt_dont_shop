@@ -14,11 +14,7 @@
   def self.pets_rej_count(app_id)
     where("pet_status = ?", "Adoption Rejected").count
   end
-
-  def self.pets_accept_count(app_id)
-    where("pet_status = ?", "Adoption Accepted").count && where()
-  end
-
+  
   def self.adopted_pet_count
     where("pet_status = ?", "Adoption Approved").count
   end
