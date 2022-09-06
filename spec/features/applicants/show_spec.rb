@@ -57,7 +57,12 @@ RSpec.describe 'the applicants show' do
 
   describe 'pet search' do
     before :each do
-      @applicant = Applicant.create!(first_name: 'Jimmy', last_name: 'Dough', street_address: '567 Fake Street', city: 'Denver', state: 'CO', zip: 80205, description: "I'm awesome", status: 'In Progress')
+      @applicant = Applicant.create!(first_name: 'Jimmy', last_name: 'Dough', street_address: '567 Fake Street',
+        city: 'Denver', state: 'CO', zip: 80205, description: "I'm awesome", status: 'In Progress')
+      @applicant_1 = Applicant.create!(first_name: 'Johnny', last_name: 'Dough', street_address: '57 Fake Street', city: 'Denver',
+          state: 'CO', zip: 80205, description: "I'm kinda awesome", status: 'Pending')
+      @applicant_2 = Applicant.create!(first_name: 'Johnny', last_name: 'Johnson', street_address: '17 Psuedo Street', city: 'Denver',
+          state: 'CO', zip: 80205, description: "I'm not awesome", status: 'In Progress')
       @pet_3 = Pet.create!(name: 'Frank', age: 10,
         breed: 'Lab', adoptable: true, shelter_id: @shelter.id)
       @pet_4 = Pet.create!(name: 'Gizmo', age: 8,

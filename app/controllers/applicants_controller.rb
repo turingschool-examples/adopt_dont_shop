@@ -24,7 +24,7 @@ class ApplicantsController < ApplicationController
 
   def update
     applicant = Applicant.find(params[:id])
-    
+
     if params[:pet_id] != nil
       pet = Pet.find(params[:pet_id])
       applicant.pets << pet
@@ -52,7 +52,7 @@ class ApplicantsController < ApplicationController
     params.permit(:first_name, :last_name, :street_address, :city, :state, :zip, :status, :description)
   end
 
-  def admin_params 
+  def admin_params
     params.permit(:approved)
   end
 end
