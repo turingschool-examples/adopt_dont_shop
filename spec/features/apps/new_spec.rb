@@ -34,18 +34,11 @@ RSpec.describe 'new application' do
     end
 
     it 'displays error for incomplete form' do
-        # As an admin
-        # When I visit the new application page
-        # And I fail to fill in any of the form fields
-        # And I click submit
-        expect(current_path).to eq("/shelters/#{@shelter.id}/apps/new")
         fill_in('Street Address', with: '123 Sesame St')
         fill_in('City', with: 'Omaha')
         fill_in('Zip Code', with: '45678')
         click_on("Submit")
-        # Then I am taken back to the new applications page
-        expect(current_path).to eq("/shelters/#{@shelter.id}/apps/new")
-        # And I see a message that I must fill in those fields.
+
         expect(page).to have_content("Name can't be blank")
     end
 

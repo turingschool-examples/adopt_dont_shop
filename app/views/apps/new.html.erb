@@ -8,11 +8,6 @@
     <%= form.text_field :city %>
     <%= form.label :zip_code, 'Zip Code' %>
     <%= form.text_field :zip_code %>
-    <%= form.label :description, 'Description' %>
-    <%= form.text_field :description %>
     <%= form.hidden_field :shelter_id, value: @shelter.id %>
     <%= form.submit 'Submit' %>
-<% end %>
-<% if @errors.present? %>
-       <p><%= @errors %></p>
 <% end %>

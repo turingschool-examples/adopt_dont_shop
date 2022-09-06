@@ -20,20 +20,18 @@ class AppsController < ApplicationController
   end
 
   def new
-    @shelter = Shelter.find(params[:shelter_id])
-    if params[:errors].present?
-      @errors = params[:errors]
-    end
+    @shelter = Shelter.find(params[:id])
   end
 
   def create
-    shelter = Shelter.find(params[:shelter_id])
-    @app = shelter.apps.create(app_params)
+    @shelter = Shelter.find(params[:shelter_id])
+    @app = @shelter.apps.new(app_params)
+
     if @app.save
       redirect_to "/apps/#{@app.id}"
     else
-      @errors = @app.errors.full_messages.to_sentence
-      redirect_to "/shelters/#{shelter.id}/apps/new?shelter_id=#{shelter.id}&errors=#{@errors}"
+      flash[:errors] = @app.errors.full_messages.to_sentence
+      render :new
     end
   end
 
@@ -48,6 +46,6 @@ class AppsController < ApplicationController
 
   private
   def app_params
-    params.permit(:name, :address, :city, :zip_code, :description)
+    params.permit(:name, :address, :city, :zip_code)
   end
 end
