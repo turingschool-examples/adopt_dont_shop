@@ -50,13 +50,12 @@ RSpec.describe 'application new page', type: :feature do
       fill_in('First Name:', with: "Penny")
       fill_in('Last Name:', with: "Smith")
       fill_in('Address:', with: "182 Stuart Street" )
-      fill_in('City:', with: 'Baton Rouge')
       fill_in('State:', with: 'CO')
 
       click_on('Apply for Pet')
 
       expect(current_path).to eq("/applications/new")
-      expect(page).to have_content("Error: You must fill in the missing information before proceeding.")
+      expect(page).to have_content("City can't be blank")
     end
 
 
