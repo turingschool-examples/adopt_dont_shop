@@ -23,6 +23,4 @@ class ApplicationsController < ApplicationController
   def application_params
     params.permit(:id, :name, :address, :about, :status)
   end
-
-
 end
