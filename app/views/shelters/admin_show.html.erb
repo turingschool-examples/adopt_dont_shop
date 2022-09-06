@@ -23,9 +23,18 @@
 
 <h3>Shelter Statistics</h3>
 <ul>
-  
-    <li id="shelter_stats_<%=@shelter.name%>" >
-      <%= "Average Age of Adoptable Pets: #{@avg_age}" %>
-      <%= "Number of Adoptable Pets: #{@count_adoptable}" %>
-    </li>
-  </ul>
+  <li id="shelter_stats_<%=@shelter.name%>" >
+    <%= "Average Age of Adoptable Pets: #{@avg_age}" %>
+    <%= "Number of Adoptable Pets: #{@count_adoptable}" %>
+  </li>
+</ul>
+
+<div id="actionrequired"><h3>Action Required</h3>
+<% @pending_pets_list.each do |pet| %>
+  <% unless pet.pet_status %>
+    <p>
+    <%= link_to "#{pet.pet_name} on app #{pet.application_id}", "/admin/applications/#{pet.application_id}" %>
+    </p>
+  <% end %>
+<% end %>
+</div>
