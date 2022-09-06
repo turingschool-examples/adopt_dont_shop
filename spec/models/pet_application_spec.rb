@@ -21,8 +21,8 @@ RSpec.describe PetApplication, type: :model do
     @pet4 = Pet.create!(adoptable: true, age: 1, breed: 'sphynx', name: 'Lucille Bald', shelter_id: @shelter2.id)
     @pet5 = Pet.create!(adoptable: true, age: 3, breed: 'doberman', name: 'Lobster', shelter_id: @shelter2.id)
 
-    @app1.pets << @pet1
-    @app1.pets << @pet2
+    @pet_app1 = PetApplication.create(pet_id: @pet1.id, application_id: @app1.id,  pet_status: "Adoption Rejected")
+    @pet_app2 = PetApplication.create(pet_id: @pet2.id, application_id: @app1.id,  pet_status: "Adoption Approved")
   end
 
   describe 'class tests' do
@@ -30,17 +30,23 @@ RSpec.describe PetApplication, type: :model do
       it 'counts pets on an application' do
         expect(described_class.pet_count(@app1)).to eq(2)
       end
+
+      describe '#adopted_pet_count' do
+        it 'counts adopted pets' do
+          expect(described_class.adopted_pet_count).to eq(1)
+        end
+      end
     end
 
     describe '#pets_app_rej_count' do
-      it 'counts rejected pets on app' do
-        expect(described_class.pets_app_rej_count(@app1)).to eq(0)
+      it 'counts pets on rejected app' do
+        expect(described_class.pets_app_rej_count(@app1)).to eq(2)
       end
     end
 
     describe '#pets_rej_count(app_id)' do
       it 'counts rejected pets' do
-        expect(described_class.pets_rej_count(@app1)).to eq(0)
+        expect(described_class.pets_rej_count(@app1)).to eq(1)
       end
     end
   end
