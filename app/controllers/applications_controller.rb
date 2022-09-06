@@ -1,6 +1,7 @@
 class ApplicationsController < ApplicationController
 
   def show
+    binding.pry
     @pets = Application.find_desired_pets(params["desired_pet"])
     @application = Application.find(params[:id])
     if params[:commit] == "Search for Pet"

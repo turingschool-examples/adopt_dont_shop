@@ -6,4 +6,7 @@ class PetApplication < ApplicationRecord
     Pet.joins(:applications).where("applications.status = ?", "Pending")
   end
 
+  def self.application_pets
+    Pet.select("pets.*, pet_applications.*").joins(:pet_applications).where
+  end
 end
