@@ -12,4 +12,10 @@ class Pet < ApplicationRecord
   def self.adoptable
     where(adoptable: true)
   end
+
+  def self.application_status_pet_name(var)
+    select("pet_applications.*", "pets.name")
+    .joins(:pet_applications)
+    .where("pet_applications.application_id = ?", var)
+  end
 end
