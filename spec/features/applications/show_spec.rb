@@ -15,7 +15,7 @@ RSpec.describe 'the app show' do
   before :each do
     shelter = Shelter.create(name: 'Mystery Building', city: 'Irvine CA', foster_program: false, rank: 9)
     @pet = Pet.create(name: 'Scooby', age: 2, breed: 'Great Dane', adoptable: true, shelter_id: shelter.id)
-    @app = Application.create(name: "John Smith", address: "123 Main St, Denver, CO, 80120", about: "I love a dogs. One please.", status: "Pending")
+    @app = Application.create(name: "John Smith", address: "123 Main St", city: "Denver", state: "CO", zipcode: "80120", about: "I love a dogs. One please.", status: "Pending")
     ApplicationPet.create!(application_id: @app.id, pet_id: @pet.id)
   end
 
@@ -23,6 +23,9 @@ RSpec.describe 'the app show' do
     visit "/applications/#{@app.id}"
     expect(page).to have_content(@app.name)
     expect(page).to have_content(@app.address)
+    expect(page).to have_content(@app.city)
+    expect(page).to have_content(@app.state)
+    expect(page).to have_content(@app.zipcode)
     expect(page).to have_content(@app.about)
     expect(page).to have_link(@pet.name)
     expect(page).to have_content(@app.status)
