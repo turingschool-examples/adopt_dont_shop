@@ -71,9 +71,12 @@ RSpec.describe 'the admin applications show page' do
       @happypaws = Shelter.create!(name: "Happy Paws Shelter", foster_program: true, city: "Denver", rank: 5)
       @fluffy = @happypaws.pets.create!(name: "Fluffy", adoptable: true, age: 3, breed: "doberman")
       @samantha_application = Application.create!(first_name: "Samantha", last_name: "Smith", street_address: "123 Mulberry Street", city: "Denver", state: "CO", zip_code: 20202, description: "I would like this dog for these reasons.", status: "Pending")
+      @melissa_application = Application.create!(first_name: "Melissa", last_name: "Johnson", street_address: "123 Potato Street", city: "Denver", state: "CO", zip_code: 19462, description: "I would like this dog.", status: "Pending")
 
       @fluffy_application = PetApplication.create!(pet: @fluffy, application: @samantha_application)
+      @fluffy_application2 = PetApplication.create!(pet: @fluffy, application: @melissa_application)
     end
+    
      it "Has a button to reject each pet" do
 
        visit "/admin/applications/#{@samantha_application.id}"
@@ -109,7 +112,29 @@ RSpec.describe 'the admin applications show page' do
          expect(page).to have_content("Rejected")
        end
      end
+
+     it "Accepting/Rejecting one application does not affect the other application for the same pet" do
+      visit "/admin/applications/#{@samantha_application.id}"
+
+      within("#pet_#{@fluffy.id}") do
+        click_button('Reject This Pet')
+
+        expect(page).to have_content("Rejected")
+      end
+
+      visit "/admin/applications/#{@melissa_application.id}"
+
+      expect(page).to have_button("Reject This Pet")
+      expect(page).to have_button("Approve This Pet")
+
+      within("#pet_#{@fluffy.id}") do
+        click_button('Reject This Pet')
+      end
+
+      expect(page).to have_content("Rejected")
+    end
    end
+
    describe 'application approval' do
      before :each do
       @happypaws = Shelter.create!(name: "Happy Paws Shelter", foster_program: true, city: "Denver", rank: 5)
@@ -123,6 +148,7 @@ RSpec.describe 'the admin applications show page' do
       @fluffy_application = PetApplication.create!(pet: @fluffy, application: @samantha_application)
       @butters_application = PetApplication.create!(pet: @butters, application: @samantha_application)
      end
+
      it 'should redirect to the admin application show page if all pets are approved' do
       visit "/admin/applications/#{@samantha_application.id}"
 
@@ -136,7 +162,8 @@ RSpec.describe 'the admin applications show page' do
 
       expect(current_path).to eq("/admin/applications/#{@samantha_application.id}")
      end
-     it 'should approve application if all pets are approved' do
+
+     xit 'should approve application if all pets are approved' do
       visit "/admin/applications/#{@samantha_application.id}"
 
       expect(page).to have_content("Application Status: Pending")
