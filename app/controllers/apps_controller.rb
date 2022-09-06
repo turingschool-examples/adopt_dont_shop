@@ -17,6 +17,7 @@ class AppsController < ApplicationController
     @app = App.find(params[:id])
     @pets = @app.pets
     @pet_status = pet_status(params[:id], @pets)
+    update_status(@pet_status, @app)
   end
 
   def new
