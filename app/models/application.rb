@@ -13,4 +13,3 @@ class Application < ApplicationRecord
     self.about ||= 'Fill out after adding pets please.'
   end
 end
-

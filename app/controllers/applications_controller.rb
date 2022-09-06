@@ -4,25 +4,21 @@ class ApplicationsController < ApplicationController
   end
 
   def show
-   @app = Application.find(params[:id])
-   @pets = @app.list_pets
+    @app = Application.find(params[:id])
+    @pets = @app.list_pets
   end
 
   def new
-
   end
 
   def create
     application = Application.new(application_params)
 
-    if application.save
-      redirect_to "/applications/#{application.id}"
-    end
+    redirect_to "/applications/#{application.id}" if application.save
   end
 
   private
-  
-    def application_params
-      params.permit(:id, :name, :address, :about, :status)
-    end
+  def application_params
+    params.permit(:id, :name, :address, :about, :status)
+  end
 end

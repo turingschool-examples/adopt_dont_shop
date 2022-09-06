@@ -10,7 +10,6 @@ RSpec.describe 'application creation' do
       expect(page).to have_content('New Application')
       expect(find('form')).to have_content('Name')
       expect(find('form')).to have_content('Address')
-      expect(find('form')).to have_content('About')
     end
   end
 
@@ -21,7 +20,6 @@ RSpec.describe 'application creation' do
 
         fill_in 'Name', with: 'Guy Manfred'
         fill_in 'Address', with: '101 Pearson RD Glendale CA 90102'
-        fill_in 'About', with: 'Likes dogs'
         click_button 'Submit'
 
         expect(page).to have_content('Guy Manfred')
