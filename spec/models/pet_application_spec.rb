@@ -64,5 +64,17 @@ RSpec.describe PetApplication, type: :model do
         expect(PetApplication.approved?(samantha_application.id)).to eq(true)
       end
     end
+    describe '#rejected?' do
+      it 'should return true if any pets of an application are approved' do
+        happypaws = Shelter.create!(name: "Happy Paws Shelter", foster_program: true, city: "Denver", rank: 5)
+        fluffy = happypaws.pets.create!(name: "Fluffy", adoptable: true, age: 3, breed: "doberman")
+        pet3 = happypaws.pets.create!(name: "Butters", adoptable: true, age: 6, breed: "lab")
+        samantha_application = Application.create!(first_name: "Samantha", last_name: "Smith", street_address: "123 Mulberry Street", city: "Denver", state: "CO", zip_code: 20202, description: "I would like this dog for these reasons.", status: "Pending")
+        butters_application = PetApplication.create!(pet: pet3, application: samantha_application, pet_application_status: "Rejected")
+        fluffy_application = PetApplication.create!(pet: fluffy, application: samantha_application, pet_application_status: "Approved")
+
+        expect(PetApplication.rejected?(samantha_application.id)).to eq(true)
+      end
+    end
   end
 end
