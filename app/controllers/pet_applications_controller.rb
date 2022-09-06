@@ -2,7 +2,7 @@ class PetApplicationsController < ApplicationController
 
   def new
   end
-  
+
   def show
     @application = Application.find(params[:id])
     @pending_pets = PetApplication.pending_pets
@@ -18,12 +18,16 @@ class PetApplicationsController < ApplicationController
 
   def update
     @application = Application.find(params[:application_id])
-    @pet_application = PetApplication.where(application_id: params[:application_id]).first
+    @pet_application = PetApplication.where(application_id: params[:application_id], pet: params[:pet_id]).first
     if params[:status] == "approved"
       @pet_application.pet_application_status = "Approved"
       @pet_application.save
       redirect_to "/admin/applications/#{@application.id}"
-    elsif 
+    elsif params[:status] == "rejected"
+      @pet_application.pet_application_status = "Rejected"
+      @pet_application.save
+      redirect_to "/admin/applications/#{@application.id}"
+    else
       @pet_application.save
       redirect_to "/admin/applications/#{@application.id}"
     end
