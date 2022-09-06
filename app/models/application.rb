@@ -9,4 +9,11 @@ class Application < ApplicationRecord
   has_many :pet_applications
   has_many :pets, through: :pet_applications
 
+  # def self.search_pets(pet_name)
+  #   @pets = Pet.all.select {|pet| pet.name.downcase.include?(pet_name.downcase)}
+  #   @pets
+  # end
+
+  scope :search_pets, ->(pet_name) {Pet.all.select {|pet| pet.name.downcase.include?(pet_name.downcase)}}
+
 end
