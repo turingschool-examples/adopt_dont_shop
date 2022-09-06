@@ -3,3 +3,9 @@
     <%= shelter.name %> <br>
   <% end %>
 </div>
+
+<div class="pending_apps">
+  <% @shelters.pending_apps.each do |shelter| %>
+    <%= link_to shelter.name, "/admin/applicants" %> <br>
+  <% end %>
+</div>

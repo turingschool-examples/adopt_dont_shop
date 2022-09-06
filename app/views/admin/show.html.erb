@@ -1,0 +1,14 @@
+<h1> Application <%= @application.id %> </h1>
+
+Applicant Name: <%= @application.name %> <br>
+Reason: <%= @application.description %>
+
+<div class="pets">
+<h2> <%= @application.pets.count %> Pets Applied for: </h2>
+  <% @pets.each do |pet| %>
+    <div id="pet-<%=pet.id%>">
+      <%= pet.name %>
+      <%= button_to "Accept", "/admin/applications/#{@application.id}", method: :patch, params:{approved: true, pet_id: pet.id}%> <br>
+    </div>
+  <% end %>
+</div>
