@@ -94,5 +94,15 @@ RSpec.describe Pet, type: :model do
         expect(Pet.pending_apps[2].name).to eq('RGV animal shelter')
       end
     end
+
+    describe '#pet_app_pending' do
+      it 'returns pets associated with a shelter with pending applications' do
+
+        pend = Pet.pet_app_pending(@shelter_1.id)
+
+        expect(pend[0].pet_name).to eq("Mr. Pirate")
+        expect(pend[0].application_status).to eq("Pending")
+      end
+    end
   end
 end
