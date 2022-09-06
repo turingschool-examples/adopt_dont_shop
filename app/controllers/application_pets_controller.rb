@@ -8,7 +8,7 @@ class ApplicationPetsController < ApplicationController
   end
 
 
-  def update
+  def update #model test?
     @pet_app = ApplicationPet.find(params[:id])
     if params[:status] == "Approved"
       @pet_app.update!(:status => "Approved")

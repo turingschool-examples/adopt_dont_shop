@@ -3,8 +3,8 @@ require 'rails_helper'
 RSpec.describe 'the application show' do
 
   before :each do
-    @app_1 = Application.create!(name: "Carter Ball", street_address: "123 Easy Street", city: "Atlanta", state: "GA", zip_code: 30307, description: "I want a pet")
-    @app_2 = Application.create!(name: "Mary Ballantyne", street_address: "888 EZ Lane", city: "Denver", state: "CO", zip_code: 12345, description: "I would like a dog")
+    @app_1 = Application.create!(name: "Carter Ball", street_address: "123 Easy Street", city: "Atlanta", state: "GA", zip_code: 30307)
+    @app_2 = Application.create!(name: "Mary Ballantyne", street_address: "888 EZ Lane", city: "Denver", state: "CO", zip_code: 12345)
     @shelter_1 = Shelter.create!(name: 'Mystery Building', city: 'Irvine CA', foster_program: false, rank: 9)
     @pet_1 = @shelter_1.pets.create!(name: 'Scooby', age: 2, breed: 'Great Dane', adoptable: true)
     @pet_2 = @shelter_1.pets.create!(name: 'Gilbert', age: 4, breed: 'Mutt', adoptable: true)
@@ -81,16 +81,30 @@ RSpec.describe 'the application show' do
 
   it 'shows the filled out application with pending status and the pets the user wants to adopt' do
     visit "/applications/#{@app_1.id}"
+    expect(page).to have_content('Status: In Progress')
 
-    fill_in 'What Would Make You A Great Owner?', with: "#{@app_1.description}"
-
-    expect(page).to have_content('What Would Make You A Great Owner?')
+    fill_in 'What Would Make You A Great Owner?', with: "this is a description"
 
     click_button 'Submit'
 
     expect(current_path).to eq("/applications/#{@app_1.id}")
     expect(page).to have_content('Status: Pending')
+    expect(page).to have_content('YOU DID IT!')
     expect(page).to_not have_content('Search pet')
+    expect(page).to_not have_content('What Would Make You A Great Owner?')
+  end
+
+  it 'displays an error message when no description is typed in' do
+    visit "/applications/#{@app_1.id}"
+
+    fill_in 'What Would Make You A Great Owner?', with: '' 
+
+    click_button 'Submit'
+
+    expect(current_path).to eq("/applications/#{@app_1.id}")
+    expect(page).to have_content('Status: In Progress')
+    expect(page).to have_content('Search pet')
+    expect(page).to have_content("The following problems prevented us from saving your application:")
   end
 
   it 'does not display a submit button if pets have not been added' do

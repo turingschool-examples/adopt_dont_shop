@@ -25,11 +25,11 @@ RSpec.describe 'the admin application show page' do
 
   it 'shows an an approve button for that specific pet and when pressed changes status from pending to approved' do
     visit "/admin/applications/#{@app_1.id}"
-    expect(@pet_app_1.application.status).to eq("Pending")
+    expect(page).to have_content("Pending")
     expect(page).to have_button("Approve")
+    
     click_button "Approve"
-
-    # expect(@pet_app_1.application.status).to eq("Approved")
+    
     expect(page).to have_content("Application status: Approved")
   end
 
