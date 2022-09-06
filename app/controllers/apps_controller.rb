@@ -16,8 +16,8 @@ class AppsController < ApplicationController
   def admin_show
     @app = App.find(params[:id])
     @pets = @app.pets
-    @pet_status = pet_status(params[:id], @pets)
-    update_status(@pet_status, @app)
+    @pet_status = pet_status
+    update_status(@pet_status.values)
   end
 
   def new

@@ -4,10 +4,10 @@ RSpec.describe 'admin show page' do
     before :each do
         @shelter = Shelter.create!(name: "Craig's Raccoon Emporium", rank: 1, city: "Omaha, NE")
 
-        @pet_1 = @shelter.pets.create!(name: "King Trash Mouth", age: 14)
-        @pet_2 = @shelter.pets.create!(name: "Princess Dumptruck", age: 18)
-        @pet_3 = @shelter.pets.create!(name: "Eggs Sinclair", age: 10)
-        @pet_4 = @shelter.pets.create!(name: "Monster Truck Wendy", age: 5)
+        @pet_1 = @shelter.pets.create!(adoptable: true, name: "King Trash Mouth", age: 14, breed: "Torch Key")
+        @pet_2 = @shelter.pets.create!(adoptable: true, name: "Princess Dumptruck", age: 18, breed: "Cozumel")
+        @pet_3 = @shelter.pets.create!(adoptable: true, name: "Eggs Sinclair", age: 10, breed: "Tres Marias")
+        @pet_4 = @shelter.pets.create!(adoptable: true, name: "Monster Truck Wendy", age: 5, breed: "Vancouver Island")
 
         @pets = [@pet_1, @pet_2, @pet_3, @pet_4]
 
@@ -56,11 +56,20 @@ RSpec.describe 'admin show page' do
 
         expect(current_path).to eq "/admin/apps/#{@app.id}"
         within("#app_status") do
-            expect(page).to have_content("approved")
+            expect(page).to have_content("Approved")
         end
     end
 
     xit 'when one or more pets are rejected' do
 
+    end
+
+    it 'application approval changes pets adoptable status' do
+        click_button "Approve #{@pet_1.name}"
+        click_button "Approve #{@pet_2.name}"
+        click_button "Approve #{@pet_3.name}"
+        click_button "Approve #{@pet_4.name}"
+
+        expect()
     end
 end
