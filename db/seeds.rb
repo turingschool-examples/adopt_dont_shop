@@ -20,7 +20,6 @@
   address: "152 Animal Ave.", 
   city: "Omaha, NE", 
   zip_code: "19593",
-  description: "We love raccoons and would like more please. They will live a good life and will not have to eat carrots. Ever.",
   status: "Pending"
 )
 @garbo = @aurora.apps.create!(
@@ -28,7 +27,6 @@
   address: "asdf",
   city: "asdfa",
   zip_code: "asdfs",
-  description: "asdfaw",
   status: "Pending",
 )
 
@@ -37,7 +35,6 @@
   address: " asdgw",
   city: "asdgwe",
   zip_code: "agwef",
-  description: "asdhge",
   status: "Pending",
 )
 
@@ -46,7 +43,6 @@
   address: "asdgwe",
   city: "asd2e",
   zip_code: "ad23dfs",
-  description: "asdgsda",
   status: "In Progress",
 )
 
