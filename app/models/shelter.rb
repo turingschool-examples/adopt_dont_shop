@@ -18,6 +18,7 @@ class Shelter < ApplicationRecord
       .joins("LEFT OUTER JOIN pets ON pets.shelter_id = shelters.id")
       .group("shelters.id")
       .order("pets_count DESC")
+      #eriagjeoajg
   end
 
   def self.active_applications
