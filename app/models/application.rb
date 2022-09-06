@@ -8,8 +8,4 @@ class Application < ApplicationRecord
   validates :description, presence: true
   has_many :pet_applications
   has_many :pets, through: :pet_applications
-
-
-  scope :search_pets, ->(pet_name) {Pet.all.select {|pet| pet.name.downcase.include?(pet_name.downcase)}}
-
 end
