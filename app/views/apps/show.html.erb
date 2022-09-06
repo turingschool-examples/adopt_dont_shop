@@ -1,19 +1,19 @@
 <h1>Application Show Page</h1>
-
+<h3><%= @app.shelter.name %></h3>
 <p>Name: <%= @app.name %></p>
-<p>Address:</p>
-<p><%= @app.address %></p>
-<p><%= "#{@app.city}, #{@app.zip_code}" %></p>
-Description: <%= @app.description %>
-Status: <%= @app.status %>
-<h3>Links to Pets</h3>
-<% if @app.pets %>
+<p>Address: <%= "#{@app.address}, #{@app.city} #{@app.zip_code}" %></p>
+<% if @app.description.present? %>
+<p><%= "Description:" + @app.description %><p>
+<% end %>
+<p>Status: <%= @app.status %><p>
+<% if !@app.pets.empty? %>
+  <strong><%= "Links to Pets" %></strong>
   <% @app.pets.each do |pet| %>
-    <p><%= link_to pet.name, "/pets/#{pet.id}" %></p>
+    <%= link_to pet.name, "/pets/#{pet.id}" %>
   <% end %>
 <% end %>
 
-Pets Interested in:
+<p>Pets Interested in:</p>
 <ul id="pets_wanted">
 <% @app.pets.each do |pet| %>
   <li>
@@ -50,8 +50,9 @@ Pets Interested in:
     <% end %>
   </div>
 <% end %>
+<br><br>
 
-<h2>List of Shelter Pets</h2>
+<strong>List of Shelter Pets</strong>
 <% @app.shelter.pets.each do |pet| %>
   <p><%= pet.name %></p>
 <% end %>

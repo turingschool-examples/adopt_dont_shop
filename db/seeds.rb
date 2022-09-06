@@ -12,8 +12,16 @@
 
 @trash = @craigs.pets.create!(adoptable: true, name: "King Trash Mouth", age: 14, breed: "Torch Key")
 @princess = @craigs.pets.create!(adoptable: true, name: "Princess Dumptruck", age: 18, breed: "Cozumel")
-@eggs = @aurora.pets.create!(adoptable: true, name: "Eggs Sinclair", age: 10, breed: "Tres Marias")
-@wendy = @aurora.pets.create!(adoptable: true, name: "Monster Truck Wendy", age: 5, breed: "Vancouver Island")
+@eggs = @craigs.pets.create!(adoptable: true, name: "Eggs Sinclair", age: 10, breed: "Tres Marias")
+@wendy = @craigs.pets.create!(adoptable: true, name: "Monster Truck Wendy", age: 5, breed: "Vancouver Island")
+@grom = @craigs.pets.create!(adoptable: true, name: "Grom the Paunch", age: 6, breed: "Cacomistle")
+@ken = @fontaine.pets.create!(adoptable: true, name: "Big Paws Ken", age: 5, breed: "Western Lowland Olingo")
+@gertrude = @fontaine.pets.create!(adoptable: true, name: "Petunia", age: 7, breed: "Ring-tailed Cat")
+@sally = @fontaine.pets.create!(adoptable: true, name: "Fightin' Sally", age: 9, breed: "South American Coati")
+@oat = @fontaine.pets.create!(adoptable: true, name: "Oatheart MacDentures", age: 2, breed: "Kinkajou")
+@marge = @fontaine.pets.create!(adoptable: true, name: "Growly Marge", age: 3, breed: "Olinguito")
+@olaf = @fontaine.pets.create!(adoptable: true, name: "Olaf the Brave", age: 1, breed: "Eastern Lowland Olingo")
+
 
 @beldof = @craigs.apps.create!(
   name: "Gob Beldof", 
@@ -22,7 +30,7 @@
   zip_code: "19593",
   status: "Pending"
 )
-@garbo = @aurora.apps.create!(
+@garbo = @craigs.apps.create!(
   name: "Luut Garbo",
   address: "asdf",
   city: "asdfa",
@@ -38,7 +46,7 @@
   status: "Pending",
 )
 
-@laver = @damon.apps.create!(
+@laver = @fontaine.apps.create!(
   name: "Rod Laver",
   address: "asdgwe",
   city: "asd2e",
@@ -48,3 +56,5 @@
 
 @beldof.pets << @princess
 @beldof.pets << @eggs
+@beldof.pets << @trash
+@beldof.pets << @wendy
