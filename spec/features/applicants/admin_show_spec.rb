@@ -51,18 +51,29 @@ RSpec.describe 'the applicants show' do
         expect(page).to have_content(@pet_2.name)
         expect(page).to have_button("Reject Adoption for Scooby")
         expect(page).to have_button("Reject Adoption for Jake")
-        end
-
-        it "When I click that button, I'm taken back to the admin application show page" do
-
-          visit "/admin/applicants/#{@applicant.id}"
-
-          click_on("Reject Adoption for Scooby")
-          expect(current_path).to eq("/admin/applicants/#{@applicant.id}")
-        end
       end
 
+      it "When I click that button, I'm taken back to the admin application show page" do
 
+        visit "/admin/applicants/#{@applicant.id}"
 
+        click_on("Reject Adoption for Scooby")
+        expect(current_path).to eq("/admin/applicants/#{@applicant.id}")
+      end
+
+      it "Next to the pet that I Rejected, I do not see a button to reject or approve this pet, instead I see an indicator next to the pet that they have been rejected" do
+        visit "/admin/applicants/#{@applicant.id}"
+
+        click_on("Reject Adoption for Scooby")
+
+        expect(page).to have_content("Adoption Rejected for #{@pet.name}")
+        expect(page).to have_content(@pet_2.name)
+        expect(page).to_not have_button("Reject Adoption for Scooby")
+        expect(page).to_not have_button("Approve Adoption for Scooby")
+        expect(page).to have_button("Reject Adoption for Jake")
+        expect(page).to have_button("Approve Adoption for Jake")
+
+      end
+    end
   end
 end
