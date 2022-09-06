@@ -16,31 +16,53 @@ RSpec.describe 'the applicants show' do
 
         expect(page).to have_content(@pet.name)
         expect(page).to have_content(@pet_2.name)
-        expect(page).to have_button("Approve Addoption for Scooby")
-        expect(page).to have_button("Approve Addoption for Jake")
+        expect(page).to have_button("Approve Adoption for Scooby")
+        expect(page).to have_button("Approve Adoption for Jake")
       end
 
       it "When I click that button, I'm taken back to the admin application show page" do
 
         visit "/admin/applicants/#{@applicant.id}"
 
-        click_on("Approve Addoption for Scooby")
+        click_on("Approve Adoption for Scooby")
         expect(current_path).to eq("/admin/applicants/#{@applicant.id}")
 
       end
 
       it "Next to the pet that I approved, I do not see a button to approve this pet, instead I see an indicator next to the pet that they have been approved" do
         visit "/admin/applicants/#{@applicant.id}"
-        
-        click_on("Approve Addoption for Scooby")
+
+        click_on("Approve Adoption for Scooby")
 
         expect(page).to have_content("Adoption Aprroved for #{@pet.name}")
         expect(page).to have_content(@pet_2.name)
-        expect(page).to_not have_button("Approve Addoption for Scooby")
-        expect(page).to have_button("Approve Addoption for Jake")
+        expect(page).to_not have_button("Approve Adoption for Scooby")
+        expect(page).to have_button("Approve Adoption for Jake")
 
       end
-
     end
+
+    describe 'Rejecting a Pet for Adoption' do
+      it "For every pet that the application is for, I see a button to reject the application for that specific pet" do
+
+        visit "/admin/applicants/#{@applicant.id}"
+
+        expect(page).to have_content(@pet.name)
+        expect(page).to have_content(@pet_2.name)
+        expect(page).to have_button("Reject Adoption for Scooby")
+        expect(page).to have_button("Reject Adoption for Jake")
+        end
+
+        it "When I click that button, I'm taken back to the admin application show page" do
+
+          visit "/admin/applicants/#{@applicant.id}"
+
+          click_on("Reject Adoption for Scooby")
+          expect(current_path).to eq("/admin/applicants/#{@applicant.id}")
+        end
+      end
+
+
+
   end
 end
