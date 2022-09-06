@@ -50,3 +50,8 @@ Pets Interested in:
     <% end %>
   </div>
 <% end %>
+
+<h2>List of Shelter Pets</h2>
+<% @app.shelter.pets.each do |pet| %>
+  <p><%= pet.name %></p>
+<% end %>
