@@ -55,6 +55,22 @@ RSpec.describe 'admin show page' do
         end
     end
 
+    it 'when all pets are approved' do
+        click_button "Approve #{@pet_1.name}"
+        click_button "Approve #{@pet_2.name}"
+        click_button "Approve #{@pet_3.name}"
+        click_button "Approve #{@pet_4.name}"
+
+        expect(current_path).to eq "/admin/apps/#{@app.id}"
+        within("#app_status") do
+            expect(page).to have_content("approved")
+        end
+    end
+
+    xit 'when one or more pets are rejected' do
+
+    end
+
     it 'rejects a pet for the application' do
         click_button "Reject #{@pet_1.name}"
         expect(current_path).to eq "/admin/apps/#{@app.id}"
@@ -84,5 +100,5 @@ RSpec.describe 'admin show page' do
             expect(page).to have_button("Approve #{@pet_1.name}")
         end
     end
-    
+   
 end
