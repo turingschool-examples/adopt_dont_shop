@@ -1,0 +1,23 @@
+<h1>Admin Panel</h1>
+
+<h2><%= @application.name %></h2>
+<h3>Street Address: <%= @application.street_address %></h3>
+<h3>City: <%= @application.city %></h3>
+<h3>Zipcode: <%= @application.zipcode %></h3>
+<h3>State: <%= @application.state %></h3>
+<h3>Status: <%= @application.status %></h3>
+<h3>Description: <%= @application.description %></h3>
+<h3>Pets I am interested in:
+  <ul>
+  <% @application.pets.each do |pet| %>
+    <section id= <%= "pet-#{pet.id}" %>>
+      <li><%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
+        <% if @application.status == "Pending" %>
+          <%= button_to "Approve Pet", params: {app_status: "Approved"} %>
+        <% elsif @application.status == "Approved" %>
+          <p>You've been approved for <% "#{pet.name}" %></p>
+        <% end %>
+    </section>
+  <% end %>
+  </ul>
+</h3>
