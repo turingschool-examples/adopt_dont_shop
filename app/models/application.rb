@@ -12,4 +12,5 @@ class Application < ApplicationRecord
 
   scope :search_pets, ->(pet_name) {Pet.all.select {|pet| pet.name.downcase.include?(pet_name.downcase)}}
 
+  
 end

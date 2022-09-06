@@ -5,7 +5,9 @@ class ApplicationsController < ApplicationController
       @application = Application.find(params[:id])
     else
       @application = Application.find(params[:id])
+      @pets = []
     end
+
   end
 
   def new
@@ -29,6 +31,10 @@ class ApplicationsController < ApplicationController
     @application.save
     redirect_to "/applications/#{@application.id}"
   end
+
+  # def approve
+  #   require "pry"; binding.pry
+  # end
 
 private
   def applications_params

@@ -26,6 +26,16 @@ RSpec.describe Application, type: :model do
     it 'can search for pets with a partial match, regardless of case' do
       expect(Application.search_pets('Il')).to eq([@pet_1, @pet_2])
     end
+    #
+    # it 'can approve a pet' do
+    #   @application.approve(@pet_1)
+    #   expect(@application.pet_application_approvals.count).to eq(1)
+    # end
+    #
+    # it 'can reject a pet' do
+    #   @application.reject(@pet_2)
+    #   expect(@application.pet_application_rejects.count).to eq(1)
+    # end
 
   end
 
