@@ -7,20 +7,20 @@
 <section>
 <% if @applicant.pets.count > 0 %>
     <h3>Pets I want to Adopt: </h3>
-    <div id="applicant-<%= @applicant.id %>" ><% @applicant.pets.each do |pet|%>
+    <div id="applicant-<%= @applicant.id %>" >
+      <% @applicant.pets.each do |pet|%>
         <p><%= link_to "#{pet.name}", "/pets/#{pet.id}"%></p>
-    <% end %></div>
+      <% end %>
+    </div>
 
     <% if @applicant.status == "In Progress"%>
-
-        <%= form_with url: "/applicants/#{@applicant.id}", method: :patch, local: true do |form| %>
+      <%= form_with url: "/applicants/#{@applicant.id}", method: :patch, local: true do |form| %>
         <%= form.label :description, "Why would you make a good owner for these pet(s):" %>
         <p><%= form.text_area :description, required: true %></p>
         <%= form.hidden_field :status, value: "Pending" %>
         <%= form.submit "Apply for these Pets" %>
-        <% end %>
+      <% end %>
     <% end %>
-
 <% end %>
 </section>
 

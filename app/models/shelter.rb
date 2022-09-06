@@ -21,7 +21,7 @@ class Shelter < ApplicationRecord
   end
 
   def self.shelters_by_status
-    joins(pets:[:applicants]).where({ "applicants.status" => 'Pending'}).distinct
+    joins(pets:[:applicants]).where("applicants.status" => 'Pending').distinct
     #     select shelters.name, pets.id, pets.name, applicants.first_name, applicants.id from shelters join pets on she
     # lters.id = pets.shelter_id join applicant_pets on pets.id = applicant_pets.pet_id join applicants on applicants.id = applicant_pets.applica
     # nt_id where applicants.status like 'Pending';
