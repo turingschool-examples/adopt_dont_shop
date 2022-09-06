@@ -8,11 +8,12 @@
   end
 
   def self.pets_app_rej_count(app_id)
-    where("pet_status = ?", "Adoption Approved").count + where("pet_status = ?", "Adoption Rejected").count
+    binding.pry
+    where(application_id: app_id, pet_status: "Adoption Approved").count + where(application_id: app_id, pet_status: "Adoption Rejected").count
   end
 
   def self.pets_rej_count(app_id)
-    where("pet_status = ?", "Adoption Rejected").count
+    where("pet_status = ?", "Adoption Rejected").distinct.count
   end
   
   def self.adopted_pet_count
