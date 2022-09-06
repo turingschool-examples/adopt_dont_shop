@@ -8,8 +8,13 @@ class ApplicantsController < ApplicationController
 
   def update
     applicant = Applicant.find(params[:id])
-    pet = Pet.find(params[:pet_to_adopt_id])
-    applicant.adopt_pet(pet)
+    if !applicant.pets.present?
+      pet_to_adopt = Pet.find(params[:pet_to_adopt_id])
+      applicant.adopt_pet(pet_to_adopt)
+    end 
+    if params[:status] == "pending"
+      
+    end
     applicant.update(app_params)
     applicant.save
     redirect_to "/applicants/#{applicant.id}"

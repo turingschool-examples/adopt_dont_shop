@@ -209,18 +209,57 @@ RSpec.describe 'applicant show page' do
         @shelter = Shelter.create!(foster_program: true, name: "Pet Friends of Kansas", city: "Topeka", rank: 8)
         @cat1 = @shelter.pets.create!(adoptable: true, age: 7, breed: 'Persian', name: 'SlimJim')
         @cat2 = @shelter.pets.create!(adoptable: true, age: 1, breed: 'Tabby', name: 'Catmobile')
-        @app = Applicant.create!(first_name: 'Sally', last_name: 'Field', street_address: '115 Oakview Avenue', city: 'Topeka', state: 'Kansas', zipcode: '65119', description: 'I dislike every bird, therefore I require many cats.', status: 'In Progress')
+        @app = Applicant.create!(first_name: 'Sally', last_name: 'Field', street_address: '115 Oakview Avenue', city: 'Topeka', state: 'Kansas', zipcode: '65119', status: 'In Progress')
       end
       it 'Then I see a section to submit my application' do
+        @app.pets << @cat1
         visit "/applicants/#{@app.id}"
-        save_and_open_page
-        fill_in 'pet_search', with: "#{@cat1.name}"
-
-        click_on 'Submit'
-
+        
         expect(page).to have_field('description')
         expect(page).to have_button('Submit Application')
+      end
 
+      it 'then I am taken back to the application show page where I see the status is pending' do
+        @app.pets << @cat1
+        @app.pets << @cat2
+
+        visit "/applicants/#{@app.id}"
+
+        fill_in 'description', with: "Pets are swell!"
+
+        click_on('Submit Application')
+
+        expect(page).to have_content('Pending')
+        expect(page).to_not have_content('In Progress')
+      end
+
+      it 'I see all of the pets I want to adopt' do
+        @app.pets << @cat1
+        @app.pets << @cat2
+
+        visit "/applicants/#{@app.id}"
+
+        fill_in 'description', with: "Pets are swell!"
+
+        click_on('Submit Application')
+
+        expect(page).to have_content(@cat1.name)
+        expect(page).to have_content(@cat2.name)
+      end
+
+      it 'and I no longer see an area to add more pets' do
+        @app.pets << @cat1
+        @app.pets << @cat2
+
+        visit "/applicants/#{@app.id}"
+
+        expect(page).to have_field('pet_search')
+
+        fill_in 'description', with: "Pets are swell!"
+
+        click_on('Submit Application')
+
+        expect(page).to_not have_field('pet_search')
       end
     end
   end

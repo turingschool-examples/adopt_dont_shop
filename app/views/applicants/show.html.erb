@@ -25,5 +25,5 @@
 <% end %>
 
 <% if @applicant.pets.count >= 1 %>
-    
+  <%= render partial: 'applicant_description', locals: { path: "/applicants/#{@applicant.id}?status=Pending", method: :patch, button_text: 'Submit Application' } %>
 <% end %>
