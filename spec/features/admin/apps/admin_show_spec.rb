@@ -64,4 +64,25 @@ RSpec.describe 'admin show page' do
         end
     end
 
+    it 'does not change adoptable status across all apps at once' do
+        app_2 = @shelter.apps.create!(
+            name: "Tarzo the Impaler", 
+            address: "154 Animal Ave.", 
+            city: "Omaha, NE", 
+            zip_code: "19593",
+            status: "In Progress"
+            )
+        app_2.pets << @pet_1
+        click_button "Approve #{@pet_1.name}"
+        expect(current_path).to eq "/admin/apps/#{@app.id}"
+        within("#pet_#{@pet_1.id}") do
+            expect(page).to_not have_button("Approve #{@pet_1.name}")
+            expect(page).to have_content("Approved")
+        end
+        visit "/admin/apps/#{app_2.id}"
+        within("#pet_#{@pet_1.id}") do
+            expect(page).to have_button("Approve #{@pet_1.name}")
+        end
+    end
+    
 end
