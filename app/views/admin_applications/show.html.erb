@@ -1,3 +1,4 @@
+<%= render "shared/banner" %>
 <h1>This is the show page</h1>
 
 <% @pending_pets.each do |pet| %>
@@ -7,7 +8,7 @@
   <p><%= button_to "Approve This Pet", "/pet_applications/#{pet.id}/#{@pet_application.application_id}?status=approved", method: :patch %></p>
 <% elsif @pet_application.pet_application_status == "Approved"  %>
   <%= pet.name  %>
-  <p><%= "Approved" %></p>
+  <p>Approved</p>
 <% end %>
 </div>
 

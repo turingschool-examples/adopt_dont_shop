@@ -1,3 +1,5 @@
+<%= render "shared/banner" %>
+
 <%= form_with url:"/applications", method: :post, local: true do |form|  %>
 
   <p><%= form.label :first_name, "First Name:", require: :true %></p>

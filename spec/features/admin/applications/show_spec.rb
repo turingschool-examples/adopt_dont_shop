@@ -8,7 +8,6 @@ RSpec.describe 'the admin applications show page' do
       samantha_application = Application.create!(first_name: "Samantha", last_name: "Smith", street_address: "123 Mulberry Street", city: "Denver", state: "CO", zip_code: 20202, description: "I would like this dog for these reasons.", status: "Pending")
 
       fluffy_application = PetApplication.create!(pet: fluffy, application: samantha_application)
-
       visit "/admin/applications/#{samantha_application.id}"
       expect(page).to have_button("Approve This Pet")
     end
@@ -55,7 +54,6 @@ RSpec.describe 'the admin applications show page' do
       fluffy_application = PetApplication.create!(pet: fluffy, application: samantha_application)
 
       visit "/admin/applications/#{samantha_application.id}"
-     
       within("#pet_#{fluffy.id}") do
       click_button("Approve This Pet")
       end
