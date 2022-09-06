@@ -33,7 +33,7 @@ RSpec.describe App, type: :model do
       expect(@beldof.pets).to include(@trash, @princess)
     end
   end
-  
+
   describe 'pet_status' do
     it 'returns a hash of key pet and value adoption approval or rejection' do
       @beldof.adopt(@trash)
@@ -56,6 +56,18 @@ RSpec.describe App, type: :model do
 
       @beldof.update_status(@beldof.pet_status.values)
       expect(@beldof.status).to eq("Approved")
+    end
+
+    it 'updates app status to rejected if any app pet is rejected' do
+      @beldof.adopt(@trash)
+      @beldof.adopt(@princess)
+      
+      AppPet.where(app_id: @beldof.id, pet_id: @trash.id).update(status: "rejected")
+      AppPet.where(app_id: @beldof.id, pet_id: @princess.id).update(status: "approved")
+
+      @beldof.update_status(@beldof.pet_status.values)
+      
+      expect(@beldof.status).to eq("Rejected")
     end
   end
 end
