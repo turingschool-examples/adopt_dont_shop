@@ -10,12 +10,12 @@
       <% @applicant.pets.each do |pet|%>
         <p>
         <%= link_to "#{pet.name}", "/pets/#{pet.id}"%>
-        <% if pet.adoptable == true %>
-          <%= button_to "Approve Addoption for #{pet.name}", "/admin/applicants/#{@applicant.id}", params: {adoptable: false, pet_id: "#{pet.id}"}, method: :patch %>
-        <% elsif pet.adoptable == false %>
+        <% if @app.approved?(@applicant.id, pet.id) == nil %>
+          <%= button_to "Approve Addoption for #{pet.name}", "/admin/applicants/#{@applicant.id}", params: {approved: true, pet_id: "#{pet.id}"}, method: :patch %>
+        <% elsif @app.approved?(@applicant.id, pet.id) == true %>
           <%= " - Adoption Aprroved for #{pet.name}" %>
-        <%# <% elsif @approval == "rejected" %>
-          <%# <%= " - Adoption Rejected for #{pet.name}" %> %> %>
+        <% elsif @app.approved?(@applicant.id, pet.id) == false %>
+          <%= " - Adoption Rejected for #{pet.name}" %>
         <% end %>
         </p>
       <% end %>

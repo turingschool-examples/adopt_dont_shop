@@ -36,12 +36,13 @@ class ApplicantsController < ApplicationController
 
   def admin_show
     @applicant = Applicant.find(params[:id])
+    @app = ApplicantPet
   end
 
   def admin_update
     @applicant = Applicant.find(params[:id])
-    pet = Pet.find(params[:pet_id])
-    pet.update(pet_params)
+    approval = ApplicantPet.app_status(params[:id], params[:pet_id])
+    approval.update(admin_params)
     redirect_to "/admin/applicants/#{@applicant.id}"
   end
 
@@ -51,7 +52,7 @@ class ApplicantsController < ApplicationController
     params.permit(:first_name, :last_name, :street_address, :city, :state, :zip, :status, :description)
   end
 
-  def pet_params 
-    params.permit(:adoptable)
+  def admin_params 
+    params.permit(:approved)
   end
 end
