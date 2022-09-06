@@ -29,7 +29,7 @@ class ApplicationsController < ApplicationController
       redirect_to "/applications/#{@application.id}"
     else
       redirect_to "/applications/new"
-      flash[:alert] = "Error: You must fill in the missing information before proceeding."
+      flash[:alert] = @application.errors.full_messages.to_sentence
     end
   end
 
