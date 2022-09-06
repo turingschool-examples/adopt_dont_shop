@@ -21,10 +21,13 @@ RSpec.describe Pet, type: :model do
     @app2 = Application.create!(fname: 'John', lname: 'Smith', street_address: '1234 Turig Blvd.', city: 'Ttown', state: 'CO', zip_code: 12345, good_home_argument: 'Because reasonsable', status: "Pending" )
 
     @shelter_1 = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
+    @shelter_2 = Shelter.create(name: 'RGV animal shelter', city: 'Harlingen, TX', foster_program: false, rank: 5)
+    @shelter_3 = Shelter.create(name: 'Fancy pets of Colorado', city: 'Denver, CO', foster_program: true, rank: 10)
 
     @pet_1 = @shelter_1.pets.create(name: 'Mr. Pirate', breed: 'tuxedo shorthair', age: 5, adoptable: true)
     @pet_2 = @shelter_1.pets.create(name: 'Clawdia', breed: 'shorthair', age: 3, adoptable: true)
     @pet_3 = @shelter_1.pets.create(name: 'Ann', breed: 'ragdoll', age: 3, adoptable: false)
+
 
     @app2.pets << @pet_1
   end
@@ -74,6 +77,21 @@ RSpec.describe Pet, type: :model do
       it 'returns shelters assoctiated to pets with pending applications' do
         pend = Pet.pending_apps
         expect(pend[0].name).to eq("Aurora shelter")
+      end
+
+      it 'returns shelters in alpha order' do
+        @app3 = Application.create!(fname: 'ohn', lname: 'mith', street_address: '234 Turig Blvd.', city: 'Ttown', state: 'CO', zip_code: 12345, good_home_argument: 'Because reasonsae', status: "Pending" )
+        @app4 = Application.create!(fname: 'hn', lname: 'ith', street_address: '34 Turig Blvd.', city: 'Ttown', state: 'CO', zip_code: 12345, good_home_argument: 'Because reasonsa', status: "Pending" )
+
+        @pet_4 = @shelter_2.pets.create(name: 'Ann', breed: 'ragdoll', age: 5, adoptable: true)
+        @pet_5 = @shelter_3.pets.create(name: 'Banann', breed: 'doll', age: 7, adoptable: true)
+        @app3.pets << @pet_4
+        @app4.pets << @pet_5
+
+
+        expect(Pet.pending_apps[0].name).to eq("Aurora shelter")
+        expect(Pet.pending_apps[1].name).to eq('Fancy pets of Colorado')
+        expect(Pet.pending_apps[2].name).to eq('RGV animal shelter')
       end
     end
   end

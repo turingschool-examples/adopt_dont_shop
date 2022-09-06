@@ -18,7 +18,7 @@ class Pet < ApplicationRecord
   end
 
   def self.pending_apps
-    joins(:applications, :shelter).select('shelters.*').where("applications.status = ?", "Pending").distinct
+    joins(:applications, :shelter).select('shelters.*').where("applications.status = ?", "Pending").distinct.order("shelters.name")
   end
 
   def self.avg_age
