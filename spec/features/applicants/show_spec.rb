@@ -117,7 +117,7 @@ RSpec.describe 'applicant show page' do
 
     it 'Then I see a section on the page to "Add a Pet to this Application"' do
       visit "/applicants/#{@app.id}"
-
+      
       expect(has_field?).to be(true)
       expect(have_field('Add a Pet to this Application'))
     end
@@ -186,8 +186,42 @@ RSpec.describe 'applicant show page' do
       click_button 'Adopt this Pet'
 
       expect(current_path).to eq("/applicants/#{@app.id}")
-      save_and_open_page
+
       expect(page).to have_content(@cat2.name)
+    end
+
+    # User Story 7
+
+    # As a visitor
+    # When I visit an application's show page
+    # And I have added one or more pets to the application
+    # Then I see a section to submit my application
+    # And in that section I see an input to enter why I would make a good owner for these pet(s)
+    # When I fill in that input
+    # And I click a button to submit this application
+    # Then I am taken back to the application's show page
+    # And I see an indicator that the application is "Pending"
+    # And I see all the pets that I want to adopt
+    # And I do not see a section to add more pets to this application
+
+    describe 'When I visit an applications show page And I have added one or more pets to the application' do
+      before :each do
+        @shelter = Shelter.create!(foster_program: true, name: "Pet Friends of Kansas", city: "Topeka", rank: 8)
+        @cat1 = @shelter.pets.create!(adoptable: true, age: 7, breed: 'Persian', name: 'SlimJim')
+        @cat2 = @shelter.pets.create!(adoptable: true, age: 1, breed: 'Tabby', name: 'Catmobile')
+        @app = Applicant.create!(first_name: 'Sally', last_name: 'Field', street_address: '115 Oakview Avenue', city: 'Topeka', state: 'Kansas', zipcode: '65119', description: 'I dislike every bird, therefore I require many cats.', status: 'In Progress')
+      end
+      it 'Then I see a section to submit my application' do
+        visit "/applicants/#{@app.id}"
+        save_and_open_page
+        fill_in 'pet_search', with: "#{@cat1.name}"
+
+        click_on 'Submit'
+
+        expect(page).to have_field('description')
+        expect(page).to have_button('Submit Application')
+
+      end
     end
   end
 end
