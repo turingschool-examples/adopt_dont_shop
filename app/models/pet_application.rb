@@ -9,4 +9,8 @@ class PetApplication < ApplicationRecord
   def self.application_pets(application_id)
     Pet.select("pets.*, pet_applications.application_id, pet_applications.pet_application_status").joins(:pet_applications).where("application_id = ?", "#{application_id}")
   end
+
+  def self.pending?(application_id)
+    self.application_pets(application_id).any? { |pet| pet.pet_application_status == "Pending" }
+  end
 end
