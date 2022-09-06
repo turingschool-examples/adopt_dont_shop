@@ -30,11 +30,14 @@ RSpec.describe PetApplication, type: :model do
         saving_pets_shelter = Shelter.create!(name: "Saving Pets Shelter", foster_program: true, city: "New York", rank: 3)
         pet3 = saving_pets_shelter.pets.create!(name: "Butters", adoptable: true, age: 6, breed: "lab")
         bill_application = Application.create!(first_name: "Bill", last_name: "Rollands", street_address: "123 Street Street", city: "Denver", state: "CO", zip_code: 24628, description: "I would like this dog.", status: "Pending")
+
         butters_application = PetApplication.create!(pet: pet3, application: bill_application)
         fluffy_application2 = PetApplication.create!(pet: fluffy, application: bill_application)
 
-        expect(PetApplication.application_pets(bill_application.id)).to eq([pet3, fluffy])
-        expect(PetApplication.application_pets(samantha_application.id)).to eq([fluffy])
+        expect(PetApplication.application_pets(bill_application.id).size).to eq(2)
+        expect(PetApplication.application_pets(bill_application.id).all).to eq([fluffy, pet3])
+        expect(PetApplication.application_pets(samantha_application.id).size).to eq(1)
+        expect(PetApplication.application_pets(samantha_application.id).all).to eq([fluffy])
       end
     end
   end
