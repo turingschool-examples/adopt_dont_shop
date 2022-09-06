@@ -1,0 +1,15 @@
+<h1> All Shelters - Admin View</h1>
+
+<h3>Shelter Index</h3>
+<% @shelters.each do |shelter| %>
+  <div id="shelter-<%= shelter.id %>">
+    <h4><%= shelter.name %></h4>
+  </div>
+<%end%>
+
+<h3>Shelters With Pending Applications</h3>
+<div id='shelters_w_pending_apps'>
+  <%@pending_app_shelters.each do |shelter|%>
+    <%= shelter.name %>
+  <%end%>
+</div>
