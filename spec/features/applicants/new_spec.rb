@@ -1,13 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'the applicants new' do
-  # before :each do
-  #   @shelter = Shelter.create!(name: 'Mystery Building', city: 'Irvine CA', foster_program: false, rank: 9)
-  #   @applicant = Applicant.create!(first_name: 'John', last_name: 'Dough', street_address: '123 Fake Street', city: 'Denver', state: 'CO', zip: 80205, description: "I'm awesome", status: "Approved")
-  #   @pet = @applicant.pets.create!(name: 'Scooby', age: 2, breed: 'Great Dane', adoptable: true, shelter_id: @shelter.id)
-  #   @pet_2 = @applicant.pets.create!(name: 'Jake', age: 5, breed: 'Pug', adoptable: true, shelter_id: @shelter.id)
-  # end
-
+  
   it "I see a link to 'Start an Application'" do
     visit '/pets'
 
@@ -57,6 +51,7 @@ RSpec.describe 'the applicants new' do
     click_button('Next Step')
 
     expect(Applicant.count).to eq(0)    
+    save_and_open_page
     expect(current_path).to eq("/applicants/new")
     expect(page).to have_content("First name can't be blank")
     expect(page).to have_content("Last name can't be blank")
