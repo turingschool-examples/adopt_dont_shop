@@ -24,8 +24,8 @@ RSpec.describe 'application creation' do
         fill_in 'About', with: 'Likes dogs'
         click_button 'Submit'
 
-        expect(page).to have_current_path("/applications/#{application.id}")
         expect(page).to have_content('Guy Manfred')
+        expect(page).to have_content('In Progress')
       end
     end
   end

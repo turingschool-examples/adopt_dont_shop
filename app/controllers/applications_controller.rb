@@ -20,7 +20,9 @@ class ApplicationsController < ApplicationController
     end
   end
 
-  def application_params
-    params.permit(:id, :name, :address, :about, :status)
-  end
+  private
+  
+    def application_params
+      params.permit(:id, :name, :address, :about, :status)
+    end
 end
