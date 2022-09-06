@@ -46,5 +46,24 @@ RSpec.describe Pet, type: :model do
         expect(@pet_3.shelter_name).to eq(@shelter_1.name)
       end
     end
+
+    describe '.app_approval?' do
+      it 'can determine if a pet has been approved on a specific applcation' do
+        shelter1 = Shelter.create!(foster_program: true, name: "Moms and Mutts", city: "Denver", rank:1)
+        pet1 = shelter1.pets.create!(adoptable: true, age:3, breed:"Pitbull", name:"Scrappy")
+        pet2 = shelter1.pets.create!(adoptable: true, age:5, breed:"German Shepherd", name:"Gossamer")
+        pet3 = shelter1.pets.create!(adoptable: false, age:1, breed:"Lab Mix", name:"Montana")
+        application1 = Application.create!(name:"Becka Hendricks", street_address:"6210 Castlegate Dr.", city:"Castle Rock", state:"Colorado", zipcode:"80108", description:"I love dogs and would be such a good dog mom", status: "Approved")
+        application2 = Application.create!(name:"Dominic OD", street_address:"5250 Town and Country Blvd.", city:"Frisco", state:"Texas", zipcode:"75034", description:"I like cats.", status: "Approved")
+        PetApplication.create!(pet: pet1, application: application1, approved?: true)
+        PetApplication.create!(pet: pet2, application: application1, approved?: false)
+        PetApplication.create!(pet: pet3, application: application1, approved?: true)
+        PetApplication.create!(pet: pet1, application: application2, approved?: false)
+
+        expect(pet1.app_approval?(pet1.id, application1.id)).to eq(true)
+        expect(pet2.app_approval?(pet2.id, application1.id)).to eq(false)
+        expect(pet1.app_approval?(pet1.id, application2.id)).to eq(false)
+      end
+    end
   end
 end

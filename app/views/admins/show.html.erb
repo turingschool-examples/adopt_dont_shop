@@ -8,16 +8,17 @@
 <h3>Status: <%= @application.status %></h3>
 <h3>Description: <%= @application.description %></h3>
 <h3>Pets I am interested in:
-  <ul>
+
   <% @application.pets.each do |pet| %>
     <section id= <%= "pet-#{pet.id}" %>>
-      <li><%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
+    <%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
         <% if @application.status == "Pending" %>
-          <%= button_to "Approve Pet", params: {app_status: "Approved"} %>
-        <% elsif @application.status == "Approved" %>
-          <p>You've been approved for <% "#{pet.name}" %></p>
+          <%= button_to "Approve Pet", params: {app_status: "Approved", pet_id: pet.id} %>
+        <% elsif @application.status == "Approved" && !pet.app_approval?(pet.id, @application.id) %>
+          <%= button_to "Approve Pet", params: {app_status: "Approved", pet_id: pet.id} %>
+        <% elsif @application.status == "Approved" && pet.app_approval?(pet.id, @application.id) %>
+          <p>You have been approved for <%= "#{pet.name}" %></p>
         <% end %>
     </section>
   <% end %>
-  </ul>
 </h3>
