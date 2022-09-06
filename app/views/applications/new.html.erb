@@ -1,0 +1,12 @@
+<h1>New Application</h1>
+<%= form_with url: "/applications/", method: :post, local: true do |f| %>
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+    <%= f.label :address %>
+    <%= f.text_field :address %>
+    <%= f.label :about %>
+    <%= f.text_field :about %>
+    <%= f.text_field :status, required: true, class: 'form-control', value: 'pending'  =%>
+
+    <%= f.submit :Submit%>
+<% end %>

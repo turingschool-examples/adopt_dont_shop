@@ -6,3 +6,4 @@ class Application < ApplicationRecord
     self.pets.where("application_pets.application_id = ?", self.id)
   end
 end
+
