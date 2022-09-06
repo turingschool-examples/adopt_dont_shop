@@ -9,7 +9,7 @@ end
 
 public
 def adopt(pet)
-  self.pets << pet
+  self.pets << pet if !self.pets.include?(pet)
 end
 
 def pet_status(app_id, pets)
