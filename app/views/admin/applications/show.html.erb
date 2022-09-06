@@ -3,10 +3,16 @@
 <%= @application.id%>
 <p>Pet(s) Applying for: </p>
 <% @application.pets.each do |pet|%>
+  <div class="pet_<%=pet.id%>">
+    
 
-  <% if @application.status == "Pending" %>
-    <%= button_to "Approve", "/admin/applications/#{@application.id}/#{pet.id}/update?approve=true", local: true, method: :patch  %>
-    <%= button_to "Reject", "/admin/applications/#{@application.id}/#{pet.id}/update?approve=false", local: true, method: :patch  %></p>
-  <%end%>
-
+    <% if @application.status == "Pending"%>
+      <p><%= pet.name %></p>
+      <%= button_to "Approve", "/admin/applications/#{@application.id}/#{pet.id}/update?approve=true", local: true, method: :patch  %>
+      <%= button_to "Reject", "/admin/applications/#{@application.id}/#{pet.id}/update?approve=false", local: true, method: :patch  %></p>
+    <% elsif @application.status == "Approved" %>
+      <p><%= pet.name %></p>
+      <p>Approved</p>
+      <% end %>
+      </div>
 <%end%>

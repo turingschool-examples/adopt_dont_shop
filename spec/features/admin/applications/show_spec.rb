@@ -23,34 +23,40 @@ RSpec.describe 'the admin application view page' do
     @application_3.pets << @pet_5
   end
 
-  describe 'when I visit the admin application view page' do
+  describe 'when I visit the admin application show page' do
     it 'displays all pets applying for' do
       visit "admin/applications/#{@application_1.id}"
-# require "pry"; binding.pry
+
       expect(page).to have_content('Lucille Bald')
       expect(page).to have_content('Bark Hamill')
 
       expect(page).to_not have_content('Mr. Pig')
     end
 
-    it 'links button to approve a pet, back to same show page' do
+    it 'links button to approve a pet, redirects pet to show page' do
       visit "admin/applications/#{@application_2.id}"
-# save_and_open_page
+
       expect(page).to have_content('Mr. Pig')
+
       click_on 'Approve'
-      expect(current_path).to eq("/admin/pet_applications/#{@application_2.id}/#{@pet_2.id}/1/update")
+
+      expect(current_path).to eq("/admin/applications/#{@application_2.id}")
       expect(page).to have_content('Mr. Pig')
     end
 
-    it ' button to approve a pet dissapears once clicked on' do
+    it 'once a pet is approved, I see an indicator that the pet has been approved and the button is gone' do
       visit "admin/applications/#{@application_2.id}"
 
       expect(page).to have_content('Mr. Pig')
-      click_on 'Approve'
 
-      # expect(current_path).to eq("/admin/pet_applications/#{@application_2.id}/#{@pet_2.id}/1/update")
-      # expect(page).to_not have_content('Approve')
+      within(".pet_#{@pet_2.id}") do
+        click_on 'Approve'
+      end
+
+      within(".pet_#{@pet_2.id}") do
+        expect(page).to_not have_content('Approve')
+        expect(page).to have_content('Approved')
+      end
     end
   end
-
 end
