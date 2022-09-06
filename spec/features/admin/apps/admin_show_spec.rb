@@ -36,6 +36,16 @@ RSpec.describe 'admin show page' do
         end 
     end
 
+    it 'has a button to reject each pet' do
+        # When I click that button
+        @app.pets.each do |pet|
+            within("#pet_#{pet.id}") do
+                expect(page).to have_button("Reject #{pet.name}")
+            end
+        end 
+        save_and_open_page
+    end
+
     it 'approves a pet for the application' do
         click_button "Approve #{@pet_1.name}"
         expect(current_path).to eq "/admin/apps/#{@app.id}"
@@ -43,9 +53,15 @@ RSpec.describe 'admin show page' do
             expect(page).to_not have_button("Approve #{@pet_1.name}")
             expect(page).to have_content("Approved")
         end
-        # Then I'm taken back to the admin application show page
-        # And next to the pet that I approved, I do not see a button to approve this pet
-        # And instead I see an indicator next to the pet that they have been approved
+    end
+
+    it 'rejects a pet for the application' do
+        click_button "Reject #{@pet_1.name}"
+        expect(current_path).to eq "/admin/apps/#{@app.id}"
+        within("#pet_#{@pet_1.id}") do
+            expect(page).to_not have_button("Reject #{@pet_1.name}")
+            expect(page).to have_content("Rejected")
+        end
     end
 
 end
