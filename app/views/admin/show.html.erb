@@ -4,15 +4,13 @@
 <% @application.pets.each do |pet| %>
 <div id="pets-<%= pet.id %>">
 <p><%= pet.name %>
-<% pet.applications.each do |application| %>
-<% if application.status == "Pending" %>
+<% if !pet.pet_applications.where(application_id: @application.id, pet_id: pet.id).first.status %>
     <%= button_to 'Approve application', "/admin/applications/#{@application.id}?pet_id=#{pet.id}&approved=true" %>
     <%= button_to 'Reject application', "/admin/applications/#{@application.id}?pet_id=#{pet.id}&rejected=true" %></p>
-  <% elsif application.status == "Approved"%>
+  <% elsif pet.pet_applications.where(application_id: @application.id, pet_id: pet.id).first.status == "Approved"%>
     <h4>Application Status: Approved</h4>
-  <% elsif application.status == "Rejected" %>
+  <% elsif pet.pet_applications.where(application_id: @application.id, pet_id: pet.id).first.status == "Rejected" %>
     <h4>Application Status: Rejected</h4>
   <% end %>
     </div>
 <% end %>
-<%end%>

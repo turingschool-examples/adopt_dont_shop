@@ -9,12 +9,12 @@ class AdminController < ApplicationController
   end
 
   def approve_deny
-    @application = Application.find(params[:id])
     if params[:approved]
-      @application.update_attribute(:status, "Approved")
+      PetApplication.where(application_id: params[:id], pet_id: params[:pet_id]).first.update(status: "Approved")
     elsif params[:rejected]
-      @application.update_attribute(:status, "Rejected")
+      PetApplication.where(application_id: params[:id], pet_id: params[:pet_id]).first.update(status: "Rejected")
     end
-    redirect_to "/admin/applications/#{@application.id}"
+    redirect_to "/admin/applications/#{params[:id]}"
   end
+
 end
