@@ -25,6 +25,9 @@ def update_status(pet_status)
   if pet_status.none?("pending")
     if pet_status.all?("approved")
       self.update(status: "Approved")
+      self.pets.each do |pet|
+        pet.update(adoptable: false)
+      end
     elsif pet_status.any?("rejected")
       self.update(status: "Rejected")
     end

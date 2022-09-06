@@ -69,5 +69,18 @@ RSpec.describe App, type: :model do
       
       expect(@beldof.status).to eq("Rejected")
     end
+
+    it 'approval makes any pet approved for adoption unavailable' do
+      @beldof.adopt(@trash)
+      @beldof.adopt(@princess)
+      
+      AppPet.where(app_id: @beldof.id, pet_id: @trash.id).update(status: "approved")
+      AppPet.where(app_id: @beldof.id, pet_id: @princess.id).update(status: "approved")
+
+      @beldof.update_status(@beldof.pet_status.values)
+
+      expect(@trash.adoptable).to be(false)
+      expect(@princess.adoptable).to be(false)
+    end
   end
 end
