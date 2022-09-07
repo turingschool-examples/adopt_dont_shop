@@ -16,11 +16,16 @@ RSpec.describe 'the admin application view page' do
     @application_1 = Application.create!(name: "Shelby Waters", street_address: "274 West 11th St", city: "Myers Flatt", state: "NJ", zipcode: 12447, status: "Pending", description: "I'm Lonely")
     @application_2 = Application.create!(name: "Florence Bigsby", street_address: "202 E Washington Ave", city: "Madison", state: "WI", zipcode: 60637, status: "Pending", description: "I love cats")
     @application_3 = Application.create!(name: "Todd Matthews", street_address: "620 W 11th St", city: "Hastings", state: "MN", zipcode: 55033, status: "Pending", description: "We have the same name")
+    @application_4 = Application.create!(name: "Burton Guster", street_address: "1112 Beach Ave", city: "Santa Barbra", state: "CA", zipcode: 55033, status: "Pending", description: "I have lots of Mice")
+    @application_5 = Application.create!(name: "Shawn Spencer", street_address: "125 Amber Way", city: "Eureka", state: "CA", zipcode: 97401, status: "Pending", description: "My roomate is annoying and allergic")
 
     @application_1.pets << @pet_1
     @application_1.pets << @pet_3
     @application_2.pets << @pet_2
     @application_3.pets << @pet_5
+    @application_4.pets << @pet_3
+    @application_5.pets << @pet_3
+
   end
 
   describe 'when I visit the admin application show page' do
@@ -54,7 +59,7 @@ RSpec.describe 'the admin application view page' do
       end
 
       within(".pet_#{@pet_2.id}") do
-        
+
         expect(page).to_not have_content('Reject')
         expect(page).to have_content('Approved')
       end
@@ -63,7 +68,7 @@ RSpec.describe 'the admin application view page' do
     it 'has a button to reject the application for a specific pet' do
       visit "admin/applications/#{@application_3.id}"
 
-      expect(page).to have_content('Todd')      
+      expect(page).to have_content('Todd')
 
       within(".pet_#{@pet_5.id}") do
         click_on 'Reject'
@@ -83,10 +88,40 @@ RSpec.describe 'the admin application view page' do
       end
 
       within(".pet_#{@pet_5.id}") do
-        
+
         expect(page).to_not have_content('Approved')
         expect(page).to have_content('Rejected')
       end
     end
+
+    describe 'how one can find a pet with approve and deny buttons on an application after having approved or denied said pet on another application' do
+
+      it 'can approve Bark Hamill after approving him on another application' do
+        visit "admin/applications/#{@application_4.id}"
+
+        within(".pet_#{@pet_3.id}") do
+          click_on 'Approve'
+        end
+
+        expect(page).to have_content('Approved')
+        expect(page).to_not have_content('Rejected')
+
+        visit "admin/applications/#{@application_5.id}"
+
+        expect(page).to have_button('Approve')
+        expect(page).to have_button('Reject')
+
+        within(".pet_#{@pet_3.id}") do
+          click_on 'Approve'
+        end
+
+        expect(page).to have_content('Approved')
+        expect(page).to_not have_content('Rejected')
+      end
+
+
+    end
+
+
   end
 end
