@@ -26,6 +26,7 @@ class ApplicationsController < ApplicationController
     flash[:notice] = "Please fill out the whole form"
     render :new
    end
+  end
 
   def update
     application = Application.find(params[:id])
@@ -41,6 +42,4 @@ class ApplicationsController < ApplicationController
   def application_params
     params.permit(:id, :name, :address, :city, :state, :zipcode, :about, :status, :search_name)
   end
-
-
 end
