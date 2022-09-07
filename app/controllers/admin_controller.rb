@@ -7,4 +7,11 @@ class AdminController < ApplicationController
   def shelter_show
     @shelter = Shelter.find(params[:id])
   end
+
+  def application_show
+    @application = Application.find(params[:id])
+  end
+
+
+
 end
