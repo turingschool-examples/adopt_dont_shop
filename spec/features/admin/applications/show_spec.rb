@@ -94,7 +94,7 @@ RSpec.describe 'the admin application view page' do
       end
     end
 
-    describe 'how one can find a pet with approve and deny buttons on an application after having approved or denied said pet on another application' do
+    describe 'a program that allows one to approve two applications for the same pet' do
 
       it 'can approve Bark Hamill after approving him on another application' do
         visit "admin/applications/#{@application_4.id}"
@@ -122,6 +122,32 @@ RSpec.describe 'the admin application view page' do
 
     end
 
+    describe 'a program that allows one to deny two applications for the same pet' do
 
+      it 'can approve Bark Hamill after approving him on another application' do
+        visit "admin/applications/#{@application_4.id}"
+
+        within(".pet_#{@pet_3.id}") do
+          click_on 'Reject'
+        end
+
+        expect(page).to have_content('Rejected')
+        expect(page).to_not have_content('Approved')
+
+        visit "admin/applications/#{@application_5.id}"
+
+        expect(page).to have_button('Approve')
+        expect(page).to have_button('Reject')
+
+        within(".pet_#{@pet_3.id}") do
+          click_on 'Reject'
+        end
+
+        expect(page).to have_content('Rejected')
+        expect(page).to_not have_content('Approved')
+      end
+
+
+    end
   end
 end
