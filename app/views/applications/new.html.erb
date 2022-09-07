@@ -1,9 +1,9 @@
 <h1>New Application</h1>
 <%= form_with url: "/applications/", method: :post, local: true do |f| %>
     <%= f.label :name %>
-    <%= f.text_field :name %>
+    <%= f.text_field :name, required: true, class: 'form-control' %>
     <%= f.label :address %>
-    <%= f.text_field :address %>
+    <%= f.text_field :address, required: true, class: 'form-control' %>
 
     <%= f.submit :Submit%>
 <% end %>
