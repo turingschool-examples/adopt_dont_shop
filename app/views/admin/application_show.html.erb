@@ -7,7 +7,9 @@
 <p>Pets applying for:</p>
 <% @application.pets.each do |pet| %>
   <p> <%= link_to "#{pet.name}", "/pets/#{pet.id}", method: :get %> </p>
-   <p><%= button_to "Approve #{pet.name}'s Adoption", "/application_pets/#{pet.id}", method: :patch, params: {pet_id: pet.id} %> </p>
-
-
+  <% if @application.status == "Pending" && pet.adoptable == true %>
+    <p><%= button_to "Approve #{pet.name}'s Adoption", "/application_pets", method: :patch, params: {pet_status: "Approved", pet_id: pet.id, id: @application.id, adoptable: pet.adoptable} %> </p>
+  <%else%>
+    <%= "#{pet.name}'s adoption was approved!" %>
+  <% end %>
 <% end %>

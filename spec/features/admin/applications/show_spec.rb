@@ -42,11 +42,11 @@ RSpec.describe 'Applications show page:' do
     end
 
     it 'I no longer see a button to approve that pet' do
-      expect(page).to_
+      expect(page).to_not have_button("Approve #{@pet_3.name}'s Adoption")
     end
 
     it 'I instead see an indication that the pet application has been approved' do
-
+      expect(page).to have_content("#{@pet_3.name}'s adoption was approved!")
     end
   end
 end
