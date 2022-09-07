@@ -49,12 +49,12 @@ RSpec.describe Shelter, type: :model do
         expect(Shelter.order_by_reverse_alpha[2].name).to eq(@shelter_1.name)
       end
     end
-  
+
     describe '#pending_apps' do
       it 'finds shelters w/ pending applications' do
         @app = Application.create(name: "John Smith", address: "123 Main St", city: "Denver", state: "CO", zipcode: "80120", about: "I love a dogs. One please.", status: "Pending")
         ApplicationPet.create!(application_id: @app.id, pet_id: @pet_1.id)
-        
+
         expect(Shelter.pending_apps.first).to eq(@pet_1.shelter)
       end
     end
