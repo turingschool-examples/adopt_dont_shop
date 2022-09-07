@@ -59,7 +59,6 @@ RSpec.describe 'the app show' do
     end
   end
 
-
   it 'can submit applications' do
     visit "/applications/#{@app.id}"
     within '#add_pet' do
@@ -81,5 +80,21 @@ RSpec.describe 'the app show' do
     end
     click_button 'Submit Application'
     expect(page).to have_content('Pending')
+  end
+   
+  it 'can add pets to be adopted to the app' do
+    visit "/applications/#{@app.id}"
+
+    within '#add_pet' do
+      fill_in 'Search by Name', with: 'Bare-y'
+      click_button 'Search'
+    end
+
+    within '#adopt' do
+      click_button 'Adopt this pet'
+    end
+
+    expect(page).to have_link(@pet_1.name)
+    expect(page).to have_link(@pet_2.name)
   end
 end
