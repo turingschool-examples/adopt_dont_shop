@@ -1,4 +1,13 @@
-<%= render partial: 'applications/applicants_info' %>
+<h1><%= @application.name%>'s Application</h1>
+
+<h2>Status: <%= @application.status %></h2>
+
+<h3>Address: <%= @application.street_address %>, <%= @application.city %>, <%= @application.state %>, <%= @application.zipcode %></h3>
+
+<p> Why I would make a good home for this pet:
+<br>
+<%= @application.description %> </p>
+
 
 <%= @application.id%>
 <p>Pet(s) Applying for: </p>
@@ -12,8 +21,10 @@
       <p><%= pet.name %></p>
       <p>Approved</p>
     <% elsif pet.application_status == "Rejected" %>
-    <p><%= pet.name %></p>
-    <p>Rejected</p>
+      <p><%= pet.name %></p>
+      <p>Rejected</p>
     <% end %>
+    <%= pet.application_status %>
+    <%= pet.pet_id %>
   </div>
 <%end%>

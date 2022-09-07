@@ -33,7 +33,7 @@ RSpec.describe 'the admin application view page' do
       expect(page).to_not have_content('Mr. Pig')
     end
 
-    it 'links button to approve a pet, redirects pet to show page' do
+    it 'has a button to approve an appliaction for a specific pet' do
       visit "admin/applications/#{@application_2.id}"
 
       expect(page).to have_content('Mr. Pig')
@@ -44,7 +44,7 @@ RSpec.describe 'the admin application view page' do
       expect(page).to have_content('Mr. Pig')
     end
 
-    it 'once a pet is approved, I see an indicator that the pet has been approved and the button is gone' do
+    it 'once a pet is approved, there is an indicator that the pet has been approved and the buttons are gone' do
       visit "admin/applications/#{@application_2.id}"
 
       expect(page).to have_content('Mr. Pig')
@@ -54,8 +54,37 @@ RSpec.describe 'the admin application view page' do
       end
 
       within(".pet_#{@pet_2.id}") do
+        
         expect(page).to_not have_content('Reject')
         expect(page).to have_content('Approved')
+      end
+    end
+
+    it 'has a button to reject the application for a specific pet' do
+      visit "admin/applications/#{@application_3.id}"
+
+      expect(page).to have_content('Todd')      
+
+      within(".pet_#{@pet_5.id}") do
+        click_on 'Reject'
+      end
+
+      expect(current_path).to eq("/admin/applications/#{@application_3.id}")
+      expect(page).to have_content('Todd')
+    end
+
+    it 'once a pet is rejected, there is an indicator that the pet has been rejected and the buttons are gone' do
+      visit "admin/applications/#{@application_3.id}"
+
+      expect(page).to have_content('Todd')
+
+      within(".pet_#{@pet_5.id}") do
+        click_on 'Reject'
+      end
+
+      within(".pet_#{@pet_5.id}") do
+        expect(page).to_not have_content('Approved')
+        expect(page).to have_content('Rejected')
       end
     end
   end

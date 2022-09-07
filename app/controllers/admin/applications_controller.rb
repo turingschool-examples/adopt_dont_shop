@@ -5,11 +5,11 @@ class Admin::ApplicationsController < ApplicationController
   end
 
   def update
-    # @pet = Pet.find(id: params[:pet_id])
     @pet_application = PetApplication.where(pet_id: params[:pet_id], application_id: params[:app_id])
     @application = Application.find(params[:app_id])
       if params[:approve]
         @pet_application.update(application_status: 'Approved')
+        
       else
         @pet_application.update(application_status: 'Rejected')
       end
