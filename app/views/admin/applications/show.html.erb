@@ -1,4 +1,4 @@
-<%= render partial: 'shelter' %>
+<%= render partial: 'applicants_info' %>
 
 <%= @application.id%>
 <p>Pet(s) Applying for: </p>
@@ -15,7 +15,5 @@
       <p><%= pet.name %></p>
       <p>Rejected</p>
     <% end %>
-    <%= pet.application_status %>
-    <%= pet.pet_id %>
   </div>
 <%end%>

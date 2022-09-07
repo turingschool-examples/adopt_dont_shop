@@ -9,7 +9,6 @@ class Admin::ApplicationsController < ApplicationController
     @application = Application.find(params[:app_id])
       if params[:approve]
         @pet_application.update(application_status: 'Approved')
-        
       else
         @pet_application.update(application_status: 'Rejected')
       end
