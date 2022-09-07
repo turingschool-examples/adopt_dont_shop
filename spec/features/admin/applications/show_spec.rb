@@ -107,6 +107,30 @@ RSpec.describe 'Admin application show page' do
           expect(page).to have_content("You have been rejected for #{@pet1.name}")
         end
       end
+
+      it 'should not effect other applications with two applicants are rejected or approved for the same pet' do
+        @application2 = Application.create!(name:"Dominic OD", street_address:"2250", city:"Frisco", state:"Texas", zipcode:"75034", status: "Pending", description: "NO DESC[N/A]")
+        PetApplication.create!(pet: @pet1, application: @application2)
+        visit "/admin/applications/#{@application2.id}"
+
+        within("#pet-#{@pet1.id}") do
+          click_on "Reject Pet"
+        end
+
+        visit "/admin/applications/#{@application1.id}"
+
+        within("#pet-#{@pet1.id}") do
+          expect(page).to have_button("Approve Pet")
+          expect(page).to have_button("Reject Pet")
+          click_on "Approve Pet"
+        end
+
+        visit "/admin/applications/#{@application2.id}"
+
+        within("#pet-#{@pet1.id}") do
+          expect(page).to have_content("You have been rejected for #{@pet1.name}")
+        end
+      end
     end
   end
 end
