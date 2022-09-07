@@ -27,6 +27,7 @@ RSpec.describe Pet, type: :model do
       end
     end
 
+
     describe '#adoptable' do
       it 'returns adoptable pets' do
         expect(Pet.adoptable).to eq([@pet_1, @pet_2])
