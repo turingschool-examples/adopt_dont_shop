@@ -25,8 +25,10 @@ RSpec.describe 'the applicants show' do
 
         expect(page).to have_content(@pet.name)
         expect(page).to have_content(@pet_2.name)
+        expect(page).to_not have_content(@pet_1.name)
         expect(page).to have_button("Approve Adoption for Scooby")
         expect(page).to have_button("Approve Adoption for Jake")
+        expect(page).to_not have_button("Approve Adoption for #{@pet_1.name}")
       end
 
       it "When I click that button, I'm taken back to the admin application show page" do
@@ -45,6 +47,7 @@ RSpec.describe 'the applicants show' do
 
         expect(page).to have_content("Adoption Approved for #{@pet.name}")
         expect(page).to have_content(@pet_2.name)
+        expect(page).to_not have_content(@pet_1.name)
         expect(page).to_not have_button("Approve Adoption for Scooby")
         expect(page).to have_button("Approve Adoption for Jake")
 
@@ -58,7 +61,16 @@ RSpec.describe 'the applicants show' do
 
         expect(page).to have_content(@pet.name)
         expect(page).to have_content(@pet_2.name)
+        expect(page).to_not have_content(@pet_1.name)
         expect(page).to have_button("Reject Adoption for Scooby")
+        expect(page).to have_button("Reject Adoption for Jake")
+        expect(page).to_not have_button("Reject Adoption for #{@pet_1.name}")
+
+        visit "/admin/applicants/#{@applicant_2.id}"
+
+        expect(page).to_not have_content(@pet.name)
+        expect(page).to have_content(@pet_2.name)
+        expect(page).to_not have_button("Reject Adoption for Scooby")
         expect(page).to have_button("Reject Adoption for Jake")
       end
 
@@ -132,7 +144,7 @@ RSpec.describe 'the applicants show' do
         expect(page).to have_button("Approve Adoption for Mr. Pirate")
         expect(page).to_not have_button("Approve Adoption for Jake")
         expect(page).to_not have_button("Reject Adoption for Jake")
-      end 
+      end
     end
   end
 end
