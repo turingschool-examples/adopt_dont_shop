@@ -49,4 +49,21 @@ RSpec.describe 'Applications show page:' do
       expect(page).to have_content("#{@pet_3.name}'s adoption was approved!")
     end
   end
+
+  describe 'When I click the button to reject adoption of a pet' do
+    before(:each) do
+      click_on "Reject #{@pet_2.name}'s Adoption"
+    end
+    it 'takes me back to the admin application show page' do
+      expect(current_path).to eq("/admin/applications/#{@application_2.id}")
+    end
+
+    it 'I no longer see a button to reject that pet' do
+      expect(page).to_not have_button("Reject #{@pet_2.name}'s Adoption")
+    end
+
+    it 'I instead see an indication that the pet application has been rejected' do
+      expect(page).to have_content("#{@pet_2.name}'s adoption was rejected")
+    end
+  end
 end
