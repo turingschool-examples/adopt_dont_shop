@@ -11,8 +11,10 @@ Reason: <%= @application.description %>
       <%= pet.name %> <br>
       <% if PetApplicant.find_app_status(pet.id, @application.id) == "In Progress" %>
           <%= button_to "Accept Pet Application", "/admin/applicants/#{@application.id}?pet=#{pet.id}", method: :patch %> <br>
+          <%= button_to "Reject Pet Application", "/admin/applicants/#{@application.id}?pet=#{pet.id}&reject=yes", method: :patch %> <br>
       <% elsif PetApplicant.find_app_status(pet.id, @application.id) == "Pending"%>
           <%= button_to "Accept Pet Application", "/admin/applicants/#{@application.id}?pet=#{pet.id}", method: :patch %> <br>
+          <%= button_to "Reject Pet Application", "/admin/applicants/#{@application.id}?pet=#{pet.id}&reject=yes", method: :patch %> <br>
       <% else #status == Rejected || Accepted %>
        <i> <%= "#{PetApplicant.find_app_status(pet.id, @application.id)}" %> </i> <br>
       <% end %>

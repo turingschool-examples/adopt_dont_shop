@@ -10,7 +10,12 @@ class AdminApplicantsController < ApplicationController
 
   def update
     pet_app = PetApplicant.where(applicant_id: params[:id], pet_id: params[:pet]).first
-    new_pet_app_status = pet_app.update(status: "Accepted")
-    redirect_to "/admin/applicants/#{params[:id]}"
+    if !params[:reject].present?
+      new_pet_app_status = pet_app.update(status: "Accepted")
+      redirect_to "/admin/applicants/#{params[:id]}"
+    else #params[:reject].present?
+      new_pet_app_status = pet_app.update(status: "Rejected")
+      redirect_to "/admin/applicants/#{params[:id]}"
+    end
   end
 end
