@@ -1,13 +1,18 @@
 <% @pets.each do |pet| %>
     <div id="pet_<%= pet.id %>">
         <h3><%= pet.name %></h3>
-        <% if @pet_status[pet] == "pending" %>
-            <%= button_to "Approve #{pet.name}", "/admin/apps/#{@app.id}", method: :patch, params: {pet_id: pet.id, status: "approved"} %>
+        <% if pet.adoptable %>
+            <% if @pet_status[pet] == "pending" %>
+                <%= button_to "Approve #{pet.name}", "/admin/apps/#{@app.id}", method: :patch, params: {pet_id: pet.id, status: "approved"} %>
+                <%= button_to "Reject #{pet.name}", "/admin/apps/#{@app.id}", method: :patch, params: {pet_id: pet.id, status: "rejected"} %>
+            <% elsif @pet_status[pet] == "approved" %>
+                <%= "Approved" %>
+            <% elsif @pet_status[pet] == "rejected" %>
+                <%= "Rejected" %>
+            <% end %>    
+        <% else %>
+            <p><%= "#{pet.name} has been adopted!" %></p>
             <%= button_to "Reject #{pet.name}", "/admin/apps/#{@app.id}", method: :patch, params: {pet_id: pet.id, status: "rejected"} %>
-        <% elsif @pet_status[pet] == "approved" %>
-            <%= "Approved" %>
-        <% elsif @pet_status[pet] == "rejected" %>
-            <%= "Rejected" %>
         <% end %><br>
     </div>
     

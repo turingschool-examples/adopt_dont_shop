@@ -113,5 +113,27 @@ RSpec.describe 'admin show page' do
         expect(page).to have_content("Adoptable? false")
         visit "/pets/#{@pet_3.id}"
         expect(page).to have_content("Adoptable? false")
-    end  
+    end
+
+    it 'pets on approved app no longer available on a pending app' do
+        app_2 = @shelter.apps.create!(
+            name: "Tarzo the Impaler", 
+            address: "154 Animal Ave.", 
+            city: "Omaha, NE", 
+            zip_code: "19593",
+            status: "In Progress")
+        app_2.pets << @pet_1
+
+        click_button "Approve #{@pet_1.name}"
+        click_button "Approve #{@pet_2.name}"
+        click_button "Approve #{@pet_3.name}"
+        click_button "Approve #{@pet_4.name}"
+
+        visit "/admin/apps/#{app_2.id}"
+        
+        within("#pet_#{@pet_1.id}") do
+            expect(page).to have_content("#{@pet_1.name} has been adopted!")
+            expect(page).to have_button("Reject #{@pet_1.name}")
+        end
+    end
 end
