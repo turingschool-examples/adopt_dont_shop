@@ -21,6 +21,7 @@ RSpec.describe Shelter, type: :model do
     @pet_2 = @shelter_1.pets.create(name: 'Clawdia', breed: 'shorthair', age: 3, adoptable: true)
     @pet_3 = @shelter_3.pets.create(name: 'Lucille Bald', breed: 'sphynx', age: 8, adoptable: true)
     @pet_4 = @shelter_1.pets.create(name: 'Ann', breed: 'ragdoll', age: 5, adoptable: true)
+
   end
 
   describe 'class methods' do
@@ -45,6 +46,21 @@ RSpec.describe Shelter, type: :model do
     describe '#reverse_alpha' do
       it 'sorts all shelters in reverse alpha order' do
         expect(Shelter.reverse_alpha).to eq([@shelter_2, @shelter_3, @shelter_1])
+      end
+    end
+
+    describe '#pending_apps' do
+      it 'returns shelters where the pet app status is pending' do
+        pet_7 = Pet.create(name: 'Mr. Pirate', breed: 'tuxedo shorthair', age: 5, adoptable: false, shelter_id: @shelter_1.id)
+        pet_8 = Pet.create(name: 'Clawdia', breed: 'shorthair', age: 3, adoptable: true, shelter_id: @shelter_1.id)
+
+        app1 = Applicant.create!(name: "Billy Wahl", street_address: "123 S Street Way",
+          city: "Denver", state: "CO", zip_code: "80123", description: "I Like Dogs", status: 'Pending')
+
+        pet_app1 = PetApplicant.create!(pet_id: pet_7.id, applicant_id: app1.id)
+        pet_app2 = PetApplicant.create!(pet_id: pet_8.id, applicant_id: app1.id)
+        
+        expect(Shelter.pending_apps).to eq([@shelter_1])
       end
     end
   end
