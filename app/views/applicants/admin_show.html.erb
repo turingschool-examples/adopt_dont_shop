@@ -10,6 +10,7 @@
       <% @applicant.pets.each do |pet|%>
         <p>
         <%= link_to "#{pet.name}", "/pets/#{pet.id}"%>
+        
         <% if @app.approved?(@applicant.id, pet.id) == nil %>
           <%= button_to "Approve Adoption for #{pet.name}", "/admin/applicants/#{@applicant.id}", params: {approved: true, pet_id: "#{pet.id}"}, method: :patch %>
           <%= button_to "Reject Adoption for #{pet.name}", "/admin/applicants/#{@applicant.id}", params: {approved: false, pet_id: "#{pet.id}"}, method: :patch %>

@@ -1,0 +1,6 @@
+{
+  "files.trimTrailingWhitespace": true,
+  "terminal.integrated.macOptionClickForcesSelection": false,
+  "terminal.integrated.macOptionIsMeta": false,
+  "editor.multiCursorModifier": "alt"
+}

@@ -1,26 +1,26 @@
-<%= form_with url: "/applicants", method: :post, local: true do |form|%>
+<%= form_with url: "/applicants/new", method: :post, local: true do |form|%>
   <p><%= form.label :first_name, "First Name:" %>
-  <%= form.text_field :first_name %>  
+  <%= form.text_field :first_name, value: @applicant.first_name%>  
   
   <%= form.label :last_name, " Last Name:" %>
-  <%= form.text_field :last_name %></p>
+  <%= form.text_field :last_name, value: @applicant.last_name %></p>
   
   <p> Address: </p>
   
   <p><%= form.label :street_address, "Street:" %>
-  <%= form.text_field :street_address%></p>
+  <%= form.text_field :street_address, value: @applicant.street_address %></p>
   
   <p><%= form.label :city, "City:" %>
-  <%= form.text_field :city %>
+  <%= form.text_field :city, value: @applicant.city %>
   
   <%= form.label :state, "State:"%>
-  <%= form.text_field :state %></p>
+  <%= form.text_field :state, value: @applicant.state %></p>
   
   <p><%= form.label :zip, "Zip:"%>
-  <%= form.number_field :zip, in: 0..99999 %></p>
+  <%= form.number_field :zip, in: 0..99999, value: @applicant.zip %></p>
   
   <p><%= form.label :description, "Tell us why you would make a good home:"%>
-  <p><%= form.text_area :description %>
+  <p><%= form.text_area :description, value: @applicant.description %>
   
   <%= form.hidden_field :status, value: "In Progress" %></p>
  

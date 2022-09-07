@@ -8,7 +8,7 @@ class ApplicantsController < ApplicationController
   end
 
   def new
-
+    @applicant = Applicant.new
   end
 
   def create
@@ -16,9 +16,8 @@ class ApplicantsController < ApplicationController
     if @applicant.save
       redirect_to "/applicants/#{@applicant.id}"
     else
-      redirect_to "/applicants/new"
-      flash.alert = @applicant.errors.full_messages
-      # flash.alert = "Missing Required Info - All Fields must be filled in."
+      flash.alert = @applicant.errors.full_messages.to_sentence
+      render :new
     end
   end
 
@@ -31,6 +30,7 @@ class ApplicantsController < ApplicationController
     elsif params[:status] != nil
       applicant.update(applicant_params)
     end
+
     redirect_to "/applicants/#{applicant.id}"
   end
 
@@ -43,6 +43,7 @@ class ApplicantsController < ApplicationController
     @applicant = Applicant.find(params[:id])
     approval = ApplicantPet.app_status(params[:id], params[:pet_id])
     approval.update(admin_params)
+    
     redirect_to "/admin/applicants/#{@applicant.id}"
   end
 
