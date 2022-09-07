@@ -16,6 +16,7 @@ ActiveRecord::Schema.define(version: 2022_09_01_213024) do
   enable_extension "plpgsql"
 
   create_table "application_pets", force: :cascade do |t|
+    t.string "pet_status", default: "Waiting"
     t.bigint "pet_id"
     t.bigint "application_id"
     t.index ["application_id"], name: "index_application_pets_on_application_id"
