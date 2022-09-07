@@ -16,36 +16,49 @@
 <%end%>
 </table>
 <h3><%= @app.status %></h3>
-<%= form_with url: "/applications/#{@app.id}", method: :patch, local: true, authenticity_token: form_authenticity_token do |form| %>
-<%= form.hidden_field :status, value: "Pending" %>
-<%= form.submit "Submit Application" %>
-<% end %>
-<br><br>
-<section id='add_pet'>
-  <h2>Add a Pet to this Application</h2>
-  <%= form_with url: "/applications/#{@app.id}/?sort=name_search", method: :get, local: true, authenticity_token: form_authenticity_token do |form| %>
-    <%= form.label :search_name, "Search by Name:" %>
-    <%= form.text_field :search_name, placeholder: "Enter name to search.." %>
-  <%= form.submit "Search", required: true %>
-  <% end %>
 
-  <%if @search.positive? %>
-  <table>
-  <tr>
-    <th>Name</th>
-    <th>Adopt</th>
-  </tr>
-  <%@pet_search.each do |pet|%>
-    <tr>
-      <td><%= pet.name %></td>
-      <td id='adopt'>
+<%if @app.status == 'In Progress'%>
+  <section id='in_prog_stuff'>
+    <%if @pets.count.positive? %>
+      <section id='submit_app'>
         <%= form_with url: "/applications/#{@app.id}", method: :patch, local: true, authenticity_token: form_authenticity_token do |form| %>
-        <%= form.hidden_field :pet_adopt_id, value: pet.id %>
-        <%= form.submit "Adopt this pet" %>
+        <%= form.hidden_field :status, value: "Pending" %>
+        <%= form.label :about, 'Why would you be a good fit?'%> <br>
+        <%= form.text_area :about, placeholder: 'Tell us about yourself and your home..', required: true, class: 'form-control'%> <br>
+        <%= form.submit "Submit Application" %>
+        <% end %>
+      </section>
+    <%end%> 
+    <br>
+    <br>
+
+    <section id='add_pet'>
+      <h2>Add a Pet to this Application</h2>
+      <%= form_with url: "/applications/#{@app.id}/?sort=name_search", method: :get, local: true, authenticity_token: form_authenticity_token do |form| %>
+        <%= form.label :search_name, "Search by Name:" %>
+        <%= form.text_field :search_name, placeholder: "Enter name to search.." %>
+      <%= form.submit "Search", required: true %>
       <% end %>
-      </td>
-    </tr>
-  <%end%>
-  </table>
-  <%end%>
-</section>
+
+      <%if @search.positive? %>
+      <table>
+      <tr>
+        <th>Name</th>
+        <th>Adopt</th>
+      </tr>
+      <%@pet_search.each do |pet|%>
+        <tr>
+          <td><%= pet.name %></td>
+          <td id='adopt'>
+            <%= form_with url: "/applications/#{@app.id}", method: :patch, local: true, authenticity_token: form_authenticity_token do |form| %>
+            <%= form.hidden_field :pet_adopt_id, value: pet.id %>
+            <%= form.submit "Adopt this pet" %>
+          <% end %>
+          </td>
+        </tr>
+      <%end%>
+      </table>
+      <%end%>
+    </section>
+  </section>
+<%end%>
