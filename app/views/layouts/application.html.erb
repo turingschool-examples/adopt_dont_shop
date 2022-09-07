@@ -8,25 +8,110 @@
     <%= csp_meta_tag %>
 
     <%= stylesheet_link_tag 'application', media: 'all' %>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <style>
+      /* Remove the navbar's default margin-bottom and rounded borders */ 
+      .navbar {
+        margin-bottom: 0;
+        border-radius: 0;
+      }
+      
+      /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+      .row.content {height: 450px}
+      
+      /* Set black background color, white text and some padding */
+      footer {
+        background-color: #555;
+        color: white;
+        padding: 15px;
+      }
+      
+      
+    </style>
   </head>
 
-  <body>
+
+  <body style='background-color: rgba(255, 255, 255, 0.01)'>
     <% flash.each do |type, msg| %>
       <div>
         <%= msg %>
       </div>
     <% end %>
 
-    <header>
-      <h1> <a href='/'><span id='title' style='margin-right:20px'>Pets R Us</span> </a>
-        <nav id='navbox'>
+    <nav class="navbar navbar-inverse">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>                        
+          </button>
+          <a class="navbar-brand" href="/" id='title'>Adopt Don't Shop</a>
+        </div>
+        <div class="collapse navbar-collapse" id="myNavbar">
+          <ul class="nav navbar-nav">
+            <li><a href="/">Home</a></li>
+            <li><a href='/pets'>Pets</a></li>
+            <li><a href='/shelters'>Shelters</a></li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li><a><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+      
+    <div class="container-fluid text-center">    
+      <div class="row content" >
+        <div class="col-sm-8 text-left" style='background-color: rgba(255, 255, 255, 0.85); min-height: 91.5vh; width: 66%'> 
+          <article>
+              <%= yield%>
+          </article>
+        </div>
+        <div class="col-sm-4 text-right" style='background-color: rgba(0, 0, 0, 0.3); min-height: 91.5vh'>
+          <%if /\/applications\/[0-9]+/ =~ request.original_url%>
+            <%if @app.status == 'In Progress'%>
+              <section id='add_pet'>
+                <h2 style='color:whitesmoke'>Add a Pet to this Application</h2>
+                <%= form_with url: "/applications/#{@app.id}/?sort=name_search", method: :get, local: true, authenticity_token: form_authenticity_token do |form| %>
+                  <%= form.label :search_name, "Search by Name:" , style: 'color:whitesmoke'%>
+                  <%= form.text_field :search_name, placeholder: "Enter name to search.." %>
+                <%= form.submit "Search", required: true %>
+                <% end %>
+
+                <%if @search.positive? %>
+                <table>
+                <tr>
+                  <th>Name</th>
+                  <th>Adopt</th>
+                </tr>
+                <%@pet_search.each do |pet|%>
+                  <tr>
+                    <td><%= pet.name %></td>
+                    <td id='adopt'>
+                      <%= form_with url: "/applications/#{@app.id}", method: :patch, local: true, authenticity_token: form_authenticity_token do |form| %>
+                      <%= form.hidden_field :pet_adopt_id, value: pet.id %>
+                      <%= form.submit "Adopt this pet" %>
+                    <% end %>
+                    </td>
+                  </tr>
+                <%end%>
+                </table>
+                <%end%>
+              </section>
+            </section>
+            <%end%>
+        <%end%>
+        </div>
+      </div>
+    </div>
+    </body>
+</html>
+
+        <%# <nav class="navbar navbar-default">
+        <h1> <a href='/'><span id='title' style='margin-right:20px'>Pets R Us</span> </a>
           <a class='navigation divider' href='/pets'>Pets</a>
           <a class='navigation div_2'href='/shelters' >Shelters</a>
         </nav>
-      </h1>
-    </header>
-    <article>
-    <%= yield %>
-    </article>
-  </body>
-</html>
+      </h1> %>

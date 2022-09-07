@@ -9,6 +9,7 @@ table {
   letter-spacing: 1px;
   font-size: 0.8rem;
   min-width: 250px;
+  
 }
 
 td, th {
@@ -22,6 +23,7 @@ th {
 
 td {
   text-align: center;
+  font-size: medium;
 }
 
 tr:nth-child(even) td {

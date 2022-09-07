@@ -1,9 +1,11 @@
 <h1><%= @app.name %></h1>
-<h2>Info</h2>
-<h3><%= @app.address %></h3>
-<h3><%= @app.city %></h3>
-<h3><%= @app.state %></h3>
-<h3><%= @app.zipcode %></h3>
+<table>
+  <tr><td>
+    <h4><%= @app.address %></h4>
+    <h4><%= @app.city %>, <%= @app.state %><h4>
+    <h4><%= @app.zipcode %></h4>
+  </td></tr>
+</table>
 <br>
 <h4>About:</h4>
 <p><%= @app.about %></p>
@@ -29,36 +31,4 @@
         <% end %>
       </section>
     <%end%> 
-    <br>
-    <br>
-
-    <section id='add_pet'>
-      <h2>Add a Pet to this Application</h2>
-      <%= form_with url: "/applications/#{@app.id}/?sort=name_search", method: :get, local: true, authenticity_token: form_authenticity_token do |form| %>
-        <%= form.label :search_name, "Search by Name:" %>
-        <%= form.text_field :search_name, placeholder: "Enter name to search.." %>
-      <%= form.submit "Search", required: true %>
-      <% end %>
-
-      <%if @search.positive? %>
-      <table>
-      <tr>
-        <th>Name</th>
-        <th>Adopt</th>
-      </tr>
-      <%@pet_search.each do |pet|%>
-        <tr>
-          <td><%= pet.name %></td>
-          <td id='adopt'>
-            <%= form_with url: "/applications/#{@app.id}", method: :patch, local: true, authenticity_token: form_authenticity_token do |form| %>
-            <%= form.hidden_field :pet_adopt_id, value: pet.id %>
-            <%= form.submit "Adopt this pet" %>
-          <% end %>
-          </td>
-        </tr>
-      <%end%>
-      </table>
-      <%end%>
-    </section>
-  </section>
 <%end%>

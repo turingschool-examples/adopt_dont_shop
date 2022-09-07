@@ -1,0 +1,115 @@
+// /*
+//  * This is a manifest file that'll be compiled into application.css, which will include all the files
+//  * listed below.
+//  *
+//  * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
+//  * vendor/assets/stylesheets directory can be referenced here using a relative path.
+//  *
+//  * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+//  * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+//  * files in this directory. Styles in this file should be added after the last require_* statement.
+//  * It is generally better to create a new file per style scope.
+//  *
+//  *= require_tree .
+//  *= require_self
+//  */
+ 
+@import "bootstrap-sprockets";
+@import "bootstrap";
+
+html {
+  background-image: url(https://i.pinimg.com/originals/fd/ca/db/fdcadbac1569ff8e1fa3da99bc315362.jpg);
+  background-position: left top;
+  background-attachment: fixed;
+  background-size: 100vw 100vh;
+  background-repeat: no-repeat;
+}
+.col-sm-4 {
+  min-height: 100vh;
+}
+.col-sm-8 {
+  background-color: rgba(243, 240, 240, 0);
+  min-height: 100vh;
+}
+
+nav {
+  
+  overflow: auto;
+  background-image: linear-gradient(to top, rgb(30, 30, 31),rgb(51, 53, 61));
+  background-size: cover;
+  color: rgb(47, 56, 109);
+  font-size: 100%;
+}
+
+#title {
+  color: rgb(109, 83, 171);
+  font-family: 'Times New Roman', Times, serif;
+  font-weight: light;
+  font-size: x-large;
+}
+
+// a {
+//   color: grey;
+//   text-decoration: none;
+  
+// }
+// a:visited {
+//   color: grey;
+//   text-decoration: none;
+// }
+// a:hover {
+//   color: rgb(109, 83, 171);
+//   text-decoration: none;
+// }
+
+//  .navigation {
+//   float: left;
+//   font-size: 50%;
+//   padding-top: 11px;
+//   padding-bottom: 6px;
+//   padding-left: 50px;
+//   padding-right: 50px;
+//   max-width: 250px;
+// }
+
+// .divider {
+//   border-width: 1px;
+//   border-style: solid;
+//   border-image: 
+//     linear-gradient(
+//       to top, 
+//       rgb(138, 138, 138) 1%, 
+//       rgba(0, 0, 0, 0) 
+//     ) 1 100%
+// }
+
+// .div_2 {
+//   border-width: 1px;
+//   border-left-width: 0px;
+//   border-style: solid;
+//   border-image: 
+//     linear-gradient(
+//       to top, 
+//       rgb(138, 138, 138) 1%, 
+//       rgba(0, 0, 0, 0) 
+//     ) 1 100%
+// }
+
+// .table_button {
+//   margin: 20px;
+// }
+// .box {
+//   vertical-align: bottom;
+//   display: inline-block;
+//   height: 19px;
+// }
+// .rating_box {
+//   vertical-align: bottom;
+//   display: inline-block;
+//   height: 19px;
+//   background-image: url('stars.png');
+// }
+
+// .create_form {
+//   width: 200px;
+// }
