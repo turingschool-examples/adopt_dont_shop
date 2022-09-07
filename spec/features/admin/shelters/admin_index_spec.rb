@@ -68,5 +68,12 @@ RSpec.describe 'Admin Shelters Index' do
         expect(page).to_not have_link(@damon.name)
       end
     end
+
+    it 'lists shelters with pending applications alphabetically' do
+      within("#pending_apps") do
+        expect(@aurora.name).to appear_before(@craigs.name)
+        expect(@craigs.name).to appear_before(@fontaine.name)
+      end
+    end
   end
 end
