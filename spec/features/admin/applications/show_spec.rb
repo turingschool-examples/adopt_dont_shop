@@ -12,6 +12,18 @@ RSpec.describe 'the admin applications show page' do
       expect(page).to have_button("Approve This Pet")
     end
 
+    it "Has the correct information for its variables" do
+      happypaws = Shelter.create!(name: "Happy Paws Shelter", foster_program: true, city: "Denver", rank: 5)
+      fluffy = happypaws.pets.create!(name: "Fluffy", adoptable: true, age: 3, breed: "doberman")
+      samantha_application = Application.create!(first_name: "Samantha", last_name: "Smith", street_address: "123 Mulberry Street", city: "Denver", state: "CO", zip_code: 20202, description: "I would like this dog for these reasons.", status: "Pending")
+
+      fluffy_application = PetApplication.create!(pet: fluffy, application: samantha_application)
+      visit "/admin/applications/#{samantha_application.id}"
+
+      expect(page).to have_content(samantha_application.first_name)
+      expect(page).to have_content(fluffy.name)
+    end
+
     it 'when I click that button I am taken back to the application show page' do
       happypaws = Shelter.create!(name: "Happy Paws Shelter", foster_program: true, city: "Denver", rank: 5)
       fluffy = happypaws.pets.create!(name: "Fluffy", adoptable: true, age: 3, breed: "doberman")
@@ -166,8 +178,6 @@ RSpec.describe 'the admin applications show page' do
      it 'should approve application if all pets are approved' do
       visit "/admin/applications/#{@samantha_application.id}"
 
-      expect(page).to have_content("Application Status: Pending")
-
       within("#pet_#{@fluffy.id}") do
         click_button("Approve This Pet")
       end
@@ -175,8 +185,7 @@ RSpec.describe 'the admin applications show page' do
       within("#pet_#{@butters.id}") do
         click_button("Approve This Pet")
       end
-
-      expect(page).to have_content("Application Status is Approved")
+      expect(page).to have_content("This application is: Approved")
      end
    end
 end
