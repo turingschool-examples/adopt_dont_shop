@@ -11,7 +11,8 @@ class PetApplication < ApplicationRecord
   end
 
   def self.pending?(application_id)
-    self.application_pets(application_id).any? { |pet| pet.pet_application_status == "Pending" }
+      PetApplication.where(pet_application_status: "Pending")
+    # self.application_pets(application_id).any? { |pet| pet.pet_application_status == "Pending" }
   end
 
   def self.approved?(application_id)
@@ -21,4 +22,5 @@ class PetApplication < ApplicationRecord
   def self.rejected?(application_id)
     self.application_pets(application_id).any? { |pet| pet.pet_application_status == "Rejected" }
   end
+
 end

@@ -20,8 +20,11 @@ class PetApplicationsController < ApplicationController
     @application = Application.find(params[:application_id])
     @pet_application = PetApplication.where(application_id: params[:application_id], pet: params[:pet_id]).first
     if params[:status] == "approved"
-      @pet_application.pet_application_status = "Approved"
+      @pet_application.update(pet_application_status: "Approved")
       @pet_application.save
+        if @application.pet_applications.pluck(:pet_application_status).all?("Approved")
+            @application.update(status: "Approved")
+        end
       redirect_to "/admin/applications/#{@application.id}"
     elsif params[:status] == "rejected"
       @pet_application.pet_application_status = "Rejected"

@@ -1,6 +1,8 @@
 <%= render "shared/banner" %>
 <h1>This is the show page for <%= @application.first_name %>'s Application</h1>
 
+<p>This application is: <%=@application.status %></p>
+
 <% @application_pets.each do |pet| %>
 <div id= "pet_<%=pet.id%>">
 <% if pet.pet_application_status == "Pending"  %>

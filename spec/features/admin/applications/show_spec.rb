@@ -173,8 +173,7 @@ RSpec.describe 'the admin applications show page' do
       within("#pet_#{@butters.id}") do
         click_button("Approve This Pet")
       end
-
-      expect(page).to have_content("Approved")
+      expect(page).to have_content("This application is: Approved")
      end
    end
 end
