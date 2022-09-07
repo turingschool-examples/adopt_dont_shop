@@ -31,7 +31,7 @@ RSpec.describe 'starting an application' do
       fill_in('Street Address', with: '1018 O Street NW')
       fill_in('City', with: 'Washington')
       fill_in('State', with: 'DC')
-      fill_in('Zip Code', with: '20001')
+      fill_in('Zip Code', with: 20001)
       click_button('Create Application')
 
       expect(current_path).to eq("/applications/#{Application.last.id}")
@@ -40,6 +40,24 @@ RSpec.describe 'starting an application' do
       expect(page).to have_content("DC")
       expect(page).to have_content("In Progress")
     end
+
+    it 'cannot create a new application without filling in all form fields' do
+      visit '/applications/new'
+      fill_in('First Name', with: 'Jon')
+      fill_in('Last Name', with: 'Duttko')
+      fill_in('Street Address', with: '1018 O Street NW')
+      fill_in('City', with: 'Washington')
+      fill_in('State', with: 'DC')
+      click_button('Create Application')
+save_and_open_page
+
+      expect(current_path).to eq("/applications")
+      expect(page).to have_content("New Application")
+      expect(page).to have_button("Create Application")
+      expect(page).to have_content("Application not created: Required information missing.")
+    end
+
+
   end
   describe 'when I have created my application' do
     it 'I see a section on a page to add a pet to this application' do

@@ -6,7 +6,7 @@
 #   movies = Movie.create!([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create!(name: 'Luke', movie: movies.first)
 
-
+ApplicationPet.destroy_all
 Pet.destroy_all
 Application.destroy_all
 Shelter.destroy_all
@@ -25,9 +25,9 @@ Shelter.destroy_all
 
 @application_1 = Application.create!(first_name: "Jon", last_name: "Duttko", str_address: "1018 O St NW", city: "Washington", state: "DC", zip: 20001, home_description: "friendly", status: "Pending")
 @application_2 = Application.create!(first_name: "Noah", last_name: "van Ekdom", str_address: "3031 Beech St NW", city: "Washington", state: "DC", zip: 20015, home_description: "fenced in yard", status: "Pending")
-@application_3 = Application.create!(first_name: "Noah", last_name: "van Ekdom", str_address: "3031 Beech St NW", city: "Washington", state: "DC", zip: 20015, home_description: "fenced in yard", status: "In Progress")
+@application_3 = Application.create!(first_name: "Samwise", last_name: "Gamgee", str_address: "3 Bagshot Row", city: "Bag End", state: "CO", zip: 80224, home_description: "hobbit lyfe", status: "In Progress")
 
-@application_1.pets << pet_1
+@application_1.pets << @pet_1
 
 @application_2.pets << @pet_1
 @application_2.pets << @pet_2
