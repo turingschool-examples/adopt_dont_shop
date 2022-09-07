@@ -21,8 +21,6 @@ RSpec.describe 'As an admin, when I visit the admin shelters index' do
 
   it 'returns the name of every shelter that has a pending application' do
     visit "/admin/shelters/"
-
-    # within "Pending" do
   
       expect(find("div#Pending")).to have_content("#{@shelter_3.name}")
     # end

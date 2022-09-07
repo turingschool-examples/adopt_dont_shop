@@ -14,13 +14,6 @@ RSpec.describe 'Applications show page:' do
     visit "/admin/applications/#{@application_2.id}"
   end
 
-  # When I visit an admin application show page ('/admin/applications/:id')
-  # For every pet that the application is for, I see a button to approve the application for that specific pet
-  # When I click that button
-  # Then I'm taken back to the admin application show page
-  # And next to the pet that I approved, I do not see a button to approve this pet
-  # And instead I see an indicator next to the pet that they have been approved
-
   describe 'As an admin, when I visit an application show page' do
     it 'For every pet that the application is for, I see a button to approve the application for that specific pet' do
       expect(page).to have_button("Approve #{@pet_3.name}'s Adoption")
