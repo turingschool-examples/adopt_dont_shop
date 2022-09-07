@@ -83,6 +83,7 @@ RSpec.describe 'the admin application view page' do
       end
 
       within(".pet_#{@pet_5.id}") do
+        
         expect(page).to_not have_content('Approved')
         expect(page).to have_content('Rejected')
       end
