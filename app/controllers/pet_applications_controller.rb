@@ -12,19 +12,11 @@ class PetApplicationsController < ApplicationController
 
   def admin_update
     search_hash = {pet_id: params[:pet_id], application_id: params[:id]}
-    pet_app_record = PetApplication.where(search_hash)
-    # pet_app_record.update(pet_status: params[:pet_status])
+    pet_app_record = PetApplication.where(search_hash).first
+    application = Application.find(params[:id])
     pet_app_record.update(app_pet_params)
-    if PetApplication.pet_count(params[:id]) == PetApplication.pets_app_rej_count(params[:id])
-      application = Application.find(params[:id])
-      if PetApplication.pets_rej_count(params[:id]) > 0
-        application.update(status: "Rejected")
-      else
-        application.update(status: "Accepted")
-        application.pets.each  do |pet|
-          pet.update(adoptable: false)
-        end
-      end
+    if pet_app_record.application_complete?(application.id)
+      pet_app_record.complete_application(application)
     end
     redirect_to "/admin/applications/#{params[:id]}"
   end

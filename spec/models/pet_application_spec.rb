@@ -23,6 +23,7 @@ RSpec.describe PetApplication, type: :model do
 
     @pet_app1 = PetApplication.create(pet_id: @pet1.id, application_id: @app1.id,  pet_status: "Adoption Rejected")
     @pet_app2 = PetApplication.create(pet_id: @pet2.id, application_id: @app1.id,  pet_status: "Adoption Approved")
+    @pet_app3 = PetApplication.create(pet_id: @pet1.id, application_id: @app2.id)
   end
 
   describe 'class tests' do
@@ -41,6 +42,32 @@ RSpec.describe PetApplication, type: :model do
     describe '.pets_rej_count(app_id)' do
       it 'counts rejected pets' do
         expect(described_class.pets_rej_count(@app1)).to eq(1)
+      end
+    end
+
+    describe '#application_complete?' do
+      it 'provides a boolean of whether all pets on an application have been approved/rejected' do
+        expect(@pet_app1.application_complete?(@app1.id)).to eq(true)
+        expect(@pet_app2.application_complete?(@app2.id)).to eq(false)
+      end
+    end
+
+    describe '#complete_application' do
+      it 'updates status of application to rejected/accepted' do
+        @pet_app1.complete_application(@app1)
+        expect(@app1.status).to eq("Rejected")
+        @pet_app3.update(pet_status: "Adoption Approved")
+        @pet_app3.complete_application(@app2)
+
+        expect(@app2.status).to eq("Accepted")
+      end
+
+      it 'updates all pets to not adoptable if application status is accepted' do
+        expect(@pet1.adoptable).to eq(true)
+        @pet_app3.update(pet_status: "Adoption Approved")
+        @pet_app3.complete_application(@app2)
+
+        expect(@app2.pets.first.adoptable).to eq(false)
       end
     end
   end
