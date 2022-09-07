@@ -1,9 +1,13 @@
+
+<h4> Shelters </h4>
 <div class="shelters">
   <% @shelters.each do |shelter| %>
     <%= shelter.name %> <br>
   <% end %>
 </div>
-
+<br>
+<br>
+<h4> Shelters with Pending Applications </h4>
 <div class="pending_apps">
   <% @shelters.pending_apps.each do |shelter| %>
     <%= link_to shelter.name, "/admin/applicants" %> <br>
