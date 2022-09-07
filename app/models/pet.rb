@@ -14,11 +14,11 @@ class Pet < ApplicationRecord
   end
 
   def pet_app_approved?(pet_id, application_id)
-    PetApplication.find_by(pet_id: pet_id, application_id: application_id).pet_status == "Approved"
+    ApplicationPet.find_by(pet_id: pet_id, application_id: application_id).pet_status == "Approved"
   end
 
   def pet_app_rejected?(pet_id, application_id)
-    PetApplication.find_by(pet_id: pet_id, application_id: application_id).pet_status == "Rejected"
+    ApplicationPet.find_by(pet_id: pet_id, application_id: application_id).pet_status == "Rejected"
   end
 end
 

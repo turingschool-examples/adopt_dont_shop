@@ -5,14 +5,15 @@
 <p>Status: <%= @application.status %> </p>
 
 <p>Pets applying for:</p>
+
 <% @application.pets.each do |pet| %>
   <p> <%= link_to "#{pet.name}", "/pets/#{pet.id}", method: :get %> </p>
-  <% if pet.adoptable == true && @application.status == "Pending" %>
+  <% if pet.pet_app_approved?(pet.id, @application.id)  %>
+    <%= "#{pet.name}'s adoption was approved!" %>
+  <% elsif pet.pet_app_rejected?(pet.id, @application.id) %>
+    <%= "#{pet.name}'s adoption was rejected" %>
+  <% elsif @application.status == "Pending" %>
     <p><%= button_to "Approve #{pet.name}'s Adoption", "/application_pets", method: :patch, params: {pet_status: "Approved", pet_id: pet.id, id: @application.id, adoptable: false} %> </p>
     <p><%= button_to "Reject #{pet.name}'s Adoption", "/application_pets", method: :patch, params: {pet_status: "Rejected", pet_id: pet.id, id: @application.id, adoptable: true} %> </p>
-  <% elsif pet.adoptable == false %>
-    <%= "#{pet.name}'s adoption was approved!" %>
-  <% else %>
-    <%= "#{pet.name}'s adoption was rejected" %>
   <% end %>
 <% end %>
