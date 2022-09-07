@@ -22,12 +22,12 @@ RSpec.describe Applicant do
 
       within ".pets" do
         within "#pet-#{@pet_1.id}" do
-          save_and_open_page
           expect(page).to have_button("Accept")
           expect(current_path).to eq("/admin/applicants/#{@app_1.id}")
           expect(page).to_not have_button("Accept")
         end
       end
     end
+
   end
 end
