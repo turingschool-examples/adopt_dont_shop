@@ -42,7 +42,7 @@ class VeterinariansController < ApplicationController
     redirect_to '/veterinarians'
   end
 
-  private
+private
 
   def vet_params
     params.permit(

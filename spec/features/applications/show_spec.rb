@@ -1,10 +1,7 @@
 require 'rails_helper'
-require 'database_cleaner/active_record'
-DatabaseCleaner.start
 
 RSpec.describe 'Applications show page:' do
   before(:each) do
-    DatabaseCleaner.clean
     @application_2 = Application.create!(first_name: "Sam", last_name: "Smith", str_address: "1018 O St NW", city: "Washington", state: "DC", zip: 20001, status: "In Progress")
     @application_1 = Application.create!(first_name: "Jon", last_name: "Duttko", str_address: "1018 O St NW", city: "Washington", state: "DC", zip: 20001, home_description: "friendly", status: "In Progress")
     @shelter = Shelter.create(name: 'Mystery Building', city: 'Irvine CA', foster_program: false, rank: 9)

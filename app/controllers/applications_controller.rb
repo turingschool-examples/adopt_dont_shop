@@ -10,10 +10,14 @@ class ApplicationsController < ApplicationController
   end
 
   def create
-    application = Application.create(application_params)
-    application.status = "In Progress"
-    application.save
-    redirect_to "/applications/#{application.id}"
+    application = Application.new(application_params)
+    if application.save
+      application.update(status: "In Progress")
+      redirect_to "/applications/#{application.id}"
+    else
+      flash[:notice] = "Application not created: Required information missing."
+      render :new
+    end
   end
 
   def update
@@ -30,6 +34,6 @@ class ApplicationsController < ApplicationController
   
 private
   def application_params
-    params.permit(:first_name, :last_name, :str_address, :city, :state, :zip_code, :home_description, :status)
+    params.permit(:first_name, :last_name, :str_address, :city, :state, :zip, :home_description, :status)
   end
 end

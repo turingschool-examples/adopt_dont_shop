@@ -21,21 +21,9 @@ class Shelter < ApplicationRecord
   end
 
   def self.active_applications
-      # joins(:applications).distinct.select("shelters.*")
-      #.where("applications.status" => "Pending")
       joins(pets: [:applications]).where("status = ?", "Pending")
   end
-
-  # def self.with_applications
-
-  #   self.where ANY of pets(params[:application_id])
-
-  #   # look through the pets of each shelter (pets)
-  #   # iterate through pets, if param[:application_id] exists,
-  #   # if true, end process and return shelter.name
-  #   # if false, continue looking through pets
-  # end
-
+  
   def adoptable_pets
     pets.where(adoptable: true)
   end
@@ -46,5 +34,9 @@ class Shelter < ApplicationRecord
 
   def shelter_pets_filtered_by_age(age_filter)
     adoptable_pets.where('age >= ?', age_filter)
+  end
+
+  def pet_count 
+    self.pets.count
   end
 end
