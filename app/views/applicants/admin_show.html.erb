@@ -1,8 +1,4 @@
-<h2> Applicant info: </h2>
-<p>Name: <%= @applicant.first_name %> <%= @applicant.last_name %></p>
-<p>Address: <%="#{@applicant.street_address} #{@applicant.city}, #{@applicant.state} #{@applicant.zip}"%></p>
-<p>Why I would make a good home: <%= @applicant.description %></p>
-<p>Application Status: <%= @applicant.status%></p>
+<%= render partial: 'header' %>
 
 <section>
     <h3>Pets I want to Adopt: </h3>
