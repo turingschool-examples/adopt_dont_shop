@@ -25,7 +25,7 @@ class ApplicationsController < ApplicationController
     else
     flash[:notice] = "Please fill out the whole form"
     render :new
-   end
+    end
   end
 
   def update
