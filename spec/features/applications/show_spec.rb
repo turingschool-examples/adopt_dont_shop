@@ -59,29 +59,6 @@ RSpec.describe 'the app show' do
     end
   end
 
-  it 'can submit applications' do
-    visit "/applications/#{@app.id}"
-    within '#add_pet' do
-
-      fill_in 'Search by Name', with: 'Bare-y'
-      click_button 'Search'
-      click_button 'Adopt this pet'
-    end
-    expect(page).to have_button('Submit Application')
-  end
-
-  it 'will change the application status when the button is pressed' do
-    visit "/applications/#{@app.id}"
-    within '#add_pet' do
-
-      fill_in 'Search by Name', with: 'Bare-y'
-      click_button 'Search'
-      click_button 'Adopt this pet'
-    end
-    click_button 'Submit Application'
-    expect(page).to have_content('Pending')
-  end
-   
   it 'can add pets to be adopted to the app' do
     visit "/applications/#{@app.id}"
 
@@ -96,5 +73,71 @@ RSpec.describe 'the app show' do
 
     expect(page).to have_link(@pet_1.name)
     expect(page).to have_link(@pet_2.name)
+  end
+
+  it 'can submit applications' do
+    visit "/applications/#{@app.id}"
+    within '#add_pet' do
+
+      fill_in 'Search by Name', with: 'Bare-y'
+      click_button 'Search'
+      click_button 'Adopt this pet'
+    end
+    expect(page).to have_button('Submit Application')
+  end
+
+  it 'can take input for adoption rationale' do
+    visit "/applications/#{@app.id}"
+    within '#add_pet' do
+
+      fill_in 'Search by Name', with: 'Bare-y'
+      click_button 'Search'
+      click_button 'Adopt this pet'
+    end
+    expect(page).to have_field('about')
+  end
+
+  it 'will change the application status and about me when the button is pressed' do
+    visit "/applications/#{@app.id}"
+    old_about = @app.about
+    within '#add_pet' do
+
+      fill_in 'Search by Name', with: 'Bare-y'
+      click_button 'Search'
+      click_button 'Adopt this pet'
+    end
+    fill_in 'Why would you be a good fit?', with: 'I have a billion dollars and theyre all for him, my beloved Bare-y'
+    click_button 'Submit Application'
+
+    expect(page).to have_content('Pending')
+    expect(page).to have_content('I have a billion dollars and theyre all for him, my beloved Bare-y')
+    expect(page).to_not have_content(old_about)
+  end
+
+  it 'wont show submit button until there are pets on the app' do
+    @app_no_pets = Application.create(name: "Nopets McGoo", address: "Nowhere", city: "Omaha", state: "NE", zipcode: "55555")
+    visit "/applications/#{@app_no_pets.id}"
+    expect(page).to_not have_button('Submit Application')
+  end
+
+  it 'doesnt allow for pets to be added or searched when app status is not "in progress"' do
+    visit "/applications/#{@app.id}"
+    expect(page).to have_content('In Progress')
+
+    within '#add_pet' do
+      expect(page).to have_content('Add a Pet to this Application')
+      expect(find('form')).to have_content('Search by Name')
+
+      fill_in 'Search by Name', with: 'Bare-y'
+      click_button 'Search'
+      click_button 'Adopt this pet'
+    end
+
+    fill_in 'Why would you be a good fit?', with: 'I have a billion dollars and theyre all for him, my beloved Bare-y'
+    click_button 'Submit Application'
+    refresh
+    expect(page).to have_content('Pending')
+    expect(page).to_not have_content('Add a Pet to this Application')
+    expect(page).to_not have_field('Search by Name')
   end
 end
