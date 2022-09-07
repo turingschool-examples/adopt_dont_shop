@@ -25,8 +25,11 @@
         <%= f.submit "Search" %>
       <% end %>
 
+      
       <% @pets.each do |pet|%>
+      <div id="pet-<%= pet.id %>">
         <%= pet.name %> <br>
+      </div>
       <% end %>
     </div>
 
@@ -47,7 +50,9 @@
       <% end %>
       
       <% @pets.each do |pet|%>
-        <%= pet.name %> <br>
+        <div id="pet-<%= pet.id %>">
+          <%= pet.name%> <%= button_to "Adopt this Pet", "/pet_applicants/#{@applicant.id}/create?pet=#{pet.id}", method: :post  %> <br>
+        </div>
       <% end %>
     </div>
 <% end %>
