@@ -119,7 +119,6 @@ RSpec.describe 'the admin application view page' do
         expect(page).to_not have_content('Rejected')
       end
 
-
     end
 
     describe 'a program that allows one to deny two applications for the same pet' do
@@ -147,6 +146,34 @@ RSpec.describe 'the admin application view page' do
         expect(page).to_not have_content('Approved')
       end
 
+    end
+
+    describe 'a program that allows one to deny an application and aprove another application for the same pet' do
+
+      it 'can approve Bark Hamill after approving him on another application' do
+        visit "admin/applications/#{@application_4.id}"
+
+        within(".pet_#{@pet_3.id}") do
+          click_on 'Reject'
+        end
+
+        expect(page).to have_content('Rejected')
+        expect(page).to_not have_content('Approved')
+
+        visit "admin/applications/#{@application_5.id}"
+
+        expect(page).to have_button('Approve')
+        expect(page).to have_button('Reject')
+
+        within(".pet_#{@pet_3.id}") do
+          click_on 'Approve'
+        end
+
+        expect(page).to have_content('Approved')
+        expect(page).to_not have_content('Rejected')
+        expect(page).to_not have_content('Accept')
+        expect(page).to_not have_content('Reject')
+      end
 
     end
   end
