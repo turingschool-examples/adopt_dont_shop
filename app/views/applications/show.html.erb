@@ -16,6 +16,10 @@
 <%end%>
 </table>
 <h3><%= @app.status %></h3>
+<%= form_with url: "/applications/#{@app.id}", method: :patch, local: true, authenticity_token: form_authenticity_token do |form| %>
+<%= form.hidden_field :status, value: "Pending" %>
+<%= form.submit "Submit Application" %>
+<% end %>
 <br><br>
 <section id='add_pet'>
   <h2>Add a Pet to this Application</h2>

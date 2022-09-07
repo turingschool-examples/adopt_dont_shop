@@ -58,4 +58,28 @@ RSpec.describe 'the app show' do
       expect(page).to have_content(@pet_2.name)
     end
   end
+
+
+  it 'can submit applications' do
+    visit "/applications/#{@app.id}"
+    within '#add_pet' do
+
+      fill_in 'Search by Name', with: 'Bare-y'
+      click_button 'Search'
+      click_button 'Adopt this pet'
+    end
+    expect(page).to have_button('Submit Application')
+  end
+
+  it 'will change the application status when the button is pressed' do
+    visit "/applications/#{@app.id}"
+    within '#add_pet' do
+
+      fill_in 'Search by Name', with: 'Bare-y'
+      click_button 'Search'
+      click_button 'Adopt this pet'
+    end
+    click_button 'Submit Application'
+    expect(page).to have_content('Pending')
+  end
 end
