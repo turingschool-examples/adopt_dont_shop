@@ -15,7 +15,8 @@ class SheltersController < ApplicationController
   end
 
   def admin_show
-    @shelter = Shelter.info(params[:id])
+    @shelter = Shelter.find(params[:id])
+    @shelter_info_sql = Shelter.info(params[:id])
   end
 
   def pets
