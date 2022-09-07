@@ -17,7 +17,6 @@ RSpec.describe 'the admin_shelters index' do
     @pet_2 = @applicant_2.pets.create!(name: 'Clawdia', breed: 'shorthair', age: 3, adoptable: true, shelter_id: @shelter_2.id)
     @pet_3 = @applicant_3.pets.create!(name: 'Lucille Bald', breed: 'sphynx', age: 8, adoptable: true, shelter_id: @shelter_3.id)
     @pet_4 = @applicant_1.pets.create!(name: 'Ann', breed: 'ragdoll', age: 5, adoptable: true, shelter_id: @shelter_1.id)
-
   end
 
   describe 'admin/shelters info' do
@@ -28,10 +27,10 @@ RSpec.describe 'the admin_shelters index' do
       expect(@shelter_2.name).to appear_before(@shelter_3.name)
       expect(@shelter_2.name).to appear_before(@shelter_1.name)
       expect(@shelter_3.name).to appear_before(@shelter_1.name)
-
+      expect(@shelter_1.name).to_not appear_before(@shelter_3.name)
+      expect(@shelter_3.name).to_not appear_before(@shelter_2.name)
+      expect(@shelter_1.name).to_not appear_before(@shelter_3.name)
     end
-
-
 
     it 'I see a section for Shelters with Pending Applications' do
 
