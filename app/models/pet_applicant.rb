@@ -7,4 +7,9 @@ class PetApplicant < ApplicationRecord
 
   belongs_to :pet
   belongs_to :applicant
+
+  def self.find_app_status(pet_id, applicant_id)
+    where(applicant_id: applicant_id, pet_id: pet_id).order(created_at: :desc).first.status
+  end
+
 end

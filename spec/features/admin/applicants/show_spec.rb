@@ -22,9 +22,11 @@ RSpec.describe Applicant do
 
       within ".pets" do
         within "#pet-#{@pet_1.id}" do
-          expect(page).to have_button("Accept")
+          expect(page).to have_button("Accept Pet Application")
+          click_button "Accept Pet Application"
           expect(current_path).to eq("/admin/applicants/#{@app_1.id}")
-          expect(page).to_not have_button("Accept")
+          expect(page).to_not have_button("Accept Pet Application")
+          expect(page).to have_content("Accepted")
         end
       end
     end
