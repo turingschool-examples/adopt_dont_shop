@@ -1,8 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe 'application creation' do
-  before :each do
-  end
 
   describe 'content' do
     it 'renders the form' do

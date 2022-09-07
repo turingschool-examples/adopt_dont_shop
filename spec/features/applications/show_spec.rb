@@ -16,11 +16,11 @@ RSpec.describe 'the app show' do
     shelter = Shelter.create(name: 'Mystery Building', city: 'Irvine CA', foster_program: false, rank: 9)
     @pet_1 = Pet.create(name: 'Scooby', age: 2, breed: 'Great Dane', adoptable: true, shelter_id: shelter.id)
     @pet_2 = Pet.create(adoptable: true, age: 1, breed: 'sphynx', name: 'Bare-y Manilow', shelter_id: shelter.id)
-    @app = Application.create(name: "John Smith", address: "123 Main St, Denver, CO, 80120")
+    @app = Application.create(name: "John Smith", address: "123 Main St", city: "Denver", state: "CO", zipcode: "80120")
     ApplicationPet.create!(application_id: @app.id, pet_id: @pet_1.id)
   end
 
-  it "shows the app and all it's attributes" do
+  it "shows the app and all its attributes" do
     visit "/applications/#{@app.id}"
     expect(page).to have_content(@app.name)
     expect(page).to have_content(@app.address)
@@ -43,7 +43,7 @@ RSpec.describe 'the app show' do
   # And I click submit,
   # Then I am taken back to the application show page
   # And under the search bar I see any Pet whose name matches my search
-  it 'has an add pet section' do 
+  it 'has an add pet section' do
     visit "/applications/#{@app.id}"
 
     within '#add_pet' do

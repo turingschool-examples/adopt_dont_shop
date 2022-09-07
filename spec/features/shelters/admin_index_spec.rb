@@ -18,9 +18,9 @@ RSpec.describe 'the admin shelters index' do
   end
 
   it 'shows shelters w/ pending applications inside the pending app section' do
-    @app = Application.create(name: "John Smith", address: "123 Main St, Denver, CO, 80120", about: "I love a dogs. One please.", status: "Pending")
+    @app = Application.create(name: "John Smith", address: "123 Main St", city: "Denver", state: "CO", zipcode: "80120", about: "I love a dogs. One please.", status: "Pending")
     ApplicationPet.create!(application_id: @app.id, pet_id: @pet_1.id)
-    
+
     visit "/admin/shelters"
 
     within "#shelters_w_pending_apps" do
