@@ -27,7 +27,7 @@ RSpec.describe 'application show page' do
     describe 'I can see the name of the pet the application is for' do
       it 'links pet to application show page' do
         visit "/applications/#{@application.id}"
-        
+
         click_on 'Lucille Bald'
         expect(current_path).to eq("/pets/#{@pet_1.id}")
       end
@@ -36,11 +36,53 @@ RSpec.describe 'application show page' do
     describe 'can search for and add pets to application' do
       it 'can search for a pet' do
         visit "/applications/#{@application.id}"
-        
+
         expect(page).to have_content("Add a Pet to this Application")
         expect(page).to_not have_content("Bark Hamill")
 
-        fill_in "Search", with: "Bark"
+        fill_in "Search", with: "Bark Hamill"
+
+        click_on 'Search for Pet'
+
+        expect(current_path).to eq("/applications/#{@application.id}")
+        expect(page).to have_content("Bark Hamill")
+      end
+
+      it 'can search for a pet with a partial match' do
+        visit "/applications/#{@application.id}"
+
+        expect(page).to have_content("Add a Pet to this Application")
+        expect(page).to_not have_content("Bark Hamill")
+
+        fill_in "Search", with: "Bark Ham"
+
+        click_on 'Search for Pet'
+
+        expect(current_path).to eq("/applications/#{@application.id}")
+        expect(page).to have_content("Bark Hamill")
+      end
+
+      it 'can search for a pet with a a wrong case search' do
+        visit "/applications/#{@application.id}"
+
+        expect(page).to have_content("Add a Pet to this Application")
+        expect(page).to_not have_content("Bark Hamill")
+
+        fill_in "Search", with: "bArK hAmIll"
+
+        click_on 'Search for Pet'
+
+        expect(current_path).to eq("/applications/#{@application.id}")
+        expect(page).to have_content("Bark Hamill")
+      end
+
+      it 'can search for a pet with a partial match and wrong case' do
+        visit "/applications/#{@application.id}"
+
+        expect(page).to have_content("Add a Pet to this Application")
+        expect(page).to_not have_content("Bark Hamill")
+
+        fill_in "Search", with: "bAr"
 
         click_on 'Search for Pet'
 
@@ -57,7 +99,7 @@ RSpec.describe 'application show page' do
         within("#pet_#{@pet_2.id}") do
         click_button('Adopt this Pet')
         end
-      
+
         expect(current_path).to eq("/applications/#{@application.id}")
         expect(page).to have_content("Bark Hamill")
       end
@@ -160,7 +202,7 @@ RSpec.describe 'application show page' do
     describe 'I do not see a section to submit my application' do
       it 'Will not allow an application to be submitted without a pet' do
         visit "/applications/#{@application_2.id}"
-        
+
         expect(page).to_not have_content('Submit application')
       end
     end

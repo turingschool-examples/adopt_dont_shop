@@ -1,0 +1,19 @@
+<%= render partial: 'applicants_info' %>
+
+<%= @application.id%>
+<p>Pet(s) Applying for: </p>
+<% @pets.each do |pet|%>
+  <div class="pet_<%=pet.pet_id%>">
+    <% if pet.application_status == nil %>
+      <p><%= pet.name %></p>
+      <%= button_to "Approve", "/admin/applications/#{@application.id}/#{pet.pet_id}/update?approve=true", local: true, method: :patch  %>
+      <%= button_to "Reject", "/admin/applications/#{@application.id}/#{pet.pet_id}/update?approve=false", local: true, method: :patch  %></p>
+    <% elsif pet.application_status == "Approved" %>
+      <p><%= pet.name %></p>
+      <p>Approved</p>
+    <% elsif pet.application_status == "Rejected" %>
+      <p><%= pet.name %></p>
+      <p>Rejected</p>
+    <% end %>
+  </div>
+<%end%>

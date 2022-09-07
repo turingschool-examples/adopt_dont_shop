@@ -3,4 +3,6 @@ class Admin::SheltersController < ApplicationController
     @shelters = Shelter.order_by_name
     @shelters_with_apps = Shelter.shelters_with_pending_applications
   end
+
+
 end
