@@ -9,23 +9,8 @@
                       <li> <%= pet.name %></li>
                           <% end %>
 
-<p>Add a Pet to this Application:</p>
-<% if !@applicant.pets.empty? && @applicant.status == "In Progress" %>
 
-<h3>Submit my application:</h3>
-<h4><%= "Why #{@applicant.name}'s house would make a good home:" %></h4>
-<%= form_with url: "/applicants/#{@applicant.id}", method: :get, local: true do |form| %>
-  <% form.label :description %></h3></p>
-  <%= form.text_area :description  %>
-  <p><%= form.submit 'Submit my application' %></p>
-<% end %>
-<% end %>
 
-<%= form_with url:"/applicants/#{@applicant.id}", method: :patch, local: true do |f| %>
-  <%= f.label :search %>
-  <%= f.text_field :search %>
-  <%= f.submit "Search" %>
-<% end %>
   <br>
   Application Status: <%= @applicant.status %>
 </div>
@@ -33,7 +18,16 @@
   <br>
 <% if @applicant.pets.present? && @applicant.status == "In Progress" %>
     <div id="add_pets">
-      Section to add more pets
+      <p>Add a Pet to this Application:</p>
+      <%= form_with url:"/applicants/#{@applicant.id}", method: :patch, local: true do |f| %>
+        <%= f.label :search_name %>
+        <%= f.text_field :search_name %>
+        <%= f.submit "Search" %>
+      <% end %>
+
+      <% @pets.each do |pet|%>
+        <%= pet.name %> <br>
+      <% end %>
     </div>
 
     <div id="submit">
@@ -45,6 +39,15 @@
     </div>
 <% elsif !@applicant.pets.present? && @applicant.status == "In Progress" %>
    <div id="add_pets">
-      Section to add more pets
+      <p>Add a Pet to this Application:</p>
+      <%= form_with url:"/applicants/#{@applicant.id}", method: :patch, local: true do |f| %>
+        <%= f.label :search_name %>
+        <%= f.text_field :search_name %>
+        <%= f.submit "Search" %>
+      <% end %>
+      
+      <% @pets.each do |pet|%>
+        <%= pet.name %> <br>
+      <% end %>
     </div>
 <% end %>

@@ -5,13 +5,18 @@ class ApplicantsController < ApplicationController
   end
 
   def show
+    @pets = Pet.all
     @applicant = Applicant.find(params[:applicant_id])
     if params[:description].present?
       @applicant.description = params[:description]
       @applicant.status = "Pending"
       @applicant.save
+    elsif params[:search_name].present?
+      @pets = Pet.search(params[:search_name])
+     
     end
     @applicant
+  
   end
 
   def new
