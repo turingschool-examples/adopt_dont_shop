@@ -166,8 +166,6 @@ RSpec.describe 'the admin applications show page' do
      it 'should approve application if all pets are approved' do
       visit "/admin/applications/#{@samantha_application.id}"
 
-      expect(page).to have_content("Application Status: Pending")
-
       within("#pet_#{@fluffy.id}") do
         click_button("Approve This Pet")
       end
@@ -176,7 +174,7 @@ RSpec.describe 'the admin applications show page' do
         click_button("Approve This Pet")
       end
 
-      expect(page).to have_content("Application Status is Approved")
+      expect(page).to have_content("Approved")
      end
    end
 end

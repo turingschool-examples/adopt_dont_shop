@@ -31,5 +31,12 @@ RSpec.describe Application, type: :model do
         expect(Application.find_desired_pets("Fluff")).to eq([@pet1, @pet4, @pet5])
       end
     end
+
+    describe '#find_desired_application' do
+      it 'can return pets that match the inputted pet id' do
+        expect(Application.find_desired_application(@pet_application1.id)).to eq([])
+      end
+    end
+
   end
 end

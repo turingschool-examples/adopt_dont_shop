@@ -27,6 +27,12 @@ RSpec.describe Pet, type: :model do
       end
     end
 
+    describe '#find_by_id' do
+      it 'returns correct pet by id' do
+        expect(Pet.find_pet_by_id(@pet_2.id)).to eq([@pet_2])
+      end
+    end
+
     describe '#adoptable' do
       it 'returns adoptable pets' do
         expect(Pet.adoptable).to eq([@pet_1, @pet_2])
