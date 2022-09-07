@@ -1,20 +1,23 @@
 <h1>All pets</h1>
 
- <%= link_to "Start an Application", "/applications/new" %>
+ <%= link_to "Start an Application", "/applications/new", style: 'margin: 20px;'%> <br><br>
 
-<%= form_with url: "/pets", method: :get, local: true do |f| %>
-  <%= f.label :search %>
-  <%= f.text_field :search %>
-  <%= f.submit "Search" %>
+<%= form_with url: "/pets", method: :get, local: true, style: 'margin-left:20px; margin-bottom:5px;' do |f| %>
+  <%= f.label :search , style: 'margin-left:20px; margin-bottom:5px;'%>
+  <%= f.text_field :search , style: 'margin-bottom:5px;'%>
+  <%= f.submit "Search" , style: 'margin-bottom:5px;'%>
 <% end %>
 
 
 <% @pets.each do |pet| %>
-  <h3><%= pet.name %></h3>
-  <p>Age: <%= pet.age %></p>
-  <p>Breed: <%= pet.breed %></p>
-  <p>Adoptable: </p>
-  <p>You can find <%= pet.name %> at <%= pet.shelter_name %>!</p>
-  <%= link_to "Edit #{pet.name}", "/pets/#{pet.id}/edit" %>
-  <%= link_to "Delete #{pet.name}", "/pets/#{pet.id}", method: :delete %>
+<table>
+  <tr><td><h3><%= pet.name %></td></h3></tr>
+  <tr><td>Age: <%= pet.age %></td></tr>
+  <tr><td>Breed: <%= pet.breed %></td></tr>
+  <tr><td>Adoptable: </td></tr>
+  <tr><td>You can find <%= pet.name %> at <%= pet.shelter_name %>!</td></tr>
+  </table>
+  <%= button_to "Edit #{pet.name}", "/pets/#{pet.id}/edit", method: :get, style: 'margin-left:20px; margin-top:5px; float: left'%>
+  <%= button_to "Delete #{pet.name}", "/pets/#{pet.id}", method: :delete, style: 'margin-left:15px; margin-top:5px; float: left'%>
+  <br><br><br>
 <% end %>
