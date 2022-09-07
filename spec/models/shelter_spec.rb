@@ -80,6 +80,16 @@ RSpec.describe Shelter, type: :model do
         expect(Shelter.pending_apps).to_not include(@shelter_3)
       end
     end
+
+    describe 'info' do
+      it 'returns an object from Shelter with only name and city' do
+        shelter = Shelter.info(@shelter_1.id)
+        expect(shelter.name).to eq("Aurora shelter")
+        expect(shelter.city).to eq("Aurora, CO")
+        expect(shelter.pets).to eq([])
+        expect(shelter).to_not have_attribute(:rank)
+      end
+    end
   end
 
   describe 'instance methods' do
