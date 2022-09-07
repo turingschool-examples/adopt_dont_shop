@@ -55,7 +55,7 @@ Then I can see the following:
 ```
 
 ```
-[ ] done
+[X] done
 
 Starting an Application
 
@@ -77,7 +77,7 @@ And I see an indicator that this application is "In Progress"
 ```
 
 ```
-[ ] done
+[X] done
 
 Starting an Application, Form not Completed
 
@@ -90,7 +90,7 @@ And I see a message that I must fill in those fields.
 ```
 
 ```
-[ ] done
+[X] done
 
 Searching for Pets for an Application
 
@@ -106,7 +106,7 @@ And under the search bar I see any Pet whose name matches my search
 ```
 
 ```
-[ ] done
+[X] done
 
 Add a Pet to an Application
 
@@ -154,7 +154,7 @@ Then I do not see a section to submit my application
 These stories emphasize key database concepts
 
 ```
-[ ] done
+[X] done
 
 Partial Matches for Pet Names
 
@@ -166,7 +166,7 @@ For example, if I search for "fluff", my search would match pets with names "flu
 ```
 
 ```
-[ ] done
+[X] done
 
 Case Insensitive Matches for Pet Names
 
@@ -182,6 +182,8 @@ SQL Only Story
 
 For this story, you should write your queries in raw sql. You can use the ActiveRecord find_by_sql method to execute raw sql queries: https://guides.rubyonrails.org/active_record_querying.html#finding-by-sql
 
+[X] done
+
 Admin Shelters Index
 
 As a visitor
@@ -191,6 +193,8 @@ Then I see all Shelters in the system listed in reverse alphabetical order by na
 
 ```
 For this story, you should fully leverage ActiveRecord methods in your query.
+
+[X] done
 
 Shelters with Pending Applications
 
