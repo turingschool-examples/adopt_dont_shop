@@ -1,9 +1,28 @@
 <h1>New Application</h1>
+<head>
 <%= form_with url: "/applications/", method: :post, local: true do |f| %>
     <%= f.label :name %>
     <%= f.text_field :name, required: true, class: 'form-control' %>
     <%= f.label :address %>
     <%= f.text_field :address, required: true, class: 'form-control' %>
+    <%= f.label :city %>
+    <%= f.text_field :city, required: true, class: 'form-control' %>
+    <%= f.label :state %>
+    <%= f.text_field :state, required: true, class: 'form-control' %>
+    <%= f.label :zipcode %>
+    <%= f.text_field :zipcode, required: true, class: 'form-control' %>
+
 
     <%= f.submit :Submit%>
+
+
 <% end %>
+</head>
+
+<body>
+<% flash.each do |type, message| %>
+      <p><%= message %></p>
+    <% end %>
+
+<%= yield %>
+</body>

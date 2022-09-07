@@ -20,8 +20,12 @@ class ApplicationsController < ApplicationController
   def create
     application = Application.new(application_params)
 
-    redirect_to "/applications/#{application.id}" if application.save
-  end
+    if application.save
+      redirect_to "/applications/#{application.id}"
+    else
+    flash[:notice] = "Please fill out the whole form"
+    render :new
+   end
 
   def update
     application = Application.find(params[:id])
@@ -35,6 +39,8 @@ class ApplicationsController < ApplicationController
 
   private
   def application_params
-    params.permit(:id, :name, :address, :about, :status, :search_name)
+    params.permit(:id, :name, :address, :city, :state, :zipcode, :about, :status, :search_name)
   end
+
+
 end
