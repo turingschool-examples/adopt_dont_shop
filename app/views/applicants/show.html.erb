@@ -8,6 +8,9 @@
 <h4>  Pets Applied For:</h4> <% @applicant.pets.each do |pet|%>
                       <li> <%= pet.name %></li>
                           <% end %>
+
+
+
   <br>
   Application Status: <%= @applicant.status %>
 </div>
@@ -15,7 +18,16 @@
   <br>
 <% if @applicant.pets.present? && @applicant.status == "In Progress" %>
     <div id="add_pets">
-      Section to add more pets
+      <p>Add a Pet to this Application:</p>
+      <%= form_with url:"/applicants/#{@applicant.id}", method: :patch, local: true do |f| %>
+        <%= f.label :search_name %>
+        <%= f.text_field :search_name %>
+        <%= f.submit "Search" %>
+      <% end %>
+
+      <% @pets.each do |pet|%>
+        <%= pet.name %> <br>
+      <% end %>
     </div>
 
     <div id="submit">
@@ -27,6 +39,15 @@
     </div>
 <% elsif !@applicant.pets.present? && @applicant.status == "In Progress" %>
    <div id="add_pets">
-      Section to add more pets
+      <p>Add a Pet to this Application:</p>
+      <%= form_with url:"/applicants/#{@applicant.id}", method: :patch, local: true do |f| %>
+        <%= f.label :search_name %>
+        <%= f.text_field :search_name %>
+        <%= f.submit "Search" %>
+      <% end %>
+      
+      <% @pets.each do |pet|%>
+        <%= pet.name %> <br>
+      <% end %>
     </div>
 <% end %>

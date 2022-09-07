@@ -25,6 +25,32 @@ RSpec.describe Applicant do
       end
     end
 
+    describe 'apply for pet: searching for a pets for application'do 
+      it 'On application showpage & app has not been submitted, i see section for "Add a Pet to this application"' do
+
+        shelter1 = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
+        app1 = Applicant.create!(name: "Billy Wahl", street_address: "123 S Street Way",
+                                city: "Denver", state: "CO", zip_code: "80123", description: "I Like Dogs")
+        
+        pet1 = Pet.create!(adoptable: true, age: 6, breed: "Catahoula Leopard Dog", name: "Rosy", shelter_id: shelter1.id)
+        pet2 = Pet.create!(adoptable: true, age: 4, breed: "Dobermann", name: "Lundy", shelter_id: shelter1.id)
+
+        # pet_app1 = PetApplicant.create!(pet_id: pet1.id, applicant_id: app1.id)
+        # pet_app2 = PetApplicant.create!(pet_id: pet2.id, applicant_id: app1.id)
+
+        visit "/applicants/#{app1.id}" 
+        expect(current_path).to eq("/applicants/#{app1.id}")
+        within "#add_pets" do 
+          fill_in :search_name, with: "Rosy"
+            click_on "Search"
+        end
+        expect(page).to have_content("Rosy")
+        expect(page).to_not have_content("Lundy")
+        expect(page).to have_content("Add a Pet to this Application")
+        expect(current_path).to eq("/applicants/#{app1.id}")
+      end 
+    end
+
     it 'can submit an application' do
       shelter1 = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
 
