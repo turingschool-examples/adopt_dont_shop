@@ -17,4 +17,25 @@ pirate = shelter_1.pets.create(name: 'Mr. Pirate', breed: 'tuxedo shorthair', ag
 clawdia = shelter_1.pets.create(name: 'Clawdia', breed: 'shorthair', age: 3, adoptable: true)
 lucille = shelter_3.pets.create(name: 'Lucille Bald', breed: 'sphynx', age: 8, adoptable: true)
 
+billy = Applicant.create(first_name: "Billy",
+                          last_name: "Jameson",
+                          street_address: '123 Royal Lane',
+                          city: "Denver",
+                          state: "CO",
+                          zipcode: 80205,
+                          status: "Pending")
+
+johnny = Applicant.create(first_name: "Johnny",
+                          last_name: "Maybach",
+                          street_address: '456 Froot Loop Way',
+                          city: "Mattoon",
+                          state: "IL",
+                          zipcode: 54242,
+                          status: "Pending")
+
+PetApplication.create(pet: @pirate, applicant: @billy)
+PetApplication.create(pet: @clawdia, applicant: @johnny)
+PetApplication.create(pet: @lucille, applicant: @johnny)
+
+
 # applicant1 = Applicant.create(first_name: "bobby", last_name: "jones", street_address: '909 Winding way', city: "Louisville", state: "colorado", zipcode: '81212', description: "I like turtles", status: "In Progress")
