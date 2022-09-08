@@ -1,5 +1,9 @@
 # Adopt, don't Shop
 
+# The schema for this database follows the following photo:
+<img src="app/assets/images/schema.jpg" alt="This is the schema for the database" title="Database Schema"> 
+
+
 ### Existing database design
 ![visual-schema.png](https://i.postimg.cc/0ywZgQ1W/visual-schema.png)
 
