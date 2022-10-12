@@ -47,7 +47,7 @@ During the evaluation, you will present your user story:
 ```
 [ ] done
 
-Deploy your application to Heroku
+0: Deploy your application to Heroku
 
 As a visitor of the site
 I will perform all user stories
@@ -67,7 +67,7 @@ Visitors to the site will be able to create applications to adopt pets. An appli
 ```
 [ ] done
 
-Application Show Page
+1. Application Show Page
 
 As a visitor
 When I visit an applications show page
@@ -82,7 +82,7 @@ Then I can see the following:
 ```
 [ ] done
 
-Starting an Application
+2. Starting an Application
 
 As a visitor
 When I visit the pet index page
@@ -104,7 +104,7 @@ And I see an indicator that this application is "In Progress"
 ```
 [ ] done
 
-Starting an Application, Form not Completed
+3. Starting an Application, Form not Completed
 
 As a visitor
 When I visit the new application page
@@ -117,7 +117,7 @@ And I see a message that I must fill in those fields.
 ```
 [ ] done
 
-Searching for Pets for an Application
+4. Searching for Pets for an Application
 
 As a visitor
 When I visit an application's show page
@@ -133,7 +133,7 @@ And under the search bar I see any Pet whose name matches my search
 ```
 [ ] done
 
-Add a Pet to an Application
+5. Add a Pet to an Application
 
 As a visitor
 When I visit an application's show page
@@ -148,7 +148,7 @@ And I see the Pet I want to adopt listed on this application
 ```
 [ ] done
 
-Submit an Application
+6. Submit an Application
 
 As a visitor
 When I visit an application's show page
@@ -166,7 +166,7 @@ And I do not see a section to add more pets to this application
 ```
 [ ] done
 
-No Pets on an Application
+7. No Pets on an Application
 
 As a visitor
 When I visit an application's show page
@@ -181,7 +181,7 @@ These stories emphasize key database concepts
 ```
 [ ] done
 
-Partial Matches for Pet Names
+8. Partial Matches for Pet Names
 
 As a visitor
 When I visit an application show page
@@ -193,7 +193,7 @@ For example, if I search for "fluff", my search would match pets with names "flu
 ```
 [ ] done
 
-Case Insensitive Matches for Pet Names
+9. Case Insensitive Matches for Pet Names
 
 As a visitor
 When I visit an application show page
@@ -207,7 +207,7 @@ SQL Only Story
 
 For this story, you should write your queries in raw sql. You can use the ActiveRecord find_by_sql method to execute raw sql queries: https://guides.rubyonrails.org/active_record_querying.html#finding-by-sql
 
-Admin Shelters Index
+10. Admin Shelters Index
 
 As a visitor
 When I visit the admin shelter index ('/admin/shelters')
@@ -217,7 +217,7 @@ Then I see all Shelters in the system listed in reverse alphabetical order by na
 ```
 For this story, you should fully leverage ActiveRecord methods in your query.
 
-Shelters with Pending Applications
+11. Shelters with Pending Applications
 
 As a visitor
 When I visit the admin shelter index ('/admin/shelters')
@@ -234,7 +234,7 @@ For this set of stories, we will be making routes that begin with '/admin'. This
 ```
 [ ] done
 
-Approving a Pet for Adoption
+12. Approving a Pet for Adoption
 
 As a visitor
 When I visit an admin application show page ('/admin/applications/:id')
@@ -248,7 +248,7 @@ And instead I see an indicator next to the pet that they have been approved
 ```
 [ ] done
 
-Rejecting a Pet for Adoption
+13. Rejecting a Pet for Adoption
 
 As a visitor
 When I visit an admin application show page ('/admin/applications/:id')
@@ -260,7 +260,7 @@ And instead I see an indicator next to the pet that they have been rejected
 ```
 
 ```
-Approved/Rejected Pets on one Application do not affect other Applications
+14. Approved/Rejected Pets on one Application do not affect other Applications
 
 As a visitor
 When there are two applications in the system for the same pet
@@ -271,6 +271,8 @@ Then I do not see that the pet has been accepted or rejected for that applicatio
 And instead I see buttons to approve or reject the pet for this specific application
 ```
 
+---
+
 ## Completed Applications
 
 Once all pets on an application have been marked either accepted or rejected, then the application is no longer "Pending". If all the pets were accepted, then the application is "Accepted". If one or more pets on the application is rejected, then the entire application is "Rejected".
@@ -278,7 +280,7 @@ Once all pets on an application have been marked either accepted or rejected, th
 ```
 [ ] done
 
-All Pets Accepted on an Application
+15. All Pets Accepted on an Application
 
 As a visitor
 When I visit an admin application show page
@@ -290,7 +292,7 @@ And I see the application's status has changed to "Approved"
 ```
 [ ] done
 
-One or More Pets Rejected on an Application
+16. One or More Pets Rejected on an Application
 
 As a visitor
 When I visit an admin application show page
@@ -301,7 +303,9 @@ And I see the application's status has changed to "Rejected"
 ```
 
 ```
-Application Approval makes Pets not adoptable
+[ ] done
+
+17. Application Approval makes Pets not adoptable
 
 As a visitor
 When I visit an admin application show page
@@ -311,9 +315,9 @@ Then I see that those pets are no longer "adoptable"
 ```
 
 ```
-Pets can only have one approved application on them at any time
-
 [ ] done
+
+18. Pets can only have one approved application on them at any time
 
 As a visitor
 When a pet has an "Approved" application on them
@@ -329,11 +333,13 @@ And I do see a button to reject them
 These stories emphasize SQL and ActiveRecord concepts.
 
 ```
+[ ] done
+
 SQL Only Story
 
 For this story, you should write your queries in raw sql. You can use the ActiveRecord find_by_sql method to execute raw sql queries: https://guides.rubyonrails.org/active_record_querying.html#finding-by-sql
 
-Admin Shelters Show Page
+19. Admin Shelters Show Page
 
 As a visitor
 When I visit an admin shelter show page
@@ -347,7 +353,9 @@ NOTE: Your query should only return the necessary data to complete the story
 For the following stories, you should fully leverage ActiveRecord methods in your queries.
 
 ```
-Shelters with Pending Applications Listed Alphabetically
+[ ] done
+
+20. Shelters with Pending Applications Listed Alphabetically
 
 As a visitor
 When I visit the admin shelter index ('/admin/shelters')
@@ -356,7 +364,9 @@ Then I see all those shelters are listed alphabetically
 ```
 
 ```
-Admin Shelters Show Page Links
+[ ] done
+
+21. Admin Shelters Show Page Links
 
 As a visitor
 When I visit the admin shelter index ('/admin/shelters')
@@ -366,7 +376,9 @@ Then I am taken to that shelter's admin show page
 ```
 
 ```
-Average Pet Age
+[ ] done
+
+22. Average Pet Age
 
 As a visitor
 When I visit an admin shelter show page
@@ -375,7 +387,9 @@ And in that section I see the average age of all adoptable pets for that shelter
 ```
 
 ```
-Count of Adoptable Pets
+[ ] done
+
+23. Count of Adoptable Pets
 
 As a visitor
 When I visit an admin shelter show page
@@ -384,7 +398,9 @@ And in that section I see the number of pets at that shelter that are adoptable
 ```
 
 ```
-Count of Pets that have been Adopted
+[ ] done
+
+24. Count of Pets that have been Adopted
 
 As a visitor
 When I visit an admin shelter show page
@@ -395,7 +411,9 @@ Note: A Pet has been adopted from a shelter if they are part of an approved appl
 ```
 
 ```
-Action Required
+[ ] done
+
+25. Action Required
 
 As a visitor
 When I visit an admin shelter show page
@@ -404,7 +422,9 @@ In that section, I see a list of all pets for this shelter that have a pending a
 ```
 
 ```
-Action Required Links to Application Show Page
+[ ] done
+
+26. Action Required Links to Application Show Page
 
 As a visitor
 When I visit an admin shelter show page
@@ -412,7 +432,11 @@ And I look in the "Action Required" section
 Then next to each pet's name I see a link to the admin application show page where I can accept or reject the pet.
 ```
 
+---
+
 ## Extensions
+
+_Note: It is recommended that these extensions only be attempted after ALL user stories above are 100% completed, and your project is satisfactorily refactored._ 
 
 ### ActiveRecord Extensions
 
@@ -421,4 +445,5 @@ Then next to each pet's name I see a link to the admin application show page whe
 
 ### Styling
 
-Implement a CSS Grid Framework to improve your styling, either [CSS Grid Layout](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout) or [Bootstrap](https://getbootstrap.com/)
+Implement a CSS Grid Framework to improve your styling, either [CSS Grid Layout](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout) or [Bootstrap](https://getbootstrap.com/).
+
