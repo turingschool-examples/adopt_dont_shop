@@ -5,6 +5,7 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
 @shelter1 = Shelter.create!(name: "Oregon's Shady Shelter", city: "Portland", rank: 4, foster_program: true)
 @shelter2 = Shelter.create!(name: "Denver's Questionable Shelter", city: "Denver", rank: 5, foster_program: false)
 @shelter3 = Shelter.create!(name: "Elon's Space Pets", city: "Moon City", rank: 3, foster_program: false)
@@ -22,4 +23,3 @@
 @pet8 = @shelter4.pets.create!(name: "Penny", breed: "Cardigan", age: 8, adoptable: true)
 @pet9 = @shelter5.pets.create!(name: "Leonardo", breed: "Pizza Turtle", age: 23, adoptable: true)
 @pet10 = @shelter5.pets.create!(name: "Raphael", breed: "Sewer Turle", age: 43, adoptable: true)
-
