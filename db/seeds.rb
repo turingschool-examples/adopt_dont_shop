@@ -23,14 +23,3 @@
 @pet9 = @shelter5.pets.create!(name: "Leonardo", breed: "Pizza Turtle", age: 23, adoptable: true  )
 @pet10 = @shelter5.pets.create!(name: "Raphael", breed: "Sewer Turle", age: 43, adoptable: true  )
 
-@app1 = Applicant.create!(name: "Ashley Turner", street_address: "123 Oregon Trail Way", city: "Portland", state: "OR", zip_code: "54321", description: "Pet sitting and want to have my own")
-@app2 = Applicant.create!(name: "Kevin Ta", street_address: "2208 Repeater Dr", city: "Aurora", state: "CO", zip_code: "80011", description: "I love Corgi's, can I haz?")
-@app3 = Applicant.create!(name: "Abdul Redd", street_address: "333 Ruby Rails Ct", city: "Miami", state: "FL", zip_code: "96352", description: "Tired of Students, want a pet that can learn properly")
-
-
-@pet_app1 = PetApplicant.create!(pet_id: @pet1.id, applicant_id: @app1.id)
-@pet_app2 = PetApplicant.create!(pet_id: @pet4.id, applicant_id: @app1.id)
-@pet_app3 = PetApplicant.create!(pet_id: @pet7.id, applicant_id: @app2.id)
-@pet_app4 = PetApplicant.create!(pet_id: @pet8.id, applicant_id: @app2.id)
-@pet_app5 = PetApplicant.create!(pet_id: @pet9.id, applicant_id: @app3.id)
-@pet_app6 = PetApplicant.create!(pet_id: @pet10.id, applicant_id: @app3.id)
