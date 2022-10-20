@@ -1,0 +1,53 @@
+<%= form_with(url: "/applications/#{@application.id}", method: "post", local: true) do |form| %>
+  <header><h1>Add a Application</h1></header>
+
+  <table> 
+    <tr> 
+      <td> <%= form.label :name  %></td>
+      <td> <%= form.text_field :name %></td>
+
+    </tr>
+    <tr> 
+      <td> <%= form.label :street_address  %></td>
+      <td> <%= form.text_field :street_address %></td>
+
+    </tr>
+
+     <tr> 
+      <td> <%= form.label :city  %></td>
+      <td> <%= form.text_field :city %></td>
+
+    </tr>
+
+    <tr> 
+      <td> <%= form.label :state  %></td>
+      <td> <%= form.text_field :state %></td>
+
+    </tr>
+
+    <tr> 
+      <td> <%= form.label :zip_code  %></td>
+      <td> <%= form.text_field :zip_code %></td>
+
+    </tr>
+
+    <tr> 
+      <td> <%= form.label :status  %></td>
+      <td> <%= form.text_field :status %></td>
+
+    </tr>
+
+    <tr> 
+      <td> <%= form.label :description  %></td>
+      <td> <%= form.text_field :description %></td>
+
+    </tr>
+
+
+    <tr>
+      <td> <%= form.submit "Submit New Application" %></td>
+  
+    </tr>
+  </table>
+
+<%end %>
