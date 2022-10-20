@@ -12,15 +12,15 @@ RSpec.describe 'application creation', type: :feature do
     it 'can create a new application' do
       visit '/applications/new'
   
-      fill_in('Name', with: 'Frank Ocean')
-      fill_in('Street', with: '44 Thinkin Bout You Rd')
-      fill_in('City', with: 'Denver')
+      fill_in(:name, with: 'Frank Ocean')
+      fill_in(:street_address, with: '44 Thinkin Bout You Rd')
+      fill_in(:city, with: 'Denver')
       select('Colorado', from: :state)
-      fill_in('Zipcode', with: '12345')
-      fill_in('Description', with: 'Need a sibling for my other dog')
+      fill_in(:zipcode, with: '12345')
+      fill_in(:description, with: 'Need a sibling for my other dog')
       
       click_button 'Create Application'
-
+      
       new_app = Application.last
 
       expect(current_path).to eq("/applications/#{new_app.id}")
