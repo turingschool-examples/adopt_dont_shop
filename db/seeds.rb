@@ -15,10 +15,10 @@
 
 @pet1 = @shelter1.pets.create!(name: "Taco", breed: "Dachshund", age: 4, adoptable: true)
 @pet2 = @shelter1.pets.create!(name: "Twiggy", breed: "Ant Eater", age: 6, adoptable: true)
-@pet3 = @shelter2.pets.create!(name: "Momo", breed: "Miniature Pony", age: 5, adoptable: true)
+@pet3 = @shelter2.pets.create!(name: "Momo", breed: "Miniature Pony", age: 5, adoptable: false)
 @pet4 = @shelter2.pets.create!(name: "Loki", breed: "Bronco", age: 7, adoptable: true)
-@pet5 = @shelter3.pets.create!(name: "Diamond", breed: "Silverback", age: 12, adoptable: true)
-@pet6 = @shelter3.pets.create!(name: "Rico", breed: "Chimpanzee", age: 10, adoptable: true)
+@pet5 = @shelter3.pets.create!(name: "Diamond", breed: "Silverback", age: 12, adoptable: false)
+@pet6 = @shelter3.pets.create!(name: "Rico", breed: "Chimpanzee", age: 10, adoptable: false)
 @pet7 = @shelter4.pets.create!(name: "Ruby", breed: "Pembroke", age: 6, adoptable: true)
 @pet8 = @shelter4.pets.create!(name: "Penny", breed: "Cardigan", age: 8, adoptable: true)
 @pet9 = @shelter5.pets.create!(name: "Leonardo", breed: "Pizza Turtle", age: 23, adoptable: true)
