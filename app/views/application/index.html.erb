@@ -1,0 +1,9 @@
+<h1>All Applications</h1>
+
+<% @applications.each do |application| %>
+  <h3><%= application.last %>, <%= application.first %></h3>
+  <p>Address: <%= application.street %>, <%= application.city %>, <%= application.state %>, <%= application.zip %></p>
+  <p>Desctiption: <%= application.description %></p>
+  <p>Pets to Adopt: </p>
+  <p>Application Status: <%= application.status %></p>
+<% end %>
