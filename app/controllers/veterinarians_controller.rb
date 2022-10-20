@@ -7,22 +7,6 @@ class VeterinariansController < ApplicationController
     @veterinarian = Veterinarian.find(params[:id])
   end
 
-  # def new
-  #   @vet_office = VeterinaryOffice.find_by(id: vet_params[:veterinary_office_id])
-  # end
-
-  # def create
-  #   @vet_office = VeterinaryOffice.find(vet_params[:veterinary_office_id])
-  #   veterinarian = Veterinarian.new(vet_params)
-
-  #   if veterinarian.save
-  #     redirect_to "/veterinary_offices/#{@vet_office.id}/veterinarians"
-  #   else
-  #     redirect_to "/veterinary_offices/#{@vet_office.id}/veterinarians/new"
-  #     flash[:alert] = "Error: #{error_message(veterinarian.errors)}"
-  #   end
-  # end
-
   def edit
     @veterinarian = Veterinarian.find(params[:id])
   end
