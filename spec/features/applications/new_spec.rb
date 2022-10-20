@@ -36,6 +36,6 @@ RSpec.describe 'New application page' do
     click_button('Submit')
 
     expect(current_path).to eq("/applications/#{Application.last.id}")
-    save_and_open_page
+    
   end
 end
