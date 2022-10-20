@@ -8,7 +8,13 @@ class ApplicationsController < ApplicationController
 
   def create
     application = Application.create(application_params)
-    redirect_to "/applications/#{application.id}"
+    #  binding.pry
+    if application.incomplete_form? == true
+      redirect_to "/applications/new"
+      flash[:error] = "Content missing #{application.list_incomplete_fields}"
+    else
+      redirect_to "/applications/#{application.id}"
+    end
   end
 
 private
