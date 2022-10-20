@@ -9,7 +9,10 @@ RSpec.describe "the AdoptApps show page" do
         @pet_2 = Pet.create(adoptable: true, age: 3, breed: 'doberman', name: 'Lobster', shelter_id: @shelter.id)
         @pet_3 = Pet.create(adoptable: true, age: 1, breed: 'domestic shorthair', name: 'Sylvester', shelter_id: @shelter.id)
         @app = AdoptApp.create!(name: "Amanda Ross", 
-                                 address: "3220 N Williams St. Denver, CO 80205", 
+                                 street_address: "3220 N Williams St.", 
+                                 city: "Denver", 
+                                 state: "CO", 
+                                 zip_code: "80205", 
                                  description: "I want a best friend.",
                                  status: "In Progress"
                                )
