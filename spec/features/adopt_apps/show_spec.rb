@@ -27,6 +27,7 @@ RSpec.describe "the AdoptApps show page" do
         expect(page).to have_link("Bare-y Manilow", href: "/pets/#{@pet_1.id}")
         expect(page).to have_link("Lobster", href: "/pets/#{@pet_2.id}")
         expect(page).to have_link("Sylvester", href: "/pets/#{@pet_3.id}")
+        expect(page).to have_content("Status: In Progress")
       end
     end
   end

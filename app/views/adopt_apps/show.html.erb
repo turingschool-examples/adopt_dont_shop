@@ -5,4 +5,4 @@
 <% @pets.each do |pet| %>
   <p><a href="/pets/<%= pet.id %>"><%= pet.name %></a></p>
 <% end %>
-  
+<p>Status: <%= @adopt_app.status %></p>
