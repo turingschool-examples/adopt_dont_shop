@@ -5,7 +5,7 @@
 <h3>Zip Code: <%= @application.zip_code %></h3>
 <h3>Application Status: <%= @application.status %></h3>
 <h3>Why do you want to adopt this pet? <%= @application.description %></h3>
-<h3><% @application.pets.each do |pet| %></h3>
-<h3>Applying for: <%= pet.name %></h3>
+<h3>Applying For: <% @application.pets.each do |pet| %></h3>
+  <%= pet.name %>  
 <%end %>
 

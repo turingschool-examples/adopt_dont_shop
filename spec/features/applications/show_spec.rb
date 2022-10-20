@@ -8,10 +8,9 @@ RSpec.describe 'the applications show page' do
       pet_1 = Pet.create!(adoptable: true, age: 1, breed: 'sphynx', name: 'Lucille Bald', shelter_id: shelter.id)
       pet_2 = Pet.create!(adoptable: true, age: 3, breed: 'doberman', name: 'Lobster', shelter_id: shelter.id)
       application_1 = Application.create!(name: "Taylor Swift", street_address: "22 Blank Space Ln", city: "Denver", state: "CO", zip_code: 80230, status: "In Progress", description: "I love cats")
-      # lucille_app = pet_1.applications.create!(name: "Taylor Swift", street_address: "22 Blank Space Ln", city: "Denver", state: "CO", zip_code: 80230, status: "In Progress", description: "I love cats")
       PetApplication.create(pet: pet_1, application: application_1)
-      save_and_open_page
-      # require 'pry'; binding.pry
+      PetApplication.create(pet: pet_2, application: application_1)
+
       visit "/applications/#{application_1.id}"
       expect(page).to have_content(application_1.name)
       expect(page).to have_content(application_1.street_address)
@@ -21,8 +20,7 @@ RSpec.describe 'the applications show page' do
       expect(page).to have_content(application_1.status)
       expect(page).to have_content(application_1.description)
       expect(page).to have_content(application_1.pets.name)
-       
-      save_and_open_page
+      # save_and_open_page
     end
   end
 end 
