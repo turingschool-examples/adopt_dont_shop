@@ -1,6 +1,6 @@
 <h1> Application Details </h1>
 <p>Name: <%= @adopt_app.name %></p>
-<p>Address: <%= @adopt_app.address %></p>
+<p>Address: <%= @adopt_app.street_address %> <%= @adopt_app.city %>, <%= @adopt_app.state %> <%= @adopt_app.zip_code %></p>
 <p>Description: <%= @adopt_app.description %></p>
 <% @pets.each do |pet| %>
   <p><a href="/pets/<%= pet.id %>"><%= pet.name %></a></p>
