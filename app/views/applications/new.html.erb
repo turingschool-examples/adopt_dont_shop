@@ -1,0 +1,24 @@
+<%= form_with url: '/applications', method: :post, local: true do |form| %>
+  <%= form.label :name %>
+  <%= form.text_field :name %><br><br>
+
+  <%= form.label :street %>
+  <%= form.text_field :street %><br><br>
+
+  <%= form.label :city %>
+  <%= form.text_field :city %><br><br>
+
+  <%= form.label :state %>
+  <%= select_tag :state, options_for_select(us_states) %><br><br>
+
+  <%= form.label :zipcode %>
+  <%= form.text_field :zipcode %><br><br>
+
+  <%= form.label :description %>
+  <%= form.text_area :description %><br><br>
+
+  <%= form.label :status %>
+  <%= form.select :status, ['In Progress'] %><br><br>
+
+  <%= form.submit "Create Application" %>
+<% end %>
