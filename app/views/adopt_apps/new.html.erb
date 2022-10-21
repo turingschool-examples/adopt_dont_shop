@@ -13,5 +13,11 @@
   <%= form.text_field :zip_code %></p>
   <%= form.hidden_field :status, :value => "In Progress" %>
   <%= form.submit "Submit" %>
-  
+<% end %>
+
+<% if @errors != nil %>
+<h2>Please correct the following errors:</h2>
+  <% @errors.each do |error| %>
+    <h4><%= error %></h4>
+  <% end %>
 <% end %>

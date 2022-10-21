@@ -16,16 +16,21 @@ class AdoptAppsController < ApplicationController
     redirect_to "/adopt_apps/#{@adopt_app.id}"
   end
 
+  def new 
+  end
+
   def create
     app = AdoptApp.create(app_params)
-
-    redirect_to "/adopt_apps/#{app.id}"
+    if app.valid?
+      redirect_to "/adopt_apps/#{app.id}"
+    else 
+      @errors = app.errors.full_messages
+      render :new
+    end 
   end
 
   private 
   def app_params
     params.permit(:id, :name, :street_address, :city, :state, :zip_code, :status)
   end
-
-
 end
