@@ -1,6 +1,6 @@
-equire 'rails_helper'
+require 'rails_helper'
 
-RSpec.describe 'the application index' do
+RSpec.describe 'the application show' do
   before(:each) do
     shelter = Shelter.create!(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
     @pet_1 = Pet.create!(adoptable: true, age: 1, breed: 'sphynx', name: 'Lucille Bald', shelter_id: shelter.id)
@@ -10,8 +10,9 @@ RSpec.describe 'the application index' do
     ApplicationPet.create!(pet: @pet_2, application: @app_1)
   end
 
-  it 'lists all the applications with their attributes' do
-    visit "/applications"
+  it 'lists the select application with its attributes' do
+    # binding.pry
+    visit "/applications/#{@app_1.id}"
     save_and_open_page
     expect(page).to have_content(@pet_1.name)
     expect(page).to have_content(@pet_2.name)
