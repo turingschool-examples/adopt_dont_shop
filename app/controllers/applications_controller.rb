@@ -1,6 +1,13 @@
 class ApplicationsController < ApplicationController
   def show
     @application = Application.find(params[:id])
+    # require "pry"; binding.pry
+
+    if params[:name].present?
+      @pets = Pet.search(params[:name])
+    else
+      @pets = []
+    end
   end
 
   def new
@@ -16,6 +23,8 @@ class ApplicationsController < ApplicationController
       redirect_to "/applications/#{application.id}"
     end
   end
+
+
 
 private
   def application_params
