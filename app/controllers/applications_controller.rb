@@ -4,11 +4,16 @@ class ApplicationsController < ApplicationController
   end
 
   def new
+    @app = Application.new
   end
 
   def create
-    app = Application.create(app_params)
-    redirect_to "/applications/#{app.id}"
+    @app = Application.new(app_params)
+    if @app.save
+      redirect_to "/applications/#{@app.id}"
+    else
+      render 'new'
+    end
   end
 
 private

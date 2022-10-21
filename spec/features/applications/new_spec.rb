@@ -32,5 +32,20 @@ RSpec.describe 'application creation', type: :feature do
       expect(page).to have_content(new_app.description)
       expect(page).to have_content(new_app.status)
     end
+
+    it 'can create a new application' do
+      visit '/applications/new'
+  
+      fill_in(:name, with: '')
+      fill_in(:street_address, with: '44 Thinkin Bout You Rd')
+      fill_in(:city, with: 'Denver')
+      select('Colorado', from: :state)
+      fill_in(:zipcode, with: '12345')
+      fill_in(:description, with: 'Need a sibling for my other dog')
+      
+      click_button 'Create Application'
+
+      expect(page).to have_content("Name can't be blank")
+    end
   end
 end
