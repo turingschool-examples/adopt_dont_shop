@@ -17,13 +17,11 @@ ActiveRecord::Schema.define(version: 2022_10_20_220657) do
 
   create_table "applications", force: :cascade do |t|
     t.string "name"
-    t.string "street"
-    t.string "address"
+    t.string "street_address"
     t.string "city"
     t.string "state"
     t.integer "zip_code"
     t.string "description"
-    t.string "pet_choices"
     t.string "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
