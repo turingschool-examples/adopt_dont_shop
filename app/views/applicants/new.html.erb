@@ -1,0 +1,18 @@
+<h1><center>New Applicant Form</center> </h1>
+<hr>
+<%= form_with url: "/applicants", method: :post, local: true do |form| %>
+
+  <%= form.label :name, "Name" %>
+  <%= form.text_field :name %>
+  <%= form.label :street_address, "Street address" %>
+  <%= form.text_field :street_address %>
+  <%= form.label :city, "City" %>
+  <%= form.text_field :city %>
+  <%= form.label :state, "State" %>
+  <%= form.text_field :state %>
+  <%= form.label :zip_code, "Zip code" %>
+  <%= form.text_field :zip_code %>
+  <%= form.label :description, "Description" %>
+  <%= form.text_area :description %>
+  <%= form.submit "Submit"%>
+<% end %>
