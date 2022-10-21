@@ -32,6 +32,21 @@ RSpec.describe 'Application creation' do
 
       end
     end
+
+    context 'given invalid data' do 
+      it 'redirects the user back to new applications page and displays a message to fill in missing fields' do
+        visit 'adopt_apps/new'
+
+        fill_in 'Name', with: 'Kristen Nestler'
+        fill_in 'Street address', with: '111 N. Broadway, E11'
+        fill_in 'City', with: 'White Plains'
+        click_button "Submit"
+
+        expect(current_path).to eq('/adopt_apps/new')
+        expect(page).to have_content("State can't be blank")
+        expect(page).to have_content("Zip code can't be blank")
+      end
+    end
   end
 
 end
