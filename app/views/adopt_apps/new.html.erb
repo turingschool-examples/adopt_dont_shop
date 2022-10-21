@@ -1,15 +1,17 @@
-As a visitor
-When I visit the pet index page
-Then I see a link to "Start an Application"
-When I click this link
-Then I am taken to the new application page where I see a form
-When I fill in this form with my:
-  - Name
-  - Street Address
-  - City
-  - State
-  - Zip Code
-And I click submit
-Then I am taken to the new application's show page
-And I see my Name, address information, and description of why I would make a good home
-And I see an indicator that this application is "In Progress"
+<p><h1> Adoption Application</h1></p>
+<hr>
+<%= form_with url: "/adopt_apps/new", method: :post, local: true do |form|  %>
+  <p><%= form.label :name %>
+  <%= form.text_field :name %></p>
+  <p><%= form.label :street_address %>
+  <%= form.text_field :street_address %></p>
+  <p><%= form.label :city %>
+  <%= form.text_field :city %></p>
+  <p><%= form.label :state %>
+  <%= form.text_field :state %></p>
+  <p><%= form.label :zip_code %>
+  <%= form.text_field :zip_code %></p>
+  <%= form.hidden_field :status, :value => "In Progress" %>
+  <%= form.submit "Submit" %>
+  
+<% end %>

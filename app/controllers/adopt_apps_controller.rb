@@ -15,4 +15,17 @@ class AdoptAppsController < ApplicationController
     end
     redirect_to "/adopt_apps/#{@adopt_app.id}"
   end
+
+  def create
+    app = AdoptApp.create(app_params)
+
+    redirect_to "/adopt_apps/#{app.id}"
+  end
+
+  private 
+  def app_params
+    params.permit(:id, :name, :street_address, :city, :state, :zip_code, :status)
+  end
+
+
 end
