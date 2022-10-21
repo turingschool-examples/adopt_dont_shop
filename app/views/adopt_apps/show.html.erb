@@ -9,6 +9,8 @@
 
 <% if @adopt_app.status == "In Progress" %>
   <br><%= form_with url: "/adopt_apps/#{@adopt_app.id}", method: :get, local: true do |form| %>
+<hr>
+<h3>  Add a Pet to this Application </h3> 
     <%= form.label(:search_pets, "Search pets by name:") %>
     <%= form.text_field(:search_pets) %>
     <%= form.submit("Search") %>
