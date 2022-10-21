@@ -17,7 +17,8 @@ class Shelter < ApplicationRecord
   end
 
   def self.reverse_alphabetize
-    order(name: :desc)
+    select("shelters.*")
+      .order("shelters.name DESC")
   end
 
   def pet_count
