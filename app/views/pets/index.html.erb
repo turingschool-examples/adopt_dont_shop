@@ -1,5 +1,6 @@
 <h1>All pets</h1>
-
+<%= button_to "Submit An Application", "/applications/new", method: :get %>
+<br>
 <%= form_with url: "/pets", method: :get, local: true do |f| %>
   <%= f.label :search %>
   <%= f.text_field :search %>

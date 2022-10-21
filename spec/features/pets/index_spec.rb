@@ -81,4 +81,10 @@ RSpec.describe 'the pets index' do
     expect(page).to have_content(pet_2.name)
     expect(page).to_not have_content(pet_3.name)
   end
+
+  it 'has a link for the user to submit an application' do 
+    visit '/pets'
+    click_button("Submit An Application")
+    expect(current_path).to eq("/applications/new")
+  end
 end
