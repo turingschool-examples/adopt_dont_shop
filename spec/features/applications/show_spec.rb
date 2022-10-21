@@ -18,13 +18,14 @@ RSpec.describe 'applications show page' do
     visit "/applications/#{@application_1.id}"
 
     expect(page).to have_content(@application_1.name)
-    expect(page).to have_content(@application_1.address)
+    expect(page).to have_content(@application_1.street_address)
+    expect(page).to have_content(@application_1.city)
+    expect(page).to have_content(@application_1.state)
+    expect(page).to have_content(@application_1.zip)
     expect(page).to have_content(@application_1.description)
-    expect(page).to have_content(@application_1.pets)
     expect(page).to have_content(@application_1.status)
 
     expect(page).to_not have_content(@application_2.name)
-    expect(page).to_not have_content(@application_2.address)
     
   end
 end
