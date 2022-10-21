@@ -8,4 +8,16 @@
 <h3>Applying For: <% @application.pets.each do |pet| %></h3>
   <%= pet.name %>  
 <%end %>
-
+<%if @application.status == "In Progress"%>
+  <h2>Add a Pet to this Application</h2>
+  <%=form_with url:"/applications/#{@application.id}", method: :get, local: true do |f|%>
+  <%=f.label :pet_search, "Search for a pet by name:"%>
+  <%=f.text_field :pet_search%>
+  <%=f.submit "Search"%>
+  <%end%>
+<%end%>
+<%if @search_pets%>
+  <%@search_pets.each do |pet|%>
+  <p><%=pet.name%></p>
+  <%end%>
+<%end%>
