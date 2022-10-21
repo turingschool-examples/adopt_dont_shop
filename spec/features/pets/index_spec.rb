@@ -81,4 +81,13 @@ RSpec.describe 'the pets index' do
     expect(page).to have_content(pet_2.name)
     expect(page).to_not have_content(pet_3.name)
   end
+
+  describe "US-2 Starting application" do 
+
+    it 'As a visitor, when i visit pet index, I see a link to " Start an Application" ' do 
+      visit '/pets'
+
+      expect(page).to have_link "Start an Application" 
+    end
+  end
 end
