@@ -21,6 +21,17 @@ RSpec.describe Application, type: :model do
         expect(application.list_incomplete_fields).to eq(["city", "state"])
       end
     end
+    describe '#has_pets_added?' do
+      it "returns true if the application has added pets" do
+        application = Application.create!(name: "Bob Smith", street_address: "1234 Easy St.", city: "Denver", state: "CO", zipcode: 80001, description: 'temp description', status: "In Progress")
+        shelter = Shelter.create!(foster_program: true, name: "Test Shelter", city: "Denver", rank: 3)
+        becky = shelter.pets.create!(adoptable: true, age: 8, breed: "Cavashon", name: "Becky")
+
+        ApplicationPet.create!(pet: becky, application: application)
+
+        expect(application.has_pets_added?).to eq(true)
+      end
+    end
   end
   describe "Class methods" do
   end

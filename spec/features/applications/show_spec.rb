@@ -61,7 +61,8 @@ RSpec.describe "Application Show Page" do
         # expect(page).to_not have_content(bean.age)
         expect(page).to_not have_content(bean.breed)
       end
-
+    end
+    describe "Adding pets" do
       it "can add pets to the application" do
         application = Application.create!(name: "Bob Smith", street_address: "1234 Easy St.", city: "Denver", state: "CO", zipcode: 80001, description: 'temp description', status: "In Progress")
         shelter = Shelter.create!(foster_program: true, name: "Test Shelter", city: "Denver", rank: 3)
@@ -73,12 +74,36 @@ RSpec.describe "Application Show Page" do
         click_button("Submit")
         expect(current_path).to eq("/applications/#{application.id}")
         expect(page).to have_button("Adopt this Pet")
+        # save_and_open_page
 
         click_button "Adopt this Pet"
         expect(current_path).to eq("/applications/#{application.id}")
         expect(page).to have_link("Becky")
         expect(page).to_not have_content(becky.breed)
 
+        # save_and_open_page
+      end
+    end
+    describe "Submitting the application" do
+      it "shows the application submission form if at least one pet is added" do
+        application = Application.create!(name: "Bob Smith", street_address: "1234 Easy St.", city: "Denver", state: "CO", zipcode: 80001, description: 'temp description', status: "In Progress")
+        shelter = Shelter.create!(foster_program: true, name: "Test Shelter", city: "Denver", rank: 3)
+        becky = shelter.pets.create!(adoptable: true, age: 8, breed: "Cavashon", name: "Becky")
+        bean = shelter.pets.create!(adoptable: true, age: 3, breed: "Bulldog", name: "Bean")
+        visit "/applications/#{application.id}"
+
+        fill_in(:name, with: "Becky")
+        click_button("Submit")
+        click_button "Adopt this Pet"
+
+        expect(page).to have_content("Why I would make a good owner")
+        fill_in(:description, with: "Test Description")
+        click_button("Submit this application")
+
+        expect(current_path).to eq("/applications/#{application.id}")
+        expect(page).to have_content("Pending")
+
+        # expect(page).to have_content("Test Description")
       end
     end
   end

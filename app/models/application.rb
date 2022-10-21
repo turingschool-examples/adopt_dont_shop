@@ -4,7 +4,7 @@ class Application < ApplicationRecord
 
   def incomplete_form?
     #  binding.pry
-    self.name.blank? || self.street_address.blank? || self.city.blank? || self.state.blank? || self.zipcode.blank? || self.description.blank?
+    self.name.blank? || self.street_address.blank? || self.city.blank? || self.state.blank? || self.zipcode.blank? #|| self.description.blank?
   end
 
   def list_incomplete_fields
@@ -12,5 +12,9 @@ class Application < ApplicationRecord
     v.blank?
    end
    attribute_array.keys
+  end
+
+  def has_pets_added?
+    self.pets.length != 0
   end
 end

@@ -12,6 +12,10 @@ class ApplicationsController < ApplicationController
       pet = Pet.find(params[:adopt_pet])
       @application.pets << pet
     end
+
+    if params[:description].present?
+      @application.status = "Pending"
+    end
   end
 
   def new
@@ -27,8 +31,6 @@ class ApplicationsController < ApplicationController
       redirect_to "/applications/#{application.id}"
     end
   end
-
-
 
 private
   def application_params

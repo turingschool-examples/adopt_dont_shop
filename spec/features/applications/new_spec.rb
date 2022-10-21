@@ -31,7 +31,7 @@ RSpec.describe 'New application page' do
     fill_in(:city, with: 'Denver')
     fill_in('State', with: 'CO')
     fill_in(:zipcode, with: 10005)
-    fill_in(:description, with: "test description")
+    # fill_in(:description, with: "test description")
 
     click_button('Submit')
 
@@ -45,7 +45,7 @@ RSpec.describe 'New application page' do
     fill_in(:street_address, with: '123 Test Street')
     fill_in(:city, with: 'Denver')
     fill_in('State', with: 'CO')
-    fill_in(:description, with: "test description")
+    # fill_in(:description, with: "test description")
     click_button('Submit')
 
     expect(current_path).to eq("/applications/new")
