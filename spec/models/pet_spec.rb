@@ -32,6 +32,8 @@ RSpec.describe Pet, type: :model do
         expect(Pet.adoptable).to eq([@pet_1, @pet_2])
       end
     end
+
+    
   end
 
   describe 'instance methods' do
