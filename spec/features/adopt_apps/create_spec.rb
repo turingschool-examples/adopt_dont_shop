@@ -28,6 +28,8 @@ RSpec.describe 'Application creation' do
         app = AdoptApp.last 
         expect(page).to have_current_path("/adopt_apps/#{app.id}")
         expect(page).to have_content('Kristen Nestler')
+        expect(page).to have_content('In Progress')
+
       end
     end
   end

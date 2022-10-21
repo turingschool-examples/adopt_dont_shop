@@ -11,7 +11,7 @@
   <%= form.text_field :state %></p>
   <p><%= form.label :zip_code %>
   <%= form.text_field :zip_code %></p>
-
+  <%= form.hidden_field :status, :value => "In Progress" %>
   <%= form.submit "Submit" %>
   
 <% end %>
