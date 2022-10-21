@@ -14,6 +14,6 @@ class Pet < ApplicationRecord
   end
 
   def self.pet_name_filter(input)
-    where(name: input)
+    where("name LIKE ?", "%#{input}%")
   end
 end
