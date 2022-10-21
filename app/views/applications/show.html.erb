@@ -3,3 +3,19 @@
 <p>Street Address: <%= @app.street_address %>, <%= @app.city %>, <%= @app.state %> <%= @app.zipcode %></p>
 <p>Description: <%= @app.description %></p>
 <p>Status: <%= @app.status %></p>
+<p>-----------------------------------------</p>
+<h2>ADD A PET</h2>
+<%= form_with url: "/applications/#{@app.id}", method: :get, local: true do |form| %>
+  <%= label_tag(:search, "Search for Pets by Name:") %>
+  <%= text_field_tag :search, params[:search] %>
+  <%= form.submit("Submit") %>
+<% end %>
+<% if params[:search] %>
+<% @pets = Pet.pet_name_filter(params[:search]) %>
+  <% @pets.each do |pet| %>
+    <h3>Name: <%= pet.name %></h3>
+    <p>Age: <%= pet.age %></p>
+    <p>Breed: <%= pet.breed %></p>
+    <p><%= pet.adoptable %></p>
+  <% end %>
+<% end %>
