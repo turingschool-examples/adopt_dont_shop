@@ -19,10 +19,11 @@ RSpec.describe 'the new application page' do
       fill_in :zip_code, with: 80230
       fill_in :status, with: "In Progress" 
       fill_in :description, with: "I like dogs"
-      click_button("Submit New Application")
+      click_button("Submit Application")
       new_application_id = Application.last.id 
       expect(current_path).to eq("/applications/#{new_application_id}")
       visit "/applications/#{new_application_id}"
+      save_and_open_page
     end 
   end 
 end 
