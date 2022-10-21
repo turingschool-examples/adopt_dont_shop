@@ -49,6 +49,14 @@ RSpec.describe Pet, type: :model do
 
         expect(Pet.pet_name_filter("fluff")).to eq([fluff, mr_fluff, fluffy])
       end
+
+      it 'returns case insensitive matches for pet names' do
+        fluff = @shelter.pets.create!(name: 'FLUFF', age: 6, breed: 'Chihuahua', adoptable: true)
+        mr_fluff = @shelter.pets.create!(name: 'Mr. FlUfF', age: 2, breed: 'Dalmation', adoptable: true)
+        fluffy = @shelter.pets.create!(name: 'Fluffy', age: 1, breed: 'Chihuahua', adoptable: true)
+
+        expect(Pet.pet_name_filter("fluff")).to eq([fluff, mr_fluff, fluffy])
+      end
     end
   end
 
