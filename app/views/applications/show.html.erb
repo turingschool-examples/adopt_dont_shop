@@ -22,13 +22,15 @@
   <%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |form| %>
     <%= form.label "Name" %>
     <%= form.text_field :name %>
-
     <%= form.submit "Submit" %>
   <% end %>
 <% end %>
 
 <% @pets.each do |pet| %>
-  <p><%= pet.name %></p>
+  <p>
+  <%= pet.name %>
+  <%= button_to "Adopt this Pet", "/applications/#{@application.id}", method: :get, params: {adopt_pet: pet.id} %>
+  </p>
   <p>Breed: <%= pet.breed %></p>
   <p>Age: <%= pet.age %></p>
 <% end %>
