@@ -12,4 +12,5 @@ shelter = Shelter.create!(name: 'Mystery Building', city: 'Irvine CA', foster_pr
 
 scooby = shelter.pets.create!(name: 'Scooby', age: 2, breed: 'Great Dane', adoptable: true)
 sm_scooby = shelter.pets.create!(name: 'Scooby', age: 6, breed: 'Chihuahua', adoptable: true)
+other_scooby = shelter.pets.create!(name: 'mr. scooby', age: 1, breed: 'Dalmation', adoptable: true)
 scrappy = shelter.pets.create(name: 'Scrappy', age: 1, breed: 'Great Dane', adoptable: true)

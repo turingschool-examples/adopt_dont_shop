@@ -41,6 +41,22 @@ RSpec.describe Pet, type: :model do
       it 'returns all of the pets with a specific name' do
         expect(Pet.pet_name_filter("Scooby")).to eq([@scooby, @sm_scooby])
       end
+
+      it 'returns all pets partial matches to the name searched' do
+        fluff = @shelter.pets.create!(name: 'fluff', age: 6, breed: 'Chihuahua', adoptable: true)
+        mr_fluff = @shelter.pets.create!(name: 'mr. fluff', age: 2, breed: 'Dalmation', adoptable: true)
+        fluffy = @shelter.pets.create!(name: 'fluffy', age: 1, breed: 'Chihuahua', adoptable: true)
+
+        expect(Pet.pet_name_filter("fluff")).to eq([fluff, mr_fluff, fluffy])
+      end
+
+      it 'returns case insensitive matches for pet names' do
+        fluff = @shelter.pets.create!(name: 'FLUFF', age: 6, breed: 'Chihuahua', adoptable: true)
+        mr_fluff = @shelter.pets.create!(name: 'Mr. FlUfF', age: 2, breed: 'Dalmation', adoptable: true)
+        fluffy = @shelter.pets.create!(name: 'Fluffy', age: 1, breed: 'Chihuahua', adoptable: true)
+
+        expect(Pet.pet_name_filter("fluff")).to eq([fluff, mr_fluff, fluffy])
+      end
     end
   end
 
