@@ -46,6 +46,10 @@
 
 <%end %>
 
-<%if flash[:messages]%>
-  <h2><%= flash[:messages]%></h2>
-<%end %>
+<% if flash[:messages] %>
+  <h2>Error: Please fill out all fields</h2>
+  <% flash[:messages].each do |message| %>
+    <h4><%= message%></h4>
+  <%end %>
+
+<% end %>

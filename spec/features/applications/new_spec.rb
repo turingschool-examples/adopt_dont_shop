@@ -39,10 +39,10 @@ RSpec.describe 'the new application page' do
       fill_in :zip_code, with: 80230
       fill_in :description, with: "I like dogs"
       click_button("Submit Application")
-      new_application_id = Application.last.id 
-      expect(current_path).to eq('applications/new')
+      # new_application_id = Application.last.id 
+      expect(current_path).to eq('/applications/create/')
 
-      # expect(page).to have_content("You must fill in all fields!")
+      expect(page).to have_content("Error: Please fill out all fields")
 
     end
   end 
