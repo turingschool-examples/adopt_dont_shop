@@ -43,8 +43,6 @@ RSpec.describe 'Application creation' do
         click_button "Submit"
 
         expect(current_path).to eq('/adopt_apps/new')
-        save_and_open_page
-
         expect(page).to have_content("State can't be blank")
         expect(page).to have_content("Zip code can't be blank")
       end
