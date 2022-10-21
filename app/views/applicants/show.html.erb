@@ -1,3 +1,12 @@
-<p><strong><center><%=@applicant.name%></center><strong><p>
-<p><strong>Street address:</strong> <%= @applicant.street_address %>, <%= @applicant.city %>, <%= @applicant.state %>, <%= @applicant.zip_code %></p>
-<p>Status<%= @applicant.status %>
+<center><h1>Applicants</h1></center>
+  <h3><center>Name: <%= @applicant.name %></center></h3>
+  <h5><center>Street Address: <%= @applicant.street_address %></center></h5>
+  <h5><center>City <%= @applicant.city %></center></h5>
+  <h5><center>State: <%= @applicant.state %></center></h5>
+  <h5><center>Zip Code: <%= @applicant.zip_code %></center></h5>
+  <h5><center>Description: <%= @applicant.description %></center></h5>
+  <h5><center>Status: <%= @applicant.status %></center></h5>
+  <p> <% @applicant.pets.each do |pet|%> </p>
+    <p><center><%= link_to "#{pet.name}", "/pets/#{pet.id}"%><p></center>
+  <% end %>
+

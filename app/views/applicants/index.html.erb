@@ -1,4 +1,9 @@
 <h1><center>Applicants<center></h1>
-<p><strong><center><%@applicant.name%></center><strong><p>
-<p><strong>Street address:</strong> <%= @applicant.street_address %>, <%= @applicant.city %>, <%= @applicant.state %>, <%= @applicant.zip_code %></p>
-<p>Status <%= @applicant.status %>
+<br>
+<br>
+<strong><center><% @applicants.each do |applicant| %>
+  <p><%= applicant.name%></strong></p>
+  <p><strong>Street address:</strong> <%= applicant.street_address %>, <%= applicant.city %>, <%= applicant.state %>, <%= applicant.zip_code %></p>
+  <p><strong>Status:</strong> <%= applicant.status %> </p></center>
+  <hr>
+<% end %>
