@@ -4,8 +4,14 @@ class ApplicantsController < ApplicationController
     end
 
     def create
-      @applicant = Applicant.create!(applicant_params)
-      redirect_to "/applicants/#{@applicant.id}"
+      applicant = Applicant.new(applicant_params)
+
+      if applicant.save
+        redirect_to "/applicants/#{applicant.id}"
+      else 
+        redirect_to "/applicants/new"
+        flash[:alert] = "Error: #{error_message(applicant.errors)}"
+      end
     end
 
     private

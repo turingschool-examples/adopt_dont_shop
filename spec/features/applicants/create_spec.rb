@@ -42,4 +42,23 @@ RSpec.describe  'application creation' do
       expect(page).to have_content("In Progress")
       
     end
+    
+    # 3.Starting an Application, Form not Completed
+    # As a visitor
+    # When I visit the new application page
+    # And I fail to fill in any of the form fields
+    # And I click submit
+    # Then I am taken back to the new applications page
+    # And I see a message that I must fill in those fields.
+
+    describe 'given invalid data' do
+      it 're-renders the new form' do
+        visit "/applicants/new"
+
+        click_button 'Submit'
+        expect(page).to have_current_path("/applicants/new")
+        expect(page).to have_content("Error: Name can't be blank, Street address can't be blank, City can't be blank, State can't be blank, Zip can't be blank, Good fit can't be blank")
+     
+      end
+    end 
 end
