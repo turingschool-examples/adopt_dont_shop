@@ -447,3 +447,39 @@ _Note: It is recommended that these extensions only be attempted after ALL user 
 
 Implement a CSS Grid Framework to improve your styling, either [CSS Grid Layout](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout) or [Bootstrap](https://getbootstrap.com/).
 
+
+
+COMMENTS SECTION:
+
+Ruby 2.7.4
+Rails 5.2.8.1
+
+Gems:
+"capybara"
+"shoulda-matchers"
+"launchy"
+"orderly"
+"pry"
+"rspec-rails"
+"simplecov"
+
+
+To run:
+  run bundle install
+  run rails db:{drop,create,migrate,seed}
+
+Heroku site:
+
+
+Relationship Schema:
+
+<br/>
+<div align="center">
+  <a href="https://github.com/DarbySmith/adopt_dont_shop">
+    <img src="db/images/relationship_schema.png" alt="Relationships Schema" width="375" height="450">
+  </a>
+  <br/>
+
+
+
+
