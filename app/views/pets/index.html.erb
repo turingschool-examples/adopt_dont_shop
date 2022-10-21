@@ -1,10 +1,20 @@
 <h1>All Pets</h1>
-
+<%# 
 <%= form_with url: "/pets", method: :get, local: true do |f| %>
-  <%= f.label :search %>
-  <%= f.text_field :search %>
-  <%= f.submit "Search" %>
+  <%# <%= f.label :search %>
+  <%# <%= f.text_field :search %>
+  <%# <%= f.submit "Search" %>
+<%# <% end %> 
+
+
+<%= form_tag "/pets", method: "GET" do %>
+  <%= label_tag :search_by_breed %>
+  <%= text_field_tag :search_by_breed, params[:search_by_breed] %>
+  <%= label_tag :search_by_age %>
+  <%= text_field_tag :search_by_age, params[:search_by_age] %>
+  <%= submit_tag "Search" %>
 <% end %>
+
 
 
 <% @pets.each do |pet| %>
