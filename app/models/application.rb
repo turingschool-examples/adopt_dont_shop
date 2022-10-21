@@ -8,5 +8,5 @@ class Application < ApplicationRecord
   validates :zip_code, presence: true
   validates :status, presence: true
   validates :description, presence: true
-
+  # accepts_nested_attributes_for :reject_if => lambda { |a| a[:content].blank? }
 end
