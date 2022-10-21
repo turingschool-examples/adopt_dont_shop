@@ -1,16 +1,16 @@
 <p><h1> Adoption Application</h1></p>
 <hr>
 <%= form_with url: "/adopt_apps/new", method: :post, local: true do |form|  %>
-  <p><%= form.label :Name %>
-  <%= form.text_field :Name %></p>
-  <p><%= form.label :Street_Address %>
-  <%= form.text_field :Street_Address %></p>
-  <p><%= form.label :City %>
-  <%= form.text_field :City %></p>
-  <p><%= form.label :State %>
-  <%= form.text_field :State %></p>
-  <p><%= form.label :Zip_Code %>
-  <%= form.text_field :Zip_Code %></p>
+  <p><%= form.label :name %>
+  <%= form.text_field :name %></p>
+  <p><%= form.label :street_address %>
+  <%= form.text_field :street_address %></p>
+  <p><%= form.label :city %>
+  <%= form.text_field :city %></p>
+  <p><%= form.label :state %>
+  <%= form.text_field :state %></p>
+  <p><%= form.label :zip_code %>
+  <%= form.text_field :zip_code %></p>
   <%= form.submit "Submit" %>
   
 <% end %>

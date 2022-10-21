@@ -13,11 +13,10 @@ RSpec.describe 'Application creation' do
     end
   end
 
-  describe 'the shelter create' do
+  describe 'the application create' do
     context 'given valid data' do
-      it 'creates the shelter' do
+      it 'creates the application' do
         visit '/adopt_apps/new'
-save_and_open_page
 
         fill_in 'Name', with: 'Kristen Nestler'
         fill_in 'Street address', with: '111 N. Broadway, E11'
@@ -26,23 +25,11 @@ save_and_open_page
         fill_in 'Zip code', with: '10603'
         click_button "Submit"
 
-        app = AdoptApp.where(name:"Kristen Nestler")
+        app = AdoptApp.last 
         expect(page).to have_current_path("/adopt_apps/#{app.id}")
         expect(page).to have_content('Kristen Nestler')
       end
     end
   end
 
-  #   context 'given invalid data' do
-  #     it 're-renders the new form' do
-  #       visit '/shelters/new'
-  #       click_button 'Save'
-
-  #       fill_in 'City', with: 'Houston'
-
-  #       expect(page).to have_content("Error: Name can't be blank, Rank can't be blank, Rank is not a number")
-  #       expect(page).to have_current_path('/shelters/new')
-  #     end
-  #   end
-  # end
 end
