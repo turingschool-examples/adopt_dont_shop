@@ -13,7 +13,10 @@
   <section id="application-<%= pet.id %>">
     <%= pet.id %>
     <%= pet.name %>
-    <%= button_to "Adopt this Pet", "/applications/#{@application.id}/edit"%>
+    <%= form_with url: "/applications/#{@application.id}", method: :post, local: true do |f| %>
+      <%= f.hidden_field :pet, value: pet %>
+      <%= f.submit "Adopt this Pet" %>
+    <% end %>
   </section>
   <% end %>
 <% end %>
@@ -26,4 +29,7 @@
 <%= @application.zip %> </p>
 <p> Why I would make a good home for this pet: <%= @application.description %> </p>
 <p> Application Status: <%= @application.status %> </p>
+<% if @pet.present? %>
+  <p>Adoption Interests: <%= @pet.name %></p>
+<% end %>
 

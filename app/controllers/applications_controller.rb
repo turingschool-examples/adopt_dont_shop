@@ -5,6 +5,10 @@ class ApplicationsController < ApplicationController
     if params[:search].present?
       @pets = Pet.search(params[:search])
     end
+    if params[:pet].present?
+      require 'pry'; binding.pry
+      @pet = Pet.find(params[:pet])
+    end
   end
 
   def new
@@ -22,7 +26,7 @@ class ApplicationsController < ApplicationController
 
   def edit
     @application = Application.find(params[:id])
-    render "show"
+    # render "show"
   end
 
   private
