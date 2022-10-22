@@ -2,3 +2,9 @@
 <% @shelters.each do |shelter| %>
   <p><%= shelter.name %></p>
 <% end %>
+<br>
+<h4><%= "Shelters with Pending Applications:" %></h4>
+<% @shelters.each do |shelter| %>
+<p><%= shelter.name if shelter.pending_applications? == true%></p>
+<% end %>
+
