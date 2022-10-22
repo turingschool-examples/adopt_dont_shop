@@ -25,25 +25,43 @@ RSpec.describe "application show page", type: :feature do
     end
 
     describe 'when the application has not been submitted, I see a section on the
-      page to add a pet to the application' do 
+    page to add a pet to the application' do 
       it 'has an input where I can search for pets by name. when I fill in this field
-          with a pets name and I click submit, I am redirected back to the application 
-          show page. under the search bar, I see any pet whose name matches my search' do
-            visit "/applications/#{@app.id}"
+      with a pets name and I click submit, I am redirected back to the application 
+      show page. under the search bar, I see any pet whose name matches my search' do
+        visit "/applications/#{@app.id}"
             
-            within("#add_pet")
-            fill_in 'Search for Pets by Name', with: 'Scooby'
+        within("#add_pet")
+        fill_in 'Search for Pets by Name', with: 'Scooby'
             
-            click_button('Submit') 
-            expect(current_path).to eq("/applications/#{@app.id}")
-            expect(page).to have_content(@scooby.name)
-            expect(page).to have_content(@scooby.age)
-            expect(page).to have_content(@scooby.breed)
-            expect(page).to have_content(@scooby.adoptable)
-            expect(page).to have_content(@sm_scooby.name)
-            expect(page).to have_content(@sm_scooby.age)
-            expect(page).to have_content(@sm_scooby.breed)
-            expect(page).to have_content(@sm_scooby.adoptable)
+        click_button('Submit') 
+        expect(current_path).to eq("/applications/#{@app.id}")
+        expect(page).to have_content(@scooby.name)
+        expect(page).to have_content(@scooby.age)
+        expect(page).to have_content(@scooby.breed)
+        expect(page).to have_content(@scooby.adoptable)
+        expect(page).to have_content(@sm_scooby.name)
+        expect(page).to have_content(@sm_scooby.age)
+        expect(page).to have_content(@sm_scooby.breed)
+        expect(page).to have_content(@sm_scooby.adoptable)
+      end
+    end
+
+    describe 'when I see the names of pets that match my search' do 
+      it 'has a button next to each pets name to (adopt this pet)' do
+        visit "/applications/#{@app.id}"
+
+        within("#add_pet")
+        fill_in 'Search for Pets by Name', with: 'Scooby'
+            
+        click_button('Submit') 
+        expect(current_path).to eq("/applications/#{@app.id}")
+        expect(page).to have_selector(:link_or_button, 'ADOPT THIS PET')
+      end
+
+      xit 'when I click one of these buttons, I am taken back to the application show page and the pet I 
+      want to adopt is listed on this application' do
+
       end
     end
   end
