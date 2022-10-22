@@ -1,0 +1,8 @@
+<h1> <%= @application.applicant %>'s Application </h1>
+<p> Reason: <%= @application.reason %> </p>
+<p> Address: <%= @application.address %> </p>
+<p> Status: <%= @application.status %> </p>
+<h3> Pets: </h3>
+<% @application.pets.each do |pet| %>
+<p> <%= pet.name %> </p>
+<% end %>
