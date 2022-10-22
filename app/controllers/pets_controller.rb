@@ -19,9 +19,9 @@ class PetsController < ApplicationController
     pet = Pet.new(pet_params)
 
     if pet.save
-      redirect_to "/shelters/#{pet_params[:shelter_id]}/pets"
+      redirect_to("/shelters/#{pet_params[:shelter_id]}/pets")
     else
-      redirect_to "/shelters/#{pet_params[:shelter_id]}/pets/new"
+      redirect_to("/shelters/#{pet_params[:shelter_id]}/pets/new")
       flash[:alert] = "Error: #{error_message(pet.errors)}"
     end
   end
@@ -32,17 +32,18 @@ class PetsController < ApplicationController
 
   def update
     pet = Pet.find(params[:id])
+
     if pet.update(pet_params)
-      redirect_to "/pets/#{pet.id}"
+      redirect_to("/pets/#{pet.id}")
     else
-      redirect_to "/pets/#{pet.id}/edit"
+      redirect_to("/pets/#{pet.id}/edit")
       flash[:alert] = "Error: #{error_message(pet.errors)}"
     end
   end
 
   def destroy
     Pet.find(params[:id]).destroy
-    redirect_to '/pets'
+    redirect_to("/pets")
   end
 
   private

@@ -7,8 +7,17 @@
   <ul>Zip Code <b><%= @application.zip_code %></b></ul>
   <ul>Description <b><%= @application.description %></b></ul>
   <ul>Status <b><%= @application.status %></b></ul>
-  
+
    <% @application.pets.each do |pet| %>
-      <h3>Desired Pet</h3> 
+      <h3>Desired Pet</h3>
+
       <ol><%= link_to "#{pet.name}", "/pets/#{pet.id}" %></ol>
    <% end %>
+   <h4>Add a Pet to this application: </h4>
+
+   <%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |f| %>
+     <%= f.label :search,"search by name"%>
+    <%= text_field_tag :search, params[:search]" %>
+     <%= f.submit "Search" %>
+
+<% end %>
