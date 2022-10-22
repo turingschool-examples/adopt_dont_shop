@@ -3,7 +3,7 @@ class ApplicationsController < ApplicationController
     @application = Application.find(params[:id])
 
     if params[:name].present?
-      @pets = Pet.search(params[:name])
+      @pets = Pet.where("Name ILIKE ?", "%#{params[:name]}%")
     else
       @pets = []
     end
