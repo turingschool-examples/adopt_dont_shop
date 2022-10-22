@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'Pet Edit' do
-  xit "shows the veterinarian edit form" do
+  it "shows the veterinarian edit form" do
     shelter = Shelter.create(name: 'Hollywood shelter', city: 'Irvine, CA', foster_program: false, rank: 7)
     pet = Pet.create(adoptable: true, age: 1, breed: 'sphynx', name: 'George Hairlesson', shelter_id: shelter.id)
 
@@ -14,7 +14,7 @@ RSpec.describe 'Pet Edit' do
   end
 
   context "given valid data" do
-    xit "submits the edit form and updates the veterinarian" do
+    it "submits the edit form and updates the veterinarian" do
       shelter = Shelter.create(name: 'Heavenly pets', city: 'Aurora, CO', foster_program: true, rank: 7)
       pet = Pet.create(adoptable: true, age: 3, breed: 'GSD', name: 'Charlie', shelter_id: shelter.id)
 
@@ -32,7 +32,7 @@ RSpec.describe 'Pet Edit' do
   end
 
   context "given invalid data" do
-    xit 're-renders the edit form' do
+    it 're-renders the edit form' do
       shelter = Shelter.create(name: 'Heavenly pets', city: 'Aurora, CO', foster_program: false, rank: 7)
       pet = Pet.create(adoptable: false, age: 3, breed: 'Whippet', name: 'Annabelle', shelter_id: shelter.id)
 

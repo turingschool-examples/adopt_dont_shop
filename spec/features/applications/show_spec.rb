@@ -11,9 +11,8 @@ RSpec.describe 'Application Show' do
   end
 
   it 'lists the select application with its attributes' do
-    # binding.pry
     visit "/applications/#{@app_1.id}"
-    save_and_open_page
+
     expect(page).to have_content(@pet_1.name)
     expect(page).to have_content(@pet_2.name)
   end

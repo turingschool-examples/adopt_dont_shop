@@ -35,8 +35,10 @@ RSpec.describe 'Application New' do
         it "I am taken to /applications/:id" do
           click_on "Submit"
 
-          expect(current_route).to eq("")
+          expect(current_path).to eq("/applications/#{Application.last[:id]}")
         end
+
+        it ""
       end
     end
   end
