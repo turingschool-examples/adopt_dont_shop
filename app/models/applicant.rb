@@ -7,4 +7,8 @@ class Applicant < ApplicationRecord
     validates :good_fit, presence: true
     has_many :pet_applicants
     has_many :pets, through: :pet_applicants
+
+    def add_pet(id)
+        pets << Pet.find(id)
+    end
 end

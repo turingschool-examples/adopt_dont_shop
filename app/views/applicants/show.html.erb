@@ -5,6 +5,21 @@
 <h3><%= @applicant.zip %></h3>
 <h3><%= @applicant.good_fit %></h3>
 <h3><%= @applicant.status %></h3>
+
+<h3>Pets Applied For:</h3>
 <h3><% @applicant.pets.each do |pet| %></h3>
   <p><%= link_to "#{pet.name}", "/pets/#{pet.id}" %></p>
 <%end%>
+
+<h2>Add a Pet to this Application</h2>
+
+<%= form_with url: "/applicants/#{@applicant.id}", local: true do |f| %>
+  <%= f.label :search %>
+  <%= f.text_field :search %>
+  <%= f.submit "Search Pets" %>
+<% end %>
+
+<% @pets.each do |pet| %>
+  <p><%= "#{pet.name} - #{pet.breed}" %>
+  <%= button_to "Adopt this Pet", { add_pet: pet.id } %></p>
+<% end %>
