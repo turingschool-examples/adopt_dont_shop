@@ -30,7 +30,7 @@ RSpec.describe 'Application New' do
           fill_in :city, with: "AnyTown"
           fill_in :state, with: "AnyState"
           fill_in :zip, with: "86753"
-          # fill_in :good_home, with: "Its the best of homes"
+          fill_in :description, with: "Its the best of homes"
         end
         it "I am taken to /applications/:id" do
           click_on "Submit"
@@ -38,7 +38,11 @@ RSpec.describe 'Application New' do
           expect(current_path).to eq("/applications/#{Application.last[:id]}")
         end
 
-        it ""
+        it "see an indicatior that this application is 'In Progress'" do
+          click_on "Submit"
+          save_and_open_page
+          expect(page).to have_content("In Progress")
+        end
       end
     end
   end

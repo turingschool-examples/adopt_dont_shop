@@ -1,5 +1,6 @@
 <h1>New Application</h1>
 <%= form_with url:'/applications', method: :post, local: true do |form| %>
+  <%= form.hidden_field :status, value: "In Progress" %>
   <p>Name:</p>
   <%=form.label :first, 'First:'%>
   <%=form.text_field :first %><br>
@@ -14,5 +15,7 @@
   <%=form.text_field :state %><br>
   <%=form.label :zip, 'Zipcode:'%>
   <%=form.text_field :zip %>
+  <%=form.label :description, 'Tell us about your home:'%>
+  <%=form.text_area :description, size: "70x5" %>
   <p><%=form.submit 'Submit'%></p>
 <%end%>
