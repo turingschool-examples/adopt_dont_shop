@@ -21,7 +21,7 @@
 
 <%if @search_pets%>
   <%@search_pets.each do |pet|%>
-    <p><%=pet.name%><%= button_to "Adopt #{pet.name}", "/applications/#{@application.id}?pets=#{pet.name}", method: :patch %></p>
+    <p><%=pet.name%><%= button_to "Adopt #{pet.name}", "/pet_applications?application_id=#{@application.id}&pet_id=#{pet.id}", method: :post %></p>
   <%end %>
 <%end %>  
 

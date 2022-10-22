@@ -87,15 +87,19 @@ RSpec.describe 'the applications show page' do
           pet_2 = shelter.pets.create!(adoptable: true, age: 2, breed: 'american shorthair', name: 'Lucky')
           pet_3 = shelter.pets.create!(adoptable: true, age: 5, breed: 'labrador', name: 'Ted')
           application_1 = Application.create!(name: "Taylor Swift", street_address: "22 Blank Space Ln", city: "Denver", state: "CO", zip_code: 80230, status: "In-Progress", description: "I love cats")
-          pet_app = PetApplication.create(pet: pet_1, application: application_1)
+
           visit "/applications/#{application_1.id}"
+
+          expect(page).not_to have_content("Applying For: Lucille Bald")
+
           fill_in 'pet_search', with: 'luc'
           click_button 'Search'
-          expect(page).to have_content("Lucille Bald")
 
-          click_button "Adopt #{pet_app.pet.name}"
+          expect(page).to have_content("Lucille Bald")
+          
+          click_button "Adopt #{pet_1.name}"
+          
           expect(page).to have_content("Applying For: Lucille Bald")
-          save_and_open_page
         end
       end
     end
