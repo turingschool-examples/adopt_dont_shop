@@ -31,8 +31,12 @@ class PetsController < ApplicationController
   end
 
   private
-
   def pet_params
     params.permit(:id, :name, :age, :breed, :adoptable, :shelter_id)
+  end
+
+  private
+  def error_message(errors)
+    errors.full_messages.join(', ')
   end
 end
