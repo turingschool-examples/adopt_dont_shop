@@ -13,8 +13,8 @@
   <section id="application-<%= pet.id %>">
     <%= pet.id %>
     <%= pet.name %>
-    <%= form_with url: "/applications/#{@application.id}", method: :post, local: true do |f| %>
-      <%= f.hidden_field :pet, value: pet %>
+    <%= form_with url: "/applications/#{@application.id}", method: :patch, local: true do |f| %>
+      <%= f.hidden_field :pet, value: pet.id %>
       <%= f.submit "Adopt this Pet" %>
     <% end %>
   </section>
@@ -29,7 +29,8 @@
 <%= @application.zip %> </p>
 <p> Why I would make a good home for this pet: <%= @application.description %> </p>
 <p> Application Status: <%= @application.status %> </p>
-<% if @pet.present? %>
-  <p>Adoption Interests: <%= @pet.name %></p>
+<% if !@app_pets.nil? %>
+  <% @app_pets.each do |app_pet| %>
+  <p>Adoption Interest: <%= app_pet.pet.name %></p>
+  <% end %>
 <% end %>
-

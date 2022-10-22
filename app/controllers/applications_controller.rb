@@ -5,10 +5,7 @@ class ApplicationsController < ApplicationController
     if params[:search].present?
       @pets = Pet.search(params[:search])
     end
-    if params[:pet].present?
-      require 'pry'; binding.pry
-      @pet = Pet.find(params[:pet])
-    end
+    @app_pets = @application.application_pets
   end
 
   def new
@@ -24,9 +21,13 @@ class ApplicationsController < ApplicationController
     end
   end
 
-  def edit
+  def update
     @application = Application.find(params[:id])
-    # render "show"
+    if params[:pet].present?
+      @pet = Pet.find(params[:pet])
+    end
+    ApplicationPet.create!(application: @application, pet: @pet)
+    redirect_to "/applications/#{@application.id}"
   end
 
   private
