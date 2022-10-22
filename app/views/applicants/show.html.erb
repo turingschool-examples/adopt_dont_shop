@@ -4,22 +4,38 @@
 <h3><%= @applicant.state %></h3>
 <h3><%= @applicant.zip %></h3>
 <h3><%= @applicant.good_fit %></h3>
-<h3><%= @applicant.status %></h3>
+<h3>Status: <%= @applicant.status %></h3>
 
 <h3>Pets Applied For:</h3>
 <h3><% @applicant.pets.each do |pet| %></h3>
   <p><%= link_to "#{pet.name}", "/pets/#{pet.id}" %></p>
 <%end%>
 
-<h2>Add a Pet to this Application</h2>
+<!-- This shouldn't show up if no pets on application -->
+<% if @applicant.pets? && @applicant.status == 'In Progress' %>
+  <h2>Submit Application:</h2>
+  <%= form_with url: "/applicants/#{@applicant.id}", method: :patch, local: true do |f| %>
+    <%= f.label :good_fit, "Why are you a good fit?" %>
+    <%= f.text_field :good_fit %>
 
-<%= form_with url: "/applicants/#{@applicant.id}", local: true do |f| %>
-  <%= f.label :search %>
-  <%= f.text_field :search %>
-  <%= f.submit "Search Pets" %>
+    <%= f.label :status %>
+    <%= f.hidden_field :status, value: "Pending" %>
+
+    <%= f.submit "Submit Application" %>
+  <% end %>
 <% end %>
 
-<% @pets.each do |pet| %>
-  <p><%= "#{pet.name} - #{pet.breed}" %>
-  <%= button_to "Adopt this Pet", { add_pet: pet.id } %></p>
+<% if @applicant.status == 'In Progress' %>
+  <h2>Add a Pet to this Application</h2>
+
+  <%= form_with url: "/applicants/#{@applicant.id}", local: true do |f| %>
+    <%= f.label :search %>
+    <%= f.text_field :search %>
+    <%= f.submit "Search Pets" %>
+  <% end %>
+
+  <% @pets.each do |pet| %>
+    <p><%= "#{pet.name} - #{pet.breed}" %>
+    <%= button_to "Adopt this Pet", { add_pet: pet.id } %></p>
+  <% end %>
 <% end %>
