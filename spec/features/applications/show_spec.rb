@@ -16,7 +16,7 @@ RSpec.describe 'applications show page' do
   it 'it shows details of the application' do
     
     visit "/applications/#{@application_1.id}"
-
+    
     expect(page).to have_content(@application_1.name)
     expect(page).to have_content(@application_1.street_address)
     expect(page).to have_content(@application_1.city)
@@ -24,8 +24,19 @@ RSpec.describe 'applications show page' do
     expect(page).to have_content(@application_1.zip)
     expect(page).to have_content(@application_1.description)
     expect(page).to have_content(@application_1.status)
-
-    expect(page).to_not have_content(@application_2.name)
     
+    expect(page).to_not have_content(@application_2.name)
+  end
+  
+  it 'shows a search field to add pets to an applicaiton' do
+    visit "/applications/#{@application_1.id}"
+    
+    fill_in 'Search', with: 'Lo'
+    click_on 'Search'
+
+    expect(page).to have_content(@pet_2.name)
+    
+    expect(page).to_not have_content(@pet_1.name)
+    expect(page).to_not have_content(@pet_3.name)
   end
 end
