@@ -105,12 +105,14 @@ RSpec.describe 'the pets index' do
 
     click_on "Submit"
 
-    expect(current_path).to eq("/applications/#{applications.last.id}") # refactor into model method possibly (to pull last applicant id)
-    expect(page).to have_content(applications.last.name)
-    expect(page).to have_content(applications.last.street_address)
-    expect(page).to have_content(applications.last.city)
-    expect(page).to have_content(applications.last.state)
-    expect(page).to have_content(applications.last.zip)
+    expect(current_path).to eq("/applications/#{Application.last.id}") # refactor into model method possibly (to pull last applicant id)
+    expect(page).to have_content(Application.last.name)
+    expect(page).to have_content(Application.last.street_address)
+    expect(page).to have_content(Application.last.city)
+    expect(page).to have_content(Application.last.state)
+    expect(page).to have_content(Application.last.zip)
     expect(page).to have_content("In Progress") # readdress later after user story 12
+
+    # move to the spec/applications/new_spec.rb
   end
 end
