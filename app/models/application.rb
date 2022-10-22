@@ -4,4 +4,8 @@ class Application < ApplicationRecord
   
   validates_presence_of :name, :street_address, :city, :state, :zip, :description
   
+  # def search_pet(search)
+  #   require 'pry'; binding.pry
+  #   find
+  # end
 end
