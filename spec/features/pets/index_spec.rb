@@ -66,7 +66,7 @@ RSpec.describe 'the pets index' do
     expect(page).to have_button("Search")
   end
   
-  describe "" do
+  describe "Story 2-link to start application" do
     before(:each) do
       @smithers_application = Application.create!(    name: "Smithers",     street_address: "99 Higgins Estate",     city: "Springfield",     state: "IL",     zip_code: 90597,     description: "I have a lot of land and no friends",     status: "In Progress")
       @homer_application = Application.create!(    name: "Homer",     street_address: "24 East Ridge",     city: "Springfield",     state: "IL",     zip_code: 90597,     description: "since the drinking hole closed i have a lot of time on my hands and no friends",     status: "In Progress")
@@ -78,10 +78,10 @@ RSpec.describe 'the pets index' do
       @aurora = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
       @bare_y = Pet.create(adoptable: true, age: 7, breed: 'sphynx', name: 'Bare-y Manilow', shelter_id: @aurora.id)
       @babe = Pet.create(adoptable: true, age: 3, breed: 'domestic pig', name: 'Babe', shelter_id: @aurora.id)
-      @ella = Pet.create(adoptable: true, age: 4, breed: 'chihuahua', name: 'Elle', shelter_id: @aurora.id)
+      @elle = Pet.create(adoptable: true, age: 4, breed: 'chihuahua', name: 'Elle', shelter_id: @aurora.id)
     end
 
-    it 'lists partial matches as search results' do #inherited test
+    it 'inherited test-lists partial matches as search results' do #inherited test
       visit "/pets"
   
       fill_in 'Search', with: "Ba"
@@ -89,9 +89,21 @@ RSpec.describe 'the pets index' do
   
       expect(page).to have_content(@bare_y.name)
       expect(page).to have_content(@babe.name)
-      expect(page).to_not have_content(@ella .name)
+      expect(page).to_not have_content(@elle.name)
     end
 
+
+    it "has a link to 'Start an Application' on the pet index page" do
+      visit "/pets"
+
+      expect(page).to have_content('Start an Application')
+      save_and_open_page
+
+
+    end
+
+      # When I click this link
+# Then I am taken to the new application page 
 
   end
 
