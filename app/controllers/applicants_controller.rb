@@ -2,13 +2,18 @@ class ApplicantsController < ApplicationController
 
   def index
     @applicants = Applicant.all 
+
   end
 
   def show 
-    
     @applicant = Applicant.find(params[:id])
     @pets = Pet.all
-
+    if params[:search_name].present? 
+      @pets = Pet.search(params[:search_name])
+    else 
+      "doesn't work"
+    end
+     @applicant
   end
 
   def new 
