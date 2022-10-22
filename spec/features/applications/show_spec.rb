@@ -62,28 +62,55 @@ RSpec.describe "Application Show Page" do
         expect(page).to_not have_content(bean.breed)
       end
     end
+
     describe "Adding pets" do
+      before :each do
+        @application = Application.create!(name: "Bob Smith", street_address: "1234 Easy St.", city: "Denver", state: "CO", zipcode: 80001, description: 'temp description', status: "In Progress")
+        @shelter = Shelter.create!(foster_program: true, name: "Test Shelter", city: "Denver", rank: 3)
+        @becky = @shelter.pets.create!(adoptable: true, age: 8, breed: "Cavashon", name: "Becky")
+        @bean = @shelter.pets.create!(adoptable: true, age: 3, breed: "Bulldog", name: "Bean")
+      end
+
       it "can add pets to the application" do
-        application = Application.create!(name: "Bob Smith", street_address: "1234 Easy St.", city: "Denver", state: "CO", zipcode: 80001, description: 'temp description', status: "In Progress")
-        shelter = Shelter.create!(foster_program: true, name: "Test Shelter", city: "Denver", rank: 3)
-        becky = shelter.pets.create!(adoptable: true, age: 8, breed: "Cavashon", name: "Becky")
-        bean = shelter.pets.create!(adoptable: true, age: 3, breed: "Bulldog", name: "Bean")
-        visit "/applications/#{application.id}"
+        visit "/applications/#{@application.id}"
 
         fill_in(:name, with: "Becky")
         click_button("Submit")
-        expect(current_path).to eq("/applications/#{application.id}")
+        expect(current_path).to eq("/applications/#{@application.id}")
         expect(page).to have_button("Adopt this Pet")
         # save_and_open_page
 
         click_button "Adopt this Pet"
-        expect(current_path).to eq("/applications/#{application.id}")
+        expect(current_path).to eq("/applications/#{@application.id}")
         expect(page).to have_link("Becky")
-        expect(page).to_not have_content(becky.breed)
+        expect(page).to_not have_content(@becky.breed)
 
         # save_and_open_page
       end
+
+      it "can find pets whose names partially match the search" do
+        visit "/applications/#{@application.id}"
+
+        fill_in(:name, with: "Beck")
+        click_button("Submit")
+
+        expect(page).to have_content(@becky.name)
+        expect(page).to have_content(@becky.age)
+        expect(page).to have_content(@becky.breed)
+      end
+
+      it "can find case insensitive names" do
+        visit "/applications/#{@application.id}"
+
+        fill_in(:name, with: "beCk")
+        click_button("Submit")
+
+        expect(page).to have_content(@becky.name)
+        expect(page).to have_content(@becky.age)
+        expect(page).to have_content(@becky.breed)
+      end
     end
+
     describe "Submitting the application" do
       it "shows the application submission form if at least one pet is added" do
         application = Application.create!(name: "Bob Smith", street_address: "1234 Easy St.", city: "Denver", state: "CO", zipcode: 80001, description: 'temp description', status: "In Progress")
