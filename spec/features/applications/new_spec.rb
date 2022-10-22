@@ -17,14 +17,13 @@ RSpec.describe 'Application New' do
         expect(page).to have_content("City")
         expect(page).to have_content("State")
         expect(page).to have_content("Zipcode")
-        # expect(page).to have_content("Why would you be a good home for a pet")
+        expect(page).to have_content("Tell us about your home:")
         expect(page).to have_button("Submit")
       end
 
       describe "When I fill out the form and click 'Submit'" do
         before(:each) do
           visit "/applications/new"
-          fill_in :first, with: "Joe"
           fill_in :last, with: "Hilby"
           fill_in :street, with: "123 Street"
           fill_in :city, with: "AnyTown"
@@ -33,15 +32,24 @@ RSpec.describe 'Application New' do
           fill_in :description, with: "Its the best of homes"
         end
         it "I am taken to /applications/:id" do
+          fill_in :first, with: "Joe"
           click_on "Submit"
 
           expect(current_path).to eq("/applications/#{Application.last[:id]}")
         end
 
         it "see an indicatior that this application is 'In Progress'" do
+          fill_in :first, with: "Joe"
           click_on "Submit"
-          save_and_open_page
+
           expect(page).to have_content("In Progress")
+        end
+
+        it "fail to fill out part of the form" do
+          click_on "Submit"
+
+          expect(page).to have_content("Error: First can't be blank")
+          expect(page).to have_current_path("/applications/new")
         end
       end
     end
