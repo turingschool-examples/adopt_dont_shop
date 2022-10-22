@@ -12,7 +12,7 @@ RSpec.describe 'New Applicant Form' do
     fill_in 'Description', with: 'Looking for a friend'
 
     click_button("Submit")
-    # expect(current_path).to eq("/applicants/#{applicant.id}")
+    
     expect(page).to have_content('Kevin Ta')
     expect(page).to_not have_content("Ashley Turner")
  end 

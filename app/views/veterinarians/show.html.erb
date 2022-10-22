@@ -1,4 +1,4 @@
-<h1><%= @veterinarian.name %></h1>
+<center><h1><%= @veterinarian.name %></h1>
 <h3>
   <% if @veterinarian.on_call %>
     On call
@@ -10,4 +10,4 @@
 <h3>Practice: <%= @veterinarian.office_name %></h3>
 
 <%= link_to "Update #{@veterinarian.name}", "veterinarians/#{@veterinarian.id}/edit" %>
-<%= link_to "Delete #{@veterinarian.name}", "/veterinarians/#{@veterinarian.id}", method: :delete %>
+<%= link_to "Delete #{@veterinarian.name}", "/veterinarians/#{@veterinarian.id}", method: :delete %></center>

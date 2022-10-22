@@ -11,7 +11,7 @@ class ApplicantsController < ApplicationController
     if params[:search_name].present? 
       @pets = Pet.search(params[:search_name])
     else 
-      "doesn't work"
+      
     end
      @applicant
   end

@@ -21,7 +21,9 @@
 <% @pets.each do |pet| %>
   <% if params[:search_name] == pet.name  %>
   <center><%= pet.name %></center>
-  <% else %>
-  <% %>
+ <center><div id="pet_<%= pet.id %>">
+    <%= button_to "Adopt this pet", "/applicants/#{@applicant.id}", method: :get, params: { pet_id: pet.id }, local: :true %>
+  </div>
+  </center>
   <% end %>
 <% end %>
