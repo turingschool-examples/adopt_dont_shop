@@ -22,7 +22,7 @@ class ApplicantsController < ApplicationController
     def update
       applicant = Applicant.find(params[:id])
       applicant.update(applicant_params)
-      
+
       redirect_to "/applicants/#{applicant.id}"
     end
 

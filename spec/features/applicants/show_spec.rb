@@ -152,17 +152,16 @@ RSpec.describe 'applications show page' do
         it 'redirects back to application show page and updates status, shows pet list, and removes add pets section' do
             @applicant1.pets << @pet1 << @pet3
             visit "/applicants/#{@applicant1.id}"
-            require 'pry'; binding.pry
+            
             fill_in "Why are you a good fit?", with: "I'm a bad motha judger"
             click_button 'Submit Application'
-
-            save_and_open_page
 
             expect(page).to have_content('Pending')
             expect(page).to have_content('Raider')
             expect(page).to have_content('Raider')
             expect(page).to_not have_content('Add a Pet to this Application')
-            expect(@applicant1.good_fit).to eq("I'm a bad motha judger")
+            new_applicant = Applicant.find(@applicant1.id)
+            expect(new_applicant.good_fit).to eq("I'm a bad motha judger")
         end
     end
 end
