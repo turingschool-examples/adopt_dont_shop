@@ -1,6 +1,11 @@
 class ApplicantsController < ApplicationController
     def show 
       @applicant = Applicant.find(params[:id])
+      @pets = Pet.search(params[:search])
+
+      if params[:add_pet] != nil
+        @applicant.add_pet(params[:add_pet])
+      end
     end
 
     def create
@@ -12,6 +17,13 @@ class ApplicantsController < ApplicationController
         redirect_to "/applicants/new"
         flash[:alert] = "Error: #{error_message(applicant.errors)}"
       end
+    end
+
+    def update
+      applicant = Applicant.find(params[:id])
+      applicant.update(applicant_params)
+
+      redirect_to "/applicants/#{applicant.id}"
     end
 
     private

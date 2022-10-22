@@ -5,11 +5,15 @@ class Pet < ApplicationRecord
   has_many :pet_applicants
   has_many :applicants, through: :pet_applicants
 
-  def shelter_name
-    shelter.name
-  end
-
   def self.adoptable
     where(adoptable: true)
+  end
+
+  def self.search(search)
+    where("name ILIKE ?", "%#{search}%")
+  end
+
+  def shelter_name
+    shelter.name
   end
 end

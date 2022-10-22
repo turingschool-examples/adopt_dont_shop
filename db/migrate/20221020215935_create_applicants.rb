@@ -7,7 +7,7 @@ class CreateApplicants < ActiveRecord::Migration[5.2]
       t.string :state
       t.string :zip
       t.string :good_fit
-      t.string :status
+      t.string :status, default: "In Progress"
       t.timestamps
     end
   end
