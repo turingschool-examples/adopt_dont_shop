@@ -20,6 +20,11 @@ class ApplicationsController < ApplicationController
     end
   end
 
+  def edit
+    @application = Application.find(params[:id])
+    render "show"
+  end
+
   private
   def application_params
     params.permit(:id, :name, :street_address, :city, :state, :zip, :status, :description)

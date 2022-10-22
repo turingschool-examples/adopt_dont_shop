@@ -10,11 +10,11 @@
 
 <% if @pets.present? %>
   <% @pets.each do |pet| %>
-<div>
+  <section id="application-<%= pet.id %>">
+    <%= pet.id %>
     <%= pet.name %>
     <%= button_to "Adopt this Pet", "/applications/#{@application.id}/edit"%>
-    <%= pet.id %>
-</div>
+  </section>
   <% end %>
 <% end %>
 
