@@ -1,0 +1,12 @@
+<h1> Application Index page</h1>
+
+<%@applications.each do |app|%>
+
+<br>
+<ul> Applicant name:<%= app.name  %></ul>
+<ul>Applicant Street Address:<%= app.street_address %></ul>
+<ul>State:<%= app.state  %></ul>
+<ul>City:<%= app.city  %></ul>
+<ul>Zip Code<%= app.zip_code  %></ul>
+<ul>Description<%= app.description  %></ul>
+<% end %>
