@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'shelter creation' do
+RSpec.describe 'Shelter New' do
   describe 'the shelter new' do
     it 'renders the new form' do
       visit '/shelters/new'

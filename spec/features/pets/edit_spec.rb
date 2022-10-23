@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'the veterinarian update' do
+RSpec.describe 'Pet Edit' do
   it "shows the veterinarian edit form" do
     shelter = Shelter.create(name: 'Hollywood shelter', city: 'Irvine, CA', foster_program: false, rank: 7)
     pet = Pet.create(adoptable: true, age: 1, breed: 'sphynx', name: 'George Hairlesson', shelter_id: shelter.id)

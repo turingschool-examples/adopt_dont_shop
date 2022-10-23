@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'the shelter show' do
+RSpec.describe 'Shelter Show' do
   it "shows the shelter and all it's attributes" do
     shelter = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
 
