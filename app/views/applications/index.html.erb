@@ -1,4 +1,4 @@
 <h1>All Applicants</h1>
 <% @applications.each do |application|%>
-<%= application.name %>
+<%= link_to "#{application.name}", "/applications/#{application.id}", method: :post %></p>
 <% end %>

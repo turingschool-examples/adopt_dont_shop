@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
   get '/', to: 'application#welcome'
 
+  # namespace :admin do 
+  #   get '/shelters', to: "admins#index" 
+  # end
+
   get '/shelters', to: 'shelters#index'
   get '/shelters/new', to: 'shelters#new'
   get '/shelters/:id', to: 'shelters#show'
@@ -42,6 +46,8 @@ Rails.application.routes.draw do
 
   get '/applications/:id', to: 'applications#show'
   post '/applications/:id', to: 'applications#create'
+  post '/applications/:id', to: 'applications#show'
+
 
   get '/applications/:id/edit', to: 'applications#edit'
   patch '/applications/:id', to: 'applications#update'
