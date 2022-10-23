@@ -3,7 +3,18 @@ class ApplicationsController < ApplicationController
     @application = Application.find(params[:id])
   end
 
-  def new 
-    
+  def new  
+  end
+
+  def create 
+    application = Application.new(application_params)
+    application.save 
+    if application.invalid? 
+      redirect_to "/applications/new", notice: "Please fill missing fields"
+    end
+  end
+private 
+  def application_params 
+    params.permit(:applicant, :street, :city, :state, :zipcode, :reason, :status)
   end
 end
