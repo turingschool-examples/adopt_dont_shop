@@ -6,9 +6,6 @@ class ApplicationsController < ApplicationController
     @application = Application.find(params[:id])
     if params[:commit] == "Search"
       @search_pets = Pet.search(params[:pet_search])
-    elsif params[:pets] == "#{@application.pets.last}"
-      @pet_application = PetApplication.create!(pet: @search_pets, application: @applciation)
-
     end
   end
  
