@@ -3,36 +3,38 @@
 <p> Reason: <%= @application.reason %> </p>
 <p> Status: <%= @application.status %> </p>
 
-<h2> Add a Pet to this Application </h2>
-<%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |f| %>
-  <%= f.label :search %>
-  <%= f.text_field :search %>
-  <%= f.submit "Search" %>
-<% end %>
-
-<h3> Search Results: </h3>
-<% @pets.each do |pet| %>
-  <p> 
-  <div style="float: left; width: auto;"><%= pet.name %></div>
-  <%= form_with url: "/applications/#{@application.id}", method: :patch, local: true do |f| %>
-    <%= f.hidden_field :pet_id, :value => pet.id %>
-    <%= f.submit "Adopt this Pet" %>
-  <% end %>
-  </p>
-<% end%>
-
 <h3> Pets: </h3>
 <% @application.pets.each do |pet| %>
 <p> <%= pet.name %> </p>
 <% end %>
 
-<% if @display == true %>
-<h3> Submit Application </h3>
-  <%= form_with url: "/applications/#{@application.id}", method: :patch, local: true do |f| %>
-    <%= f.label "Why would you be a good owner for this/these pet(s)?" %><br>
-    <%= f.text_field :reason %><br>
-    <% f.hidden_field :status, :value => "Pending" %>
-    <%= f.submit "Submit Application" %>
+<% if @application.status == "In Progress" %>
+  <h2> Add a Pet to this Application </h2>
+  <%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |f| %>
+    <%= f.label :search %>
+    <%= f.text_field :search %>
+    <%= f.submit "Search" %>
   <% end %>
-<% end %>
 
+  <h3> Search Results: </h3>
+  <% @pets.each do |pet| %>
+    <p> 
+    <div style="float: left; width: auto;"><%= pet.name %></div>
+    <%= form_with url: "/applications/#{@application.id}", method: :patch, local: true do |f| %>
+      <%= f.hidden_field :pet_id, :value => pet.id %>
+      <%= f.submit "Adopt this Pet" %>
+    <% end %>
+    </p>
+  <% end%>
+
+  <% if @display == true %>
+  <h3> Submit Application </h3>
+    <%= form_with url: "/applications/#{@application.id}", method: :patch, local: true do |f| %>
+      <%= f.label "Why would you be a good owner for this/these pet(s)?" %><br>
+      <%= f.hidden_field :status, :value => "Pending" %>
+      <%= f.text_field :reason %><br>
+      <%= f.submit "Submit Application" %>
+    <% end %>
+  <% end %>
+
+<% end %>

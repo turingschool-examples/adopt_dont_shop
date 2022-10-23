@@ -77,8 +77,20 @@ RSpec.describe "the application show page" do
     expect(page).to_not have_button("Submit Application")
 
     visit "/applications/#{@jeff.id}"
-    save_and_open_page
+    
     expect(page).to have_content("Submit Application")
     expect(page).to have_button("Submit Application")
+  end
+
+  it "cannot have pets added to it once application is submitted" do
+    visit "/applications/#{@jeff.id}"
+
+    fill_in "reason", with: "bla"
+    click_on "Submit Application"
+    
+    expect(current_path).to eql("/applications/#{@jeff.id}")
+    expect(page).to_not have_content("Submit Application")
+    expect(page).to_not have_button("Search")
+    expect(page).to_not have_button("Adopt this Pet")
   end
 end

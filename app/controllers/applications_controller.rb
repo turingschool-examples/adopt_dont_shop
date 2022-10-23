@@ -1,28 +1,38 @@
 class ApplicationsController < ApplicationController 
   def show 
     @application = Application.find(params[:id])
+    
     @pets = []
     if params[:search].present?
       @pets = Pet.search(params[:search])
     elsif params[:pet_id].present?
       @application.pets << Pet.find(params[:pet_id])
     end
+    application_submission_show_up
     application_submission
   end
 
-  def application_submission
+  def application_submission_show_up
     @display = false
     if @application.pets.length > 0
       @display = true
     end
   end
 
+  def application_submission
+    if params[:reason].present?
+      @application.update(:status => params[:status], :reason => params[:reason])
+      @application.save
+    end
+  end
+
+
   def new  
   end
 
   def create 
     application = Application.new(application_params)
-    application.save 
+    application.save
     if application.invalid? 
       redirect_to "/applications/new", alert: "Please fill missing fields"
     end
