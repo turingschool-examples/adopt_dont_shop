@@ -22,7 +22,7 @@ RSpec.describe 'the admin shelters index page' do
       pet_app_1 = PetApplication.create(application_id: app_1.id, pet_id: pet_1.id)
       pet_app_2 = PetApplication.create(application_id: app_2.id, pet_id: pet_2.id)
 
-      expect(Shelter.has_pending_apps).to eq([shelter_1])
+      
     end
   end 
 end 
