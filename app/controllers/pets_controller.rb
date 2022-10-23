@@ -3,19 +3,16 @@
       @pets = Pet.adoptable
       if params[:search_by_name] && params[:search_by_name] != ""
         @pets = Pet.where("name like ?", 
-        "#{params[:search_by_name]}%".capitalize)
+        "#{params[:search_by_name]}%".capitalize).adoptable
       end
       if params[:search_by_breed] && params[:search_by_breed] != ""
         @pets = Pet.where("breed like ?", 
-        "%#{params[:search_by_breed]}%")
+        "%#{params[:search_by_breed]}%").adoptable
       end
       if params[:search_by_age] && params[:search_by_age] != ""
         @pets = Pet.where("age = ?",
-        params[:search_by_age].to_i)
+        params[:search_by_age].to_i).adoptable
       end
-      # if
-      # @pets = Pet.adoptable
-      # end
   end
 
   def show
