@@ -3,8 +3,7 @@
 <p>Street Address: <%= @app.street_address %>, <%= @app.city %>, <%= @app.state %> <%= @app.zipcode %></p>
 <p>Description: <%= @app.description %></p>
 <p>Status: <%= @app.status %></p>
-<p>Applying For: <% @app.pets.each do |pet| %></p>
-  <%= pet.name %>
+<p>Applying For: <% @app.pets.each do |pet| %><%= pet.name %> (<%= pet.breed %>)</p>
 <% end %>
 <p>--------------------------------------------------------------------------</p>
 <h2>ADD A PET TO THIS APPLICATION</h2>

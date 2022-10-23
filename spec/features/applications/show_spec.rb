@@ -31,7 +31,6 @@ RSpec.describe "application show page", type: :feature do
       show page. under the search bar, I see any pet whose name matches my search' do
         visit "/applications/#{@app.id}"
             
-        within("#add_pet")
         fill_in 'Search for Pets by Name', with: 'Scooby'
             
         click_button('Submit') 
@@ -51,7 +50,6 @@ RSpec.describe "application show page", type: :feature do
       it 'has a button next to each pets name to (adopt this pet)' do
         visit "/applications/#{@app.id}"
 
-        within("#add_pet")
         fill_in 'Search for Pets by Name', with: 'Scooby'
             
         click_button('Submit') 
@@ -59,8 +57,8 @@ RSpec.describe "application show page", type: :feature do
         expect(page).to have_selector(:link_or_button, "ADOPT THIS PET")
       end
 
-      it 'when I click one of these buttons, I am taken back to the application show 
-      page and the pet I want to adopt is listed on this application' do
+      it 'when I click one of these buttons, the application show page refreshes and 
+      the pet I want to adopt is listed on this application' do
         visit "/applications/#{@app.id}"
 
         fill_in 'Search for Pets by Name', with: 'Scooby' 
@@ -69,6 +67,7 @@ RSpec.describe "application show page", type: :feature do
         page.first(:button, 'ADOPT THIS PET').click
         expect(current_path).to eq("/applications/#{@app.id}")
         expect(page).to have_content(@scooby.name)
+        expect(page).to have_content(@scooby.breed)
       end
     end
   end
