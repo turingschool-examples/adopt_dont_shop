@@ -45,4 +45,6 @@ RSpec.describe "showpage" do
       click_button("Adopt This Pet!")
     end
   end
+
+  
 end

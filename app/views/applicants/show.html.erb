@@ -9,6 +9,8 @@
   <p> <% @applicant.pets.each do |pet|%> </p>
     <p><center><%= link_to "#{pet.name}", "/pets/#{pet.id}"%><p></center>
   <% end %>
+<br>
+
 
  <% if @applicant.pets && @applicant.status == "In Progress" %>
   <center><%= form_with url: "/applicants/#{@applicant.id}", method: :get, local: true do |f| %>
@@ -23,7 +25,7 @@
   <% if params[:search_name] == pet.name  %>
   <center><%=  %></center>
  <center><div id="pet_<%= pet.id %>">
-    <%= button_to "Adopt This Pet", "/applicants/#{@applicant.id}", method: :get, params: { pet_id: pet.id }, local: :true %>
+    <%= button_to "Adopt This Pet!", "/applicants/#{@applicant.id}", method: :get, params: { pet_id: pet.id }, local: :true %>
   </div>
   </center>
   <% end %>
@@ -35,5 +37,8 @@
   <% @found_pets != nil %>
     <% @found_pets.each do |pet| %>
       <center><p><%= pet.name %></p></center>
+      <center><%= button_to "Adopt This Pet!", "/applicants/#{@applicant.id}", method: :get, params: { pet_id: pet.id }, local: :true %>
     <% end %>
 <% end %>
+
+
