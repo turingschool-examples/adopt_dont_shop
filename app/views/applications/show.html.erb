@@ -25,3 +25,7 @@
   <%end %>
 <%end %>  
 
+
+<%if @application.pets.count >= 1 && @application.status == "In-Progress"%>
+<%= button_to "Submit Application", "/applications/#{@application.id}/?status=Pending", method: :post %></p>
+<%end %>
