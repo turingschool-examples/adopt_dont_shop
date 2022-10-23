@@ -10,6 +10,7 @@ homer_application = Application.create!(name: "Homer", street_address: "24 East 
 shelter = Shelter.create!(name: "Mystery Building", city: "Irvine CA", foster_program: false, rank: 9)
 scooby = Pet.create!(name: "Scooby", age: 2, breed: "Great Dane", adoptable: true, shelter_id: shelter.id)
 bolt = Pet.create!(name: "Bolt", age: 1, breed: "Chihuahua", adoptable: true, shelter_id: shelter.id)
+barbados = Pet.create!(adoptable: true, age: 8, breed: 'poodle', name: 'Barbados', shelter_id: shelter.id)
 pet_app_1 = PetApplication.create!(pet: bolt, application: smithers_application)
 
 aurora = Shelter.create!(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
