@@ -10,7 +10,7 @@ class ApplicationsController < ApplicationController
     application = Application.new(application_params)
     application.save 
     if application.invalid? 
-      redirect_to "/applications/new", notice: "Please fill missing fields"
+      redirect_to "/applications/new", alert: "Please fill missing fields"
     end
   end
 private 
