@@ -8,6 +8,8 @@
 
 
 <%= form_tag "/pets", method: "GET" do %>
+  <%= label_tag :search_by_name %>
+  <%= text_field_tag :search_by_name %>
   <%= label_tag :search_by_breed %>
   <%= text_field_tag :search_by_breed, params[:search_by_breed] %>
   <%= label_tag :search_by_age %>
