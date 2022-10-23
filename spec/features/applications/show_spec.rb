@@ -7,6 +7,7 @@ RSpec.describe 'Application Show' do
     @pet_2 = Pet.create!(adoptable: true, age: 3, breed: 'doberman', name: 'Lobster', shelter_id: shelter.id)
     @pet_3 = Pet.create!(adoptable: true, age: 7, breed: 'mut', name: 'Frog', shelter_id: shelter.id)
     @app_1 = Application.create!(first: "Joe", last: "Hilby", street: "1234 N A St", city: "Any Town", state: "AnyState", zip: "12345", description: "So cute!", status: "In Progress")
+    @app_2 = Application.create!(first: "Joe", last: "Hilby", street: "1234 N A St", city: "Any Town", state: "AnyState", zip: "12345", description: "So cute!", status: "In Progress")
     ApplicationPet.create!(pet: @pet_1, application: @app_1)
     ApplicationPet.create!(pet: @pet_2, application: @app_1)
   end
@@ -65,6 +66,12 @@ RSpec.describe 'Application Show' do
       click_on "Submit"
 
       expect(page).to_not have_content("Add a pet to this Application")
+    end
+
+    it 'the submit application button is not visibal untill a pet is added' do
+      visit "/applications/#{@app_2.id}"
+
+      expect(page).to_not have_content("Submit")
     end
   end
 end
