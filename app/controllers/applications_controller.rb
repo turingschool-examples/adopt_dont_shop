@@ -2,6 +2,9 @@ class ApplicationsController < ApplicationController
   def show
     @app = Application.find(params[:id])
     @pets = Pet.all
+    if params[:add_pet] != nil 
+      @app.add_pet(params[:add_pet])
+    end
   end
 
   def new
