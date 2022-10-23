@@ -16,8 +16,10 @@
 
    <h4>Add a Pet to this application: </h4>
    <%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |f| %>
+
      <%= f.label :pet_name %>
      <%= f.text_field :pet_name %>
+
      <%= f.submit "Search" %>
    <% end %>
 

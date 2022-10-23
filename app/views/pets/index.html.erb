@@ -6,7 +6,6 @@
   <%= f.submit "Search" %>
 <% end %>
 
-
 <% @pets.each do |pet| %>
   <h3><%= pet.name %></h3>
   <p>Age: <%= pet.age %></p>
@@ -16,3 +15,7 @@
   <%= link_to "Edit #{pet.name}", "/pets/#{pet.id}/edit" %>
   <%= link_to "Delete #{pet.name}", "/pets/#{pet.id}", method: :delete %>
 <% end %>
+
+<div style="position:fixed; padding: 1em; bottom: 0; right: 0;">
+<strong><%= link_to "Start an Application", "/applications/new" %><strong>
+</div>
