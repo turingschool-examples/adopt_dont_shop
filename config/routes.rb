@@ -7,6 +7,8 @@ Rails.application.routes.draw do
   post '/applicants/:id', to: 'applicants#show'
   patch '/applicants/:id', to: 'applicants#update'
 
+  get '/admin/shelters', to: 'admin#index'
+
   get '/shelters', to: 'shelters#index'
   get '/shelters/new', to: 'shelters#new'
   get '/shelters/:id', to: 'shelters#show'
