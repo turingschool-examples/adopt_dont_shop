@@ -8,7 +8,7 @@ RSpec.describe "application show page", type: :feature do
       @scooby = @shelter.pets.create!(name: 'Scooby', age: 2, breed: 'Great Dane', adoptable: true)
       @sm_scooby = @shelter.pets.create!(name: 'Scooby', age: 6, breed: 'Chihuahua', adoptable: true)
       @scrappy = @shelter.pets.create(name: 'Scrappy', age: 1, breed: 'Great Dane', adoptable: true)
-          end
+    end
 
     describe 'when I visit the page /applications/:id' do
       it 'shows a unique application and its attributes' do
@@ -56,12 +56,19 @@ RSpec.describe "application show page", type: :feature do
             
         click_button('Submit') 
         expect(current_path).to eq("/applications/#{@app.id}")
-        expect(page).to have_selector(:link_or_button, 'ADOPT THIS PET')
+        expect(page).to have_selector(:link_or_button, "ADOPT THIS PET")
       end
 
-      xit 'when I click one of these buttons, I am taken back to the application show page and the pet I 
-      want to adopt is listed on this application' do
+      it 'when I click one of these buttons, I am taken back to the application show 
+      page and the pet I want to adopt is listed on this application' do
+        visit "/applications/#{@app.id}"
 
+        fill_in 'Search for Pets by Name', with: 'Scooby' 
+        click_button('Submit') 
+
+        page.first(:button, 'ADOPT THIS PET').click
+        expect(current_path).to eq("/applications/#{@app.id}")
+        expect(page).to have_content(@scooby.name)
       end
     end
   end
