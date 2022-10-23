@@ -22,7 +22,7 @@
 @pet7 = @shelter4.pets.create!(name: "Ruby", breed: "Pembroke", age: 6, adoptable: true)
 @pet8 = @shelter4.pets.create!(name: "Penny", breed: "Cardigan", age: 8, adoptable: true)
 @pet9 = @shelter5.pets.create!(name: "Leonardo", breed: "Pizza Turtle", age: 23, adoptable: true)
-@pet10 = @shelter5.pets.create!(name: "Raphael", breed: "Sewer Turle", age: 43, adoptable: true)
+@pet10 = @shelter5.pets.create!(name: "Raphael", breed: "Sewer Turtle", age: 43, adoptable: true)
 
 @app1 = Applicant.create!(name: "Ashley Turner", street_address: "123 Oregon Trail Way", city: "Portland", state: "OR", zip_code: "54321", description: "Pet sitting and want to have my own")
 @app2 = Applicant.create!(name: "Kevin Ta", street_address: "2208 Repeater Dr", city: "Aurora", state: "CO", zip_code: "80011", description: "I love Corgi's, can I haz?")
