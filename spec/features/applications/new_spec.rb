@@ -22,7 +22,7 @@ RSpec.describe "creating a new application" do
     fill_in :city, with: "Bend"
     select "OR", from: :state
     fill_in :zip, with: 77904
-    fill_in :description, with: "I love dogs"
+    # fill_in :description, with: "I love dogs"
 
     click_on "Submit"
 
@@ -34,8 +34,9 @@ RSpec.describe "creating a new application" do
     expect(page).to have_content(application.city)
     expect(page).to have_content(application.state)
     expect(page).to have_content(application.zip)
-    expect(page).to have_content(application.description)
     expect(page).to have_content("In Progress") # readdress later after user story 12
+    
+    # expect(page).to_not have_content(application.description)
   end
 
   it 'will not create a new application when fields are left black and will redirect back 

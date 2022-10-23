@@ -16,9 +16,6 @@
   <%= form.label :zip %>
   <%= form.number_field :zip, in: 0..99999, step: 1 %><br>
 
-  <%= form.label :why_i_would_make_a_good_home %><br>
-  <%= form.text_area :description, size: "50x5" %>
-
   <%= form.hidden_field :status, value: 'In Progress'  %><br>
   <%= form.submit "Submit" %>
 <% end %>
