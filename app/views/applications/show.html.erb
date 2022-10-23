@@ -4,7 +4,6 @@
 <h3>State: <%= @application.state %></h3>
 <h3>Zip Code: <%= @application.zip_code %></h3>
 <h3>Application Status: <%= @application.status %></h3>
-<h3>Why do you want to adopt this pet? <%= @application.description %></h3>
 <h3>Applying For: 
 <% @application.pets.each do |pet| %></h3->
   <%= pet.name %>  
@@ -17,7 +16,7 @@
   <%=f.submit "Search"%>
   <%end%>
 <% elsif @application.status == "Pending" %>
-  <h3>Why will you make a good pet owner? <%= @application.description%></h3>
+  <h3>Why will you make a good pet owner? <%= @application.description %></h3>
 
 <%end%>
 
@@ -33,7 +32,7 @@
 <%= form_with url: "/applications/#{@application.id}/?status=Pending", method: :get, local: true do |f|%>
 <%= f.label :description, "Why will you make a good pet owner?"%>
 <%= f.text_area :description %>
-<%= button_to "Submit Application", "/applications/#{@application.id}/?status=Pending", method: :post  %></p>
+<%= button_to "Submit Application", "/applications/#{@application.id}/?status=Pending&description=entered", method: :post  %></p>
 <%end%>
 
 

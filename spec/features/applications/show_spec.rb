@@ -105,27 +105,41 @@ RSpec.describe 'the applications show page' do
     end
 
     describe 'an application can be submitted after adding one or more pets to the app' do 
+      before :each do 
+        @shelter = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
+        @pet_1 = @shelter.pets.create!(adoptable: true, age: 1, breed: 'sphynx', name: 'Lucille Bald')
+        @pet_2 = @shelter.pets.create!(adoptable: true, age: 2, breed: 'american shorthair', name: 'Lucky')
+        @pet_3 = @shelter.pets.create!(adoptable: true, age: 5, breed: 'labrador', name: 'Ted')
+        @application_1 = Application.create!(name: "Taylor Swift", street_address: "22 Blank Space Ln", city: "Denver", state: "CO", zip_code: 80230, status: "In-Progress", description: "I love cats")
+      end 
+      it 'i only see submit button when more than one pet is added' do 
+        visit "/applications/#{@application_1.id}"
+        expect(@application_1.pets).to eq([])
+        expect(page).to_not have_content("Submit Application")
+      end
+      
       it 'i can fill out description and click submit and am taken back to show page' do 
-        shelter = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
-        pet_1 = shelter.pets.create!(adoptable: true, age: 1, breed: 'sphynx', name: 'Lucille Bald')
-        pet_2 = shelter.pets.create!(adoptable: true, age: 2, breed: 'american shorthair', name: 'Lucky')
-        pet_3 = shelter.pets.create!(adoptable: true, age: 5, breed: 'labrador', name: 'Ted')
-        application_1 = Application.create!(name: "Taylor Swift", street_address: "22 Blank Space Ln", city: "Denver", state: "CO", zip_code: 80230, status: "In-Progress", description: "I love cats")
-      
+        
         visit "/applications/#{application_1.id}"
+        fill_in 'pet_search', with: 'Lucille'
+        click_button 'Search'        
+        click_button "Adopt #{@pet_1.name}"
+        expect(page).to have_content("Applying For: #{@pet_1.name}")
+        expect(page).to have_content("Why will you make a good pet owner?")
+        fill_in :description, with: "I love cats"
+        expect(page).to have_content("Submit Application")
+        expect(page).to have_content("Search")
+        click_button "Submit Application"
+        expect(page).to have_content("Application Status: Pending")
+        expect(page).to have_content("Why will you make a good pet owner? #{@application_1.description}")
+        expect(page).to have_content("Applying For: #{@pet_1.name}")
+        expect(page).to_not have_content("Submit Application")
+        expect(page).to_not have_content("Search")
+        expect(page).to_not have_content("Adopt #{@pet_1.name}")
 
-      
-      
-      
       end
 
-      it 'on show page i see that my application is now pending and the pets i applied for' do 
 
-      end
-
-      it 'i cant add anymore pets while my app is pending' do 
-
-      end
     end
   end
 end 
