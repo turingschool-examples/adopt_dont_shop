@@ -9,3 +9,8 @@ class Application < ApplicationRecord
   validates :zip_code,   numericality: true,   length: {maximum: 5}
   validates :status,   inclusion: ["In Progress", "Pending", "Rejected", "Accepted"]
 end
+
+def self.search(search_params)
+  Pet.where("name ILIKE ?", "%#{search_params}%")
+
+end
