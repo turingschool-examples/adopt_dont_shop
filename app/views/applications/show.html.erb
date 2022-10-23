@@ -3,6 +3,8 @@
 <p>Street Address: <%= @app.street_address %>, <%= @app.city %>, <%= @app.state %> <%= @app.zipcode %></p>
 <p>Description: <%= @app.description %></p>
 <p>Status: <%= @app.status %></p>
+<p>Applying For: <% @app.pets.each do |pet| %><%= pet.name %> (<%= pet.breed %>)</p>
+<% end %>
 <p>--------------------------------------------------------------------------</p>
 <h2>ADD A PET TO THIS APPLICATION</h2>
 <%= form_with url: "/applications/#{@app.id}", method: :get, local: true do |form| %>
@@ -17,5 +19,8 @@
     <p>Age: <%= pet.age %></p>
     <p>Breed: <%= pet.breed %></p>
     <p>Adoptable: <%= pet.adoptable %></p>
+    <p><%= button_to "ADOPT THIS PET", { add_pet: pet.id } %></p>
   <% end %>
 <% end %>
+
+
