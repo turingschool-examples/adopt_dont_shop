@@ -32,12 +32,6 @@
     </tr>
 
     <tr> 
-      <td> <%= form.label :status  %></td>
-      <td> <%= form.text_field :status %></td>
-
-    </tr>
-
-    <tr> 
       <td> <%= form.label :description  %></td>
       <td> <%= form.text_field :description %></td>
 
@@ -51,3 +45,11 @@
   </table>
 
 <%end %>
+
+<% if flash[:messages] %>
+  <h2>Error: Please fill out all fields</h2>
+  <% flash[:messages].each do |message| %>
+    <h4><%= message%></h4>
+  <%end %>
+
+<% end %>
