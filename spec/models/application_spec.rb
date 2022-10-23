@@ -20,6 +20,17 @@ RSpec.describe Application, type: :model do
         expect(app.pets).to eq([scooby])
       end
     end
+
+    describe '#to_pending' do
+      it 'changes the status to pending' do
+        app = Application.create!(name: "Miley Cyrus", street_address: "123 Hollywood Blvd", city: "Los Angeles", state: "California", zipcode: 12345, description: "I am rich and hot", status: "In Progress")
+        expect(app.status).to eq("In Progress")
+
+        app.to_pending
+
+        expect(app.status).to eq("Pending")
+      end
+    end
   end
 
   
