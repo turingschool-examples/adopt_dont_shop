@@ -1,12 +1,9 @@
-<h1>All Pets</h1>
+<body style="background-color:Khaki;">
+</body>
+<h1 style="color:green;">All Pets</h1>
 
 <%= link_to "Start an Application", "/applications/new" %>
 
-<%= form_with url: "/pets", method: :get, local: true do |f| %>
-  <%# <%= f.label :search %>
-  <%# <%= f.text_field :search %>
-  <%# <%= f.submit "Search" %>
-<%# <% end %> 
 
 
 <%= form_tag "/pets", method: "GET" do %>
@@ -20,11 +17,11 @@
 <% end %>
 
 <% @pets.each do |pet| %>
-  <h3><%= pet.name %></h3>
-  <p>Age: <%= pet.age %></p>
-  <p>Breed: <%= pet.breed %></p>
-  <p>Adoptable: </p>
-  <p>You can find <%= pet.name %> at <%= pet.shelter_name %>!</p>
+  <h3 style="color:HotPink;"><%= pet.name %></h3>
+  <p style="color:purple;">Age: <%= pet.age %></p>
+  <p style="color:red;">Breed: <%= pet.breed %></p>
+  <p style="color:LightSeaGreen;">Adoptable: <%= pet.adoptable %> </p>
+  <p style="color:coral;">You can find <%= pet.name %> at <%= pet.shelter_name %>!</p>
   <%= link_to "Edit #{pet.name}", "/pets/#{pet.id}/edit" %>
   <%= link_to "Delete #{pet.name}", "/pets/#{pet.id}", method: :delete %>
 <% end %>
