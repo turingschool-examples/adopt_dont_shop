@@ -11,7 +11,9 @@ shelter_2 = Shelter.create(foster_program: true, name: "Tiny Paws", city: "Denve
 shelter_1.pets.create!(adoptable: true, age: 1, breed: "dog", name: "Oliver")
 shelter_1.pets.create!(adoptable: true, age: 6, breed: "dog", name: "Sadie")
 shelter_1.pets.create!(adoptable: true, age: 4, breed: "cat", name: "DC")
+shelter_1.pets.create!(adoptable: false, age: 100, breed: "cat", name: "Fake")
 
 shelter_2.pets.create!(adoptable: true, age: 10, breed: "dog", name: "Sebastian")
 shelter_2.pets.create!(adoptable: true, age: 14, breed: "cat", name: "Jasmine")
 shelter_2.pets.create!(adoptable: true, age: 2, breed: "dog", name: "Tonks")
+shelter_2.pets.create!(adoptable: false, age: 100, breed: "cat", name: "Alsofake")

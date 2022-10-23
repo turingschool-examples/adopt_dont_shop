@@ -81,6 +81,22 @@ RSpec.describe 'the pets index' do
   #   expect(page).to have_content(pet_2.name)
   #   expect(page).to_not have_content(pet_3.name)
   # end
+  it 'list matches to names containing entry and case insensitive' do
+    shelter = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
+    pet_1 = Pet.create(adoptable: true, age: 7, breed: 'sphynx', name: 'Babe', shelter_id: shelter.id)
+    pet_2 = Pet.create(adoptable: true, age: 3, breed: 'dog', name: 'Babeee', shelter_id: shelter.id)
+    pet_3 = Pet.create(adoptable: true, age: 4, breed: 'dog', name: 'Elle', shelter_id: shelter.id)
+
+    visit "/pets"
+    fill_in 'Search by name', with: "babe"
+    click_on("Search")
+    save_and_open_page
+    expect(page).to have_content(pet_1.name)
+    expect(page).to have_content(pet_2.name)
+    expect(page).to_not have_content(pet_3.name)
+   
+  end 
+
   it 'list matches to pet breed' do
     shelter = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
     pet_1 = Pet.create(adoptable: true, age: 7, breed: 'sphynx', name: 'Bare-y Manilow', shelter_id: shelter.id)
@@ -95,7 +111,7 @@ RSpec.describe 'the pets index' do
     expect(page).to have_content(pet_2.name)
     expect(page).to have_content(pet_3.name)
   end
-  it 'list matches to pet breed' do
+  it 'list matches to pet age' do
     shelter = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
     pet_1 = Pet.create(adoptable: true, age: 7, breed: 'sphynx', name: 'Bare-y Manilow', shelter_id: shelter.id)
     pet_2 = Pet.create(adoptable: true, age: 3, breed: 'dog', name: 'Babe', shelter_id: shelter.id)
@@ -108,6 +124,6 @@ RSpec.describe 'the pets index' do
     expect(page).to_not have_content(pet_1.name)
     expect(page).to have_content(pet_2.name)
     expect(page).to have_content(pet_3.name)
-    save_and_open_page
+
   end
 end

@@ -1,6 +1,6 @@
   class PetsController < ApplicationController
     def index
-      @pets = Pet.all
+      @pets = Pet.adoptable
       if params[:search_by_name] && params[:search_by_name] != ""
         @pets = Pet.where("name like ?", 
         "#{params[:search_by_name]}%".capitalize)
