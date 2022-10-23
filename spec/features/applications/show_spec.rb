@@ -9,6 +9,7 @@ RSpec.describe "the application show page" do
     @pirate = @shelter_1.pets.create(name: 'Mr. Pirate', breed: 'tuxedo shorthair', age: 5, adoptable: true)
     @clawdia = @shelter_1.pets.create(name: 'Clawdia', breed: 'shorthair', age: 3, adoptable: true)
     @lucille = @shelter_3.pets.create(name: 'Lucille Bald', breed: 'sphynx', age: 8, adoptable: true)
+    @clawdia_2 = @shelter_2.pets.create(name: 'Clawdia', breed: 'longhair', age: 3, adoptable: true)
 
     @jeff = @pirate.applications.create!(applicant: "Jeff", reason: "Lonely", status: "In Progress", street: "5155 Heritage Lane", city: "Alexandria", state: "VA", zipcode: "22314")
   end
@@ -43,5 +44,15 @@ RSpec.describe "the application show page" do
 
     expect(current_path).to eql("/applications/#{@jeff.id}")
     expect(page).to have_content(@clawdia.name)
+  end
+
+  it 'allows users to adopt a pet' do 
+    visit "/applications/#{@jeff.id}"
+
+    fill_in "search", with: "Clawdia"
+    click_on "Search"
+
+    expect(page).to have_content("Clawdia", count: 2)
+    expect(page).to have_button("Adopt this Pet", count: 2)
   end
 end
