@@ -2,12 +2,18 @@ class ApplicationsController < ApplicationController
   def show 
     @application = Application.find(params[:id])
     @pets = []
-    #binding.pry
     if params[:search].present?
-      # binding.pry
       @pets = Pet.search(params[:search])
     elsif params[:pet_id].present?
       @application.pets << Pet.find(params[:pet_id])
+    end
+    application_submission
+  end
+
+  def application_submission
+    @display = false
+    if @application.pets.length > 0
+      @display = true
     end
   end
 

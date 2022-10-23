@@ -68,4 +68,17 @@ RSpec.describe "the application show page" do
     
     expect(page).to have_content(@clawdia.name)
   end
+
+  it "displays a section to submit an application only when there are pets on the application" do
+    abbas = Application.create!(applicant: "Abbas", reason: "neighbour getting pet", status: "In Progress", street: "5157 Heritage Lane", city: "Alexandria", state: "VA", zipcode: "22314")
+
+    visit "/applications/#{abbas.id}"
+    expect(page).to_not have_content("Submit Application")
+    expect(page).to_not have_button("Submit Application")
+
+    visit "/applications/#{@jeff.id}"
+    save_and_open_page
+    expect(page).to have_content("Submit Application")
+    expect(page).to have_button("Submit Application")
+  end
 end
