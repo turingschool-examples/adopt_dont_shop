@@ -9,6 +9,6 @@ class Application < ApplicationRecord
   end
 
   def to_pending
-    self.status = "Pending"
+    update_attribute(:status, "Pending")
   end
 end

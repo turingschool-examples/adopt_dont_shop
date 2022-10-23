@@ -2,13 +2,14 @@
 <p>Name: <%= @app.name %></p>
 <p>Street Address: <%= @app.street_address %>, <%= @app.city %>, <%= @app.state %> <%= @app.zipcode %></p>
 <p>Description: <%= @app.description %></p>
+<% if params[:why] %>
+  <% @app.to_pending %>
+<% end %>
 <p>Status: <%= @app.status %></p>
 
 <% if params[:why] %>
   <h3>Applied For: <% @app.pets.each do |pet| %><%= pet.name %> (<%= pet.breed %>)</p>
 <% end %></h3>
-  <% @app.to_pending %>
-  <h4><%= @app.status %> <h4>
   <% else %>
   <p>Applying For: <% @app.pets.each do |pet| %><%= pet.name %> (<%= pet.breed %>)</p>
 <% end %><br><br>
