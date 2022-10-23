@@ -2,9 +2,7 @@
 <p>Name: <%= @app.name %></p>
 <p>Street Address: <%= @app.street_address %>, <%= @app.city %>, <%= @app.state %> <%= @app.zipcode %></p>
 <p>Description: <%= @app.description %></p>
-<% if params[:why] %>
-  <% @app.to_pending %>
-<% end %>
+<% @app.to_pending if params[:why] %>
 <p>Status: <%= @app.status %></p>
 
 <% if params[:why] %>
