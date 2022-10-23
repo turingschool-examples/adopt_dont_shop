@@ -14,5 +14,13 @@ RSpec.describe 'admin shelters index page', type: :feature do
       expect(friends.name).to appear_before(bounce.name)
       expect(bounce.name).to appear_before(garden.name)
     end
+
+  describe 'there is a section on the index page for (shelters with pending applications)' do
+    it 'has the name of every shelter that has a pending application' do
+      visit '/admin/shelters'
+
+      
+
+    end
   end
 end
