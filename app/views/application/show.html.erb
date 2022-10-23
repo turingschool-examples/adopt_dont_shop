@@ -4,4 +4,21 @@
 <p>Pets to Adopt: <% @application.pets.each do |pet| %>
                     <%= pet.name %>
                   <% end%> </p>
+<% if @application.status == "In Progress" %>
+  <p><%= "Add a pet to this Application:" %></p><br>
+  <%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |f| %>
+    <%= f.label :search %>
+    <%= f.text_field :search %>
+    <%= f.submit "Search" %>
+  <% end %>
+  <p>Search Results:</p>
+  <% if @pets != nil %>
+    <% @pets.each do |pet| %>
+      <%= pet.name %><%= button_to "Adopt this Pet", "/applications/#{@application.id}", method: :patch, params: { pet_id: pet.id } %>
+    <% end %>
+  <% end %><br>
+  <% if @pets_on_application > 0 %>
+    <%= button_to "Submit", "/applications/#{@application.id}", method: :patch, params: { status: "Pending" } %>
+  <% end %>
+<% end %>
 <p>Application Status: <%= @application.status %></p>
