@@ -35,7 +35,7 @@ RSpec.describe 'Application Show' do
     it 'has a section to search for a pet to add' do
       visit "/applications/#{@app_1.id}"
       fill_in :search, with: "#{@pet_3.name}"
-      click_on "Submit"
+      click_on "Search"
 
       expect(page).to have_content(@pet_3.name)
       expect(page).to have_button("Adopt this Pet")
@@ -44,7 +44,7 @@ RSpec.describe 'Application Show' do
     it 'when I click on "Adopt this Pet" that pet is added to my application' do
       visit "/applications/#{@app_1.id}"
       fill_in :search, with: "#{@pet_3.name}"
-      click_on "Submit"
+      click_on "Search"
       click_on "Adopt this Pet"
 
       expect(current_path).to eq("/applications/#{@app_1.id}")
@@ -53,7 +53,18 @@ RSpec.describe 'Application Show' do
   end
 
   describe 'when pets have been added to the application and I click "Submit"' do
-    it 'my application changes to "Pending"'
-    it 'the section to search and add pets is removed'
+    it 'my application changes to "Pending"' do
+    visit "/applications/#{@app_1.id}"
+      click_on "Submit"
+
+      expect(page).to have_content("Pending")
+    end
+
+    it 'the section to search and add pets is removed' do
+      visit "/applications/#{@app_1.id}"
+      click_on "Submit"
+
+      expect(page).to_not have_content("Add a pet to this Application")
+    end
   end
 end
