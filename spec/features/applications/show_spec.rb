@@ -10,7 +10,7 @@ RSpec.describe "the application show page" do
     @clawdia = @shelter_1.pets.create(name: 'Clawdia', breed: 'shorthair', age: 3, adoptable: true)
     @lucille = @shelter_3.pets.create(name: 'Lucille Bald', breed: 'sphynx', age: 8, adoptable: true)
 
-    @jeff = @pirate.applications.create!(applicant: "Jeff", reason: "Lonely", status: "Pending", address: "5155 Heritage Lane, Alexandria, VA 22314")
+    @jeff = @pirate.applications.create!(applicant: "Jeff", reason: "Lonely", status: "Pending", street: "5155 Heritage Lane", city: "Alexandria", state: "VA", zipcode: "22314")
   end
 
   it "displays the applicant's name" do 
