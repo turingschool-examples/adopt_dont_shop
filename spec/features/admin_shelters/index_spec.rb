@@ -22,7 +22,13 @@ RSpec.describe 'the admin shelters index page' do
       pet_app_1 = PetApplication.create(application_id: app_1.id, pet_id: pet_1.id)
       pet_app_2 = PetApplication.create(application_id: app_2.id, pet_id: pet_2.id)
 
-      
+      visit "/admin/shelters"
+
+      expect(page).to have_content("Shelters with Pending Applications:")
+      within("#pending_section") do
+        expect(page).to have_content("Aurora shelter")
+        expect(page).not_to have_content("RGV animal shelter")
+      end
     end
   end 
 end 
