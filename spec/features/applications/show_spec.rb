@@ -115,7 +115,7 @@ RSpec.describe 'the applications show page' do
         visit "/applications/#{@application_1.id}"
         expect(@application_1.pets).to eq([])
         expect(page).to_not have_content("Submit")
-
+        expect(page).to_not have_content("Why will you make a good pet owner?")
       end
       
       it 'i can fill out description and click submit and am taken back to show page' do 
@@ -139,6 +139,8 @@ RSpec.describe 'the applications show page' do
         expect(page).to_not have_content("Adopt #{@pet_1.name}")
 
       end
+
+
 
 
     end
