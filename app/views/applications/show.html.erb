@@ -14,7 +14,7 @@
 <% @pets.each do |pet| %>
   <p> 
   <div style="float: left; width: auto;"><%= pet.name %></div>
-  <%= form_with url: "/applications/#{@application.id}", method: :post, local: true do |f| %>
+  <%= form_with url: "/applications/#{@application.id}", method: :patch, local: true do |f| %>
     <%= f.hidden_field :pet_id, :value => pet.id %>
     <%= f.submit "Adopt this Pet" %>
   <% end %>

@@ -1,12 +1,13 @@
 class ApplicationsController < ApplicationController 
   def show 
     @application = Application.find(params[:id])
-    
+    @pets = []
+    #binding.pry
     if params[:search].present?
       # binding.pry
       @pets = Pet.search(params[:search])
-    else 
-      @pets = []
+    elsif params[:pet_id].present?
+      @application.pets << Pet.find(params[:pet_id])
     end
   end
 
