@@ -2,25 +2,46 @@
 <p>Name: <%= @app.name %></p>
 <p>Street Address: <%= @app.street_address %>, <%= @app.city %>, <%= @app.state %> <%= @app.zipcode %></p>
 <p>Description: <%= @app.description %></p>
+<% if params[:why] %>
+  <% @app.to_pending %>
+<% end %>
 <p>Status: <%= @app.status %></p>
-<p>Applying For: <% @app.pets.each do |pet| %><%= pet.name %> (<%= pet.breed %>)</p>
+
+<% if params[:why] %>
+  <h3>Applied For: <% @app.pets.each do |pet| %><%= pet.name %> (<%= pet.breed %>)</p>
+<% end %></h3>
+  <% else %>
+  <p>Applying For: <% @app.pets.each do |pet| %><%= pet.name %> (<%= pet.breed %>)</p>
+<% end %><br><br>
+  <% if @app.pets.count > 0 %>
+    <%= form_with url: "/applications/#{@app.id}", method: :get, local: true do |form| %>
+      <%= label_tag(:why, "Why would you make a good owner?") %>
+      <%= text_field_tag :why, params[:why] %>
+      <%= form.submit("Submit Application") %>
+    <% end %>
+<% end %>
 <% end %>
 <p>--------------------------------------------------------------------------</p>
-<h2>ADD A PET TO THIS APPLICATION</h2>
-<%= form_with url: "/applications/#{@app.id}", method: :get, local: true do |form| %>
-  <%= label_tag(:search, "Search for Pets by Name:") %>
-  <%= text_field_tag :search, params[:search] %>
-  <%= form.submit("Submit") %>
-<% end %>
-<% if params[:search] %>
-<% @pets = Pet.pet_name_filter(params[:search]) %>
-  <% @pets.each do |pet| %>
-    <h3>Name: <%= pet.name %></h3>
-    <p>Age: <%= pet.age %></p>
-    <p>Breed: <%= pet.breed %></p>
-    <p>Adoptable: <%= pet.adoptable %></p>
-    <p><%= button_to "ADOPT THIS PET", { add_pet: pet.id } %></p>
+
+<% if params[:why] %>
+  <p>Thank you for applying!<p>
+<% else %>
+  <h2>ADD A PET TO THIS APPLICATION</h2>
+  <%= form_with url: "/applications/#{@app.id}", method: :get, local: true do |form| %>
+    <%= label_tag(:search, "Search for Pets by Name:") %>
+    <%= text_field_tag :search, params[:search] %>
+    <%= form.submit("Submit") %>
+  <% end %>
+  <% if params[:search] %>
+  <% @pets = Pet.pet_name_filter(params[:search]) %>
+    <% @pets.each do |pet| %>
+      <h3>Name: <%= pet.name %></h3>
+      <p>Age: <%= pet.age %></p>
+      <p>Breed: <%= pet.breed %></p>
+      <p>Adoptable: <%= pet.adoptable %></p>
+      <p><%= button_to "ADOPT THIS PET", { add_pet: pet.id } %></p>
+    <% end %>
   <% end %>
 <% end %>
-
+  
 

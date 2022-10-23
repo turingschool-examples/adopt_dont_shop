@@ -7,4 +7,8 @@ class Application < ApplicationRecord
   def add_pet(pet_id)
     self.pets << Pet.find(pet_id)
   end
+
+  def to_pending
+    update_attribute(:status, "Pending")
+  end
 end
