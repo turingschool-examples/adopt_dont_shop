@@ -4,7 +4,7 @@
 <p> Status: <%= @application.status %> </p>
 
 <h2> Add a Pet to this Application </h2>
-<%= form_with url: "/applications/#{@application.id}", method: :post, local: true do |f| %>
+<%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |f| %>
   <%= f.label :search %>
   <%= f.text_field :search %>
   <%= f.submit "Search" %>
@@ -12,7 +12,13 @@
 
 <h3> Search Results: </h3>
 <% @pets.each do |pet| %>
-<p> <%= pet.name %> </p>
+  <p> 
+  <div style="float: left; width: auto;"><%= pet.name %></div>
+  <%= form_with url: "/applications/#{@application.id}", method: :patch, local: true do |f| %>
+    <%= f.hidden_field :pet_id, :value => pet.id %>
+    <%= f.submit "Adopt this Pet" %>
+  <% end %>
+  </p>
 <% end%>
 
 <h3> Pets: </h3>

@@ -26,7 +26,7 @@ RSpec.describe "the application show page" do
     #lucille = @jeff.pets.create!(name: 'Lucille Bald', breed: 'sphynx', age: 8, adoptable: true)
     @jeff.pets << @lucille
     visit "/applications/#{@jeff.id}"
-    save_and_open_page
+   
     expect(page).to have_content("Lucille Bald")
   end
 
@@ -42,6 +42,30 @@ RSpec.describe "the application show page" do
     click_on "Search"
 
     expect(current_path).to eql("/applications/#{@jeff.id}")
+    expect(page).to have_content(@clawdia.name)
+  end
+
+  it 'has a button that allows users to adopt a pet' do 
+    visit "/applications/#{@jeff.id}"
+    clawdia_2 = @shelter_2.pets.create(name: 'Clawdia', breed: 'longhair', age: 3, adoptable: true)
+
+    fill_in "search", with: "Clawdia"
+    click_on "Search"
+
+    expect(page).to have_content("Clawdia", count: 2)
+    expect(page).to have_button("Adopt this Pet", count: 2)
+  end
+
+  it "when the 'Adopt this Pet' button is clicked" do 
+    visit "/applications/#{@jeff.id}"
+    expect(page).to_not have_content(@clawdia.name)
+
+    fill_in "search", with: "Clawdia"
+    click_on "Search"
+
+    click_on "Adopt this Pet"
+    visit "/applications/#{@jeff.id}"
+    
     expect(page).to have_content(@clawdia.name)
   end
 end
