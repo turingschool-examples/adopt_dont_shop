@@ -45,7 +45,7 @@ RSpec.describe("Application Show Page") do
           describe("Then I am taken back to the application show page") do
             it("#4.And under the search bar I see any Pet whose name matches my search") do
               visit("/applications/#{@smithers_application.id}")
-              fill_in(:search,               with: "Scooby")
+              fill_in(:pet_name,               with: "Scooby")
               click_button("Search")
               expect(current_path).to(eq("/applications/#{@smithers_application.id}"))
               expect(page).to(have_content(("Scooby")))
