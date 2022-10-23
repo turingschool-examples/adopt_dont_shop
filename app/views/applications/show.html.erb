@@ -2,6 +2,19 @@
 <p> Address: <%= "#{@application.street}, #{@application.city}, #{@application.state} #{@application.zipcode}" %> </p>
 <p> Reason: <%= @application.reason %> </p>
 <p> Status: <%= @application.status %> </p>
+
+<h2> Add a Pet to this Application </h2>
+<%= form_with url: "/applications/#{@application.id}", method: :post, local: true do |f| %>
+  <%= f.label :search %>
+  <%= f.text_field :search %>
+  <%= f.submit "Search" %>
+<% end %>
+
+<h3> Search Results: </h3>
+<% @pets.each do |pet| %>
+<p> <%= pet.name %> </p>
+<% end%>
+
 <h3> Pets: </h3>
 <% @application.pets.each do |pet| %>
 <p> <%= pet.name %> </p>

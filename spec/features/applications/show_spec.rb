@@ -10,7 +10,7 @@ RSpec.describe "the application show page" do
     @clawdia = @shelter_1.pets.create(name: 'Clawdia', breed: 'shorthair', age: 3, adoptable: true)
     @lucille = @shelter_3.pets.create(name: 'Lucille Bald', breed: 'sphynx', age: 8, adoptable: true)
 
-    @jeff = @pirate.applications.create!(applicant: "Jeff", reason: "Lonely", status: "Pending", street: "5155 Heritage Lane", city: "Alexandria", state: "VA", zipcode: "22314")
+    @jeff = @pirate.applications.create!(applicant: "Jeff", reason: "Lonely", status: "In Progress", street: "5155 Heritage Lane", city: "Alexandria", state: "VA", zipcode: "22314")
   end
 
   it "displays the applicant's name" do 
@@ -18,7 +18,7 @@ RSpec.describe "the application show page" do
   
     expect(page).to have_content("Jeff")
     expect(page).to have_content("Lonely")
-    expect(page).to have_content("Pending")
+    expect(page).to have_content("In Progress")
     expect(page).to have_content("5155 Heritage Lane, Alexandria, VA 22314")
     expect(page).to have_content("Mr. Pirate")
     expect(page).to_not have_content("Lucille Bald")
@@ -28,5 +28,20 @@ RSpec.describe "the application show page" do
     visit "/applications/#{@jeff.id}"
     save_and_open_page
     expect(page).to have_content("Lucille Bald")
+  end
+
+  it 'displays a section to add pets to the application' do 
+    visit "/applications/#{@jeff.id}"
+
+    expect(@jeff.status).to eq("In Progress")
+    expect(page).to have_content("Add a Pet to this Application")
+    expect(page).to have_field("search")
+    expect(page).to have_button("Search")
+
+    fill_in "search", with: "Clawdia"
+    click_on "Search"
+
+    expect(current_path).to eql("/applications/#{@jeff.id}")
+    expect(page).to have_content(@clawdia.name)
   end
 end
