@@ -97,13 +97,15 @@ RSpec.describe 'the pets index' do
       visit "/pets"
 
       expect(page).to have_content('Start an Application')
-      save_and_open_page
-
-
     end
 
-      # When I click this link
-# Then I am taken to the new application page 
+    it "takes user to the new application page when the 'Start an Application' link is click" do
+      visit "/pets"
+
+      click_link('Start an Application')
+      
+      expect(current_path).to eq( "/applications/new")
+    end
 
   end
 
