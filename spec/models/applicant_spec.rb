@@ -14,4 +14,10 @@ RSpec.describe Applicant, type: :model do
     it {should have_many(:pet_applicants)}
     it {should have_many(:pets).through(:pet_applicants)}
   end
+
+  describe 'add pet' do 
+    it 'will add searched pets to the applicant applying for them' do 
+      
+    end
+  end
 end
