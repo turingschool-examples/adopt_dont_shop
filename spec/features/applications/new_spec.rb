@@ -39,7 +39,7 @@ RSpec.describe "creating a new application" do
     # expect(page).to_not have_content(application.description)
   end
 
-  it 'will not create a new application when fields are left black and will redirect back 
+  it 'will not create a new application when fields are left blank and will redirect back 
     to the new application page with a message to fill out incomplete fields' do
       shelter = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
       pet_1 = Pet.create(adoptable: true, age: 7, breed: 'sphynx', name: 'Bare-y Manilow', shelter_id: shelter.id)
