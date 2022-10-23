@@ -8,7 +8,7 @@ class ApplicationsController < ApplicationController
       @search_pets = Pet.search(params[:pet_search])
     elsif params[:description] != nil 
       @application.status = "Pending"
-      @app_description = Application.update(application_params)
+      @app_description = @application.update(application_params)
       render :show 
     end
     

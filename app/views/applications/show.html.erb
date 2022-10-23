@@ -29,11 +29,9 @@
 
 
 <%if @application.pets.count >= 1 && @application.status == "In-Progress"%>
-<%= form_with url: "/applications/#{@application.id}/?status=Pending", method: :get, local: true do |f|%>
-<%= f.label :description, "Why will you make a good pet owner?"%>
-<%= f.text_area :description %>
-<%= button_to "Submit Application", "/applications/#{@application.id}/?status=Pending&description=entered", method: :post  %></p>
-<%end%>
-
-
+  <%= form_with url: "/applications/#{@application.id}/?status=Pending", method: :get, local: true do |f|%>
+    <%= f.label :description, "Why will you make a good pet owner?"%>
+    <%= f.text_area :description %>
+    <%= button_to "Submit", "/applications/#{@application.id}/?status=Pending&description=entered", method: :post  %></p>
+  <%end%>
 <%end %>
