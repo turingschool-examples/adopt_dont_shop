@@ -2,6 +2,16 @@
 
 <p>Add a Pet to this Application</p>
 
+<p> Applicant ID: <%= @application.id %> </p>
+<p> Name: <%= @application.name %> </p>
+<p> Address: <%= @application.street_address %>,
+<%= @application.city %>,
+<%= @application.state %>,
+<%= @application.zip %> </p>
+<p> Application Status: <%= @application.status %> </p>
+
+<% if @application.status == "In Progress" %>
+
 <%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |f| %>
   <%= f.label :search %>
   <%= f.text_field :search %>
@@ -21,16 +31,18 @@
   <% end %>
 <% end %>
 
-<p> Applicant ID: <%= @application.id %> </p>
-<p> Name: <%= @application.name %> </p>
-<p> Address: <%= @application.street_address %>,
-<%= @application.city %>,
-<%= @application.state %>,
-<%= @application.zip %> </p>
-<p> Why I would make a good home for this pet: <%= @application.description %> </p>
-<p> Application Status: <%= @application.status %> </p>
+
 <% if !@app_pets.nil? %>
   <% @app_pets.each do |app_pet| %>
   <p>Adoption Interest: <%= app_pet.pet.name %></p>
   <% end %>
+<% end %>
+
+<% if @app_pets.present? %>
+<p> Why I would make a good home for this pet: </p>
+<%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |form| %>
+  <%= form.text_area :description, size: "50x5" %>
+   <%= form.submit "Submit Application" %>
+<% end %>
+<% end %>
 <% end %>

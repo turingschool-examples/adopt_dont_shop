@@ -6,6 +6,8 @@ class ApplicationsController < ApplicationController
       @pets = Pet.search(params[:search])
     end
     @app_pets = @application.application_pets
+
+    @application_pets = ApplicationPet.where("application_id = #{@application.id}")
   end
 
   def new
