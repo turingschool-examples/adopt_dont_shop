@@ -127,9 +127,8 @@ RSpec.describe 'the applications show page' do
 
         expect(page).to have_content("Applying For: #{@pet_1.name}")
         expect(page).to have_content("Why will you make a good pet owner?")
-        # @application_1.description =  "I love cats"
         # visit "/applications/#{@application_1.id}/?status=Pending&description=entered"
-        fill_in :description, with: 'I love cats'
+        # fill_in 'description', with: 'I love cats'
         
         @application_1.description =  "I love cats"
 
