@@ -6,6 +6,6 @@ class Applicant < ApplicationRecord
   has_many :pets, through: :pet_applicants
 
   def add_pet(add_pet)
-    pets << Pet.find(add_pet)
+    pets << Pet.find_by_id(add_pet)
   end 
 end
