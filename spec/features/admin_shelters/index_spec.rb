@@ -19,9 +19,10 @@ RSpec.describe 'the admin shelters index page' do
       pet_2 = shelter_2.pets.create!(adoptable: true, age: 3, breed: 'doberman', name: 'Lobster')
       app_1 = Application.create!(name: "Taylor Swift", street_address: "22 Blank Space Ln", city: "Denver", state: "CO", zip_code: 80230, status: "Pending", description: "I love cats")
       app_2 = Application.create!(name: "John Doe", street_address: "123 Generic Ave", city: "Denver", state: "CO", zip_code: 80220, status: "In-Progress", description: "Dogs are cool")
-      pet_app_1 =
-      pet_app_2 =
+      pet_app_1 = PetApplication.create(application_id: app_1.id, pet_id: pet_1.id)
+      pet_app_2 = PetApplication.create(application_id: app_2.id, pet_id: pet_2.id)
 
+      expect(Shelter.has_pending_apps).to eq([shelter_1])
     end
   end 
 end 
