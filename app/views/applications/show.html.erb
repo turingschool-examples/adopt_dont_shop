@@ -13,11 +13,16 @@
 
       <ol><%= link_to "#{pet.name}", "/pets/#{pet.id}" %></ol>
    <% end %>
+
    <h4>Add a Pet to this application: </h4>
-
    <%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |f| %>
-     <%= f.label :search,"search by name"%>
-    <%= text_field_tag :search, params[:search] %>
-     <%= f.submit "Search" %>
 
-<% end %>
+     <%= f.label :pet_name %>
+     <%= f.text_field :pet_name %>
+
+     <%= f.submit "Search" %>
+   <% end %>
+
+   <% @pets.each do |pet| %>
+     <p><%= pet.name %> </p>
+    <% end %> 
