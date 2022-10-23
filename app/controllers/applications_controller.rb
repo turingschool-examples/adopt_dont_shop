@@ -5,6 +5,7 @@ class ApplicationsController < ApplicationController
     if params[:search].present?
       @pets = Pet.search(params[:search])
     end
+    @app_pets = @application.application_pets
   end
 
   def new
@@ -18,6 +19,15 @@ class ApplicationsController < ApplicationController
       flash[:alert] = "Unable to complete your application, please fill out all fields"
       redirect_to "/applications/new"
     end
+  end
+
+  def update
+    @application = Application.find(params[:id])
+    if params[:pet].present?
+      @pet = Pet.find(params[:pet])
+    end
+    ApplicationPet.create!(application: @application, pet: @pet)
+    redirect_to "/applications/#{@application.id}"
   end
 
   private
