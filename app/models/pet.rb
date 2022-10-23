@@ -10,14 +10,6 @@ class Pet < ApplicationRecord
   end
 
   def self.adoptable
-    where(    adoptable: true)
-  end
-
-  def self.search(search_params)
-    pet = Pet.find_by(    name: search)
-
-    if pet
-      @pets = Pet.where("name ILIKE ?", "%#{search_params}%")
-    end
+    where(adoptable: true)
   end
 end
