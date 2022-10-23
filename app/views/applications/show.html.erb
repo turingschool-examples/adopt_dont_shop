@@ -16,6 +16,9 @@
   <%=f.text_field :pet_search%>
   <%=f.submit "Search"%>
   <%end%>
+<% elsif @application.status == "Pending" %>
+  <h3>Why will you make a good pet owner? <%= @application.description%></h3>
+
 <%end%>
 
 
@@ -27,5 +30,11 @@
 
 
 <%if @application.pets.count >= 1 && @application.status == "In-Progress"%>
-<%= button_to "Submit Application", "/applications/#{@application.id}/?status=Pending", method: :post %></p>
+<%= form_with url: "/applications/#{@application.id}/?status=Pending", method: :get, local: true do |f|%>
+<%= f.label :description, "Why will you make a good pet owner?"%>
+<%= f.text_area :description %>
+<%= button_to "Submit Application", "/applications/#{@application.id}/?status=Pending", method: :post  %></p>
+<%end%>
+
+
 <%end %>
