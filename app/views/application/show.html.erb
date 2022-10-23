@@ -4,16 +4,19 @@
 <p>Pets to Adopt: <% @application.pets.each do |pet| %>
                     <%= pet.name %>
                   <% end%> </p>
-<p>Add a pet to this Application:</p><br>
-<%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |f| %>
-  <%= f.label :search %>
-  <%= f.text_field :search %>
-  <%= f.submit "Submit" %>
-<% end %>
-<p>Search Results:</p>
-<% if @pets != nil %>
-  <% @pets.each do |pet| %>
-    <p><%= pet.name %></p>
+<% if @application.status == "In Process" %>
+  <p><%= "Add a pet to this Application:" %></p><br>
+  <%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |f| %>
+    <%= f.label :search %>
+    <%= f.text_field :search %>
+    <%= f.submit "Submit" %>
   <% end %>
+  <p>Search Results:</p>
+  <% if @pets != nil %>
+    <% @pets.each do |pet| %>
+      <%= pet.name %><%= button_to "Adopt this Pet", "/applications/#{@application.id}", method: :patch, params: { pet_id: pet.id } %>
+    <% end %>
+  <% end %>
+  <%= button_to "submit", "/applications/#{@application.id}", method: :patch, params: { status: "Pending" } %>
 <% end %>
 <p>Application Status: <%= @application.status %></p>

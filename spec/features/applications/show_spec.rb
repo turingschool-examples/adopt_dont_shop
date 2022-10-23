@@ -10,33 +10,50 @@ RSpec.describe 'Application Show' do
     ApplicationPet.create!(pet: @pet_1, application: @app_1)
     ApplicationPet.create!(pet: @pet_2, application: @app_1)
   end
+  describe 'When I visit /application/:id' do
+    it 'lists the select application with its attributes' do
+      visit "/applications/#{@app_1.id}"
 
-  it 'lists the select application with its attributes' do
-    visit "/applications/#{@app_1.id}"
+      expect(page).to have_content(@app_1.first)
+      expect(page).to have_content(@app_1.last)
+      expect(page).to have_content(@app_1.street)
+      expect(page).to have_content(@app_1.city)
+      expect(page).to have_content(@app_1.state)
+      expect(page).to have_content(@app_1.zip)
+      expect(page).to have_content(@app_1.description)
+      expect(page).to have_content(@app_1.status)
+      expect(page).to have_content(@pet_1.name)
+      expect(page).to have_content(@pet_2.name)
+    end
 
-    expect(page).to have_content(@app_1.first)
-    expect(page).to have_content(@app_1.last)
-    expect(page).to have_content(@app_1.street)
-    expect(page).to have_content(@app_1.city)
-    expect(page).to have_content(@app_1.state)
-    expect(page).to have_content(@app_1.zip)
-    expect(page).to have_content(@app_1.description)
-    expect(page).to have_content(@app_1.status)
-    expect(page).to have_content(@pet_1.name)
-    expect(page).to have_content(@pet_2.name)
+    it 'has a section to add an additional pet to the application' do
+      visit "/applications/#{@app_1.id}"
+
+      expect(page).to have_content("Add a pet to this Application")
+    end
+
+    it 'has a section to search for a pet to add' do
+      visit "/applications/#{@app_1.id}"
+      fill_in :search, with: "#{@pet_3.name}"
+      click_on "Submit"
+
+      expect(page).to have_content(@pet_3.name)
+      expect(page).to have_button("Adopt this Pet")
+    end
+
+    it 'when I click on "Adopt this Pet" that pet is added to my application' do
+      visit "/applications/#{@app_1.id}"
+      fill_in :search, with: "#{@pet_3.name}"
+      click_on "Submit"
+      click_on "Adopt this Pet"
+
+      expect(current_path).to eq("/applications/#{@app_1.id}")
+      expect(page).to have_content("Pets to Adopt: #{@pet_1.name} #{@pet_2.name} #{@pet_3.name}")
+    end
   end
 
-  it 'has a section to add an additional pet to the application' do
-    visit "/applications/#{@app_1.id}"
-
-    expect(page).to have_content("Add a pet to this Application")
-  end
-
-  it 'has a section to search for a pet to add' do
-    visit "/applications/#{@app_1.id}"
-    fill_in :search, with: "#{@pet_3.name}"
-    click_on "Submit"
-
-    expect(page).to have_content(@pet_3.name)
+  describe 'when pets have been added to the application and I click "Submit"' do
+    it 'my application changes to "Pending"'
+    it 'the section to search and add pets is removed'
   end
 end
