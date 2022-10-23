@@ -70,5 +70,24 @@ RSpec.describe "application show page", type: :feature do
         expect(page).to have_content(@scooby.breed)
       end
     end
+
+    describe 'can submit application after pets are added' do
+      it 'submits application then changes to pending' do
+        visit "/applications/#{@app.id}"
+
+        fill_in 'Search for Pets by Name', with: 'Scooby'
+        click_button('Submit')
+
+        page.first(:button, 'ADOPT THIS PET').click
+        
+        fill_in 'Why would you make a good owner?', with: 'Because I love dogs more than anything!'
+        click_button('Submit Application')
+
+        expect(current_path).to eq("/applications/#{@app.id}")
+        expect(page).to have_content('Pending')
+        expect(page).to have_content(@scooby.name)
+        expect(page).to_not have_content('Search for Pets by Name')
+      end
+    end
   end
 end
