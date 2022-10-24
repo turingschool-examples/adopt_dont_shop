@@ -35,8 +35,8 @@
 <div id="change_status">
 <%if @application.pets.count >= 1 && @application.status == "In-Progress"%>
   <%= form_with url: "/applications/#{@application.id}/?status=Pending", method: :patch, local: true do |f|%>
-    <%= f.label :description, "Why will you make a good pet owner?"%>
-    <%= f.text_area :description %>
+    <%= label_tag :description, "Why will you make a good pet owner?"%>
+    <%= text_area_tag :description, params[:description]%>
     <%= f.submit "Submit" %>
     <!--%= button_to "Submit", "/applications/#{@application.id}/?status=Pending&description=#{@application.description}", method: :patch %></p-->
   <%end%>

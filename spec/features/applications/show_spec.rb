@@ -169,9 +169,13 @@ RSpec.describe 'the applications show page' do
         expect(page).to have_content("I love cats")
       end
 
-
-
-
+      it 'can only submit after description is filled out' do 
+        visit "/applications/#{@application_1.id}"
+        fill_in 'pet_search', with: 'Lucille'
+        click_button 'Search'  
+        click_button "Adopt #{@pet_1.name}"
+        click_button("Submit")
+      end
     end
   end
 end 
