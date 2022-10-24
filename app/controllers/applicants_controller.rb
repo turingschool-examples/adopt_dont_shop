@@ -10,8 +10,10 @@ class ApplicantsController < ApplicationController
     @pets = Pet.all
     if params[:search_name].present? 
       @pets = Pet.search(params[:search_name])
+    elsif params[:description].present? 
+      @applicant.update(status: 1)
     else 
-      "doesn't work"
+      flash[:alert] = "Error occured"
     end
      @applicant
   end
