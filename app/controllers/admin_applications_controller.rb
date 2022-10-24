@@ -6,13 +6,10 @@ class AdminApplicationsController < ApplicationController
     @application_pet = ApplicationPet.find_application_pet(params[:pet_id], @application.id)
 
     if params[:approve] == "true"
-
-      @approved = true
       @application_pet.update(:status => "Approved")
       # binding.pry
     elsif params[:approve] == "false"
       @application_pet.update(:status => "Rejected")
-      @approved = false
     end
   end
 end
