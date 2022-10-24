@@ -1,17 +1,17 @@
 
-<%= form_with url: path, method: method do |f| %>
+<%= form_with url: path, method: method do |form| %>
 
-  <%= f.label :name %>
-  <%= f.text_field :name %>
+  <%= form.label :name %>
+  <%= form.text_field :name %>
 
-  <%= f.label :city %>
-  <%= f.text_field :city %>
+  <%= form.label :city %>
+  <%= form.text_field :city %>
 
-  <%= f.label :foster_program %>
-  <%= f.check_box :foster_program %>
+  <%= form.label :foster_program %>
+  <%= form.check_box :foster_program %>
 
-  <%= f.label :rank %>
-  <%= f.number_field :rank %>
+  <%= form.label :rank %>
+  <%= form.number_field :rank %>
 
-  <%= f.submit %>
+  <%= form.submit %>
 <% end %>
