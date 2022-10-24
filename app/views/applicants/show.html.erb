@@ -1,9 +1,8 @@
 <h1>Applicant Name: <%= @applicant.name %></h1>
-<h3><%= @applicant.street_address %></h3>
-<h3><%= @applicant.city %></h3>
-<h3><%= @applicant.state %></h3>
-<h3><%= @applicant.zip %></h3>
-<h3><%= @applicant.good_fit %></h3>
+<h3>Address:</h3>
+<p><%= @applicant.street_address %></p>
+<p><%= "#{@applicant.city}, #{@applicant.state}, #{@applicant.zip}" %></h3>
+<h3>Why are you a good fit?: <%= @applicant.good_fit %></h3>
 <h3>Status: <%= @applicant.status %></h3>
 
 <h3>Pets Applied For:</h3>
