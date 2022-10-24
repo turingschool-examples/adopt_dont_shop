@@ -36,10 +36,14 @@ RSpec.describe 'Admin applications show page' do
     click_button("Reject #{@becky.name}")
 
     expect(current_path).to eq("/admin/applications/#{@application.id}")
+    save_and_open_page
     expect(page).to have_content("Rejected")
 
     expect(page).to_not have_button("Approve #{@becky.name}")
     expect(page).to_not have_button("Reject #{@becky.name}")
 
+    visit "/pets"
+    visit "/admin/applications/#{@application.id}"
+    save_and_open_page
   end
 end
