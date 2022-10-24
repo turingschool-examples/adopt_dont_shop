@@ -1,6 +1,12 @@
 <h1>Admin Application Page</h1>
 <%@pet_applications.each do |pet_app|%>
-<div id="pet_app_<%=pet_app.id%>">
-<p><b>pet_app.pet_name</b></p>
-</div>
+  <div id="pet_app_<%=pet_app.id%>">
+    <p><b><%=pet_app.pet_name%></b> 
+      <%if pet_app.pet_status == "Pending"%>
+        <%=button_to "Accept #{pet_app.pet_name}", "/admin/applications/#{@application.id}?pet_app_id=#{pet_app.id}", method: :patch%>
+      <%else%>
+       Accepted
+      <%end%>
+    </p>
+  </div>
 <%end%>
