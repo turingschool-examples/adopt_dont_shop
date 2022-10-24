@@ -8,4 +8,5 @@ class Application < ApplicationRecord
   validates :state, presence: true
   validates :zip_code, presence: true
   # validates :description, presence: true
+  validates_presence_of :description, on: :update 
 end
