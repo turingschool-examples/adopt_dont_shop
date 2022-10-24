@@ -94,13 +94,14 @@ RSpec.describe 'the applications show page' do
           application_1 = Application.create!(name: "Taylor Swift", street_address: "22 Blank Space Ln", city: "Denver", state: "CO", zip_code: 80230, status: "In-Progress", description: "I love cats")
 
           visit "/applications/#{application_1.id}"
-
           expect(page).not_to have_content("Applying For: Lucille Bald")
 
           fill_in 'pet_search', with: 'luc'
           click_button 'Search'
 
-          expect(page).to have_content("Lucille Bald")
+          within("#search_pets") do 
+            expect(page).to have_content("Lucille Bald")
+          end
           
           click_button "Adopt #{pet_1.name}"
           

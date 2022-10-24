@@ -24,12 +24,13 @@
 
 <%end%>
 </div>
-
+<div id="search_pets">
 <%if @search_pets%>
   <%@search_pets.each do |pet|%>
     <p><%=pet.name%><%= button_to "Adopt #{pet.name}", "/pet_applications?application_id=#{@application.id}&pet_id=#{pet.id}", method: :post %></p>
   <%end %>
-<%end %>  
+<%end %> 
+</div> 
 
 <div id="change_status">
 <%if @application.pets.count >= 1 && @application.status == "In-Progress"%>
