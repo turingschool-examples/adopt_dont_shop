@@ -10,6 +10,7 @@ class Pet < ApplicationRecord
   end
 
   def self.search(search)
+    return if search == nil
     where("name ILIKE ?", "%#{search}%")
   end
 

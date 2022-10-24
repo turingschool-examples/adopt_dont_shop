@@ -8,6 +8,9 @@ class ApplicantsController < ApplicationController
       end
     end
 
+    def new
+    end
+
     def create
       applicant = Applicant.new(applicant_params)
 
