@@ -22,7 +22,7 @@ RSpec.describe "creating a new application" do
     fill_in :city, with: "Bend"
     select "OR", from: :state
     fill_in :zip, with: 77904
-    fill_in :description, with: "I love dogs"
+    # fill_in :description, with: "I love dogs"
 
     click_on "Submit"
 
@@ -34,11 +34,12 @@ RSpec.describe "creating a new application" do
     expect(page).to have_content(application.city)
     expect(page).to have_content(application.state)
     expect(page).to have_content(application.zip)
-    expect(page).to have_content(application.description)
     expect(page).to have_content("In Progress") # readdress later after user story 12
+    
+    # expect(page).to_not have_content(application.description)
   end
 
-  it 'will not create a new application when fields are left black and will redirect back 
+  it 'will not create a new application when fields are left blank and will redirect back 
     to the new application page with a message to fill out incomplete fields' do
       shelter = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
       pet_1 = Pet.create(adoptable: true, age: 7, breed: 'sphynx', name: 'Bare-y Manilow', shelter_id: shelter.id)

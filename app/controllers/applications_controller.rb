@@ -6,6 +6,8 @@ class ApplicationsController < ApplicationController
       @pets = Pet.search(params[:search])
     end
     @app_pets = @application.application_pets
+
+    @application_pets = ApplicationPet.where("application_id = #{@application.id}")
   end
 
   def new
@@ -23,10 +25,11 @@ class ApplicationsController < ApplicationController
 
   def update
     @application = Application.find(params[:id])
+    @application.update(application_params)
     if params[:pet].present?
       @pet = Pet.find(params[:pet])
+      ApplicationPet.create!(application: @application, pet: @pet)
     end
-    ApplicationPet.create!(application: @application, pet: @pet)
     redirect_to "/applications/#{@application.id}"
   end
 
