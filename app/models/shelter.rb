@@ -21,6 +21,10 @@ class Shelter < ApplicationRecord
       .order("shelters.name DESC")
   end
 
+  def self.with_pending_applications
+    require 'pry'; binding.pry
+  end
+
   def pet_count
     pets.count
   end

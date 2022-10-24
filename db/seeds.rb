@@ -7,8 +7,8 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 app = Application.create!(name: "Miley Cyrus", street_address: "123 Hollywood Blvd", city: "Los Angeles", state: "California", zipcode: 12345, description: "I am rich and hot", status: "In Progress")
-kenz = Application.create!(name: "Kenz L", street_address: "318 E 3rd Ave", city: "Durango", state: "Colorado", zipcode: 81301, description: "Please let me adopt a pet!", status: "Pending")
-lauren = Application.create!(name: "Lauren D", street_address: "55 Mauldeth Drive", city: "Chattanooga", state: "Tennessee", zipcode: 37405, description: "I really need a pet or I will continue to be sad.", status: "Pending")
+kenz = Application.create!(name: "Kenz L", street_address: "318 E 3rd Ave", city: "Durango", state: "Colorado", zipcode: 81301, description: "Please let me adopt a pet!", status: "In Progress")
+lauren = Application.create!(name: "Lauren D", street_address: "55 Mauldeth Drive", city: "Chattanooga", state: "Tennessee", zipcode: 37405, description: "I really need a pet or I will continue to be sad.", status: "In Progress")
 
 mystery = Shelter.create!(name: 'Mystery Building', city: 'Irvine CA', foster_program: false, rank: 9)
 garden = Shelter.create!(name: 'Animal Garden', city: 'Okinawa City', foster_program: false, rank: 7)
