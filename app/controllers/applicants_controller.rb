@@ -2,20 +2,21 @@ class ApplicantsController < ApplicationController
 
   def index
     @applicants = Applicant.all 
-
   end
 
   def show 
     @applicant = Applicant.find(params[:id])
     @pets = Pet.all
     if params[:search_name].present? 
-      @pets = Pet.search(params[:search_name])
+      @found_pets = Pet.search(params[:search_name])
     elsif params[:description].present? 
       @applicant.update(status: 1)
     else 
       flash[:alert] = "Error occured"
     end
-     @applicant
+    if params[:pet_id].present?
+      @applicant.add_pet(params[:pet_id])
+    end 
   end
 
   def new 
