@@ -5,6 +5,16 @@ RSpec.describe Application, type: :model do
     it { should have_many(:pets).through(:application_pets)}
   end
 
+  describe 'validations' do
+    it { should validate_presence_of(:name) }
+    it { should validate_presence_of(:street_address) }
+    it { should validate_presence_of(:city) }
+    it { should validate_presence_of(:state) }
+    it { should validate_presence_of(:zipcode) }
+    it { should validate_presence_of(:description) }
+    it { should validate_presence_of(:status) }
+  end
+
   describe 'instance method' do
     describe '#add_pet' do
       it 'adds an instance of pet to application.pets' do
@@ -29,6 +39,28 @@ RSpec.describe Application, type: :model do
         app.to_pending
 
         expect(app.status).to eq("Pending")
+      end
+    end
+
+     describe '#to_accepted' do
+      it 'changes the status to pending' do
+        app = Application.create!(name: "Miley Cyrus", street_address: "123 Hollywood Blvd", city: "Los Angeles", state: "California", zipcode: 12345, description: "I am rich and hot", status: "In Progress")
+        expect(app.status).to eq("In Progress")
+
+        app.to_accepted
+
+        expect(app.status).to eq("Accepted")
+      end
+    end
+
+     describe '#to_rejected' do
+      it 'changes the status to pending' do
+        app = Application.create!(name: "Miley Cyrus", street_address: "123 Hollywood Blvd", city: "Los Angeles", state: "California", zipcode: 12345, description: "I am rich and hot", status: "In Progress")
+        expect(app.status).to eq("In Progress")
+
+        app.to_rejected
+
+        expect(app.status).to eq("Rejected")
       end
     end
   end

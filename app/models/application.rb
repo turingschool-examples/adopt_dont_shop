@@ -11,4 +11,12 @@ class Application < ApplicationRecord
   def to_pending
     update_attribute(:status, "Pending")
   end
+
+  def to_accepted
+    update_attribute(:status, "Accepted")
+  end
+
+  def to_rejected
+    update_attribute(:status, "Rejected")
+  end
 end
