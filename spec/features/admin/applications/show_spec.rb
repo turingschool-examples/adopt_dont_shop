@@ -8,7 +8,7 @@ RSpec.describe 'admin application show page', type: :feature do
 
 
   describe 'the application show page if an admin is viewing' do
-    it 'has a button to approve for each pet' do
+    xit 'has a button to approve for each pet' do
       ApplicationPet.create!(application: app, pet: scooby)
       ApplicationPet.create!(application: app, pet: scrappy)
 
@@ -27,7 +27,7 @@ RSpec.describe 'admin application show page', type: :feature do
       expect(page).to have_content('Scrappy has been approved!')
     end
 
-    it 'has a button to reject for each pet' do
+    xit 'has a button to reject for each pet' do
       ApplicationPet.create!(application: app, pet: scooby)
       ApplicationPet.create!(application: app, pet: scrappy)
 

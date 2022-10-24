@@ -2,17 +2,16 @@
 <p>Name: <%= @app.name %></p>
 <p>Street Address: <%= @app.street_address %>, <%= @app.city %>, <%= @app.state %> <%= @app.zipcode %></p>
 <p>Description: <%= @app.description %></p>
-<% @app.to_pending if params[:why] %>
 <p>Status: <%= @app.status %></p>
 
-<% if params[:why] %>
+<% if @app.status == 'Pending' %>
   <h3>Applied For: <% @app.pets.each do |pet| %><%= pet.name %> (<%= pet.breed %>)</p>
 <% end %></h3>
   <% else %>
   <p>Applying For: <% @app.pets.each do |pet| %><%= pet.name %> (<%= pet.breed %>)</p>
 <% end %><br><br>
   <% if @app.pets.count > 0 %>
-    <%= form_with url: "/applications/#{@app.id}", method: :get, local: true do |form| %>
+    <%= form_with url: "/applications/#{@app.id}", method: :patch, local: true do |form| %>
       <%= label_tag(:why, "Why would you make a good owner?") %>
       <%= text_field_tag :why, params[:why] %>
       <%= form.submit("Submit Application") %>
@@ -21,7 +20,7 @@
 <% end %>
 <p>--------------------------------------------------------------------------</p>
 
-<% if params[:why] %>
+<% if @app.status == 'Pending' %>
   <p>Thank you for applying!<p>
 <% else %>
   <h2>ADD A PET TO THIS APPLICATION</h2>
