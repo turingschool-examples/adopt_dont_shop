@@ -1,6 +1,7 @@
 class AdminApplicationsController < ApplicationController
   def show
     @application = Application.find(params[:id])
+    @pets_and_approval = @application.pets_in_application_to_approve
   end
 
   def update
