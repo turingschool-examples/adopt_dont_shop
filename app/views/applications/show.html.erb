@@ -1,8 +1,11 @@
+<section id="application_show">
+
 <h1><%= @application.name %></h1>
 <h3>Street Address: <%= @application.street_address %></h3>
 <h3>City: <%= @application.city %></h3>
 <h3>State: <%= @application.state %></h3>
 <h3>Zip Code: <%= @application.zip_code %></h3>
+</section>
 <h3>Application Status: <%= @application.status %></h3>
 <h3>Applying For: 
 <% @application.pets.each do |pet| %></h3->
