@@ -1,0 +1,17 @@
+
+<%= form_with url: path, method: method, local: true do |form| %>
+
+  <%= form.label :name %>
+  <%= form.text_field :name %>
+
+  <%= form.label :city %>
+  <%= form.text_field :city %>
+
+  <%= form.label :foster_program %>
+  <%= form.check_box :foster_program %>
+
+  <%= form.label :rank %>
+  <%= form.number_field :rank %>
+
+  <%= form.submit %>
+<% end %>

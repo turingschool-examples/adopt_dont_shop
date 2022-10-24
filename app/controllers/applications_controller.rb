@@ -1,14 +1,14 @@
 class ApplicationsController < ApplicationController
-  def index 
-    @applications = Application.all 
-  end
+  # def index 
+  #   @applications = Application.all 
+  # end
   def show 
     @application = Application.find(params[:id])
     if params[:commit] == "Search"
       @search_pets = Pet.search(params[:pet_search])
     elsif params[:description] != nil 
       @application.status = "Pending"
-      @app_description = @application.update(application_params)
+      @application.update(description: params[:description])
       render :show 
     end
     
@@ -30,9 +30,9 @@ class ApplicationsController < ApplicationController
     
   end
 
-  def edit 
-    @application = Application.find(params[:id])
-  end
+  # def edit 
+  #   @application = Application.find(params[:id])
+  # end
 
   def update 
     @application = Application.find(params[:id])
