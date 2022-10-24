@@ -1,0 +1,15 @@
+<h2>Application <%= @app.id %></h2>
+
+<div id='pet_box'>
+<% @pets.each do |pet| %>
+  <% if params[:approve] == pet.name %>
+    <p><%= pet.name %> has been approved!</p>
+  <% elsif params[:reject] == pet.name %>
+    <p><%= pet.name %> has been rejected.</p>
+  <% else %>
+    <%= pet.name %><br>
+    <%= button_to "Approve", "/admin/applications/#{@app.id}?approve=#{pet.name}"%><br>
+    <%= button_to "Reject", "/admin/applications/#{@app.id}?reject=#{pet.name}"%>
+  <% end %>
+<% end %>
+</div>
