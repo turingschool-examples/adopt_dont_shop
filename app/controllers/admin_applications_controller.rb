@@ -4,6 +4,6 @@ class AdminApplicationsController < ApplicationController
     @pets = @app.pets
 
     @app.to_accepted if params[:approve]
-      @app.to_rejected if params[:reject]
+    @app.to_rejected if params[:reject]
   end
 end
