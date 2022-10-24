@@ -3,9 +3,23 @@
 <p> Reason: <%= @application.reason %> </p>
 <p> Status: <%= @application.status %> </p>
 
-<h3> Pets: </h3>
-<% @application.pets.each do |pet| %>
-<p> <%= pet.name %> </p>
+<% if current_page?("/admin/applications/#{@application.id}") %>
+  <h3> Pets: </h3>
+  <% @application.pets.each do |pet| %>
+    <p> 
+    <div style="float: left; width: auto;"><%= pet.name %></div> 
+    <%= form_with url: "/applications/#{@application.id}", method: :post, local: true do |f| %>
+        <%= f.hidden_field :pet_id, :value => pet.id %>
+        <%= f.hidden_field :approve, :value => true %>
+        <%= f.submit "Approve" %>
+      <% end %>
+    </p>
+  <% end %>
+<% else %>
+  <h3> Pets: </h3>
+  <% @application.pets.each do |pet| %>
+  <p> <%= pet.name %> </p>
+  <% end %>
 <% end %>
 
 <% if @application.status == "In Progress" %>

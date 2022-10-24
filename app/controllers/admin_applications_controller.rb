@@ -1,5 +1,5 @@
 class AdminApplicationsController < ApplicationsController
-  def show 
+  # def show 
 
-  end
+  # end
 end
