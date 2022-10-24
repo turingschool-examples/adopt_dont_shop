@@ -1,7 +1,9 @@
 <h2>Application <%= @app.id %></h2>
+<p>Name: <%= @app.name %></p>
 
-<div id='pet_box'>
+<h4>Applied for:</h4>
 <% @pets.each do |pet| %>
+  <div id="petbox-<%=pet.id%>">
   <% if params[:approve] == pet.name %>
     <p><%= pet.name %> has been approved!</p>
   <% elsif params[:reject] == pet.name %>
