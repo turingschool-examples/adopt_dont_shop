@@ -166,7 +166,7 @@ RSpec.describe 'the applications show page' do
           click_button("Submit")
         end 
         expect(page).to have_content("Application Status: Pending")
-
+        expect(page).to have_content("I love cats")
       end
 
 
