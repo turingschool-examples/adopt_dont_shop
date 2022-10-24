@@ -1,5 +1,5 @@
 
-<%= form_with url: path, method: method do |form| %>
+<%= form_with url: path, method: method, local: true do |form| %>
 
   <%= form.label :name %>
   <%= form.text_field :name %>
