@@ -15,6 +15,7 @@ class ApplicationsController < ApplicationController
 
     if params[:description].present?
       @application.status = "Pending"
+      @application.update(:description => "#{@application.description} #{params[:description]}")
     end
   end
 

@@ -128,7 +128,8 @@ RSpec.describe "Application Show Page" do
 
         expect(current_path).to eq("/applications/#{application.id}")
         expect(page).to have_content("Pending")
-
+        
+        expect(page).to have_content("temp description Test Description")
         # expect(page).to have_content("Test Description")
       end
     end

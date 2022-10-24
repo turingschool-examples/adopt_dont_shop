@@ -40,22 +40,6 @@ RSpec.describe 'Admin applications show page' do
 
     expect(page).to_not have_button("Approve #{@becky.name}")
     expect(page).to_not have_button("Reject #{@becky.name}")
-  end
-
-  it "can approve or reject the same pet on multiple applications" do
-    application_2 = Application.create!(name: "John Smith", street_address: "1434 Hard St.", city: "Denver", state: "CO", zipcode: 80101, description: 'temp description', status: "Pending")
-    ApplicationPet.create!(pet: @becky, application: application_2)
-
-    visit "/admin/applications/#{@application.id}"
-
-    click_button("Approve #{@becky.name}")
-
-    visit "/admin/applications/#{application_2.id}"
-    expect(page).to have_content("Becky")
-    expect(page).to have_button("Approve #{@becky.name}")
-    expect(page).to have_button("Reject #{@becky.name}")
-
-    visit "/admin/applications/#{@application.id}"
 
   end
 end
