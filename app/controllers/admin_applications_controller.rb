@@ -3,9 +3,16 @@ class AdminApplicationsController < ApplicationController
     @application = Application.find(params[:id])
   end
 
+  def update
+    @application_pet = ApplicationPet.find_by(application_id: params[:id], pet_id: params[:pet_id])
+    @application_pet.update(accept: params[:approve_reject])
+    @application_pet.save
+    redirect_to "/admin/applications/#{params[:id]}"
+  end
+
   private
-  def application_params
-    params.permit(:first, :last, :street, :city, :state, :zip, :description, :status, :pet_id)
+  def application__pet_params
+    params.permit(:application_id, :pet_id, :accept)
   end
 
   private
