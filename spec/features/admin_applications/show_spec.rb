@@ -68,4 +68,54 @@ RSpec.describe 'the admin shelters show page' do
       end
     end
   end 
+
+  describe 'accepting or rejecting a pet on one application does not affect the status of the pet on other applications' do
+    before :each do
+      @app_2 = Application.create!(name: "Allison Grey", street_address: "123 Something St", city: "Denver", state: "CO", zip_code: 80200, status: "Pending", description: "I want a friend")
+      @pet_app_3 = PetApplication.create(pet: @pet_1, application: @app_2)
+    end
+    it 'does not affect the pet status on other applications when a pet is accepted on one application' do
+      visit "/admin/applications/#{@app.id}"
+
+      within "#pet_app_#{@pet_app_1.id}" do
+        click_button "Accept #{@pet_1.name}"
+      end
+
+      expect(page).to have_current_path("/admin/applications/#{@app.id}")
+      
+      within "#pet_app_#{@pet_app_1.id}" do
+        expect(page).not_to have_button("Accept #{@pet_1.name}")
+        expect(page).to have_content('Accepted')
+      end
+
+      visit "/admin/applications/#{@app_2.id}"
+
+      within "#pet_app_#{@pet_app_3.id}" do
+        expect(page).to have_button("Accept #{@pet_1.name}")
+        expect(page).not_to have_content('Accepted')
+      end
+    end
+
+    it 'does not affect the pet status on other applications when a pet is rejected on one application' do
+      visit "/admin/applications/#{@app.id}"
+
+      within "#pet_app_#{@pet_app_1.id}" do
+        click_button "Reject #{@pet_1.name}"
+      end
+
+      expect(page).to have_current_path("/admin/applications/#{@app.id}")
+      
+      within "#pet_app_#{@pet_app_1.id}" do
+        expect(page).not_to have_button("Reject #{@pet_1.name}")
+        expect(page).to have_content('Rejected')
+      end
+
+      visit "/admin/applications/#{@app_2.id}"
+
+      within "#pet_app_#{@pet_app_3.id}" do
+        expect(page).to have_button("Reject #{@pet_1.name}")
+        expect(page).not_to have_content('Rejected')
+      end
+    end
+  end
 end 
