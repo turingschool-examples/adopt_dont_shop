@@ -4,6 +4,8 @@ Rails.application.routes.draw do
   get '/applicants', to: 'applicants#index'
   get '/applicants/new', to: 'applicants#new'
   post '/applicants', to: 'applicants#create'
+  patch '/applicants/:id', to: 'applicants#show'
+  patch '/applicants/:id', to: 'applicants#update'
   get '/applicants/:id', to: 'applicants#show'
   
 

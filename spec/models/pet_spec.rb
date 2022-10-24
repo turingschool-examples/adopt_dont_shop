@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe Pet, type: :model do
   describe 'relationships' do
     it { should belong_to(:shelter) }
+ 
   end
 
   describe 'validations' do
@@ -36,6 +37,14 @@ RSpec.describe Pet, type: :model do
     describe '.shelter_name' do
       it 'returns the shelter name for the given pet' do
         expect(@pet_3.shelter_name).to eq(@shelter_1.name)
+      end
+    end
+  end
+
+  describe 'class method' do
+    describe 'pet_name_filter' do
+      it 'returns pet names regardless of case and also partial matches!' do
+        expect(Pet.pet_name_filter("cla")).to eq([@pet_2])
       end
     end
   end
