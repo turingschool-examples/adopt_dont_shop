@@ -19,13 +19,16 @@ RSpec.describe 'Admin shelters index' do
     shelter_2 = Shelter.create!(name: 'RGV animal shelter', city: 'Harlingen, TX', foster_program: false, rank: 5)
     shelter_3 = Shelter.create!(name: 'Fancy pets of Colorado', city: 'Denver, CO', foster_program: true, rank: 10)
     becky = Pet.create!(adoptable: true, age: 8, breed: "Cavashon", name: "Becky", shelter: shelter_1)
+    sam = Pet.create!(adoptable: true, age: 8, breed: "Cavashon", name: "Sam", shelter: shelter_1)
+    bean = Pet.create!(adoptable: true, age: 8, breed: "Cavashon", name: "Bean", shelter: shelter_3)
 
     ApplicationPet.create!(pet: becky, application: application)
+    ApplicationPet.create!(pet: bean, application: application)
 
     visit "/admin/shelters"
-    #  save_and_open_page
+    # save_and_open_page
 
-    expect(page).to have_content("Shelters with Pending Applications:\nTest Shelter")
+    expect(page).to have_content("Shelters with Pending Applications:\nTest Shelter\nFancy pets of Colorado")
 
   end
 end

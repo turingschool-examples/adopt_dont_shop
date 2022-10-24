@@ -67,15 +67,5 @@ RSpec.describe Shelter, type: :model do
         expect(@shelter_1.pet_count).to eq(3)
       end
     end
-
-    describe "#pending_applcations?" do
-      it "returns true if the shelter has 1 or more pending applications" do
-        application = Application.create!(name: "Bob Smith", street_address: "1234 Easy St.", city: "Denver", state: "CO", zipcode: 80001, description: 'temp description', status: "Pending")
-
-        ApplicationPet.create!(pet: @pet_1, application: application)
-
-        expect(@shelter_1.pending_applications?).to be true
-      end
-    end
   end
 end

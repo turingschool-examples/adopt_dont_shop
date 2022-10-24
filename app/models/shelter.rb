@@ -31,10 +31,4 @@ class Shelter < ApplicationRecord
   def shelter_pets_filtered_by_age(age_filter)
     adoptable_pets.where('age >= ?', age_filter)
   end
-
-  def pending_applications?
-    self.pets.each do |pet|
-      return true if pet.applications.length != 0
-    end
-  end
 end
