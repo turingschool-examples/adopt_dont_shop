@@ -9,6 +9,7 @@ RSpec.describe 'Admin Applications Show' do
     @app_1 = Application.create!(first: "Joe", last: "Hilby", street: "1234 N A St", city: "Any Town", state: "AnyState", zip: "12345", description: "So cute!", status: "Pending")
     @app_2 = Application.create!(first: "Kevin", last: "Smith", street: "Street", city: "Any Town", state: "AnyState", zip: "12345", description: "Much dog!", status: "In Progress")
     ApplicationPet.create!(pet: @pet_1, application: @app_1)
+    ApplicationPet.create!(pet: @pet_1, application: @app_2)
   end
   describe 'When I visit /admin/applications/:id' do
     describe 'Then I see' do
@@ -30,6 +31,7 @@ RSpec.describe 'Admin Applications Show' do
         visit "/admin/applications/#{@app_1.id}"
 
         expect(page).to have_button("Approve")
+        expect(page).to have_button("Reject")
       end
     end
 
@@ -40,17 +42,67 @@ RSpec.describe 'Admin Applications Show' do
 
         expect(current_path).to eq("/admin/applications/#{@app_1.id}")
       end
+
       it 'there is no button next to the approved pet' do
         visit "/admin/applications/#{@app_1.id}"
         click_button "Approve"
 
         expect(page).to_not have_button("Approve")
       end
+
       it 'there is an indicator next to the pet that they have been approved' do
         visit "/admin/applications/#{@app_1.id}"
         click_button "Approve"
 
         expect(page).to have_content("Approved")
+      end
+    end
+
+    describe 'When I click button "Reject" then I am' do
+      it 'taken back to /admin/applications/:id' do
+        visit "/admin/applications/#{@app_1.id}"
+        click_button "Reject"
+
+        expect(current_path).to eq("/admin/applications/#{@app_1.id}")
+      end
+
+      it 'there is no approve or reject button next to the pet' do
+        visit "/admin/applications/#{@app_1.id}"
+        click_button "Reject"
+
+        expect(page).to_not have_button("Approve")
+        expect(page).to_not have_button("Reject")
+      end
+
+      it 'there is an indicator next to the pet that they have been rejected' do
+        visit "/admin/applications/#{@app_1.id}"
+        click_button "Reject"
+
+        expect(page).to have_content("Rejected")
+      end
+    end
+
+    describe "When there are two applications in the system for the same pet" do
+      it 'When I approve one, I will not see any change on the other application' do
+        visit "/admin/applications/#{@app_1.id}"
+        click_button "Approve"
+        visit "/admin/applications/#{@app_2.id}"
+
+        expect(page).to have_button("Approve")
+        expect(page).to have_button("Reject")
+        expect(page).to_not have_content("Approved")
+        expect(page).to_not have_content("Rejected")
+      end
+
+      it 'When I reject one, I will not see any change on the other application' do
+        visit "/admin/applications/#{@app_1.id}"
+        click_button "Reject"
+        visit "/admin/applications/#{@app_2.id}"
+
+        expect(page).to have_button("Approve")
+        expect(page).to have_button("Reject")
+        expect(page).to_not have_content("Approved")
+        expect(page).to_not have_content("Rejected")
       end
     end
   end

@@ -7,6 +7,7 @@
                   <%= pet.name %>
                   <% if pet.application_pets.find {|app_pet| app_pet.application_id == @application.id}.accept == nil %>
                     <%= button_to "Approve", "/admin/applications/#{@application.id}", method: :patch, params: { approve_reject: true, pet_id: pet.id } %>
+                    <%= button_to "Reject", "/admin/applications/#{@application.id}", method: :patch, params: { approve_reject: false, pet_id: pet.id } %>
                   <% elsif pet.application_pets.find {|app_pet| app_pet.application_id == @application.id}.accept == true %>
                     <%= "Approved" %>
                   <% elsif pet.application_pets.find {|app_pet| app_pet.application_id == @application.id}.accept == false %>
