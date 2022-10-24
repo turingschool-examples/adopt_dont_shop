@@ -21,7 +21,6 @@ RSpec.describe 'the applications show page' do
         expect(page).to have_content("State: #{application_1.state}")
         expect(page).to have_content("Zip Code: #{application_1.zip_code}")
         expect(page).to_not have_content("City: #{application_2.city}")
-
       end
 
       expect(page).to have_content(application_1.status)
@@ -137,14 +136,17 @@ RSpec.describe 'the applications show page' do
         fill_in 'description', with: 'I love cats'
         
         click_button("Submit")
-
         expect(page).to have_content("Application Status: Pending")
-        expect(page).to have_content("Why will you make a good pet owner? #{@application_1.description}")
+        
+        within("#app_status") do 
+          expect(page).to have_content("Why will you make a good pet owner? #{@application_1.description}")
+        end
+        
         expect(page).to have_content("Applying For: #{@pet_1.name}")
         expect(page).to_not have_content("Submit")
         expect(page).to_not have_content("Search")
         expect(page).to_not have_content("Adopt #{@pet_1.name}")
-
+     
       end
 
 
