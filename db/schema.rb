@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_10_21_131001) do
+ActiveRecord::Schema.define(version: 2022_10_24_125941) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -18,6 +18,7 @@ ActiveRecord::Schema.define(version: 2022_10_21_131001) do
   create_table "application_pets", force: :cascade do |t|
     t.bigint "application_id"
     t.bigint "pet_id"
+    t.boolean "accept"
     t.index ["application_id"], name: "index_application_pets_on_application_id"
     t.index ["pet_id"], name: "index_application_pets_on_pet_id"
   end
