@@ -34,8 +34,10 @@
     <%= f.submit "Search Pets" %>
   <% end %>
 
-  <% @pets.each do |pet| %>
-    <p><%= "#{pet.name} - #{pet.breed}" %>
-    <%= button_to "Adopt this Pet", { add_pet: pet.id } %></p>
+  <% if @pets != nil %>
+    <% @pets.each do |pet| %>
+      <p><%= "#{pet.name} - #{pet.breed}" %>
+      <%= button_to "Adopt this Pet", { add_pet: pet.id } %></p>
+    <% end %>
   <% end %>
 <% end %>
