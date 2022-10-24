@@ -119,9 +119,12 @@ RSpec.describe 'the applications show page' do
       end 
       it 'i only see submit button when more than one pet is added' do 
         visit "/applications/#{@application_1.id}"
-        expect(@application_1.pets).to eq([])
-        expect(page).to_not have_content("Submit")
-        expect(page).to_not have_content("Why will you make a good pet owner?")
+
+        within("#change_status") do 
+          expect(@application_1.pets).to eq([])
+          expect(page).to_not have_content("Submit")
+          expect(page).to_not have_content("Why will you make a good pet owner?")
+        end
       end
       
       it 'i can fill out description and click submit and am taken back to show page' do 
@@ -130,23 +133,24 @@ RSpec.describe 'the applications show page' do
         fill_in 'pet_search', with: 'Lucille'
         click_button 'Search'  
         click_button "Adopt #{@pet_1.name}"
-
-        expect(page).to have_content("Applying For: #{@pet_1.name}")
-        expect(page).to have_content("Why will you make a good pet owner?")
-        fill_in 'description', with: 'I love cats'
         
-        click_button("Submit")
+        expect(page).to have_content("Applying For: #{@pet_1.name}")
+        within("#change_status") do 
+          expect(page).to have_content("Why will you make a good pet owner?")
+          fill_in 'description', with: 'I love cats'
+          click_button("Submit")
+        end 
+
         expect(page).to have_content("Application Status: Pending")
         
         within("#app_status") do 
           expect(page).to have_content("Why will you make a good pet owner? #{@application_1.description}")
         end
-        
+
         expect(page).to have_content("Applying For: #{@pet_1.name}")
         expect(page).to_not have_content("Submit")
         expect(page).to_not have_content("Search")
         expect(page).to_not have_content("Adopt #{@pet_1.name}")
-     
       end
 
 
