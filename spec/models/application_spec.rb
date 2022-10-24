@@ -8,6 +8,6 @@ RSpec.describe Application, type: :model do
 
   describe 'validations' do 
     it { should validate_presence_of(:name)}
-    it { should permit(:description).for(:show)}
+    # it { should permit(:description).for(:update)}
   end
 end

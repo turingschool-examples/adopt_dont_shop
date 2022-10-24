@@ -36,7 +36,7 @@
 <%if @application.pets.count >= 1 && @application.status == "In-Progress"%>
   <%= form_with url: "/applications/#{@application.id}/?status=Pending", method: :patch, local: true do |f|%>
     <%= label_tag :description, "Why will you make a good pet owner?"%>
-    <%= text_area_tag :description, params[:description]%>
+    <%= text_area_tag :description, params[:description], required: true %>
     <%= f.submit "Submit" %>
   <%end%>
 <%end %>

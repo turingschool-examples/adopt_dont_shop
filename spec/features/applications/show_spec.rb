@@ -177,12 +177,10 @@ RSpec.describe 'the applications show page' do
         expect(page).to have_content("Application Status: In-Progress")
         expect(page).to_not have_content('I love cats')
 
+        # click_button("Submit")
+        # expect(page).to have_content("Application Status: Pending")
+        fill_in 'description', with: 'I love cats'
         click_button("Submit")
-        expect(page).to have_content("Application Status: In-Progress")
-        within("#change_status") do 
-          fill_in 'description', with: 'I love cats'
-          click_button("Submit")
-        end 
         expect(page).to have_content("Application Status: Pending")
         expect(page).to have_content('I love cats')
 
