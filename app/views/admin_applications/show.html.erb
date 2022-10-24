@@ -1,0 +1,17 @@
+<h1>Application for: <%= @application.name %>, ID:<%= @application.id %></h1>
+
+<p>Pet Adoption Interests</p>
+<% @pets.each do |pet| %>
+  <section id="pet-<%= pet.id %>">
+  <%= pet.name %>
+  <%= pet.id %>
+  <%= form_with url:"/admin/applications/#{@application.id}", method: :post, local: true do |form| %>
+    <%= form.radio_button :status, "Approved" %>
+    <%= form.label :status_approve, "Approve" %>
+    <%= form.radio_button :status, "Rejected" %>
+    <%= form.label :status_reject, "Reject" %>
+    <%= form.submit "Submit" %>
+  </section>
+<% end %>
+<% end %>
+  
