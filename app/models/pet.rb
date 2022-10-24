@@ -12,4 +12,8 @@ class Pet < ApplicationRecord
   def self.adoptable
     where(adoptable: true)
   end
+
+  def self.pet_name_filter(input)
+    where("name ILIKE ?", "%#{input}%")
+  end
 end

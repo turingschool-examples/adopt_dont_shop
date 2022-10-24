@@ -5,7 +5,12 @@ class Applicant < ApplicationRecord
   has_many :pet_applicants 
   has_many :pets, through: :pet_applicants
 
-  def add_pet(add_pet)
-    pets << Pet.find(add_pet)
+  def add_pet(param)
+    pets << Pet.find(param)
   end 
+  
+  def update_description 
+
+  end
+
 end
