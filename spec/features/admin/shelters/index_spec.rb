@@ -31,7 +31,7 @@ RSpec.describe 'Admin Shelters Index' do
     aurora = find("#shelter-#{@shelter_1.id}")
     fancy = find("#shelter-#{@shelter_3.id}")
     rvg = find("#shelter-#{@shelter_2.id}")
-    save_and_open_page
+
     expect(rvg).to appear_before(fancy)
     expect(fancy).to appear_before(aurora)
   end
