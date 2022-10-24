@@ -1,3 +1,5 @@
+<body style="background-color:Silver; color:SeaGreen;">
+</body>
 <h1>All Shelters</h1>
 
 <%= link_to "Sort by number of pets", "/shelters?sort=pet_count" %>
@@ -10,7 +12,7 @@
 
 <% @shelters.each do |shelter| %>
   <div id="shelter-<%= shelter.id %>">
-    <h3><%= shelter.name %></h3>
+    <h3><a href="/shelters/<%= shelter.id %>"><%= shelter.name %></a></h3>
     <p>Created at: <%= shelter.created_at %></p>
     <%= link_to "Update #{shelter.name}", "/shelters/#{shelter.id}/edit" %>
     <%= link_to "Delete #{shelter.name}", "/shelters/#{shelter.id}", method: :delete %>
