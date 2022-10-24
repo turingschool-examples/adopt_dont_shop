@@ -1,15 +1,17 @@
 class ApplicationsController < ApplicationController 
   def show 
     @application = Application.find(params[:id])
-    
     @pets = []
+    show_page_logic
+    application_submission
+  end
+
+  def show_page_logic
     if params[:search].present?
       @pets = Pet.search(params[:search])
     elsif params[:pet_id].present?
       @application.pets << Pet.find(params[:pet_id])
     end
-    application_submission_show_up
-    application_submission
   end
 
   def application_submission_show_up
@@ -20,12 +22,12 @@ class ApplicationsController < ApplicationController
   end
 
   def application_submission
+    application_submission_show_up
     if params[:reason].present?
       @application.update(:status => params[:status], :reason => params[:reason])
       @application.save
     end
   end
-
 
   def new  
   end

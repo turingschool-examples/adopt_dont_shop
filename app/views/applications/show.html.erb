@@ -4,50 +4,58 @@
 <p> Status: <%= @application.status %> </p>
 
 <% if current_page?("/admin/applications/#{@application.id}") %>
-  <h3> Pets: </h3>
-  <% @application.pets.each do |pet| %>
-    <p> 
-    <div style="float: left; width: auto;"><%= pet.name %></div> 
-    <%= form_with url: "/applications/#{@application.id}", method: :post, local: true do |f| %>
-        <%= f.hidden_field :pet_id, :value => pet.id %>
-        <%= f.hidden_field :approve, :value => true %>
-        <%= f.submit "Approve" %>
-      <% end %>
-    </p>
+  <% if @pets_not_approved.length != 0 %>
+    <h3> Unapproved Pets: </h3>
+    <% @pets_not_approved.each do |pet| %>
+      <p> 
+        <div style="float: left; width: auto;"><%= pet.name %></div> 
+        <%= form_with url: "/admin/applications/#{@application.id}", method: :patch, local: true do |f| %>
+          <%= f.hidden_field :pet_id, :value => pet.id %>
+          <%= f.hidden_field :approved, :value => true %>
+          <%= f.submit "Approve" %>
+        <% end %>
+      </p>
+    <% end %>
+  <% end %>
+  <% if  @pets_approved.length != 0%>
+    <h3> Approved Pets: </h3>
+    <% @pets_approved.each do |pet| %>
+      <p> <%= pet.name %> </p>
+    <% end %>
   <% end %>
 <% else %>
   <h3> Pets: </h3>
   <% @application.pets.each do |pet| %>
   <p> <%= pet.name %> </p>
   <% end %>
-<% end %>
 
-<% if @application.status == "In Progress" %>
-  <h2> Add a Pet to this Application </h2>
-  <%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |f| %>
-    <%= f.label :search %>
-    <%= f.text_field :search %>
-    <%= f.submit "Search" %>
-  <% end %>
-
-  <h3> Search Results: </h3>
-  <% @pets.each do |pet| %>
-    <p> 
-    <div style="float: left; width: auto;"><%= pet.name %></div>
-    <%= form_with url: "/applications/#{@application.id}", method: :patch, local: true do |f| %>
-      <%= f.hidden_field :pet_id, :value => pet.id %>
-      <%= f.submit "Adopt this Pet" %>
+  <% if @application.status == "In Progress" %>
+    <h2> Add a Pet to this Application </h2>
+    <%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |f| %>
+      <%= f.label :search %>
+      <%= f.text_field :search %>
+      <%= f.submit "Search" %>
     <% end %>
-    </p>
-  <% end%>
 
-  <% if @display == true %>
-    <h3> Submit Application </h3>
-    <%= form_with url: "/applications/#{@application.id}", method: :patch, local: true do |f| %>
-      <%= f.label "Why would you be a good owner for this/these pet(s)?" %><br>
-      <%= f.hidden_field :status, :value => "Pending" %>
-      <%= f.text_field :reason %><br>
-      <%= f.submit "Submit Application" %>
+    <h3> Search Results: </h3>
+    <% @pets.each do |pet| %>
+      <p> 
+      <div style="float: left; width: auto;"><%= pet.name %></div>
+      <%= form_with url: "/applications/#{@application.id}", method: :patch, local: true do |f| %>
+        <%= f.hidden_field :pet_id, :value => pet.id %>
+        <%= f.submit "Adopt this Pet" %>
+      <% end %>
+      </p>
+    <% end%>
+
+    <% if @display == true %>
+      <h3> Submit Application </h3>
+      <%= form_with url: "/applications/#{@application.id}", method: :patch, local: true do |f| %>
+        <%= f.label "Why would you be a good owner for this/these pet(s)?" %><br>
+        <%= f.hidden_field :status, :value => "Pending" %>
+        <%= f.text_field :reason %><br>
+        <%= f.submit "Submit Application" %>
+      <% end %>
     <% end %>
   <% end %>
 <% end %>
