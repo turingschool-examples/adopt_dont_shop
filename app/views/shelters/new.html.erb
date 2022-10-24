@@ -1,5 +1,9 @@
 <h1>New Shelter</h1>
-<%= form_with url: '/shelters', local: true do |f| %>
+<%= render partial: 'form', locals: {path: '/shelters', 
+                                    method: :get} %>
+
+
+<!--%= form_with url: '/shelters', local: true do |f| %>
 
   <%= f.label :name %>
   <%= f.text_field :name %>
@@ -14,4 +18,4 @@
   <%= f.number_field :rank %>
 
   <%= f.submit %>
-<% end %>
+<% end %-->

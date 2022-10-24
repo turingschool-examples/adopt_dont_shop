@@ -1,3 +1,6 @@
+
+<%= form_with url: path, method: method do |f| %>
+
   <%= f.label :name %>
   <%= f.text_field :name %>
 
@@ -11,3 +14,4 @@
   <%= f.number_field :rank %>
 
   <%= f.submit %>
+<% end %>

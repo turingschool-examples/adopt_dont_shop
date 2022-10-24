@@ -1,5 +1,9 @@
 <h1>Edit Shelter</h1>
-<%= form_with url: "/shelters/#{@shelter.id}", method: :patch, local: true do |f| %>
+<%= render partial: "form", locals: { 
+                                      path: "/shelters/#{@shelter.id}", 
+                                      method: :patch} %>
+
+<!--%= form_with url: "/shelters/#{@shelter.id}", method: :patch, local: true do |f| %>
   <%= f.label :name %>
   <%= f.text_field :name %>
 
@@ -13,4 +17,4 @@
   <%= f.number_field :rank %>
 
   <%= f.submit %>
-<% end %>
+<% end %-->
