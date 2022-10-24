@@ -175,6 +175,8 @@ RSpec.describe 'the applications show page' do
         click_button 'Search'  
         click_button "Adopt #{@pet_1.name}"
         expect(page).to have_content("Application Status: In-Progress")
+        expect(page).to_not have_content('I love cats')
+
         click_button("Submit")
         expect(page).to have_content("Application Status: In-Progress")
         within("#change_status") do 
@@ -182,6 +184,7 @@ RSpec.describe 'the applications show page' do
           click_button("Submit")
         end 
         expect(page).to have_content("Application Status: Pending")
+        expect(page).to have_content('I love cats')
 
       end
     end
