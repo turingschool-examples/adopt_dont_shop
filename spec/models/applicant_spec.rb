@@ -23,9 +23,10 @@ RSpec.describe Applicant, type: :model do
       app3 = Applicant.create!(name: "Abdul Redd", street_address: "333 Ruby Rails Ct", city: "Miami", state: "FL", zip_code: "96352", description: "Tired of Students, want a pet that can learn properly")
       
 
-      app3.add_pet(pet1)
-      app3.add_pet(pet2)
-      expect(app3.pets).to include(pet1, pet2)
+      
+      app3.add_pet(pet1.id)
+      app3.add_pet(pet2.id)
+      expect(app3.pets).to eq([pet1, pet2])
     end
   end
 end
