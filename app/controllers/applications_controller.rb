@@ -35,8 +35,9 @@ class ApplicationsController < ApplicationController
     application.save
     if application.invalid? 
       redirect_to "/applications/new", alert: "Please fill missing fields"
+    else
+      redirect_to "/applications/#{application.id}"
     end
-    redirect_to "/applications/#{application.id}"
   end
 private 
   def application_params 
