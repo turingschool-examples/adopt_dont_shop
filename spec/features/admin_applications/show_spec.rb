@@ -12,7 +12,7 @@ RSpec.describe 'the admin shelters show page' do
   describe 'when a visitor visits the show page' do 
     it 'has a button to approve each pet that the application is for' do
       visit "/admin/applications/#{@app.id}"
-      save_and_open_page
+   
       within "#pet_app_#{@pet_app_1.id}" do
         expect(page).to have_content(@pet_1.name)
         expect(page).to have_button("Accept #{@pet_1.name}")
@@ -36,6 +36,35 @@ RSpec.describe 'the admin shelters show page' do
       within "#pet_app_#{@pet_app_1.id}" do
         expect(page).not_to have_button("Accept #{@pet_1.name}")
         expect(page).to have_content('Accepted')
+      end
+    end
+
+    it 'has a button to reject each pet that the application is for' do
+      visit "/admin/applications/#{@app.id}"
+
+      within "#pet_app_#{@pet_app_1.id}" do
+        expect(page).to have_content(@pet_1.name)
+        expect(page).to have_button("Reject #{@pet_1.name}")
+      end
+
+      within "#pet_app_#{@pet_app_2.id}" do
+        expect(page).to have_content(@pet_2.name)
+        expect(page).to have_button("Reject #{@pet_2.name}")
+      end
+    end
+
+    it 'replaces the reject button with an indicator of rejection when the button is pressed' do
+      visit "/admin/applications/#{@app.id}"
+
+      within "#pet_app_#{@pet_app_1.id}" do
+        click_button "Reject #{@pet_1.name}"
+      end
+
+      expect(page).to have_current_path("/admin/applications/#{@app.id}")
+      
+      within "#pet_app_#{@pet_app_1.id}" do
+        expect(page).not_to have_button("Reject #{@pet_1.name}")
+        expect(page).to have_content('Rejected')
       end
     end
   end 
