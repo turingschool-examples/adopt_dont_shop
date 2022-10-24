@@ -8,7 +8,6 @@ RSpec.describe 'Admin applications show page' do
     @shelter_3 = Shelter.create!(name: 'Fancy pets of Colorado', city: 'Denver, CO', foster_program: true, rank: 10)
     @becky = Pet.create!(adoptable: true, age: 8, breed: "Cavashon", name: "Becky", shelter: @shelter_1)
     ApplicationPet.create!(pet: @becky, application: @application)
-
   end
   it 'displays every pet that the application is for' do
     visit "/admin/applications/#{@application.id}"
@@ -36,7 +35,7 @@ RSpec.describe 'Admin applications show page' do
     click_button("Reject #{@becky.name}")
 
     expect(current_path).to eq("/admin/applications/#{@application.id}")
-    save_and_open_page
+
     expect(page).to have_content("Rejected")
 
     expect(page).to_not have_button("Approve #{@becky.name}")
@@ -44,6 +43,21 @@ RSpec.describe 'Admin applications show page' do
 
     visit "/pets"
     visit "/admin/applications/#{@application.id}"
-    save_and_open_page
+  end
+
+  it "can approve or reject the same pet on multiple applications" do
+    application_2 = Application.create!(name: "John Smith", street_address: "1434 Hard St.", city: "Denver", state: "CO", zipcode: 80101, description: 'temp description', status: "Pending")
+    ApplicationPet.create!(pet: @becky, application: application_2)
+
+    visit "/admin/applications/#{@application.id}"
+    click_button("Approve #{@becky.name}")
+
+    visit "/admin/applications/#{application_2.id}"
+    expect(page).to have_content("Becky")
+    expect(page).to have_button("Approve #{@becky.name}")
+    expect(page).to have_button("Reject #{@becky.name}")
+
+    visit "/admin/applications/#{@application.id}"
+    expect(page).to have_content("Approved")
   end
 end
