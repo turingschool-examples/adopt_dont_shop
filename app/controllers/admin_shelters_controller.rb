@@ -1,4 +1,4 @@
-class AdminController < ApplicationController
+class AdminSheltersController < ApplicationController
   def index
     @shelters = Shelter.find_by_sql("SELECT shelters.* FROM shelters ORDER BY shelters.name DESC")
     pending_applications = Application.where(status: 'Pending')
