@@ -7,6 +7,6 @@
 <% end %>
 <p>-------------------------------------</p>
 <h3>SHELTERS WITH PENDING APPLICATIONS</h3>
-<% @shelters.each do |shelter| %>
-
+<% @pending_shelters.each do |shelter| %>
+  <%= shelter.name %>
 <% end %>
