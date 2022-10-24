@@ -28,7 +28,7 @@
   <% end%>
 
   <% if @display == true %>
-  <h3> Submit Application </h3>
+    <h3> Submit Application </h3>
     <%= form_with url: "/applications/#{@application.id}", method: :patch, local: true do |f| %>
       <%= f.label "Why would you be a good owner for this/these pet(s)?" %><br>
       <%= f.hidden_field :status, :value => "Pending" %>
@@ -36,5 +36,4 @@
       <%= f.submit "Submit Application" %>
     <% end %>
   <% end %>
-
 <% end %>
