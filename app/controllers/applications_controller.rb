@@ -12,6 +12,7 @@ class ApplicationsController < ApplicationController
 
   def new
   end
+  
 
   def create
     @application = Application.new(application_params)

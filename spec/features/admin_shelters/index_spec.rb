@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'admin index page' do
-  it 'lists all shelters in reverse alpabetic order' do
+  it 'lists all shelters in reverse alphabetic order' do
     shelter_1 = Shelter.create!(name: 'Durango shelter', city: 'Durango, CO', foster_program: false, rank: 9)
     shelter_2 = Shelter.create!(name: 'Athens Area Humane', city: 'Athens, GA', foster_program: true, rank: 7)
     shelter_3 = Shelter.create!(name: 'Bend City Shelter', city: 'Bend, OR', foster_program: true, rank: 8)

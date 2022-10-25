@@ -24,6 +24,23 @@ RSpec.describe Application do
     @pet_3 = Pet.create(adoptable: false, age: 8, breed: 'mix', name: 'Kumquat', shelter_id: @shelter_2.id)
   end
 
+  describe 'class methods' do
+    describe '#pending_apps' do
+      it "returns a list of all pending applications" do
+        application_3 = Application.create!(name: 'Chase Boston', street_address: '774 YodaRd', city: 'Greenville', state: 'SC', zip: 56843, description: 'Experience with difficult cats', status:  'Pending')
+        application_4 = Application.create!(name: 'Don Juan', street_address: '788 Tandy Rd', city: 'Greenville', state: 'SC', zip: 56843, description: 'Experience with difficult dogs', status:  'Pending')
+          binding.pry
+        expect(Application.pending_apps).to eq([application_3, application_4])
+        expect(Application.pending_apps).to_not eq(@application_1)
+        expect(Application.pending_apps).to_not eq(@application_2)
+      end
+    end
+  end 
+
+
+    describe 'instance methods' do
+
+    end
   # Test moving the seach for pet (within app_contr show method here)
 
   # describe 'class methods' do
