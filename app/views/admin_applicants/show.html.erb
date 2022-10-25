@@ -7,6 +7,7 @@
     <p><%= pet.name %></p>
     <% if PetApplicant.find_pet_app(pet.id, @applicant.id) && PetApplicant.find_pet_app(pet.id, @applicant.id).status == "In Progress" %>
   <%= button_to "Approve", { approve: pet.id } %>
+    <%else PetApplicant.find_pet_app(pet.id, @applicant.id) && PetApplicant.find_pet_app(pet.id, @applicant.id).status == "Accepted" %>
   <p><%= pet.name %> is all yours!</p>
   
   <% end %>
