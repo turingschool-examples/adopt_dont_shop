@@ -29,7 +29,7 @@ RSpec.describe Application do
       it "returns a list of all pending applications" do
         application_3 = Application.create!(name: 'Chase Boston', street_address: '774 YodaRd', city: 'Greenville', state: 'SC', zip: 56843, description: 'Experience with difficult cats', status:  'Pending')
         application_4 = Application.create!(name: 'Don Juan', street_address: '788 Tandy Rd', city: 'Greenville', state: 'SC', zip: 56843, description: 'Experience with difficult dogs', status:  'Pending')
-          binding.pry
+        
         expect(Application.pending_apps).to eq([application_3, application_4])
         expect(Application.pending_apps).to_not eq(@application_1)
         expect(Application.pending_apps).to_not eq(@application_2)
