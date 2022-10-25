@@ -6,10 +6,13 @@
   <div id="pet-<%= pet.id %>">
     <p><%= pet.name %></p>
     <% if PetApplicant.find_pet_app(pet.id, @applicant.id) && PetApplicant.find_pet_app(pet.id, @applicant.id).status == "In Progress" %>
-  <%= button_to "Approve", { approve: pet.id } %>
-    <%else PetApplicant.find_pet_app(pet.id, @applicant.id) && PetApplicant.find_pet_app(pet.id, @applicant.id).status == "Accepted" %>
-  <p><%= pet.name %> is all yours!</p>
-  
+      <%= button_to "Approve", { approve: pet.id } %>
+      <%= button_to "Reject", { reject: pet.id } %>
+    <% elsif PetApplicant.find_pet_app(pet.id, @applicant.id) && PetApplicant.find_pet_app(pet.id, @applicant.id).status == "Accepted" %>
+      <p><%= pet.name %> is all yours!</p>
+   <% else %>
+    <% PetApplicant.find_pet_app(pet.id, @applicant.id) && PetApplicant.find_pet_app(pet.id, @applicant.id).status == "Rejected" %>
+      <p><%= pet.name %> is not all yours.</p>
   <% end %>
    </div> 
 <% end %>

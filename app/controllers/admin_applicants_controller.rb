@@ -6,6 +6,9 @@ class AdminApplicantsController < ApplicationController
     if params[:approve] 
       pet_app = PetApplicant.find_pet_app(params[:approve], @applicant.id)
       pet_app.approved
+    elsif params[:reject] 
+      rej_pet_app = PetApplicant.find_pet_app(params[:reject], @applicant.id)
+      rej_pet_app.rejected
     end
   end
 

@@ -11,4 +11,8 @@ class PetApplicant < ApplicationRecord
   def approved 
     update_attribute(:status, 2)
   end
+
+  def rejected 
+    update_attribute(:status, 3)
+  end
 end
