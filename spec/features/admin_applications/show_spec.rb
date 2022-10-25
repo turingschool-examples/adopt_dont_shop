@@ -55,7 +55,7 @@ RSpec.describe 'admin applications show page' do
     visit "/admin/applications/#{application_1.id}"
 
     within("#pet-#{pet_1.id}") do
-      choose(:status_approve)
+      choose(:status, option: 'Approved')
       click_on "Submit"
     end
 
