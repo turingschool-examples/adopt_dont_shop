@@ -1,0 +1,12 @@
+<h1>This is the show for <%= @applicant.name %> Application</h1>
+<% @applicant.pets.each do |pet| %>
+  <% if pet.applicant_status(@applicant.id) == "Pending" %>
+  <p><%= "#{pet.name} - #{pet.breed}" %></p>
+  <p><%= button_to "Approve #{pet.name} ", "/admin/applicants/#{@applicant.id}", method: :patch, params:{ status:"Approved", pet_id:pet.id } %></p>
+  <p><%= button_to "Reject #{pet.name} ", "/admin/applicants/#{@applicant.id}", method: :patch, params:{ status:"Rejected", pet_id:pet.id } %></p>
+    <% elsif pet.applicant_status(@applicant.id) == "Approved" %>
+    <%= "#{pet.name} Approved" %>
+    <% else %>
+    <%= "#{pet.name} Reject" %>
+ <% end %>
+<% end %>

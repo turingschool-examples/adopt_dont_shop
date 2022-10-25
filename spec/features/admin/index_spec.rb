@@ -15,6 +15,7 @@ RSpec.describe '#/admin/shelters/index' do
     @pet3 = @shelter_3.pets.create(name: 'Lucille Bald', breed: 'sphynx', age: 8, adoptable: true)
     @applicant1 = Applicant.create!(name: "Judge Judy", street_address: "666 Elm St", city: "New Jersey", state: "NJ", zip: "8675309", status: 'Pending')
     @applicant2 = Applicant.create!(name: "Pink Flyod", street_address: "5150 High St", city: "Crater Lake", state: "None", zip: "12345", status: 'Pending')
+   
   end
     it 'lists all the shelters in reverse alphabetical order' do 
       visit "/admin/shelters"
@@ -29,10 +30,10 @@ RSpec.describe '#/admin/shelters/index' do
 # Then I see a section for "Shelter's with Pending Applications"
 # And in this section I see the name of every shelter that has a pending application
    it 'has a section with all the Shelters pending applications' do 
+    @applicant1.pets << @pet1 << @pet2
+    @applicant2.pets << @pet3 
      visit "/admin/shelters"
-     @applicant1.pets << @pet1 << @pet2
-     @applicant2.pets << @pet3 
-     binding.pry
+    
     within ("#Shelters_with_pending_applications") do 
      expect(page).to have_content(@shelter_1.name)
      expect(page).to have_content(@shelter_3.name)
