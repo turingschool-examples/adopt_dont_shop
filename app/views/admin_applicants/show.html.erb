@@ -1,11 +1,15 @@
 <center><h1> Admin: Applicant Show Page </h1></center>
 
 <center><h4>Applicant Name: <%= @applicant.name %></h4> </center><br>
-<center><p>Has Applied for following pet(s):
+<center><p>Has applied for following pet(s):
  <% @pets.each do |pet| %>
-  <p><%= pet.name %></p>
-  <%= button_to "Approve", "/admin/applicants/#{@applicant.id}", method: :patch, params: { pet_id: pet.id }, local: :true %>
-
+  <div id="pet-<%= pet.id %>">
+    <p><%= pet.name %></p>
+  <%= button_to "Approve", { approve: pet.id } %>
+    <% if PetApplicant.find_pet_app(pet.id, @applicant.id) %>
+  <p><%= pet.name %> is all yours!</p>
+  <% end %>
+   </div> 
 <% end %>
 
                                           

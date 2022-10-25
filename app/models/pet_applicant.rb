@@ -4,8 +4,11 @@ class PetApplicant < ApplicationRecord
   belongs_to :pet 
   belongs_to :applicant 
 
-  def approved_pet(pet_id)
-  
+  def self.find_pet_app(pet_id, app_id)
+    find_by(pet_id: pet_id, applicant_id: app_id)
+  end
 
+  def approved 
+    update_attribute(:status, 2)
   end
 end
