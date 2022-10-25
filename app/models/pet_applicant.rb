@@ -3,4 +3,9 @@ class PetApplicant < ApplicationRecord
   validates_presence_of :pet_id, :applicant_id, :status 
   belongs_to :pet 
   belongs_to :applicant 
+
+  def approved_pet(pet_id)
+  
+
+  end
 end
