@@ -8,6 +8,8 @@ Rails.application.routes.draw do
   patch '/applicants/:id', to: 'applicants#update'
 
   get '/admin/shelters', to: 'admin#index'
+  get '/admin/applicants/:id', to: 'admin#show'
+  patch '/admin/applicants/:id', to: 'admin#update'
 
   get '/shelters', to: 'shelters#index'
   get '/shelters/new', to: 'shelters#new'
