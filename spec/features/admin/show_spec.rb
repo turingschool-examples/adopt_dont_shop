@@ -35,7 +35,7 @@ RSpec.describe "AdminShow" do
       
         visit "/admin/applicants/#{@applicant1.id}"
         click_button "Approve #{@pet1.name}"
-        save_and_open_page
+        
         expect(current_path).to eq("/admin/applicants/#{@applicant1.id}")
         expect(page).to have_content("#{@pet1.name} Approved")
         expect(page).to_not have_button("Approve #{@pet1.name}")
@@ -50,4 +50,51 @@ RSpec.describe "AdminShow" do
 # Then I'm taken back to the admin application show page
 # And next to the pet that I rejected, I do not see a button to approve or reject this pet
 # And instead I see an indicator next to the pet that they have been rejected
-# end
+ 
+
+     describe 'admin rejecting an applicant for pet' do 
+       it 'has a button to reject the applicant for the pet' do
+       @applicant1.pets << @pet1 << @pet2
+        
+        visit "/admin/applicants/#{@applicant1.id}"
+        
+        expect(page).to have_button("Reject #{@pet1.name}")
+        expect(page).to have_button("Reject #{@pet2.name}")
+      end
+      
+      it 'after clicking approve i am taken back to updated show page' do
+        @applicant1.pets << @pet1 << @pet2
+        
+        visit "/admin/applicants/#{@applicant1.id}"
+        click_button "Reject #{@pet1.name}"
+        
+        expect(current_path).to eq("/admin/applicants/#{@applicant1.id}")
+        expect(page).to have_content("#{@pet1.name} Reject")
+        expect(page).to_not have_button("Reject #{@pet1.name}")
+       end
+    end
+        
+# 14. Approved/Rejected Pets on one Application do not affect other Applications
+# As a visitor
+# When there are two applications in the system for the same pet
+# When I visit the admin application show page for one of the applications
+# And I approve or reject the pet for that application
+# When I visit the other application's admin show page
+# Then I do not see that the pet has been accepted or rejected for that application
+# And instead I see buttons to approve or reject the pet for this specific application
+# ```   
+    describe 'No#effect' do 
+        it 'approving a pet does not affect other applications' do 
+          @applicant1.pets << @pet1 << @pet2 
+          @applicant2.pets << @pet1 << @pet2 
+           
+         visit "admin/applicants/#{@applicant1.id}"
+         click_button "Reject #{@pet1.name}"
+         expect(page).to have_content("#{@pet1.name} Reject")
+         visit "admin/applicants/#{@applicant2.id}"
+         expect(page).to_not have_content("#{@pet1.name} Reject")
+
+        end
+    end
+
+end
