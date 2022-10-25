@@ -40,7 +40,6 @@ RSpec.describe Pet, type: :model do
       end
     end
   end
-
   describe 'class method' do
     describe 'pet_name_filter' do
       it 'returns pet names regardless of case and also partial matches!' do

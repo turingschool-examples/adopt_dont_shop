@@ -11,7 +11,11 @@
   <% end %>
 <br>
 
+
+
+
 <% if @applicant.pets && @applicant.status == "In Progress" %>
+
   <center><%= form_with url: "/applicants/#{@applicant.id}", method: :get, local: true do |f| %>
   <h4>Add a pet to this application</h4>
   <%= f.label :search_name %>
@@ -28,7 +32,10 @@
 
 <% end %></center>
 <br>
+
+
 <% if params[:search_name]  %>
+
 <% @pets = Pet.pet_name_filter(params[:search_name]) %>
   <% @pets.each do |pet| %>
  <center><div id="pet_<%= pet.id %>">
@@ -40,5 +47,5 @@
 <% end %>
  
 
- 
+
 
