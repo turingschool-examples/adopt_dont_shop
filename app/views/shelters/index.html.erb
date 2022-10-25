@@ -14,5 +14,6 @@
     <p>Created at: <%= shelter.created_at %></p>
     <%= link_to "Update #{shelter.name}", "/shelters/#{shelter.id}/edit" %>
     <%= link_to "Delete #{shelter.name}", "/shelters/#{shelter.id}", method: :delete %>
+    <%= link_to "Visit #{shelter.name}", "/shelters/#{shelter.id}", method: :get %>
   </div>
 <% end %>
