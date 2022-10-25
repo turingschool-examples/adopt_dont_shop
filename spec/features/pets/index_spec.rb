@@ -103,12 +103,12 @@ RSpec.describe 'Pet Index' do
     visit "/pets"
     fill_in 'Search by name', with: "babe"
     click_on("Search")
-    save_and_open_page
+
     expect(page).to have_content(pet_1.name)
     expect(page).to have_content(pet_2.name)
     expect(page).to_not have_content(pet_3.name)
-   
-  end 
+
+  end
 
   it 'list matches to pet breed' do
     shelter = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)

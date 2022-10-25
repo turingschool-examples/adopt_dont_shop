@@ -19,7 +19,7 @@ RSpec.describe 'Pet Show' do
 
       it 'a button to delete a pet' do
         visit "/pets/#{@pet.id}"
-        save_and_open_page
+
         expect(page).to have_link("Delete #{@pet.name}")
       end
     end
