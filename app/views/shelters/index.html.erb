@@ -20,7 +20,7 @@
 <% if current_page?(admin_shelters_path) %>
   <h2> Shelters with Pending Applications</h2>
   <% @shelters_with_pending_apps.each do |shelter| %>
-    <h4><%= shelter.name %></h4>
+    <p><%= shelter.name %></p>
   <% end %>
 <% end %>
 
