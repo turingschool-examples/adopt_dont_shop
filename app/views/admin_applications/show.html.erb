@@ -1,6 +1,6 @@
 <h2>Pets</h2>
 <% @pets.each do |pet| %>
-<%# <section id="application-<%= >> %>
+<div id="pet-<%= pet.id %>">
   <p><%= pet.name %></p>
   <% if ApplicationPet.find_application_pet(pet.id, @application.id).status == "Approved" %>
     <p>Approved</p>
@@ -10,4 +10,5 @@
     <p><%= button_to "Approve #{pet.name}", "/admin/applications/#{@application.id}", method: :get, params: {approve: true, pet_id: pet.id}%></p>
     <p><%= button_to "Reject #{pet.name}", "/admin/applications/#{@application.id}", method: :get, params: {approve: false, pet_id: pet.id} %></p>
   <% end %>
+  </div>
 <% end %>
