@@ -9,7 +9,7 @@ class SheltersController < ApplicationController
     end
   end
 
-  def pets
+  def pets 
     @shelter = Shelter.find(params[:shelter_id])
 
     if params[:sort] == 'alphabetical'
