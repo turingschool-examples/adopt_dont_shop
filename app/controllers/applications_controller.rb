@@ -6,10 +6,10 @@ class ApplicationsController < ApplicationController
     @application = Application.find(params[:id])
     if params[:commit] == "Search"
       @search_pets = Pet.search(params[:pet_search])
-    elsif params[:description] != nil 
-      @application.status = "Pending"
-      @application.update(description: params[:description])
-      render :show 
+    # elsif params[:description] != nil 
+    #   @application.status = "Pending"
+    #   @application.update(description: params[:description])
+    #   render :show 
     end
     
   end

@@ -7,8 +7,8 @@ RSpec.describe 'the applications show page' do
 
       pet_1 = Pet.create!(adoptable: true, age: 1, breed: 'sphynx', name: 'Lucille Bald', shelter_id: shelter.id)
       pet_2 = Pet.create!(adoptable: true, age: 3, breed: 'doberman', name: 'Lobster', shelter_id: shelter.id)
-      application_1 = Application.create!(name: "Taylor Swift", street_address: "22 Blank Space Ln", city: "Denver", state: "CO", zip_code: 80230)
-      application_2 = Application.create!(name: "Joe", street_address: "1234 Park Rd", city: "Aurora", state: "CO", zip_code: 80206)
+      application_1 = Application.create!(name: "Taylor Swift", street_address: "22 Blank Space Ln", city: "Denver", state: "CO", zip_code: 80230, status: "In-Progress")
+      application_2 = Application.create!(name: "Joe", street_address: "1234 Park Rd", city: "Aurora", state: "CO", zip_code: 80206, status: "In-Progress")
       PetApplication.create(pet: pet_1, application: application_1)
       PetApplication.create(pet: pet_2, application: application_1)
 
