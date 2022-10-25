@@ -156,4 +156,53 @@ RSpec.describe 'Pet Index' do
     expect(page).to have_content(pet_2.name)
     expect(page).to have_content(pet_3.name)
   end
+  it 'can search with blank text fields correctly additonal test' do
+    shelter = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
+    pet_1 = Pet.create(adoptable: true, age: 7, breed: 'dog', name: 'Bare-y Manilow', shelter_id: shelter.id)
+    pet_2 = Pet.create(adoptable: true, age: 3, breed: 'dog', name: 'Babe', shelter_id: shelter.id)
+    pet_3 = Pet.create(adoptable: true, age: 3, breed: 'dog', name: 'Ellee', shelter_id: shelter.id)
+    pet_4 = Pet.create(adoptable: true, age: 3, breed: 'dog', name: 'Elvis', shelter_id: shelter.id)
+    pet_5 = Pet.create(adoptable: true, age: 3, breed: 'cat', name: 'Elton', shelter_id: shelter.id)
+    pet_6 = Pet.create(adoptable: true, age: 3, breed: 'cat', name: 'Eliott', shelter_id: shelter.id)
+    
+    visit "/pets"
+    fill_in :search_by_breed, with: "dog"
+    click_on("Search")
+    expect(page).to have_content(pet_1.name)
+    expect(page).to have_content(pet_2.name)
+    expect(page).to have_content(pet_3.name)
+    expect(page).to have_content(pet_4.name)
+    expect(page).to_not have_content(pet_5.name)
+    expect(page).to_not have_content(pet_6.name)
+  end
+  it 'will return nothing if no pet matches the criteria' do
+    shelter = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
+    pet_1 = Pet.create(adoptable: true, age: 7, breed: 'sphynx', name: 'Bare-y Manilow', shelter_id: shelter.id)
+    pet_2 = Pet.create(adoptable: true, age: 3, breed: 'dog', name: 'Babe', shelter_id: shelter.id)
+    pet_3 = Pet.create(adoptable: true, age: 3, breed: 'cat', name: 'Ellee', shelter_id: shelter.id)
+
+    visit "/pets"
+    fill_in :search_by_name, with: "Elle"
+    fill_in :search_by_breed, with: "dog"
+    fill_in :search_by_age, with: "3"
+    click_on("Search")
+    expect(page).to_not have_content(pet_1.name)
+    expect(page).to_not have_content(pet_2.name)
+    expect(page).to_not have_content(pet_3.name)
+  end
+  it 'will return nothing if no pet matches the criteria additonal' do
+    shelter = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
+    pet_1 = Pet.create(adoptable: true, age: 7, breed: 'sphynx', name: 'Bare-y Manilow', shelter_id: shelter.id)
+    pet_2 = Pet.create(adoptable: true, age: 3, breed: 'dog', name: 'Babe', shelter_id: shelter.id)
+    pet_3 = Pet.create(adoptable: true, age: 3, breed: 'cat', name: 'Ellee', shelter_id: shelter.id)
+
+    visit "/pets"
+    fill_in :search_by_name, with: "Elle"
+    fill_in :search_by_breed, with: "sphynx"
+    fill_in :search_by_age, with: "3"
+    click_on("Search")
+    expect(page).to_not have_content(pet_1.name)
+    expect(page).to_not have_content(pet_2.name)
+    expect(page).to_not have_content(pet_3.name)
+  end
 end
