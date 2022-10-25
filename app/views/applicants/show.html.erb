@@ -11,7 +11,6 @@
   <% end %>
 <br>
 
-
  <% if @applicant.pets && @applicant.status == "In Progress" %>
   <center><%= form_with url: "/applicants/#{@applicant.id}", method: :get, local: true do |f| %>
   <h4>Add a pet to this application</h4>
@@ -21,24 +20,19 @@
  <% end %>
 <% end %></center>
 <br>
-<% @pets.each do |pet| %>
-  <% if params[:search_name] == pet.name  %>
-  <center><%=  %></center>
+<% if params[:search_name] %>
+<% @pets = Pet.pet_name_filter(params[:search_name]) %>
+  <% @pets.each do |pet| %>
  <center><div id="pet_<%= pet.id %>">
     <%= button_to "Adopt This Pet!", "/applicants/#{@applicant.id}", method: :get, params: { pet_id: pet.id }, local: :true %>
+    <%= pet.name %>
   </div>
   </center>
   <% end %>
 <% end %>
 
-<% if @found_pets.nil? %>
-  <center><p> Please Search By Pet Name. </p></center>
-<% else %>
-  <% @found_pets != nil %>
-    <% @found_pets.each do |pet| %>
-      <center><p><%= pet.name %></p></center>
-      <center><%= button_to "Adopt This Pet!", "/applicants/#{@applicant.id}", method: :get, params: { pet_id: pet.id }, local: :true %>
-    <% end %>
-<% end %>
+
+
+
 
 

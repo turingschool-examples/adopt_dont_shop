@@ -6,3 +6,9 @@
     <h4>Foster Program:</h4><p><%= shelter.foster_program %></p> 
     <h4>Rank:</h4><p><%= shelter.rank %></p> 
 <% end %></center>
+
+<% if Shelter.pending_apps %>
+	<%= @shelters.each do |shelter| %>
+		<%= shelter.name %>
+	<% end %>
+<% end %>
