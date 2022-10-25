@@ -33,7 +33,7 @@ class Shelter < ApplicationRecord
   end
 
   def self.order_alphabatically_in_reverse
-    order(name: :desc)
+    order("name DESC")
   end
 
   def self.shelters_with_pending_applications
