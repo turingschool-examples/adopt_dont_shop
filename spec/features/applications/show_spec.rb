@@ -7,13 +7,12 @@ RSpec.describe 'the applications show page' do
 
       pet_1 = Pet.create!(adoptable: true, age: 1, breed: 'sphynx', name: 'Lucille Bald', shelter_id: shelter.id)
       pet_2 = Pet.create!(adoptable: true, age: 3, breed: 'doberman', name: 'Lobster', shelter_id: shelter.id)
-      application_1 = Application.create!(name: "Taylor Swift", street_address: "22 Blank Space Ln", city: "Denver", state: "CO", zip_code: 80230)
-      application_2 = Application.create!(name: "Joe", street_address: "1234 Park Rd", city: "Aurora", state: "CO", zip_code: 80206)
+      application_1 = Application.create!(name: "Taylor Swift", street_address: "22 Blank Space Ln", city: "Denver", state: "CO", zip_code: 80230, status: "In-Progress")
+      application_2 = Application.create!(name: "Joe", street_address: "1234 Park Rd", city: "Aurora", state: "CO", zip_code: 80206, status: "In-Progress")
       PetApplication.create(pet: pet_1, application: application_1)
       PetApplication.create(pet: pet_2, application: application_1)
 
       visit "/applications/#{application_1.id}"
-      # visit "/applications"
       within("#application_show") do 
         expect(page).to have_content("Street Address: #{application_1.street_address}")
         expect(page).to have_content("#{application_1.name}")
@@ -25,7 +24,6 @@ RSpec.describe 'the applications show page' do
 
       expect(page).to have_content(application_1.status)
       expect(page).to have_content(application_1.pets.name)
-      # save_and_open_page
     end
 
     describe 'application show page pet search' do
@@ -177,8 +175,6 @@ RSpec.describe 'the applications show page' do
         expect(page).to have_content("Application Status: In-Progress")
         expect(page).to_not have_content('I love cats')
 
-        # click_button("Submit")
-        # expect(page).to have_content("Application Status: Pending")
         fill_in 'description', with: 'I love cats'
         click_button("Submit")
         expect(page).to have_content("Application Status: Pending")
