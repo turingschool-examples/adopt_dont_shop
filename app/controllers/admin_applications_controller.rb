@@ -4,40 +4,22 @@ class AdminApplicationsController < ApplicationsController
     view_with_decision
   end
 
-  def application_pets_pending
-    pending = []
-    @application.pets.each do |pet|
-      pet.pet_applications.each do |application|
-        if application.rejected == false && application.approved == false && application.application_id == @application.id
-          pending << pet
-        end
-      end
+  def pending_pet_applications
+    @application.pets.map do |pet|
+      pet.pet_applications.pets_based_on_application(false, false, @application.id)
     end
-    pending
   end
 
-  def application_pets_approved
-    approved = []
-    @application.pets.each do |pet|
-      pet.pet_applications.each do |application|
-        if application.approved == true && application.application_id == @application.id
-          approved << pet
-        end
-      end
+  def approved_pet_applications
+    @application.pets.map do |pet|
+      pet.pet_applications.pets_based_on_application(false, true, @application.id)
     end
-    approved
   end
 
-  def application_pets_rejected
-    rejected = []
-    @application.pets.each do |pet|
-      pet.pet_applications.each do |application|
-        if application.rejected == true && application.application_id == @application.id
-          rejected << pet
-        end
-      end
+  def rejected_pet_applications
+    @application.pets.map do |pet|
+      pet.pet_applications.pets_based_on_application(true, false, @application.id)
     end
-    rejected
   end
 
   def application_decision(parameter)
@@ -51,10 +33,10 @@ class AdminApplicationsController < ApplicationsController
     redirect_to "/admin/applications/#{@application.id}"
   end
 
-  def pet_lists
-    @pets_pending = application_pets_pending
-    @pets_approved = application_pets_approved
-    @pets_rejected = application_pets_rejected
+  def pet_application_lists
+    @pet_applications_pending = pending_pet_applications3.flatten
+    @pet_applications_approved = approved_pet_applications.flatten
+    @pet_applications_rejected = rejected_pet_applications.flatten
   end
 
 
@@ -64,7 +46,7 @@ class AdminApplicationsController < ApplicationsController
     elsif params[:rejected].present?
       application_decision(:rejected)
     else
-      pet_lists
+      pet_application_lists
     end
   end
 end

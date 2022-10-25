@@ -4,34 +4,34 @@
 <p> Status: <%= @application.status %> </p>
 
 <% if current_page?("/admin/applications/#{@application.id}") %>
-  <% if @pets_pending.length > 0 %>
+  <% if @pet_applications_pending.length > 0 %>
     <h3> Pets Pending Decision: </h3>
-    <% @pets_pending.each do |pet| %>
+    <% @pet_applications_pending.each do |application| %>
       <p> 
-        <%= pet.name %>
+        <%= application.pet.name %>
         <%= form_with url: "/admin/applications/#{@application.id}", method: :patch, local: true do |f| %>
-          <%= f.hidden_field :pet_id, :value => pet.id %>
+          <%= f.hidden_field :pet_id, :value => application.pet_id %>
           <%= f.hidden_field :approved, :value => true %>
            <%= f.submit "Approve" %>
         <% end %> 
         <%= form_with url: "/admin/applications/#{@application.id}", method: :patch, local: true do |f| %>
-          <%= f.hidden_field :pet_id, :value => pet.id %>
+          <%= f.hidden_field :pet_id, :value => application.pet_id %>
           <%= f.hidden_field :rejected, :value => true %>
           <%= f.submit "Reject" %>
         <% end %> 
       </p>
     <% end %>
   <% end %>
-  <% if  @pets_approved.length > 0%>
+  <% if  @pet_applications_approved.length > 0%>
     <h3> Approved Pets: </h3>
-    <% @pets_approved.each do |pet| %>
-      <p> <%= pet.name %> </p>
+    <% @pet_applications_approved.each do |application| %>
+      <p> <%= application.pet.name %> </p>
     <% end %>
   <% end %>
-  <% if  @pets_rejected.length > 0%>
+  <% if  @pet_applications_rejected.length > 0%>
     <h3> Rejected Pets: </h3>
-    <% @pets_rejected.each do |pet| %>
-      <p> <%= pet.name %> </p>
+    <% @pet_applications_rejected.each do |application| %>
+      <p> <%= application.pet.name %> </p>
     <% end %>
   <% end %>
 <% else %>
