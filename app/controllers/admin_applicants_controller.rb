@@ -3,14 +3,14 @@ class AdminApplicantsController < ApplicationController
   def show
     @applicant = Applicant.find(params[:id])
     @pets = @applicant.pets
+    if params[:approve] 
+      pet_app = PetApplicant.find_pet_app(params[:approve], @applicant.id)
+      pet_app.approved
+    end
   end
 
   def update 
     applicant = Applicant.find(params[:id])
-    pet_applicant = PetApplicant.find(params[:id])
-
-    if params[:pet_id].present? && params[:applicant_id].present?
-      pet_applicant.update(status: 2)
-    end
-  end
+  end 
+  
 end

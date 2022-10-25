@@ -29,11 +29,8 @@
     <%= f.submit "Submit" %>
   <% end %></center>
   <% end %>
-
 <% end %></center>
 <br>
-
-
 <% if params[:search_name]  %>
 
 <% @pets = Pet.pet_name_filter(params[:search_name]) %>

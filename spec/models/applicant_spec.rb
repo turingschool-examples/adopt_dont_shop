@@ -29,4 +29,5 @@ RSpec.describe Applicant, type: :model do
       expect(app3.pets).to eq([pet1, pet2])
     end
   end
+  
 end

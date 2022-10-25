@@ -9,8 +9,6 @@ class Applicant < ApplicationRecord
     pets << Pet.find(param)
   end 
   
-  # def update_description 
-
-  # end
+  
 
 end
