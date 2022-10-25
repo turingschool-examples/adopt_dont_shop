@@ -12,37 +12,35 @@ RSpec.describe 'Admin applications show page' do
   it 'displays every pet that the application is for' do
     visit "/admin/applications/#{@application.id}"
 
-    expect(page).to have_content("Becky")
-    expect(page).to have_button("Approve #{@becky.name}")
-    expect(page).to have_button("Reject #{@becky.name}")
+    within("#pet-#{@becky.id}") do
+      expect(page).to have_content(@becky.name)
+      expect(page).to have_button("Approve #{@becky.name}")
+      expect(page).to have_button("Reject #{@becky.name}")
+    end
   end
 
   it 'can approve a pet' do
     visit "/admin/applications/#{@application.id}"
 
-    click_button("Approve #{@becky.name}")
-
-    expect(current_path).to eq("/admin/applications/#{@application.id}")
-    expect(page).to have_content("Approved")
-
-    expect(page).to_not have_button("Approve #{@becky.name}")
-    expect(page).to_not have_button("Reject #{@becky.name}")
+    within("#pet-#{@becky.id}") do
+      click_button("Approve #{@becky.name}")
+      expect(current_path).to eq("/admin/applications/#{@application.id}")
+      expect(page).to have_content("Approved")
+      expect(page).to_not have_button("Approve #{@becky.name}")
+      expect(page).to_not have_button("Reject #{@becky.name}")
+    end
   end
 
   it 'can reject a pet' do
     visit "/admin/applications/#{@application.id}"
 
-    click_button("Reject #{@becky.name}")
-
-    expect(current_path).to eq("/admin/applications/#{@application.id}")
-
-    expect(page).to have_content("Rejected")
-
-    expect(page).to_not have_button("Approve #{@becky.name}")
-    expect(page).to_not have_button("Reject #{@becky.name}")
-
-    visit "/pets"
-    visit "/admin/applications/#{@application.id}"
+    within("#pet-#{@becky.id}") do
+      click_button("Reject #{@becky.name}")
+      expect(current_path).to eq("/admin/applications/#{@application.id}")
+      expect(page).to have_content("Rejected")
+      expect(page).to_not have_button("Approve #{@becky.name}")
+      expect(page).to_not have_button("Reject #{@becky.name}")
+    end
   end
 
   it "can approve or reject the same pet on multiple applications" do
