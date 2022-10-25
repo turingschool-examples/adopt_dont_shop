@@ -1,19 +1,14 @@
   class PetsController < ApplicationController
     def index
       @pets = Pet.adoptable
-      if params[:search_by_name] && params[:search_by_name] != ""
-        @pets = Pet.where("name like ?", 
-        "#{params[:search_by_name]}%".capitalize).adoptable
+      if params[:search_by_name] && params[:search_by_breed] && params[:search_by_age]
+        if params[:search_by_age] != ''
+          @pets = Pet.where(["name LIKE :name and breed LIKE :breed and age = :age", { name: "%" + params[:search_by_name].capitalize + "%", breed: "%" + params[:search_by_breed] + "%", age: params[:search_by_age]}])  
+        else
+          @pets = Pet.where(["name LIKE :name and breed LIKE :breed and age BETWEEN 0 AND 30", { name: "%" + params[:search_by_name].capitalize + "%", breed: "%" + params[:search_by_breed] + "%"}]) 
+        end
       end
-      if params[:search_by_breed] && params[:search_by_breed] != ""
-        @pets = Pet.where("breed like ?", 
-        "%#{params[:search_by_breed]}%").adoptable
-      end
-      if params[:search_by_age] && params[:search_by_age] != ""
-        @pets = Pet.where("age = ?",
-        params[:search_by_age].to_i).adoptable
-      end
-  end
+    end
 
   def show
     @pet = Pet.find(params[:id])
