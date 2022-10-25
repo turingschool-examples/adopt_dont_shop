@@ -105,4 +105,16 @@ RSpec.describe 'the shelters index' do
     expect(page).to have_content(@shelter_2.name)
     expect(page).to_not have_content(@shelter_1.name)
   end
+
+  it "has a link to the shelter show page" do
+    visit "/shelters"
+
+    within("#shelter-#{@shelter_3.id}") do
+      expect(page).to have_link("Visit #{@shelter_3.name}")
+
+      click_link("Visit #{@shelter_3.name}")
+
+      expect(current_path).to eq("/shelters/#{@shelter_3.id}")
+    end
+  end
 end
