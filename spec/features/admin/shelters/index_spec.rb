@@ -17,38 +17,42 @@ RSpec.describe 'Admin Shelters Index' do
     ApplicationPet.create!(pet: @pet_3, application: @app_2)
   end
 
-  it 'lists all the shelter names' do
-    visit "/admin/shelters"
+  describe 'When I visit /admin/shelters' do
+    describe 'Then I see' do
+      it 'lists all the shelter names' do
+        visit "/admin/shelters"
 
-    expect(page).to have_content(@shelter_1.name)
-    expect(page).to have_content(@shelter_2.name)
-    expect(page).to have_content(@shelter_3.name)
-  end
+        expect(page).to have_content(@shelter_1.name)
+        expect(page).to have_content(@shelter_2.name)
+        expect(page).to have_content(@shelter_3.name)
+      end
 
-  it 'lists the shelters reverse alphabeticaly' do
-    visit "/admin/shelters"
+      it 'lists the shelters reverse alphabeticaly' do
+        visit "/admin/shelters"
 
-    aurora = find("#shelter-#{@shelter_1.id}")
-    fancy = find("#shelter-#{@shelter_3.id}")
-    rvg = find("#shelter-#{@shelter_2.id}")
+        aurora = find("#shelter-#{@shelter_1.id}")
+        fancy = find("#shelter-#{@shelter_3.id}")
+        rvg = find("#shelter-#{@shelter_2.id}")
 
-    expect(rvg).to appear_before(fancy)
-    expect(fancy).to appear_before(aurora)
-  end
+        expect(rvg).to appear_before(fancy)
+        expect(fancy).to appear_before(aurora)
+      end
 
-  it 'has a section for "Shelters with Pending Applications"' do
-    visit '/admin/shelters'
+      it 'has a section for "Shelters with Pending Applications"' do
+        visit '/admin/shelters'
 
-    expect(page).to have_content("Shelter's with Pending Applications")
-  end
+        expect(page).to have_content("Shelter's with Pending Applications")
+      end
 
-  it 'that lists the name of every shleter that has a pending application' do
-    visit '/admin/shelters'
+      it 'that lists the name of every shleter that has a pending application' do
+        visit '/admin/shelters'
 
-    within "#shelter-apps" do
-      expect(page).to have_content(@shelter_1.name)
-      expect(page).to_not have_content(@shelter_2.name)
-      expect(page).to_not have_content(@shelter_3.name)
+        within "#shelter-apps" do
+          expect(page).to have_content(@shelter_1.name)
+          expect(page).to_not have_content(@shelter_2.name)
+          expect(page).to_not have_content(@shelter_3.name)
+        end
+      end
     end
   end
 end

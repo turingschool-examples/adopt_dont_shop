@@ -9,11 +9,15 @@ RSpec.describe 'Application Index' do
     ApplicationPet.create!(pet: pet_1, application: @app_1)
     ApplicationPet.create!(pet: pet_2, application: @app_1)
   end
-  it 'lists all the applications with their attributes' do
-    visit "/applications"
+  describe 'When I visit /applications' do
+    describe 'Then I see' do
+      it 'lists all the applications with their attributes' do
+        visit "/applications"
 
-    expect(page).to have_content(@app_1.last)
-    expect(page).to have_content(@app_1.first)
-    expect(page).to have_content(@app_1.status)
+        expect(page).to have_content(@app_1.last)
+        expect(page).to have_content(@app_1.first)
+        expect(page).to have_content(@app_1.status)
+      end
+    end
   end
 end

@@ -31,6 +31,7 @@ RSpec.describe 'Application New' do
           fill_in :zip, with: "86753"
           fill_in :description, with: "Its the best of homes"
         end
+
         it "I am taken to /applications/:id" do
           fill_in :first, with: "Joe"
           click_on "Submit"
