@@ -93,6 +93,7 @@ RSpec.describe "AdminShow" do
          expect(page).to have_content("#{@pet1.name} Reject")
          visit "admin/applicants/#{@applicant2.id}"
          expect(page).to_not have_content("#{@pet1.name} Reject")
+      
 
         end
     end

@@ -33,7 +33,7 @@ RSpec.describe  'application creation' do
       fill_in "city", with:"New Jersey"
       fill_in "state", with:"New Jersey"
       fill_in "zip", with:"8675309"
-      fill_in "good_fit", with:"I am a Judgy Motha"
+     
 
 
       click_button("Submit")
@@ -57,7 +57,7 @@ RSpec.describe  'application creation' do
 
         click_button 'Submit'
         expect(page).to have_current_path("/applicants/new")
-        expect(page).to have_content("Error: Name can't be blank, Street address can't be blank, City can't be blank, State can't be blank, Zip can't be blank, Good fit can't be blank")
+        expect(page).to have_content("Error: Name can't be blank, Street address can't be blank, City can't be blank, State can't be blank, Zip can't be blank")
      
       end
     end 
