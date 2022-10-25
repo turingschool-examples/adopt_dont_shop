@@ -10,14 +10,4 @@ class AdminApplicationsController < ApplicationController
     @application_pet.save
     redirect_to "/admin/applications/#{params[:id]}"
   end
-
-  private
-  def application__pet_params
-    params.permit(:application_id, :pet_id, :accept)
-  end
-
-  private
-  def error_message(errors)
-    errors.full_messages.join(', ')
-  end
 end
