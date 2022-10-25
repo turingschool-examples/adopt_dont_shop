@@ -1,6 +1,7 @@
 class AdminApplicationsController < ApplicationController
   def show
     @application = Application.find(params[:id])
+    @pets_and_approval = @application.pets_in_application_to_approve
   end
 
   def update
@@ -8,15 +9,5 @@ class AdminApplicationsController < ApplicationController
     @application_pet.update(accept: params[:approve_reject])
     @application_pet.save
     redirect_to "/admin/applications/#{params[:id]}"
-  end
-
-  private
-  def application__pet_params
-    params.permit(:application_id, :pet_id, :accept)
-  end
-
-  private
-  def error_message(errors)
-    errors.full_messages.join(', ')
   end
 end

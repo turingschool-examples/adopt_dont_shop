@@ -18,19 +18,23 @@ RSpec.describe Application, type: :model do
   end
 
   describe 'class methods' do
-    describe '.applications_by_shelter' do
+    before(:each) do
+      @shelter_1 = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
+      @shelter_2 = Shelter.create(name: 'RGV animal shelter', city: 'Harlingen, TX', foster_program: false, rank: 5)
+      @pet_1 = @shelter_1.pets.create(name: 'Mr. Pirate', breed: 'tuxedo shorthair', age: 5, adoptable: true)
+      @pet_2 = @shelter_2.pets.create(name: 'Lucille Bald', breed: 'sphynx', age: 8, adoptable: true)
+      @app_1 = Application.create!(first: "Joe", last: "Hill", street: "Street", city: "Any Town", state: "AnyState", zip: "12345", description: "So cute!", status: "Pending")
+      ApplicationPet.create!(pet: @pet_1, application: @app_1)
+    end
+    describe '#applications_by_shelter' do
       it 'returns an array of shelter objects who have pets with "Pending" applications' do
-        @shelter_1 = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
-        @shelter_2 = Shelter.create(name: 'RGV animal shelter', city: 'Harlingen, TX', foster_program: false, rank: 5)
-
-        @pet_1 = @shelter_1.pets.create(name: 'Mr. Pirate', breed: 'tuxedo shorthair', age: 5, adoptable: true)
-        @pet_2 = @shelter_2.pets.create(name: 'Lucille Bald', breed: 'sphynx', age: 8, adoptable: true)
-
-        @app_1 = Application.create!(first: "Joe", last: "Hill", street: "Street", city: "Any Town", state: "AnyState", zip: "12345", description: "So cute!", status: "Pending")
-
-        ApplicationPet.create!(pet: @pet_1, application: @app_1)
-
         expect(Application.applications_by_shelter).to eq([@shelter_1])
+      end
+    end
+
+    describe '#pets_in_applications_by_shelter' do
+      it 'returns a hash with all the pets in that application and their accept/reject status' do
+        expect(@app_1.pets_in_application_to_approve).to eq({@pet_1 => nil})
       end
     end
   end

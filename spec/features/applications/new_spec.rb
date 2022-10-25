@@ -6,7 +6,7 @@ RSpec.describe 'Application New' do
     @pet_1 = Pet.create!(adoptable: true, age: 1, breed: 'sphynx', name: 'Lucille Bald', shelter_id: shelter.id)
     @pet_2 = Pet.create!(adoptable: true, age: 3, breed: 'doberman', name: 'Lobster', shelter_id: shelter.id)
   end
-  describe "When I visit the New Application Page" do
+  describe "When I visit the /applications/new" do
     describe "Then I see" do
       it "A form with a secion for first, last, street, city, state, & zip" do
         visit "/applications/new"
@@ -31,6 +31,7 @@ RSpec.describe 'Application New' do
           fill_in :zip, with: "86753"
           fill_in :description, with: "Its the best of homes"
         end
+
         it "I am taken to /applications/:id" do
           fill_in :first, with: "Joe"
           click_on "Submit"
