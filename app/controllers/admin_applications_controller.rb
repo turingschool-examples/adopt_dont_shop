@@ -1,19 +1,19 @@
 class AdminApplicationsController < ApplicationsController
   def show 
     @application = Application.find(params[:id])
-    view_with_approval
+    view_with_decision
   end
 
-  def application_pets_not_approved
-    not_approved = []
+  def application_pets_pending
+    pending = []
     @application.pets.each do |pet|
       pet.pet_applications.each do |application|
-        if application.approved == false && application.application_id == @application.id
-          not_approved << pet
+        if application.rejected == false && application.approved == false && application.application_id == @application.id
+          pending << pet
         end
       end
     end
-    not_approved
+    pending
   end
 
   def application_pets_approved
@@ -28,31 +28,43 @@ class AdminApplicationsController < ApplicationsController
     approved
   end
 
-  def application_submission_show_up
-    @display = false
-    if @application.pets.length > 0
-      @display = true
+  def application_pets_rejected
+    rejected = []
+    @application.pets.each do |pet|
+      pet.pet_applications.each do |application|
+        if application.rejected == true && application.application_id == @application.id
+          rejected << pet
+        end
+      end
     end
+    rejected
   end
 
-  def application_approval
+  def application_decision(parameter)
     pet = Pet.find(params[:pet_id])
     pet.pet_applications.each do |application|
       if application.application_id == @application.id && application.pet_id == pet.id
-        application.update(:approved => params[:approved])
+        application.update(parameter => params[parameter])
         application.save
       end
     end
+    redirect_to "/admin/applications/#{@application.id}"
+  end
+
+  def pet_lists
+    @pets_pending = application_pets_pending
+    @pets_approved = application_pets_approved
+    @pets_rejected = application_pets_rejected
   end
 
 
-  def view_with_approval
+  def view_with_decision
     if params[:approved].present?
-      application_approval
-      redirect_to "/admin/applications/#{@application.id}"
+      application_decision(:approved)
+    elsif params[:rejected].present?
+      application_decision(:rejected)
     else
-      @pets_not_approved = application_pets_not_approved
-      @pets_approved = application_pets_approved
+      pet_lists
     end
   end
 end
