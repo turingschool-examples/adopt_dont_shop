@@ -87,6 +87,6 @@ RSpec.describe 'the pets index' do
 
     expect(page).to have_selector(:css, "a[href='/applications/new']")
     click_on "Start New Application"
-    expect(current_path).to equal('/applications/new')
+    expect(current_path).to eql("/applications/new")
   end
 end

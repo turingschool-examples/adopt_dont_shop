@@ -105,4 +105,49 @@ RSpec.describe 'the shelters index' do
     expect(page).to have_content(@shelter_2.name)
     expect(page).to_not have_content(@shelter_1.name)
   end
+
+
+  describe "admin_shelters index page" do
+  
+    before(:each) do
+      @pet_1 = @shelter_1.pets.create(name: 'Mr. Pirate', breed: 'tuxedo shorthair', age: 5, adoptable: false)
+      @pet_2 = @shelter_1.pets.create(name: 'Clawdia', breed: 'shorthair', age: 3, adoptable: true)
+      @pet_3 = @shelter_3.pets.create(name: 'Lucille Bald', breed: 'sphynx', age: 8, adoptable: true)
+      @pet_4 = @shelter_1.pets.create(name: 'Ann', breed: 'ragdoll', age: 5, adoptable: true)
+      @pet_5 = @shelter_3.pets.create(name: 'Meowth', breed: 'persian', age: 8, adoptable: true)
+      @pet_6 = @shelter_2.pets.create(name: 'Persian', breed: 'persian', age: 8, adoptable: true)
+  
+      @jeff = @pet_1.applications.create!(applicant: "Jeff", reason: "Lonely", status: "Pending", street: "5155 Heritage Lane", city: "Alexandria", state: "VA", zipcode: "22314")
+      @hamada = @pet_3.applications.create!(applicant: "Hamada", reason: "Lonely", status: "Pending", street: "5155 Heritage Lane", city: "Alexandria", state: "VA", zipcode: "22314")
+      @mufasa = @pet_6.applications.create!(applicant: "Mufasa", reason: "Lonely", status: "In Progress", street: "5155 Heritage Lane", city: "Alexandria", state: "VA", zipcode: "22314")
+  
+      @jeff.pets << @pet_2
+      @test_application = PetApplication.create!(pet_id: @pet_5.id, application_id: @jeff.id, rejected: true)
+    end
+  
+    it "lists shelters in reverse alphabaticaly order" do
+      visit "/admin/shelters"
+  
+      expect(@shelter_2.name).to appear_before(@shelter_3.name)
+      expect(@shelter_3.name).to appear_before(@shelter_1.name)
+    end
+  
+    it "lists shelters with pending applications in a section at the bottom" do
+      visit "/admin/shelters"
+      
+      expect(page).to have_content("Shelters with Pending Applications")
+      expect(page).to have_content(@shelter_3.name, count: 4)
+      expect(page).to have_content(@shelter_1.name, count: 4)
+
+      expect(@shelter_1.name).to appear_before("Shelters with Pending Applications")
+      expect(@shelter_3.name).to appear_before("Shelters with Pending Applications")
+
+      expected_array = all('p').map { |p| p } 
+
+      expect(expected_array[7].text).to eq("Aurora shelter")
+      expect("Shelters with Pending Applications").to appear_before(expected_array[7])
+      expect(expected_array.last.text).to eq("Fancy pets of Colorado")
+      expect("Shelters with Pending Applications").to appear_before(expected_array.last)
+    end
+  end
 end
