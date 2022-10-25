@@ -4,23 +4,38 @@
   <h5><center>City: <%= @applicant.city %></center></h5>
   <h5><center>State: <%= @applicant.state %></center></h5>
   <h5><center>Zip Code: <%= @applicant.zip_code %></center></h5>
-  <h5><center>Description: <%= @applicant.description %></center></h5>
+  <h5><center>Why you would be a good home: <%= @applicant.description %></center></h5>
   <h5><center>Status: <%= @applicant.status %></center></h5>
   <p> <% @applicant.pets.each do |pet|%> </p>
     <p><center><%= link_to "#{pet.name}", "/pets/#{pet.id}"%><p></center>
   <% end %>
 <br>
 
- <% if @applicant.pets && @applicant.status == "In Progress" %>
+
+
+
+<% if @applicant.pets && @applicant.status == "In Progress" %>
+
   <center><%= form_with url: "/applicants/#{@applicant.id}", method: :get, local: true do |f| %>
   <h4>Add a pet to this application</h4>
   <%= f.label :search_name %>
   <%= f.text_field :search_name %>
   <%= f.submit "Search" %>
  <% end %>
+ <% if @applicant.pets.present? && @applicant.status == "In Progress" %>
+ <center><%= form_with url: "/applicants/#{@applicant.id}", method: :patch, local: true do |f| %>
+    <%= f.label :description, "Why you would be a good home" %>
+    <%= f.text_area :description %>
+    <%= f.submit "Submit" %>
+  <% end %></center>
+  <% end %>
+
 <% end %></center>
 <br>
-<% if params[:search_name] %>
+
+
+<% if params[:search_name]  %>
+
 <% @pets = Pet.pet_name_filter(params[:search_name]) %>
   <% @pets.each do |pet| %>
  <center><div id="pet_<%= pet.id %>">
@@ -30,9 +45,7 @@
   </center>
   <% end %>
 <% end %>
-
-
-
+ 
 
 
 

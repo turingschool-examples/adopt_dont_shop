@@ -45,6 +45,21 @@ RSpec.describe "showpage" do
       click_button("Adopt This Pet!")
     end
   end
+  describe 'Submit an application and update description: US-6' do 
+    it 'I see a section to submit application, there is a section to input why I would be a good home(:description)
+        when I fill out description and click submit, I am taken back to showpage with status changed to pending,
+        and I do not see a section to add more pets' do 
+      @shelter5 = Shelter.create!(name: "Pet Rock Shelter", city: "Boulder", rank: 1, foster_program: true)
+      @pet1 = @shelter5.pets.create!(name: "Taco", breed: "Dachshund", age: 4, adoptable: true)
+      @app1 = Applicant.create!(name: "Ashley Turner", street_address: "123 Oregon Trail Way", city: "Portland", state: "OR", zip_code: "54321", description: "Pet sitting and want to have my own")
+      @pet_app1 = PetApplicant.create!(pet_id: @pet1.id, applicant_id: @app1.id)
 
-  
+      visit "/applicants/#{@app1.id}"
+      fill_in "Why you would be a good home", with: "I dog fight"
+      click_button("Submit")
+      expect(current_path).to eq("/applicants/#{@app1.id}")
+      expect(page).to have_content("Pending")
+      
+    end
+  end 
 end
