@@ -13,3 +13,6 @@
   pet_1 = Pet.create(adoptable: true, age: 1, breed: 'sphynx', name: 'Lucille Bald', shelter_id: shelter_1.id)
   pet_2 = Pet.create(adoptable: true, age: 3, breed: 'doberman', name: 'Lobster', shelter_id: shelter_1.id)
   pet_3 = Pet.create(adoptable: false, age: 8, breed: 'mix', name: 'Kumquat', shelter_id: shelter_2.id)
+
+  application_pet_1 = ApplicationPet.create!(application: application_1, pet: pet_1)
+  application_pet_2 = ApplicationPet.create!(application: application_1, pet: pet_3)
