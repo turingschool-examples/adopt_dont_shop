@@ -1,5 +1,6 @@
 <h2>Pets</h2>
 <% @pets.each do |pet| %>
+<%# <section id="application-<%= >> %>
   <p><%= pet.name %></p>
   <% if ApplicationPet.find_application_pet(pet.id, @application.id).status == "Approved" %>
     <p>Approved</p>
