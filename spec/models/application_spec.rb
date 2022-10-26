@@ -36,35 +36,4 @@ RSpec.describe Application do
       end
     end
   end 
-
-
-    describe 'instance methods' do
-
-    end
-  # Test moving the seach for pet (within app_contr show method here)
-
-  # describe 'class methods' do
-  #   describe '#search_pet' do
-  #     it 'searches for a pet based on user input' do
-  #       application_1 = Application.create!(name: 'Pam Pulzone', street_address: '66225 Wallace Rd', city: 'Bend', state: 'OR', zip: 97702, description: 'Fenced yard, loving home', status: 'Pending')
-  #       pet_2 = Pet.create(adoptable: true, age: 3, breed: 'doberman', name: 'Lobster', shelter_id: @shelter_1.id)
-        
-  #       expect(Application.search_pet('Lo')).to eq(pet_2.name)
-  #     end
-
-  #     it 'returns nothing if there is no user input' do
-  #       application_1 = Application.create!(name: 'Pam Pulzone', street_address: '66225 Wallace Rd', city: 'Bend', state: 'OR', zip: 97702, description: 'Fenced yard, loving home', status: 'Pending')
-  #       pet_2 = Pet.create(adoptable: true, age: 3, breed: 'doberman', name: 'Lobster', shelter_id: @shelter_1.id)
-
-  #       expect(application_1.search_pet).to eq(nil)
-  #     end
-
-  #     it "returns nothing if there is no matching pet" do
-  #       application_1 = Application.create!(name: 'Pam Pulzone', street_address: '66225 Wallace Rd', city: 'Bend', state: 'OR', zip: 97702, description: 'Fenced yard, loving home', status: 'Pending', search: 'Zoe')
-  #       pet_2 = Pet.create(adoptable: true, age: 3, breed: 'doberman', name: 'Lobster', shelter_id: @shelter_1.id)
-
-  #       expect(application_1.search_pet()).to eq(nil)
-  #     end
-  #   end
-  # end
 end
