@@ -52,10 +52,10 @@ RSpec.describe 'Pet Index' do
 
     visit '/pets'
 
-    expect(page).to have_content("Delete #{pet_1.name}")
-    expect(page).to have_content("Delete #{pet_2.name}")
+    expect(page).to have_button("Delete #{pet_1.name}")
+    expect(page).to have_button("Delete #{pet_2.name}")
 
-    click_link("Delete #{pet_1.name}")
+    click_button("Delete #{pet_1.name}")
 
     expect(page).to have_current_path("/pets")
     expect(page).to_not have_content(pet_1.name)
@@ -148,7 +148,7 @@ RSpec.describe 'Pet Index' do
     pet_1 = Pet.create(adoptable: true, age: 7, breed: 'sphynx', name: 'Bare-y Manilow', shelter_id: shelter.id)
     pet_2 = Pet.create(adoptable: true, age: 3, breed: 'dog', name: 'Babe', shelter_id: shelter.id)
     pet_3 = Pet.create(adoptable: true, age: 3, breed: 'cat', name: 'Ellee', shelter_id: shelter.id)
-    
+
     visit "/pets"
     fill_in :search_by_age, with: "3"
     click_on("Search")
@@ -164,7 +164,7 @@ RSpec.describe 'Pet Index' do
     pet_4 = Pet.create(adoptable: true, age: 3, breed: 'dog', name: 'Elvis', shelter_id: shelter.id)
     pet_5 = Pet.create(adoptable: true, age: 3, breed: 'cat', name: 'Elton', shelter_id: shelter.id)
     pet_6 = Pet.create(adoptable: true, age: 3, breed: 'cat', name: 'Eliott', shelter_id: shelter.id)
-    
+
     visit "/pets"
     fill_in :search_by_breed, with: "dog"
     click_on("Search")
