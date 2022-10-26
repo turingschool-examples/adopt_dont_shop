@@ -14,7 +14,7 @@ class Application < ApplicationRecord
     shelters_array = self.where(status: "Pending").map do |app|
       app.pets.map {|pet| pet.shelter}
     end.flatten
-    shelters_array.sort_by { |shelter| shelter.name}
+    shelters_array.sort_by { |shelter| shelter.name }.uniq
   end
 
   def pets_in_application_to_approve

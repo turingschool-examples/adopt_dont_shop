@@ -46,6 +46,7 @@ RSpec.describe 'Admin_Shelters Index' do
 
       it 'that lists the name of every shleter that has a pending application' do
         visit '/admin/shelters'
+        ApplicationPet.create!(pet: @pet_1, application: @app_2)
 
         within "#shelter-apps-#{@shelter_1.id}" do
           expect(page).to have_content(@shelter_1.name)
