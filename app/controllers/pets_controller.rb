@@ -7,6 +7,12 @@ class PetsController < ApplicationController
     end
   end
 
+  def destroy
+    Pet.find(params[:id]).destroy
+    
+    redirect_to '/pets'
+  end
+
   def show
     @pet = Pet.find(params[:id])
   end
@@ -40,10 +46,6 @@ class PetsController < ApplicationController
     end
   end
 
-  def destroy
-    Pet.find(params[:id]).destroy
-    redirect_to '/pets'
-  end
 
   private
 
