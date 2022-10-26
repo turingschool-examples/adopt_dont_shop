@@ -5,7 +5,6 @@ class ApplicationsController < ApplicationController
     if params[:search].present?
       @pets = Pet.search(params[:search])
     end
-    # @app_pets = @application.application_pets
   end
 
   def new
