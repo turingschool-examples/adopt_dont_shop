@@ -18,7 +18,7 @@ RSpec.describe 'Pet Index' do
     expect(page).to have_content(pet_2.age)
     expect(page).to have_content(shelter.name)
   end
-  describe 'when you visit /pets' do
+  describe 'when I visit /pets' do
     it 'only lists adoptable pets' do
       shelter = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
       pet_1 = Pet.create(adoptable: true, age: 1, breed: 'sphynx', name: 'Lucille Bald', shelter_id: shelter.id)
@@ -80,7 +80,6 @@ RSpec.describe 'Pet Index' do
     end
   end
 
-  describe 'when i search on pets' do
     it 'list matches to names containing entry and case insensitive' do
       shelter = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
       pet_1 = Pet.create(adoptable: true, age: 7, breed: 'sphynx', name: 'Babe', shelter_id: shelter.id)
@@ -96,7 +95,7 @@ RSpec.describe 'Pet Index' do
       expect(page).to_not have_content(pet_3.name)
 
     end
-
+  describe 'when I search for pets' do
     it 'list matches to pet breed' do
       shelter = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
       pet_1 = Pet.create(adoptable: true, age: 7, breed: 'sphynx', name: 'Bare-y Manilow', shelter_id: shelter.id)
