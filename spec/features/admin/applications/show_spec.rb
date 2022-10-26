@@ -49,7 +49,6 @@ RSpec.describe 'Admin applications show page' do
 
     visit "/admin/applications/#{@application.id}"
     click_button("Approve #{@becky.name}")
-
     visit "/admin/applications/#{application_2.id}"
     expect(page).to have_content("Becky")
     expect(page).to have_button("Approve #{@becky.name}")
@@ -57,5 +56,21 @@ RSpec.describe 'Admin applications show page' do
 
     visit "/admin/applications/#{@application.id}"
     expect(page).to have_content("Approved")
+  end
+
+  it "can approve the overall application when all pets are approved" do
+    bean = Pet.create!(adoptable: true, age: 3, breed: "Bulldog", name: "Bean", shelter: @shelter_3)
+    ApplicationPet.create!(pet: bean, application: @application)
+
+    visit "/admin/applications/#{@application.id}"
+
+    click_button("Approve #{@becky.name}")
+    # require "pry"; binding.pry
+    click_button("Approve #{bean.name}")
+    # require "pry"; binding.pry
+    expect(page).to have_content("Your application has been approved!")
+
+    # expect(@application.status).to eq("Approved")
+    expect(@application.reload.status).to eq("Approved")
   end
 end
