@@ -5,8 +5,8 @@
   <p><%= button_to "Approve #{pet.name} ", "/admin/applicants/#{@applicant.id}", method: :patch, params:{ status:"Approved", pet_id:pet.id } %></p>
   <p><%= button_to "Reject #{pet.name} ", "/admin/applicants/#{@applicant.id}", method: :patch, params:{ status:"Rejected", pet_id:pet.id } %></p>
     <% elsif pet.applicant_status(@applicant.id) == "Approved" %>
-    <%= "#{pet.name} Approved" %>
+    <p><%= "#{pet.name} Approved" %></p>
     <% else %>
-    <%= "#{pet.name} Reject" %>
+    <p><%= "#{pet.name} Reject" %></p>
  <% end %>
 <% end %>

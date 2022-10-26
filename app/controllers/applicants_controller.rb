@@ -22,6 +22,10 @@ class ApplicantsController < ApplicationController
       end
     end
 
+    def edit
+      @applicant = Applicant.find(params[:id])
+    end
+
     def update
       applicant = Applicant.find(params[:id])
       applicant.update(applicant_params)
