@@ -1,4 +1,4 @@
-<body style="background-color:Silver; color:SeaGreen;">
+<body style="background-color:Silver; color:SeaGreen; border-style:groove; border-width:10px; border-color:SeaGreen;">
 </body>
 <h1>All Shelters</h1>
 
@@ -15,6 +15,5 @@
     <h3><a href="/shelters/<%= shelter.id %>"><%= shelter.name %></a></h3>
     <p>Created at: <%= shelter.created_at %></p>
     <%= link_to "Update #{shelter.name}", "/shelters/#{shelter.id}/edit" %>
-    <%= link_to "Delete #{shelter.name}", "/shelters/#{shelter.id}", method: :delete %>
   </div>
 <% end %>

@@ -29,7 +29,7 @@
   end
 
   def destroy
-    Pet.find(params[:id]).destroy
+    Pet.destroy(params[:id])
     redirect_to '/pets'
   end
 
