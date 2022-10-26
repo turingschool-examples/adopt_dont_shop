@@ -11,8 +11,8 @@
 
 <% if @application.status == "Pending" %>
 <p> Why I would make a good home: <%= @application.description %>
-  <% @app_pets.each do |app_pet| %>
-    <p>Adoption Interest: <%= app_pet.pet.name %></p>
+  <% @application.pets.each do |app_pet| %>
+    <p>Adoption Interest: <%= app_pet.name %></p>
     <% end %>
 <% end %>
 
@@ -39,13 +39,13 @@
   <% end %>
 <% end %>
 
-<% if !@app_pets.nil? %>
-  <% @app_pets.each do |app_pet| %>
-  <p>Adoption Interest: <%= app_pet.pet.name %></p>
+<% if !@application.pets.nil? %>
+  <% @application.pets.each do |app_pet| %>
+  <p>Adoption Interest: <%= app_pet.name %></p>
   <% end %>
 <% end %>
 
-<% if @app_pets.present? %>
+<% if @application.pets.present? %>
 <p> Why I would make a good home for this pet: </p>
 <%= form_with url: "/applications/#{@application.id}", method: :patch, local: true do |form| %>
   <%= form.text_area :description, size: "50x5" %>
