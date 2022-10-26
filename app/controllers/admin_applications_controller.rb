@@ -11,5 +11,10 @@ class AdminApplicationsController < ApplicationController
     elsif params[:approve] == "false"
       @application_pet.update(:status => "Rejected")
     end
+
+    if @application.application_approved? == true
+      @application.update(:status => "Approved")
+      binding.pry
+    end
   end
 end

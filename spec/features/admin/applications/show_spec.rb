@@ -56,6 +56,21 @@ RSpec.describe 'Admin applications show page' do
     expect(page).to have_button("Reject #{@becky.name}")
 
     visit "/admin/applications/#{@application.id}"
+    # binding.pry
     expect(page).to have_content("Approved")
+  end
+
+  it "can approve the overall application when all pets are approved" do
+    bean = Pet.create!(adoptable: true, age: 3, breed: "Bulldog", name: "Bean", shelter: @shelter_3)
+    ApplicationPet.create!(pet: bean, application: @application)
+
+    visit "/admin/applications/#{@application.id}"
+
+    click_button("Approve #{@becky.name}")
+    # save_and_open_page
+    click_button("Approve #{bean.name}")
+
+     expect(page).to have_content("Your application has been approved!")
+     expect(@application.status).to eq("Approved")
   end
 end

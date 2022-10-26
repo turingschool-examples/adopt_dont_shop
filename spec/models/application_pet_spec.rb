@@ -5,6 +5,7 @@ RSpec.describe ApplicationPet, type: :model do
     it {should belong_to :application}
     it {should belong_to :pet}
   end
+
   describe "class methods" do
     describe "find_application_pet" do
       it "can find the relationship between an application and a pet in application_pets" do
