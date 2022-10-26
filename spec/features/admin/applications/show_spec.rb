@@ -9,7 +9,7 @@ RSpec.describe 'Admin applications show page' do
     @becky = Pet.create!(adoptable: true, age: 8, breed: "Cavashon", name: "Becky", shelter: @shelter_1)
     ApplicationPet.create!(pet: @becky, application: @application)
   end
-  xit 'displays every pet that the application is for' do
+  it 'displays every pet that the application is for' do
     visit "/admin/applications/#{@application.id}"
 
     within("#pet-#{@becky.id}") do
@@ -19,7 +19,7 @@ RSpec.describe 'Admin applications show page' do
     end
   end
 
-  xit 'can approve a pet' do
+  it 'can approve a pet' do
     visit "/admin/applications/#{@application.id}"
 
     within("#pet-#{@becky.id}") do
@@ -31,7 +31,7 @@ RSpec.describe 'Admin applications show page' do
     end
   end
 
-  xit 'can reject a pet' do
+  it 'can reject a pet' do
     visit "/admin/applications/#{@application.id}"
 
     within("#pet-#{@becky.id}") do
@@ -43,7 +43,7 @@ RSpec.describe 'Admin applications show page' do
     end
   end
 
-  xit "can approve or reject the same pet on multiple applications" do
+  it "can approve or reject the same pet on multiple applications" do
     application_2 = Application.create!(name: "John Smith", street_address: "1434 Hard St.", city: "Denver", state: "CO", zipcode: 80101, description: 'temp description', status: "Pending")
     ApplicationPet.create!(pet: @becky, application: application_2)
 
@@ -72,7 +72,5 @@ RSpec.describe 'Admin applications show page' do
 
     # expect(@application.status).to eq("Approved")
     expect(@application.reload.status).to eq("Approved")
-
-
   end
 end
