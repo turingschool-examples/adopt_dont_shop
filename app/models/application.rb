@@ -8,15 +8,4 @@ class Application < ApplicationRecord
     where(status: 'Pending')
   end
 
-  
-  # validates  :description, presence: true, if: :app_pet_create?
-
-  # def self.app_pet_create?
-  #   @app_pets.nil? == false
-  # end
-  
-  # def search_pet(search)
-  #   require 'pry'; binding.pry
-  #   find
-  # end
 end
