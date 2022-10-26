@@ -17,7 +17,6 @@ RSpec.describe 'Application New' do
         expect(page).to have_content("City")
         expect(page).to have_content("State")
         expect(page).to have_content("Zipcode")
-        expect(page).to have_content("Tell us about your home:")
         expect(page).to have_button("Submit")
       end
 
@@ -29,7 +28,6 @@ RSpec.describe 'Application New' do
           fill_in :city, with: "AnyTown"
           fill_in :state, with: "AnyState"
           fill_in :zip, with: "86753"
-          fill_in :description, with: "Its the best of homes"
         end
 
         it "I am taken to /applications/:id" do

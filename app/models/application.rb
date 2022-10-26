@@ -8,7 +8,6 @@ class Application < ApplicationRecord
   validates :city, presence: true
   validates :state, presence: true
   validates :zip, presence: true
-  validates :description, presence: true
   validates :status, presence: true
 
   def self.applications_by_shelter

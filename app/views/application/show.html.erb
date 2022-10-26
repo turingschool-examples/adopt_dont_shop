@@ -20,8 +20,13 @@
     <% @pets.each do |pet| %>
       <%= pet.name %><%= button_to "Adopt this Pet", "/applications/#{@application.id}", method: :patch, params: { pet_id: pet.id } %>
     <% end %>
-  <% else %><br>
-    <%= button_to "Submit", "/applications/#{@application.id}", method: :patch, params: { status: "Pending" } %>
+  <% elsif @application.pets.length > 0 %><br>
+    <%= form_with url:"/applications/#{@application.id}", method: :patch, local: true do |form| %>
+      <%= form.hidden_field :status, value: "Pending" %>
+      <%= form.label :description, 'Tell us about your home:'%>
+      <%= form.text_area :description, size: "70x5" %><br>
+      <%= form.submit "Submit" %>
+    <% end %>
   <% end %>
 <% end %>
 <p>Application Status: <%= @application.status %></p>

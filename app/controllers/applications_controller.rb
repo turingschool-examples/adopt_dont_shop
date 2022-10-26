@@ -23,6 +23,7 @@ class ApplicationsController < ApplicationController
   end
 
   def update
+    # binding.pry
     @application = Application.find(params[:id])
     if params[:pet_id] != nil
       pet = Pet.find(params[:pet_id])
