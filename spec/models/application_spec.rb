@@ -24,30 +24,16 @@ RSpec.describe Application do
     @pet_3 = Pet.create(adoptable: false, age: 8, breed: 'mix', name: 'Kumquat', shelter_id: @shelter_2.id)
   end
 
-  # Test moving the seach for pet (within app_contr show method here)
-
-  # describe 'class methods' do
-  #   describe '#search_pet' do
-  #     it 'searches for a pet based on user input' do
-  #       application_1 = Application.create!(name: 'Pam Pulzone', street_address: '66225 Wallace Rd', city: 'Bend', state: 'OR', zip: 97702, description: 'Fenced yard, loving home', status: 'Pending')
-  #       pet_2 = Pet.create(adoptable: true, age: 3, breed: 'doberman', name: 'Lobster', shelter_id: @shelter_1.id)
+  describe 'class methods' do
+    describe '#pending_apps' do
+      it "returns a list of all pending applications" do
+        application_3 = Application.create!(name: 'Chase Boston', street_address: '774 YodaRd', city: 'Greenville', state: 'SC', zip: 56843, description: 'Experience with difficult cats', status:  'Pending')
+        application_4 = Application.create!(name: 'Don Juan', street_address: '788 Tandy Rd', city: 'Greenville', state: 'SC', zip: 56843, description: 'Experience with difficult dogs', status:  'Pending')
         
-  #       expect(Application.search_pet('Lo')).to eq(pet_2.name)
-  #     end
-
-  #     it 'returns nothing if there is no user input' do
-  #       application_1 = Application.create!(name: 'Pam Pulzone', street_address: '66225 Wallace Rd', city: 'Bend', state: 'OR', zip: 97702, description: 'Fenced yard, loving home', status: 'Pending')
-  #       pet_2 = Pet.create(adoptable: true, age: 3, breed: 'doberman', name: 'Lobster', shelter_id: @shelter_1.id)
-
-  #       expect(application_1.search_pet).to eq(nil)
-  #     end
-
-  #     it "returns nothing if there is no matching pet" do
-  #       application_1 = Application.create!(name: 'Pam Pulzone', street_address: '66225 Wallace Rd', city: 'Bend', state: 'OR', zip: 97702, description: 'Fenced yard, loving home', status: 'Pending', search: 'Zoe')
-  #       pet_2 = Pet.create(adoptable: true, age: 3, breed: 'doberman', name: 'Lobster', shelter_id: @shelter_1.id)
-
-  #       expect(application_1.search_pet()).to eq(nil)
-  #     end
-  #   end
-  # end
+        expect(Application.pending_apps).to eq([application_3, application_4])
+        expect(Application.pending_apps).to_not eq(@application_1)
+        expect(Application.pending_apps).to_not eq(@application_2)
+      end
+    end
+  end 
 end

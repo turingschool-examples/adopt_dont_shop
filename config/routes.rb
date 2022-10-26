@@ -23,8 +23,6 @@ Rails.application.routes.draw do
   get '/applications/:id', to: 'applications#show'
   patch '/applications/:id', to: 'applications#update'
 
-  # get '/applications/:id/pets', to: 'application_pets#show'
-
   get '/veterinary_offices', to: 'veterinary_offices#index'
   get '/veterinary_offices/new', to: 'veterinary_offices#new'
   get '/veterinary_offices/:id', to: 'veterinary_offices#show'

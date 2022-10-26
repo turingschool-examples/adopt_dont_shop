@@ -5,13 +5,11 @@ class ApplicationsController < ApplicationController
     if params[:search].present?
       @pets = Pet.search(params[:search])
     end
-    @app_pets = @application.application_pets
-
-    @application_pets = ApplicationPet.where("application_id = #{@application.id}")
   end
 
   def new
   end
+  
 
   def create
     @application = Application.new(application_params)

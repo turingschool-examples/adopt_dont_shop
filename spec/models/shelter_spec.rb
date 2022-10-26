@@ -21,6 +21,14 @@ RSpec.describe Shelter, type: :model do
     @pet_2 = @shelter_1.pets.create(name: 'Clawdia', breed: 'shorthair', age: 3, adoptable: true)
     @pet_3 = @shelter_3.pets.create(name: 'Lucille Bald', breed: 'sphynx', age: 8, adoptable: true)
     @pet_4 = @shelter_1.pets.create(name: 'Ann', breed: 'ragdoll', age: 5, adoptable: true)
+
+    @application_1 = Application.create!(name: 'Pam Pulzone', street_address: '66225 Wallace Rd', city: 'Bend', state: 'OR', zip: 97702, description: 'Fenced yard, loving home', status: 'In Progress')
+    @application_2 = Application.create!(name: 'Dan Boston', street_address: '774 Boone Rd', city: 'Greenville', state: 'SC', zip: 56843, description: 'Experience with difficult dogs', status:  'In Progress')
+    @application_3 = Application.create!(name: 'Jen Klonz', street_address: '985 Cake Rd', city: 'Bend', state: 'OR', zip: 74702, description: 'Fenced yard, loving home', status: 'Pending')
+    @application_4 = Application.create!(name: 'Rachel Plat', street_address: '854 Ginger Rd', city: 'Greenville', state: 'SC', zip: 56453, description: 'Experience with difficult dogs', status:  'Pending')
+
+    @application_pet_1 = ApplicationPet.create!(application: @application_3, pet: @pet_1)
+    @application_pet_2 = ApplicationPet.create!(application: @application_4, pet: @pet_3)
   end
 
   describe 'class methods' do
@@ -39,6 +47,19 @@ RSpec.describe Shelter, type: :model do
     describe '#order_by_number_of_pets' do
       it 'orders the shelters by number of pets they have, descending' do
         expect(Shelter.order_by_number_of_pets).to eq([@shelter_1, @shelter_3, @shelter_2])
+      end
+    end
+
+    describe '#reverse_alpha' do
+      it "returns a list of all shelters in the system in reverse alphabetical order" do
+        expect(Shelter.reverse_alpha).to eq([@shelter_2, @shelter_3, @shelter_1])
+      end
+    end
+
+    describe '#find_shelters_from_apps' do
+      it 'returns array of shelters for a given array of applications' do
+        applications = [@application_3, @application_4]
+        expect(Shelter.find_shelters_from_apps(applications)).to eq([@shelter_1, @shelter_3])
       end
     end
   end

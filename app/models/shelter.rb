@@ -31,4 +31,17 @@ class Shelter < ApplicationRecord
   def shelter_pets_filtered_by_age(age_filter)
     adoptable_pets.where('age >= ?', age_filter)
   end
+
+  def self.reverse_alpha
+    find_by_sql("SELECT shelters.* FROM shelters ORDER BY shelters.name DESC")
+  end
+
+  def self.find_shelters_from_apps(applications)
+    shelters = applications.map do |application|
+      application.pets.map do |pet|
+        Shelter.find_by(id: pet.shelter_id)
+      end
+    end
+    shelters.flatten
+  end
 end

@@ -25,7 +25,6 @@ RSpec.describe 'applications show page' do
     expect(page).to have_content(@application_1.status)
     
     expect(page).to_not have_content(@application_2.name)
-    # expect(page).to_not have_content(@application_1.description)
   end
   
   it 'shows a search field to add pets to an application if the application status is 
@@ -90,7 +89,7 @@ RSpec.describe 'applications show page' do
       visit "/applications/#{@application_1.id}"
       
       has_no_button?("Submit Application")
-    end
+  end
 
   it "once a pet has been added to the application, a text box will 
     appear for the user to enter in why they would be a good pet owner" do
@@ -108,7 +107,7 @@ RSpec.describe 'applications show page' do
       has_field?(:description)
 
       expect(page).to have_content("Adoption Interest: #{@pet_2.name}")
-    end 
+  end 
 
   it "when an application is submitted, the application status should be changed from 
     'In Progress' to 'Pending' " do
@@ -119,6 +118,7 @@ RSpec.describe 'applications show page' do
 
       fill_in 'Search', with: 'L'
       click_on 'Search'
+      
       within("#application-#{@pet_2.id}") do
         click_on "Adopt this Pet"
       end
@@ -144,6 +144,7 @@ RSpec.describe 'applications show page' do
 
       fill_in 'Search', with: 'L'
       click_on 'Search'
+      
       within("#application-#{@pet_2.id}") do
         click_on "Adopt this Pet"
       end
@@ -161,35 +162,5 @@ RSpec.describe 'applications show page' do
       expect(updated_app.status).to eq("Pending")
 
       expect(page).to_not have_content('Search')
-    end
-
-
-
-    
-
-  # xit "will only create one text box for user to fill out with why they would
-  #   be a good home, regardless of how many animals are added to the 
-  #   application" do
-  #     # I have made it so this is true, but can't figure out how to test that a field is
-  #     # unique. Need to research further
-
-  #     visit "/applications/#{@application_1.id}"
-    
-  #     has_no_field?(:description)
-
-  #     fill_in 'Search', with: 'L'
-  #     click_on 'Search'
-  #     within("#application-#{@pet_2.id}") do
-  #       click_on "Adopt this Pet"
-  #     end
-
-  #     fill_in 'Search', with: 'L'
-  #     click_on 'Search'
-  #     within("#application-#{@pet_1.id}") do
-  #       click_on "Adopt this Pet"
-  #     end
-
-  #     #unsure how to validate or if we need to right now
-  # end
-
+  end
 end
