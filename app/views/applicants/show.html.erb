@@ -3,7 +3,10 @@
 <p><%= @applicant.street_address %></p>
 <p><%= "#{@applicant.city}, #{@applicant.state}, #{@applicant.zip}" %></h3>
 
+
 <h3>Status: <%= @applicant.status %></h3>
+
+<%= button_to 'Edit Applicant', "/applicants/#{@applicant.id}/edit", method: :get %>
 
 <h3>Pets Applied For:</h3>
 <h3><% @applicant.pets.each do |pet| %></h3>
