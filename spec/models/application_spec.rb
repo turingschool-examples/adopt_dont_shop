@@ -28,7 +28,8 @@ RSpec.describe Application, type: :model do
     end
     describe '#applications_by_shelter' do
       it 'returns an array of shelter objects who have pets with "Pending" applications' do
-        expect(Application.applications_by_shelter).to eq([@shelter_1])
+        ApplicationPet.create!(pet: @pet_2, application: @app_1)
+        expect(Application.applications_by_shelter).to eq([@shelter_1, @shelter_2])
       end
     end
 

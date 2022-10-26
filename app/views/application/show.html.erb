@@ -20,8 +20,7 @@
     <% @pets.each do |pet| %>
       <%= pet.name %><%= button_to "Adopt this Pet", "/applications/#{@application.id}", method: :patch, params: { pet_id: pet.id } %>
     <% end %>
-  <% end %><br>
-  <% if @pets_on_application > 0 %>
+  <% else %><br>
     <%= button_to "Submit", "/applications/#{@application.id}", method: :patch, params: { status: "Pending" } %>
   <% end %>
 <% end %>
