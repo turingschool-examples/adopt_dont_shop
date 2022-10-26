@@ -72,26 +72,6 @@ RSpec.describe 'Shelters Index' do
         expect(page).to have_current_path("/shelters/#{@shelter_1.id}/edit")
       end
 
-      it 'a link to delete each shelter' do
-        visit "/shelters"
-
-        within "#shelter-#{@shelter_1.id}" do
-          expect(page).to have_link("Delete #{@shelter_1.name}")
-        end
-
-        within "#shelter-#{@shelter_2.id}" do
-          expect(page).to have_link("Delete #{@shelter_2.name}")
-        end
-
-        within "#shelter-#{@shelter_3.id}" do
-          expect(page).to have_link("Delete #{@shelter_3.name}")
-        end
-
-        click_on("Delete #{@shelter_1.name}")
-        expect(page).to have_current_path("/shelters")
-        expect(page).to_not have_content(@shelter_1.name)
-      end
-
       it 'a text box to filter results by keyword' do
         visit "/shelters"
         expect(page).to have_button("Search")
