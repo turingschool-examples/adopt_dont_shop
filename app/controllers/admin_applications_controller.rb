@@ -14,7 +14,7 @@ class AdminApplicationsController < ApplicationController
 
     if @application.application_approved? == true
       @application.update(:status => "Approved")
-      binding.pry
+      # binding.pry
     end
   end
 end

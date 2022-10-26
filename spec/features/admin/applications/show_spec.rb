@@ -9,7 +9,7 @@ RSpec.describe 'Admin applications show page' do
     @becky = Pet.create!(adoptable: true, age: 8, breed: "Cavashon", name: "Becky", shelter: @shelter_1)
     ApplicationPet.create!(pet: @becky, application: @application)
   end
-  it 'displays every pet that the application is for' do
+  xit 'displays every pet that the application is for' do
     visit "/admin/applications/#{@application.id}"
 
     within("#pet-#{@becky.id}") do
@@ -19,7 +19,7 @@ RSpec.describe 'Admin applications show page' do
     end
   end
 
-  it 'can approve a pet' do
+  xit 'can approve a pet' do
     visit "/admin/applications/#{@application.id}"
 
     within("#pet-#{@becky.id}") do
@@ -31,7 +31,7 @@ RSpec.describe 'Admin applications show page' do
     end
   end
 
-  it 'can reject a pet' do
+  xit 'can reject a pet' do
     visit "/admin/applications/#{@application.id}"
 
     within("#pet-#{@becky.id}") do
@@ -43,20 +43,18 @@ RSpec.describe 'Admin applications show page' do
     end
   end
 
-  it "can approve or reject the same pet on multiple applications" do
+  xit "can approve or reject the same pet on multiple applications" do
     application_2 = Application.create!(name: "John Smith", street_address: "1434 Hard St.", city: "Denver", state: "CO", zipcode: 80101, description: 'temp description', status: "Pending")
     ApplicationPet.create!(pet: @becky, application: application_2)
 
     visit "/admin/applications/#{@application.id}"
     click_button("Approve #{@becky.name}")
-
     visit "/admin/applications/#{application_2.id}"
     expect(page).to have_content("Becky")
     expect(page).to have_button("Approve #{@becky.name}")
     expect(page).to have_button("Reject #{@becky.name}")
 
     visit "/admin/applications/#{@application.id}"
-    # binding.pry
     expect(page).to have_content("Approved")
   end
 
@@ -67,10 +65,14 @@ RSpec.describe 'Admin applications show page' do
     visit "/admin/applications/#{@application.id}"
 
     click_button("Approve #{@becky.name}")
-    # save_and_open_page
+    # require "pry"; binding.pry
     click_button("Approve #{bean.name}")
+    # require "pry"; binding.pry
+    expect(page).to have_content("Your application has been approved!")
 
-     expect(page).to have_content("Your application has been approved!")
-     expect(@application.status).to eq("Approved")
+    # expect(@application.status).to eq("Approved")
+    expect(@application.reload.status).to eq("Approved")
+
+
   end
 end
