@@ -8,10 +8,8 @@
     <% if approval == nil %></p>
       <%= button_to "Approve", "/admin/applications/#{@application.id}", method: :patch, params: { approve_reject: true, pet_id: pet.id } %>
       <%= button_to "Reject", "/admin/applications/#{@application.id}", method: :patch, params: { approve_reject: false, pet_id: pet.id } %>
-    <% elsif approval == true %>
-      <%= "Approved" %>
-    <% elsif approval == false %>
-      <%= "Rejected" %>
+    <% else %>
+      <%= @approval_hash[approval] %>
     <% end %>
   <% end%> </p>
 <p>Application Status: <%= @application.status %></p>
