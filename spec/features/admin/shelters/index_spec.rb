@@ -39,7 +39,8 @@ RSpec.describe 'Admin shelters index' do
 
     visit "/admin/shelters"
 
-    expect(page).to have_content("Shelters with Pending Applications:\nTest Shelter\nFancy pets of Colorado")
+    expect(page).to have_content("Shelters with Pending Applications:")
+    # save_and_open_page
 
     within("#shelters_pending-#{shelter_1.id}") do
       expect(page).to have_content(shelter_1.name)

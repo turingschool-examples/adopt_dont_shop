@@ -69,7 +69,7 @@ RSpec.describe 'Admin applications show page' do
     click_button("Approve #{bean.name}")
     # require "pry"; binding.pry
     expect(page).to have_content("Your application has been approved!")
-
+    # require "pry"; binding.pry
     # expect(@application.status).to eq("Approved")
     expect(@application.reload.status).to eq("Approved")
   end

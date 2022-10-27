@@ -87,6 +87,7 @@ RSpec.describe 'the shelters index' do
     end
 
     click_on("Delete #{@shelter_1.name}")
+
     expect(page).to have_current_path("/shelters")
     expect(page).to_not have_content(@shelter_1.name)
   end

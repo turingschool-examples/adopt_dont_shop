@@ -23,6 +23,7 @@ class SheltersController < ApplicationController
 
   def show
     @shelter = Shelter.find(params[:id])
+    # require "pry"; binding.pry
   end
 
   def new
@@ -54,6 +55,7 @@ class SheltersController < ApplicationController
   end
 
   def destroy
+    # require "pry"; binding.pry
     shelter = Shelter.find(params[:id])
     shelter.destroy
     redirect_to '/shelters'
