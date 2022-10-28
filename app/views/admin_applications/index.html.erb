@@ -1,0 +1,6 @@
+<h1>Admin View: All Applications</h1>
+
+<% @applications.each do |application| %>
+  <h3><%= link_to "#{application.last}, #{application.first}", "/applications/#{application.id}" %></h3>
+  <p>Application Status: <%= application.status %></p>
+<% end %>

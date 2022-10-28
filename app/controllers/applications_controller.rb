@@ -1,6 +1,9 @@
 class ApplicationsController < ApplicationController
   def index
     @applications = Application.all
+    # if session[:user_id]
+    #   @applications = Application.find(session[:user_id])
+    # end
   end
 
   def show
@@ -15,6 +18,7 @@ class ApplicationsController < ApplicationController
   def create
     application = Application.new(application_params)
     if application.save
+      session[:user_id] = application.id
       redirect_to "/applications/#{application.id}"
     else
       redirect_to '/applications/new'

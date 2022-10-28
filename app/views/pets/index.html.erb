@@ -1,25 +1,19 @@
-<body style="background-color:Linen; border-style:groove; border-width:10px; border-color:Green;">
-</body>
-<h1 style="color:green;">All Pets</h1>
-
-<%= link_to "Start an Application", "/applications/new" %>
+<h1>All Pets</h1>
 
 <%= form_tag "/pets", method: "GET" do %>
-  <%= label_tag :search_by_name %>
-  <%= text_field_tag :search_by_name %>
-  <%= label_tag :search_by_breed %>
-  <%= text_field_tag :search_by_breed, params[:search_by_breed] %>
-  <%= label_tag :search_by_age %>
-  <%= text_field_tag :search_by_age, params[:search_by_age] %>
+Search by: <br>
+  <%= label_tag :name %>
+  <%= text_field_tag :name %><br>
+  <%= label_tag :breed %>
+  <%= text_field_tag :breed, params[:breed] %><br>
+  <%= label_tag :age %>
+  <%= text_field_tag :age, params[:age] %><br>
   <%= submit_tag "Search" %>
 <% end %>
 
 <% @pets.each do |pet| %>
-  <h3 style="color:HotPink;"><%= pet.name %></h3>
-  <p style="color:purple;">Age: <%= pet.age %></p>
-  <p style="color:Maroon;">Breed: <%= pet.breed %></p>
-  <p style="color:LightSeaGreen;">Adoptable: <%= pet.adoptable %> </p>
-  <p style="color:coral;">You can find <%= pet.name %> at <%= pet.shelter_name %>!</p>
-  <%= link_to "Edit #{pet.name}", "/pets/#{pet.id}/edit" %>
-  <%= button_to "Delete #{pet.name}", "/pets/#{pet.id}", method: :delete %>
+  <h3><%= pet.name %></h3>
+  <p>Breed: <%= pet.breed %></p>
+  <p>Age: <%= pet.age %></p>
+  <p>You can find <%= pet.name %> at <%= pet.shelter_name %>!</p>
 <% end %>

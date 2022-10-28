@@ -1,0 +1,8 @@
+<h1>All pets at <%= @shelter.name %></h1>
+
+<% @shelter_pets.each do |pet| %>
+  <h3><%= pet.name %></h3>
+  <p>Age: <%= pet.age %></p>
+  <p>Breed: <%= pet.breed %></p>
+  <p><%= pet.name %> can be adopted from <%= @shelter.name %>!</p>
+<% end %>

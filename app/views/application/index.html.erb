@@ -1,8 +1,8 @@
-<body style="background-color:DarkCyan; color:CornSilk; border-style:groove; border-width:10px; border-color:CornSilk;">
-</body>
-<h1>All Applications</h1>
+<h1>My Applications</h1>
 
-<% @applications.each do |application| %>
-  <h3><%= link_to "#{application.last}, #{application.first}", "/applications/#{application.id}" %></h3>
-  <p>Application Status: <%= application.status %></p>
+<% if @applications != nil %>
+  <% @applications.each do |application| %>
+    <h3><%= link_to "#{application.last}, #{application.first}", "/applications/#{application.id}" %></h3>
+    <p>Application Status: <%= application.status %></p>
+  <% end %>
 <% end %>
