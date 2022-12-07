@@ -15,11 +15,11 @@ In this project, students will build upon the code in this repo to create a Pet 
 * Use partials in views
 * Use `within` blocks in tests
 * Track user stories using GitHub Projects
-* Deploy an application to Heroku
+* Deploy your application to the internet using Fly.io
 
 ## Check In
 
-During your Check In, you should be prepared to review your database schema for the many to many relationship, your deployment to Heroku, and your GitHub Projects board.
+During your Check In, you should be prepared to review your database schema for the many to many relationship, your deployment to Fly, and your GitHub Projects board.
 
 ## Rubric
 
@@ -36,7 +36,7 @@ Before your evaluation, choose 2 user stories to present. Try to pick user stori
 
 During the evaluation, you will present your user story:
 
-* Demonstrate the user story on Heroku (or localhost if the feature is not functional in Production)
+* Demonstrate the user story on Fly.io (or localhost if the feature is not functional in Production)
 * Show the test(s) for the user story
 * Show all code that implements the user story
 
@@ -47,15 +47,15 @@ During the evaluation, you will present your user story:
 ```
 [ ] done
 
-0: Deploy your application to Heroku
+0: Deploy your application to Fly.io
 
 As a visitor of the site
 I will perform all user stories
-By visiting the application on Heroku.
+By visiting the application on Fly.io.
 Localhost is fine for development, but
-the application must be hosted on Heroku.
+the application must be hosted on Fly.io.
 
-Use these guides: https://devcenter.heroku.com/articles/getting-started-with-rails5
+Use these guides: https://backend.turing.edu/module2/misc/deploying_with_fly
 
 Continuous Integration / Deployment is not allowed for this project.
 ```
