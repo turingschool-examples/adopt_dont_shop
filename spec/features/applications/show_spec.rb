@@ -12,15 +12,22 @@ RSpec.describe "Show spec" do
     @pet2 = Pet.create!(adoptable: false, age: 12, breed: "dog", name: "Paul", shelter_id: @shelter1.id)
     @pet3 = Pet.create!(adoptable: true, age: 5, breed: "cat", name: "Maggie", shelter_id: @shelter2.id)
 
-    @application1 = Application.create!(last: "Banos", first: "Leo", street: "123 1st St", city: "Denver", zip:"24135", description: "I am good parent", status: "Pending")
-    @application2 = Application.create!(last: "Lampke", first: "William", street: "456 2nd St", city: "Charlotte", zip:"24451", description: "I am great parent", status: "In Progress")
+    @application1 = Application.create!(last: "Banos", first: "Leo", street: "123 1st St", city: "Denver", state: "CO", zip:"24135", description: "I am good parent", status: "Pending")
+    @application2 = Application.create!(last: "Lampke", first: "William", street: "456 2nd St", city: "Charlotte", state: "NC", zip:"24451", description: "I am great parent", status: "In Progress")
 
     @ap1 = ApplicationPet.create!(application_id: @application1.id, pet_id: @pet1.id, status: true)
     @ap2 = ApplicationPet.create!(application_id: @application2.id, pet_id: @pet2.id, status: false)
   end
   describe 'show' do
     it 'shows information on a specific application' do
-      
+      visit "/applications/#{@application1.id}"
+
+      save_and_open_page
+      expect(page).to have_content("Leo Banos")
+      expect(page).to have_content("123 1st St Denver, CO 24135")
+      expect(page).to have_content(@application1.description)
+      expect(page).to have_content(@pet1.name)
+      expect(page).to have_content(@application1.status)
     end
   end
 end
