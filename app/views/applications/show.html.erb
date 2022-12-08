@@ -1,9 +1,9 @@
-<h1> <%= @application.name %> </h1>
-<p> 
-<%= @application.address %><br>
-<%= @application.reason %><br>
-<%= @application.status %><br>
-Pets inquired about: 
+<h1> Name: <%= @application.name %> </h1>
+<p>
+Address: <%= "#{@application.street_address}, #{@application.city} #{@application.state}, #{@application.zip_code}" %>
+Why I Would Make A Good Home: <%= @application.reason %><br>
+Status: <%= @application.status %><br>
+Pets inquired about:
 <% @application.pets.each do |pet| %>
 <%= pet.name %>
 <% end %>

@@ -4,26 +4,27 @@
 # names of all pets that this application is for (all names of pets should be links to their show page)
 # The Application's status, either "In Progress", "Pending", "Accepted", or "Rejected"
 
-require 'rails_helper' 
+require 'rails_helper'
 
-RSpec.describe 'Application show view' do 
-  before :each do 
-    shelter = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
+RSpec.describe 'Application show view' do
+  before :each do
+    @shelter = Shelter.create({name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9})
 
-    @application = Application.create!(
-      name: "Jeff", 
-      address: "123 Main Street, Denver CO, 22314", 
-      reason: "Nice person",
-      status: "In Progress"
-    )
+    @application = Application.create({
+      name: "Jeff",
+      street_address: "123 Main Street",
+      city: "Denver",
+      state: "CO",
+      zip_code: 22314,
+      reason: "Nice person"
+    })
 
-    @pet_1 = @application.pets.create(adoptable: true, age: 1, breed: 'sphynx', name: 'Lucille Bald', shelter_id: shelter.id)
-    @pet_2 = @application.pets.create(adoptable: true, age: 5, breed: 'lab', name: 'Dogmin', shelter_id: shelter.id)
+    @pet_1 = @application.pets.create(adoptable: true, age: 1, breed: 'sphynx', name: 'Lucille Bald', shelter_id: @shelter.id)
+    @pet_2 = @application.pets.create(adoptable: true, age: 5, breed: 'lab', name: 'Dogmin', shelter_id: @shelter.id)
   end
 
-  it 'displays an application and its information' do 
-    visit "/applications/#{@application.id}" 
-    save_and_open_page
+  it 'displays an application and its information' do
+    visit "/applications/#{@application.id}"
     expect(page).to have_content("Jeff")
     expect(page).to have_content("123 Main Street, Denver CO, 22314")
     expect(page).to have_content("Nice person")
