@@ -36,7 +36,14 @@ RSpec.describe "Application Show Page" do
       breed: "Pitbull",
       shelter_id: @shelter_1.id
     )
-
+      
+    @pet_2 = @applicant_1.pets.create!(
+      name: "Daisy",
+      adoptable: true,
+      age: 14,
+      breed: "Beagle",
+      shelter_id: @shelter_1.id
+    )
   end
 
   describe "User Story 1" do
@@ -51,6 +58,10 @@ RSpec.describe "Application Show Page" do
         expect(page).to have_content(@applicant_1.description)
         expect(page).to have_content(@pet_1.name)
         expect(page).to have_content(@applicant_1.status)
+
+        click_link "Pepper"
+
+        expect(current_path).to eq("/pets/#{@pet_1.id}")
       end
     end
   end

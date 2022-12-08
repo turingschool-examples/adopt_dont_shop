@@ -1,6 +1,6 @@
 class ApplicantsController < ApplicationController
   def show
     @applicant = Applicant.find(params[:id])
-    @pets = Pet.pluck(:name)
+    @pet_id_pairs = Pet.pluck(:id, :name)
   end
 end
