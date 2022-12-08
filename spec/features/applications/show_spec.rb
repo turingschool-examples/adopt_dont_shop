@@ -1,10 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe 'the application show page' do
-  xit 'shows name of applicant' do
+  it 'shows name of applicant' do
     shelter = Shelter.create(name: 'Mystery Building', city: 'Irvine CA', foster_program: false, rank: 9)
     pet = Pet.create(name: 'Scooby', age: 2, breed: 'Great Dane', adoptable: true, shelter_id: shelter.id)
-    application1 = Application.create!(name: 'John Doe', street: '123 N Washington Ave.', city: 'Denver', state: 'Colorado', zip: '91234', applicant_argument: 'caring and loving', app_status: "Pending")
+    application1 = pet.applications.create!(name: 'John Doe', street: '123 N Washington Ave.', city: 'Denver', state: 'Colorado', zip: '91234', applicant_argument: 'caring and loving', status: "Pending")
 
     visit "/applications/#{application1.id}"
 
@@ -14,8 +14,8 @@ RSpec.describe 'the application show page' do
     expect(page).to have_content(application1.state)
     expect(page).to have_content(application1.zip)
     expect(page).to have_content(application1.applicant_argument)
-    expect(page).to have_content(application1.applied_for_pet.name)
-    expect(page).to have_content(application1.app_status)
+    expect(page).to have_content(application1.pets.first.name)
+    expect(page).to have_content(application1.status)
   end
 end
 

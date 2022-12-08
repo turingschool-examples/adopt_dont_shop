@@ -31,7 +31,7 @@ ActiveRecord::Schema.define(version: 2022_12_08_210706) do
     t.string "state"
     t.integer "zip"
     t.string "applicant_argument"
-    t.string "app_status"
+    t.string "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
