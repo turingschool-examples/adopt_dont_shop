@@ -12,17 +12,14 @@ RSpec.describe 'visit application show page' do
     @app1 = Application.create!(name: 'Frank Sinatra', street_address: '69 Sinatra Way', city: 'nashville', state: 'Tennessee', zip_code: '69420', description: "I've always liked dogs")
   end
 
-  it 'page exists' do
+  it 'displays application details' do
     visit "/applications/#{@app1.id}"
 
-    expect(page).to have_content(@app1.name)
-    expect(page).to have_content(@app1.street_address)
-    expect(page).to have_content(@app1.city)
-    expect(page).to have_content(@app1.state)
-    expect(page).to have_content(@app1.zip_code)
-    expect(page).to have_content(@app1.description)
-    expect(page).to have_content(@app1.status)
-    expect(page).to have_content(@buster.name)
-    expect(page).to have_content(@marlowe.name)
+    expect(page).to have_content("Applicant Details:")
+    expect(page).to have_content("Name: #{@app1.name}")
+    expect(page).to have_content("Address: #{@app1.street_address}\n#{@app1.city}, #{@app1.state} #{@app1.zip_code}")
+    expect(page).to have_content("Application: #{@app1.description}")
+    expect(page).to have_content("Application Status: #{@app1.status}")
+    expect(page).to have_content("This is for: #{@buster.name}, #{@marlowe.name}")
   end
 end
