@@ -35,4 +35,21 @@ RSpec.describe 'New Application' do
     expect(page).to have_content("123 Elm Street, Denver CO, 80210")
     expect(page).to have_content("In Progress")
   end
+
+  it 'will not submit the form without all proper information' do
+    visit "/applications/new"
+
+    fill_in 'street_address', with: '123 Elm Street'
+    fill_in 'City', with: 'Denver'
+    select('Colorado', from: 'state')
+
+    click_button 'Submit'
+
+    expect(current_path).to eq("/applications/new")
+
+    save_and_open_page
+
+    expect(page).to have_content("Name can't be blank")
+    expect(page).to have_content("Zip code can't be blank")
+  end
 end
