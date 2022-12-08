@@ -1,0 +1,31 @@
+require 'rails_helper'
+
+RSpec.describe 'the application show page' do
+  # before(:each) do
+  #   app1 = Application.create(name: "Max", street_address: "Made up St", city: "Denver", state: "CO", zip_code: "80000", description: "Love mix breeds. Lots of energy to play with a dog", status: "In Progress")
+  #   app2 = Application.create(name: "Alastair", street_address: "Fictional St", city: "Golden", state: "CO", zip_code: "80001", description: "Love big dogs. Great mountain walks on doorstep", status: "Accepted")
+  #   pet1 = Pet.create(name: 'Noodle', age: 2, breed: 'Border Collie', adoptable: true)
+  #   pet2 = Pet.create(name: 'Hercules', age: 2, breed: 'American Akita', adoptable: true)
+  # end
+  # not sure why this isnt working, think it will be cleaner to use.
+
+  it 'shows the application and all its attributes' do
+    app1 = Application.create(name: "Max", street_address: "Made up St", city: "Denver", state: "CO", zip_code: "80000", description: "Love mix breeds. Lots of energy to play with a dog", status: "In Progress")
+    app2 = Application.create(name: "Alastair", street_address: "Fictional St", city: "Golden", state: "CO", zip_code: "80001", description: "Love big dogs. Great mountain walks on doorstep", status: "Accepted")
+    pet1 = Pet.create(name: 'Noodle', age: 2, breed: 'Border Collie', adoptable: true)
+    pet2 = Pet.create(name: 'Hercules', age: 2, breed: 'American Akita', adoptable: true)
+    
+    visit "/applications/#{app1.id}"
+    
+    expect(page).to_not have_content(app2.name)
+    expect(page).to have_content(app1.name)
+    expect(page).to have_content(app1.street_address)
+    expect(page).to have_content(app1.city)
+    expect(page).to have_content(app1.state)
+    expect(page).to have_content(app1.zip_code)
+    expect(page).to have_content(app1.description)
+    expect(page).to have_content(app1.status)
+    # expect(page).to have_link(pet1.name)
+    # expect(page).to have_link(pet2.name)
+  end
+end
