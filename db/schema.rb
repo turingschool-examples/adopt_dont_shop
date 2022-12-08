@@ -17,7 +17,10 @@ ActiveRecord::Schema.define(version: 2022_12_08_212114) do
 
   create_table "applications", force: :cascade do |t|
     t.string "name"
-    t.string "address"
+    t.string "street_address"
+    t.string "city"
+    t.string "state"
+    t.string "zip_code"
     t.string "status"
     t.string "description"
     t.string "pet_names"
