@@ -7,4 +7,5 @@ Pet(s) applied for:
 <% @pets.each do |pet|%>
 <li><%= link_to pet.name, "/pets/#{ pet.id }" %>
 <% end %>
+</ul>
 <p>Application Status: <%= @application.status %></p>
