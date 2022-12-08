@@ -27,11 +27,16 @@ RSpec.describe Application, type: :feature do
         state: "WA",
         zip: "98101",
         status: "Pending")}
+  let!(:pet_1) { Pet.create(adoptable: true, age: 1, breed: 'sphynx', name: 'Lucky', shelter_id: @shelter.id) }
+  let!(:pet_2) { Pet.create(adoptable: true, age: 3, breed: 'doberman', name: 'Lobster', shelter_id: @shelter.id) }
+  let!(:pet_3) { Pet.create(adoptable: true, age: 1, breed: 'domestic shorthair', name: 'Sylvester', shelter_id: @shelter_2.id) }
+ 
+  # Add the above referenced shelters
 
   describe 'application show page' do
     it 'displays the attributes of a single application' do
       visit "/applications/#{application.id}"
-      save_and_open_page
+      # save_and_open_page
       expect(page).to have_content(application.human_name)
       expect(page).to have_content("123 Hollywood Blvd")
       expect(page).to have_content(application.description)
@@ -50,5 +55,12 @@ RSpec.describe Application, type: :feature do
       expect(page).to have_content(application_2.zip)
       expect(page).to have_content(application_2.status)
     end
+    
+    it 'displays all pets for which the application is applying' do
+      visit "/applications/#{application.id}"
+      
+      expect(page).to have_link("Lucky", href: "/pets/#{pet_1.id}")
+    end
+
   end
 end
