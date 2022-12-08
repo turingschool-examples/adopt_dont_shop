@@ -1,0 +1,15 @@
+<h1>New Application</h1>
+
+<%= form_with url: "/applications", method: :post, local: true do |form| %>
+  <%= form.label :name %><br>
+  <%= form.text_field :name %><br>
+  <%= form.label :street_address %><br>
+  <%= form.text_field :street_address %><br>
+  <%= form.label :city %><br>
+  <%= form.text_field :city %><br>
+  <%= form.label :state %><br>
+  <%= form.select(:state, options_for_select(us_states, 'CO')) %><br>
+  <%= form.label :zip_code %><br>
+  <%= form.number_field :zip_code %><br>
+  <%= form.submit 'Submit' %>
+<% end %>
