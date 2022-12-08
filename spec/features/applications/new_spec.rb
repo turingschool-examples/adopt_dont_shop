@@ -12,37 +12,37 @@ RSpec.describe "New Application" do
       # When I click this link
       expect(current_path).to eq("/applications/new")
       # Then I am taken to the new application page where I see a form
-      has_form?("Name")
-      has_form?("Street Address")
-      has_form?("City")
-      has_form?("State")
-      has_form?("Zip Code")
-      has_form?("Description")
-      has_form?("Pet Names")
-      has_form?("Status")
+      has_field?("Name")
+      has_field?("Street address")
+      has_field?("City")
+      has_field?("State")
+      has_field?("Zip code")
+      has_field?("Description")
+      has_field?("Pet names")
+      has_field?("Status")
       has_button?("Submit")
     end
   end
 
   describe "successful form creates application" do
     it 'accepts attributes and redirects with a new application' do
-      visit "/applicaitons/new"
+      visit "/applications/new"
       # When I fill in this form with my:
       # Name
       fill_in("Name", with: "Joe")
       # Street Address
-      fill_in("Street Address", with: "123 Apple St")
+      fill_in("Street address", with: "123 Apple St")
       # City
       fill_in("City", with: "Denver")
       # State
       fill_in("State", with: "CO")
       # Zip Code
-      fill_in("Zip Code", with: "80218")
+      fill_in("Zip code", with: "80218")
       fill_in("Description", with: "I like dogs")
       # And I click submit
       click_button("Submit")
       # Then I am taken to the new application's show page
-      expect(current_path).to eq("/applications/#{Application.all.last}")
+      expect(current_path).to eq("/applications/#{Application.all.last.id}")
       # And I see my Name, address information, and description of why I would make a good home
       expect(page).to have_content("Joe")
       expect(page).to have_content("123 Apple St")
