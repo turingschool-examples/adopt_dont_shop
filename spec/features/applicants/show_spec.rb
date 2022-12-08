@@ -14,16 +14,43 @@
 require 'rails_helper'
 
 RSpec.describe "Application Show Page" do
+  before :each do
+    @applicant_1 = Applicant.create!(
+      name: "Bob",
+      address: "123 Leaf Street",
+      description: "Work from home",
+      status: "In Progress"
+    )
+
+    @shelter_1 = Shelter.create!(
+      foster_program: true,
+      name: "Healthy Paws",
+      city: "Denver",
+      rank: 3
+    )
+
+    @pet_1 = @applicant_1.pets.create!(
+      name: "Pepper",
+      adoptable: true,
+      age: 4,
+      breed: "Pitbull",
+      shelter_id: @shelter_1.id
+    )
+
+  end
+
   describe "User Story 1" do
     describe "User visits '/applicants/:id'" do
       it 'has applicant attributes' do
-        visit "/applicants/#{@applicant.id}"
+        visit "/applicants/#{@applicant_1.id}"
 
-        expect(page).to have_content(@applicant.name)
-        expect(page).to have_content(@applicant.address)
-        expect(page).to have_content(@applicant.description)
-        expect(page).to have_content(@applicant.pets)
-        expect(page).to have_content(@applicant.status)
+        save_and_open_page
+        
+        expect(page).to have_content(@applicant_1.name)
+        expect(page).to have_content(@applicant_1.address)
+        expect(page).to have_content(@applicant_1.description)
+        expect(page).to have_content(@pet_1.name)
+        expect(page).to have_content(@applicant_1.status)
       end
     end
   end

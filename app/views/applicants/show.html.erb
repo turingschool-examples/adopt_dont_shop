@@ -1,0 +1,7 @@
+<h3><%= @applicant.name %></h3>
+<p>Address: <%= @applicant.address %></p>
+<p>Description: <%= @applicant.description %></p>
+<% @pets.each do |name| %>
+  <p>Pets applying for: <%= name %></p>
+<% end %>
+<p>Status: <%= @applicant.status %></p>
