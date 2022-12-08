@@ -9,10 +9,13 @@ RSpec.describe 'visit application show page' do
     @buster = @shelter.pets.create!(adoptable: true, age: 2, breed: 'Shnauzer - Wheaton mix', name: 'Buster')
     @marlowe = @shelter.pets.create!(adoptable: true, age: 9, breed: 'Pembroke Welsh Corgi', name: 'Marlowe')
 
-    @app1 = Application.create!(name: 'Frank Sinatra', street_address: '69 Sinatra Way', city: 'Nashville', state: 'Tennessee', zip_code: '69420', description: "I've always liked dogs")
+    @app1 = Application.create!(name: 'Frank Sinatra', street_address: '69 Sinatra Way', city: 'Nashville', state: 'Tennessee', zip_code: '69420', description: "I've always liked dogs", status: 'In Progress')
   end
 
   it 'displays application details' do
+    PetApplication.create!(pet: @buster, application: @app1)
+    PetApplication.create!(pet: @marlowe, application: @app1)
+
     visit "/applications/#{@app1.id}"
 
     expect(page).to have_content("Applicant Details:")
