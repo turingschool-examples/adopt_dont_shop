@@ -3,8 +3,19 @@
 Address: <%= "#{@application.street_address}, #{@application.city} #{@application.state}, #{@application.zip_code}" %>
 Why I Would Make A Good Home: <%= @application.reason %><br>
 Status: <%= @application.status %><br>
-Pets inquired about:
-<% @application.pets.each do |pet| %>
-<%= pet.name %>
+<% if @application.pets %>
+  Pets inquired about:
+  <% @application.pets.each do |pet| %>
+  <%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
+  <% end %>
+  </p>
+<% else %>
+  <%= form_with url: "/applications/#{@application.id}?add_pets=true", method: :get, local: true do |form| %>
+    <%= form.label :name_input 'Search Pets By Name:' %>
+    <%= form.text_field :name_input %>
+    <%= form.submit 'Search' %>
+  <% end %>
+  <% @pets.each do |pet| %>
+    <%= pet.name %>
+  <% end %>
 <% end %>
-</p>

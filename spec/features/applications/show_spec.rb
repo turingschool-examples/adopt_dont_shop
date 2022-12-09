@@ -18,12 +18,13 @@ RSpec.describe 'Application show view' do
       zip_code: 22314,
       reason: "Nice person"
     })
-
-    @pet_1 = @application.pets.create(adoptable: true, age: 1, breed: 'sphynx', name: 'Lucille Bald', shelter_id: @shelter.id)
-    @pet_2 = @application.pets.create(adoptable: true, age: 5, breed: 'lab', name: 'Dogmin', shelter_id: @shelter.id)
+    @pet_3 = Pet.create(adoptable: true, age: 2, breed: 'Shih-Poo', name: 'Frankie', shelter_id: @shelter.id)
   end
 
   it 'displays an application and its information' do
+    @pet_1 = @application.pets.create(adoptable: true, age: 1, breed: 'sphynx', name: 'Lucille Bald', shelter_id: @shelter.id)
+    @pet_2 = @application.pets.create(adoptable: true, age: 5, breed: 'lab', name: 'Dogmin', shelter_id: @shelter.id)
+
     visit "/applications/#{@application.id}"
     expect(page).to have_content("Jeff")
     expect(page).to have_content("123 Main Street, Denver CO, 22314")
@@ -31,5 +32,28 @@ RSpec.describe 'Application show view' do
     expect(page).to have_content("Lucille Bald")
     expect(page).to have_content("Dogmin")
     expect(page).to have_content("In Progress")
+  end
+
+  it 'displays an application and its information' do
+    @pet_1 = @application.pets.create(adoptable: true, age: 1, breed: 'sphynx', name: 'Lucille Bald', shelter_id: @shelter.id)
+    @pet_2 = @application.pets.create(adoptable: true, age: 5, breed: 'lab', name: 'Dogmin', shelter_id: @shelter.id)
+
+    visit "/applications/#{@application.id}"
+
+    click_on 'Dogmin'
+
+    expect(current_path).to eq("/pets/#{@pet_2.id}")
+  end
+
+  it 'has a section to add a pet to the application' do
+    visit "/applications/#{@application.id}"
+
+    expect(page).to have_content("Add a new pet to this application:")
+
+    fill_in("pet_name", with: 'Frankie')
+
+    click_button 'Search'
+
+    expect(page).to have_content("Frankie")
   end
 end
