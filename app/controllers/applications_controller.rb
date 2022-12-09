@@ -6,4 +6,8 @@ class ApplicationsController < ApplicationController
   def create
   end
 
+  def show
+    @application = Application.find(params[:id])
+  end
+
 end
