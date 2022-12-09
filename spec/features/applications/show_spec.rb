@@ -16,8 +16,7 @@ RSpec.describe 'The application show page' do
     application = Application.create!(name: "Jimbo Kepler", 
                                       address: "000 Street Name, City Name, STATE 00000", 
                                       description: "I love animals and they love me!", 
-                                      status: "In Progress",
-                                      shelter_id: shelter.id)
+                                      status: "In Progress")
     pet_1 = Pet.create!(adoptable: true, age: 1, breed: 'sphynx', name: 'Lucille Bald', shelter_id: shelter.id)
     pet_2 = Pet.create!(adoptable: true, age: 3, breed: 'doberman', name: 'Lobster', shelter_id: shelter.id)
     PetApplication.create!(pet: pet_1, application: application)
