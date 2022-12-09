@@ -1,0 +1,3 @@
+class ApplicationPets < ApplicationController
+  
+end
