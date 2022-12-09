@@ -15,6 +15,13 @@ require 'rails_helper'
 
 RSpec.describe "Application Show Page" do
   before :each do
+    @shelter_1 = Shelter.create!(
+      foster_program: true,
+      name: "Healthy Paws",
+      city: "Denver",
+      rank: 3
+    )
+
     @application_1 = Application.create!(
       name: "Bob",
       street_address: "123 Leaf Street",
@@ -23,13 +30,6 @@ RSpec.describe "Application Show Page" do
       zip_code: 80020,
       description: "Work from home",
       status: "In Progress"
-    )
-
-    @shelter_1 = Shelter.create!(
-      foster_program: true,
-      name: "Healthy Paws",
-      city: "Denver",
-      rank: 3
     )
 
     @pet_1 = @application_1.pets.create!(
@@ -47,6 +47,7 @@ RSpec.describe "Application Show Page" do
       breed: "Beagle",
       shelter_id: @shelter_1.id
     )
+
   end
 
   describe "User Story 1" do
