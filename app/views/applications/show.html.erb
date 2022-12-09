@@ -3,3 +3,7 @@
 <p>Address: <%= @application.street_address %></p> 
 <p><%= @application.city %>, <%= @application.state %> <%= @application.zip_code %></p>
 <p>Description: <%= @application.description %></p> 
+
+<%@application.pets.each do |pet| %> 
+<p>Pets I want to Adopt<%= link_to "#{pet.name}", "/pets/#{pet.id}" %></p>
+<% end %>
