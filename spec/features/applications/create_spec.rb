@@ -1,9 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe 'application creation' do
-  before(:each) do
-  @shelter = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
-  end
+  # before(:each) do
+  # @shelter = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
+  # end
 
   describe 'the application new' do
     it 'displays link to start application' do
@@ -23,23 +23,25 @@ RSpec.describe 'application creation' do
       expect(find('form')).to have_content('Address')
       expect(find('form')).to have_content('City')
       expect(find('form')).to have_content('State')
-      expect(find('form')).to have_content('Zip code')
+      expect(find('form')).to have_content('Zipcode')
     end
   end
 
   describe 'the application create' do
     it 'creates the application and redirects to the application show page' do
+
       visit "/applications/new"
 
       fill_in 'Name', with: 'Jeremy Mitchell'
       fill_in 'Address', with: '000 Main Street'
       fill_in 'City', with: 'San Francisco'
       fill_in 'State', with: 'California'
-      fill_in 'Zip code', with: 94122 
+      fill_in 'Zipcode', with: 94122 
+      fill_in 'Description', with: 'I love pets!' 
+      
       click_button 'Submit'
-      new_app_id = Application.last.id
-
-      expect(page).to have_current_path("/applications/#{new_app_id}")
+      new_app = Application.last
+      expect(page).to have_current_path("/applications/#{new_app.id}")
       expect(page).to have_content('Jeremy')
     end
   end

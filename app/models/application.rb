@@ -1,7 +1,7 @@
 class Application < ApplicationRecord
   has_many :pet_applications
   has_many :pets, through: :pet_applications
-  belongs_to :shelter
+  # belongs_to :shelter
 
   def get_pets
     pet_apps = PetApplication.where(:application_id == self.id)

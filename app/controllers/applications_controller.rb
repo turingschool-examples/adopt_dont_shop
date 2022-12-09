@@ -4,13 +4,17 @@ class ApplicationsController < ApplicationController
     @pets = @application.get_pets
   end
 
+  def index
+  end
+
   def create
-    application = Application.new(application_params)
+    application = Application.create!(application_params)
+    redirect_to "/applications/#{application.id}"
   end
 end
 
 private
 
 def application_params
-  params.permit(:id, :name, :address, :city, :state, :zip_code, :description, :status, :shelter_id)
+  params.permit(:name, :address, :city, :state, :zipcode, :description, :status)
 end
