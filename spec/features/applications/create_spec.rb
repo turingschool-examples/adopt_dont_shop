@@ -44,5 +44,23 @@ RSpec.describe 'application creation' do
       expect(page).to have_current_path("/applications/#{new_app.id}")
       expect(page).to have_content('Jeremy')
     end
+
+    it 'does not create an application if any form fields are unfilled and specifies that all fields must be filled' do
+      visit "/applications/new"
+
+      fill_in 'Address', with: '000 Main Street'
+      fill_in 'City', with: 'San Francisco'
+      fill_in 'State', with: 'California'
+      fill_in 'Zipcode', with: 94122 
+
+      click_button 'Submit'
+
+      expect(page).to have_content("New Application")
+      expect(page).to have_field("Name")
+      expect(page).to have_field("Address")
+      expect(page).to have_button("Submit")
+      expect(page).to have_content("Application not created: All fields must be filled to submit.")
+
+    end
   end
 end
