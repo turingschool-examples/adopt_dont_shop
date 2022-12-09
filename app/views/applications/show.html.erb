@@ -7,3 +7,16 @@
   <p>Pet Name: <%= pet.name %></p>
 <% end %>
 <p>Application Status: <%= @application.status %></p>
+
+<section> <h2>Add a pet to this application: </h2>
+<%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |form| %>
+    <%= form.text_field :petsearch %>
+    <%= form.submit "Submit" %>
+<% end %>
+</section>
+<h4>Pets: </h4>
+<% if @pets != nil %>
+  <% @pets.each do |pet| %>
+    <p><%= pet.name %>
+  <% end %>
+<% end %>

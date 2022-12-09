@@ -9,4 +9,6 @@ class Application < ApplicationRecord
     validates :state, presence: true
     validates :zip, presence: true
     validates :status, presence: true
+
+    
 end
