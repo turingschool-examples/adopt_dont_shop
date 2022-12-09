@@ -12,5 +12,8 @@ class ApplicationsController < ApplicationController
 
     # find all pets that match the above pet_id's array
     @pets = Pet.where(id: pet_ids) 
+
+    # and finally, the lol simple solution that skips the prior 3 steps using the 'through' association
+    @pets = @application.pets 
   end
 end
