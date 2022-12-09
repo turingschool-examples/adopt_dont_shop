@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Applications New Page' do
+RSpec.describe 'New Applications Page' do
   before(:each) do
     @aurora = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
     @rgv = Shelter.create(name: 'RGV animal shelter', city: 'Harlingen, TX', foster_program: false, rank: 5)
@@ -22,6 +22,30 @@ RSpec.describe 'Applications New Page' do
     @bloom = @fancy.pets.create(name: 'Irishman', breed: 'irish wolfhound', age: 2, adoptable: true)
   end
   
+  describe '2. Starting an Application' do
+    describe "the pet index page has link to 'Start an Application'" do
+      it 'takes the user to the new application page' do
+        visit pets_path
+
+
+      end
+    end
+    
+    describe 'the new application page a form and a submit link, which sends the user to the application show page' do
+      it 'requires the user to fill in all fields' do
+
+      end
+
+      it "sends the user to the new application's show page once the submit link is clicked" do
+
+      end
+
+      it "displays all the information the user completed and informs that this application 'in progress'" do
+      end
+
+    end
+  end
 end
+
 
 
