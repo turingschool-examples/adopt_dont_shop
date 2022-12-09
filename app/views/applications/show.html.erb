@@ -6,3 +6,10 @@
   <%= link_to pet.name, "/pets/#{pet.id}" %></p>
   <% end %>
 <p>Application Status: <%= @application.status %></p>
+<h3>Add a Pet to this Application</h3>
+<%= form_tag("/applications/#{@application.id}", method: :get) do %>
+  <%= text_field_tag(:search, params[:search]) %>
+  <%= submit_tag ("Search") %>
+<% end %>
+
+
