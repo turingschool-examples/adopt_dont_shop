@@ -1,3 +1,13 @@
+# As a visitor
+# When I visit an application's show page
+# And that application has not been submitted, (status == in progress)
+# Then I see a section on the page to "Add a Pet to this Application"
+# In that section I see an input where I can search for Pets by name
+# When I fill in this field with a Pet's name
+# And I click submit,
+# Then I am taken back to the application show page
+# And under the search bar I see any Pet whose name matches my search
+
 require 'rails_helper'
 
 RSpec.describe 'The application show page' do
@@ -27,5 +37,34 @@ RSpec.describe 'The application show page' do
     expect(page).to have_link(pet_1.name)
     expect(page).to have_link(pet_2.name)
   end
+  
+  it 'displays section to add pet to application' do
+    shelter = Shelter.create!(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
+    application = Application.create!(name: "Jimbo Kepler", 
+                                      address: "000 Street Name",
+                                      city: "City Name",
+                                      state: "STATE",
+                                      zipcode: 00000, 
+                                      description: "I love animals and they love me!", 
+                                      status: "In Progress")      
+                                                   
+    visit "/applications/#{application.id}"
 
+    expect(page).to have_content("Add a pet to this application")
+  end
+
+  it 'does not display add pet section for submitted applications' do
+    shelter = Shelter.create!(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
+    application = Application.create!(name: "Jimbo Kepler", 
+                                      address: "000 Street Name",
+                                      city: "City Name",
+                                      state: "STATE",
+                                      zipcode: 00000, 
+                                      description: "I love animals and they love me!", 
+                                      status: "Pending")
+
+    visit "/applications/#{application.id}"
+
+    expect(page).to have_no_content("Add a pet to this application")
+  end
 end
