@@ -23,7 +23,6 @@ RSpec.describe 'new application page' do
     fill_in "state", with: "Alabama"
     fill_in "zip_code", with: "14920"
     fill_in "description", with: "i done like me sum dogs"
-    save_and_open_page
     find("input[type=submit]").click
     expect(current_path).to eq("/applications/#{Application.last.id}")
     expect(page).to have_content("Jim bob")
