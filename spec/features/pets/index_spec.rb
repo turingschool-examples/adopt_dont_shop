@@ -81,4 +81,29 @@ RSpec.describe 'the pets index' do
     expect(page).to have_content(pet_2.name)
     expect(page).to_not have_content(pet_3.name)
   end
+  describe 'application create form' do
+    it 'has a link to a form to start an app' do
+      visit "/pets"
+      click_on "New Adoption Application"
+      fill_in :first, with: "firstname"
+      fill_in :last, with: "lastname"
+      fill_in :street, with: "street"
+      fill_in :city, with: "city"
+      fill_in :state, with: "state"
+      fill_in :zip, with: "zip"
+      fill_in :description, with: "desc"
+
+      click_on "Submit"
+      save_and_open_page
+
+      expect(page).to have_content("firstname")
+      expect(page).to have_content("lastname")
+      expect(page).to have_content("street")
+      expect(page).to have_content("city")
+      expect(page).to have_content("state")
+      expect(page).to have_content("zip")
+      expect(page).to have_content("desc")
+
+    end
+  end
 end
