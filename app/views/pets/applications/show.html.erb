@@ -16,8 +16,12 @@
 </p>
 <p>
   <b>This Application is for:</b> 
-  <% @adoptees[0...-1].each do |pet| %>
-    <%= link_to "#{pet.name},", "/pets/#{pet.id}" %>
+  <% if @adoptees == [] %>
+    <%= "You have not Selected any Pets" %>
+  <% else %>
+    <% @adoptees[0...-1].each do |pet| %>
+      <%= link_to "#{pet.name},", "/pets/#{pet.id}" %>
+    <% end %>
+    <%= link_to "#{@adoptees.last.name}", "/pets/#{@adoptees.last.id}"  %>
   <% end %>
-  <%= link_to "#{@adoptees.last.name}", "/pets/#{@adoptees.last.id}"  %>
 </p>
