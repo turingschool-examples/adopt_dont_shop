@@ -38,7 +38,7 @@ Rails.application.routes.draw do
   post '/veterinary_offices/:veterinary_office_id/veterinarians', to: 'veterinarians#create'
 
   
-  get '/applicants/new', to: 'applicants#new'
-  get '/applicants/:id', to: 'applicants#show'
-  post '/applicants', to: 'applicants#create'
+  get '/applications/new', to: 'applications#new'
+  get '/applications/:id', to: 'applications#show'
+  post '/applications', to: 'applications#create'
 end

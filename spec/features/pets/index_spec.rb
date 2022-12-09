@@ -106,11 +106,11 @@ describe 'User story 2' do
 
       visit '/pets'
 
-      expect(page).to have_link('START AN APPLICATION TODAY!', href: '/applicants/new')
+      expect(page).to have_link('START AN APPLICATION TODAY!', href: '/applications/new')
 
       click_link 'START AN APPLICATION TODAY!'
 
-      expect(current_path).to eq('/applicants/new')
+      expect(current_path).to eq('/applications/new')
     end
   end
 end

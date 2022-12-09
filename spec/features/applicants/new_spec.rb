@@ -14,7 +14,7 @@ RSpec.describe 'new application' do
 
   describe 'User Story 2' do
     it 'can fill out a form' do
-      applicant_1 = Applicant.create!(
+      application_1 = Applicant.create!(
         name: "Bob",
         street_address: "123 Leaf Street",
         city: "Denver",
@@ -24,7 +24,7 @@ RSpec.describe 'new application' do
         status: "In Progress"
       )
 
-      visit '/applicants/new'      
+      visit '/applications/new'      
       fill_in('Name', with: 'Bob')
       fill_in('Street address', with: '123 Lead Street')
       fill_in('City', with: 'Denver')
@@ -33,13 +33,13 @@ RSpec.describe 'new application' do
       fill_in('Description', with: 'I work from home and need a friend')
       
       click_on 'Submit'
-      applicant_2 = Applicant.last
+      application_2 = Applicant.last
 
-      expect(current_path).to eq("/applicants/#{applicant_2.id}")
-      expect(page).to have_content(applicant_2.name)
-      expect(page).to have_content(applicant_2.full_address)
-      expect(page).to have_content(applicant_2.description)
-      expect(page).to have_content(applicant_2.status)
+      expect(current_path).to eq("/applications/#{application_2.id}")
+      expect(page).to have_content(application_2.name)
+      expect(page).to have_content(application_2.full_address)
+      expect(page).to have_content(application_2.description)
+      expect(page).to have_content(application_2.status)
     end
   end
 end
