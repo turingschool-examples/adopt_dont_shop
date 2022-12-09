@@ -35,7 +35,12 @@ RSpec.describe Application, type: :feature do
   let!(:pet_1) { Pet.create!(adoptable: true, age: 1, breed: 'sphynx', name: 'Lucky', shelter_id: shelter.id) }
   let!(:pet_2) { Pet.create!(adoptable: true, age: 3, breed: 'doberman', name: 'Lobster', shelter_id: shelter.id) }
   let!(:pet_3) { Pet.create!(adoptable: true, age: 1, breed: 'domestic shorthair', name: 'Sylvester', shelter_id: shelter_2.id) }
-
+  
+  let!(:application_pets) { ApplicationPet.create!(application_id: application.id, pet_id: pet_1.id) }
+  let!(:application_pets_2) { ApplicationPet.create!(application_id: application.id, pet_id: pet_2.id) }
+  let!(:application_pets_3) { ApplicationPet.create!(application_id: application.id, pet_id: pet_3.id) }
+  let!(:application_pets_4) { ApplicationPet.create!(application_id: application_2.id, pet_id: pet_1.id) }
+  let!(:application_pets_5) { ApplicationPet.create!(application_id: application_2.id, pet_id: pet_2.id) }
   describe 'application show page' do
     it 'displays the attributes of a single application' do
       visit "/applications/#{application.id}"
@@ -61,6 +66,7 @@ RSpec.describe Application, type: :feature do
     
     it 'displays all pets for which the application is applying' do
       visit "/applications/#{application.id}"
+      save_and_open_page
       
       expect(page).to have_content("Animals Applied For")
       expect(page).to have_link("Lucky", href: "/pets/#{pet_1.id}")
