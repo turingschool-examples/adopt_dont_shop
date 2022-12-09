@@ -14,7 +14,7 @@
 
 <h3>Animals Applied For</h3>
 <ul>
- <% @pets.each do |pet| %>
+ <% @application.pets.each do |pet| %>
     <li><%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
   <% end %>
 </ul>
