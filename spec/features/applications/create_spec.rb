@@ -56,7 +56,7 @@ RSpec.describe 'application creation' do
       click_button 'Submit'
 
       expect(current_path).to eq("/applications/new")
-      expect(page).to have_content("All fields must be filled to submit!")
+      expect(page).to have_content("Application not created: All fields must be filled to submit.")
 
     end
   end
