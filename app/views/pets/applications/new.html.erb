@@ -1,0 +1,17 @@
+<h1>Start New Application</h1>
+<%= form_with url: "/applications", method: :post, local: true do |form| %>
+  <%= form.label "Applicant Name:" %>
+  <%= form.text_field :name %>
+  <%= form.label "Street Address:" %>
+  <%= form.text_field :street_address %>
+  <%= form.label "City:" %>
+  <%= form.text_field :city %>
+  <%= form.label "State:" %>
+  <%= form.text_field :state %>
+  <%= form.label "Zip Code:" %>
+  <%= form.text_field :zip_code %>
+  <%= form.label "Why Do You Think You'd be a Good Owner" %>
+  <%= form.text_area :description, size: "60x10" %>
+  <%= form.hidden_field :status, value: "In Progress" %>
+  <%= form.submit value: "Submit Application" %>
+<% end%>
