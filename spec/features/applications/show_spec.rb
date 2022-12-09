@@ -66,9 +66,14 @@ RSpec.describe Application, type: :feature do
     
     it 'displays all pets for which the application is applying' do
       visit "/applications/#{application.id}"
-      save_and_open_page
       
       expect(page).to have_content("Animals Applied For")
+      expect(page).to have_link("Lucky", href: "/pets/#{pet_1.id}")
+      expect(page).to have_link("Lobster", href: "/pets/#{pet_2.id}")
+      expect(page).to have_link("Sylvester", href: "/pets/#{pet_3.id}")
+
+      visit "/applications/#{application_2.id}"
+
       expect(page).to have_link("Lucky", href: "/pets/#{pet_1.id}")
       expect(page).to have_link("Lobster", href: "/pets/#{pet_2.id}")
 

@@ -14,11 +14,7 @@
 
 <h3>Animals Applied For</h3>
 <ul>
-
- <% @application_pets.each do |pet| %>
+ <% @pets.each do |pet| %>
     <li><%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
   <% end %>
 </ul>
-
-# find all animals with same @application.id
-# display those animals with their pets#show link
