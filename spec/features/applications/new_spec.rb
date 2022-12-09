@@ -1,16 +1,13 @@
 require 'rails_helper'
 
 RSpec.describe 'new application' do
-# When I fill in this form with my:
-#   - Name
-#   - Street Address
-#   - City
-#   - State
-#   - Zip Code
+
+# As a visitor
+# When I visit the new application page
+# And I fail to fill in any of the form fields
 # And I click submit
-# Then I am taken to the new application's show page
-# And I see my Name, address information, and description of why I would make a good home
-# And I see an indicator that this application is "In Progress"
+# Then I am taken back to the new applications page
+# And I see a message that I must fill in those fields.
 
   describe 'User Story 2' do
     it 'can fill out a form' do
@@ -40,6 +37,25 @@ RSpec.describe 'new application' do
       expect(page).to have_content(application_2.full_address)
       expect(page).to have_content(application_2.description)
       expect(page).to have_content(application_2.status)
+    end
+  end
+
+  describe "User Story 3" do
+    describe "User fails to fill in form field" do
+      it "redirects back to new application page with error message" do
+        visit '/applications/new' 
+
+        fill_in('Name', with: 'Bob')
+        fill_in('Street address', with: '123 Lead Street')
+        fill_in('City', with: 'Denver')
+        fill_in('State', with: 'CO')
+        fill_in('Zip code', with: '80020')
+          
+        click_on 'Submit'
+
+        expect(has_current_path?("/applications/new?error=true")).to be true
+        expect(page).to have_content("Please fill in all fields.")
+      end
     end
   end
 end

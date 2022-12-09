@@ -13,3 +13,6 @@
   <%= form.text_field :description %>
   <%= form.submit 'Submit' %>
 <% end %>
+<% if params[:error] %>
+  <%= "Please fill in all fields." %>
+<% end %>
