@@ -16,5 +16,8 @@
 </p>
 <p>
   <b>This Application is for:</b> 
-  <%= @adoptees %>
+  <% @adoptees[0...-1].each do |pet| %>
+    <%= link_to "#{pet.name},", "/pets/#{pet.id}" %>
+  <% end %>
+  <%= link_to "#{@adoptees.last.name}", "/pets/#{@adoptees.last.id}"  %>
 </p>

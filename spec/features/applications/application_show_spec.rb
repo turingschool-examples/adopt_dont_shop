@@ -25,4 +25,14 @@ RSpec.describe 'visit application show page' do
     expect(page).to have_content("Application Status: #{@app1.status}")
     expect(page).to have_content("This Application is for: #{@buster.name}, #{@marlowe.name}")
   end
+
+  it 'has links to each pet listed in application' do
+    PetApplication.create!(pet: @buster, application: @app1)
+    PetApplication.create!(pet: @marlowe, application: @app1)
+
+    visit "/applications/#{@app1.id}"
+
+    expect(find_link(@buster.name)[:href]).to eq("/pets/#{@buster.id}")
+    expect(find_link(@marlowe.name)[:href]).to eq("/pets/#{@marlowe.id}")
+  end
 end
