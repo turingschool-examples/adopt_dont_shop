@@ -10,10 +10,8 @@ class ApplicationsController < ApplicationController
 
   def create
     @application = Application.create(app_params)
-    # @application[:status] = "In Progress"
     redirect_to "/applications/#{@application.id}"
   end
-
 
 private 
   def app_params

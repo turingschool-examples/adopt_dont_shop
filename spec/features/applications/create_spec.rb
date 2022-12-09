@@ -36,7 +36,6 @@ RSpec.describe 'applications create page' do
     expect(page).to have_content("Tennessee")
     expect(page).to have_content("37129")
     expect(page).to have_content("My kids need a dog")
-    # expect(page).to have_content("In Progress")
-    
+    expect(page).to have_content("In Progress")
   end
 end
