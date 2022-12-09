@@ -14,5 +14,16 @@ RSpec.describe 'application creation' do
       click_on("Start an Application")
       expect(current_path).to eq('/applications/new')
     end
+
+    it 'renders the new form' do
+      visit "/applications/new"
+
+      expect(page).to have_content('New Application')
+      expect(find('form')).to have_content('Name')
+      expect(find('form')).to have_content('Address')
+      expect(find('form')).to have_content('City')
+      expect(find('form')).to have_content('State')
+      expect(find('form')).to have_content('Zip code')
+    end
   end
 end
