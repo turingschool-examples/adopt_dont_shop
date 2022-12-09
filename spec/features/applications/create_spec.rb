@@ -48,7 +48,7 @@ RSpec.describe 'applications create page' do
 
     click_button('Submit')
 
-    expect(current_path).to eq("/applications/new")
-    # expect(page).to include?("Please fill out this field.")
+    expect(page).to have_content("Application not created. Please fill out all fields.")
+    expect(page).to have_button('Submit')
   end
 end
