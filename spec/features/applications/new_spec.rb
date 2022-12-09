@@ -19,7 +19,7 @@ RSpec.describe "Application New" do
       click_on("Submit")
    
       expect(current_path).to eq('/applications/new')
-save_and_open_page
+
       expect(page).to have_content("All Fields Required in Order to Submit")
     end
   end
