@@ -1,4 +1,9 @@
 <h1>New Application</h1>
+
+<% flash.each do |type, message| %>
+  <p><%= message %></p>
+<% end %>
+
 <%= form_with url: '/applications?status=In Progress', method: :post, local: true do |f| %>
   <%= f.label :name %>
   <%= f.text_field :name %>

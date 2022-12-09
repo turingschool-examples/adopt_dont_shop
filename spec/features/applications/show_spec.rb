@@ -14,7 +14,10 @@ RSpec.describe 'The application show page' do
   it 'displays all of the attributes of an application, and all the pets the application is for' do
     shelter = Shelter.create!(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
     application = Application.create!(name: "Jimbo Kepler", 
-                                      address: "000 Street Name, City Name, STATE 00000", 
+                                      address: "000 Street Name",
+                                      city: "City Name",
+                                      state: "STATE",
+                                      zipcode: 00000, 
                                       description: "I love animals and they love me!", 
                                       status: "In Progress")
     pet_1 = Pet.create!(adoptable: true, age: 1, breed: 'sphynx', name: 'Lucille Bald', shelter_id: shelter.id)

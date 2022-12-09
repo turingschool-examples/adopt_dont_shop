@@ -12,7 +12,7 @@ class ApplicationsController < ApplicationController
     if application.save
       redirect_to "/applications/#{application.id}"
     else
-      flash[:error] = "Application not created: All fields must be filled to submit."
+      flash[:notice] = "Application not created: All fields must be filled to submit."
       render :new
     end
     
