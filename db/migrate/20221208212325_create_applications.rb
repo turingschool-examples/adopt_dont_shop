@@ -4,7 +4,6 @@ class CreateApplications < ActiveRecord::Migration[5.2]
       t.string :app_name
       t.string :address
       t.string :description
-      t.string :pet_names
       t.string :status
       t.timestamps
     end

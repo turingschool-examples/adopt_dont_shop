@@ -1,5 +1,7 @@
 <h1> <%= @application.app_name %>'s Application</h1>
 <p>Applicant Address: <%= @application.address %></p>
 <p>Adoption Reason: <%= @application.description %></p>
-<p>Pet(s) to be Adopted: <%= link_to "#{@application.pet_names}", "/pets/#{@pets.id}" %></p>
+<p>Pet(s) to be Adopted: <% @pets.each do |pet| %>
+  <%= link_to pet.name, "/pets/#{pet.id}" %></p>
+  <% end %>
 <p>Application Status: <%= @application.status %></p>

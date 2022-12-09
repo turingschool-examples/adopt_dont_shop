@@ -28,7 +28,6 @@ ActiveRecord::Schema.define(version: 2022_12_08_214945) do
     t.string "app_name"
     t.string "address"
     t.string "description"
-    t.string "pet_names"
     t.string "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
