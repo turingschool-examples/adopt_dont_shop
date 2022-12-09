@@ -20,7 +20,10 @@ ActiveRecord::Schema.define(version: 2022_12_08_235343) do
     t.string "street_address"
     t.string "city"
     t.string "state"
-    t.integer "zip_code"
+    t.string "zip_code"
+    t.string "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "pets", force: :cascade do |t|
