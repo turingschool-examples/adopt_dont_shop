@@ -1,6 +1,6 @@
 class ApplicationsController < ApplicationController
   def show
-    @application = Applicant.find(params[:id])
+    @application = Application.find(params[:id])
     @pet_id_pairs = Pet.pluck(:id, :name)
   end
 
@@ -8,7 +8,7 @@ class ApplicationsController < ApplicationController
   end
 
   def create
-    @application = Applicant.create!(applications_params)
+    @application = Application.create!(applications_params)
     redirect_to "/applications/#{@application.id}"
   end
 

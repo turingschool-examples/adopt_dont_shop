@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Applicant, type: :model do
+RSpec.describe Application, type: :model do
   describe "relationships" do
     it { should have_many :application_pets }
     it { should have_many(:pets).through(:application_pets) }
@@ -8,7 +8,7 @@ RSpec.describe Applicant, type: :model do
 
   describe "#full_address" do
     it 'can create a full address' do
-      application_1 = Applicant.create!(
+      application_1 = Application.create!(
         name: "Bob",
         street_address: "123 Leaf Street",
         city: "Denver",

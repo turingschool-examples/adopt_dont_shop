@@ -5,8 +5,8 @@
 # As a visitor
 # When I visit an applications show page
 # Then I can see the following:
-# - Name of the Applicant
-# - Full Address of the Applicant including street address, city, state, and zip code
+# - Name of the Application
+# - Full Address of the Application including street address, city, state, and zip code
 # - Description of why the application says they'd be a good home for this pet(s)
 # - names of all pets that this application is for (all names of pets should be links to their show page)
 # - The Application's status, either "In Progress", "Pending", "Accepted", or "Rejected"
@@ -15,7 +15,7 @@ require 'rails_helper'
 
 RSpec.describe "Application Show Page" do
   before :each do
-    @application_1 = Applicant.create!(
+    @application_1 = Application.create!(
       name: "Bob",
       street_address: "123 Leaf Street",
       city: "Denver",

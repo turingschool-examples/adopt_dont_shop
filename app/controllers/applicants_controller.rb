@@ -1,3 +1,3 @@
-# class ApplicantsController < ApplicationController
+# class ApplicationsController < ApplicationController
 #   #delete?
 # end

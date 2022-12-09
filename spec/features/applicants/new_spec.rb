@@ -14,7 +14,7 @@ RSpec.describe 'new application' do
 
   describe 'User Story 2' do
     it 'can fill out a form' do
-      application_1 = Applicant.create!(
+      application_1 = Application.create!(
         name: "Bob",
         street_address: "123 Leaf Street",
         city: "Denver",
@@ -33,7 +33,7 @@ RSpec.describe 'new application' do
       fill_in('Description', with: 'I work from home and need a friend')
       
       click_on 'Submit'
-      application_2 = Applicant.last
+      application_2 = Application.last
 
       expect(current_path).to eq("/applications/#{application_2.id}")
       expect(page).to have_content(application_2.name)
