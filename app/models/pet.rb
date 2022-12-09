@@ -10,4 +10,9 @@ class Pet < ApplicationRecord
   def self.adoptable
     where(adoptable: true)
   end
+
+  def self.find_by_name(name_input)
+    name = arel_table[:name]
+    where(name.matches("%#{name_input}%"))
+  end
 end

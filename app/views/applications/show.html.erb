@@ -1,9 +1,9 @@
 <h1> Name: <%= @application.name %> </h1>
 <p>
-Address: <%= "#{@application.street_address}, #{@application.city} #{@application.state}, #{@application.zip_code}" %>
+Address: <%= "#{@application.street_address}, #{@application.city} #{@application.state}, #{@application.zip_code}" %><br>
 Why I Would Make A Good Home: <%= @application.reason %><br>
 Status: <%= @application.status %><br>
-<% if @application.pets %>
+<% unless @application.pets == [] %>
   Pets inquired about:
   <% @application.pets.each do |pet| %>
   <%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
@@ -11,7 +11,7 @@ Status: <%= @application.status %><br>
   </p>
 <% else %>
   <%= form_with url: "/applications/#{@application.id}?add_pets=true", method: :get, local: true do |form| %>
-    <%= form.label :name_input 'Search Pets By Name:' %>
+    <%= form.label :name_input, 'Add a new pet to this application:' %>
     <%= form.text_field :name_input %>
     <%= form.submit 'Search' %>
   <% end %>
