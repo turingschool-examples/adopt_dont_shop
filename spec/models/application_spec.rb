@@ -14,11 +14,25 @@ RSpec.describe Application, type: :model do
         city: "Denver",
         state: "CO",
         zip_code: 80020,
-        description: "Work from home",
-        status: "In Progress"
+        description: "Work from home"
       )
-
+      
       expect(application_1.full_address).to eq("123 Leaf Street, Denver, CO 80020")
+    end
+  end
+  
+  describe "attribute status" do
+    it 'can show a default status' do
+      application_1 = Application.create!(
+        name: "Bob",
+        street_address: "123 Leaf Street",
+        city: "Denver",
+        state: "CO",
+        zip_code: 80020,
+        description: "Work from home"
+      )
+      
+      expect(application_1.status).to eq('In Progress')
     end
   end
 end
