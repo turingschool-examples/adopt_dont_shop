@@ -9,7 +9,12 @@ class ApplicationsController < ApplicationController
 
   def create
     @application = Application.create(application_params)
-    redirect_to "/applications/#{@application.id}"
+    if @application.save
+      redirect_to "/applications/#{@application.id}"
+    else 
+      redirect_to "/applications/new"
+      flash[:alert] = "All Fields Required in Order to Submit"
+    end
   end
 
   private
