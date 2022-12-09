@@ -19,6 +19,7 @@ RSpec.describe Application, type: :feature do
         state: "CA",
         zip: "90210",
         status: "Rejected")}
+
   let!(:application_2) { Application.create!(
         human_name: "Aziz Ansari",
         description: "Very funny, entertaining to dogs",
@@ -27,11 +28,13 @@ RSpec.describe Application, type: :feature do
         state: "WA",
         zip: "98101",
         status: "Pending")}
-  let!(:pet_1) { Pet.create(adoptable: true, age: 1, breed: 'sphynx', name: 'Lucky', shelter_id: @shelter.id) }
-  let!(:pet_2) { Pet.create(adoptable: true, age: 3, breed: 'doberman', name: 'Lobster', shelter_id: @shelter.id) }
-  let!(:pet_3) { Pet.create(adoptable: true, age: 1, breed: 'domestic shorthair', name: 'Sylvester', shelter_id: @shelter_2.id) }
- 
-  # Add the above referenced shelters
+
+  let!(:shelter) { Shelter.create!(name: 'Mystery Building', city: 'Irvine CA', foster_program: false, rank: 9) }
+  let!(:shelter_2) { Shelter.create!(name: 'Paws and Tails', city: 'San Francisco CA', foster_program: true, rank: 7) }
+
+  let!(:pet_1) { Pet.create!(adoptable: true, age: 1, breed: 'sphynx', name: 'Lucky', shelter_id: shelter.id) }
+  let!(:pet_2) { Pet.create!(adoptable: true, age: 3, breed: 'doberman', name: 'Lobster', shelter_id: shelter.id) }
+  let!(:pet_3) { Pet.create!(adoptable: true, age: 1, breed: 'domestic shorthair', name: 'Sylvester', shelter_id: shelter_2.id) }
 
   describe 'application show page' do
     it 'displays the attributes of a single application' do
@@ -59,7 +62,11 @@ RSpec.describe Application, type: :feature do
     it 'displays all pets for which the application is applying' do
       visit "/applications/#{application.id}"
       
+      expect(page).to have_content("Animals Applied For")
       expect(page).to have_link("Lucky", href: "/pets/#{pet_1.id}")
+      expect(page).to have_link("Lobster", href: "/pets/#{pet_2.id}")
+
+      expect(page).to_not have_link("Sylvester", href: "/pets/#{pet_3.id}")
     end
 
   end
