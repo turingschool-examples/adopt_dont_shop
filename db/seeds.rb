@@ -45,3 +45,6 @@ tommy = country_vet.veterinarians.create(name: 'Tommy', on_call: true, review_ra
 victor = pet_er_room.veterinarians.create(name: 'Victor', on_call: true, review_rating: 10)
 mike = pet_er_room.veterinarians.create(name: 'Mike', on_call: false, review_rating: 6)
 
+#Applications
+app1 = Application.create!(name: "Tucker", street_address: "1122 Blank St.", city: 'New York City', state: "NY", zip_code: "12121", description: "We have one happy dog and would love another!", status: "In Progress") 
+app2 = Application.create!(name: "Sara", street_address: "2211 Other St.", city: 'Iowa City', state: "IA", zip_code: "33434", description: "Give pet please", status: "Pending") 
