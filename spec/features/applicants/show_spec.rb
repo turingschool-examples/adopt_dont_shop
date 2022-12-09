@@ -17,7 +17,10 @@ RSpec.describe "Application Show Page" do
   before :each do
     @applicant_1 = Applicant.create!(
       name: "Bob",
-      address: "123 Leaf Street",
+      street_address: "123 Leaf Street",
+      city: "Denver",
+      state: "CO",
+      zip_code: 80020,
       description: "Work from home",
       status: "In Progress"
     )
@@ -54,7 +57,7 @@ RSpec.describe "Application Show Page" do
         save_and_open_page
         
         expect(page).to have_content(@applicant_1.name)
-        expect(page).to have_content(@applicant_1.address)
+        expect(page).to have_content(@applicant_1.full_address)
         expect(page).to have_content(@applicant_1.description)
         expect(page).to have_content(@pet_1.name)
         expect(page).to have_content(@applicant_1.status)
