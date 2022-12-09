@@ -9,8 +9,13 @@ class ApplicationsController < ApplicationController
   end
 
   def create
-    @application = Application.create(app_params)
-    redirect_to "/applications/#{@application.id}"
+    # require 'pry'; binding.pry
+    if app_params[:name] == ""
+      redirect_to "/applications/new", notice: "You must fill in all fields"
+    else
+      @application = Application.create(app_params)
+      redirect_to "/applications/#{@application.id}"
+    end
   end
 
 private 

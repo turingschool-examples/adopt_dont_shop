@@ -38,4 +38,17 @@ RSpec.describe 'applications create page' do
     expect(page).to have_content("My kids need a dog")
     expect(page).to have_content("In Progress")
   end
+
+  it 'should display an error message if the form fields arent filled in' do
+    shelter = Shelter.create(name: 'Mystery Building', city: 'Irvine CA', foster_program: false, rank: 9)
+    pet = Pet.create(name: 'Scooby', age: 2, breed: 'Great Dane', adoptable: true, shelter_id: shelter.id)
+    application1 = pet.applications.create!(name: 'John Doe', street: '123 N Washington Ave.', city: 'Denver', state: 'Colorado', zip: '91234', applicant_argument: 'caring and loving', app_status: "Pending")
+
+    visit '/applications/new'
+
+    click_button('Submit')
+
+    expect(current_path).to eq("/applications/new")
+    # expect(page).to include?("Please fill out this field.")
+  end
 end
