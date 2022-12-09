@@ -9,11 +9,14 @@ RSpec.describe "Show spec" do
     @pet2 = Pet.create!(adoptable: true, age: 15, breed: "dog", name: "Sebastian", shelter_id: @shelter1.id)
     @pet3 = Pet.create!(adoptable: true, age: 5, breed: "cat", name: "Charles", shelter_id: @shelter1.id)
     
-    @pet2 = Pet.create!(adoptable: false, age: 12, breed: "dog", name: "Paul", shelter_id: @shelter1.id)
-    @pet3 = Pet.create!(adoptable: true, age: 5, breed: "cat", name: "Maggie", shelter_id: @shelter2.id)
+    @pet4 = Pet.create!(adoptable: false, age: 12, breed: "dog", name: "Paul", shelter_id: @shelter1.id)
+    @pet5 = Pet.create!(adoptable: true, age: 5, breed: "cat", name: "Maggie", shelter_id: @shelter2.id)
 
     @application1 = Application.create!(last: "Banos", first: "Leo", street: "123 1st St", city: "Denver", state: "CO", zip:"24135", description: "I am good parent", status: "Pending")
     @application2 = Application.create!(last: "Lampke", first: "William", street: "456 2nd St", city: "Charlotte", state: "NC", zip:"24451", description: "I am great parent", status: "In Progress")
+
+    @application3 = Application.create!(last: "fake", first: "iam", street: "123 1st St", city: "Denver", state: "CO", zip:"24135", description: "I am good parent", status: "Pending")
+
 
     @ap1 = ApplicationPet.create!(application_id: @application1.id, pet_id: @pet1.id, status: true)
     @ap2 = ApplicationPet.create!(application_id: @application2.id, pet_id: @pet2.id, status: false)
@@ -28,6 +31,14 @@ RSpec.describe "Show spec" do
       expect(page).to have_content(@application1.description)
       expect(page).to have_content(@pet1.name)
       expect(page).to have_content(@application1.status)
+    end
+  end
+  describe 'add pet' do
+    it 'has a search bar that lets you search pets' do
+      visit "/applications/#{@application3.id}"
+      fill_in :petsearch, with: "Charles"
+      click_on "Submit"
+      expect(page).to have_content("Charles")
     end
   end
 end
