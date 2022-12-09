@@ -8,8 +8,12 @@ class ApplicationsController < ApplicationController
   end
 
   def create
-    @application = Application.create!(applications_params)
-    redirect_to "/applications/#{@application.id}"
+    if(Application.create(applications_params).valid?)
+      @application = Application.create!(applications_params)
+      redirect_to "/applications/#{@application.id}"
+    else
+      redirect_to "/applications/new?error=true"
+    end
   end
 
   private

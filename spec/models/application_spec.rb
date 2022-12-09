@@ -35,4 +35,6 @@ RSpec.describe Application, type: :model do
       expect(application_1.status).to eq('In Progress')
     end
   end
+
+  
 end
