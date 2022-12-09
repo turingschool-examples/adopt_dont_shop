@@ -3,7 +3,7 @@
 # 1. Application Show Page
 
 # As a visitor
-# When I visit an applications show page
+# When I visit an applicants show page
 # Then I can see the following:
 # - Name of the Applicant
 # - Full Address of the Applicant including street address, city, state, and zip code
