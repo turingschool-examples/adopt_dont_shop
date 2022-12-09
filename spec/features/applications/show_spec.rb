@@ -72,6 +72,6 @@ RSpec.describe 'Application show view' do
 
     click_on 'Frankie'
 
-    expect(current_path).to eq ("pets/#{@pet_3.id}")
+    expect(current_path).to eq ("/pets/#{@pet_3.id}")
   end
 end

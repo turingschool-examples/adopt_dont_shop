@@ -16,6 +16,6 @@ Status: <%= @application.status %><br>
     <%= form.submit 'Search' %>
   <% end %>
   <% @pets.each do |pet| %>
-    <%= link_to "#{pet.name}", "/applications/#{@application.id}/add_pet" %>
+    <%= link_to "#{pet.name}", "/applications/#{@application.id}/add_pet/#{pet.id}" %>
   <% end %>
 <% end %>
