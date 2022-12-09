@@ -1,1 +1,29 @@
-<h1>Create Application</h1>
+<h2>Please Complete This Application</h2>
+
+
+<%= form_with url: "/applications/#{@new_application.id}", method: :post, local: true do |form| %>
+  <ul><%= form.label :name, "Name"%>
+  <%= form.text_field :name, value: @new_application.name %></ul>
+
+  <ul><%= form.label :street_address, "Street Address" %>
+  <%= form.text_field :street_address, value: @new_application.street_address  %></ul>
+
+  <ul><%= form.label :city, "City" %>
+  <%= form.text_field :city, value: @new_application.city  %></ul>
+  
+  <ul><%= form.label :state, "State" %>
+  <%= form.text_field :state, value: @new_application.state  %></ul>
+
+  <ul><%= form.label :zip_code, "Zip Code" %>
+  <%= form.text_field :zip_code, value: @new_application.zip_code  %></ul>
+  
+  <ul><%= form.label :description, "Our home is perfect for a pet because..." %>
+  <%= form.text_field :description, value: @new_application.description  %></ul>
+
+  <%= form.button "Submit" %>
+<% end %>
+
+
+<div style="position:fixed; padding: 1em; bottom: 0; right: 0;">
+  <%= link_to 'Cancel', pets_path %>
+</div>
