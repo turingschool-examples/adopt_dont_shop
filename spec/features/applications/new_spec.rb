@@ -14,4 +14,20 @@ RSpec.describe 'new application page' do
     expect(page).to have_selector("input[type=submit]")
   end
 
+  it 'successfully creates a new application and redirects to application show page' do
+    visit "/applications/new"
+
+    fill_in "name", with: "Jim bob"
+    fill_in "street_address", with: "1234 happytown lane"
+    fill_in "city", with: "who cares"
+    fill_in "state", with: "Alabama"
+    fill_in "zip_code", with: "14920"
+    fill_in "description", with: "i done like me sum dogs"
+    save_and_open_page
+    find("input[type=submit]").click
+    expect(current_path).to eq("/applications/#{Application.last.id}")
+    expect(page).to have_content("Jim bob")
+    expect(page).to have_content("i done like me sum dogs")
+  end
+
 end
