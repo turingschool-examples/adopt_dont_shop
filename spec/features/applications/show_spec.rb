@@ -14,5 +14,12 @@ RSpec.describe 'application show' do
       expect(page).to have_content(application.status)
 
     end
+
+    it 'allows a pet to be selected and added to application as an ApplicationPet' do
+      visit "/applications/#{application.id}"
+
+      
+      
+    end
   end
 end
