@@ -1,0 +1,17 @@
+<h3> Add a Pet to this Application </h3>
+<%= form_with url: "#{request.url}", method: :get, local: true do |form| %>
+  <%= form.label "Search by Name:" %>
+  <%= form.text_field :pet_name %>
+  <%= form.submit "Search" %>
+<% end %>
+
+<% @search_pets.each do |pet|%>
+  <div id="pet-<%= pet.id %>">
+  <%= pet.name %><br>
+  <%= form_with url: "/pet_applications", method: :post, local: true do |form| %>
+    <%= form.hidden_field :pet_id, value: pet.id %>
+    <%= form.hidden_field :application_id, value: @application.id %>
+    <%= form.submit "Adopt this Pet" %>
+  <% end %>
+  </div>
+<% end %>

@@ -73,6 +73,26 @@ RSpec.describe 'visit application show page' do
     
     expect(current_path).to eq("/applications/#{@app1.id}")
     expect(page).to have_content("This Application is for: #{@james.name}")
+  end
 
+  it 'has a button to submit application once a pet has been added' do
+    visit "/applications/#{@app1.id}"
+    expect(page).to_not have_button("Submit Application")
+
+    fill_in "pet_name", with: "James"
+
+    within "#pet-#{@james.id}" do 
+      click_button("Adopt this Pet")
+    end
+
+    expect(page).to have_button("Submit Application")
+    expect(page).to have_field(:description)
+    fill_in :description, with: "I LOVE JAMES DANGIT"
+
+    click_button("Submit Application")
+    expect(current_path).to eq("/applications/#{@app1.id}")
+
+    expect(page).to have_content("Application Status: Pending")
+    expect(page).to_not have_content("Add a Pet to this Application")
   end
 end
