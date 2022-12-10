@@ -3,11 +3,10 @@
 <p>Address: <%= @application.full_address %></p>
 <p>
   Description: <%= @application.description %>
-  <% if @application.description == nil %>
+  <% if @application.description == nil && @application.has_pets? %>
     <%= form_with url: "/applications/#{@application.id}", method: :patch, local: true do |form| %>
-      <%= form.label :description %>
       <%= form.text_field :description %>
-      <%= form.submit "Submit Description" %>
+      <%= form.submit "Submit Application" %>
     <% end %>
   <% end %>
 </p>
@@ -18,11 +17,13 @@
   <% end %>
 </section>
 <p>Status: <%= @application.status %></p>
-<%= form_with url: "/applications/#{@application.id}?search=#{@search}", method: :get, local: true do |form| %>
-  <%= form.label :search, "Add a Pet to this Application" %>
-  <%= form.text_field :search %>
-  <br>
-  <%= form.submit "Search For Pet!" %>
+<% if @application.status == "In Progress" %>
+  <%= form_with url: "/applications/#{@application.id}?search=#{@search}", method: :get, local: true do |form| %>
+    <%= form.label :search, "Add a Pet to this Application" %>
+    <%= form.text_field :search %>
+    <br>
+    <%= form.submit "Search For Pet!" %>
+  <% end %>
 <% end %>
 
 <p><% @pet_searches.each do |pet| %>
@@ -32,5 +33,3 @@
       <%= form.submit "Adopt #{pet.name}!" %>
     <% end %>
 <% end %></p>
-
-    

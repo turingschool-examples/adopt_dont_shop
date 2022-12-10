@@ -145,15 +145,16 @@ RSpec.describe "Application Show Page" do
         visit "/applications/#{@application_1.id}"
 
         expect(page).to have_field(:description)
-        expect(page).to have_button("Submit Description")
+        expect(page).to have_button("Submit Application")
 
         fill_in(:description, with: "I work from home")
-        click_button("Submit Description")
+        click_button("Submit Application")
 
         expect(current_path).to eq("/applications/#{@application_1.id}")
         expect(page).to have_content("I work from home")
         expect(page).to have_content("Pending")
-        within("application_pets") do
+        
+        within("#application_pets") do
           expect(page).to have_content("Pepper")
         end
 
