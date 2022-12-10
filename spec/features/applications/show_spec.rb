@@ -96,4 +96,39 @@ RSpec.describe "Application Show Page" do
       end
     end
   end
+
+  #As a visitor
+  # When I visit an application's show page
+  # And I search for a Pet by name
+  # And I see the names Pets that match my search
+  # Then next to each Pet's name I see a button to "Adopt this Pet"
+  # When I click one of these buttons
+  # Then I am taken back to the application show page
+  # And I see the Pet I want to adopt listed on this application
+
+  describe "User story 5" do
+    describe "Search a pet by name" do
+      it "has a button 'Adopt this Pet' next to the pet's name" do
+        @pet_1 = @application_1.pets.create!(
+          name: "Pepper",
+          adoptable: true,
+          age: 4,
+          breed: "Pitbull",
+          shelter_id: @shelter_1.id
+        )
+         
+        visit "/applications/#{@application_1.id}"
+
+        fill_in(:search, with: "Pepper")
+        click_button("Search For Pet!")
+
+        expect(page).to have_button("Adopt #{@pet_1.name}!")
+        
+        click_button("Adopt #{@pet_1.name}!")
+        
+        expect(page).to have_content('Pepper')
+        expect(current_path).to eq("/applications/#{@application_1.id}")
+      end
+    end
+  end
 end
