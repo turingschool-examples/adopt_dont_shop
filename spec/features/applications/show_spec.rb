@@ -104,4 +104,22 @@ RSpec.describe 'Application show view' do
     expect(page).to have_content("Add a new pet to this application:")
     expect(page).to_not have_content('Submit Application')
   end
+
+  it 'searching for pets will return pets whose names partially match the search terms' do
+    visit "/applications/#{@application.id}"
+
+    expect(page).to have_content("Add a new pet to this application:")
+
+    fill_in("name_input", with: 'Frank')
+
+    click_button 'Search'
+
+    click_on 'Frankie'
+
+    expect(current_path).to eq("/applications/#{@application.id}")
+
+    click_on 'Frankie'
+
+    expect(current_path).to eq ("/pets/#{@pet_3.id}")
+  end
 end
