@@ -69,7 +69,10 @@ RSpec.describe 'the application show' do
 
       click_button "Adopt Me"
 
-      expect(page.has_field?("Pets", with: @pet_1.name)).to be true
+      expect(page.all(:link, :text => @pet_1.name).count).to eq(2)
+      page.all(:link, :text => @pet_1.name)[1].click
+
+      expect(current_path).to eq("/applications/pets/#{@pet_1.id}")
     end
   end
 end
