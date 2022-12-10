@@ -1,7 +1,7 @@
 FactoryBot.define do
-  factory :veterinary_offices do
-    boarding_services {Faker::Boolean.boarding_services}
-    max_patient_capacity {Faker::Number.max_patient_capacity}
-    shelter_id {Faker::Number.shelter_id}
+  factory :veterinary_office do
+    boarding_services {Faker::Boolean.boolean(true_ratio: 0.5)}
+    max_patient_capacity {rand(20..50)}
+    name {Faker::Book.title}
   end
 end

@@ -2,16 +2,14 @@ require 'rails_helper'
 
 RSpec.describe 'the application show' do
   before :each do
-    @application = Application.create(
-      name: 'Joseph Puglia',
-      street_address: '5201 Whistle St.',
-      city: 'Irvine',
-      state: 'CA',
-      zip_code: '92602'
-    )
+    @application = create(:application)
+    @shelter_1   = create(:shelter)
+    @pet_1       = create(:pet, shelter: @shelter_1)
+    @pet_2       = create(:pet, shelter: @shelter_1)
+    @pet_3       = create(:pet, shelter: @shelter_1)
   end
   it "shows the application and all it's attributes" do
-    
+
     visit "/applications/#{@application.id}"
 
     expect(page).to have_content(@application.name)
