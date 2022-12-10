@@ -1,6 +1,8 @@
 
 application = FactoryBot.create(:application)
-shelter_1   = FactoryBot.create(:shelter)
+shelter_1   = FactoryBot.create(:shelter) 
+shelter_2   = FactoryBot.create(:shelter) 
+shelter_3   = FactoryBot.create(:shelter) 
 vet_office  = FactoryBot.create(:veterinary_office)
 vet_1       = FactoryBot.create(:veterinarian, veterinary_office: vet_office)
 vet_2       = FactoryBot.create(:veterinarian, veterinary_office: vet_office)
