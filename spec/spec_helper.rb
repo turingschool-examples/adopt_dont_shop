@@ -40,6 +40,15 @@ RSpec.configure do |config|
     mocks.verify_partial_doubles = true
   end
 
+   # cleaning databases between specs
+   config.before(:suite) do 
+    Pet.destroy_all
+    Shelter.destroy_all
+    ApplicationPet.destroy_all
+    Application.destroy_all
+  end
+
+
   # This option will default to `:apply_to_host_groups` in RSpec 4 (and will
   # have no way to turn it off -- the option exists only for backwards
   # compatibility in RSpec 3). It causes shared context metadata to be
