@@ -122,4 +122,37 @@ RSpec.describe 'The application show page' do
     expect(page).to have_content("Pets Added to Application:")
     expect(page).to have_link("Lobster")
   end
+
+#   As a visitor
+# When I visit an application's show page
+# And I have added one or more pets to the application
+# Then I see a section to submit my application
+# And in that section I see an input to enter why I would make a good owner for these pet(s)
+# When I fill in that input
+# And I click a button to submit this application
+# Then I am taken back to the application's show page
+# And I see an indicator that the application is "Pending"
+# And I see all the pets that I want to adopt
+# And I do not see a section to add more pets to this application
+  it 'displays description test field when app is pending and pets added' do
+      shelter = Shelter.create!(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
+      application = Application.create!(name: "Jimbo Kepler", 
+                                      address: "000 Street Name",
+                                      city: "City Name",
+                                      state: "STATE",
+                                      zipcode: 00000, 
+                                      status: "In Progress")
+      pet_1 = Pet.create!(adoptable: true, age: 1, breed: 'sphynx', name: 'Lucille Bald', shelter_id: shelter.id)
+      PetApplication.create!(pet: pet_1, application: application)
+      visit "/applications/#{application.id}"
+
+      expect(page).to have_field("Description")
+      fill_in 'Description', with: 'I love pets'
+      click_button("Submit")
+      application.reload
+      expect(current_path).to eq("/applications/#{application.id}")
+      expect(application.description).to eq("I love pets")
+      expect(application.status).to eq("Pending")
+      expect(page).to have_no_content("Adopt this pet")
+  end
 end

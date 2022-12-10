@@ -14,6 +14,13 @@
 <h3>Status: <%=@application.status %> </h3>
 <%if @application.status == "In Progress"%>
     <%=render partial: "add_pet_to_app"%>
+    <% if @pet.count > 0 %>
+        <%= form_with url: "/applications/#{@application.id}", method: :patch, local: :true do |f| %>
+            <%= f.label :description %>
+            <%= f.text_field :description %> 
+            <%= f.submit "Submit" %>
+        <% end %>
+    <% end %>
 <%end%>
 
 <% @pet.each do |pet| %>
@@ -22,5 +29,7 @@
     <p>Breed: <%= pet.breed %></p>
     <p>Age: <%= pet.age %></p>
     <p>Adoptable: <%= pet.adoptable %></p>
+    <% if @application.status == "In Progress" %>
     <%= button_to("Adopt this pet", "/pet_applications?application_id=#{@application.id}&pet_id=#{pet.id}", method: :post)%>
+    <% end %>
 <% end %>
