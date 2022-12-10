@@ -11,4 +11,8 @@ class Application < ApplicationRecord
   def full_address 
     "#{street_address}, #{city}, #{state} #{zip_code}"
   end
+
+  def has_pets?
+    !pets.empty?
+  end
 end

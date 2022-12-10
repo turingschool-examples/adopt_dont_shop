@@ -1,17 +1,3 @@
-# [ ] done
-
-# 1. Application Show Page
-
-# As a visitor
-# When I visit an application's show page
-# And that application has not been submitted,
-# Then I see a section on the page to "Add a Pet to this Application"
-# In that section I see an input where I can search for Pets by name
-# When I fill in this field with a Pet's name
-# And I click submit,
-# Then I am taken back to the application show page
-# And under the search bar I see any Pet whose name matches my search
-
 require 'rails_helper'
 
 RSpec.describe "Application Show Page" do
@@ -28,9 +14,7 @@ RSpec.describe "Application Show Page" do
       street_address: "123 Leaf Street",
       city: "Denver",
       state: "CO",
-      zip_code: 80020,
-      description: "Work from home",
-      status: "In Progress"
+      zip_code: 80020
     )
   end
 
@@ -57,7 +41,6 @@ RSpec.describe "Application Show Page" do
         
         expect(page).to have_content(@application_1.name)
         expect(page).to have_content(@application_1.full_address)
-        expect(page).to have_content(@application_1.description)
         expect(page).to have_content(@pet_1.name)
         expect(page).to have_content(@application_1.status)
 
@@ -134,4 +117,62 @@ RSpec.describe "Application Show Page" do
       end
     end
   end
+
+  # As a visitor
+  # When I visit an application's show page
+  # And I have added one or more pets to the application
+  # Then I see a section to submit my application
+  # And in that section I see an input to enter why I would make a good owner for these pet(s)
+  # When I fill in that input
+  # And I click a button to submit this application
+  # Then I am taken back to the application's show page
+  # And I see an indicator that the application is "Pending"
+  # And I see all the pets that I want to adopt
+  # And I do not see a section to add more pets to this application
+
+  describe "User Story 6" do
+    describe "User has added pets to application" do
+      it 'now has a section to enter good owner description' do
+        pet_1 = @application_1.pets.create!(
+          name: "Pepper",
+          adoptable: true,
+          age: 4,
+          breed: "Pitbull",
+          shelter_id: @shelter_1.id
+        )
+
+        visit "/applications/#{@application_1.id}"
+
+        expect(page).to have_field(:description)
+        expect(page).to have_button("Submit Application")
+
+        fill_in(:description, with: "I work from home")
+        click_button("Submit Application")
+
+        expect(current_path).to eq("/applications/#{@application_1.id}")
+        expect(page).to have_content("I work from home")
+        expect(page).to have_content("Pending")
+        
+        within("#application_pets") do
+          expect(page).to have_content("Pepper")
+        end
+
+        expect(page).to_not have_content("Add a Pet to this Application")
+        expect(page).to_not have_field(:search)
+        expect(page).to_not have_button("Search For Pet!")
+      end
+    end
+  end
+
+  describe "User Story 7" do
+    describe "User hasn't added pets to the application" do
+      it 'does not have the option to submit the application' do
+        visit "/applications/#{@application_1.id}"
+
+        expect(page).to_not have_field(:description)
+        expect(page).to_not have_button("Submit Application")
+      end
+    end
+  end
+
 end
