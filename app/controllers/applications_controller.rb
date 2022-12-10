@@ -6,12 +6,12 @@ class ApplicationsController < ApplicationController
 
   def create
     application = Application.create!(application_params)
-    # binding.pry
     redirect_to "/applications/#{application.id}"
   end
 
   def show
     @application = Application.find(params[:id])
+    @pets        = Pet.all
   end
 
 private

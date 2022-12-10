@@ -26,11 +26,11 @@ RSpec.describe 'the application show' do
 
     visit "/applications/#{@application.id}"
 
-    fill_in('search', with: "Spot")
+    fill_in('search', with: @pet_1.name)
 
     click_button 'search'
 
     expect(current_path).to eq("/applications/#{@application.id}")
-    expect(page).to have_content("Joseph")
+    expect(page).to have_content(@pet_1.name)
   end
 end
