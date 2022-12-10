@@ -1,0 +1,8 @@
+<%= form_with url: "/applications/#{@application.id}", method: :patch, local: true do |form| %>
+  <%= form.label "What Makes You a Good Pet Owner?" %>
+  <%= form.text_area :description, size: "35x5" %>
+  <%= form.hidden_field :status, value: "Pending" %>
+  <%= form.submit "Submit Application" %>
+
+
+<% end %>

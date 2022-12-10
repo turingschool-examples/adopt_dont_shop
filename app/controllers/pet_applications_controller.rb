@@ -3,7 +3,6 @@ class PetApplicationsController < ApplicationController
     pet = Pet.find(create_params[:pet_id])
     application = Application.find(create_params[:application_id])
     PetApplication.create!(pet: pet, application: application)
-    
     redirect_to "/applications/#{create_params[:application_id]}"
   end
 
