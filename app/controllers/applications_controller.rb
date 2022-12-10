@@ -7,7 +7,6 @@ class ApplicationsController < ApplicationController
   def create
     @application = Application.new(application_params)
     if @application.save 
-      binding.pry
       redirect_to "/applications/#{@application.id}"
     else
       render :new # ask instructors monday if they care about this
