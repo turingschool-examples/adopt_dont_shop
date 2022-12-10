@@ -2,11 +2,11 @@ require 'rails_helper'
 
 RSpec.describe 'admin_shelters index page' do
   before :each do
-    @shelter_1   = create(:shelter)
-    @shelter_2   = create(:shelter)
-    @shelter_3   = create(:shelter)
-    @shelter_4   = create(:shelter)
-    @shelter_5   = create(:shelter)
+    @shelter_1   = Shelter.create!(foster_progran: true, name: "Big Boi Bud's", city: "Highland", rank: 56)
+    @shelter_2   = Shelter.create!(foster_progran: true, name: "Big Boi Bud's", city: "Highland", rank: 56)
+    @shelter_3   = Shelter.create!(foster_progran: true, name: "Big Boi Bud's", city: "Highland", rank: 56)
+    @shelter_4   = Shelter.create!(foster_progran: true, name: "Big Boi Bud's", city: "Highland", rank: 56)
+    @shelter_5   = Shelter.create!(foster_progran: true, name: "Big Boi Bud's", city: "Highland", rank: 56)
   end
 
   it 'displays the name of all the shelters' do
