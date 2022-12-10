@@ -8,6 +8,7 @@
   <%= link_to pet.name, "/pets/#{pet.id}" %></p>
   <% end %>
 <p>Application Status: <%= @application.status %></p>
+
 <% if @application.status == 'In Progress'%>
   <h3>Add a Pet to this Application</h3>
   <%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |f| %>
@@ -27,9 +28,7 @@
   <% end %>
 <% end %>
 
-
-
-<% if @pets.count > 0  %>
+<% if @pets = []  %>
   <%= form_with url: "/applications/#{@application.id}", method: :patch, local: true do |f| %>
     <%= f.label :description %>
     <%= f.text_field :description %>
