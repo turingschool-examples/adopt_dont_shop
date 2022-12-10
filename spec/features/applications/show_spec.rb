@@ -27,4 +27,27 @@ RSpec.describe 'the application show page' do
     click_link(@pet2.name)
     expect(page).to have_current_path("/pets/#{@pet2.id}")
   end
+  
+  xit 'has a link ' do
+    visit "/applications/#{@app1.id}"
+    
+    expect(page).to have_content('Add a Pet to this Application')
+    fill_in :search, with: 'Noodle'
+    click_on 'Search'
+    
+    expect(page).to have_content('Noodle')
+    expect(page).not_to have_content('Hercules')
+# As a visitor
+# When I visit an application's show page
+# And that application has not been submitted,
+# Then I see a section on the page to "Add a Pet to this Application"
+
+# In that section I see an input where I can search for Pets by name
+# When I fill in this field with a Pet's name
+# And I click submit,
+# Then I am taken back to the application show page
+# And under the search bar I see any Pet whose name matches my search
+    
+  end
+  
 end

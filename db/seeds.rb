@@ -26,15 +26,19 @@ app2 = Application.create!(name: "Alastair",
                           description: "Love big dogs. Great mountain walks on doorstep", 
                           status: "Accepted"
                           )
+
+shelter = Shelter.create!(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
+
 pet1 = Pet.create!(name: 'Noodle', 
                   age: 2, 
                   breed: 'Border Collie', 
-                  adoptable: true
+                  adoptable: true,
+                  shelter_id: shelter.id
                   )
 pet2 = Pet.create!(name: 'Hercules', 
                   age: 2, 
                   breed: 'American Akita', 
-                  adoptable: true
+                  adoptable: true,
+                  shelter_id: shelter.id
                   )
 
-shelter = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
