@@ -18,5 +18,10 @@ class Application < ApplicationRecord
       pet.name
     end
   end
+
+  def status_update
+    require 'pry'; binding.pry
+    if self.application_pets.empty?
+  end
   
 end
