@@ -1,10 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe 'application creation' do
-  # before(:each) do
-  # @shelter = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
-  # end
-
   describe 'the application new' do
     it 'displays link to start application' do
       visit '/pets' 
@@ -41,8 +37,14 @@ RSpec.describe 'application creation' do
       
       click_button 'Submit'
       new_app = Application.last
+
       expect(page).to have_current_path("/applications/#{new_app.id}")
       expect(page).to have_content('Jeremy')
+      expect(page).to have_content('000 Main Street')
+      expect(page).to have_content('San Francisco')
+      expect(page).to have_content('California')
+      expect(page).to have_content('94122')
+      expect(page).to have_content('I love pets!')
     end
 
     it 'does not create an application if any form fields are unfilled and specifies that all fields must be filled' do
