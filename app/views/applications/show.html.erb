@@ -21,4 +21,5 @@
   <h4>Breed: <%= pet.breed %></h4>
   <h4>Age: <%= pet.age %></h4>
   <h4>Adoptable: <%= pet.adoptable %></h4>
+  <%= button_to("Adopt this pet", "/pet_applications?application_id=#{@application.id}&pet_id=#{pet.id}", method: :post)%><br>
 <% end %>
