@@ -28,6 +28,11 @@ class Shelter < ApplicationRecord
     adoptable_pets.order(name: :asc)
   end
 
+  def self.reverse_alphabetical_order
+    sql = "Select * FROM shelters ORDER BY shelters.name DESC"
+    find_by_sql(sql)
+  end
+
   def shelter_pets_filtered_by_age(age_filter)
     adoptable_pets.where('age >= ?', age_filter)
   end
