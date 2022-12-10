@@ -10,6 +10,15 @@
 <h3>Pets: <%@pets.each do |pet| %>
     <%= link_to(pet.name, "pets/#{pet.id}") %> <br>
 <% end %> </h3>
-<h4>Add a pet to this application</h4>
 
 <h3>Status: <%=@application.status %> </h3>
+<%if @application.status == "In Progress"%>
+    <%=render partial: "add_pet_to_app"%>
+<%end%>
+
+<% @pet.each do |pet| %>
+  <h3>Name: <%= pet.name %></h3>
+  <h4>Breed: <%= pet.breed %></h4>
+  <h4>Age: <%= pet.age %></h4>
+  <h4>Adoptable: <%= pet.adoptable %></h4>
+<% end %>
