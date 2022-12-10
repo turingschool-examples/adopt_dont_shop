@@ -20,17 +20,22 @@ RSpec.describe 'PetApplication creation' do
                                       status: "In Progress")
     
     visit "/applications/#{application.id}"
-    pet_1 = Pet.create!(adoptable: true, age: 1, breed: 'sphynx', name: 'Lucille Bald', shelter_id: shelter.id)
+    pet_1 = Pet.create!(adoptable: true, age: 1, breed: 'sphynx', name: 'Lobster', shelter_id: shelter.id)
     pet_2 = Pet.create!(adoptable: true, age: 3, breed: 'doberman', name: 'Lobster', shelter_id: shelter.id)
     fill_in :query, with: 'Lobster'
     click_button 'Search'
 
     expect(page).to have_button("Adopt this pet")
 
-    click_button("Adopt this pet")
+    within "#{pet_1.id}" do
+      click 'Adopt this pet'
+    end
 
     expect(current_path).to eq("/applications/#{application.id}")
     expect(page).to have_content("Pets Added to Application:")
     expect(page).to have_link("Lobster")
+
+    click_link("Lobster")
+    expect(current_path).to eq("/pets/#{pet_1.id}")
   end
 end

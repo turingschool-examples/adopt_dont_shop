@@ -17,9 +17,11 @@
 <%end%>
 
 <% @pet.each do |pet| %>
-  <h3>Name: <%= pet.name %></h3>
-  <h4>Breed: <%= pet.breed %></h4>
-  <h4>Age: <%= pet.age %></h4>
-  <h4>Adoptable: <%= pet.adoptable %></h4>
-  <%= button_to("Adopt this pet", "/pet_applications?application_id=#{@application.id}&pet_id=#{pet.id}", method: :post)%><br>
+  <div class="<%=pet.id%>">
+    <p>Name: <%= pet.name %></p>
+    <p>Breed: <%= pet.breed %></p>
+    <p>Age: <%= pet.age %></p>
+    <p>Adoptable: <%= pet.adoptable %></p>
+    <%= button_to("Adopt this pet", "/pet_applications?application_id=#{@application.id}&pet_id=#{pet.id}", method: :post)%>
+  </div>
 <% end %>
