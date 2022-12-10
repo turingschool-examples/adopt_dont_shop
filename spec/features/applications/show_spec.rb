@@ -175,4 +175,37 @@ RSpec.describe "Application Show Page" do
     end
   end
 
+  # When I visit an application show page
+  # And I search for Pets by name
+  # Then I see any pet whose name PARTIALLY matches my search
+  # For example, if I search for "fluff", my search would match pets with names "fluffy", "fluff", and "mr. fluff"
+
+  describe "User Story 8" do
+    describe "Partial matches" do
+      it 'can see any pet whos name partially matches the search' do
+        @pet_1 = @application_1.pets.create!(
+          name: "Pepper",
+          adoptable: true,
+          age: 4,
+          breed: "Pitbull",
+          shelter_id: @shelter_1.id
+        )
+
+        visit "/applications/#{@application_1.id}"
+
+        expect(page).to have_field(:search)
+        expect(page).to have_content("Add a Pet to this Application")
+
+        fill_in(:search, with: 'Pep')
+        click_button('Search')
+
+        expect(page).to have_content('Pepper')
+        
+        fill_in(:search, with: 'er')
+        click_button('Search')
+        
+        expect(page).to have_content('Pepper')
+      end
+    end
+  end
 end
