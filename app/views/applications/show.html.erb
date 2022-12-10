@@ -4,11 +4,12 @@
   <%= @application.city %>, 
   <%= @application.state %> 
   <%= @application.zip_code %><br>
-
   <%= @application.description %><br>
+  
   <% @pets.each do |pet| %>
     <h3><%= link_to "#{pet.name}", "pets/#{pet.id}" %></h3>
   <% end %>
+  <br><h3><%= label :text, :status, 'Status: ' %></h3>
   <%
 =begin%>
  <%= @application.status %><br>  
@@ -22,4 +23,8 @@
   <%= f.text_field :search %>
   <%= f.hidden_field :from, :value => "/applications/#{@application.id}" %>
   <%= f.submit "search" %></h2>
+<% end %>
+
+<% @search_pets.each do |pet| %>
+  <h3><%= link_to "#{pet.name}", "pets/#{pet.id}" %></h3>
 <% end %>
