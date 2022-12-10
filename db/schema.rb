@@ -22,6 +22,7 @@ ActiveRecord::Schema.define(version: 2022_12_08_235343) do
     t.string "state"
     t.string "zip_code"
     t.string "description"
+    t.integer "status", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

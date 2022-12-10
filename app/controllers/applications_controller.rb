@@ -1,13 +1,17 @@
 class ApplicationsController < ApplicationController
 
   def new
-
+    @application = Application.new
   end
 
   def create
-    application = Application.create!(application_params)
-    # binding.pry
-    redirect_to "/applications/#{application.id}"
+    @application = Application.new(application_params)
+    if @application.save 
+      binding.pry
+      redirect_to "/applications/#{@application.id}"
+    else
+      render :new # ask instructors monday if they care about this
+    end
   end
 
   def show
@@ -16,6 +20,6 @@ class ApplicationsController < ApplicationController
 
 private
   def application_params
-    params.permit(:name, :street_address, :city, :state, :zip_code)
+    params.permit(:name, :street_address, :city, :state, :zip_code, :description)
   end
 end
