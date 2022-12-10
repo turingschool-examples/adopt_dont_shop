@@ -37,7 +37,7 @@ RSpec.describe "new application" do
     click_button("Submit Application")
 
     new_application = Application.last
-    save_and_open_page
+    # save_and_open_page
     expect(current_path).to eq("/applications/#{new_application.id}")
   end
 
@@ -52,10 +52,14 @@ RSpec.describe "new application" do
       describe 'if I do not fill out application and click submit' do 
         it 'redirects me to the new application page and shows an error message' do
           visit '/applications/new'
-          
+         
+          fill_in('name', with: "Shaggy")
+       
+          # require 'pry'; binding.pry
           click_button("Submit Application") 
+
           expect(current_path).to eq('/applications/new')
-          expect(page).to have_content('Please fill in all fields')
+          expect(page).to have_content('Error: Please fill in all fields')
         end
       end
     end
