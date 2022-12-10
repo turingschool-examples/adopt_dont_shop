@@ -11,16 +11,19 @@
 <h3>Add a Pet to this Application</h3>
 
 <%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |f| %>
-
   <%= f.label :search %>
   <%= f.text_field :search %>
   <%= f.submit "Search" %>
 <% end %>
 
-<h3><%
- @search_pets.each do |pet| %> </h3>
-
- <p> <%= pet.name %> </p>
- <% end %>
+<% if !@search_pets.nil? %>
+  <% @search_pets.each do |pet| %>
+    <p> <%= pet.name %> 
+    <%= form_with url: "/applications/#{@application.id}", method: :patch, local: true do |form| %></p>
+      <%= form.hidden_field :pet, value: pet.id %>
+      <%= form.submit "Adopt this Pet" %>  
+    <% end %>
+  <% end %>
+<% end %>
 
 

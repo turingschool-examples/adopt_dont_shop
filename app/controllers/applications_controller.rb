@@ -1,8 +1,10 @@
 class ApplicationsController < ApplicationController
   def show
     @application = Application.find(params[:id])
-    @pets = @application.pets
-    @search_pets = Pet.search(params[:search])    
+    @pets = @application.pets 
+    if params[:search].present?
+      @search_pets = Pet.search(params[:search]) 
+    end    
   end
 
   def new 
@@ -17,6 +19,16 @@ class ApplicationsController < ApplicationController
       flash[:alert] = "All Fields Required in Order to Submit"
     end
   end
+
+  def update
+    application = Application.find(params[:id])
+    new_pet = Pet.find(params[:pet])
+    if params[:pet]
+      ApplicationPet.create(pet: new_pet, application: application)
+      application.update(application_params)
+    end
+    redirect_to "/applications/#{application.id}"
+  end 
 
   private
   def application_params
