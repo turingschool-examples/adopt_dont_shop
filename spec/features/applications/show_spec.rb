@@ -122,4 +122,22 @@ RSpec.describe 'Application show view' do
 
     expect(current_path).to eq ("/pets/#{@pet_3.id}")
   end
+
+  it 'searching for pets will return pets whose names match regardless of the casing of the search terms' do
+    visit "/applications/#{@application.id}"
+
+    expect(page).to have_content("Add a new pet to this application:")
+
+    fill_in("name_input", with: 'frankie')
+
+    click_button 'Search'
+
+    click_on 'Frankie'
+
+    expect(current_path).to eq("/applications/#{@application.id}")
+
+    click_on 'Frankie'
+
+    expect(current_path).to eq ("/pets/#{@pet_3.id}")
+  end
 end
