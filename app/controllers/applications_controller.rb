@@ -4,7 +4,6 @@ class ApplicationsController < ApplicationController
     @application = Application.find_by(params[:id])
     if params[:search].present?
       @pets = Pet.search(params[:search])
-      binding.pry
     else
       @pets = nil
     end
