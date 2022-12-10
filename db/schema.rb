@@ -38,10 +38,10 @@ ActiveRecord::Schema.define(version: 2022_12_09_205006) do
   end
 
   create_table "pets", force: :cascade do |t|
-    t.boolean "adoptable"
+    t.string "name"
     t.integer "age"
     t.string "breed"
-    t.string "name"
+    t.boolean "adoptable"
     t.bigint "shelter_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
