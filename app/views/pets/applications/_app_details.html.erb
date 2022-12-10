@@ -1,0 +1,26 @@
+<br>
+<p>
+  <b>Name:</b> <%= @application.name %>
+</p>
+<p>
+  <b>Address:</b> 
+  <%= @application.street_address %><br>
+  <%= "#{@application.city}, #{@application.state} #{@application.zip_code}" %>
+</p>
+<p>
+  <b>Application:</b> <%= @application.description %>
+</p>
+<p>
+  <b>Application Status:</b> <%= @application.status %>
+</p>
+<p>
+  <b>This Application is for:</b> 
+  <% if @adoptees == [] %>
+    <%= "You have not Selected any Pets" %>
+  <% else %>
+    <% @adoptees[0...-1].each do |pet| %>
+      <%= link_to "#{pet.name},", "/pets/#{pet.id}" %>
+    <% end %>
+    <%= link_to "#{@adoptees.last.name}", "/pets/#{@adoptees.last.id}"  %>
+  <% end %>
+</p>
