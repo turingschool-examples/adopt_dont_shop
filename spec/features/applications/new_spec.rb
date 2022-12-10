@@ -25,7 +25,7 @@ RSpec.describe "new application" do
   end
 
   it "has a filled in application" do
-    visit 'applications/new'
+    visit "applications/new"
 
     fill_in('name', with: "Shaggy")
     fill_in('street_address', with: "123 Mystery Lane")
@@ -41,21 +41,14 @@ RSpec.describe "new application" do
     expect(current_path).to eq("/applications/#{new_application.id}")
   end
 
-#   As a visitor
-# When I visit the new application page
-# And I fail to fill in any of the form fields
-# And I click submit
-# Then I am taken back to the new applications page
-# And I see a message that I must fill in those fields.
   describe 'user story 3' do
     describe '/applications/new' do
       describe 'if I do not fill out application and click submit' do 
         it 'redirects me to the new application page and shows an error message' do
-          visit '/applications/new'
+          visit "/applications/new"
          
           fill_in('name', with: "Shaggy")
        
-          # require 'pry'; binding.pry
           click_button("Submit Application") 
 
           expect(current_path).to eq('/applications/new')

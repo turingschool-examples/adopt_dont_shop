@@ -2,11 +2,11 @@ class Application < ApplicationRecord
   has_many :application_pets
   has_many :pets, through: :application_pets
 
-  validates :name, exclusion: { in: [nil] }
-  validates :street_address, exclusion: { in: [nil] }
-  validates :city, exclusion: { in: [nil] }
-  validates :state, exclusion: { in: [nil] }
-  validates :zip_code, exclusion: { in: [nil] }
-  validates :description, exclusion: { in: [nil] }
+  validates :name, presence: true
+  validates :street_address, presence: true
+  validates :city, presence: true
+  validates :state, presence: true
+  validates :zip_code, presence: true
+  validates :description, presence: true
   validates :status, presence: true
 end
