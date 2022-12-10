@@ -1,0 +1,6 @@
+<h4>Add a pet to this application</h4>
+<%= form_with url: "/applications/#{@application.id}", method: :get do |f| %>
+  <%= f.label :query, "Search for pet name:" %>
+  <%= f.text_field :query %>
+  <%= f.submit "Search" %>
+<% end %>

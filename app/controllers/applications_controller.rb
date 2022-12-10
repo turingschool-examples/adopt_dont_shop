@@ -2,6 +2,7 @@ class ApplicationsController < ApplicationController
   def show
     @application = Application.find(params[:id])
     @pets = @application.get_pets
+    @pet = Pet.search(params[:query])
   end
 
   def index
