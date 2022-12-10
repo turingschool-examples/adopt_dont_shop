@@ -1,7 +1,7 @@
 class ApplicationsController < ApplicationController
   
   def show
-    @application = Application.find_by(params[:id])
+    @application = Application.find(params[:application_id])
     if params[:search].present?
       @pets = Pet.search(params[:search])
     else
@@ -15,6 +15,10 @@ class ApplicationsController < ApplicationController
   def create
     @application = Application.create!(application_params)
     redirect_to "/applications/#{@application.id}"
+  end
+
+  def update
+    binding.pry
   end
 
 
