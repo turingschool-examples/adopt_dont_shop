@@ -9,3 +9,5 @@
   <%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
 <% end %>
 <p><%= "Application Status: #{@application.status}" %></p>
+<br>
+<div id="add_pet_to_app"><%= render partial: "search", object: @application %></div>

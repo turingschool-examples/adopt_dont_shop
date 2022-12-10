@@ -2,6 +2,7 @@ class ApplicationsController < ApplicationController
 
   def show 
     @application = Application.find(params[:id])
+    @search_result = @application.pet_search(params[:query]) if params[:query]
   end
   
   def new
@@ -19,10 +20,6 @@ class ApplicationsController < ApplicationController
       flash.notice = 'Unsuccessful - Please Try Again'
       render :new
     end
-  end
-
-  def show
-    @application = Application.find(params[:id])
   end
 
   private

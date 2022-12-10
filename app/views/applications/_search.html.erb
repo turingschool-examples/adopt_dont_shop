@@ -1,0 +1,11 @@
+<%= form_with url: "/applications/#{@application.id}", method: :get do |form| %>
+  <%= form.label :query, "Add a Pet to this Application"%>
+  <%= form.text_field :query %>
+  <%= form.submit "Search"%>
+<% end %>
+
+<% if params[:query] %>
+  <% @search_result.each do |pet| %>
+    <%= pet.name%><br>
+  <% end %>
+<% end %>

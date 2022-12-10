@@ -45,19 +45,18 @@ RSpec.describe 'The pet application show page' do
     end
 
     it 'has an Add a Pet section with a field to search for Pets' do
-
       within("#add_pet_to_app") do 
-        expect(page).to have_field "Add a Pet to this Application"
+        expect(page).to have_content "Add a Pet to this Application"
         expect(page).to have_button "Search"
       end
     end
 
     it 'can display Pets based on a search query' do
       
-      fill_in("Search Bar", with: "Mr. Pirate")
+      fill_in(:query, with: "Mr. Pirate")
       click_button "Search"
-      
-      expect(current_path).to eq "applications/#{@app1.id}"
+
+      expect(current_path).to eq "/applications/#{@app1.id}"
       
       #User story is unclear what information should be displayed upon searching.
       within("#add_pet_to_app") do 
@@ -68,10 +67,10 @@ RSpec.describe 'The pet application show page' do
 
     it 'can display Pets whose names are a close match' do
 
-      fill_in("Search Bar", with: "age")
+      fill_in(:query, with: "age")
       click_button "Search"
       
-      expect(current_path).to eq "applications/#{@app1.id}"
+      expect(current_path).to eq "/applications/#{@app1.id}"
       
       within("#add_pet_to_app") do 
         expect(page).to have_content @sage.name
@@ -81,10 +80,10 @@ RSpec.describe 'The pet application show page' do
 
     it 'can display Pets whose names match a case insensitive search' do
 
-      fill_in("Search Bar", with: "aGE")
+      fill_in(:query, with: "aGE")
       click_button "Search"
       
-      expect(current_path).to eq "applications/#{@app1.id}"
+      expect(current_path).to eq "/applications/#{@app1.id}"
       
       within("#add_pet_to_app") do 
         expect(page).to have_content @sage.name
