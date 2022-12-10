@@ -21,8 +21,10 @@ RSpec.describe 'PetApplication creation' do
     
     visit "/applications/#{application.id}"
     pet_1 = Pet.create!(adoptable: true, age: 1, breed: 'sphynx', name: 'Lobster', shelter_id: shelter.id)
-    pet_2 = Pet.create!(adoptable: true, age: 3, breed: 'doberman', name: 'Lobster', shelter_id: shelter.id)
+    pet_2 = Pet.create!(adoptable: true, age: 3, breed: 'doberman', name: 'Kurby', shelter_id: shelter.id)
     fill_in :query, with: 'Lobster'
+    click_button 'Search'
+    fill_in :query, with: 'Kurby'
     click_button 'Search'
 
     expect(page).to have_button("Adopt this pet")
@@ -33,9 +35,9 @@ RSpec.describe 'PetApplication creation' do
 
     expect(current_path).to eq("/applications/#{application.id}")
     expect(page).to have_content("Pets Added to Application:")
-    expect(page).to have_link("Lobster")
+    expect(page).to have_link("Kurby")
 
-    click_link("Lobster")
-    expect(current_path).to eq("/pets/#{pet_1.id}")
+    click_link("Kurby")
+    expect(current_path).to eq("/pets/#{pet_2.id}")
   end
 end
