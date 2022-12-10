@@ -35,4 +35,18 @@ RSpec.describe 'visit application show page' do
     expect(find_link(@buster.name)[:href]).to eq("/pets/#{@buster.id}")
     expect(find_link(@marlowe.name)[:href]).to eq("/pets/#{@marlowe.id}")
   end
+
+  it 'has a search field to find new pets to add to an application on that apps show page' do
+    visit "/applications/#{@app1.id}"
+
+    expect(@app1.status).not_to eq("Submitted")
+    expect(page).to have_content("Add a Pet to this Application")
+    expect(page).to have_field("pet_name")
+
+    fill_in "pet_name", with: "Marlowe"
+    click_button("Search")
+
+    expect(current_path).to eq("/applications/#{@app1.id}")
+    expect(page).to have_content("#{@marlowe.name}")
+  end
 end
