@@ -74,4 +74,31 @@ RSpec.describe 'Application show view' do
 
     expect(current_path).to eq ("/pets/#{@pet_3.id}")
   end
+
+  it 'can submit an application' do
+    visit "/applications/#{@application.id}"
+
+    expect(page).to have_content("Add a new pet to this application:")
+
+    fill_in("name_input", with: 'Frankie')
+
+    click_button 'Search'
+
+    click_on 'Frankie'
+
+    expect(current_path).to eq("/applications/#{@application.id}")
+
+    click_on 'Frankie'
+
+    expect(current_path).to eq ("/pets/#{@pet_3.id}")
+
+    fill_in(:reason, with: 'I love him already')
+
+    click_on 'Submit Application'
+
+    expect(current_path).to eq("/applications/#{@application.id}")
+    expect(@pet_3.status).to eq("Pending")
+    expect(page).to have_content('Frankie')
+    expect(page).to_not have_content('Add a new pet to this application:')
+  end
 end
