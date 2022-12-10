@@ -18,6 +18,12 @@ class ApplicationsController < ApplicationController
 
   end
 
+  def update
+    application = Application.find(params[:id])
+    application.update(app_params)
+    redirect_to "/applications/#{application.id}"
+  end
+
   def create
     @application = Application.new(app_params)
     if @application.save

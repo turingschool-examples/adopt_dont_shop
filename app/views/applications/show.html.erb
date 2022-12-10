@@ -8,15 +8,28 @@ Pet(s) applied for:
 <li><%= link_to pet.name, "/pets/#{ pet.id }" %>
 <% end %>
 </ul>
+
 <p>Application Status: <%= @application.app_status %></p>
-<%= form_with url: "/applications/#{@application.id}", method: :get do |form| %>
-  <%= form.label :pet_search, "Add a Pet to this Application:" %>
-  <%= form.text_field :pet_search %>
-  <%= form.hidden_field :application_id, value: @application.id %>
-  <%= form.submit 'Search' %>
+
+
+<% if @application.app_status == "In Progress" %>
+  <%= form_with url: "/applications/#{@application.id}", method: :get do |form| %>
+    <%= form.label :pet_search, "Add a Pet to this Application:" %>
+    <%= form.text_field :pet_search %>
+    <%= form.hidden_field :application_id, value: @application.id %>
+    <%= form.submit 'Search' %>
+  <% end %>
+
+  <% @searched_pets.each do |pet| %>
+    <%= pet.name %> <%= link_to "Adopt this pet", "/applications/#{@application.id}?pet=#{pet.id}"%>
+  <% end %>
 <% end %>
 
-<% @searched_pets.each do |pet| %>
-  <%= pet.name %> <%= link_to "Adopt this pet", "/applications/#{@application.id}?pet=#{pet.id}"%>
+<% if !@pets.empty? && @application.app_status == "In Progress" %>
+  <%= form_with url: "/applications/#{@application.id}", method: :patch do |form| %>
+    <p><%= form.label :applicant_argument %>
+    <%= form.text_area :applicant_argument, required: true %></p>
+    <%= form.hidden_field :app_status, value: "Pending" %>
+    <%= form.submit 'Submit Application' %>
+  <% end %>
 <% end %>
-
