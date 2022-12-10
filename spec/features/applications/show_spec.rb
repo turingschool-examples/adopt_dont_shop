@@ -131,4 +131,51 @@ RSpec.describe "Application Show Page" do
       end
     end
   end
+
+  # As a visitor
+  # When I visit an application's show page
+  # And I have added one or more pets to the application
+  # Then I see a section to submit my application
+  # And in that section I see an input to enter why I would make a good owner for these pet(s)
+  # When I fill in that input
+  # And I click a button to submit this application
+  # Then I am taken back to the application's show page
+  # And I see an indicator that the application is "Pending"
+  # And I see all the pets that I want to adopt
+  # And I do not see a section to add more pets to this application
+
+  describe "User Story 6" do
+    describe "User has added pets to application" do
+      it 'now has a section to enter good owner description' do
+        pet_1 = @application_1.pets.create!(
+          name: "Pepper",
+          adoptable: true,
+          age: 4,
+          breed: "Pitbull",
+          shelter_id: @shelter_1.id
+        )
+
+        visit "/applications/#{@application_1.id}"
+
+        expect(page).to have_field(:description)
+        expect(page).to have_button("Submit Description")
+
+        fill_in(:description, with: "I work from home")
+        click_button("Submit Description")
+
+        expect(current_path).to eq("/applications/#{@application_1.id}")
+        expect(page).to have_content("I work from home")
+        expect(page).to have_content("Pending")
+        within("application_pets") do
+          expect(page).to have_content("Pepper")
+        end
+
+        expect(page).to_not have_content("Add a Pet to this Application")
+        expect(page).to_not have_field(:search)
+        expect(page).to_not have_button("Search For Pet!")
+      end
+    end
+  end
+
+
 end
