@@ -41,7 +41,6 @@ RSpec.describe "Application Show Page" do
         
         expect(page).to have_content(@application_1.name)
         expect(page).to have_content(@application_1.full_address)
-        expect(page).to have_content(@application_1.description)
         expect(page).to have_content(@pet_1.name)
         expect(page).to have_content(@application_1.status)
 
@@ -165,5 +164,15 @@ RSpec.describe "Application Show Page" do
     end
   end
 
+  describe "User Story 7" do
+    describe "User hasn't added pets to the application" do
+      it 'does not have the option to submit the application' do
+        visit "/applications/#{@application_1.id}"
+
+        expect(page).to_not have_field(:description)
+        expect(page).to_not have_button("Submit Application")
+      end
+    end
+  end
 
 end
