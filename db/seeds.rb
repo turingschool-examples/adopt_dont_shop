@@ -18,6 +18,20 @@ Shelter.destroy_all
   rank: 3
 )
 
+@shelter_2 = Shelter.create!(
+  foster_program: true,
+  name: "Ruff Day",
+  city: "Detroit",
+  rank: 2
+)
+
+@shelter_3 = Shelter.create!(
+  foster_program: true,
+  name: "AAA Shelter",
+  city: "Houston",
+  rank: 1
+)
+
 @application_1 = Application.create!(
   name: "Bob",
   street_address: "123 Leaf Street",
