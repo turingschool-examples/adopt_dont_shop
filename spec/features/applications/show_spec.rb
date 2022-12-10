@@ -8,12 +8,10 @@ RSpec.describe 'the application show page' do
     @pet1 = @app1.pets.create(name: 'Noodle', age: 2, breed: 'Border Collie', adoptable: true, shelter_id: @shelter.id)
     @pet2 = @app1.pets.create(name: 'Hercules', age: 2, breed: 'American Akita', adoptable: true, shelter_id: @shelter.id)
   end
-  # not sure why this isnt working, think it will be cleaner to use.
+  
 
   it 'shows the application and all its attributes' do
     visit "/applications/#{@app1.id}"
-    
-    save_and_open_page
     
     expect(page).to_not have_content(@app2.name)
     expect(page).to have_content(@app1.name)
@@ -25,5 +23,8 @@ RSpec.describe 'the application show page' do
     expect(page).to have_content(@app1.status)
     expect(page).to have_link(@pet1.name)
     expect(page).to have_link(@pet2.name)
+    
+    click_link(@pet2.name)
+    expect(page).to have_current_path("/pets/#{@pet2.id}")
   end
 end
