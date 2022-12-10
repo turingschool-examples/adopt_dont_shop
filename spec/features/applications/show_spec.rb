@@ -3,13 +3,14 @@
 # 1. Application Show Page
 
 # As a visitor
-# When I visit an applications show page
-# Then I can see the following:
-# - Name of the Application
-# - Full Address of the Application including street address, city, state, and zip code
-# - Description of why the application says they'd be a good home for this pet(s)
-# - names of all pets that this application is for (all names of pets should be links to their show page)
-# - The Application's status, either "In Progress", "Pending", "Accepted", or "Rejected"
+# When I visit an application's show page
+# And that application has not been submitted,
+# Then I see a section on the page to "Add a Pet to this Application"
+# In that section I see an input where I can search for Pets by name
+# When I fill in this field with a Pet's name
+# And I click submit,
+# Then I am taken back to the application show page
+# And under the search bar I see any Pet whose name matches my search
 
 require 'rails_helper'
 
@@ -31,28 +32,27 @@ RSpec.describe "Application Show Page" do
       description: "Work from home",
       status: "In Progress"
     )
-
-    @pet_1 = @application_1.pets.create!(
-      name: "Pepper",
-      adoptable: true,
-      age: 4,
-      breed: "Pitbull",
-      shelter_id: @shelter_1.id
-    )
-      
-    @pet_2 = @application_1.pets.create!(
-      name: "Daisy",
-      adoptable: true,
-      age: 14,
-      breed: "Beagle",
-      shelter_id: @shelter_1.id
-    )
-
   end
 
   describe "User Story 1" do
     describe "User visits '/applications/:id'" do
       it 'has application attributes' do
+        @pet_1 = @application_1.pets.create!(
+          name: "Pepper",
+          adoptable: true,
+          age: 4,
+          breed: "Pitbull",
+          shelter_id: @shelter_1.id
+        )
+          
+        @pet_2 = @application_1.pets.create!(
+          name: "Daisy",
+          adoptable: true,
+          age: 14,
+          breed: "Beagle",
+          shelter_id: @shelter_1.id
+        )
+
         visit "/applications/#{@application_1.id}"
         
         expect(page).to have_content(@application_1.name)
@@ -64,6 +64,35 @@ RSpec.describe "Application Show Page" do
         click_link "Pepper"
 
         expect(current_path).to eq("/pets/#{@pet_1.id}")
+      end
+    end
+  end
+
+  describe "User Story 4" do
+    describe "User application is in progress" do
+      it 'has a section to search for a pet' do
+        visit "/applications/#{@application_1.id}"
+
+        expect(page).to have_content("Add a Pet to this Application")
+        expect(page).to have_field(:search)
+        expect(page).to have_button("Search For Pet!")
+      end
+
+      it 'returns list of pets with exact name match' do
+        pet_1 = Pet.create!(
+          name: "Pepper",
+          adoptable: true,
+          age: 4,
+          breed: "Pitbull",
+          shelter_id: @shelter_1.id
+        )
+
+        visit "/applications/#{@application_1.id}"
+
+        fill_in(:search, with: "Pepper")
+        click_button("Search For Pet!")
+
+        expect(page).to have_link("Pepper", href: "/pets/#{pet_1.id}")
       end
     end
   end
