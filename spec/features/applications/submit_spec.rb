@@ -10,6 +10,7 @@ RSpec.describe 'Applications Submit' do
         visit "/applications/#{application.id}"
         
         expect(application.status).to eq("In Progress")
+        
         fill_in :description, with: 'I love dogs'
         click_on("Submit Application")
 
