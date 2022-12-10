@@ -11,8 +11,6 @@ RSpec.describe 'application show' do
 
       expect(page).to have_content(application.name)
       expect(page).to have_content(application.address)
-      expect(page).to have_content(application.description)
-      expect(page).to have_content(application.pet_names)
       expect(page).to have_content(application.status)
 
     end
@@ -52,15 +50,16 @@ RSpec.describe 'application show' do
       expect(page).to have_content("Describe")
       # And in that section I see an input to enter why I would make a good owner for these pet(s)
       # When I fill in that input
-      fill_in("text field", with: "because because because")
+      fill_in("description", with: "because because because")
       # And I click a button to submit this application
       expect(page).to have_button("Submit Application")
       # Then I am taken back to the application's show page
       click_button("Submit Application")
       expect(current_path).to eq("/applications/#{application_2.id}")
       # And I see an indicator that the application is "Pending"
-      expect(page).to have_content "Pending"
-      expect(application2.status).to eq(:pending)
+
+      expect(application_2.status).to eq("pending")
+      expect(page).to have_content "pending"
       # And I see all the pets that I want to adopt
       expect(page).to have_content(application_2.pet_names)
       # And I do not see a section to add more pets to this application

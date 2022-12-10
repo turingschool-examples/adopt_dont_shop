@@ -4,7 +4,6 @@ class Application < ApplicationRecord
   validates :city, presence: true
   validates :state, presence: true
   validates :zip_code, presence: true, numericality: true
-  validates :description, presence: true
 
   has_many :application_pets
   has_many :pets, through: :application_pets
@@ -19,9 +18,15 @@ class Application < ApplicationRecord
     end
   end
 
-  def status_update
-    require 'pry'; binding.pry
-    if self.application_pets.empty?
+  def in_progress?
+    self.status == "In Progress"  
+  end
+
+  def has_pets?
+    self.pets.any?
   end
   
+  def no_description?
+    self.description.nil?
+  end
 end
