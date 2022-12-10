@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'the application show' do
+
   before :each do
     @application = create(:application)
     @shelter_1   = create(:shelter)
@@ -8,6 +9,7 @@ RSpec.describe 'the application show' do
     @pet_2       = create(:pet, shelter: @shelter_1)
     @pet_3       = create(:pet, shelter: @shelter_1)
   end
+
   it "shows the application and all it's attributes" do
 
     visit "/applications/#{@application.id}"
@@ -19,18 +21,34 @@ RSpec.describe 'the application show' do
     expect(page).to have_content(@application.zip_code)
     expect(page).to have_content(@application.description)
     expect(page).to have_content(@pet_1.name)
-    # expect(page).to have_content(@application.status)
+    expect(page).to have_content(@application.status)
   end
 
-  it 'can shows a form to search for pets by name' do
+  it 'can show a form to search for pets by name' do
 
     visit "/applications/#{@application.id}"
-
     fill_in('search', with: @pet_1.name)
-
     click_button 'search'
 
     expect(current_path).to eq("/applications/#{@application.id}")
     expect(page).to have_content(@pet_1.name)
+  end
+  
+  it 'links to pet objects via search and list' do
+
+    visit "/applications/#{@application.id}"
+    click_link @pet_1.name
+
+    expect(current_path).to eq("/applications/pets/#{@pet_1.id}")
+
+    visit "/applications/#{@application.id}"
+    fill_in('search', with: @pet_1.name)
+    click_button 'search'
+
+    expect(current_path).to eq("/applications/#{@application.id}")
+
+    page.all(:link, :text => @pet_1.name)[1].click
+
+    expect(current_path).to eq("/applications/pets/#{@pet_1.id}")
   end
 end
