@@ -149,11 +149,10 @@ RSpec.describe 'The application show page' do
       expect(page).to have_field("Description")
       fill_in 'Description', with: 'I love pets'
       click_button("Submit")
+      application.reload
       expect(current_path).to eq("/applications/#{application.id}")
+      expect(application.description).to eq("I love pets")
       expect(application.status).to eq("Pending")
       expect(page).to have_no_content("Adopt this pet")
   end
-  # if appication is pending && if there are pets added to the app
-  # then the user can fill in description and submit it as a patch request
-
 end
