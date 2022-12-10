@@ -10,11 +10,7 @@
     <h3><%= link_to "#{pet.name}", "pets/#{pet.id}" %></h3>
   <% end %>
   <br><h3><%= label :text, :status, 'Status: ' %></h3>
-  <%
-=begin%>
- <%= @application.status %><br>  
-<%
-=end%>
+  <%= @application.status %><br>
 </h3> 
 
 <h2><%= label :text, :search, 'Add a Pet to this Application ' %></h2>
