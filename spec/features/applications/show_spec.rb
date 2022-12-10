@@ -79,6 +79,5 @@ RSpec.describe Application, type: :feature do
 
       expect(page).to_not have_link("Sylvester", href: "/pets/#{pet_3.id}")
     end
-
   end
 end
