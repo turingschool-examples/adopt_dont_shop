@@ -27,8 +27,8 @@ RSpec.describe 'PetApplication creation' do
 
     expect(page).to have_button("Adopt this pet")
 
-    within "#{pet_1.id}" do
-      click 'Adopt this pet'
+    within "div##{pet_1.id}" do
+      click_button 'Adopt this pet'
     end
 
     expect(current_path).to eq("/applications/#{application.id}")
