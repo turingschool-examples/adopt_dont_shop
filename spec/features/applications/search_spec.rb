@@ -38,7 +38,7 @@ RSpec.describe 'search' do
 
     fill_in 'search', with: 'Scoob'
     click_button('Add a Pet to this Application')
-    save_and_open_page
+
     expect(page).to have_content("Scooby")
     expect(page).to have_content("Scoobyroo")
     expect(page).to_not have_content("Jerry")
@@ -54,7 +54,7 @@ RSpec.describe 'search' do
 
     fill_in 'search', with: 'ScOoBy'
     click_button('Add a Pet to this Application')
-    save_and_open_page
+    
     expect(page).to have_content('Scooby')
   end
   
