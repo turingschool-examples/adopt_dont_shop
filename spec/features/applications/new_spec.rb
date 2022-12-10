@@ -52,4 +52,21 @@ RSpec.describe "New Application" do
       # And I see an indicator that this application is "In Progress"
     end
   end
+
+  describe "forms required to submit" do
+    it "will redirect back to the forms page if not completely filled out" do
+      # When I visit the new application page
+      visit "/applications/new"
+      # And I fail to fill in any of the form fields
+      fill_in("Name", with: "Joe")
+      fill_in("Street address", with: "123 Apple St")
+      fill_in("City", with: "Denver")
+      fill_in("Description", with: "I like dogs")
+      save_and_open_page
+      click_button("Submit")
+      # And I click submit
+      # Then I am taken back to the new applications page
+      # And I see a message that I must fill in those fields.
+    end
+  end
 end

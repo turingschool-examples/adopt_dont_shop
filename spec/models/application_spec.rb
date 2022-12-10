@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe Application, type: :model do
   
   describe 'relationship' do
+    it { should validate_presence_of(:name, :street_address, :city, :state, :zip_code, :description, :status) }
     
   end
 
