@@ -28,4 +28,16 @@ RSpec.describe 'new application page' do
     expect(page).to have_content("Jim bob")
     expect(page).to have_content("i done like me sum dogs")
   end
+
+  it 'gives you an error and refreshes the page when you dont fill in a required field' do
+    visit "/applications/new"
+    fill_in "name", with: "Jim bob"
+    fill_in "street_address", with: "1234 happytown lane"
+    fill_in "city", with: "who cares"
+    fill_in "zip_code", with: "14920"
+    fill_in "description", with: "i done like me sum dogs"
+    find("input[type=submit]").click
+    expect(current_path).to eq("/applications/new")
+    expect(page).to have_content("Application Not Created, Required Information Missing")
+  end
 end

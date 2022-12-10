@@ -5,9 +5,16 @@ class Pets::ApplicationsController < ApplicationController
   end
 
   def create
-    application = Application.create!(create_params)
-    application.save
-    redirect_to "/applications/#{application.id}"
+    application = Application.new(create_params)
+    # binding.pry
+    if application.save
+      redirect_to "/applications/#{application.id}"
+    else
+      
+      redirect_to "/applications/new"
+      flash[:notice] = "Application Not Created, Required Information Missing"
+      
+    end
   end
 
   private
