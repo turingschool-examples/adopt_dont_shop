@@ -1,7 +1,9 @@
 class Pets::ApplicationsController < ApplicationController
   def show
+    
     @application = Application.find(params[:id])
     @adoptees = @application.pets
+    @search_pets = Pet.search(params[:pet_name])
   end
 
   def create
@@ -10,10 +12,8 @@ class Pets::ApplicationsController < ApplicationController
     if application.save
       redirect_to "/applications/#{application.id}"
     else
-      
       redirect_to "/applications/new"
       flash[:notice] = "Application Not Created, Required Information Missing"
-      
     end
   end
 
