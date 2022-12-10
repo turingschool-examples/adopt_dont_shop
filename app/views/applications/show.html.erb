@@ -6,7 +6,12 @@ Status: <%= @application.status %><br>
 <% unless @application.pets == [] %>
   Pets inquired about:
   <% @application.pets.each do |pet| %>
-  <%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
+  <%= link_to "#{pet.name}", "/pets/#{pet.id}" %><br>
+  <% end %>
+  Write a short message explaining why you would make a good owner:
+  <%= form_with url: "/applications/#{@application.id}/submit_application", method: :patch, local: true do |form| %>
+    <%= form.text_field :reason, size: "60x10" %>
+    <%= form.submit 'Submit Application' %>
   <% end %>
   </p>
 <% else %>
