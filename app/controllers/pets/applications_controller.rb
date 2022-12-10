@@ -3,11 +3,12 @@ class Pets::ApplicationsController < ApplicationController
     @application = Application.find(params[:id])
     @adoptees = @application.pets
     
-    if params[:pet_name] = nil
+    if params[:pet_name] == nil
       @search_pets = []
     else
       @search_pets = Pet.search(params[:pet_name])
     end
+    
   end
 
   def create
