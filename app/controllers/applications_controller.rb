@@ -4,8 +4,13 @@ class ApplicationsController < ApplicationController
     @pets = @application.pets
     if params[:pet_search].present?
       @searched_pets = Pet.search(params[:pet_search])
-    # else
-    #   @searched_pets = Pet.adoptable
+    else
+      @searched_pets = []
+    end
+
+    if params[:pet].present?
+      pet = Pet.find(params[:pet])
+      @application.adopt_pet(pet)
     end
   end
 

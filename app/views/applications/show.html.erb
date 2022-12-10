@@ -1,7 +1,7 @@
 <p>Name: <%= @application.name %></p>
 <p>Address: <%= "#{ @application.street }" %>
 <%= "#{@application.city}, #{ @application.state }   #{ @application.zip }" %></p>
-<p>Applicant's reason: <%= @application.applicant_argument %></p>
+<p>Applicants reason: <%= @application.applicant_argument %></p>
 Pet(s) applied for: 
 <ul>
 <% @pets.each do |pet|%>
@@ -9,14 +9,14 @@ Pet(s) applied for:
 <% end %>
 </ul>
 <p>Application Status: <%= @application.app_status %></p>
-<%= form_with url: "/applications", method: :get do |form| %>
+<%= form_with url: "/applications/#{@application.id}", method: :get do |form| %>
   <%= form.label :pet_search, "Add a Pet to this Application:" %>
   <%= form.text_field :pet_search %>
   <%= form.hidden_field :application_id, value: @application.id %>
   <%= form.submit 'Search' %>
 <% end %>
-<ul>
-<% @searched_pets.each do |pet|%>
-<li><%= link_to pet.name, "/pets/#{ pet.id }" %>
+
+<% @searched_pets.each do |pet| %>
+  <%= pet.name %> <%= link_to "Adopt this pet", "/applications/#{@application.id}?pet=#{pet.id}"%>
 <% end %>
-</ul>
+

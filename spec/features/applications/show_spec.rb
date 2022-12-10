@@ -28,10 +28,43 @@ RSpec.describe 'the application show page' do
 
     expect(page).to have_content("Add a Pet to this Application")
     
-    fill_in("pet_search", with: "scooby")
+    fill_in("pet_search", with: "Scooby")
     click_button('Search')
-    expect(current_path).to eq("/applications/#{ application1.id }")
     expect('Search').to appear_before('Scooby')
+  end
+
+  it 'has a link to adopt a pet after you search for a pet' do
+    shelter = Shelter.create(name: 'Mystery Building', city: 'Irvine CA', foster_program: false, rank: 9)
+    pet = Pet.create(name: 'Scooby', age: 2, breed: 'Great Dane', adoptable: true, shelter_id: shelter.id)
+    pet1 = Pet.create(name: 'Scrappy', age: 2, breed: 'Great Dane', adoptable: true, shelter_id: shelter.id)
+    application1 = Application.create!(name: 'John Doe', street: '123 N Washington Ave.', city: 'Denver', state: 'Colorado', zip: '91234', applicant_argument: 'caring and loving', app_status: "In Progress")
+
+    visit "/applications/#{ application1.id }"
+
+
+    fill_in("pet_search", with: "Scrappy")
+    click_button('Search')
+
+    expect(page).to have_content('Scrappy')
+    expect(page).to have_link('Adopt this pet')
+    expect("Scrappy").to appear_before('Adopt this pet')
+  end
+
+  it 'lets you add a pet to an application' do
+    shelter = Shelter.create(name: 'Mystery Building', city: 'Irvine CA', foster_program: false, rank: 9)
+    pet = Pet.create(name: 'Scooby', age: 2, breed: 'Great Dane', adoptable: true, shelter_id: shelter.id)
+    pet1 = Pet.create(name: 'Scrappy', age: 2, breed: 'Great Dane', adoptable: true, shelter_id: shelter.id)
+    application1 = Application.create!(name: 'John Doe', street: '123 N Washington Ave.', city: 'Denver', state: 'Colorado', zip: '91234', applicant_argument: 'caring and loving', app_status: "In Progress")
+
+    visit "/applications/#{ application1.id }"
+
+    fill_in("pet_search", with: "Scrappy")
+    click_button('Search')
+    click_link('Adopt this pet')
+
+    expect("Pet(s) applied for:").to appear_before('Scrappy')
+    expect('Scrappy').to appear_before('Application Status:')
+    expect(application1.pets).to eq([pet1])
   end
 end
 
