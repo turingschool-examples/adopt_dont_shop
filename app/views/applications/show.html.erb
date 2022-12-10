@@ -1,7 +1,16 @@
 <h3><%= @application.name %></h3>
 
 <p>Address: <%= @application.full_address %></p>
-<p>Description: <%= @application.description %></p>
+<p>
+  Description: <%= @application.description %>
+  <% if @application.description == nil %>
+    <%= form_with url: "/applications/#{@application.id}", method: :patch, local: true do |form| %>
+      <%= form.label :description %>
+      <%= form.text_field :description %>
+      <%= form.submit "Submit Description" %>
+    <% end %>
+  <% end %>
+</p>
 <p>Pets applying for: </p>
 <% @pet_id_pairs.each do |pet| %>
   <p><%= link_to pet[1], "/pets/#{pet[0]}" %></p>
@@ -21,7 +30,5 @@
       <%= form.submit "Adopt #{pet.name}!" %>
     <% end %>
 <% end %></p>
-
-
 
     

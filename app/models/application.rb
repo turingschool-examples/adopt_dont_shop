@@ -7,7 +7,6 @@ class Application < ApplicationRecord
   validates :city, presence: true
   validates :state, presence: true
   validates :zip_code, presence: true
-  validates :description, presence: true
 
   def full_address 
     "#{street_address}, #{city}, #{state} #{zip_code}"
