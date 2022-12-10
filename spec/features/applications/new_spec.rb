@@ -16,9 +16,7 @@ RSpec.describe 'new application' do
         street_address: "123 Leaf Street",
         city: "Denver",
         state: "CO",
-        zip_code: 80020,
-        description: "Work from home",
-        status: "In Progress"
+        zip_code: 80020
       )
 
       visit '/applications/new'      
@@ -27,7 +25,6 @@ RSpec.describe 'new application' do
       fill_in('City', with: 'Denver')
       fill_in('State', with: 'CO')
       fill_in('Zip code', with: '80020')
-      fill_in('Description', with: 'I work from home and need a friend')
       
       click_on 'Submit'
       application_2 = Application.last
@@ -35,7 +32,6 @@ RSpec.describe 'new application' do
       expect(current_path).to eq("/applications/#{application_2.id}")
       expect(page).to have_content(application_2.name)
       expect(page).to have_content(application_2.full_address)
-      expect(page).to have_content(application_2.description)
       expect(page).to have_content(application_2.status)
     end
   end
