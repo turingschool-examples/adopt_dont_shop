@@ -65,6 +65,15 @@ RSpec.describe 'visit application show page' do
 
       expect(page).to have_content(@james.name)
     end
+
+    it 'returns matches for pet names regardless of case' do
+      visit "/applications/#{@app1.id}"
+
+      fill_in 'pet_name', with: 'jAmEs'
+      click_button('Search')
+
+      expect(page).to have_content(@james.name)
+    end
   end
 
   it 'has a way to add a pet to an application' do
