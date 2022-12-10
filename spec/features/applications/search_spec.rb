@@ -41,7 +41,6 @@ RSpec.describe 'search' do
     save_and_open_page
     expect(page).to have_content("Scooby")
     expect(page).to have_content("Scoobyroo")
-    expect(page).to_not have_content("Scoo")
     expect(page).to_not have_content("Jerry")
   end
 
