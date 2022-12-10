@@ -85,7 +85,7 @@ RSpec.describe 'the pets index' do
     describe "when I visit pet index page" do
       it "show link to start an application" do
         visit "/pets"
-save_and_open_page
+
         expect(page).to have_link("Start an Application")
       end
     end
