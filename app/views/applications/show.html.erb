@@ -1,3 +1,19 @@
+<h4>search by Pets:</h4>
+
+    
+
+    <%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |f| %>
+     <%= text_field_tag(:search, params[:search]) %>
+     <%= submit_tag ("Add a Pet to this Application") %>
+    <% end %>
+
+    <% if !@pets.nil? %>
+      <% @pets.each do |pet| %>
+        <%= pet.name %>
+      <% end %>
+    <% else %>
+    <% end %>
+        
 <h1><%= @application.name %></h1>
 <h3><%= @application.address %></h3>
 <h3><%= @application.pet_names %></h3>
