@@ -49,4 +49,30 @@ RSpec.describe 'visit application show page' do
     expect(current_path).to eq("/applications/#{@app1.id}")
     expect(page).to have_content("#{@marlowe.name}")
   end
+
+  it 'has a way to add a pet to an application' do
+    james2 = @shelter.pets.create!(adoptable: true, age: 2, breed: 'Prince Albert Terrier', name: 'James')
+    
+    visit "/applications/#{@app1.id}"
+    fill_in "pet_name", with: "James"
+
+    within "#pet-#{@james.id}" do 
+      expect(page).to have_button("Adopt this Pet")
+      expect(page).to have_content("James")
+    end
+
+    within "#pet-#{james2.id}" do 
+      expect(page).to have_button("Adopt this Pet")
+      expect(page).to have_content("James")
+    end
+    
+    
+    within "#pet-#{@james.id}" do 
+      click_button("Adopt this Pet")
+    end
+    
+    expect(current_path).to eq("/applications/#{@app1.id}")
+    expect(page).to have_content("This Application is for: #{@james.name}")
+
+  end
 end
