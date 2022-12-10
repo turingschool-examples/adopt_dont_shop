@@ -36,6 +36,12 @@ RSpec.describe Shelter, type: :model do
       end
     end
 
+    describe '#order_by_alpha_desc' do
+      it 'returns shelters in reverse alphabetical order' do
+        expect(Shelter.order_by_alpha_desc).to eq([@shelter_2, @shelter_3, @shelter_1])
+      end
+    end
+
     describe '#order_by_number_of_pets' do
       it 'orders the shelters by number of pets they have, descending' do
         expect(Shelter.order_by_number_of_pets).to eq([@shelter_1, @shelter_3, @shelter_2])
