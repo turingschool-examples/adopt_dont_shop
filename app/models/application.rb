@@ -1,5 +1,5 @@
 class Application < ApplicationRecord
-  has_many :application_pets
+  has_many :application_pets, dependent: :destroy
   has_many :pets, through: :application_pets
   attribute :status, :string, default: 'In Progress'
   validates :name, presence: true
@@ -7,7 +7,6 @@ class Application < ApplicationRecord
   validates :city, presence: true
   validates :state, presence: true
   validates :zip_code, presence: true
-  validates :description, presence: true
 
   def full_address 
     "#{street_address}, #{city}, #{state} #{zip_code}"
