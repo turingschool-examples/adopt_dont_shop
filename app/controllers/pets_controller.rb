@@ -1,6 +1,7 @@
 class PetsController < ApplicationController
   def index
-    if params[:search].present?
+    require 'pry'; binding.pry
+    if params[:search].present? 
       @pets = Pet.search(params[:search])
     else
       @pets = Pet.adoptable
