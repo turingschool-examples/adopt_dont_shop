@@ -109,7 +109,7 @@ RSpec.describe "Application Show Page" do
   describe "User story 5" do
     describe "Search a pet by name" do
       it "has a button 'Adopt this Pet' next to the pet's name" do
-        @pet_1 = @application_1.pets.create!(
+        pet_1 = Pet.create!(
           name: "Pepper",
           adoptable: true,
           age: 4,
@@ -122,11 +122,14 @@ RSpec.describe "Application Show Page" do
         fill_in(:search, with: "Pepper")
         click_button("Search For Pet!")
 
-        expect(page).to have_button("Adopt #{@pet_1.name}!")
+        expect(page).to have_button("Adopt #{pet_1.name}!")
         
-        click_button("Adopt #{@pet_1.name}!")
+        click_button("Adopt #{pet_1.name}!")
         
-        expect(page).to have_content('Pepper')
+        within("#application_pets") do
+          expect(page).to have_content("#{pet_1.name}")
+        end
+
         expect(current_path).to eq("/applications/#{@application_1.id}")
       end
     end

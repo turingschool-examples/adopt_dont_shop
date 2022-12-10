@@ -2,10 +2,12 @@
 
 <p>Address: <%= @application.full_address %></p>
 <p>Description: <%= @application.description %></p>
-<p>Pets applying for: </p>
-<% @pet_id_pairs.each do |pet| %>
-  <p><%= link_to pet[1], "/pets/#{pet[0]}" %></p>
-<% end %>
+<section id='application_pets'>
+  <p>Pets applying for: </p>
+  <% @pet_id_pairs.each do |pet| %>
+    <p><%= link_to pet[1], "/pets/#{pet[0]}" %></p>
+  <% end %>
+</section>
 <p>Status: <%= @application.status %></p>
 <%= form_with url: "/applications/#{@application.id}?search=#{@search}", method: :get, local: true do |form| %>
   <%= form.label :search, "Add a Pet to this Application" %>
