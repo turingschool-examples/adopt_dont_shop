@@ -234,6 +234,11 @@ RSpec.describe "Application Show Page" do
         click_button('Search')
 
         expect(page).to have_content('Pepper')
+       
+        fill_in(:search, with: 'pePPEr')
+        click_button('Search')
+
+        expect(page).to have_content('Pepper')
       end
     end
   end
