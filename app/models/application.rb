@@ -14,8 +14,9 @@ class Application < ApplicationRecord
   end
 
   def pet_names
-    require 'pry'; binding.pry
-    pet_names = Pet.where("application_id = #{self.id}")
+    self.pets.map do |pet| 
+      pet.name
+    end
   end
   
 end
