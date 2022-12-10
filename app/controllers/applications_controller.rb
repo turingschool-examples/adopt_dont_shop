@@ -16,12 +16,12 @@ class ApplicationsController < ApplicationController
       flash[:notice] = "Application not created: All fields must be filled to submit."
       render :new
     end
-    
+  end
+
+private
+  def application_params
+    params.permit(:name, :address, :city, :state, :zipcode, :description, :status)
   end
 end
 
-private
 
-def application_params
-  params.permit(:name, :address, :city, :state, :zipcode, :description, :status)
-end
