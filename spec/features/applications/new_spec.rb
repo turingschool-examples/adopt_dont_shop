@@ -28,5 +28,4 @@ RSpec.describe 'new application page' do
     expect(page).to have_content("Jim bob")
     expect(page).to have_content("i done like me sum dogs")
   end
-
 end

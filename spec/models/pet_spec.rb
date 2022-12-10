@@ -33,11 +33,11 @@ RSpec.describe Pet, type: :model do
       end
     end
 
-    describe '#pet_names' do
-      it 'returns a list of pet names separated by commas' do
-        expect(Pet.pet_names).to eq("#{@pet_1.name}, #{@pet_2.name}, #{@pet_3.name}")
-      end
-    end
+    # describe '#pet_names' do
+    #   it 'returns a list of pet names separated by commas' do
+    #     expect(Pet.pet_names).to eq("#{@pet_1.name}, #{@pet_2.name}, #{@pet_3.name}")
+    #   end
+    # end
   end
 
   describe 'instance methods' do
