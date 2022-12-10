@@ -76,15 +76,62 @@ RSpec.describe 'the application show page' do
 
     fill_in("applicant_argument", with: "Caring and loving dog home")
     click_button("Submit Application")
-    save_and_open_page
+
     expect(current_path).to eq("/applications/#{ application1.id }")
     expect(page).to have_content("Pending")
     expect("Applicants reason:").to appear_before("Caring and loving")
     expect(page).to_not have_content("Search")
     expect(page).to_not have_content("Submit Application")
   end
+
+  it 'does not have a link to submit if no pets have been added to applicaiton' do
+    shelter = Shelter.create(name: 'Mystery Building', city: 'Irvine CA', foster_program: false, rank: 9)
+    pet = Pet.create(name: 'Scooby', age: 2, breed: 'Great Dane', adoptable: true, shelter_id: shelter.id)
+    pet1 = Pet.create(name: 'Scrappy', age: 2, breed: 'Great Dane', adoptable: true, shelter_id: shelter.id)
+    application1 = Application.create!(name: 'John Doe', street: '123 N Washington Ave.', city: 'Denver', state: 'Colorado', zip: '91234', applicant_argument: 'caring and loving', app_status: "In Progress")
+
+    visit "/applications/#{ application1.id }"
+
+    expect(page).to_not have_content("Submit Application")
+  end
+
+  it 'has a search function that includes partial matches' do
+    shelter = Shelter.create(name: 'Mystery Building', city: 'Irvine CA', foster_program: false, rank: 9)
+    pet = Pet.create(name: 'Scooby', age: 2, breed: 'Great Dane', adoptable: true, shelter_id: shelter.id)
+    pet1 = Pet.create(name: 'Scrappy', age: 2, breed: 'Great Dane', adoptable: true, shelter_id: shelter.id)
+    pet2 = Pet.create(name: 'Jack', age: 2, breed: 'Great Dane', adoptable: true, shelter_id: shelter.id)
+    pet2 = Pet.create(name: 'Scully', age: 2, breed: 'Great Dane', adoptable: true, shelter_id: shelter.id)
+    application1 = Application.create!(name: 'John Doe', street: '123 N Washington Ave.', city: 'Denver', state: 'Colorado', zip: '91234', applicant_argument: 'caring and loving', app_status: "In Progress")
+
+    visit "/applications/#{ application1.id }"
+    
+    fill_in("pet_search", with: "Sc")
+    click_button('Search')
+
+    expect(page).to have_content("Scooby")
+    expect(page).to have_content("Scrappy")
+    expect(page).to have_content("Scully")
+    expect(page).to_not have_content("Jack")
+  end
+
+  it 'has a search function that is case insensitive' do
+    shelter = Shelter.create(name: 'Mystery Building', city: 'Irvine CA', foster_program: false, rank: 9)
+    pet = Pet.create(name: 'Scooby', age: 2, breed: 'Great Dane', adoptable: true, shelter_id: shelter.id)
+    pet1 = Pet.create(name: 'Scrappy', age: 2, breed: 'Great Dane', adoptable: true, shelter_id: shelter.id)
+    pet2 = Pet.create(name: 'Jack', age: 2, breed: 'Great Dane', adoptable: true, shelter_id: shelter.id)
+    pet2 = Pet.create(name: 'Scully', age: 2, breed: 'Great Dane', adoptable: true, shelter_id: shelter.id)
+    application1 = Application.create!(name: 'John Doe', street: '123 N Washington Ave.', city: 'Denver', state: 'Colorado', zip: '91234', applicant_argument: 'caring and loving', app_status: "In Progress")
+
+    visit "/applications/#{ application1.id }"
+    
+    fill_in("pet_search", with: "ScOOBY")
+    click_button('Search')
+
+    expect(page).to have_content("Scooby")
+    
+    fill_in("pet_search", with: "scooby")
+    click_button('Search')
+
+    expect(page).to have_content("Scooby")
+  end
 end
-
-
-
-
