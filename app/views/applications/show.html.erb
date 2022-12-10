@@ -4,13 +4,20 @@
   <%= @application.city %>, 
   <%= @application.state %> 
   <%= @application.zip_code %><br>
-  <%= @application.description %><br>
+  <h3>
+    <%= label :text, :description, 'Description: ' %>
+    <%= @application.description %><br>
+  </h3>
 
+  <h3>
+    <%= label :text, :pets_list, 'All Pets: ' %><br>
   <% @pets.each do |pet| %>
-    <h3><%= link_to "#{pet.name}", "pets/#{pet.id}" %></h3>
+    <pre><h3>   <%= link_to "#{pet.name}", "pets/#{pet.id}" %></h3></pre>
   <% end %>
-  <br><h3><%= label :text, :status, 'Status: ' %></h3>
-  <%= @application.status %><br>
+  <h3>
+    <%= label :text, :status, 'Status: ' %>
+    <%= @application.status %>
+  </h3>
 </h3> 
 
 <h2><%= label :text, :search, 'Add a Pet to this Application ' %></h2>
@@ -20,6 +27,6 @@
   <%= f.submit "search" %></h2>
 <% end %>
 
-<% @pets.each do |pet| %>
-  <h3><%= link_to "#{pet.name}", "pets/#{pet.id}" %></h3>
+<% @search_pets.each do |pet| %>
+  <pre><h3>   <%= link_to "#{pet.name}", "pets/#{pet.id}" %></h3></pre>
 <% end %>
