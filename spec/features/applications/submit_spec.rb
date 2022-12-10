@@ -10,6 +10,7 @@ RSpec.describe 'Applications Submit' do
         visit "/applications/#{application.id}"
         
         expect(application.status).to eq("In Progress")
+        
         fill_in :description, with: 'I love dogs'
         click_on("Submit Application")
 
@@ -19,5 +20,16 @@ RSpec.describe 'Applications Submit' do
         expect(page).to_not have_content("Add a Pet to this Application")
       end
     end
+
+    describe 'if I have not added pets to my application' do 
+      it 'does not show submit' do 
+        application = Application.create!(name: 'Billy Bob', street_address: "54984 Bulldog Rd", city: "Salem", state: "OR", zipcode: "97301", status: "In Progress")
+
+        visit "/applications/#{application.id}"
+
+        expect(application.pets).to eq([])
+        expect(page).to_not have_content("Submit Application")
+      end
+    end 
   end
 end
