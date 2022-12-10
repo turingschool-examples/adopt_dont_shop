@@ -2,7 +2,8 @@ class ApplicationsController < ApplicationController
   def show
     @application = Application.find(params[:id])
     @pet_id_pairs = @application.pets.pluck(:id, :name)
-    @search = params[:search] if params[:search]
+    @pet_searches = []
+    @pet_searches = Pet.where(name: params[:search]) if params[:search]
   end
 
   def new

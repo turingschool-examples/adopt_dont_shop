@@ -12,3 +12,6 @@
   <br>
   <%= form.submit "Search For Pet!" %>
 <% end %>
+<% @pet_searches.each do |pet| %>
+  <p><%= link_to pet.name, "/pets/#{pet.id}" %>
+<% end %>

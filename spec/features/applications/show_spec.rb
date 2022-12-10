@@ -77,6 +77,23 @@ RSpec.describe "Application Show Page" do
         expect(page).to have_field(:search)
         expect(page).to have_button("Search For Pet!")
       end
+
+      it 'returns list of pets with exact name match' do
+        pet_1 = Pet.create!(
+          name: "Pepper",
+          adoptable: true,
+          age: 4,
+          breed: "Pitbull",
+          shelter_id: @shelter_1.id
+        )
+
+        visit "/applications/#{@application_1.id}"
+
+        fill_in(:search, with: "Pepper")
+        click_button("Search For Pet!")
+
+        expect(page).to have_link("Pepper", href: "/pets/#{pet_1.id}")
+      end
     end
   end
 end
