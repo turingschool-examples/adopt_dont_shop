@@ -14,6 +14,7 @@ class ApplicationsController < ApplicationController
 
   def create
     @application = Application.create!(application_params)
+    
     redirect_to "/applications/#{@application.id}"
   end
 
