@@ -2,18 +2,16 @@ class Pets::ApplicationsController < ApplicationController
   def show
     @application = Application.find(params[:id])
     @adoptees = @application.pets
-    
+
     if params[:pet_name] == nil
       @search_pets = []
     else
       @search_pets = Pet.search(params[:pet_name])
     end
-    
   end
 
   def create
     application = Application.new(create_params)
-    # binding.pry
     if application.save
       redirect_to "/applications/#{application.id}"
     else
@@ -25,7 +23,7 @@ class Pets::ApplicationsController < ApplicationController
   def update
     application = Application.find(params[:id])
     application.update(update_params)
-    
+
     redirect_to "/applications/#{application.id}"
   end
 
