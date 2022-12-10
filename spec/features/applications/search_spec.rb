@@ -41,6 +41,7 @@ RSpec.describe 'search' do
 
     expect(page).to have_content("Scooby")
     expect(page).to have_content("Scoobyroo")
+    # can we confirm this does not have "scoo"? in a test?
     expect(page).to_not have_content("Jerry")
   end
 
