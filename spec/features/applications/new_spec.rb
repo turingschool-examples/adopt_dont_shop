@@ -14,7 +14,6 @@ RSpec.describe "Application New" do
       fill_in('Street address', with: "1234 Happy LN")
       fill_in('City', with: "Astoria")
       fill_in('State', with: "OR")
-      fill_in("Zipcode", with: "93475")
 
       click_on("Submit")
    
