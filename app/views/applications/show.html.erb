@@ -9,7 +9,7 @@
 
     <% if !@pets.nil? %>
       <% @pets.each do |pet| %>
-        <%= pet.name %>
+        <%= pet.name %> <%=button_to "Adopt this Pet", "/application_pets?application_id=#{@application.id}&pet_id=#{pet.id}", method: :post %>
       <% end %>
     <% else %>
     <% end %>
