@@ -1,0 +1,14 @@
+<h1> Application ID: <%= @application.id %></h1>
+<h2> Status: <%= @application.status %></h2>
+<hr>
+<h3><%= @application.name %></h3>
+<h3><%= @application.address %></h3>
+<ul>
+<% @pets.each do |pet| %>
+  <%= pet.name %>
+  <% if pet.adoptable? %>
+    <%= button_to "Approve", "/pets/#{pet.id}", method: :patch %>
+  <% else %>
+  <% end %>
+<% end %>
+</ul>
