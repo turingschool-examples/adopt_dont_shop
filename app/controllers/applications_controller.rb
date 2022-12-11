@@ -3,8 +3,9 @@ class ApplicationsController < ApplicationController
     @application = Application.find(params[:id])
     @search_pet = []
 
-    if params[:search_for_pet]
-      @search_pet = Pet.search(params[:search_for_pet])
+    if self.params[:search_for_pet]
+    #  @search_pet
+    @search_pet = Pet.search(params[:search_for_pet])
     end
   end
 
@@ -19,6 +20,20 @@ class ApplicationsController < ApplicationController
     else
       redirect_to "/applications/#{application.id}"
     end
+  end
+
+  def edit
+    @application = Application.find(params[:id])
+  end
+
+  def update
+    @application = Application.find(params[:id])
+    if params[:pet]
+      @pet = Pet.find(params[:pet])
+      ApplicationPet.create!(application: @application, pet: @pet)
+    end
+    # application.update(application_params)
+    redirect_to "/applications/#{@application.id}"
   end
 
   private
