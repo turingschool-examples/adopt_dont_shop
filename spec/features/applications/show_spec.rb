@@ -155,4 +155,15 @@ RSpec.describe 'The application show page' do
       expect(application.status).to eq("Pending")
       expect(page).to have_no_content("Adopt this pet")
   end
+   it 'does not show submit application button with no pets added' do
+    shelter = Shelter.create!(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
+      application = Application.create!(name: "Jimbo Kepler", 
+                                      address: "000 Street Name",
+                                      city: "City Name",
+                                      state: "STATE",
+                                      zipcode: 00000, 
+                                      status: "In Progress")
+      visit "/applications/#{application.id}"
+      expect(page).to have_no_content("Submit Application")
+   end
 end
