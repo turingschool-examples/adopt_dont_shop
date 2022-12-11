@@ -2,9 +2,8 @@
 <% @pets.each do |pet| %>
   <div id="pet-<%= pet.id %>">
   <%= pet.name %>
-  <%= render partial: 'pet_approve', locals: { pet_id: pet.id } unless @approved == "Application Approved!" && pet == @pet || @approved == "Application Rejected" && pet == @pet %>
-  <%= render partial: 'pet_reject', locals: { pet_id: pet.id } unless @approved == "Application Approved!" && pet == @pet || @approved == "Application Rejected" && pet == @pet %>
-  <%= @approved if @approved == "Application Approved!" || @approved == "Application Rejected" && pet == @pet %>
+  <%= render partial: 'pet_approve', locals: { pet_id: pet.id } if @approved["#{pet.id}".to_sym] == nil %>
+  <%= render partial: 'pet_reject', locals: { pet_id: pet.id } if @approved["#{pet.id}".to_sym] == nil %>
+  <%= @approved["#{pet.id}".to_sym] unless @approved["#{pet.id}".to_sym] == nil %>
   </div>
-
 <% end %>
