@@ -27,8 +27,11 @@ app2 = Application.create!(name: "Alastair",
                           status: "Accepted"
                           )
 
-shelter = Shelter.create!(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
-
+shelter = Shelter.create!(name: 'Aurora shelter', 
+                          city: 'Aurora, CO', 
+                          foster_program: false, 
+                          rank: 9
+                        )
 pet1 = Pet.create!(name: 'Noodle', 
                   age: 2, 
                   breed: 'Border Collie', 
@@ -39,5 +42,47 @@ pet2 = Pet.create!(name: 'Hercules',
                   age: 2, 
                   breed: 'American Akita', 
                   adoptable: true,
+                  shelter_id: shelter.id
+                  )
+pet3 = Pet.create!(name: 'Bumblebee', 
+                  age: 1, 
+                  breed: 'Welsh Corgi', 
+                  adoptable: true,
+                  shelter_id: shelter.id
+                  )
+pet4 = Pet.create!(name: 'Lucille Bald', 
+                  age: 1, 
+                  breed: 'Xolo',  
+                  adoptable: true, 
+                  shelter_id: shelter.id
+                  )
+pet5 = Pet.create!(name: 'Lobster',
+                  age: 3, 
+                  breed: 'Doberman',  
+                  adoptable: true, 
+                  shelter_id: shelter.id
+                  )
+pet6 = Pet.create!(name: 'Scooby', 
+                  age: 2, 
+                  breed: 'Great Dane', 
+                  adoptable: true, 
+                  shelter_id: shelter.id
+                  )
+pet7 = Pet.create!(name: 'Scrappy', 
+                  age: 1, 
+                  breed: 'Great Dane', 
+                  adoptable: true, 
+                  shelter_id: shelter.id
+                  )
+pet8 = Pet.create!(name: 'George Hairlesson',
+                  age: 1, 
+                  breed: 'Xolo', 
+                  adoptable: true,
+                  shelter_id: shelter.id
+                  )
+pet9 = Pet.create!(name: 'Charlie',
+                  age: 3, 
+                  breed: 'GSD',
+                  adoptable: true, 
                   shelter_id: shelter.id
                   )
