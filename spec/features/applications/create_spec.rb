@@ -33,7 +33,6 @@ RSpec.describe 'application creation' do
       fill_in 'City', with: 'San Francisco'
       fill_in 'State', with: 'California'
       fill_in 'Zipcode', with: 94122 
-      fill_in 'Description', with: 'I love pets!' 
       
       click_button 'Submit'
       new_app = Application.last
@@ -44,7 +43,6 @@ RSpec.describe 'application creation' do
       expect(page).to have_content('San Francisco')
       expect(page).to have_content('California')
       expect(page).to have_content('94122')
-      expect(page).to have_content('I love pets!')
     end
 
     it 'does not create an application if any form fields are unfilled and specifies that all fields must be filled' do
