@@ -29,6 +29,9 @@ RSpec.describe 'the application show' do
   describe 'User Story #4' do
     it 'can show a form to search for pets by name' do
 
+      @application.status = "in progress" unless @application.status == "in progress"
+      @application.save
+
       visit "/applications/#{@application.id}"
       fill_in('search', with: @pet_1.name)
       click_button 'search'
@@ -40,6 +43,9 @@ RSpec.describe 'the application show' do
 
   describe 'User Story #4 (cont.)' do
     it 'links to pet objects via search and list' do
+
+      @application.status = "in progress" unless @application.status == "in progress"
+      @application.save
 
       visit "/applications/#{@application.id}"
       click_link @pet_1.name
@@ -60,6 +66,9 @@ RSpec.describe 'the application show' do
 
   describe 'User Story #5' do
     it 'displays an "Adopt Me" button next to search pets results' do
+
+      @application.status = "in progress" unless @application.status == "in progress"
+      @application.save
 
       visit "/applications/#{@application.id}"
       fill_in('search', with: @pet_1.name)
