@@ -24,8 +24,10 @@ class ApplicationsController < ApplicationController
 
   def update
     @application = Application.find(params[:id])
-    if @application.pets.find_by(id: params[:pet]) == nil
+    if params[:pet] && @application.pets.find_by(id: params[:pet]) == nil
       @application.add_pet(params[:pet])
+    elsif params[:commit] == "submit"
+      @application.pending!
     end
 
     redirect_to "/applications/#{@application.id}"
