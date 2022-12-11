@@ -223,4 +223,53 @@ RSpec.describe "Application Show Page" do
       end
     end
   end
+
+# When I visit an application show page
+# And I search for Pets by name
+# Then my search is case insensitive
+# For example, if I search for "fluff", my search would match pets with names "Fluffy", "FLUFF", and "Mr. FlUfF"
+
+  describe "User story 9" do
+    describe "case insensitive" do
+      it 'can match pet names despite case' do
+        pet_1 = Pet.create!(
+          name: "Pepper",
+          adoptable: true,
+          age: 4,
+          breed: "Pitbull",
+          shelter_id: @shelter_1.id
+        )
+
+        pet_2 = Pet.create!(
+          name: "Pepperoni",
+          adoptable: true,
+          age: 2,
+          breed: "Corgi",
+          shelter_id: @shelter_1.id
+        )
+
+        pet_3 = Pet.create!(
+          name: "Lemonpop",
+          adoptable: true,
+          age: 4,
+          breed: "Pitbull",
+          shelter_id: @shelter_1.id
+        )
+
+        visit "/applications/#{@application_1.id}"
+
+        expect(page).to have_field(:search)
+        expect(page).to have_content("Add a Pet to this Application")
+        expect(page).to have_no_content('Pepper')
+        expect(current_path).to eq("/applications/#{@application_1.id}")
+        
+        fill_in(:search, with: 'pEpPER')
+        click_button('Search For Pet!')
+        
+        expect(page).to have_content('Pepper')
+        expect(page).to have_content('Pepperoni')
+        expect(current_path).to eq("/applications/#{@application_1.id}")
+      end
+    end
+  end
 end
