@@ -2,8 +2,8 @@ require 'rails_helper'
 
 RSpec.describe 'application show' do
   let!(:shelter) { Shelter.create!(name: 'Mystery Building', city: 'Irvine CA', foster_program: false, rank: 9)}
-  let!(:application) { Application.create!(name: 'Joe', street_address: "123 street lane", city: "denver", state: "co", zip_code: "12345",  description: "I like dogs", pet_names: "kona", status: "pending" ) }
-  let!(:application_2) { Application.create!(name: 'Bob', street_address: "789 street lane", city: "denver", state: "co", zip_code: "12345",  description: "I like dogs", pet_names: nil, status: "in progress" ) }
+  let!(:application) { Application.create!(name: 'Joe', street_address: "123 street lane", city: "denver", state: "co", zip_code: "12345", status: "Pending" ) }
+  let!(:application_2) { Application.create!(name: 'Bob', street_address: "789 street lane", city: "denver", state: "co", zip_code: "12345", status: "In Progress" ) }
   let!(:pet) { Pet.create!(name: 'Scooby', age: 2, breed: 'Great Dane', adoptable: true, shelter_id: shelter.id)}
   describe 'as a visitor' do
     it 'shows application attributes' do
@@ -43,6 +43,7 @@ RSpec.describe 'application show' do
       # When I visit an application's show page
       visit "/applications/#{application_2.id}"
       # And I have added one or more pets to the application
+      expect(page).to have_content "In Progress"
       fill_in 'search', with: 'Scooby'
       click_button('Add a Pet to this Application')
       click_button('Adopt this Pet')
@@ -58,8 +59,8 @@ RSpec.describe 'application show' do
       expect(current_path).to eq("/applications/#{application_2.id}")
       # And I see an indicator that the application is "Pending"
 
-      expect(application_2.status).to eq("pending")
-      expect(page).to have_content "pending"
+      # expect(application_2.status).to eq("Pending")
+      expect(page).to have_content "Pending"
       # And I see all the pets that I want to adopt
       expect(page).to have_content(application_2.pet_names)
       # And I do not see a section to add more pets to this application
