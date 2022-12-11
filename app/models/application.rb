@@ -6,9 +6,4 @@ class Application < ApplicationRecord
   def change_status
     self.status = 'Pending'
   end
-
-  def self.pending_applications
-  
-    where(status: "Pending")
-  end
 end
