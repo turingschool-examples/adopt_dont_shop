@@ -9,3 +9,8 @@
 <h3><% @application.pets.each do |pet| %>
   <%= link_to pet.name, "/pets/#{pet.id}" %>
 <% end %></h3>
+
+<br>
+<% if @application.status == 'In Progress' %>
+  <%= render partial: '/partials/addpet' %>
+<% end %>
