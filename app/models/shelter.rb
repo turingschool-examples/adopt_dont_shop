@@ -32,7 +32,7 @@ class Shelter < ApplicationRecord
     adoptable_pets.where('age >= ?', age_filter)
   end
 
-  def self.find_shelter_from_application(applications)
+  def self.find_shelters_from_application(applications)
     shelters = applications.map do |application|
       application.pets.map do |pet|
         Shelter.find_by(id: pet.shelter_id)

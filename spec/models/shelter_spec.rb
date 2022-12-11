@@ -50,10 +50,10 @@ RSpec.describe Shelter, type: :model do
       end
     end
 
-    describe '#find_shelter_from_application' do
+    describe '#find_shelters_from_application' do
       it 'returns shelters for a given application' do
         applications = [@application_1, @application_2]
-        expect(Shelter.find_shelter_from_application(applications)).to eq([@shelter_1, @shelter_3])
+        expect(Shelter.find_shelters_from_application(applications)).to eq([@shelter_1, @shelter_3])
       end
     end
   end
