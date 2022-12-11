@@ -2,3 +2,5 @@
 <% @shelters.each do |shelter| %>
   <p><%= link_to shelter.name, "/shelters/#{shelter.id}" %></p>
 <% end %>
+
+<h4><%= "Shelter's with Pending Applications" %></h4>
