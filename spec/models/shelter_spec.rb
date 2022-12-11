@@ -68,4 +68,14 @@ RSpec.describe Shelter, type: :model do
       end
     end
   end
+
+  describe '#sort_revers_alpha' do
+    it 'returns shelters in reverse alphabetical order' do
+      expect(Shelter.sort_reverse_alpha).to eq([@shelter_2, @shelter_3, @shelter_1])
+
+      shelter_4 = Shelter.create!(foster_program: true, name: "Zoo Shelter", city: "Seattle", rank: 9)
+
+      expect(Shelter.sort_reverse_alpha).to eq([shelter_4, @shelter_2, @shelter_3, @shelter_1])
+    end
+  end
 end
