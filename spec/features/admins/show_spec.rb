@@ -44,9 +44,44 @@ RSpec.describe 'admin show page' do
       expect(page).to_not have_button('Approve This Application')
       expect(page).to have_content("Application Approved!")
     end
+save_and_open_page
+    within "#pet-#{@marlowe.id}" do
+      expect(page).to have_button('Approve This Application')
+    end
+  end
 
-    
+  it 'has a button to reject an application next to each pet' do
+    PetApplication.create!(pet: @buster, application: @app1)
+    PetApplication.create!(pet: @marlowe, application: @app1)
 
+    visit "/admin/applications/#{@app1.id}"
+
+    within "#pet-#{@buster.id}" do
+      expect(page).to have_button('Reject This Application')
+      expect(page).to have_content('Buster')
+    end
+
+    within "#pet-#{@marlowe.id}" do
+      expect(page).to have_button('Reject This Application')
+      expect(page).to have_content('Marlowe')
+    end
+
+    within "#pet-#{@marlowe.id}" do
+      click_button("Reject This Application")
+    end
+
+    expect(current_path).to eq("/admin/applications/#{@app1.id}")
+
+    within "#pet-#{@marlowe.id}" do
+      expect(page).to_not have_button('Approve This Application')
+      expect(page).to_not have_button('Reject This Application')
+      expect(page).to have_content("Application Rejected")
+    end
+
+    within "#pet-#{@buster.id}" do
+      expect(page).to have_button('Approve This Application')
+      expect(page).to have_button('Reject This Application')
+    end
   end
 
 

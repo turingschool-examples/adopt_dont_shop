@@ -8,6 +8,11 @@ class AdminsController < ApplicationController
   def show
     @application = Application.find(params[:id])
     @pets = @application.pets
+    if params[:pet_id] != nil 
+      @pet = Pet.find(params[:pet_id])
+    else
+      @pet = nil
+    end
     @approved = params[:approve]
   end
 
