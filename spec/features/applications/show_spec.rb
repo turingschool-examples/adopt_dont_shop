@@ -33,7 +33,6 @@ RSpec.describe 'the application show page' do
     
     expect(page).to have_content('Add a Pet to this Application')
     expect(page).to have_selector(:button, 'Search Pets')
-    # expect(subject).to render_template(partial: 'addpet')
   end
   
   it 'does not render a search bar for pets if application is not in progress' do
@@ -46,7 +45,7 @@ RSpec.describe 'the application show page' do
   it 'search function can be filled and will return results on the application page' do
     visit "/applications/#{@app1.id}"
     
-    fill_in :search_text, with: "#{@pet1.name}"
+    fill_in 'Add a Pet to this Application', with: "#{@pet1.name}"
     click_button 'Search Pets'
 
     expect(page).to have_content(@pet1.name) #User story 4 stops here. And under the search bar I see any Pet whose name matches my search.
@@ -70,14 +69,26 @@ RSpec.describe 'the application show page' do
     # And under the search bar I see any Pet whose name matches my search
   end
 
-  it 'has a link to Adopt this Pet' do
+  it 'has a link to Adopt this Pet after searching' do
     visit "/applications/#{@app1.id}"
     
-    fill_in :search_text, with: "#{@pet2.name}"
+    fill_in 'Add a Pet to this Application', with: "#{@pet2.name}"
     click_button 'Search Pets'
-    
+    save_and_open_page
     expect(page).to have_content('Hercules')
-    expect(page).to have_link('Adopt this pet')
+    expect(page).to have_button('Adopt this pet')
     expect("Hercules").to appear_before('Adopt this pet')
+  end
+
+  it 'lets you add a pet to an application' do
+    visit "/applications/#{@app1.id}"
+
+    fill_in 'Add a Pet to this Application', with: "#{@pet1.name}"
+    click_button 'Search Pets'
+
+    click_button 'Adopt this pet'
+        
+    expect("Interested in adopting:").to appear_before ('Noodle')
+    expect(@app1.pets).to eq([@pet1, @pet1, @pet2])
   end
 end
