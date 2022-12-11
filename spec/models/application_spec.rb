@@ -82,7 +82,7 @@ RSpec.describe Application, type: :model do
   end
 
   describe '#pending_applications' do
-    it 'can list pending applications' do
+    it 'can list shelters with pending applications' do
       expect(Application.pending_application).to eq([@application_2, @application_3])
       expect(Application.pending_application).to_not eq(@application_1)
       expect(Application.pending_application).to_not eq(@application_3)
