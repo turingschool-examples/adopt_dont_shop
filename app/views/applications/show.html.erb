@@ -4,7 +4,7 @@
 <p>Address: <%= @application.street %> <%= @application.city %>, <%= @application.state %> <%= @application.zip %></p>
 <p>Description: <%= @application.description%></p>
 <% @application.pets.each do |pet|  %>
-  <p>Pet Name: <%= pet.name %></p>
+  <p>Pets on Application: <%= pet.name %></p>
 <% end %>
 <p>Application Status: <%= @application.status %></p>
 
@@ -17,6 +17,6 @@
 <h4>Pets: </h4>
 <% if @pets != nil %>
   <% @pets.each do |pet| %>
-    <p><%= pet.name %>
+    <p><%= pet.name %></p><%= link_to "Add #{pet.name}", "/applications/#{@application.id}?pet=#{pet.id}" %>
+    <% end %>
   <% end %>
-<% end %>
