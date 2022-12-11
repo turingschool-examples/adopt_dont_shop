@@ -28,9 +28,19 @@ class Shelter < ApplicationRecord
     adoptable_pets.order(name: :asc)
   end
 
-  def self.reverse_alphabetical_order
-    sql = "Select * FROM shelters ORDER BY shelters.name DESC"
-    find_by_sql(sql)
+  def self.reverse_alphabetical_order 
+    sql = "Select * FROM shelters ORDER BY shelters.name DESC" 
+    find_by_sql(sql) 
+  end 
+
+  def self.shelters_with_pending_applications
+    # shelter_ids is returning an array of shelter ids where the applications are pending. 
+    # we then plug that variable "shelter_ids" into the next query to return those shelter objects
+    # where will always return arrays.
+    # Application queries should be in applocation model to follow single responsibility principal
+    # check out application model to see the method "pending_shelter_ids"
+    shelter_ids = Application.pending_shelter_ids
+    Shelter.where(id: shelter_ids)
   end
 
   def shelter_pets_filtered_by_age(age_filter)
