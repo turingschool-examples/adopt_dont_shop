@@ -8,6 +8,7 @@ Pets inquired about:
   <%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
   <% if pet.application_status(@application.id) == 'Pending' %>
     <%= button_to "Approve #{pet.name}", "/admin/applications/#{@application.id}/#{pet.id}/Approved", method: :patch %>
+    <%= button_to "Reject #{pet.name}", "/admin/applications/#{@application.id}/#{pet.id}/Rejected", method: :patch %>
   <% else %>
     <%= "#{pet.application_status(@application.id)}" %>
   <% end %><br>

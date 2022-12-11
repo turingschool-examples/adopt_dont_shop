@@ -33,4 +33,23 @@ RSpec.describe 'Application show view' do
     expect(page).to_not have_content("Approve Dogmin")
     expect(page).to have_content("Approved")
   end
+
+  it 'has the ability to reject a pet' do
+    @pet_1 = @application.pets.create(adoptable: true, age: 1, breed: 'sphynx', name: 'Lucille Bald', shelter_id: @shelter.id)
+    @pet_2 = @application.pets.create(adoptable: true, age: 5, breed: 'lab', name: 'Dogmin', shelter_id: @shelter.id)
+
+    visit "/admin/applications/#{@application.id}"
+    expect(page).to have_content("Jeff")
+    expect(page).to have_content("123 Main Street, Denver CO, 22314")
+    expect(page).to have_content("Nice person")
+    expect(page).to have_content("Lucille Bald")
+    expect(page).to have_content("Dogmin")
+    expect(page).to have_content("In Progress")
+
+    click_button "Reject Dogmin"
+
+    expect(current_path).to eq("/admin/applications/#{@application.id}")
+    expect(page).to_not have_content("Reject Dogmin")
+    expect(page).to have_content("Rejected")
+  end
 end
