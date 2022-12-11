@@ -155,6 +155,7 @@ RSpec.describe 'The application show page' do
       expect(application.status).to eq("Pending")
       expect(page).to have_no_content("Adopt this pet")
   end
+
    it 'does not show submit application button with no pets added' do
     shelter = Shelter.create!(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
       application = Application.create!(name: "Jimbo Kepler", 
@@ -165,5 +166,34 @@ RSpec.describe 'The application show page' do
                                       status: "In Progress")
       visit "/applications/#{application.id}"
       expect(page).to have_no_content("Submit Application")
+   end
+
+#    As a visitor
+# When I visit an application show page
+# And I search for Pets by name
+# Then I see any pet whose name PARTIALLY matches my search
+# For example, if I search for "fluff", my search would match pets with names "fluffy", "fluff", and "mr. fluff"
+   it 'displays pets with partial name matches' do
+    shelter = Shelter.create!(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
+    application = Application.create!(name: "Jimbo Kepler", 
+                                      address: "000 Street Name",
+                                      city: "City Name",
+                                      state: "STATE",
+                                      zipcode: 00000, 
+                                      description: "I love animals and they love me!", 
+                                      status: "In Progress")
+    
+    visit "/applications/#{application.id}"
+    pet_1 = Pet.create!(adoptable: true, age: 1, breed: 'sphynx', name: 'Lucille Bald', shelter_id: shelter.id)
+    pet_2 = Pet.create!(adoptable: true, age: 3, breed: 'doberman', name: 'Lobster', shelter_id: shelter.id) 
+    pet_3 = Pet.create!(adoptable: true, age: 3, breed: 'doberman', name: 'Cecilia', shelter_id: shelter.id) 
+    
+    expect(page).to have_no_content("Lucille")
+
+    fill_in :query, with: 'cil'
+    click_button 'Search'
+
+    expect(page).to have_content("Lucille")
+    expect(page).to have_content("Cecilia")
    end
 end
