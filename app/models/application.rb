@@ -9,4 +9,8 @@ class Application < ApplicationRecord
   validates_presence_of :state
   validates_presence_of :zip_code
   validates_presence_of :description
+
+  def add_pet(pet)
+    self.pets << Pet.find(pet)
+  end
 end
