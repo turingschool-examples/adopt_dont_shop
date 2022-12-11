@@ -84,7 +84,7 @@ RSpec.describe 'Application show view' do
     expect(page).to have_button("Approve Dogmin")
   end
 
-  it 'approval or rejection on one application does not affect another' do
+  it 'approves the application if all pets are approved' do
     @pet_1 = @application.pets.create(adoptable: true, age: 1, breed: 'sphynx', name: 'Lucille Bald', shelter_id: @shelter.id)
     @pet_2 = @application.pets.create(adoptable: true, age: 5, breed: 'lab', name: 'Dogmin', shelter_id: @shelter.id)
     @application_2 = Application.create!({
@@ -105,5 +105,29 @@ RSpec.describe 'Application show view' do
 
     expect(page).to have_content('Status: Approved')
     expect(page).to_not have_content('Status: In Progress')
+  end
+
+  it 'rejects the application if any pets are rejected' do
+    @pet_1 = @application.pets.create(adoptable: true, age: 1, breed: 'sphynx', name: 'Lucille Bald', shelter_id: @shelter.id)
+    @pet_2 = @application.pets.create(adoptable: true, age: 5, breed: 'lab', name: 'Dogmin', shelter_id: @shelter.id)
+    @application_2 = Application.create!({
+      name: "Sam",
+      street_address: "31779 Quarterhorse Rd",
+      city: "Evergreen",
+      state: "CO",
+      zip_code: 80439,
+      reason: "Because!"
+      })
+
+    ApplicationPet.create!(pet_id: @pet_2.id, application_id: @application_2.id)
+
+    visit "/admin/applications/#{@application.id}"
+
+    click_button "Reject Dogmin"
+    click_button "Approve Lucille Bald"
+
+    expect(page).to have_content('Status: Rejected')
+    expect(page).to_not have_content('Status: In Progress')
+    expect(page).to_not have_content('Status: Approved')
   end
 end
