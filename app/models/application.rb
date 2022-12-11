@@ -4,7 +4,6 @@ class Application < ApplicationRecord
   validates :city, presence: true
   validates :state, presence: true
   validates :zip_code, presence: true, numericality: true
-  validates :description, presence: true
 
   has_many :application_pets
   has_many :pets, through: :application_pets
@@ -18,5 +17,16 @@ class Application < ApplicationRecord
       pet.name
     end
   end
+
+  def in_progress?
+    self.status == "In Progress"  
+  end
+
+  def has_pets?
+    self.pets.any?
+  end
   
+  def no_description?
+    self.description.nil?
+  end
 end

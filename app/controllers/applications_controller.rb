@@ -7,6 +7,8 @@ class ApplicationsController < ApplicationController
     else
       @pets = nil
     end
+
+    
   end
 
   def new
@@ -19,7 +21,9 @@ class ApplicationsController < ApplicationController
   end
 
   def update
-    binding.pry
+    @application = Application.find(params[:application_id])
+    @application.update(application_params)
+    redirect_to "/applications/#{@application.id}"
   end
 
 
@@ -33,7 +37,6 @@ private
                   :state, 
                   :zip_code, 
                   :description,
-                  :pet_names,
                   :status)
   end
 end
