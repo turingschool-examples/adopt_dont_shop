@@ -1,5 +1,6 @@
 <h1><%= @application.name %></h1>
 <h3>
+  <%= label :text, :address, 'Address: ' %>
   <%= @application.street_address %> 
   <%= @application.city %>, 
   <%= @application.state %> 
@@ -14,17 +15,23 @@
     <% @pets.each do |pet| %>
       <pre><h3>   <%= link_to "#{pet.name}", "pets/#{pet.id}" %></h3></pre>
     <% end %>
-    <h3>
-      <%= label :text, :pets_list, 'Selected Pets: ' %><br>
-      <% @selected_pets.each do |pet| %>
-        <pre><h3>   <%= link_to "#{pet.name}", "pets/#{pet.id}" %></h3></pre>
-      <% end %>
-      <%= label :text, :status, 'Status: ' %>
-      <%= @application.status %>
-    </h3>
+
+    <% if !@selected_pets.empty? %>
+      <h3>
+        <%= label :text, :pets_list, 'Selected Pets: ' %><br>
+        <% @selected_pets.each do |pet| %>
+          <pre><h3>   <%= link_to "#{pet.name}", "pets/#{pet.id}" %></h3></pre>
+        <% end %>
+        <%= label :text, :status, 'Status: ' %>
+        <%= @application.status %>
+      </h3>
+    <% end %>
+
+    <%= label :text, :status, 'Status: ' %>
+    <%= @application.status %>
   </h3>
 
   <% if @application.status == "in progress" %>
-    <%= render partial: "#{@application.status.gsub(' ', "_")}" %>
+    <%= render partial: "in_progress" %>
   <% end %>
 </h3>
