@@ -84,4 +84,25 @@ RSpec.describe 'the application show' do
       expect(current_path).to eq("/applications/pets/#{@pet_1.id}")
     end
   end
+
+  describe 'User Story 6' do
+    it 'displays a submit application button if pets are added to application' do
+      
+      expect(page).to_not have_button("Submit")
+
+      @application.status = "in progress" unless @application.status == "in progress"
+      @application.save
+
+      visit "/applications/#{@application.id}"
+      fill_in('search', with: @pet_1.name)
+      click_button 'search'
+
+      expect(page).to have_button("Adopt Me")
+
+      click_button "Adopt Me"
+
+      expect(page).to have_button("Submit")
+      expect(page).to have_field("Statement")
+    end
+  end
 end
