@@ -26,10 +26,12 @@
   <% end %>
 <% end %>
 
+<% if @pet_searches.present? %>
 <p><% @pet_searches.each do |pet| %>
   <%= link_to pet.name, "/pets/#{pet.id}" %> 
   <%= form_with url: "/applications/#{@application.id}", method: :patch, local: true do |form| %>
     <%= form.hidden_field :pet, value: pet.id %>
       <%= form.submit "Adopt #{pet.name}!" %>
     <% end %>
+  <% end %>
 <% end %></p>
