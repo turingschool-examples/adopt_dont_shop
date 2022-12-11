@@ -93,7 +93,7 @@ Shelter.destroy_all
   adoptable: true, 
   age: 14, 
   breed: "Corgi", 
-  shelter_id: shelter_2.id
+  shelter_id: @shelter_2.id
 )
 
 @pet_4 = Pet.create!( 
@@ -101,26 +101,26 @@ Shelter.destroy_all
   adoptable: true, 
   age: 14, 
   breed: "Dacshund", 
-  shelter_id: shelter_3.id
+  shelter_id: @shelter_3.id
 )
 
-application_pet_1 = ApplicationPet.create!(
-  application: application_1, 
-  pet: pet_1
+@application_pet_1 = ApplicationPet.create!(
+  application: @application_1, 
+  pet: @pet_1
 )
 
-application_pet_2 = ApplicationPet.create!(
-  application: application_2, 
-  pet: pet_2
+@application_pet_2 = ApplicationPet.create!(
+  application: @application_2, 
+  pet: @pet_2
 )
 
-application_pet_3 = ApplicationPet.create!(
-  application: application_3, 
-  pet: pet_3
+@application_pet_3 = ApplicationPet.create!(
+  application: @application_3, 
+  pet: @pet_3
 )
 
-application_pet_4 = ApplicationPet.create!(
-  application: application_4, 
-  pet: pet_1
+@application_pet_4 = ApplicationPet.create!(
+  application: @application_4, 
+  pet: @pet_1
 )
   
