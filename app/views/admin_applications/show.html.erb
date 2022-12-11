@@ -1,0 +1,14 @@
+<h1> Name: <%= @application.name %> </h1>
+<p>
+Address: <%= "#{@application.street_address}, #{@application.city} #{@application.state}, #{@application.zip_code}" %><br>
+Why I Would Make A Good Home: <%= @application.reason %><br>
+Status: <%= @application.status %><br>
+Pets inquired about:
+<% @application.pets.each do |pet| %>
+  <%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
+  <% if pet.pending(@application.id) %>
+    <%= button_to "Approve #{pet.name}", "/admin/applications/#{@application.id}/#{pet.id}/Approved", method: :patch %>
+  <% else %>
+    <%= "#{pet.application_status(@application.id)}" %>
+  <% end %><br>
+<% end %>

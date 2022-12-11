@@ -7,6 +7,16 @@ class Pet < ApplicationRecord
     shelter.name
   end
 
+  def pending(app_id)
+    @application_pet = ApplicationPet.where(pet_id: id, application_id: app_id).first
+    @application_pet.pet_status == 'Pending'
+  end
+
+  def application_status(app_id)
+    @application_pet = ApplicationPet.where(pet_id: id, application_id: app_id).first
+    @application_pet.pet_status
+  end
+
   def self.adoptable
     where(adoptable: true)
   end
