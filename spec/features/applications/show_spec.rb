@@ -13,6 +13,7 @@ RSpec.describe 'the application show page' do
   it 'shows the application and all its attributes' do
     visit "/applications/#{@app1.id}"
     
+    save_and_open_page
     expect(page).to_not have_content(@app2.name)
     expect(page).to have_content(@app1.name)
     expect(page).to have_content(@app1.street_address)
@@ -28,15 +29,18 @@ RSpec.describe 'the application show page' do
     expect(page).to have_current_path("/pets/#{@pet2.id}")
   end
   
-  xit 'has a link ' do
+  it 'has a search function for pets if application is in progress' do
     visit "/applications/#{@app1.id}"
     
     expect(page).to have_content('Add a Pet to this Application')
-    fill_in :search, with: 'Noodle'
-    click_on 'Search'
+    expect(page).to have_selector(:button, 'Search Pets')
+    # expect(subject).to render_template(partial: 'addpet')
     
-    expect(page).to have_content('Noodle')
-    expect(page).not_to have_content('Hercules')
+    fill_in :search_text, with: 'Noodle'
+    click_button 'Search Pets'
+    # 
+    # expect(page).to have_content('Noodle')
+    # expect(page).not_to have_content('Hercules')
 # As a visitor
 # When I visit an application's show page
 # And that application has not been submitted,
@@ -47,7 +51,6 @@ RSpec.describe 'the application show page' do
 # And I click submit,
 # Then I am taken back to the application show page
 # And under the search bar I see any Pet whose name matches my search
-    
   end
   
 end

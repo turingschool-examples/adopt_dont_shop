@@ -41,4 +41,3 @@ pet2 = Pet.create!(name: 'Hercules',
                   adoptable: true,
                   shelter_id: shelter.id
                   )
-

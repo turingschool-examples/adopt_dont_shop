@@ -1,3 +1,4 @@
+<main>
 <h1>Name: <%=  @application.name %></h1>
 <h3>Street Address: <%= @application.street_address  %></h3>
 <h3>City: <%= @application.city  %></h3>
@@ -9,3 +10,9 @@
 <h3><% @application.pets.each do |pet| %>
   <%= link_to pet.name, "/pets/#{pet.id}" %>
 <% end %></h3>
+
+<br>
+<% if @application.status == 'In Progress' %>
+  <%= render partial: '/partials/addpet' %>
+<% end %>
+</main>
