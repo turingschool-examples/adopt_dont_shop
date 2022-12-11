@@ -1,0 +1,9 @@
+<h2>Application Details</h2>
+<% @pets.each do |pet| %>
+  <div id="pet-<%= pet.id %>">
+  <%= pet.name %>
+  <%= render partial: 'pet_approve' unless @approved == "Application Approved!" %>
+  <%= @approved if @approved == "Application Approved!" %>
+  </div>
+
+<% end %>
