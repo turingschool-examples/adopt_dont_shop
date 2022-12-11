@@ -16,6 +16,36 @@ RSpec.describe Application, type: :model do
       state: "CO",
       zip_code: 80020
     )
+
+    @application_2 = Application.create!(
+      name: "Tom",
+      street_address: "508 Maple Street",
+      city: "Denver",
+      state: "CO",
+      zip_code: 80020,
+      description: "Love animals",
+      status: "Pending"
+    )
+  
+    @application_3 = Application.create!(
+      name: "Sam",
+      street_address: "8591 Pine Street",
+      city: "Denver",
+      state: "CO",
+      zip_code: 80021,
+      description: "Have a large yard for a furbaby",
+      status: "Pending"
+    )
+  
+    @application_4 = Application.create!(
+      name: "Susan",
+      street_address: "2210 Palm Street",
+      city: "Denver",
+      state: "CO",
+      zip_code: 80240,
+      description: "Looking for a running  buddy",
+      status: "In Progress"
+    )
   end
 
   describe "relationships" do
@@ -48,6 +78,14 @@ RSpec.describe Application, type: :model do
       )
       
       expect(@application_1.has_pets?).to be true
+    end
+  end
+
+  describe '#pending_applications' do
+    it 'can list shelters with pending applications' do
+      expect(Application.pending_application).to eq([@application_2, @application_3])
+      expect(Application.pending_application).to_not eq(@application_1)
+      expect(Application.pending_application).to_not eq(@application_3)
     end
   end
 end

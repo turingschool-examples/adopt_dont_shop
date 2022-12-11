@@ -1,3 +1,3 @@
-class ApplicationPetsController < ActionController
+class ApplicationPetsController < ApplicationController
   
 end
