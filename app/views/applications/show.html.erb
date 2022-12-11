@@ -23,7 +23,7 @@
   <h3>Please Describe why you would be a good owner for the pet(s) you wish to adopt</h3>
   <%= form_with url: "/applications/#{@application.id}", method: :patch, local: true do |form| %>
     <%= form.text_area :description, size: "70x5" %>
-    <%= form.hidden_field :status, value: :pending %>
+    <%= form.hidden_field :status, value: :Pending %>
     <%= form.submit "Submit Application" %>
   <% end %>
 <% end %>

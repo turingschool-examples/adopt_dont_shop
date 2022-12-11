@@ -33,8 +33,14 @@ class PetsController < ApplicationController
 
   def update
     pet = Pet.find(params[:id])
+    
+
     if pet.update(pet_params)
-      redirect_to "/pets/#{pet.id}"
+      if params[:admin]
+        redirect_to "/admin/applications/#{params[:application_id]}" 
+      else
+        redirect_to "/pets/#{pet.id}"
+      end
     else
       redirect_to "/pets/#{pet.id}/edit"
       flash[:alert] = "Error: #{error_message(pet.errors)}"
