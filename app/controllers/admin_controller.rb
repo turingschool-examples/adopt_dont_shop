@@ -4,5 +4,4 @@ class AdminController < ApplicationController
     pending_applications = Application.pending_application
     @shelters_pending_apps = Shelter.find_shelters_from_application(pending_applications)
   end
-
-end
+end 
