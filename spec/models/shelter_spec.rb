@@ -1,9 +1,8 @@
 require 'rails_helper'
-
+# it { should have_many(:applications).through(:pets) }
 RSpec.describe Shelter, type: :model do
   describe 'relationships' do
     it { should have_many(:pets) }
-    it { should have_many(:applications).through(:pets) }
   end
 
   describe 'validations' do
@@ -71,6 +70,16 @@ RSpec.describe Shelter, type: :model do
       end
     end
 
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     describe '.pending' do
       it 'returns shelters with pending applications' do
         expect(Shelter.pending.count).to eq(2)
