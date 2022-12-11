@@ -9,10 +9,11 @@ Pet(s) applied for:
 <% @pets.each do |pet|%>
   <div id="<%= pet.id %>">
   <li><%= pet.name %>
-  <% if pet.adoptable %>
+  <% if pet.adoptable && @status.nil? %>
     <%= button_to "Approve", "/admin/applications/#{ @application.id }?pet_id=#{pet.id}" %>
+    <%= button_to "Reject", "/admin/applications/#{ @application.id }?reject_pet_id=#{pet.id}" %>
   <% else %>
-    <b><%= "Approved" %></b>
+    <b><%= @status %></b>
   <% end %>
   </div>
 <% end %>
