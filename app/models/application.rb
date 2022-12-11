@@ -15,4 +15,8 @@ class Application < ApplicationRecord
   def has_pets?
     !pets.empty?
   end
+
+  def self.pending_application 
+    where(status: :Pending)
+  end
 end
