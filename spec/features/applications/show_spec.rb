@@ -48,9 +48,14 @@ RSpec.describe 'the application show page' do
     
     fill_in :search_text, with: "#{@pet1.name}"
     click_button 'Search Pets'
+
+    expect(page).to have_content(@pet1.name) #User story 4 stops here. And under the search bar I see any Pet whose name matches my search.
+    # expect(page).not_to have_content(@pet2.name)
+    # click_on 'Noodle'
+    # expect(current_path).to eq ("/pets/#{@pet1.id}")
     
-    expect(page).to have_content(@pet1.age)
-    expect(page).to have_content(@pet1.breed)
+    # expect(page).to have_content(@pet1.age)
+    # expect(page).to have_content(@pet1.breed)
     # expect(page).not_to have_content(@pet2.age)
     # expect(page).not_to have_content(@pet2.breed)
     # √ As a visitor
@@ -63,5 +68,16 @@ RSpec.describe 'the application show page' do
     # √ Then I am taken back to the application show page
     
     # And under the search bar I see any Pet whose name matches my search
+  end
+
+  it 'has a link to Adopt this Pet' do
+    visit "/applications/#{@app1.id}"
+    
+    fill_in :search_text, with: "#{@pet2.name}"
+    click_button 'Search Pets'
+    
+    expect(page).to have_content('Hercules')
+    expect(page).to have_link('Adopt this pet')
+    expect("Hercules").to appear_before('Adopt this pet')
   end
 end

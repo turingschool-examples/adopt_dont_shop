@@ -7,10 +7,14 @@
 <h3>Application Status: <%= @application.status  %></h3>
 <br>
 <h3><% @application.pets.each do |pet| %>
-  <%= link_to pet.name, "/pets/#{pet.id}" %>
+  <%= link_to pet.name, "/pets/#{pet.id}" %><br>
 <% end %></h3>
 
 <br>
 <% if @application.status == 'In Progress' %>
   <%= render partial: '/partials/addpet' %>
 <% end %>
+
+  <% @application.pets.each do |pet| %>
+    <%= pet.name %> <%= link_to "Adopt this pet", "/applications/#{@application.id}?pet=#{pet.id}"%><br>
+  <% end %>
