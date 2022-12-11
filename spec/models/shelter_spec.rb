@@ -1,5 +1,5 @@
 require 'rails_helper'
-
+# it { should have_many(:applications).through(:pets) }
 RSpec.describe Shelter, type: :model do
   describe 'relationships' do
     it { should have_many(:pets) }
@@ -21,6 +21,8 @@ RSpec.describe Shelter, type: :model do
     @pet_2 = @shelter_1.pets.create(name: 'Clawdia', breed: 'shorthair', age: 3, adoptable: true)
     @pet_3 = @shelter_3.pets.create(name: 'Lucille Bald', breed: 'sphynx', age: 8, adoptable: true)
     @pet_4 = @shelter_1.pets.create(name: 'Ann', breed: 'ragdoll', age: 5, adoptable: true)
+
+    @application = @pet_1.applications.create!(name: 'John Doe', street: '123 N Washington Ave.', city: 'Denver', state: 'Colorado', zip: '91234', applicant_argument: 'caring and loving', app_status: "Pending")
   end
 
   describe 'class methods' do
@@ -65,6 +67,23 @@ RSpec.describe Shelter, type: :model do
     describe '.pet_count' do
       it 'returns the number of pets at the given shelter' do
         expect(@shelter_1.pet_count).to eq(3)
+      end
+    end
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    describe '.pending' do
+      it 'returns shelters with pending applications' do
+        expect(Shelter.pending.count).to eq(2)
+        #getting extra shelter from outside of test setup??
       end
     end
   end
