@@ -3,24 +3,24 @@
 <p>Address: <%= @application.street_address %></p> 
 <p><%= @application.city %>, <%= @application.state %> <%= @application.zip_code %></p>
 <p>Why I Would Make A Good Pet Parent: <%= @application.description %></p>
-<p>Pets I want to Adopt:
-<% @application.pets.each do |pet| %>
-
-<%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
-<%end%>
+<p>Pets I want to Adopt: 
+<% @application.pets.each do |pet| %> 
+  <%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
+  <%end%>
 </p>
-<p>Application Status: <%= @application.status %> </p>
-
+<p>Application Status: <%= @application.status %> </p>  
 <h3> Add a pet to this application </h3>
 <%= form_with url: "/applications/#{@application.id}", method: :post, local: true do |form| %>
-
 <p> Pet Name: <%= form.text_field :search_for_pet %></p>
 <%= form.submit "Submit" %>
 <% end %>
 <br>
-
 <% @search_pet.each do |p| %>
-  <p> Pet Search Match: </p>
-  <p><%= p.name %><%=button_to "Adopt this Pet", "/applications/#{@application.id}", method: :post, local: true %></p>
-
-<% end %>
+  <p> Pet Search Match: 
+    <%= link_to p.name, "/pets/#{p.id}" %>
+    <%= form_with url: "/applications/#{@application.id}", method: :patch, local: true do |form| %>
+      <%= form.hidden_field :pet, value: p.id %>
+      <%= form.submit "Adopt" %>
+      <% end %>
+    <% end %>
+  </p>
