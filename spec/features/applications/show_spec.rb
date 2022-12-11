@@ -13,7 +13,6 @@ RSpec.describe 'the application show page' do
   it 'shows the application and all its attributes' do
     visit "/applications/#{@app1.id}"
     
-    save_and_open_page
     expect(page).to_not have_content(@app2.name)
     expect(page).to have_content(@app1.name)
     expect(page).to have_content(@app1.street_address)
@@ -35,22 +34,34 @@ RSpec.describe 'the application show page' do
     expect(page).to have_content('Add a Pet to this Application')
     expect(page).to have_selector(:button, 'Search Pets')
     # expect(subject).to render_template(partial: 'addpet')
-    
-    fill_in :search_text, with: 'Noodle'
-    click_button 'Search Pets'
-    # 
-    # expect(page).to have_content('Noodle')
-    # expect(page).not_to have_content('Hercules')
-# As a visitor
-# When I visit an application's show page
-# And that application has not been submitted,
-# Then I see a section on the page to "Add a Pet to this Application"
-
-# In that section I see an input where I can search for Pets by name
-# When I fill in this field with a Pet's name
-# And I click submit,
-# Then I am taken back to the application show page
-# And under the search bar I see any Pet whose name matches my search
   end
   
+  it 'does not render a search bar for pets if application is not in progress' do
+    visit "/applications/#{@app2.id}"
+    
+    expect(page).not_to have_content('Add a Pet to this Application')
+    expect(page).not_to have_selector(:button, 'Search Pets')
+  end
+  
+  it 'search function can be filled and will return results on the application page' do
+    visit "/applications/#{@app1.id}"
+    
+    fill_in :search_text, with: "#{@pet1.name}"
+    click_button 'Search Pets'
+    
+    expect(page).to have_content(@pet1.age)
+    expect(page).to have_content(@pet1.breed)
+    # expect(page).not_to have_content(@pet2.age)
+    # expect(page).not_to have_content(@pet2.breed)
+    # √ As a visitor
+    # √ When I visit an application's show page
+    # √ And that application has not been submitted,
+    # √ Then I see a section on the page to "Add a Pet to this Application"
+    # √ In that section I see an input where I can search for Pets by name
+    # √ When I fill in this field with a Pet's name
+    # √ And I click submit,
+    # √ Then I am taken back to the application show page
+    
+    # And under the search bar I see any Pet whose name matches my search
+  end
 end
