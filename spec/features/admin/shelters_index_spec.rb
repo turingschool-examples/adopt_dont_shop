@@ -53,8 +53,12 @@ RSpec.describe "Admin Shelters Index" do
   
       visit '/admin/shelters'
 
-      expect(page).to have_content(shelter_1.name)
-      expect(page).to have_content(shelter_2.name)
+      within("#pending_pets") do 
+        expect(page).to have_content(shelter_1.name)
+        expect(page).to have_content(shelter_2.name)
+      end
+
+      expect(current_path).to eq('/admin/shelters')
     end
   end
 end

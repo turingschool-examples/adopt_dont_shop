@@ -3,4 +3,10 @@
   <p><%= link_to shelter.name, "/shelters/#{shelter.id}" %></p>
 <% end %>
 
+<section id='pending_pets'>
 <h4><%= "Shelter's with Pending Applications" %></h4>
+<% @shelters.each do |shelter| %>
+  <%= shelter.name %>
+  <% end %>
+  <% end %>
+  </section>
