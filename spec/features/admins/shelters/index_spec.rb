@@ -34,10 +34,12 @@ RSpec.describe 'admin shelter index' do
 
     visit "/admin/shelters"
 
-    expect(page).to have_content("Shelter's with Pending Applications")
-    expect(page).to have_content('Aurora shelter')
-    expect(page).to_not have_content('RGV animal shelter')
-    expect(page).to_not have_content('Fancy pets of Colorado')
+    within("div#pending") do
+      expect(page).to have_content("Shelter's with Pending Applications")
+      expect(page).to have_content('Aurora shelter')
+      expect(page).to_not have_content('RGV animal shelter')
+      expect(page).to_not have_content('Fancy pets of Colorado')
+    end
   end
   
 end
