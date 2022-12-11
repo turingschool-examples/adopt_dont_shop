@@ -7,8 +7,9 @@
 <% @pets.each do |pet| %>
   <%= pet.name %>
   <% if pet.adoptable? %>
-    <%= button_to "Approve", "/pets/#{pet.id}", method: :patch %>
+    <%= button_to "Approve", "/pets/#{pet.id}", method: :patch, params: { :adoptable => false, 'admin' => true, :application_id => @application.id } %>
   <% else %>
+    <p> - Pet Approved</p>
   <% end %>
 <% end %>
 </ul>
