@@ -41,4 +41,15 @@ RSpec.describe "Show spec" do
       expect(page).to have_content("Charles")
     end
   end
+
+  describe 'adopt this pet' do
+    it 'add pets from the search bar' do
+      visit "/applications/#{@application3.id}"
+      fill_in :petsearch, with: "Charles"
+      click_on "Submit"
+     
+      click_on "Add #{@pet3.name}"
+      expect(page).to have_content("Pets on Application: Charles")
+    end
+  end
 end
