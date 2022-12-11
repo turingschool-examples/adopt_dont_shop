@@ -7,7 +7,11 @@ Pets inquired about:
 <% @application.pets.each do |pet| %>
   <%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
   <% if pet.application_status(@application.id) == 'Pending' %>
-    <%= button_to "Approve #{pet.name}", "/admin/applications/#{@application.id}/#{pet.id}/Approved", method: :patch %>
+    <% if pet.adoptable %>
+      <%= button_to "Approve #{pet.name}", "/admin/applications/#{@application.id}/#{pet.id}/Approved", method: :patch %>
+    <% else %>
+      <%= 'Dogmin has been approved on a different application' %>
+    <% end %>
     <%= button_to "Reject #{pet.name}", "/admin/applications/#{@application.id}/#{pet.id}/Rejected", method: :patch %>
   <% else %>
     <%= "#{pet.application_status(@application.id)}" %>

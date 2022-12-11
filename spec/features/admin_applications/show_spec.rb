@@ -160,4 +160,29 @@ RSpec.describe 'Application show view' do
     expect(page).to have_content(false)
     expect(page).to_not have_content(true)
   end
+
+  it 'approves the application if all pets are approved' do
+    @pet_1 = @application.pets.create(adoptable: true, age: 1, breed: 'sphynx', name: 'Lucille Bald', shelter_id: @shelter.id)
+    @pet_2 = @application.pets.create(adoptable: true, age: 5, breed: 'lab', name: 'Dogmin', shelter_id: @shelter.id)
+    @application_2 = Application.create!({
+      name: "Sam",
+      street_address: "31779 Quarterhorse Rd",
+      city: "Evergreen",
+      state: "CO",
+      zip_code: 80439,
+      reason: "Because!"
+      })
+
+    ApplicationPet.create!(pet_id: @pet_2.id, application_id: @application_2.id)
+
+    visit "/admin/applications/#{@application.id}"
+
+    click_button "Approve Dogmin"
+    click_button "Approve Lucille Bald"
+
+    visit "/admin/applications/#{@application_2.id}"
+
+    expect(page).to have_content("Dogmin has been approved on a different application")
+    expect(page).to_not have_button("Approve Dogmin")
+  end
 end
