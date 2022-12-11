@@ -6,7 +6,7 @@ Status: <%= @application.status %><br>
 Pets inquired about:
 <% @application.pets.each do |pet| %>
   <%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
-  <% if pet.pending(@application.id) %>
+  <% if pet.application_status(@application.id) == 'Pending' %>
     <%= button_to "Approve #{pet.name}", "/admin/applications/#{@application.id}/#{pet.id}/Approved", method: :patch %>
   <% else %>
     <%= "#{pet.application_status(@application.id)}" %>

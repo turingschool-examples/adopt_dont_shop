@@ -33,9 +33,34 @@ RSpec.describe Pet, type: :model do
   end
 
   describe 'instance methods' do
+    before :each do
+      @application = Application.create({
+        name: "Jeff",
+        street_address: "123 Main Street",
+        city: "Denver",
+        state: "CO",
+        zip_code: 22314,
+        reason: "Nice person"
+      })
+
+      @pet_4 = @application.pets.create(adoptable: true, age: 1, breed: 'sphynx', name: 'Lucille Bald', shelter_id: @shelter_1.id)
+      @pet_5 = @application.pets.create(adoptable: true, age: 5, breed: 'lab', name: 'Dogmin', shelter_id: @shelter_1.id)
+    end
+
     describe '.shelter_name' do
       it 'returns the shelter name for the given pet' do
         expect(@pet_3.shelter_name).to eq(@shelter_1.name)
+      end
+    end
+
+    describe '.application_status' do
+      it 'returns a boolean depending on the status of an application pet' do
+        expect(@pet_4.application_status(@application.id)).to eq("Pending")
+
+        app_pet = ApplicationPet.find_application_pet(@application.id, @pet_4.id)
+        app_pet.update(pet_status: "Approved")
+
+        expect(@pet_4.application_status(@application.id)).to eq("Approved")
       end
     end
   end
