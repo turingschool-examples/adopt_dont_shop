@@ -31,6 +31,36 @@ def seed_applications
     description: "Work from home",
     status: "In Progress"
   )
+  
+  @application_2 = Application.create!(
+    name: "Tom",
+    street_address: "508 Maple Street",
+    city: "Denver",
+    state: "CO",
+    zip_code: 80020,
+    description: "Love animals",
+    status: "Pending"
+  )
+
+  @application_3 = Application.create!(
+    name: "Sam",
+    street_address: "8591 Pine Street",
+    city: "Denver",
+    state: "CO",
+    zip_code: 80021,
+    description: "Have a large yard for a furbaby",
+    status: "Pending"
+  )
+
+  @application_4 = Application.create!(
+    name: "Susan",
+    street_address: "2210 Palm Street",
+    city: "Denver",
+    state: "CO",
+    zip_code: 80240,
+    description: "Looking for a running  buddy",
+    status: "In Progress"
+  )
 end
 
 def seed_pets
