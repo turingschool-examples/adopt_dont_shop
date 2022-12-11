@@ -38,6 +38,10 @@ class PetsController < ApplicationController
       redirect_to "/pets/#{pet.id}/edit"
       flash[:alert] = "Error: #{error_message(pet.errors)}"
     end
+    # if params[:adopt]
+    #   pet.adopt
+    #   redir
+    # end
   end
 
   def destroy

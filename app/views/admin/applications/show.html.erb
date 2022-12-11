@@ -1,0 +1,19 @@
+<h1>Application</h1>
+<p>Name: <%= @application.name %></p>
+<p>Address: <%= "#{ @application.street }" %>
+<%= "#{@application.city}, #{ @application.state }   #{ @application.zip }" %></p>
+<p>Applicants reason: <%= @application.applicant_argument %></p>
+Pet(s) applied for: 
+<ul>
+
+<% @pets.each do |pet|%>
+  <div id="<%= pet.id %>">
+  <li><%= pet.name %>
+  <% if pet.adoptable %>
+    <%= button_to "Approve", "/admin/applications/#{ @application.id }?pet_id=#{pet.id}" %>
+  <% else %>
+    <b><%= "Approved" %></b>
+  <% end %>
+  </div>
+<% end %>
+</ul>
