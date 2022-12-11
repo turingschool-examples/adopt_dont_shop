@@ -49,7 +49,39 @@ RSpec.describe 'Application show view' do
     click_button "Reject Dogmin"
 
     expect(current_path).to eq("/admin/applications/#{@application.id}")
-    expect(page).to_not have_content("Reject Dogmin")
+    expect(page).to_not have_button("Reject Dogmin")
     expect(page).to have_content("Rejected")
+  end
+
+  it 'approval or rejection on one application does not affect another' do
+    @pet_1 = @application.pets.create(adoptable: true, age: 1, breed: 'sphynx', name: 'Lucille Bald', shelter_id: @shelter.id)
+    @pet_2 = @application.pets.create(adoptable: true, age: 5, breed: 'lab', name: 'Dogmin', shelter_id: @shelter.id)
+    @application_2 = Application.create!({
+      name: "Sam",
+      street_address: "31779 Quarterhorse Rd",
+      city: "Evergreen",
+      state: "CO",
+      zip_code: 80439,
+      reason: "Because!"
+      })
+
+    ApplicationPet.create!(pet_id: @pet_2.id, application_id: @application_2.id)
+
+    visit "/admin/applications/#{@application.id}"
+    expect(page).to have_content("Jeff")
+    expect(page).to have_content("123 Main Street, Denver CO, 22314")
+    expect(page).to have_content("Nice person")
+    expect(page).to have_content("Lucille Bald")
+    expect(page).to have_content("Dogmin")
+    expect(page).to have_content("In Progress")
+
+    click_button "Reject Dogmin"
+
+    visit "/admin/applications/#{@application_2.id}"
+
+
+    expect(page).to_not have_content("Rejected")
+    expect(page).to have_button("Reject Dogmin")
+    expect(page).to have_button("Approve Dogmin")
   end
 end
