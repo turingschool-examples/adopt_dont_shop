@@ -27,4 +27,10 @@ RSpec.describe 'admin_shelters index page' do
     expect(@meow.name).to appear_before(@big.name)
     expect(@big.name).to appear_before(@barky.name)
   end
+
+  it 'has a section where shelters that have pending applications appear' do
+    visit "/admin/shelters"
+
+    expect(page).to have_content("Shelters With Pending Applications")
+  end
 end

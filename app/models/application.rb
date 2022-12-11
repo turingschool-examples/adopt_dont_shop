@@ -13,4 +13,10 @@ class Application < ApplicationRecord
   def add_pet(pet)
     self.pets << Pet.find(pet)
   end
+
+  def self.pending_shelter_ids
+    # Application.where id unnecessary because this is the Application model
+    where(status: "pending").joins(:pets).pluck(:shelter_id).uniq
+  end
+
 end
