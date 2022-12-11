@@ -13,14 +13,22 @@ RSpec.describe Shelter, type: :model do
   end
 
   before(:each) do
-    @shelter_1 = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
-    @shelter_2 = Shelter.create(name: 'RGV animal shelter', city: 'Harlingen, TX', foster_program: false, rank: 5)
-    @shelter_3 = Shelter.create(name: 'Fancy pets of Colorado', city: 'Denver, CO', foster_program: true, rank: 10)
+    @shelter_1 = Shelter.create!(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
+    @shelter_2 = Shelter.create!(name: 'RGV animal shelter', city: 'Harlingen, TX', foster_program: false, rank: 5)
+    @shelter_3 = Shelter.create!(name: 'Fancy pets of Colorado', city: 'Denver, CO', foster_program: true, rank: 10)
 
-    @pet_1 = @shelter_1.pets.create(name: 'Mr. Pirate', breed: 'tuxedo shorthair', age: 5, adoptable: false)
-    @pet_2 = @shelter_1.pets.create(name: 'Clawdia', breed: 'shorthair', age: 3, adoptable: true)
-    @pet_3 = @shelter_3.pets.create(name: 'Lucille Bald', breed: 'sphynx', age: 8, adoptable: true)
-    @pet_4 = @shelter_1.pets.create(name: 'Ann', breed: 'ragdoll', age: 5, adoptable: true)
+    @pet_1 = @shelter_1.pets.create!(name: 'Mr. Pirate', breed: 'tuxedo shorthair', age: 5, adoptable: false)
+    @pet_2 = @shelter_1.pets.create!(name: 'Clawdia', breed: 'shorthair', age: 3, adoptable: true)
+    @pet_3 = @shelter_3.pets.create!(name: 'Lucille Bald', breed: 'sphynx', age: 8, adoptable: true)
+    @pet_4 = @shelter_1.pets.create!(name: 'Ann', breed: 'ragdoll', age: 5, adoptable: true)
+
+    @application_1 = Application.create!( name: "Bob", street_address: "123 Leaf Street", city: "Denver", state: "CO", zip_code: 80020, description: "Work from home", status: "In Progress")
+    @application_2 = Application.create!( name: "Tom", street_address: "508 Maple Street", city: "Denver", state: "CO", zip_code: 80020, description: "Love animals", status: "Pending")
+    @application_3 = Application.create!( name: "Sam", street_address: "8591 Pine Street", city: "Denver", state: "CO", zip_code: 80021, description: "Have a large yard for a furbaby", status: "Pending")
+    @application_4 = Application.create!( name: "Susan", street_address: "2210 Palm Street", city: "Denver", state: "CO", zip_code: 80240, description: "Looking for a running  buddy", status: "In Progress")
+
+    @application_pet_1 = ApplicationPet.create!(application: @application_1, pet: @pet_1)
+    @application_pet_2 = ApplicationPet.create!(application: @application_2, pet: @pet_3)
   end
 
   describe 'class methods' do
@@ -39,6 +47,13 @@ RSpec.describe Shelter, type: :model do
     describe '#order_by_number_of_pets' do
       it 'orders the shelters by number of pets they have, descending' do
         expect(Shelter.order_by_number_of_pets).to eq([@shelter_1, @shelter_3, @shelter_2])
+      end
+    end
+
+    describe '#find_shelter_from_application' do
+      it 'returns shelters for a given application' do
+        applications = [@application_1, @application_2]
+        expect(Shelter.find_shelter_from_application(applications)).to eq([@shelter_1, @shelter_3])
       end
     end
   end
