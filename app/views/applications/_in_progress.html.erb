@@ -1,8 +1,10 @@
 <h2><%= label :text, :search, 'Add a Pet to this Application ' %></h2>
 <%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |f| %>
-  <h2><%= f.label 'Search by Name: ' %>
-  <%= f.text_field :search %>
-  <%= f.submit "search" %></h2>
+  <h3>
+    <%= f.label 'Search by Name: ' %>
+    <%= f.text_field :search %>
+    <%= f.submit "search" %>
+  </h3>
 <% end %>
 
 <% @search_pets.each do |pet| %>
@@ -16,7 +18,7 @@
   <%= form_with url: "/applications/#{@application.id}", method: :post, local: true do |f| %>
     <h2><%= f.label 'Submit Application' %></h2>
     <pre><h3>  <%= f.label 'Why Adoption?' %></h3></pre>
-    <%= f.text_area :submit %><br>
+    <%= f.text_area :statement %><br>
     <%= f.submit "submit" %></h2>
   <% end %>
 <% end %>

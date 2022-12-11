@@ -22,13 +22,13 @@
         <% @selected_pets.each do |pet| %>
           <pre><h3>   <%= link_to "#{pet.name}", "pets/#{pet.id}" %></h3></pre>
         <% end %>
-        <%= label :text, :status, 'Status: ' %>
-        <%= @application.status %>
       </h3>
     <% end %>
 
-    <%= label :text, :status, 'Status: ' %>
-    <%= @application.status %>
+    <h3>
+      <%= label :text, :status, 'Status: ' %>
+      <%= @application.status %>
+    </h3>
   </h3>
 
   <% if @application.status == "in progress" %>
