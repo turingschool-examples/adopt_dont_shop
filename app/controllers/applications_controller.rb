@@ -5,7 +5,7 @@ class ApplicationsController < ApplicationController
     # @pet_searches = []
     # @pet_searches = Pet.where(name: params[:search]) 
     if params[:search].present?
-    @pet_searches = Pet.search(params[:search])
+      @pet_searches = Pet.search(params[:search])
     end
   end
 
