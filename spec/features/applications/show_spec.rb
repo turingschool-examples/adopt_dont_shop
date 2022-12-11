@@ -196,4 +196,28 @@ RSpec.describe 'The application show page' do
     expect(page).to have_content("Lucille")
     expect(page).to have_content("Cecilia")
    end
-end
+ 
+   it 'displays pets with case insensitive name matches' do
+    shelter = Shelter.create!(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
+    application = Application.create!(name: "Jimbo Kepler", 
+                                      address: "000 Street Name",
+                                      city: "City Name",
+                                      state: "STATE",
+                                      zipcode: 00000, 
+                                      description: "I love animals and they love me!", 
+                                      status: "In Progress")
+    
+    visit "/applications/#{application.id}"
+    pet_1 = Pet.create!(adoptable: true, age: 1, breed: 'sphynx', name: 'Lucille Bald', shelter_id: shelter.id)
+    pet_2 = Pet.create!(adoptable: true, age: 3, breed: 'doberman', name: 'Lobster', shelter_id: shelter.id) 
+    pet_3 = Pet.create!(adoptable: true, age: 3, breed: 'doberman', name: 'Cecilia', shelter_id: shelter.id) 
+    
+    expect(page).to have_no_content("Lucille")
+
+    fill_in :query, with: 'cIL'
+    click_button 'Search'
+
+    expect(page).to have_content("Lucille")
+    expect(page).to have_content("Cecilia")
+   end
+  end
