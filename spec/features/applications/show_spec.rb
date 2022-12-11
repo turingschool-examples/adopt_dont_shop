@@ -29,6 +29,9 @@ RSpec.describe 'the application show' do
   describe 'User Story #4' do
     it 'can show a form to search for pets by name' do
 
+      @application.status = "in progress" unless @application.status == "in progress"
+      @application.save
+
       visit "/applications/#{@application.id}"
       fill_in('search', with: @pet_1.name)
       click_button 'search'
@@ -40,6 +43,9 @@ RSpec.describe 'the application show' do
 
   describe 'User Story #4 (cont.)' do
     it 'links to pet objects via search and list' do
+
+      @application.status = "in progress" unless @application.status == "in progress"
+      @application.save
 
       visit "/applications/#{@application.id}"
       click_link @pet_1.name
@@ -61,6 +67,9 @@ RSpec.describe 'the application show' do
   describe 'User Story #5' do
     it 'displays an "Adopt Me" button next to search pets results' do
 
+      @application.status = "in progress" unless @application.status == "in progress"
+      @application.save
+
       visit "/applications/#{@application.id}"
       fill_in('search', with: @pet_1.name)
       click_button 'search'
@@ -73,6 +82,49 @@ RSpec.describe 'the application show' do
       page.all(:link, :text => @pet_1.name)[1].click
 
       expect(current_path).to eq("/applications/pets/#{@pet_1.id}")
+    end
+  end
+
+  describe 'User Story 6' do
+    it 'displays a submit button & statement field if pets are added to application' do
+      
+      expect(page).to_not have_button("Submit")
+
+      @application.status = "in progress" unless @application.status == "in progress"
+      @application.save
+
+      visit "/applications/#{@application.id}"
+      fill_in('search', with: @pet_1.name)
+      click_button 'search'
+
+      expect(page).to have_button("Adopt Me")
+
+      click_button "Adopt Me"
+
+      expect(page).to have_button("submit")
+      expect(page).to have_field("statement")
+    end
+
+    it 'changes status of application and removes search if submit pressed' do
+
+      expect(page).to_not have_button("Submit")
+
+      @application.status = "in progress" unless @application.status == "in progress"
+      @application.save
+
+      visit "/applications/#{@application.id}"
+      fill_in('search', with: @pet_1.name)
+      click_button 'search'
+      click_button "Adopt Me"
+
+      fill_in('statement', with: "I am a human")
+
+      click_button "submit"
+
+      expect(page).to have_content("Status: pending")
+      expect(page).to_not have_button("search")
+      expect(page).to_not have_button("submit")
+      expect(current_path).to eq("/applications/#{@application.id}")
     end
   end
 end

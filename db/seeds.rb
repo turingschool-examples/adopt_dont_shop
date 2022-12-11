@@ -9,5 +9,3 @@ vet_2       = FactoryBot.create(:veterinarian, veterinary_office: vet_office)
 pet_1       = FactoryBot.create(:pet, shelter: shelter_1)
 pet_2       = FactoryBot.create(:pet, shelter: shelter_1)
 pet_3       = FactoryBot.create(:pet, shelter: shelter_1)
-
-application.pets << pet_1
