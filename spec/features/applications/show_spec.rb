@@ -2,11 +2,38 @@ require 'rails_helper'
 
 RSpec.describe 'the application show page' do
   before(:each) do
-    @app1 = Application.create(name: "Max", street_address: "Made up St", city: "Denver", state: "CO", zip_code: "80000", description: "Love mix breeds. Lots of energy to play with a dog", status: "In Progress")
-    @app2 = Application.create(name: "Alastair", street_address: "Fictional St", city: "Golden", state: "CO", zip_code: "80001", description: "Love big dogs. Great mountain walks on doorstep", status: "Accepted")
-    @shelter = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
-    @pet1 = @app1.pets.create(name: 'Noodle', age: 2, breed: 'Border Collie', adoptable: true, shelter_id: @shelter.id)
-    @pet2 = @app1.pets.create(name: 'Hercules', age: 2, breed: 'American Akita', adoptable: true, shelter_id: @shelter.id)
+    @app1 = Application.create!(name: "Max", 
+                                street_address: "Made up St", city: "Denver", 
+                                state: "CO", 
+                                zip_code: "80000", 
+                                description: "Love mix breeds. Lots of energy to play with a dog", 
+                                status: "In Progress")
+    @app2 = Application.create!(name: "Alastair", 
+                                street_address: "Fictional St", 
+                                city: "Golden", 
+                                state: "CO", 
+                                zip_code: "80001", 
+                                description: "Love big dogs. Great mountain walks on doorstep", 
+                                status: "Accepted")
+    @shelter = Shelter.create!(name: 'Aurora shelter', 
+                                city: 'Aurora, CO', 
+                                foster_program: false, 
+                                rank: 9)
+    @pet1 = @app1.pets.create!(name: 'Noodle', 
+                                age: 2, 
+                                breed: 'Border Collie', 
+                                adoptable: true, 
+                                shelter_id: @shelter.id)
+    @pet2 = @app1.pets.create!(name: 'Hercules', 
+                                age: 2, 
+                                breed: 'American Akita', 
+                                adoptable: true, 
+                                shelter_id: @shelter.id)
+    @pet3 = @app2.pets.create!(name: 'Bumblebee', 
+                                age: 1, 
+                                breed: 'Welsh Corgi', 
+                                adoptable: true,
+                                shelter_id: @shelter.id)
   end
   
 
@@ -42,31 +69,24 @@ RSpec.describe 'the application show page' do
     expect(page).not_to have_selector(:button, 'Search Pets')
   end
   
+  it 'search bar returns results from partial texts, case insensitive' do
+    visit "/applications/#{@app1.id}"
+    
+    fill_in 'Add a Pet to this Application', with: "bum"
+    click_button 'Search Pets'
+    
+    expect(page).to have_content("#{@pet3.name}")
+  end
+  
   it 'search function can be filled and will return results on the application page' do
     visit "/applications/#{@app1.id}"
     
-    fill_in 'Add a Pet to this Application', with: "#{@pet1.name}"
+    fill_in 'Add a Pet to this Application', with: "#{@pet3.name}"
     click_button 'Search Pets'
 
-    expect(page).to have_content(@pet1.name) #User story 4 stops here. And under the search bar I see any Pet whose name matches my search.
-    # expect(page).not_to have_content(@pet2.name)
-    # click_on 'Noodle'
-    # expect(current_path).to eq ("/pets/#{@pet1.id}")
-    
-    # expect(page).to have_content(@pet1.age)
-    # expect(page).to have_content(@pet1.breed)
-    # expect(page).not_to have_content(@pet2.age)
-    # expect(page).not_to have_content(@pet2.breed)
-    # √ As a visitor
-    # √ When I visit an application's show page
-    # √ And that application has not been submitted,
-    # √ Then I see a section on the page to "Add a Pet to this Application"
-    # √ In that section I see an input where I can search for Pets by name
-    # √ When I fill in this field with a Pet's name
-    # √ And I click submit,
-    # √ Then I am taken back to the application show page
-    
-    # And under the search bar I see any Pet whose name matches my search
+    expect(page).to have_content(@pet3.name)
+    click_on 'Bumblebee'
+    expect(current_path).to eq ("/pets/#{@pet3.id}")
   end
 
   it 'has a link to Adopt this Pet after searching' do
@@ -74,7 +94,6 @@ RSpec.describe 'the application show page' do
     
     fill_in 'Add a Pet to this Application', with: "#{@pet2.name}"
     click_button 'Search Pets'
-    save_and_open_page
     expect(page).to have_content('Hercules')
     expect(page).to have_button('Adopt this pet')
     expect("Hercules").to appear_before('Adopt this pet')
