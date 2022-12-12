@@ -23,7 +23,7 @@ RSpec.describe "new application" do
     fill_in('city', with: "Denver")
     fill_in('state', with: "Colorado")
     fill_in('zip_code', with: "80203")
-    fill_in('description', with: "xxx")
+    # fill_in('description', with: "xxx")
   
     click_button("Submit Application")
 
