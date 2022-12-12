@@ -96,7 +96,7 @@ def seed_pets
     shelter_id: @shelter_3.id
   )
 
-  def seeds_application_pets
+  def seed_application_pets
     @application_pet_1 = ApplicationPet.create!(
       application: @application_1, 
       pet:@pet_1

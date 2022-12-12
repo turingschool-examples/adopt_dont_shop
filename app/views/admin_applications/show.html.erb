@@ -1,0 +1,16 @@
+<%= button_to 'Approve' %>
+
+
+<h3><%= @application.name %></h3>
+
+<p>Address: <%= @application.full_address %></p>
+<p>Description: <%= @application.description %></p>
+
+<section id='admin_application_pets'>
+  <p>Pets applying for: </p>
+  <% @pet_id_pairs.each do |pet| %>
+    <p><%= link_to pet[1], "/pets/#{pet[0]}" %></p>
+  <% end %>
+</section>
+
+<p>Status: <%= @application.status %></p>
