@@ -14,7 +14,7 @@ class Application < ApplicationRecord
 
   def pet_names
     self.pets.map do |pet| 
-      pet.name
+    pet.name
     end
   end
 
@@ -29,4 +29,5 @@ class Application < ApplicationRecord
   def no_description?
     self.description.nil?
   end
+
 end
