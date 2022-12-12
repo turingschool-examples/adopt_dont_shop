@@ -6,10 +6,11 @@
 <ul>
 <% @pets.each do |pet| %>
   <%= pet.name %>
-  <% if pet.adoptable? %>
-    <%= button_to "Approve", "/pets/#{pet.id}", method: :patch, params: { :adoptable => false, 'admin' => true, :application_id => @application.id } %>
+  <% if params["#{pet.id} approval"].nil? %>
+    <%= button_to "Approve", "/admin/applications/#{@application.id}", method: :get, params: { "#{pet.id} approval" => "Pet Approved" } %>
+    <%= button_to "Reject", "/admin/applications/#{@application.id}", method: :get, params: { "#{pet.id} approval" => "Pet Rejected" } %>
   <% else %>
-    <p> - Pet Approved</p>
+    <p> <%= params["#{pet.id} approval"] %></p>
   <% end %>
 <% end %>
 </ul>

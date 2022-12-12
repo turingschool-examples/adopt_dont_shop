@@ -4,4 +4,6 @@ class ApplicationPetsController < ApplicationController
     
     redirect_to "/applications/#{params[:application_id]}?addpet=success"
   end
+
+  
 end
