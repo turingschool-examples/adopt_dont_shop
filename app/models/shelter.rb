@@ -25,6 +25,10 @@ class Shelter < ApplicationRecord
     Shelter.select('shelters.*').distinct.joins(pets: :applications).where(applications:{status: 'In Progress'})
   end
 
+  def self.find_shelter_raw(shelter_id)
+    find_by_sql("SELECT * FROM shelters WHERE id='#{shelter_id}'").first
+  end
+
   def pet_count
     pets.count
   end
