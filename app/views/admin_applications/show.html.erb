@@ -10,7 +10,7 @@ Pets inquired about:
     <% if pet.adoptable %>
       <%= button_to "Approve #{pet.name}", "/admin/applications/#{@application.id}/#{pet.id}/Approved", method: :patch %>
     <% else %>
-      <%= 'Dogmin has been approved on a different application' %>
+      <%= "#{pet.name} has been approved on a different application" %>
     <% end %>
     <%= button_to "Reject #{pet.name}", "/admin/applications/#{@application.id}/#{pet.id}/Rejected", method: :patch %>
   <% else %>

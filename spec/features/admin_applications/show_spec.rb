@@ -131,7 +131,7 @@ RSpec.describe 'Application show view' do
     expect(page).to_not have_content('Status: Approved')
   end
 
-  it 'approves the application if all pets are approved' do
+  it 'makes pets not adoptable if they are part of an approved application' do
     @pet_1 = @application.pets.create(adoptable: true, age: 1, breed: 'sphynx', name: 'Lucille Bald', shelter_id: @shelter.id)
     @pet_2 = @application.pets.create(adoptable: true, age: 5, breed: 'lab', name: 'Dogmin', shelter_id: @shelter.id)
     @application_2 = Application.create!({
@@ -161,7 +161,7 @@ RSpec.describe 'Application show view' do
     expect(page).to_not have_content(true)
   end
 
-  it 'approves the application if all pets are approved' do
+  it 'does not allow approval of a pet if they are already part of an approved application' do
     @pet_1 = @application.pets.create(adoptable: true, age: 1, breed: 'sphynx', name: 'Lucille Bald', shelter_id: @shelter.id)
     @pet_2 = @application.pets.create(adoptable: true, age: 5, breed: 'lab', name: 'Dogmin', shelter_id: @shelter.id)
     @application_2 = Application.create!({
