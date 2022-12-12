@@ -11,12 +11,6 @@ require 'test_helper'
 
 RSpec.describe 'AdminApplication show page' do
   describe 'User story 12' do
-    xit 'has a button to approve a specific pet' do
-      visit '/admin/applications/:id'
-
-      expect(page).to have_button('Approve')
-    end
-
     it 'application information and associated pet applying for' do
       seed_shelters
       seed_pets
@@ -37,6 +31,45 @@ RSpec.describe 'AdminApplication show page' do
       expect(page).to have_content(@pet_1.name)
       expect(page).to have_content(@pet_2.name)
       expect(page).to have_content(@application_1.status)
+    end
+
+    it 'has a button to approve a specific pet' do
+      seed_shelters
+      seed_pets
+      seed_applications
+      ApplicationPet.create!(
+        application: @application_1, 
+        pet: @pet_1
+      )
+      ApplicationPet.create!(
+        application: @application_1, 
+        pet: @pet_2
+      )
+
+      visit "/admin/applications/#{@application_1.id}"
+
+      expect(page).to have_button('Approve')
+    end
+
+    it 'can approve application when the button is pressed' do
+      seed_shelters
+      seed_pets
+      seed_applications
+      ApplicationPet.create!(
+        application: @application_1, 
+        pet: @pet_1
+      )
+      ApplicationPet.create!(
+        application: @application_1, 
+        pet: @pet_2
+      )
+
+      visit "/admin/applications/#{@application_1.id}"
+      
+      within("#pet-#{@pet_1.id}") do
+        click_button('Approve')
+      end
+      expect(has_current_path?("/admin/applications/#{@application_1.id}?adopt=#{@pet_1.id}")).to be(true)
     end
   end
 end
