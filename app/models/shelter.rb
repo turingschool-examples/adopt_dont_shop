@@ -2,8 +2,9 @@ class Shelter < ApplicationRecord
   validates :name, presence: true
   validates :rank, presence: true, numericality: true
   validates :city, presence: true
-
   has_many :pets, dependent: :destroy
+  has_many :application_pets, through: :pets
+  has_many :applications, through: :application_pets
 
   def self.order_by_recently_created
     order(created_at: :desc)
@@ -32,12 +33,7 @@ class Shelter < ApplicationRecord
     adoptable_pets.where('age >= ?', age_filter)
   end
 
-  def self.find_shelters_from_application(applications)
-    shelters = applications.map do |application|
-      application.pets.map do |pet|
-        Shelter.find_by(id: pet.shelter_id)
-      end
-    end
-    shelters.flatten
+  def self.find_shelters_from_application
+    joins(pets: :applications).where("applications.status = 'Pending'").pluck(:name)
   end
 end
