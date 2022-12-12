@@ -36,6 +36,9 @@ gem 'jbuilder', '~> 2.5'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
 
+gem 'factory_bot_rails'
+gem 'faker'
+
 group :development, :test do
   gem 'capybara'
   gem 'shoulda-matchers'
@@ -60,5 +63,3 @@ end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
-
-ruby "2.7.4"
