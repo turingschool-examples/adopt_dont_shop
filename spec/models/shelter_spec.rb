@@ -1,8 +1,9 @@
 require 'rails_helper'
-# it { should have_many(:applications).through(:pets) }
+
 RSpec.describe Shelter, type: :model do
   describe 'relationships' do
     it { should have_many(:pets) }
+    it { should have_many(:applications).through(:pets) }
   end
 
   describe 'validations' do
@@ -70,25 +71,14 @@ RSpec.describe Shelter, type: :model do
       end
     end
 
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     describe '.pending' do
       it 'returns shelters with pending applications' do
-        expect(Shelter.pending.count).to eq(2)
-        #getting extra shelter from outside of test setup??
+        expect(Shelter.pending).to eq([@shelter_1])
       end
     end
   end
 
-  describe '#sort_revers_alpha' do
+  describe '#sort_reverse_alpha' do
     it 'returns shelters in reverse alphabetical order' do
       expect(Shelter.sort_reverse_alpha).to eq([@shelter_2, @shelter_3, @shelter_1])
 
@@ -98,3 +88,4 @@ RSpec.describe Shelter, type: :model do
     end
   end
 end
+
