@@ -8,7 +8,7 @@ class AdminsController < ApplicationController
   def show
     @application = Application.find(params[:id])
     @pets = @application.pets
-    @approved = {}
+    @approved ||= {}
     if params[:pet_id] != nil 
       @pet = Pet.find(params[:pet_id])
       set_approved(@pet.id, params[:approve])
