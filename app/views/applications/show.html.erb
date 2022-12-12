@@ -13,9 +13,7 @@
   <div class="avail-pets-cta">
     <h3>
       <%= label :text, :pets_list, 'Available Pets: ' %><br>
-      <% @pets.each do |pet| %>
-        <pre><h3>   <%= link_to "#{pet.name}", "pets/#{pet.id}" %></h3></pre>
-      <% end %>
+      <%= render partial: "shared/all_pets" %>
     </h3>
   </div>
 

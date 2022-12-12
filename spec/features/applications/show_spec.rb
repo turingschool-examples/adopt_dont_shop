@@ -82,8 +82,9 @@ RSpec.describe 'the application show' do
 
       click_button "Adopt Me"
 
-      expect(page.all(:link, :text => @pet_1.name).count).to eq(2)
-      page.all(:link, :text => @pet_1.name)[1].click
+      within(:xpath, '//div[@class="select-pets-cta"]') do
+        click_link @pet_1.name
+      end
 
       expect(current_path).to eq("/applications/pets/#{@pet_1.id}")
     end
