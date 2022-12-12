@@ -78,7 +78,7 @@ RSpec.describe 'admin application show' do
     end
 
     visit "/admin/applications/#{ application1.id }"
-    save_and_open_page
+ 
     within("div##{pet1.id}") do
       expect(page).to have_content("Rejected")
       expect(page).to_not have_button("Reject")
@@ -90,8 +90,35 @@ RSpec.describe 'admin application show' do
       expect(page).to have_button("Reject")
     end
   end
-end
 
+  it 'one admin application show page does not affect another' do
+    shelter = Shelter.create(name: 'Mystery Building', city: 'Irvine CA', foster_program: false, rank: 9)
+    pet1 = Pet.create(name: 'Scooby', age: 2, breed: 'Great Dane', adoptable: true, shelter_id: shelter.id)
+    application1 = pet1.applications.create!(name: 'John Doe', street: '123 N Washington Ave.', city: 'Denver', state: 'Colorado', zip: '91234', applicant_argument: 'caring and loving', app_status: "Pending")
+    application2 = pet1.applications.create!(name: 'John Doe', street: '123 N Washington Ave.', city: 'Denver', state: 'Colorado', zip: '91234', applicant_argument: 'caring and loving', app_status: "Pending")
+
+    visit "/admin/applications/#{ application1.id }"
+
+    within("div##{pet1.id}") do
+      expect(page).to have_button("Approve")
+      expect(page).to have_button("Reject")
+    end
+
+    click_button("Reject")
+
+    expect(page).to have_content("Rejected")
+    expect(current_path).to eq("/admin/applications/#{ application1.id }")
+    expect(page).to_not have_button("Reject")
+    expect(page).to_not have_button("Approve")
+
+    visit "admin/applications/#{ application2.id }"
+
+    within("div##{pet1.id}") do
+      expect(page).to have_button("Approve")
+      expect(page).to have_button("Reject")
+    end
+  end
+end
 # 13. Rejecting a Pet for Adoption
 
 # As a visitor
