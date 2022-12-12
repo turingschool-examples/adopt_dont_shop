@@ -1,9 +1,11 @@
 <h2>Application Details</h2>
+<h3>Application Status: <%= @application.status %></h3>
 <% @pets.each do |pet| %>
   <div id="pet-<%= pet.id %>">
   <%= pet.name %>
-  <%= render partial: 'pet_approve', locals: { pet_id: pet.id } if @approved["#{pet.id}".to_sym] == nil %>
-  <%= render partial: 'pet_reject', locals: { pet_id: pet.id } if @approved["#{pet.id}".to_sym] == nil %>
-  <%= @approved["#{pet.id}".to_sym] unless @approved["#{pet.id}".to_sym] == nil %>
+  
+  <%= render partial: 'pet_approve', locals: { pet_id: pet.id } if @application.find_pa_status(pet.id) == nil %>
+  <%= render partial: 'pet_reject', locals: { pet_id: pet.id } if @application.find_pa_status(pet.id) == nil %>
+  <%= @application.find_pa_status(pet.id) unless @application.find_pa_status(pet.id) == nil %>
   </div>
 <% end %>

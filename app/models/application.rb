@@ -4,4 +4,8 @@ class Application < ApplicationRecord
   has_many :pets, through: :pet_applications
   has_many :shelters, through: :pets
   
+
+  def find_pa_status(pet_id)
+    PetApplication.where(pet_id: pet_id, application_id: self.id).first.status
+  end
 end

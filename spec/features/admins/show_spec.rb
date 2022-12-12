@@ -117,13 +117,13 @@ RSpec.describe 'admin show page' do
     visit "/admin/applications/#{@app1.id}"
 
     within "#pet-#{@buster.id}" do
-      click_button("Accept This Application")
+      click_button("Approve This Application")
     end
 
     expect(@app1.status).to eq("Pending")
 
     within "#pet-#{@marlowe.id}" do
-      click_button("Accept This Application")
+      click_button("Approve This Application")
     end
 
     expect(@app1.status).to eq("Approved")
