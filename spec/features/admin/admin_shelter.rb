@@ -29,6 +29,6 @@ RSpec.describe "admin" do
     visit '/admin/shelters'
     
     expect(page).to have_content("Shelters with Pending Applications")
-     save_and_open_page
+    # expect("Shelters with Pending Applications").to appear_before(shelter_3.name)
   end
 end
