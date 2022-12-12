@@ -4,13 +4,13 @@
 <h3><%= @application.name %></h3>
 <h3><%= @application.address %></h3>
 <ul>
-<% @pets.each do |pet| %>
-  <%= pet.name %>
-  <% if params["#{pet.id} approval"].nil? %>
-    <%= button_to "Approve", "/admin/applications/#{@application.id}", method: :get, params: { "#{pet.id} approval" => "Pet Approved" } %>
-    <%= button_to "Reject", "/admin/applications/#{@application.id}", method: :get, params: { "#{pet.id} approval" => "Pet Rejected" } %>
+<% @application_pets.each do |ap| %>
+  <%= ap.pet.name %>
+  <% if ap.approval_status.nil? %>
+    <%= button_to "Approve", "/application_pets/#{ap.id}", method: :patch, params: { :approval => true } %>
+    <%= button_to "Reject", "/application_pets/#{ap.id}", method: :patch, params: { :approval => false } %>
   <% else %>
-    <p> <%= params["#{pet.id} approval"] %></p>
+    <p> <%= ap.approval_status %></p>
   <% end %>
 <% end %>
 </ul>

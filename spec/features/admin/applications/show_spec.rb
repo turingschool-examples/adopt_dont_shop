@@ -35,8 +35,10 @@ RSpec.describe "ADMIN Application Show" do
     it "has a button to reject a pet from an application" do
       @shelter = Shelter.create!(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
       @pet_1 = @shelter.pets.create!(name: "Ziggy", age: 6, breed: 'Westy', adoptable: true, shelter_id: @shelter.id)
+      @pet_2 = @shelter.pets.create!(name: "Mizzy", age: 3, breed: 'Aussie', adoptable: true, shelter_id: @shelter.id)
       @application = Application.create!(name: 'Joe', street_address: "123 street lane", city: "denver", state: "co", zip_code: "12345",  description: "I like dogs", status: "Pending" )
       ApplicationPet.create!(application_id: @application.id, pet_id: @pet_1.id)
+      ApplicationPet.create!(application_id: @application.id, pet_id: @pet_2.id)
       
       # When I visit an admin application show page ('/admin/applications/:id')
       visit "/admin/applications/#{@application.id}"
