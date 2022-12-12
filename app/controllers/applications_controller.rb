@@ -21,9 +21,9 @@ class ApplicationsController < ApplicationController
 
   def update
     application = Application.find(params[:application_id])
-    application.update(application_params)
-    application.update(status: "Pending") if params[:reason]
-    application.save
+    application.update!(application_params)
+    application.update!(status: "Pending") if params[:reason]
+    application.save!
     redirect_to "/applications/#{application.id}"
   end
 
