@@ -80,12 +80,4 @@ RSpec.describe Application, type: :model do
       expect(@application_1.has_pets?).to be true
     end
   end
-
-  describe '#pending_applications' do
-    it 'can list shelters with pending applications' do
-      expect(Application.pending_application).to eq([@application_2, @application_3])
-      expect(Application.pending_application).to_not eq(@application_1)
-      expect(Application.pending_application).to_not eq(@application_3)
-    end
-  end
 end
