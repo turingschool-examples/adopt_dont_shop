@@ -7,12 +7,14 @@
   </h3>
 <% end %>
 
-<% @search_pets.each do |pet| %>
-  <h3>
-    <%= link_to "#{pet.name}", "pets/#{pet.id}" %>
-    <%= button_to "Adopt Me", "/applications/#{@application.id}?pet=#{pet.id}", method: :post, form: {style: 'display:inline-block;'}%>
-  </h3>
-<% end %>
+<div class="search-pets-cta">
+  <% @search_pets.each do |pet| %>
+    <h3>
+      <%= link_to "#{pet.name}", "pets/#{pet.id}" %>
+      <%= button_to "Adopt Me", "/applications/#{@application.id}?pet=#{pet.id}", method: :post, form: {style: 'display:inline-block;'}%>
+    </h3>
+  <% end %>
+</div>
 
 <% if !@application.pets.empty? %>
   <%= form_with url: "/applications/#{@application.id}", method: :post, local: true do |f| %>

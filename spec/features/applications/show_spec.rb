@@ -48,7 +48,9 @@ RSpec.describe 'the application show' do
       @application.save
 
       visit "/applications/#{@application.id}"
-      click_link @pet_1.name
+      within(:xpath, '//div[@class="avail-pets-cta"]') do
+        click_link @pet_1.name
+      end
 
       expect(current_path).to eq("/applications/pets/#{@pet_1.id}")
 
@@ -57,8 +59,10 @@ RSpec.describe 'the application show' do
       click_button 'search'
 
       expect(current_path).to eq("/applications/#{@application.id}")
-
-      page.all(:link, :text => @pet_1.name)[1].click
+      
+      within(:xpath, '//div[@class="search-pets-cta"]') do
+        click_link @pet_1.name
+      end
 
       expect(current_path).to eq("/applications/pets/#{@pet_1.id}")
     end
