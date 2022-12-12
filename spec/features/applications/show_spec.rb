@@ -15,6 +15,12 @@ RSpec.describe 'the application show page' do
                                 zip_code: "80001", 
                                 description: "Love big dogs. Great mountain walks on doorstep", 
                                 status: "Accepted")
+    @app3 = Application.create!(name: "Chloe", 
+                                street_address: "Fake Street", 
+                                city: "Denver", 
+                                state: "CO", 
+                                zip_code: "80002", 
+                                status: "In Progress")
     @shelter = Shelter.create!(name: 'Aurora shelter', 
                                 city: 'Aurora, CO', 
                                 foster_program: false, 
@@ -124,5 +130,11 @@ RSpec.describe 'the application show page' do
     click_button('Submit Application')
     
     expect(page).to have_content("Love large dogs. Lots of energy to play with a dog.")
+  end
+  
+  it 'will not have a submit button if the application has no pets' do
+    visit "/applications/#{@app3.id}"
+    save_and_open_page
+    expect(page).to_not have_button('Submit Application')
   end
 end
