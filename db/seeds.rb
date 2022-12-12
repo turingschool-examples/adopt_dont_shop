@@ -1,4 +1,4 @@
-require 'factory_bot_rails'
+require_relative 'factory_bot'
 
 application   = FactoryBot.create(:application)
 application_2 = Application.create!(name: "Anthony", street_address: "place", city: "Tino", state: "CO", zip_code: "24325", description: "hellp", status: "pending")
