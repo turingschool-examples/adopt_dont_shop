@@ -6,7 +6,6 @@ class PetApplicationsController < ApplicationController
     redirect_to "/applications/#{create_params[:application_id]}"
   end
 
-
   private
 
   def create_params

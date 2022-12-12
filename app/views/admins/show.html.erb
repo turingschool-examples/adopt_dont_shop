@@ -3,9 +3,9 @@
 <% @pets.each do |pet| %>
   <div id="pet-<%= pet.id %>">
   <%= pet.name %>
+
+  <%= render partial: 'pet_approval', locals: { pet_id: pet.id } if @application.find_pa_status(pet.id) == nil %>
   
-  <%= render partial: 'pet_approve', locals: { pet_id: pet.id } if @application.find_pa_status(pet.id) == nil %>
-  <%= render partial: 'pet_reject', locals: { pet_id: pet.id } if @application.find_pa_status(pet.id) == nil %>
-  <%= @application.find_pa_status(pet.id) unless @application.find_pa_status(pet.id) == nil %>
+  <%= @application.status_message(pet.id) unless @application.find_pa_status(pet.id) == nil %>
   </div>
 <% end %>

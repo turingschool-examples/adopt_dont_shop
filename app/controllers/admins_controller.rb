@@ -9,7 +9,7 @@ class AdminsController < ApplicationController
     @application = Application.find(params[:id])
     @pets = @application.pets
     @pet_applications = @application.pet_applications
-    @pa = 
+    # @pa = 
     
     if params[:pet_id] != nil 
       @pet = Pet.find(params[:pet_id])

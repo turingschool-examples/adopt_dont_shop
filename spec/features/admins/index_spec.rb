@@ -41,7 +41,7 @@ RSpec.describe 'admin index' do
     within "#pending" do
     expect("Shelters with Pending Applications:").to appear_before("#{@shelter_1.name}")
     end
-    
+
     @app2.update(status: "Pending")
     visit "/admin/shelters"
 
@@ -49,8 +49,5 @@ RSpec.describe 'admin index' do
     expect("Shelters with Pending Applications:").to appear_before("#{@shelter_1.name}")
     expect("#{@shelter_1.name}").to appear_before("#{@shelter_3.name}")
     end
-
   end
-
-
 end
