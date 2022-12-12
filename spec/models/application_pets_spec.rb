@@ -15,7 +15,7 @@ RSpec.describe ApplicationPet do
 
       app_pet.approve
 
-      expect(app_pet.approved).to eq("Approved")
+      expect(app_pet.status).to eq("Approved")
     end
   end
 
@@ -28,7 +28,7 @@ RSpec.describe ApplicationPet do
 
       app_pet.reject
 
-      expect(app_pet.approved).to eq("Rejected")
+      expect(app_pet.status).to eq("Rejected")
     end
   end
 
