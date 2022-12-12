@@ -109,5 +109,25 @@ RSpec.describe 'admin show page' do
     end
   end
 
+  it 'sets an applications status to approved if all pets are approved' do
+    PetApplication.create!(pet: @buster, application: @app1)
+    PetApplication.create!(pet: @marlowe, application: @app1)
+    @app1.update(status: "Pending")
+
+    visit "/admin/applications/#{@app1.id}"
+
+    within "#pet-#{@buster.id}" do
+      click_button("Accept This Application")
+    end
+
+    expect(@app1.status).to eq("Pending")
+
+    within "#pet-#{@marlowe.id}" do
+      click_button("Accept This Application")
+    end
+
+    expect(@app1.status).to eq("Approved")
+  end
+
 
 end
