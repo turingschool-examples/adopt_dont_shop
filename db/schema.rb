@@ -10,16 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_12_08_214945) do
+ActiveRecord::Schema.define(version: 2022_12_12_171117) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "admins", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "application_pets", force: :cascade do |t|
     t.bigint "pet_id"
     t.bigint "application_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "status", default: "Pending"
     t.index ["application_id"], name: "index_application_pets_on_application_id"
     t.index ["pet_id"], name: "index_application_pets_on_pet_id"
   end
@@ -54,6 +60,8 @@ ActiveRecord::Schema.define(version: 2022_12_08_214945) do
     t.integer "rank"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "admin_id"
+    t.index ["admin_id"], name: "index_shelters_on_admin_id"
   end
 
   create_table "veterinarians", force: :cascade do |t|
@@ -77,5 +85,6 @@ ActiveRecord::Schema.define(version: 2022_12_08_214945) do
   add_foreign_key "application_pets", "applications"
   add_foreign_key "application_pets", "pets"
   add_foreign_key "pets", "shelters"
+  add_foreign_key "shelters", "admins"
   add_foreign_key "veterinarians", "veterinary_offices"
 end
