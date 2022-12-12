@@ -64,7 +64,7 @@ def seed_applications
 end
 
 def seed_pets
-  @pet_1 = @application_1.pets.create!(
+  @pet_1 = Pet.create!(
     name: "Pepper",
     adoptable: true,
     age: 4,
@@ -72,11 +72,49 @@ def seed_pets
     shelter_id: @shelter_1.id
   )
     
-  @pet_2 = @application_1.pets.create!(
+  @pet_2 = Pet.create!(
     name: "Daisy",
     adoptable: true,
     age: 14,
     breed: "Beagle",
     shelter_id: @shelter_1.id
   )
+
+  @pet_3 = Pet.create!(
+    name: "Pumba", 
+    adoptable: true, 
+    age: 14, 
+    breed: "Corgi", 
+    shelter_id: @shelter_2.id
+  )
+
+  @pet_4 = Pet.create!( 
+    name: "Timon", 
+    adoptable: true, 
+    age: 14, 
+    breed: "Dacshund", 
+    shelter_id: @shelter_3.id
+  )
+
+  def seeds_application_pets
+    @application_pet_1 = ApplicationPet.create!(
+      application: @application_1, 
+      pet:@pet_1
+    )
+    
+    @application_pet_2 = ApplicationPet.create!(
+      application: @application_2, 
+      pet: @pet_2
+    )
+
+    @application_pet_3 = ApplicationPet.create!(
+      application: @application_3, 
+      pet: @pet_3
+    )
+
+    @application_pet_4 = ApplicationPet.create!(
+      application: @application_4, 
+      pet: @pet_1
+    )
+  end
 end
