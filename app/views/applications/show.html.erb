@@ -21,6 +21,12 @@
     <%= form_with url: "/applications/#{@application.id}", method: :patch, local: true do |form| %>
       <%= form.hidden_field :pet, value: p.id %>
       <%= form.submit "Adopt" %>
+      <%= %>
       <% end %>
     <% end %>
-  </p>
+<% if @application.pets.count > 0  %>
+    <%= form_with url: "/applications/#{@application.id}", method: :patch, local: true do |form| %>
+    <p>Why I would make a good owner: <%= form.text_field :description %></p>
+    <%= form.submit "Submit my Application" %>
+    <% end %>
+    <% end %>
