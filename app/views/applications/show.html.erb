@@ -24,7 +24,10 @@
       <h3>
         <%= label :text, :pets_list, 'Selected Pets: ' %><br>
         <% @selected_pets.each do |pet| %>
-          <pre><h3>   <%= link_to "#{pet.name}", "pets/#{pet.id}" %></h3></pre>
+          <pre><h3>   <%= link_to "#{pet.name}", "pets/#{pet.id}" %>
+          <% if current_page?("/admin/applications/#{@application.id}") %>
+            <%= button_to "Approve", "/admin/applications/#{@application.id}", value: "approved" %></h3></pre>
+          <% end %>
         <% end %>
       </h3>
     <% end %>
