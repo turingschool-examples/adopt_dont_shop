@@ -43,16 +43,17 @@ RSpec.describe "ADMIN Application Show" do
       # When I visit an admin application show page ('/admin/applications/:id')
       visit "/admin/applications/#{@application.id}"
       # For every pet that the application is for, I see a button to reject the application for that specific pet
-      expect(page).to have_button("Reject")
+      expect(page).to have_button("Reject", match: :first)
       # When I click that button
-      click_button("Reject")
+      click_button("Reject", match: :first)
       # Then I'm taken back to the admin application show page
       expect(current_path).to eq "/admin/applications/#{@application.id}"
       # And next to the pet that I rejected, I do not see a button to approve or reject this pet
+      click_button("Approve", match: :first)
       expect(page).to_not have_button("Approve")
       expect(page).to_not have_button("Reject")
-      # And instead I see an indicator next to the pet that they have been rejected
       expect(page).to have_content("Pet Rejected")
+      # And instead I see an indicator next to the pet that they have been rejected
     end
   end
 end

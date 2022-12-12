@@ -5,12 +5,14 @@
 <h3><%= @application.address %></h3>
 <ul>
 <% @application_pets.each do |ap| %>
+  <div id=<%= ap.id %>>
   <%= ap.pet.name %>
-  <% if ap.approval_status.nil? %>
-    <%= button_to "Approve", "/application_pets/#{ap.id}", method: :patch, params: { :approval => true } %>
-    <%= button_to "Reject", "/application_pets/#{ap.id}", method: :patch, params: { :approval => false } %>
-  <% else %>
+  <% if ap.status.nil? %>
+    <%= button_to "Approve", "/application_pets/#{ap.id}", method: :patch, params: { :status => true } %>
+    <%= button_to "Reject", "/application_pets/#{ap.id}", method: :patch, params: { :status => false } %>
+  <% else !ap.status.nil? %>
     <p> <%= ap.approval_status %></p>
   <% end %>
+  </div>
 <% end %>
 </ul>

@@ -3,8 +3,13 @@ class ApplicationPet < ApplicationRecord
   belongs_to :pet
 
   def approval_status
-    # "Pet Approved" if self.approval
-    # "Pet Rejected" if !self.approval
+    if status == true
+      "Pet Approved"
+    elsif status == false
+      "Pet Rejected"
+    else
+      return
+    end
   end
   
 end
