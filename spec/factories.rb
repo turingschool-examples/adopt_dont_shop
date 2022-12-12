@@ -5,10 +5,16 @@ FactoryBot.define do
     city { Faker::Address.city }
     state { Faker::Address.state }
     zip_code { Faker::Number.number(digits: 5) }
-    description { Faker::Lorem.sentence }
-    status { :in_progress }
+    status { "In Progress" }
   end
 
+  factory :shelter do
+    name { Faker::Educator.campus }
+    city { Faker::Address.city }
+    foster_program { Faker::Boolean.boolean }
+    rank { Faker::Number.number(digits: 1) }
+  end
+  
   factory :pet do 
     name { Faker::FunnyName.name }
     age { Faker::Number.number(digits: 1) }
@@ -16,13 +22,7 @@ FactoryBot.define do
     adoptable { true }
     shelter
   end
-
-  factory :shelter do
-    name { Faker::Educator.campus }
-    city { Faker::Address.city }
-    foster_program { Faker::Boolean.boolean }
-  end
-
+  
   factory :veterinarian do
     name { Faker::Name.name }
     on_call { Faker::Boolean.boolean }
@@ -37,8 +37,8 @@ FactoryBot.define do
   end
 
   factory :application_pet do
-    pet
-    application
+    association :pet
+    association :application
   end
 end
 

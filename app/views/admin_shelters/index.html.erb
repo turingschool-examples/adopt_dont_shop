@@ -5,7 +5,9 @@
 <%end%>
 
 <h2>Shelters with Pending Applications<h2>
-<%= Shelter.pending_applications.map do |app| %>
-  <%= app.name %>
-<%end%>
+<ul>
+<% Shelter.pending_applications.each do |shelter| %>
+  <li><%= shelter %></li>
+<% end %>
+</ul>
   
