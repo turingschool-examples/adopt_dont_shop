@@ -95,7 +95,6 @@ RSpec.describe 'the pets index' do
     fill_in('City', with: "Astoria")
     fill_in('State', with: "OR")
     fill_in("Zipcode", with: "93475")
-    fill_in("Description", with: "I want a dog")
     click_on("Submit")
 
     application = Application.last
