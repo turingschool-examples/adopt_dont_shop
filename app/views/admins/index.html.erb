@@ -1,8 +1,7 @@
 
 <h2>Animal Shelters in Network:</h2>
-<% @shelters.each do |shelter| %>
-  <%= shelter.name %><br>
-<% end %>
+
+<%= render partial: 'shared/shelters' %>
 <br>
 <section id="pending">
 <h2>Shelters with Pending Applications:</h2>
