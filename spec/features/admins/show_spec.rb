@@ -115,18 +115,19 @@ RSpec.describe 'admin show page' do
     @app1.update(status: "Pending")
 
     visit "/admin/applications/#{@app1.id}"
-
+    expect(page).to have_content("Application Status: Pending")
+    
     within "#pet-#{@buster.id}" do
       click_button("Approve This Application")
     end
 
-    expect(@app1.status).to eq("Pending")
+    expect(page).to have_content("Application Status: Pending")
 
     within "#pet-#{@marlowe.id}" do
       click_button("Approve This Application")
     end
 
-    expect(@app1.status).to eq("Approved")
+    expect(page).to have_content("Application Status: Approved")
   end
 
 
