@@ -16,9 +16,16 @@ class ApplicationsController < ApplicationController
       flash[:notice] = "Application not created. Please complete all fields."
     end
   end
+  
+  def update
+    #specify description and status if this doesn't work
+    application = Application.find(params[:id])
+    application.update(status: "Pending", description: params[:description])
+      redirect_to "/applications/#{application.id}"
+  end
 
   private
   def application_params
-    params.permit(:name, :street_address, :city, :state, :zip_code, :reason, :status)
+    params.permit(:name, :street_address, :city, :state, :zip_code, :description, :status)
   end  
 end

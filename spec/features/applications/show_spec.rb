@@ -102,12 +102,27 @@ RSpec.describe 'the application show page' do
   it 'lets you add a pet to an application' do
     visit "/applications/#{@app1.id}"
 
-    fill_in 'Add a Pet to this Application', with: "#{@pet1.name}"
+    fill_in 'Add a Pet to this Application', with: "#{@pet3.name}"
     click_button 'Search Pets'
 
     click_button 'Adopt this pet'
         
-    expect("Interested in adopting:").to appear_before ('Noodle')
-    expect(@app1.pets).to eq([@pet1, @pet1, @pet2])
+    expect("Interested in adopting:").to appear_before ('Bumblebee')
+    expect(@app1.pets).to eq([@pet1, @pet2, @pet3])
+  end
+  
+  it 'can submit an application after adding pets' do
+    visit "/applications/#{@app1.id}"
+    
+    expect(page).to have_link('Noodle')
+    expect("Interested in adopting:").to appear_before('Noodle')
+    expect(page).to have_content('Why I would make a good owner:')
+    
+    
+    fill_in 'Why I would make a good owner:', with: "Love large dogs. Lots of energy to play with a dog."
+    
+    click_button('Submit Application')
+    
+    expect(page).to have_content("Love large dogs. Lots of energy to play with a dog.")
   end
 end
