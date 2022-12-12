@@ -56,4 +56,30 @@ RSpec.describe "ADMIN Application Show" do
       # And instead I see an indicator next to the pet that they have been rejected
     end
   end
+
+  describe "story 14" do
+    it "won't effect other application if a pet is approved or denied" do
+      @shelter = Shelter.create!(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
+      @pet_1 = @shelter.pets.create!(name: "Ziggy", age: 6, breed: 'Westy', adoptable: true, shelter_id: @shelter.id)
+      @pet_2 = @shelter.pets.create!(name: "Mizzy", age: 3, breed: 'Aussie', adoptable: true, shelter_id: @shelter.id)
+      @application_1 = Application.create!(name: 'Joe', street_address: "123 street lane", city: "denver", state: "co", zip_code: "12345",  description: "I like dogs", status: "Pending" )
+      @application_2 = Application.create!(name: 'Joe', street_address: "123 street lane", city: "denver", state: "co", zip_code: "12345",  description: "I like dogs", status: "Pending" )
+      ApplicationPet.create!(application_id: @application_1.id, pet_id: @pet_1.id)
+      ApplicationPet.create!(application_id: @application_2.id, pet_id: @pet_1.id)
+      visit "/admin/applications/#{@application_1.id}"
+
+      expect(page).to have_button("Reject", match: :first)
+      click_button("Reject", match: :first)
+
+      expect(page).to_not have_button("Approve")
+      expect(page).to_not have_button("Reject")
+      expect(page).to have_content("Pet Rejected")
+
+      visit "/admin/applications/#{@application_2.id}"
+
+      expect(page).to have_button("Reject", match: :first)
+      expect(page).to have_button("Approve", match: :first)
+    end
+
+  end
 end
