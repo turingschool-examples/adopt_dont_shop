@@ -20,12 +20,21 @@ RSpec.describe 'the admin application show page' do
                                 city: "Denver", 
                                 state: "CO", 
                                 zip_code: "80002", 
-                                status: "In Progress")
+                                status: "Pending")
   end
   
   it 'has a show page' do
     visit "admin/applications/#{@app1.id}"
-    save_and_open_page
+    # save_and_open_page
+    
+    expect(page).to_not have_content(@app2.name)
+    expect(page).to have_content(@app1.name)
+    expect(page).to have_content(@app1.street_address)
+    expect(page).to have_content(@app1.city)
+    expect(page).to have_content(@app1.state)
+    expect(page).to have_content(@app1.zip_code)
+    expect(page).to have_content(@app1.description)
+    expect(page).to have_content(@app1.status)
     # When I visit an admin application show page ('/admin/applications/:id')
     # For every pet that the application is for, I see a button to approve the application for that specific pet
     # When I click that button
