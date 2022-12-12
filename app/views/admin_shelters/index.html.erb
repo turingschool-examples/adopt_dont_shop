@@ -6,6 +6,6 @@
 
 <h2>Shelters with Pending Applications<h2>
 <%= Shelter.pending_applications.map do |app| %>
-  <%= app.name.chomp %>
+  <%= app.name %>
 <%end%>
   
