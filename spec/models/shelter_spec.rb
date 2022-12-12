@@ -3,6 +3,8 @@ require 'rails_helper'
 RSpec.describe Shelter, type: :model do
   describe 'relationships' do
     it { should have_many(:pets) }
+    it { should have_many(:application_pets).through(:pets)}
+    it { should have_many(:applications).through(:application_pets)}
   end
 
   describe 'validations' do
@@ -29,6 +31,7 @@ RSpec.describe Shelter, type: :model do
 
     @application_pet_1 = ApplicationPet.create!(application: @application_1, pet: @pet_1)
     @application_pet_2 = ApplicationPet.create!(application: @application_2, pet: @pet_3)
+    @application_pet_3 = ApplicationPet.create!(application: @application_3, pet: @pet_2)
   end
 
   describe 'class methods' do
@@ -52,8 +55,7 @@ RSpec.describe Shelter, type: :model do
 
     describe '#find_shelters_from_application' do
       it 'returns shelters for a given application' do
-        applications = [@application_1, @application_2]
-        expect(Shelter.find_shelters_from_application(applications)).to eq([@shelter_1, @shelter_3])
+        expect(Shelter.find_shelters_from_application).to eq([@shelter_1.name, @shelter_3.name])
       end
     end
   end
