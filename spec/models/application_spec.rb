@@ -34,14 +34,6 @@ RSpec.describe Application, type: :model do
   end
 
   describe 'instance methods' do
-    describe '.application_pets' do
-      it 'returns all application pets for a given application' do
-        expect(@application.application_pets.first.pet_id).to eq(@pet_4.id)
-        expect(@application.application_pets.last.pet_id).to eq(@pet_5.id)
-        expect(@application.application_pets[1].pet_id).to eq(@pet_5.id)
-      end
-    end
-
     describe '.approved?' do
       it 'changes the status of an application to approved if all pets are approved' do
         @application_pets = @application.application_pets

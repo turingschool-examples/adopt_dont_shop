@@ -13,7 +13,6 @@ class SheltersController < ApplicationController
   end
 
   def pets
-    binding.pry
     @shelter = Shelter.find(params[:shelter_id])
 
     if params[:sort] == 'alphabetical'
