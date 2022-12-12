@@ -42,6 +42,24 @@ RSpec.describe Shelter, type: :model do
       end
     end
 
+    describe '#shelters_with_pending_apps' do
+      before :each do 
+        @application = Application.create({
+          name: "Jeff",
+          street_address: "123 Main Street",
+          city: "Denver",
+          state: "CO",
+          zip_code: 22314,
+          reason: "Nice person"
+        })
+        @pet_4 = @application.pets.create(adoptable: true, age: 1, breed: 'sphynx', name: 'Lucille Bald', shelter_id: @shelter_1.id)
+        @pet_5 = @application.pets.create(adoptable: true, age: 5, breed: 'lab', name: 'Dogmin', shelter_id: @shelter_1.id)
+      end
+      it 'returns table of shelters with in-progress applications' do 
+        expect(Shelter.shelters_with_pending_apps).to eq([@shelter_1])
+      end
+    end
+
     describe '#order_by_name desc' do 
       it 'returns list of shelters in reverse alphabetical order' do 
         expect(Shelter.order_by_name_desc).to eq([@shelter_2, @shelter_3, @shelter_1])
