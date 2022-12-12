@@ -2,12 +2,20 @@
 <p>Name: <%= @application.name %></p>
 <p>Address: <%= @application.street_address %></p> 
 <p><%= @application.city %>, <%= @application.state %> <%= @application.zip_code %></p>
-<p>Why I Would Make A Good Pet Parent: <%= @application.description %></p>
+
+<% if @application.pets.count > 0 %>
+
 <p>Pets I want to Adopt: 
 <% @application.pets.each do |pet| %> 
   <%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
-  <%end%>
-</p>
+<%end%></p>
+
+<%= form_with url: "/applications/#{@application.id}", method: :patch, local: true do |form| %>
+<p> Why I would make a good owner for these pet(s): <%= form.text_field :description %>
+<%= form.submit "Submit my Application" %>
+
+<% end %></p>
+
 <p>Application Status: <%= @application.status %> </p>  
 <h3> Add a pet to this application </h3>
 <%= form_with url: "/applications/#{@application.id}", method: :post, local: true do |form| %>
@@ -21,12 +29,24 @@
     <%= form_with url: "/applications/#{@application.id}", method: :patch, local: true do |form| %>
       <%= form.hidden_field :pet, value: p.id %>
       <%= form.submit "Adopt" %>
-      <%= %>
       <% end %>
     <% end %>
-<% if @application.pets.count > 0  %>
+
+<% else %>
+
+<p>Application Status: <%= @application.status %> </p>  
+<h3> Add a pet to this application </h3>
+<%= form_with url: "/applications/#{@application.id}", method: :post, local: true do |form| %>
+<p> Pet Name: <%= form.text_field :search_for_pet %></p>
+<%= form.submit "Submit" %>
+<% end %>
+<br>
+<% @search_pet.each do |p| %>
+  <p> Pet Search Match: 
+    <%= link_to p.name, "/pets/#{p.id}" %>
     <%= form_with url: "/applications/#{@application.id}", method: :patch, local: true do |form| %>
-    <p>Why I would make a good owner: <%= form.text_field :description %></p>
-    <%= form.submit "Submit my Application" %>
+      <%= form.hidden_field :pet, value: p.id %>
+      <%= form.submit "Adopt" %>
     <% end %>
-    <% end %>
+  <% end %>
+<% end %>
