@@ -12,8 +12,6 @@ Pet(s) applied for:
   <% if @application_pets[index].approved == "Pending" %>
     <%= button_to "Approve", "/admin/applications/#{ @application.id }?pet_id=#{pet.id}" %>
     <%= button_to "Reject", "/admin/applications/#{ @application.id }?reject_pet_id=#{pet.id}" %>
-  <% elsif @application_pets[index].approved == "Approved" %>
-    <b><%= "#{@application_pets[index].approved}" %></b>
   <% else %>
     <b><%= "#{@application_pets[index].approved}" %></b>
   <% end %>
