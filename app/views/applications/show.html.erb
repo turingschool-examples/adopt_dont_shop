@@ -12,6 +12,7 @@
       <%= link_to pet.name, "/pets/#{pet.id}" %><br>
    <% end %>
 <% end %>
+<br>
 <% if @application.status == "In Progress" %>
    <%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |f| %>
       <%= f.label :search, "Add a Pet to this Application" %>
@@ -19,6 +20,7 @@
       <%= f.submit "Search Pets" %>
    <% end %>
 <% end %>
+<br>
 <% if (params[:search] != nil) && (@application.pet_search(params[:search]).count >= 1) %>
    <% @application.pet_search(params[:search]).each do |pet| %>
     <p>  
@@ -27,3 +29,14 @@
    </p>
    <% end %>
 <% end %>
+
+<% if @application.status == 'In Progress' && @application.has_pets? %>
+  <%= form_with url: "/applications/#{@application.id}", method: :patch, params: {status_change: "Pending"}, local: true do |f| %>
+    <%= f.label :description, "Why I would make a good owner:" %>
+    <%= f.text_field :description %>
+    <%= f.submit "Submit Application" %>
+  <% end %>
+<% end %>
+
+
+<!-- If pets on application !=nil, submit button and description will appear, submit will link to show page and change status from in progress to pending when clicked. Show page will list all pets user wants to adopt with no add pets section -->
