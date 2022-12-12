@@ -34,6 +34,5 @@ RSpec.describe 'the shelters index' do
     within('#pending') do 
       expect(page).to have_content(@shelter_1.name)
     end
-    save_and_open_page
   end
 end

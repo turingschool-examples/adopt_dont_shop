@@ -34,30 +34,30 @@ RSpec.describe Application, type: :model do
   end
 
   describe 'instance methods' do
-    describe '.approved?' do
+    describe '.check_approval!' do
       it 'changes the status of an application to approved if all pets are approved' do
         @application_pets = @application.application_pets
         expect(@application.status).to eq("In Progress")
-        @application.approved?
+        @application.check_approval!
         expect(@application.status).to eq("In Progress")
         @application_pets.first.update(pet_status: 'Approved')
-        @application.approved?
+        @application.check_approval!
         expect(@application.status).to eq("In Progress")
         @application_pets.last.update(pet_status: 'Approved')
-        @application.approved?
+        @application.check_approval!
         expect(@application.status).to eq("Approved")
       end
 
       it 'changes the status of an application to rejected if any pets are rejected' do
         @application_pets = @application.application_pets
         expect(@application.status).to eq("In Progress")
-        @application.approved?
+        @application.check_approval!
         expect(@application.status).to eq("In Progress")
         @application_pets.first.update(pet_status: 'Approved')
-        @application.approved?
+        @application.check_approval!
         expect(@application.status).to eq("In Progress")
         @application_pets.last.update(pet_status: 'Rejected')
-        @application.approved?
+        @application.check_approval!
         expect(@application.status).to eq("Rejected")
       end
     end

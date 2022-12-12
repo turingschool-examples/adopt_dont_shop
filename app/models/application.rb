@@ -5,11 +5,11 @@ class Application < ApplicationRecord
   validates :zip_code, length: { is: 5 }
   validates :zip_code, :numericality => { :greater_than_or_equal_to => 0}
 
-  def approved?
-    if application_pets.where(pet_status: 'Approved').count == application_pets.count
+  def check_approval!
+    if application_pets.where(pet_status: 'Approved') == application_pets
       update!(status: "Approved")
       pets.update_all(adoptable: false)
-    elsif application_pets.where(pet_status: 'Rejected').count > 0
+    elsif application_pets.where(pet_status: 'Rejected') != []
       update!(status: "Rejected")
     end
   end
