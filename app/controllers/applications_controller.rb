@@ -18,7 +18,6 @@ class ApplicationsController < ApplicationController
   end
   
   def update
-    #specify description and status if this doesn't work
     application = Application.find(params[:id])
     application.update(status: "Pending", description: params[:description])
       redirect_to "/applications/#{application.id}"

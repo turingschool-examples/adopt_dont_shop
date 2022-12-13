@@ -42,7 +42,6 @@ RSpec.describe 'the application show page' do
                                 shelter_id: @shelter.id)
   end
   
-
   it 'shows the application and all its attributes' do
     visit "/applications/#{@app1.id}"
     
@@ -134,7 +133,7 @@ RSpec.describe 'the application show page' do
   
   it 'will not have a submit button if the application has no pets' do
     visit "/applications/#{@app3.id}"
-    
+
     expect(page).to_not have_button('Submit Application')
   end
 end

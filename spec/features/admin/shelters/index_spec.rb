@@ -8,7 +8,7 @@ RSpec.describe 'admin shelter index' do
     shelter3 = Shelter.create(name: 'Fancy pets of Colorado', city: 'Denver, CO', foster_program: true, rank: 10)
 
     visit '/admin/shelters'
-    
+
     expect(shelter2.name).to appear_before(shelter3.name)
     expect(shelter3.name).to appear_before(shelter1.name)
   end
