@@ -14,7 +14,7 @@ RSpec.describe Shelter, type: :model do
   end
 
   before(:each) do
-    @shelter_1 = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
+    @shelter_1 = Shelter.create(name: 'Aurora shelter', street: "123 Main", city: 'Aurora', state: 'CO', zip: "12345", foster_program: false, rank: 9)
     @shelter_2 = Shelter.create(name: 'RGV animal shelter', city: 'Harlingen, TX', foster_program: false, rank: 5)
     @shelter_3 = Shelter.create(name: 'Fancy pets of Colorado', city: 'Denver, CO', foster_program: true, rank: 10)
 
@@ -85,6 +85,23 @@ RSpec.describe Shelter, type: :model do
       shelter_4 = Shelter.create!(foster_program: true, name: "Zoo Shelter", city: "Seattle", rank: 9)
 
       expect(Shelter.sort_reverse_alpha).to eq([shelter_4, @shelter_2, @shelter_3, @shelter_1])
+    end
+  end
+
+  describe '#find_name_and_address' do
+    it 'can return the name and address of a shelter' do
+
+      shelter = Shelter.find_name_and_address(@shelter_1.id)
+   
+      expect(shelter.name).to eq(@shelter_1.name)
+      expect(shelter.street).to eq(@shelter_1.street)
+      expect(shelter.city).to eq(@shelter_1.city)
+      expect(shelter.state).to eq(@shelter_1.state)
+      expect(shelter.zip).to eq(@shelter_1.zip)
+      
+      expect(shelter).to_not respond_to(:rank)
+      expect(shelter).to_not respond_to(:foster_program)
+      expect(@shelter_1).to respond_to(:rank)
     end
   end
 end
