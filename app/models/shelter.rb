@@ -4,10 +4,12 @@ class Shelter < ApplicationRecord
   validates :city, presence: true
 
   has_many :pets, dependent: :destroy
+  has_many :application_pets, through: :pets
+  has_many :applications, through: :application_pets
 
-  def self.order_by_recently_created
-    order(created_at: :desc)
-  end
+  scope :pending_applications, -> {joins(:applications).where("applications.status = 'Pending'").pluck(:name) }
+
+  scope :order_by_recently_created, -> {order(created_at: :desc)}
 
   def self.order_by_number_of_pets
     select("shelters.*, count(pets.id) AS pets_count")
@@ -32,7 +34,4 @@ class Shelter < ApplicationRecord
     adoptable_pets.where('age >= ?', age_filter)
   end
 
-  def self.pending_applications
-    Shelter.joins(pets: [:applications]).select("shelters.name").where("applications.status = 'pending'") 
-  end
 end

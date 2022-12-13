@@ -11,5 +11,4 @@ class ApplicationPet < ApplicationRecord
       return
     end
   end
-  
 end
