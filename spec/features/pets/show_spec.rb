@@ -14,7 +14,7 @@ RSpec.describe 'the shelter show' do
     expect(page).to have_content(pet.shelter_name)
   end
 
-  it "allows the user to delete a pet" do
+  it 'allows the user to delete a pet' do
     shelter = Shelter.create(name: 'Mystery Building', city: 'Irvine CA', foster_program: false, rank: 9)
     pet = Pet.create(name: 'Scrappy', age: 1, breed: 'Great Dane', adoptable: true, shelter_id: shelter.id)
 

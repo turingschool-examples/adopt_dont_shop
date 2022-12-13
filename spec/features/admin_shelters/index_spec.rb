@@ -10,39 +10,42 @@ RSpec.describe 'the shelters index' do
     @shelter_3.pets.create(name: 'Lucille Bald', breed: 'sphynx', age: 8, adoptable: true)
 
     @application = Application.create({
-      name: "Jeff",
-      street_address: "123 Main Street",
-      city: "Denver",
-      state: "CO",
-      zip_code: 22314,
-      reason: "Nice person"
-    })
+                                        name: 'Jeff',
+                                        street_address: '123 Main Street',
+                                        city: 'Denver',
+                                        state: 'CO',
+                                        zip_code: 22_314,
+                                        reason: 'Nice person'
+                                      })
 
-    @pet_4 = @application.pets.create(adoptable: true, age: 1, breed: 'sphynx', name: 'Lucille Bald', shelter_id: @shelter_1.id)
+    @pet_4 = @application.pets.create(adoptable: true, age: 1, breed: 'sphynx', name: 'Lucille Bald',
+                                      shelter_id: @shelter_1.id)
     @pet_5 = @application.pets.create(adoptable: true, age: 5, breed: 'lab', name: 'Dogmin', shelter_id: @shelter_1.id)
 
-    @pet_6 = @application.pets.create(adoptable: true, age: 4, breed: 'sharpe', name: 'Diogee', shelter_id: @shelter_2.id)
-    @pet_7 = @application.pets.create(adoptable: true, age: 4, breed: 'poodle', name: 'Cosmo', shelter_id: @shelter_3.id)
+    @pet_6 = @application.pets.create(adoptable: true, age: 4, breed: 'sharpe', name: 'Diogee',
+                                      shelter_id: @shelter_2.id)
+    @pet_7 = @application.pets.create(adoptable: true, age: 4, breed: 'poodle', name: 'Cosmo',
+                                      shelter_id: @shelter_3.id)
   end
 
-  it 'as an admin, shelters are listed in reverse alphabetical order by name' do 
+  it 'as an admin, shelters are listed in reverse alphabetical order by name' do
     visit '/admin/shelters'
     expect(@shelter_2.name).to appear_before(@shelter_3.name)
     expect(@shelter_3.name).to appear_before(@shelter_1.name)
   end
 
-  it 'displays list of shelters with pending applications' do 
+  it 'displays list of shelters with pending applications' do
     visit '/admin/shelters'
-    expect(page).to have_content("Shelters with Pending Applications:")
-    within('#pending') do 
+    expect(page).to have_content('Shelters with Pending Applications:')
+    within('#pending') do
       expect(page).to have_content(@shelter_1.name)
     end
   end
 
-  it 'displays list of shelters with pending applications in alphabetical order' do 
+  it 'displays list of shelters with pending applications in alphabetical order' do
     visit '/admin/shelters'
-    expect(page).to have_content("Shelters with Pending Applications:")
-    within('#pending') do 
+    expect(page).to have_content('Shelters with Pending Applications:')
+    within('#pending') do
       expect(@shelter_1.name).to appear_before(@shelter_3.name)
       expect(@shelter_3.name).to appear_before(@shelter_2.name)
     end

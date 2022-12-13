@@ -26,7 +26,7 @@ RSpec.describe Shelter, type: :model do
   describe 'class methods' do
     describe '#search' do
       it 'returns partial matches' do
-        expect(Shelter.search("Fancy")).to eq([@shelter_3])
+        expect(Shelter.search('Fancy')).to eq([@shelter_3])
       end
     end
 
@@ -43,31 +43,33 @@ RSpec.describe Shelter, type: :model do
     end
 
     describe '#shelters_with_pending_apps' do
-      before :each do 
+      before :each do
         @application = Application.create({
-          name: "Jeff",
-          street_address: "123 Main Street",
-          city: "Denver",
-          state: "CO",
-          zip_code: 22314,
-          reason: "Nice person"
-        })
-        @pet_4 = @application.pets.create(adoptable: true, age: 1, breed: 'sphynx', name: 'Lucille Bald', shelter_id: @shelter_1.id)
-        @pet_5 = @application.pets.create(adoptable: true, age: 5, breed: 'lab', name: 'Dogmin', shelter_id: @shelter_1.id)
+                                            name: 'Jeff',
+                                            street_address: '123 Main Street',
+                                            city: 'Denver',
+                                            state: 'CO',
+                                            zip_code: 22_314,
+                                            reason: 'Nice person'
+                                          })
+        @pet_4 = @application.pets.create(adoptable: true, age: 1, breed: 'sphynx', name: 'Lucille Bald',
+                                          shelter_id: @shelter_1.id)
+        @pet_5 = @application.pets.create(adoptable: true, age: 5, breed: 'lab', name: 'Dogmin',
+                                          shelter_id: @shelter_1.id)
       end
-      it 'returns table of shelters with in-progress applications' do 
+      it 'returns table of shelters with in-progress applications' do
         expect(Shelter.shelters_with_pending_apps).to eq([@shelter_1])
       end
     end
 
-    describe '#order_by_name desc' do 
-      it 'returns list of shelters in reverse alphabetical order' do 
+    describe '#order_by_name desc' do
+      it 'returns list of shelters in reverse alphabetical order' do
         expect(Shelter.order_by_name_desc).to eq([@shelter_2, @shelter_3, @shelter_1])
       end
     end
 
-    describe '#order_by_name asc' do 
-      it 'returns list of shelters in alphabetical order' do 
+    describe '#order_by_name asc' do
+      it 'returns list of shelters in alphabetical order' do
         expect(Shelter.order_by_name_asc).to eq([@shelter_1, @shelter_3, @shelter_2])
       end
     end
@@ -106,7 +108,7 @@ RSpec.describe Shelter, type: :model do
 
     describe '.average_age' do 
       it 'returns the average age of the pets at the given shelter' do
-        expect(@shelter_1.average_age).to eq(4)
+        expect(@shelter_1.average_age).to eq 4
       end
     end
   end

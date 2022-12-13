@@ -11,6 +11,7 @@ class ApplicationsController < ApplicationController
     if @application.save
       redirect_to "/applications/#{@application.id}"
     else
+      flash[:notice] = @application.errors.full_messages
       render :new
     end
   end
@@ -21,13 +22,14 @@ class ApplicationsController < ApplicationController
 
   def update
     application = Application.find(params[:application_id])
-    application.update!(application_params)
-    application.update!(status: "Pending") if params[:reason]
-    application.save!
+    application.update(application_params)
+    application.update(status: 'Pending') if params[:reason]
+    application.save
     redirect_to "/applications/#{application.id}"
   end
 
   private
+
   def application_params
     params.permit(:name, :street_address, :city, :state, :zip_code, :reason, :status)
   end
