@@ -1,0 +1,8 @@
+<%= form_with url: path, method: method do |f| %>
+  <% @entries.each do |entry| %>
+    <%= f.label entry, entry %>
+    <br>
+    <%= f.text_field entry %>
+  <% end %>
+  <%= f.submit button_text %>
+<% end %>
