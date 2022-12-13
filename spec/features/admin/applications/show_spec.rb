@@ -7,7 +7,7 @@ RSpec.describe 'the admin application show page' do
                                 state: "CO", 
                                 zip_code: "80000", 
                                 description: "Love mix breeds. Lots of energy to play with a dog", 
-                                status: "In Progress")
+                                status: "Pending")
     @app2 = Application.create!(name: "Alastair", 
                                 street_address: "Fictional St", 
                                 city: "Golden", 
@@ -20,14 +20,34 @@ RSpec.describe 'the admin application show page' do
                                 city: "Denver", 
                                 state: "CO", 
                                 zip_code: "80002", 
-                                status: "Pending")
+                                status: "In Progress")
+    @shelter = Shelter.create!(name: 'Aurora shelter', 
+                              city: 'Aurora, CO', 
+                              foster_program: false, 
+                              rank: 9)
+    @pet1 = @app1.pets.create!(name: 'Noodle', 
+                              age: 2, 
+                              breed: 'Border Collie', 
+                              adoptable: true, 
+                              shelter_id: @shelter.id)
+    @pet2 = @app1.pets.create!(name: 'Hercules', 
+                              age: 2, 
+                              breed: 'American Akita', 
+                              adoptable: true, 
+                              shelter_id: @shelter.id)
+    @pet3 = @app2.pets.create!(name: 'Bumblebee', 
+                              age: 1, 
+                              breed: 'Welsh Corgi', 
+                              adoptable: true,
+                              shelter_id: @shelter.id)
   end
   
   it 'has a show page' do
     visit "admin/applications/#{@app1.id}"
-    # save_and_open_page
     
     expect(page).to_not have_content(@app2.name)
+    expect(page).to_not have_content(@pet3.name)
+    
     expect(page).to have_content(@app1.name)
     expect(page).to have_content(@app1.street_address)
     expect(page).to have_content(@app1.city)
@@ -35,11 +55,26 @@ RSpec.describe 'the admin application show page' do
     expect(page).to have_content(@app1.zip_code)
     expect(page).to have_content(@app1.description)
     expect(page).to have_content(@app1.status)
+    expect(page).to have_content(@pet1.name)
+  end
+  
+  xit 'every pet listed has an approve button' do
+    visit "admin/applications/#{@app1.id}"
+    # save_and_open_page
+    expect(page).to have_content('123')
+    
+  end
+  
+  xit 'THIS IS HERE TO OPEN DIFFERENT PAGES' do
+    # visit "admin/applications/#{@app1.id}"
+    visit "admin/applications/#{@app2.id}"
+    visit "admin/applications/#{@app3.id}"
+    # save_and_open_page
+  end
     # When I visit an admin application show page ('/admin/applications/:id')
     # For every pet that the application is for, I see a button to approve the application for that specific pet
     # When I click that button
     # Then I'm taken back to the admin application show page
     # And next to the pet that I approved, I do not see a button to approve this pet
     # And instead I see an indicator next to the pet that they have been approved
-  end
 end

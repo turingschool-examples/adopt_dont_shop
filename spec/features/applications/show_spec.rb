@@ -42,7 +42,6 @@ RSpec.describe 'the application show page' do
                                 shelter_id: @shelter.id)
   end
   
-
   it 'shows the application and all its attributes' do
     visit "/applications/#{@app1.id}"
     
