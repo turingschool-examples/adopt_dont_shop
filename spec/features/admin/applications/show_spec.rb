@@ -29,5 +29,18 @@ RSpec.describe 'admin applications show page' do
 
     click_button "Approve"
 
+    expect(page).to_not have_button("Approve")
+    expect(page).to_not have_button("Reject")
+    expect(page).to have_content("This pet has been approved")
+  end
+
+  it 'When the pet is rejected, it removes the buttons and states the pet is rejected' do
+    visit "/admin/applications/#{@application.id}" 
+
+    click_button "Approve"
+
+    expect(page).to_not have_button("Approve")
+    expect(page).to_not have_button("Reject")
+    expect(page).to have_content("This pet has been approved")
   end
 end
