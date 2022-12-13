@@ -161,4 +161,21 @@ RSpec.describe 'admin application show' do
     expect(current_path).to eq("/admin/applications/#{application1.id}")
     expect(page).to have_content("Application Status: Rejected")
   end
+
+  it 'shows pets as unadoptable on pet show page once they have an app that is approved' do
+    shelter = Shelter.create(name: 'Mystery Building', city: 'Irvine CA', foster_program: false, rank: 9)
+    pet1 = Pet.create(name: 'Scooby', age: 2, breed: 'Great Dane', adoptable: true, shelter_id: shelter.id)
+    application1 = pet1.applications.create!(name: 'John Doe', street: '123 N Washington Ave.', city: 'Denver', state: 'Colorado', zip: '91234', applicant_argument: 'caring and loving', app_status: "Pending")
+
+    visit "/pets/#{pet1.id}"
+    expect(page).to have_content("true")
+
+
+    visit "/admin/applications/#{application1.id}"
+    click_on("Approve")
+
+    visit "/pets/#{pet1.id}"
+
+    expect(page).to have_content("false")
+  end
 end
