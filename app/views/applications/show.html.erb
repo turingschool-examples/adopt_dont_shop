@@ -1,8 +1,4 @@
-<h1> Name: <%= @application.name %> </h1>
-<p>
-Address: <%= "#{@application.street_address}, #{@application.city} #{@application.state}, #{@application.zip_code}" %><br>
-Why I Would Make A Good Home: <%= @application.reason %><br>
-Status: <%= @application.status %><br>
+<%= render partial: '/shared/application_information' %>
 <% unless @application.pets == [] %>
   Pets inquired about:
   <% @application.pets.each do |pet| %>
