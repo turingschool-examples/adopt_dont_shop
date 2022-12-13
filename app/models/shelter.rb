@@ -22,11 +22,12 @@ class Shelter < ApplicationRecord
   end
 
   def self.order_by_name_asc 
-    Shelter.select('*').order(:name)
+    select('*').order(:name)
   end
 
   def self.shelters_with_pending_apps
-    Shelter.select('shelters.*').distinct.joins(pets: :applications).where(applications:{status: 'In Progress'})
+    select('shelters.*').distinct.joins(pets: :applications).where(applications:{status: 'In Progress'}).uniq
+    # come back to this later
   end
 
   def self.find_shelter_raw(shelter_id)

@@ -47,4 +47,13 @@ RSpec.describe 'the shelters index' do
       expect(@shelter_3.name).to appear_before(@shelter_2.name)
     end
   end
+
+  it 'displays list of shelters with each one linking to that shelters show page' do 
+    visit '/admin/shelters'
+    click_link(@shelter_1.name)
+    expect(current_path).to eq("/admin/shelters/#{@shelter_1.id}")
+    visit '/admin/shelters'
+    click_link(@shelter_2.name)
+    expect(current_path).to eq("/admin/shelters/#{@shelter_2.id}")
+  end
 end
