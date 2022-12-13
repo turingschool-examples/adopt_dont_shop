@@ -16,5 +16,14 @@ RSpec.describe 'admin shelters index' do
       expect(@shelter_2.name).to appear_before(@shelter_3.name)
       expect(@shelter_3.name).to appear_before(@shelter_1.name)
     end
+
+    it "I see a section for 'Shelters with Pending Applications, see names of Shelters with pending applications" do
+      visit "/admin/shelters"
+
+      expect(page).to have_content("Shelters with Pending Applications")
+      # expect()
+    end
   end
+
+ 
 end
