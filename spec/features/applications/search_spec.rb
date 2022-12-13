@@ -14,9 +14,11 @@ RSpec.describe 'Search' do
       fill_in :search, with: "Ba"
       click_button("Search")
   
-      expect(page).to have_content(pet_1.name)
-      expect(page).to have_content(pet_2.name)
-      expect(page).to_not have_content(pet_3.name)
+      within "#Search_Pets" do
+        expect(page).to have_content(pet_1.name)
+        expect(page).to have_content(pet_2.name)
+        expect(page).to_not have_content(pet_3.name)
+      end
     end 
 
     it 'can search for case insensitive matches for pet names' do 
@@ -30,10 +32,12 @@ RSpec.describe 'Search' do
 
       fill_in :search, with: "ba"
       click_button("Search")
-  
-      expect(page).to have_content(pet_1.name)
-      expect(page).to have_content(pet_2.name)
-      expect(page).to_not have_content(pet_3.name)
+
+      within "#Search_Pets" do
+        expect(page).to have_content(pet_1.name)
+        expect(page).to have_content(pet_2.name)
+        expect(page).to_not have_content(pet_3.name)
+      end
     end 
   end 
 end 
