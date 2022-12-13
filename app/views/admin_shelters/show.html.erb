@@ -23,3 +23,9 @@ Location: <%= @shelter.city %>
   </tr>
 </table>
 </div>
+<h2>Action Required:</h2>
+<div id="action_required">
+  <% @shelter.pets_with_pending_apps.each do |pet| %>
+  <%= pet.name %>
+  <% end %>
+</div>

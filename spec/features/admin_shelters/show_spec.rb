@@ -52,4 +52,13 @@ RSpec.describe 'Admin Shelter Show Page' do
       expect(page).to have_content("Number of pets adopted: 2")
     end
   end
+
+  it 'displays a list of applications that require attention' do 
+    visit "/admin/shelters/#{@shelter_1.id}"
+    within('#action_required') do 
+      expect(page).to have_content('Lucille Bald')
+      expect(page).to have_content('Dogmin')
+      save_and_open_page
+    end
+  end
 end
