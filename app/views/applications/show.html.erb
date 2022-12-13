@@ -23,8 +23,8 @@
         <%= label :text, :pets_list, 'Selected Pets: ' %><br>
         <% @selected_pets.each do |pet| %>
           <pre><h3>   <%= link_to "#{pet.name}", "pets/#{pet.id}" %>
-          <% if current_page?("/admin/applications/#{@application.id}") %>
-            <%= button_to "Approve", "/admin/applications/#{@application.id}", value: "approved" %></h3></pre>
+          <% if request.path_info.include?("admin") %>
+            <%= render partial: "buttons_approve_reject" %></h3></pre>
           <% end %>
         <% end %>
       </h3>
