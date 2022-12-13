@@ -8,3 +8,11 @@
 </p>
 
 <h2> Shelters with Pending Applications </h2>
+<p><% @shelters_pending.each do |shelter|%>
+<p><div id="pending_<%= shelter.id %>">
+
+<%= shelter.name %>
+
+<br>
+<% end %>
+</div></p>
