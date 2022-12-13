@@ -8,6 +8,12 @@ class Application < ApplicationRecord
     PetApplication.where(pet_id: pet_id, application_id: self.id).first.status
   end
 
+  def find_app_approved(pet_id)
+    app = Application.joins(:pets).where(pets: {id: pet_id }).pluck(:status)
+    app.include?("Approved")
+    
+  end
+
   def status_message(pet_id)
     pa = find_pa_status(pet_id)
     if pa == 'true'
