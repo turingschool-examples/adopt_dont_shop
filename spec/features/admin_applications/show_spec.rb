@@ -51,7 +51,7 @@ RSpec.describe 'AdminApplication show page' do
       expect(page).to have_button('Approve')
     end
 
-    it 'can approve application when the button is pressed' do
+    it 'can approve adoption when the button is pressed' do
       seed_shelters
       seed_pets
       seed_applications
@@ -70,6 +70,8 @@ RSpec.describe 'AdminApplication show page' do
         click_button('Approve')
       end
       expect(has_current_path?("/admin/applications/#{@application_1.id}?adopt=#{@pet_1.id}")).to be(true)
+      expect(page).to_not have_button('Approve')
+      expect(page).to have_content(@pet_1.name)
     end
   end
 end

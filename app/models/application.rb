@@ -16,4 +16,16 @@ class Application < ApplicationRecord
     !pets.empty?
   end
 
+  def approved?
+    if ApplicationPet.where(application_id: id).where(adopted: true).any?
+      true
+    else
+      false
+    end
+  end
+
+  def approved_pet
+    pet = ApplicationPet.where(application_id: id).where(adopted: true).first.pet_id
+    Pet.find(pet)
+  end
 end

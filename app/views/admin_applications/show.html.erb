@@ -3,11 +3,14 @@
 <p>Address: <%= @application.full_address %></p>
 <p>Description: <%= @application.description %></p>
 
-<p>Pets applying for: </p>
-<% @pet_id_pairs.each do |pet| %>
-  <section id='pet-<%= pet[0] %>'>
-    <p><%= link_to pet[1], "/pets/#{pet[0]}" %> <%= button_to 'Approve', "/admin/applications/#{@application.id}?adopt=#{pet[0]}", method: :patch %></p>
-  </section>
+<% if @application.approved? == false %>
+  <p>Pets applying for: </p>
+  <% @pet_id_pairs.each do |pet| %>
+    <section id='pet-<%= pet[0] %>'>
+      <p><%= link_to pet[1], "/pets/#{pet[0]}" %> <%= button_to 'Approve', "/admin/applications/#{@application.id}?adopt=#{pet[0]}", :method => :patch %></p>
+    </section>
+  <% end %>
+<% else @application.approved_pet.name %>
 <% end %>
 
 <p>Status: <%= @application.status %></p>
