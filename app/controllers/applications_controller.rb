@@ -20,6 +20,8 @@ class ApplicationsController < ApplicationController
     @selected_pets = @application.pets.all unless @application.pets.all.nil?
     @search_pets = []
     @search_pets = Pet.search(params[:search]) if params[:search].present?
+    @status = params[:approve_reject]
+    # binding.pry
   end
 
   def update
