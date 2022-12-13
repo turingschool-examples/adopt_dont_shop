@@ -6,11 +6,11 @@
     <%= pet_app.pet.name %>
 
     <% if pet_app.status %>
-        <% if pet_app.status == 'true' %>
-          <%= 'Application Approved!' %>
-        <% else %>
-          <%= 'Application Rejected' %>  
-        <% end %>
+      <% if pet_app.status == 'true' %>
+        <%= 'Application Approved!' %>
+      <% else %>
+        <%= 'Application Rejected' %>  
+      <% end %>
     <% else %>      
       <%= render partial: 'pet_approval', locals: { pet_id: pet_app.pet.id } %>
     <% end %>
