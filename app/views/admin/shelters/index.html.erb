@@ -1,13 +1,16 @@
 <h1>Shelters</h1>
+
+<div id="all">
 <% @shelters.each do |shelter| %>
-<p><%= shelter.name %></p>
+<p><%= link_to shelter.name, "/admin/shelters/#{shelter.id}" %></p>
 <% end %>
+</div>
 
 <div id="pending">
 <h3>Shelter's with Pending Applications:<h3>
 <ul>
 <% @shelters_pending.each do |shelter| %>
-  <li><p><%= shelter.name %></p>
+  <li><p><%= link_to shelter.name, "/admin/shelters/#{shelter.id}" %></p>
 <% end %>
 </div>
 </ul>
