@@ -18,9 +18,9 @@ In this project, students will build upon the code in this repo to create a Pet 
 
 ## Project Phases
 
-1. [Set Up](./doc/setup)
-1. [User Stories](./doc/user_stories)
-1. [Evaluation](./doc/evaluation)
+1. [Set Up](./doc/setup.md)
+1. [User Stories](./doc/user_stories.md)
+1. [Evaluation](./doc/evaluation.md)
 
 ## Check In
 
