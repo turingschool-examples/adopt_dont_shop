@@ -46,8 +46,6 @@ RSpec.describe 'New Application' do
     click_button 'Submit'
 
     expect(current_path).to eq('/applications/new')
-
-    save_and_open_page
     expect(page).to have_content("Name can't be blank")
     expect(page).to have_content("Zip code can't be blank")
   end
