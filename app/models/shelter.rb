@@ -11,23 +11,22 @@ class Shelter < ApplicationRecord
   end
 
   def self.order_by_number_of_pets
-    select("shelters.*, count(pets.id) AS pets_count")
-      .joins("LEFT OUTER JOIN pets ON pets.shelter_id = shelters.id")
-      .group("shelters.id")
-      .order("pets_count DESC")
+    select('shelters.*, count(pets.id) AS pets_count')
+      .joins('LEFT OUTER JOIN pets ON pets.shelter_id = shelters.id')
+      .group('shelters.id')
+      .order('pets_count DESC')
   end
 
-  def self.order_by_name_desc 
-    find_by_sql("SELECT * FROM shelters ORDER BY name DESC")
+  def self.order_by_name_desc
+    find_by_sql('SELECT * FROM shelters ORDER BY name DESC')
   end
 
-  def self.order_by_name_asc 
-    select('*').order(:name)
+  def self.order_by_name_asc
+    Shelter.order(:name)
   end
 
   def self.shelters_with_pending_apps
-    select('shelters.*').distinct.joins(pets: :applications).where(applications:{status: 'In Progress'}).uniq
-    # come back to this later
+    Shelter.select('shelters.*').distinct.joins(pets: :applications).where(applications: { status: 'In Progress' })
   end
 
   def self.find_shelter_raw(shelter_id)

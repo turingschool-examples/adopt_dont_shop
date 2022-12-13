@@ -1,10 +1,10 @@
 class PetsController < ApplicationController
   def index
-    if params[:search].present?
-      @pets = Pet.search(params[:search])
-    else
-      @pets = Pet.adoptable
-    end
+    @pets = if params[:search].present?
+              Pet.search(params[:search])
+            else
+              Pet.adoptable
+            end
   end
 
   def show

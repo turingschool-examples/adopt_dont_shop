@@ -21,7 +21,7 @@ RSpec.describe Pet, type: :model do
   describe 'class methods' do
     describe '#search' do
       it 'returns partial matches' do
-        expect(Pet.search("Claw")).to eq([@pet_2])
+        expect(Pet.search('Claw')).to eq([@pet_2])
       end
     end
 
@@ -35,16 +35,18 @@ RSpec.describe Pet, type: :model do
   describe 'instance methods' do
     before :each do
       @application = Application.create({
-        name: "Jeff",
-        street_address: "123 Main Street",
-        city: "Denver",
-        state: "CO",
-        zip_code: 22314,
-        reason: "Nice person"
-      })
+                                          name: 'Jeff',
+                                          street_address: '123 Main Street',
+                                          city: 'Denver',
+                                          state: 'CO',
+                                          zip_code: 22_314,
+                                          reason: 'Nice person'
+                                        })
 
-      @pet_4 = @application.pets.create(adoptable: true, age: 1, breed: 'sphynx', name: 'Lucille Bald', shelter_id: @shelter_1.id)
-      @pet_5 = @application.pets.create(adoptable: true, age: 5, breed: 'lab', name: 'Dogmin', shelter_id: @shelter_1.id)
+      @pet_4 = @application.pets.create(adoptable: true, age: 1, breed: 'sphynx', name: 'Lucille Bald',
+                                        shelter_id: @shelter_1.id)
+      @pet_5 = @application.pets.create(adoptable: true, age: 5, breed: 'lab', name: 'Dogmin',
+                                        shelter_id: @shelter_1.id)
     end
 
     describe '.shelter_name' do
@@ -55,12 +57,12 @@ RSpec.describe Pet, type: :model do
 
     describe '.application_status' do
       it 'returns a boolean depending on the status of an application pet' do
-        expect(@pet_4.application_status(@application.id)).to eq("Pending")
+        expect(@pet_4.application_status(@application.id)).to eq('Pending')
 
         app_pet = ApplicationPet.find_application_pet(@application.id, @pet_4.id)
-        app_pet.update(pet_status: "Approved")
+        app_pet.update(pet_status: 'Approved')
 
-        expect(@pet_4.application_status(@application.id)).to eq("Approved")
+        expect(@pet_4.application_status(@application.id)).to eq('Approved')
       end
     end
   end
