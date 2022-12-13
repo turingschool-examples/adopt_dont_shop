@@ -6,10 +6,15 @@ class Admin::ApplicationsController < ApplicationController
     @pets.each do |pet|
       @application_pets << ApplicationPet.find_by_pet_and_app(pet.id, params[:id])
     end
+    
     app_pets_status = @application_pets.pluck(:status).uniq
+
     if app_pets_status.length == 1 && app_pets_status.first == "Approved"
       @application.update(app_status: "Approved")
+    elsif !app_pets_status.include?("Pending")
+      @application.update(app_status: "Rejected")
     end
+
     if params[:pet_id]
       @application_pet = ApplicationPet.find(params[:app_pet_id])
       @application_pet.approve
