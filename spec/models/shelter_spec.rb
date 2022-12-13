@@ -16,26 +16,26 @@ RSpec.describe Shelter, type: :model do
     @shelter_1 = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
     @shelter_2 = Shelter.create(name: 'RGV animal shelter', city: 'Harlingen, TX', foster_program: false, rank: 5)
     @shelter_3 = Shelter.create(name: 'Fancy pets of Colorado', city: 'Denver, CO', foster_program: true, rank: 10)
-
+    
     @pet_1 = @shelter_1.pets.create(name: 'Mr. Pirate', breed: 'tuxedo shorthair', age: 5, adoptable: false)
     @pet_2 = @shelter_1.pets.create(name: 'Clawdia', breed: 'shorthair', age: 3, adoptable: true)
     @pet_3 = @shelter_3.pets.create(name: 'Lucille Bald', breed: 'sphynx', age: 8, adoptable: true)
     @pet_4 = @shelter_1.pets.create(name: 'Ann', breed: 'ragdoll', age: 5, adoptable: true)
   end
-
+  
   describe 'class methods' do
     describe '#search' do
       it 'returns partial matches' do
         expect(Shelter.search("Fancy")).to eq([@shelter_3])
       end
     end
-
+    
     describe '#order_by_recently_created' do
       it 'returns shelters with the most recently created first' do
         expect(Shelter.order_by_recently_created).to eq([@shelter_3, @shelter_2, @shelter_1])
       end
     end
-
+    
     describe '#order_by_number_of_pets' do
       it 'orders the shelters by number of pets they have, descending' do
         expect(Shelter.order_by_number_of_pets).to eq([@shelter_1, @shelter_3, @shelter_2])
@@ -66,6 +66,15 @@ RSpec.describe Shelter, type: :model do
       it 'returns the number of pets at the given shelter' do
         expect(@shelter_1.pet_count).to eq(3)
       end
+    end
+
+    describe 'self.pending_applications' do
+      @application_1 = Application.create!(name: 'Joe', street_address: "123 street lane", city: "denver", state: "co", zip_code: "80218", description: "I like dogs", status: "Pending" )
+      @application_2 = Application.create!(name: 'Bob', street_address: "123 street lane", city: "denver", state: "co", zip_code: "80218", description: "I like dogs", status: "In Progress" )
+      @application_pet = ApplicationPet.create!(application_id: 1, pet_id: 1)
+      @application_pet2 = ApplicationPet.create!(application_id: 2, pet_id: 3)
+
+      expect(Shelter.pending_applications).to eq ["Aurora shelter"]
     end
   end
 end

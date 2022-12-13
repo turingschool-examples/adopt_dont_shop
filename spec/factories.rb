@@ -13,6 +13,9 @@ FactoryBot.define do
     city { Faker::Address.city }
     foster_program { Faker::Boolean.boolean }
     rank { Faker::Number.number(digits: 1) }
+    trait :with_pets do
+      pets { build_list :pet, 3 }
+    end
   end
   
   factory :pet do 

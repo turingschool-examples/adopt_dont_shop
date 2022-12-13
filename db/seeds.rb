@@ -14,6 +14,4 @@
 # pet_2 = Pet.create(adoptable: true, age: 3, breed: 'doberman', name: 'Lobster', shelter_id: shelter.id)
 # pet_3 = Pet.create(adoptable: true, age: 4, breed: 'doberman', name: 'Kona', shelter_id: shelter.id)
  
-2.times{FactoryBot.create(:application)}
-3.times{FactoryBot.create(:shelter)}
-10.times{FactoryBot.create(:pet)}
+3.times{FactoryBot.create(:shelter, :with_pets)}

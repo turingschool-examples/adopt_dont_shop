@@ -48,15 +48,18 @@ RSpec.describe "New Application" do
     end
   end
 
-  describe "forms required to submit" do
+
+  describe "errors" do
+    let!(:invalid_application) {build_stubbed(:application, zip_code: "Denver")}
+
     it "will redirect back to the forms page if not completely filled out" do
       # When I visit the new application page
       visit "/applications/new"
       # And I fail to fill in any of the form fields
-      fill_in("Name", with: "Joe")
-      fill_in("Street address", with: "123 Apple St")
-      fill_in("City", with: "Denver")
-
+      fill_in("Name", with: invalid_application.name)
+      fill_in("Street address", with: invalid_application.street_address)
+      fill_in("City", with: invalid_application.city)
+      
       click_button("Submit")
       expect(current_path).to eq("/applications/new")
       # And I click submit
@@ -64,5 +67,21 @@ RSpec.describe "New Application" do
       # And I see a message that I must fill in those fields.
       expect(page).to have_content("Error")
     end
+    
+    it "form filled out with invalid data" do
+      visit "/applications/new"
+      
+      fill_in("Name", with: invalid_application.name)
+      fill_in("Street address", with: invalid_application.street_address)
+      fill_in("City", with: invalid_application.city)
+      fill_in("State", with: invalid_application.state)
+      fill_in("Zip code", with: invalid_application.zip_code)
+      
+      click_button("Submit")
+
+      expect(current_path).to eq("/applications/new")
+      expect(page).to have_content("Error")
+    end
   end
+
 end
