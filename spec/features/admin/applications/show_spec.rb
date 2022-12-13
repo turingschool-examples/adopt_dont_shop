@@ -42,7 +42,7 @@ RSpec.describe 'the admin application show page' do
                               shelter_id: @shelter.id)
   end
   
-  it 'has a show page' do
+  it 'exists and shows application information' do
     visit "admin/applications/#{@app1.id}"
     
     expect(page).to_not have_content(@app2.name)
@@ -62,7 +62,8 @@ RSpec.describe 'the admin application show page' do
   it 'every pet listed has an approve button' do
     visit "admin/applications/#{@app1.id}"
     # save_and_open_page
-    expect(page).to have_button("Approve")
+    expect(page).to have_button("Approve #{@pet1.name}'s Adoption")
+    expect(page).to have_button("Approve #{@pet2.name}'s Adoption")
     
   end
   # √ When I visit an admin application show page ('/admin/applications/:id')
