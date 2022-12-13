@@ -18,7 +18,7 @@ For each story:
 
 In your presentation, please also include any questions or areas of your code where you would like to receive instructor feedback.
 
-____________________________________________________________________________________________________________________________________
+___
 
 ## Rubric
 
