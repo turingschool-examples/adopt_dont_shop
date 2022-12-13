@@ -133,7 +133,6 @@ RSpec.describe 'the application show page' do
   
   it 'will not have a submit button if the application has no pets' do
     visit "/applications/#{@app3.id}"
-    save_and_open_page
     expect(page).to_not have_button('Submit Application')
   end
 end

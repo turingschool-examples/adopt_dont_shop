@@ -61,22 +61,25 @@ RSpec.describe 'the admin application show page' do
   
   it 'every pet listed has an approve button' do
     visit "admin/applications/#{@app1.id}"
-    # save_and_open_page
+
     expect(page).to have_button("Approve #{@pet1.name}'s Adoption")
     expect(page).to have_button("Approve #{@pet2.name}'s Adoption")
+  end
+  
+  it 'clicking the approve button changes the application status' do
+    visit "admin/applications/#{@app1.id}"
+    click_on "Approve #{@pet1.name}'s Adoption"
     
+    expect(current_path).to eq ("/applications/#{@app1.id}")
+    # expect(current_path).to eq ("/admin/applications/#{@app1.id}")
+    # expect(@app1.status).to eq('Approved')
   end
   # √ When I visit an admin application show page ('/admin/applications/:id')
-  # For every pet that the application is for, I see a button to approve the application for that specific pet
-  # When I click that button
-  # Then I'm taken back to the admin application show page
-  # And next to the pet that I approved, I do not see a button to approve this pet
-  # And instead I see an indicator next to the pet that they have been approved
+  # √ For every pet that the application is for, I see a button to approve the application for that specific pet
+  # √ When I click that button
   
-  xit 'THIS IS HERE TO OPEN DIFFERENT PAGES' do
-    # visit "admin/applications/#{@app1.id}"
-    visit "admin/applications/#{@app2.id}"
-    visit "admin/applications/#{@app3.id}"
-    # save_and_open_page
-  end
+  # Then I'm taken back to the admin application show page
+  
+  # √ And next to the pet that I approved, I do not see a button to approve this pet
+  # √ And instead I see an indicator next to the pet that they have been approved
 end

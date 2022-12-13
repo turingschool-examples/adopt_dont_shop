@@ -6,15 +6,20 @@
 <h3>Why they'd make a great home: <%= @application.description  %></h3>
 <h3>Application Status: <%= @application.status  %></h3>
 
-<h3>Pets Applied For: </h3>
 <% if @application.status == "Pending" %>
+  <h3>Interested in Adopting: </h3>
   <% @application.pets.each do |pet| %>
   <section id="approval-<%= pet.id %>"
       <h2><%= pet.name %></h2>
       <% if pet.adoptable %>
-      <%= button_to "Approve #{pet.name}'s Adoption", "/admin/applications/#{@application.id}", method: :patch, params: {pet_id: pet.id, status: 'Approved'}%>
+        <%= button_to "Approve #{pet.name}'s Adoption", "/admin/applications/#{@application.id}", method: :patch, params: {pet_id: pet.id, status: 'Approved'}%>
+        <!-- The button routes you to the applications/:id, not admin/applications/:id -->
       <% end %>
+  <% end %>
+  </section>
       <br>
-    </section>
+<% elsif @application.status == "Approved" %>
+  <% @application.pets.each do |pet| %>
+    <h3>Approved: <%= pet.name %></h3>
   <% end %>
 <% end %>
