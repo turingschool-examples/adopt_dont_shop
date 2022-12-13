@@ -2,8 +2,6 @@ class ApplicationsController < ApplicationController
   def show
     @application = Application.find(params[:id])
     @pet_id_pairs = @application.pets.pluck(:id, :name)
-    # @pet_searches = []
-    # @pet_searches = Pet.where(name: params[:search]) 
     if params[:search].present?
       @pet_searches = Pet.search(params[:search])
     end
@@ -14,7 +12,7 @@ class ApplicationsController < ApplicationController
 
   def create
     if(Application.create(applications_params).valid?)
-      @application = Application.create!(applications_params)
+      @application = Application.create(applications_params)
       redirect_to "/applications/#{@application.id}"
     else
       redirect_to "/applications/new?error=true"
@@ -25,7 +23,7 @@ class ApplicationsController < ApplicationController
     @application = Application.find(params[:id])
     if params[:pet]
       @pet = Pet.find(params[:pet])
-      ApplicationPet.create!(application: @application, pet: @pet)
+      ApplicationPet.create(application: @application, pet: @pet)
     end
     if params[:description]
       @application.update(description: params[:description])
