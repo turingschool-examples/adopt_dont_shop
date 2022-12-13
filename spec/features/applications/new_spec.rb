@@ -43,6 +43,6 @@ RSpec.describe 'new application page' do
 
     expect(page).to have_content("Zip code can't be blank")
     expect(page).to have_content("Description can't be blank")
-    expect(current_path).to eq('/applications') 
+    expect(current_path).to eq('/applications/new') 
   end
 end
