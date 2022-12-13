@@ -5,7 +5,7 @@ table, th, td {
 </style>
 
 <h1><%= @shelter.name %></h1>
-Location: <%= @shelter.city %>
+Location: <%= "#{@shelter.street_address}, #{@shelter.city} #{@shelter.zip_code}" %>
 <h2>Statistics:</h2>
 <div id="statistics">
 <table>

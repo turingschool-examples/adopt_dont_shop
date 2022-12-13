@@ -1,7 +1,11 @@
 class Shelter < ApplicationRecord
   validates :name, presence: true
   validates :rank, presence: true, numericality: true
+  validates :street_address, presence: true
   validates :city, presence: true
+  validates :zip_code, presence: true
+  validates :zip_code, length: { is: 5 }
+  validates :zip_code, numericality: { greater_than_or_equal_to: 0 }
 
   has_many :pets, dependent: :destroy
   has_many :applications, through: :pets
@@ -49,7 +53,7 @@ class Shelter < ApplicationRecord
     adoptable_pets.where('age >= ?', age_filter)
   end
 
-  def average_age 
+  def average_age
     adoptable_pets.average(:age)
   end
 end

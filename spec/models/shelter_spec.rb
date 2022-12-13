@@ -10,12 +10,14 @@ RSpec.describe Shelter, type: :model do
     it { should validate_presence_of(:city) }
     it { should validate_presence_of(:rank) }
     it { should validate_numericality_of(:rank) }
+    it { should validate_length_of(:zip_code) }
+    it { should validate_numericality_of(:zip_code) }
   end
 
   before(:each) do
-    @shelter_1 = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
-    @shelter_2 = Shelter.create(name: 'RGV animal shelter', city: 'Harlingen, TX', foster_program: false, rank: 5)
-    @shelter_3 = Shelter.create(name: 'Fancy pets of Colorado', city: 'Denver, CO', foster_program: true, rank: 10)
+    @shelter_1 = Shelter.create(name: 'Aurora shelter', street_address: '1234 Main St', city: 'Aurora, CO', zip_code: 80014, foster_program: false, rank: 9)
+    @shelter_2 = Shelter.create(name: 'RGV animal shelter', street_address: '1568 1st St', city: 'Harlingen, TX', zip_code: 59235, foster_program: false, rank: 5)
+    @shelter_3 = Shelter.create(name: 'Fancy pets of Colorado', street_address: '9536 W 32nd Ave', city: 'Denver, CO', zip_code: 80220, foster_program: true, rank: 10)
 
     @pet_1 = @shelter_1.pets.create(name: 'Mr. Pirate', breed: 'tuxedo shorthair', age: 5, adoptable: false)
     @pet_2 = @shelter_1.pets.create(name: 'Clawdia', breed: 'shorthair', age: 3, adoptable: true)
@@ -106,7 +108,7 @@ RSpec.describe Shelter, type: :model do
       end
     end
 
-    describe '.average_age' do 
+    describe '.average_age' do
       it 'returns the average age of the pets at the given shelter' do
         expect(@shelter_1.average_age).to eq 4
       end

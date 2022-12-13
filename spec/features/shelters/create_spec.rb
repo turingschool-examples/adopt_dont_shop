@@ -19,11 +19,12 @@ RSpec.describe 'shelter creation' do
         visit '/shelters/new'
 
         fill_in 'Name', with: 'Houston Shelter'
+        fill_in 'street_address', with: '1236 2nd St'
         fill_in 'City', with: 'Houston'
+        fill_in 'zip_code', with: 50236
         check 'Foster program'
         fill_in 'Rank', with: 7
         click_button 'Save'
-
         expect(page).to have_current_path('/shelters')
         expect(page).to have_content('Houston Shelter')
       end
