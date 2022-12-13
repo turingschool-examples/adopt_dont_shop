@@ -4,9 +4,9 @@
 <p>Adoption Reason: <%= @application.description %></p>
 
 <p>Pet(s) to be Adopted: <% @pets.each do |pet| %>
-
   <%= link_to pet.name, "/pets/#{pet.id}" %></p>
-  <% end %>
+<% end %>
+
 <p>Application Status: <%= @application.status %></p>
 
 <% if @application.status == 'In Progress'%>
@@ -28,7 +28,7 @@
   <% end %>
 <% end %>
 
-<% if @pets.count > 0 %>
+<% if @application.any_pets? %>
   <%= form_with url: "/applications/#{@application.id}", method: :patch, local: true do |f| %>
     <%= f.label :description %>
     <%= f.text_field :description %>

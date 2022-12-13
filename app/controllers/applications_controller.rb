@@ -11,13 +11,13 @@ class ApplicationsController < ApplicationController
   end 
 
   def create
-    @application = Application.create(application_params)
+    @application = Application.new(application_params)
     if @application.save
       redirect_to "/applications/#{@application.id}"
     else 
       redirect_to "/applications/new"
-      flash[:alert] = "All Fields Required in Order to Submit"
-    end
+      flash[:notice] = @application.errors.full_messages.to_sentence
+    end 
   end
 
   def update

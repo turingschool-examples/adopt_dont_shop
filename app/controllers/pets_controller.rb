@@ -17,7 +17,6 @@ class PetsController < ApplicationController
 
   def create
     pet = Pet.new(pet_params)
-
     if pet.save
       redirect_to "/shelters/#{pet_params[:shelter_id]}/pets"
     else
@@ -46,7 +45,6 @@ class PetsController < ApplicationController
   end
 
   private
-
   def pet_params
     params.permit(:id, :name, :age, :breed, :adoptable, :shelter_id)
   end
