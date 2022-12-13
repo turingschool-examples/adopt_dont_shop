@@ -10,15 +10,16 @@ RSpec.describe 'Admin Shelter Show Page' do
     @shelter_3.pets.create(name: 'Lucille Bald', breed: 'sphynx', age: 8, adoptable: true)
 
     @application = Application.create({
-      name: "Jeff",
-      street_address: "123 Main Street",
-      city: "Denver",
-      state: "CO",
-      zip_code: 22314,
-      reason: "Nice person"
-    })
+                                        name: 'Jeff',
+                                        street_address: '123 Main Street',
+                                        city: 'Denver',
+                                        state: 'CO',
+                                        zip_code: 22_314,
+                                        reason: 'Nice person'
+                                      })
 
-    @pet_4 = @application.pets.create(adoptable: true, age: 1, breed: 'sphynx', name: 'Lucille Bald', shelter_id: @shelter_1.id)
+    @pet_4 = @application.pets.create(adoptable: true, age: 1, breed: 'sphynx', name: 'Lucille Bald',
+                                      shelter_id: @shelter_1.id)
     @pet_5 = @application.pets.create(adoptable: true, age: 5, breed: 'lab', name: 'Dogmin', shelter_id: @shelter_1.id)
   end
 

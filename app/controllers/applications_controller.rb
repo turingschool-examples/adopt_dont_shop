@@ -11,6 +11,7 @@ class ApplicationsController < ApplicationController
     if @application.save
       redirect_to "/applications/#{@application.id}"
     else
+      flash[:notice] = 'Application incomplete, please address errors.'
       render :new
     end
   end
@@ -22,12 +23,13 @@ class ApplicationsController < ApplicationController
   def update
     application = Application.find(params[:application_id])
     application.update!(application_params)
-    application.update!(status: "Pending") if params[:reason]
+    application.update!(status: 'Pending') if params[:reason]
     application.save!
     redirect_to "/applications/#{application.id}"
   end
 
   private
+
   def application_params
     params.permit(:name, :street_address, :city, :state, :zip_code, :reason, :status)
   end
