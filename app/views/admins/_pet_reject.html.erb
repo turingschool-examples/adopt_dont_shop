@@ -1,5 +1,0 @@
-<%= form_with url: "/admin/applications/#{@application.id}", method: :get, local: true do |form| %>
-  <%= form.hidden_field :approve, value: "Application Rejected" %>
-  <%= form.hidden_field :pet_id, value: "#{pet_id}" %>
-  <%= form.submit "Reject This Application" %>
-<% end %>

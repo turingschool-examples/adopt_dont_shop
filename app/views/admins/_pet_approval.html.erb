@@ -1,0 +1,11 @@
+<%= form_with url: "/admin/pet_applications/#{@application.id}", method: :patch, local: true do |form| %>
+  <%= form.hidden_field :approve, value: true %>
+  <%= form.hidden_field :pet_id, value: "#{pet_id}" %>
+  <%= form.submit "Approve This Application" %>
+<% end %>
+
+<%= form_with url: "/admin/pet_applications/#{@application.id}", method: :patch, local: true do |form| %>
+  <%= form.hidden_field :approve, value: false %>
+  <%= form.hidden_field :pet_id, value: "#{pet_id}" %>
+  <%= form.submit "Reject This Application" %>
+<% end %>

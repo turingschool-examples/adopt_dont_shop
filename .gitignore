@@ -92,3 +92,4 @@ yarn-debug.log*
 /storage/*
 !/storage/.keep
 .DS_Store
+.DS_Store
