@@ -16,10 +16,10 @@ RSpec.describe "Application New" do
       fill_in('State', with: "OR")
 
       click_on("Submit")
-   
+  
       expect(current_path).to eq('/applications/new')
 
-      expect(page).to have_content("All Fields Required in Order to Submit")
+      expect(page).to have_content("Zipcode can't be blank")
     end
   end
 end

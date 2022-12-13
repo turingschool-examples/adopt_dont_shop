@@ -16,8 +16,8 @@ class ApplicationsController < ApplicationController
       redirect_to "/applications/#{@application.id}"
     else 
       redirect_to "/applications/new"
-      flash[:alert] = "All Fields Required in Order to Submit"
-    end
+      flash[:notice] = @application.errors.full_messages.to_sentence
+    end 
   end
 
   def update
