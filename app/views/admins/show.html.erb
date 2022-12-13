@@ -1,11 +1,18 @@
 <h2>Application Details</h2>
 <h3>Application Status: <%= @application.status %></h3>
-<% @pets.each do |pet| %>
-  <div id="pet-<%= pet.id %>">
-  <%= pet.name %>
 
-  <%= render partial: 'pet_approval', locals: { pet_id: pet.id } if @application.find_pa_status(pet.id) == nil %>
-  
-  <%= @application.status_message(pet.id) unless @application.find_pa_status(pet.id) == nil %>
+<% @pet_applications.each do |pet_app| %>
+  <div id="pet-<%= pet_app.pet.id %>">
+    <%= pet_app.pet.name %>
+
+    <% if pet_app.status %>
+        <% if pet_app.status == 'true' %>
+          <%= 'Application Approved!' %>
+        <% else %>
+          <%= 'Application Rejected' %>  
+        <% end %>
+    <% else %>      
+      <%= render partial: 'pet_approval', locals: { pet_id: pet_app.pet.id } %>
+    <% end %>
   </div>
 <% end %>

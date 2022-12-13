@@ -1,5 +1,4 @@
 class AdminsController < ApplicationController
-
   def index
     @shelters = Shelter.order_by_alpha_desc
     @pending_app_shelters = Shelter.pending_app_shelters
@@ -20,11 +19,10 @@ class AdminsController < ApplicationController
   end
 
   def approved
-    check_approved.all? { |status| status == "true" }
+    check_approved.all? { |status| status == 'true' }
   end
 
   def rejected
-    check_approved.include?("false") && check_approved.include?(nil) == false
+    check_approved.include?('false') && check_approved.include?(nil) == false
   end
-
 end
