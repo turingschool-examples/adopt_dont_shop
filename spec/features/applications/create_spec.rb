@@ -25,7 +25,6 @@ RSpec.describe 'applications create page' do
     fill_in('City', with: 'Smryna')
     fill_in('State', with: 'Tennessee')
     fill_in('Zip', with: '37129')
-    fill_in('Applicant argument', with: 'My kids need a dog')
 
     click_button('Submit')
    
@@ -35,7 +34,6 @@ RSpec.describe 'applications create page' do
     expect(page).to have_content("Smryna")
     expect(page).to have_content("Tennessee")
     expect(page).to have_content("37129")
-    expect(page).to have_content("My kids need a dog")
     expect(page).to have_content("In Progress")
   end
 
