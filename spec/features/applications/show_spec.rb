@@ -2,8 +2,8 @@ require 'rails_helper'
 
 RSpec.describe 'application show' do
   let!(:shelter) { Shelter.create!(name: 'Mystery Building', city: 'Irvine CA', foster_program: false, rank: 9)}
-  let!(:application) { Application.create!(name: 'Joe', street_address: "123 street lane", city: "denver", state: "co", zip_code: "12345", status: "Pending" ) }
-  let!(:application_2) { Application.create!(name: 'Bob', street_address: "789 street lane", city: "denver", state: "co", zip_code: "12345", status: "In Progress" ) }
+  let!(:application) { Application.create!(name: 'Joe', street_address: "123 street lane", city: "denver", state: "co", description: "Waiting for user description.", zip_code: "12345", status: "Pending" ) }
+  let!(:application_2) { Application.create!(name: 'Bob', street_address: "789 street lane", city: "denver", state: "co", description: "Waiting for user description.", zip_code: "12345", status: "In Progress" ) }
   let!(:pet) { Pet.create!(name: 'Scooby', age: 2, breed: 'Great Dane', adoptable: true, shelter_id: shelter.id)}
 
   describe 'as a visitor' do
@@ -66,6 +66,8 @@ RSpec.describe 'application show' do
 
       expect(page).to have_button("Submit Application")
       click_button("Submit Application")
+
+      expect(page).to have_content("Error: ")
     end
   end
 end

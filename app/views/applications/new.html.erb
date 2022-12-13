@@ -16,7 +16,7 @@
   <%= f.text_field :zip_code, required: true %>
 
   <%= f.hidden_field :status, value: "In Progress" %>
-  <%# <%= f.hidden_field :description, value: "Waiting for user description." %> %>
+  <%= f.hidden_field :description, value: "Waiting for user description." %>
 
   <%= f.submit "Submit" %>
 <% end %>

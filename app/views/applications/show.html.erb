@@ -22,11 +22,11 @@
 <% if @application.has_pets? && @application.no_description? %>
   <h3>Please Describe why you would be a good owner for the pet(s) you wish to adopt</h3>
   <%= form_with url: "/applications/#{@application.id}", method: :patch, local: true do |form| %>
-    <%= form.text_area :description, size: "70x5", required: true %>
+    <%= form.text_area :description, size: "70x5" %>
     <%= form.hidden_field :status, value: :Pending %>
     <%= form.submit "Submit Application" %>
   <% end %>
 <% end %>
 <h3>Status: <%= @application.status %></h3>
 
-<h3>Description: <%= @application.description %></h3>
+<h3>Description: <%= @application.description if !@application.no_description? %></h3>
