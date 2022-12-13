@@ -15,7 +15,6 @@ class Application < ApplicationRecord
   end
 
   def self.pending_shelter_ids
-    # Application.where id unnecessary because this is the Application model
     where(status: "pending").joins(:pets).pluck(:shelter_id).uniq
   end
 

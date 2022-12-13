@@ -9,24 +9,22 @@ class ApplicationsController < ApplicationController
     if @application.save 
       redirect_to "/applications/#{@application.id}"
     else
-      render :new # ask instructors monday if they care about this
+      redirect_to "/applications/new"
+      flash[:alert] = "Error: #{error_message(@application.errors)}"
     end
   end
 
   def show
     @application = Application.find(params[:id])
     @pets = Pet.all
-    @selected_pets = []
-    @selected_pets = @application.pets.all unless @application.pets.all.nil?
-    @search_pets = []
+    @selected_pets = @application.pets
     @search_pets = Pet.search(params[:search]) if params[:search].present?
     @status = params[:approve_reject]
-    # binding.pry
   end
 
   def update
     @application = Application.find(params[:id])
-    if params[:pet] && @application.pets.find_by(id: params[:pet]) == nil
+    if params[:pet] && @application.pets.find_by(id: params[:pet]).nil?
       @application.add_pet(params[:pet])
     elsif params[:commit] == "submit"
       @application.pending!
