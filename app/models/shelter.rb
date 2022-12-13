@@ -34,6 +34,6 @@ class Shelter < ApplicationRecord
   end
 
   def self.find_shelters_from_application
-    joins(pets: :applications).where("applications.status = 'Pending'").pluck(:name)
+    joins(pets: :applications).where("applications.status = 'Pending'").order(:name).pluck(:name)
   end
 end

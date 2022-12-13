@@ -35,7 +35,7 @@ RSpec.describe "Admin Shelters Index" do
       seed_shelters
       seed_applications
       seed_pets
-      seeds_application_pets
+      seed_application_pets
   
       visit '/admin/shelters'
 

@@ -1,0 +1,21 @@
+<h2><%= @application.name %></h2>
+
+<p><i>Address: </i><%= @application.full_address %></p>
+<p><i>Description: </i><%= @application.description %></p>
+
+<% if @application.approved? == false %>
+  <p>Pets applying for: </p>
+  <% @pet_id_pairs.each do |pet| %>
+    <section id='pet-<%= pet[0] %>'>
+      <p><%= link_to pet[1], "/pets/#{pet[0]}" %> <%= button_to 'Approve', "/admin/applications/#{@application.id}?adopt=#{pet[0]}", :method => :patch %></p>
+      <p>Status: <%= @application.status %></p>   
+    </section>
+  <% end %>
+<% else %>
+
+  <p><b>Pet applying for: </b><%= @application.approved_pet.name%></p> 
+  <p>Application Status: <b><i><%= @application.status %></b></i></p>   
+  <% @application.pets.each do |pet| %></p>
+    <%= pet.name %>'s adoption status is now: <i><%= pet.adoptable %></i>
+  <% end %>
+<% end %>

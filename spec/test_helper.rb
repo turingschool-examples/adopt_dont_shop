@@ -28,7 +28,7 @@ def seed_applications
     city: "Denver",
     state: "CO",
     zip_code: 80020,
-    description: "Work from home",
+    # description: "Work from home",
     status: "In Progress"
   )
   
@@ -58,7 +58,7 @@ def seed_applications
     city: "Denver",
     state: "CO",
     zip_code: 80240,
-    description: "Looking for a running  buddy",
+    # description: "Looking for a running  buddy",
     status: "In Progress"
   )
 end
@@ -96,7 +96,7 @@ def seed_pets
     shelter_id: @shelter_3.id
   )
 
-  def seeds_application_pets
+  def seed_application_pets
     @application_pet_1 = ApplicationPet.create!(
       application: @application_1, 
       pet:@pet_1
