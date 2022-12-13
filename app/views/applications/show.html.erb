@@ -17,18 +17,19 @@
     </h3>
   </div>
 
-  <div class="select-pets-cta">
-    <h3>
-      <% if !@selected_pets.empty? %>
-        <h3>
-          <%= label :text, :pets_list, 'Selected Pets: ' %><br>
-          <% @selected_pets.each do |pet| %>
-            <pre><h3>   <%= link_to "#{pet.name}", "pets/#{pet.id}" %></h3></pre>
+  <h3>
+    <% if !@selected_pets.empty? %>
+      <h3>
+        <%= label :text, :pets_list, 'Selected Pets: ' %><br>
+        <% @selected_pets.each do |pet| %>
+          <pre><h3>   <%= link_to "#{pet.name}", "pets/#{pet.id}" %>
+          <% if request.path_info.include?("admin") %>
+            <%= render partial: "buttons_approve_reject" %></h3></pre>
           <% end %>
-        </h3>
-      <% end %>
-    </h3>
-  </div>
+        <% end %>
+      </h3>
+    <% end %>
+  </h3>
 
   <h3>
     <h3>
