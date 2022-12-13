@@ -69,12 +69,14 @@ RSpec.describe Shelter, type: :model do
     end
 
     describe 'self.pending_applications' do
-      @application_1 = Application.create!(name: 'Joe', street_address: "123 street lane", city: "denver", state: "co", zip_code: "80218", description: "I like dogs", status: "Pending" )
-      @application_2 = Application.create!(name: 'Bob', street_address: "123 street lane", city: "denver", state: "co", zip_code: "80218", description: "I like dogs", status: "In Progress" )
-      @application_pet = ApplicationPet.create!(application_id: 1, pet_id: 1)
-      @application_pet2 = ApplicationPet.create!(application_id: 2, pet_id: 3)
+      it 'lists names of shelters where applications are pending' do
+        @application_1 = Application.create!(name: 'Joe', street_address: "123 street lane", city: "denver", state: "co", zip_code: "80218", description: "I like dogs", status: "Pending" )
+        @application_2 = Application.create!(name: 'Bob', street_address: "123 street lane", city: "denver", state: "co", zip_code: "80218", description: "I like dogs", status: "In Progress" )
+        @application_pet = ApplicationPet.create!(application_id: @application_1.id, pet_id: @pet_1.id)
+        @application_pet2 = ApplicationPet.create!(application_id: @application_2.id, pet_id: @pet_2.id)
 
-      expect(Shelter.pending_applications).to eq ["Aurora shelter"]
+        expect(Shelter.pending_applications).to eq ["Aurora shelter"]
+     end
     end
   end
 end
