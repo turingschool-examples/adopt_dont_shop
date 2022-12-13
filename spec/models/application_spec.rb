@@ -22,14 +22,15 @@ RSpec.describe Application, type: :model do
     @pet_2 = @shelter_1.pets.create(name: 'Clawdia', breed: 'shorthair', age: 3, adoptable: true)
     @pet_3 = @shelter_1.pets.create(name: 'Ann', breed: 'ragdoll', age: 3, adoptable: false)
     @application = Application.create({
-      name: "Jeff",
-      street_address: "123 Main Street",
-      city: "Denver",
-      state: "CO",
-      zip_code: 22314,
-      reason: "Nice person"
-    })
-    @pet_4 = @application.pets.create(adoptable: true, age: 1, breed: 'sphynx', name: 'Lucille Bald', shelter_id: @shelter_1.id)
+                                        name: 'Jeff',
+                                        street_address: '123 Main Street',
+                                        city: 'Denver',
+                                        state: 'CO',
+                                        zip_code: 22_314,
+                                        reason: 'Nice person'
+                                      })
+    @pet_4 = @application.pets.create(adoptable: true, age: 1, breed: 'sphynx', name: 'Lucille Bald',
+                                      shelter_id: @shelter_1.id)
     @pet_5 = @application.pets.create(adoptable: true, age: 5, breed: 'lab', name: 'Dogmin', shelter_id: @shelter_1.id)
   end
 
@@ -37,28 +38,28 @@ RSpec.describe Application, type: :model do
     describe '.check_approval!' do
       it 'changes the status of an application to approved if all pets are approved' do
         @application_pets = @application.application_pets
-        expect(@application.status).to eq("In Progress")
+        expect(@application.status).to eq('In Progress')
         @application.check_approval!
-        expect(@application.status).to eq("In Progress")
+        expect(@application.status).to eq('In Progress')
         @application_pets.first.update(pet_status: 'Approved')
         @application.check_approval!
-        expect(@application.status).to eq("In Progress")
+        expect(@application.status).to eq('In Progress')
         @application_pets.last.update(pet_status: 'Approved')
         @application.check_approval!
-        expect(@application.status).to eq("Approved")
+        expect(@application.status).to eq('Approved')
       end
 
       it 'changes the status of an application to rejected if any pets are rejected' do
         @application_pets = @application.application_pets
-        expect(@application.status).to eq("In Progress")
+        expect(@application.status).to eq('In Progress')
         @application.check_approval!
-        expect(@application.status).to eq("In Progress")
+        expect(@application.status).to eq('In Progress')
         @application_pets.first.update(pet_status: 'Approved')
         @application.check_approval!
-        expect(@application.status).to eq("In Progress")
+        expect(@application.status).to eq('In Progress')
         @application_pets.last.update(pet_status: 'Rejected')
         @application.check_approval!
-        expect(@application.status).to eq("Rejected")
+        expect(@application.status).to eq('Rejected')
       end
     end
   end
