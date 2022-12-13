@@ -5,22 +5,23 @@
 <p>Applicants reason: <%= @application.applicant_argument %></p>
 Pet(s) applied for: 
 <ul>
-
-<% @pets.each_with_index do |pet, index|%>
-  <div id="<%= pet.id %>">
-  <li><%= pet.name %>
-  <% if @application_pets[index].status == "Pending" %>
-    <% if pet.adoptable == true %>
-      <%= button_to "Approve", "/admin/applications/#{ @application.id }?pet_id=#{pet.id}&app_pet_id=#{ @application_pets[index].id }" %>
-    <% else %>
-      <%= @already_adopted %>
-    <% end %>
-      <%= button_to "Reject", "/admin/applications/#{ @application.id }?reject_pet_id=#{pet.id}&app_pet_id=#{ @application_pets[index].id }" %>
-  <% else %>
-    <b><%= "#{@application_pets[index].status}" %></b>
+  <% @pets.each_with_index do |pet, index|%>
+    <div id="<%= pet.id %>">
+      <li><%= pet.name %>
+      <% app_pet = @application_pets[index] %>
+      <% if app_pet.status == "Pending" %>
+        <% if pet.adoptable == true %>
+          <%= button_to "Approve", "/admin/applications/#{ @application.id }?pet_id=#{pet.id}&app_pet_id=#{ app_pet.id }" %>
+        <% else %>
+          <%= @already_adopted %>
+        <% end %>
+          <%= button_to "Reject", "/admin/applications/#{ @application.id }?reject_pet_id=#{pet.id}&app_pet_id=#{ app_pet.id }" %>
+      <% else %>
+        <b><%= "#{app_pet.status}" %></b>
+      <% end %>
+    </div>
   <% end %>
-  </div>
-<% end %>
 </ul>
+
 
 <p>Application Status: <%= @application.app_status %></p>

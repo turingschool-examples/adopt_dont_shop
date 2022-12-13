@@ -2,10 +2,7 @@ class Admin::ApplicationsController < ApplicationController
   def show
     @application = Application.find(params[:id])
     @pets = @application.pets
-    @application_pets = []
-    @pets.each do |pet|
-      @application_pets << ApplicationPet.find_by_pet_and_app(pet.id, params[:id])
-    end
+    @application_pets = @application.order_app_pets_by_pets
     
     app_pets_status = @application_pets.pluck(:status).uniq
     @already_adopted = "This pet has already been approved for adoption"
@@ -16,15 +13,16 @@ class Admin::ApplicationsController < ApplicationController
       @application.update(app_status: "Rejected")
     end
 
-    if params[:pet_id]
+
+    if params[:app_pet_id]
       @application_pet = ApplicationPet.find(params[:app_pet_id])
-      @application_pet.approve
-      pet = Pet.find(params[:pet_id])
-      pet.adopt
-      redirect_to "/admin/applications/#{@application.id}"
-    elsif params[:reject_pet_id]
-      @application_pet = ApplicationPet.find(params[:app_pet_id])
-      @application_pet.reject
+      if params[:pet_id]
+        @application_pet.approve
+        pet = Pet.find(params[:pet_id])
+        pet.adopt
+      elsif params[:reject_pet_id]
+        @application_pet.reject
+      end
       redirect_to "/admin/applications/#{@application.id}"
     end
   end

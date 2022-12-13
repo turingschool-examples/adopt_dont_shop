@@ -12,4 +12,12 @@ class Application < ApplicationRecord
   def adopt_pet(pet)
     self.pets << pet
   end
+
+  def order_app_pets_by_pets
+    application_pets = []
+    pets.each do |pet|
+      application_pets << ApplicationPet.find_by_pet_and_app(pet.id, self.id)
+    end
+    application_pets
+  end
 end

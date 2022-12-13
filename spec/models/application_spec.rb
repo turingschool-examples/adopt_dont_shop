@@ -24,6 +24,25 @@ RSpec.describe Application, type: :model do
     end
   end
 
-  describe '#'
-  
+  describe '#order_app_pets_by_pets' do
+    it 'aligns order of application pets with order of pets' do
+      shelter = Shelter.create!(name: 'Mystery Building', city: 'Irvine CA', foster_program: false, rank: 9)
+      pet = Pet.create!(name: 'Scooby', age: 2, breed: 'Great Dane', adoptable: true, shelter_id: shelter.id)
+      pet2 = Pet.create!(name: 'Scrappy', age: 2, breed: 'Terrior', adoptable: true, shelter_id: shelter.id)
+      application = pet.applications.create!(name: 'John Doe', street: '123 N Washington Ave.', city: 'Denver', state: 'Colorado', zip: '91234', applicant_argument: 'caring and loving', app_status: "Pending")
+      application.pets << pet2
+
+      ordered_app_pets = application.order_app_pets_by_pets
+
+      expect(ordered_app_pets).to eq(application.application_pets)
+
+      application.application_pets.second.reject
+      application.application_pets.first.reject
+
+      still_ordered_app_pets = application.order_app_pets_by_pets
+
+      expect(ordered_app_pets).to eq(still_ordered_app_pets)
+      #couldn't figure out good testing here
+    end
+  end
 end
