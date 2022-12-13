@@ -17,7 +17,7 @@ RSpec.describe 'approving application' do
 
       within "#Pets" do
         expect(page).to have_content("Approved")
-        expect(page).to_not have_content("Approve #{pet_1.name}")
+        expect(page).to_not have_button("Approve #{pet_1.name}")
       end
     end 
   end 
