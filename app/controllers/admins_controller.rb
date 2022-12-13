@@ -5,15 +5,12 @@ class AdminsController < ApplicationController
     @pending_app_shelters = Shelter.pending_app_shelters
   end
 
-  def show
-    
+  def show 
     @application = Application.find(params[:id])
     @application.update!(status: "Approved") if approved
     @application.update!(status: "Rejected") if rejected
     @pets = @application.pets
     @pet_applications = @application.pet_applications
-    
-
   end
 
   private
