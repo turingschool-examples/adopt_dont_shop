@@ -20,7 +20,7 @@
 <div id="pending"> 
   <h2>Shelters with Pending Applications:</h2>
   <% @shelters_with_pending_apps.each do |shelter| %>
-    <%= shelter.name %>
+    <%= link_to shelter.name, "/admin/shelters/#{shelter.id}" %>
   <% end %>
 </div>
 
