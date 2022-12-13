@@ -10,8 +10,12 @@
       <% else %>
         <%= 'Application Rejected' %>  
       <% end %>
-    <% else %>      
-      <%= render partial: 'pet_approval', locals: { pet_id: pet_app.pet.id } %>
+    <% else %>
+      <% if @application.find_app_approved(pet_app.pet.id) == false %>      
+        <%= render partial: 'pet_approval', locals: { pet_id: pet_app.pet.id } %>
+      <% else %>
+        <%= 'This Pet has been Approved for Adoption' %>
+      <% end %>
       <%= render partial: 'pet_reject', locals: { pet_id: pet_app.pet.id } %>
     <% end %>
   </div>
