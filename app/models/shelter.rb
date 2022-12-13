@@ -22,7 +22,7 @@ class Shelter < ApplicationRecord
   end
 
   def self.order_by_name_asc 
-    find_by_sql("SELECT * FROM shelters ORDER BY name ASC")
+    Shelter.select('*').order(:name)
   end
 
   def self.shelters_with_pending_apps
