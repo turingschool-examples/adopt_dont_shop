@@ -30,6 +30,7 @@ RSpec.describe 'application show' do
       expect(current_path).to eq("/applications/#{application_2.id}")
       expect(application_2.pet_names.include?("Scooby")).to be true
     end
+  end
 
   describe 'description and submit' do
     it 'reveals submit button once pet is linked' do
@@ -39,7 +40,7 @@ RSpec.describe 'application show' do
       fill_in 'search', with: 'Scooby'
       click_button('Add a Pet to this Application')
       click_button('Adopt this Pet')
-      
+
       expect(page).to have_content("Describe")
       
       fill_in("description", with: "because because because")
@@ -54,19 +55,17 @@ RSpec.describe 'application show' do
     end
     
     it 'sad path for description and submit' do
-      # when I visit application/id
       visit "/applications/#{application_2.id}"
+      
       expect(page).to_not have_content("You must provide a description")
+
       fill_in 'search', with: 'Scooby'
-      # and I select a pet
       click_button('Add a Pet to this Application')
       click_button('Adopt this Pet')
-      # but I do not fill out the description form
+      fill_in 'description', with: ""
+
       expect(page).to have_button("Submit Application")
       click_button("Submit Application")
-      # then I am not able to submit
-      expect(page).to have_content("You must provide a description")
-      # instead I see a flash error, and I am still on /applications/:id
     end
   end
 end

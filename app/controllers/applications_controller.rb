@@ -29,7 +29,12 @@ class ApplicationsController < ApplicationController
     @application = Application.find(params[:application_id])
     @application.update(application_params)
 
-    redirect_to "/applications/#{@application.id}"
+    if @application.save
+      redirect_to "/applications/#{@application.id}"
+    else
+      redirect_to "/applications/#{@application.id}"
+      flash[:alert] = "Error: You must provide a description"
+    end
   end
 
 

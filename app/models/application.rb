@@ -4,6 +4,8 @@ class Application < ApplicationRecord
   validates :city, presence: true
   validates :state, presence: true
   validates :zip_code, presence: true, numericality: true
+  validates :status, presence: true, inclusion: [ "In Progress", "Pending", "Approved", "Denied" ]
+  # validates :description, length: { minimum: 2 }
 
   has_many :application_pets
   has_many :pets, through: :application_pets
@@ -27,7 +29,7 @@ class Application < ApplicationRecord
   end
   
   def no_description?
-    self.description.nil?
+    self.description.nil? # || self.description == "Waiting for user description."
   end
 
 end
