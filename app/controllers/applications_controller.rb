@@ -11,11 +11,12 @@ class ApplicationsController < ApplicationController
   end
 
   def create
-    if(Application.create(applications_params).valid?)
-      @application = Application.create(applications_params)
-      redirect_to "/applications/#{@application.id}"
+    application = Application.new(applications_params)
+    if application.save
+      redirect_to "/applications/#{application.id}"
     else
-      redirect_to "/applications/new?error=true"
+      flash[:notice] = error_message(application.errors)
+      redirect_to "/applications/new"
     end
   end
 

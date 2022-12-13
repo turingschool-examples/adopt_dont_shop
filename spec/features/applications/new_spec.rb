@@ -48,8 +48,8 @@ RSpec.describe 'new application' do
           
         click_on 'Submit'
 
-        expect(has_current_path?("/applications/new?error=true")).to be true
-        expect(page).to have_content("Please fill in all fields.")
+        expect(current_path).to eq("/applications/new")
+        expect(page).to have_content("Zip code can't be blank")
       end
     end
   end
