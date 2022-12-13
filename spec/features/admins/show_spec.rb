@@ -177,7 +177,5 @@ RSpec.describe 'admin show page' do
       expect(page).to have_button("Reject This Application")
       expect(page).to have_content("This Pet has been Approved for Adoption")
     end
-    
-
   end
 end
