@@ -4,9 +4,9 @@
 <p>Adoption Reason: <%= @application.description %></p>
 
 <p>Pet(s) to be Adopted: <% @pets.each do |pet| %>
-
   <%= link_to pet.name, "/pets/#{pet.id}" %></p>
-  <% end %>
+<% end %>
+
 <p>Application Status: <%= @application.status %></p>
 
 <% if @application.status == 'In Progress'%>

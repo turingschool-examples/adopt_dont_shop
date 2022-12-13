@@ -9,7 +9,6 @@ class VeterinaryOfficesController < ApplicationController
 
   def veterinarians
     @veterinary_office = VeterinaryOffice.find(params[:veterinary_office_id])
-
     if params[:sort] == 'alphabetical'
       @office_vets = @veterinary_office.alphabetical_vets
     elsif params[:review_rating]
@@ -30,7 +29,6 @@ class VeterinaryOfficesController < ApplicationController
 
   def create
     vet_office = VeterinaryOffice.new(vet_office_params)
-
     if vet_office.save
       redirect_to '/veterinary_offices'
     else
@@ -60,7 +58,6 @@ class VeterinaryOfficesController < ApplicationController
   end
 
   private
-
   def vet_office_params
     params.permit(:name, :max_patient_capacity, :boarding_services)
   end
