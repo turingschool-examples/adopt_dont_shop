@@ -10,12 +10,15 @@ RSpec.describe 'approving application' do
       ApplicationPet.create!(pet: pet_2, application: application_1)
 
       visit "/admin/applications/#{application_1.id}"
-
+      
       click_on("Approve #{pet_1.name}")
 
       expect(current_path).to eq("/admin/applications/#{application_1.id}")
-      expect(page).to have_content("Approved")
-      expect(page).to_not have_content("Approve #{pet_1.name}")
+
+      within "#Pets" do
+        expect(page).to have_content("Approved")
+        expect(page).to_not have_content("Approve #{pet_1.name}")
+      end
     end 
   end 
 end 
