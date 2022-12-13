@@ -38,6 +38,10 @@ class Shelter < ApplicationRecord
   end
 
   def self.pending
-    self.distinct.joins(:applications).where("applications.app_status = ?", "Pending")
+    self.distinct.joins(:applications).where("applications.app_status = ?", "Pending").order(:name)
+  end
+
+  def self.find_name_and_address(shelter_id)
+    self.all.find_by_sql("Select name, street, city, state, zip FROM shelters WHERE id = #{shelter_id}").first
   end
 end

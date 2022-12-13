@@ -8,7 +8,8 @@ class Admin::ApplicationsController < ApplicationController
     end
     
     app_pets_status = @application_pets.pluck(:status).uniq
-
+    @already_adopted = "This pet has already been approved for adoption"
+    
     if app_pets_status.length == 1 && app_pets_status.first == "Approved"
       @application.update(app_status: "Approved")
     elsif !app_pets_status.include?("Pending")

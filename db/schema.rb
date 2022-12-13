@@ -53,6 +53,9 @@ ActiveRecord::Schema.define(version: 2022_12_08_210706) do
     t.string "name"
     t.string "city"
     t.integer "rank"
+    t.string "street"
+    t.string "state"
+    t.string "zip"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
