@@ -69,7 +69,8 @@ RSpec.describe 'AdminApplication show page' do
       within("#pet-#{@pet_1.id}") do
         click_button('Approve')
       end
-      expect(has_current_path?("/admin/applications/#{@application_1.id}?adopt=#{@pet_1.id}")).to be(true)
+      # expect(has_current_path?("/admin/applications/#{@application_1.id}?adopt=#{@pet_1.id}")).to be(true)
+      expect(current_path).to eq("/admin/applications/#{@application_1.id}")
       expect(page).to_not have_button('Approve')
       expect(page).to have_content(@pet_1.name)
     end
