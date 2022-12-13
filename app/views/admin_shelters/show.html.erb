@@ -1,2 +1,17 @@
+<style>
+table, th, td {
+  border:1px solid black;
+}
+</style>
+
 <h1><%= @shelter.name %></h1>
 Location: <%= @shelter.city %>
+<h2>Statistics:</h2>
+<div id="statistics">
+<table>
+  <tr>
+    <td>Average age of adoptable pets:</td>
+    <td><%= @shelter.average_age%></td>
+  </tr>
+</table>
+</div>
