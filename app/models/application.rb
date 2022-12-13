@@ -6,4 +6,8 @@ class Application < ApplicationRecord
   def change_status
     self.status = 'Pending'
   end
+
+  def any_pets? 
+    pets.count > 0
+  end
 end
