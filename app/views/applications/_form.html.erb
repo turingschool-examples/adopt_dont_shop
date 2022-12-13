@@ -1,8 +1,14 @@
 <%= form_with url: path, method: method do |f| %>
-  <% @entries.each do |entry| %>
-    <%= f.label entry, entry %>
+  <% fields.each_with_index do |field, i| %>
+    <% if defined?(labels) %>
+      <%= f.label field, labels[i] %>
+    <% else %>
+      <%= f.label field, field.to_s.titleize %>
+    <% end %>
     <br>
-    <%= f.text_field entry %>
+    <%= f.text_field field %>
+    <br>
+    <br>
   <% end %>
   <%= f.submit button_text %>
 <% end %>

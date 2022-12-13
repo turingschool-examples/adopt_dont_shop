@@ -56,6 +56,8 @@ RSpec.describe "Application Show Page" do
       it 'has a section to search for a pet' do
         visit "/applications/#{@application_1.id}"
 
+        save_and_open_page
+
         expect(page).to have_content("Add a Pet to this Application")
         expect(page).to have_field(:search)
         expect(page).to have_button("Search For Pet!")
