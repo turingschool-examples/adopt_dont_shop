@@ -10,6 +10,7 @@
 <p>Application Status: <%= @application.status %></p>
 
 <% if @application.status == 'In Progress'%>
+<section id="Search_Pets">
   <h3>Add a Pet to this Application</h3>
   <%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |f| %>
     <%= f.label :search %>
@@ -27,7 +28,7 @@
     <% end %>
   <% end %>
 <% end %>
-
+</section>
 <% if @application.any_pets? %>
   <%= form_with url: "/applications/#{@application.id}", method: :patch, local: true do |f| %>
     <%= f.label :description %>

@@ -54,9 +54,12 @@ RSpec.describe 'Applications show page' do
 
       fill_in :search, with: pet_2.name
       click_button "Search"
-     
+  
       expect(current_path).to eq("/applications/#{application_1.id}")
-      expect("Search").to appear_before("Sammy")
+      
+      within "#Search_Pets" do
+        expect(page).to have_content(pet_2.name)
+      end
     end 
 
     it 'can add a pet to the application' do 
