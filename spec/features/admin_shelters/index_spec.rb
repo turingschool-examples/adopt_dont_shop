@@ -20,6 +20,9 @@ RSpec.describe 'the shelters index' do
 
     @pet_4 = @application.pets.create(adoptable: true, age: 1, breed: 'sphynx', name: 'Lucille Bald', shelter_id: @shelter_1.id)
     @pet_5 = @application.pets.create(adoptable: true, age: 5, breed: 'lab', name: 'Dogmin', shelter_id: @shelter_1.id)
+
+    @pet_6 = @application.pets.create(adoptable: true, age: 4, breed: 'sharpe', name: 'Diogee', shelter_id: @shelter_2.id)
+    @pet_7 = @application.pets.create(adoptable: true, age: 4, breed: 'poodle', name: 'Cosmo', shelter_id: @shelter_3.id)
   end
 
   it 'as an admin, shelters are listed in reverse alphabetical order by name' do 
@@ -33,6 +36,16 @@ RSpec.describe 'the shelters index' do
     expect(page).to have_content("Shelters with Pending Applications:")
     within('#pending') do 
       expect(page).to have_content(@shelter_1.name)
+    end
+  end
+
+  it 'displays list of shelters with pending applications in alphabetical order' do 
+    visit '/admin/shelters'
+    expect(page).to have_content("Shelters with Pending Applications:")
+    within('#pending') do 
+      expect(@shelter_1.name).to appear_before(@shelter_3.name)
+      expect(@shelter_3.name).to appear_before(@shelter_2.name)
+      save_and_open_page
     end
   end
 end
