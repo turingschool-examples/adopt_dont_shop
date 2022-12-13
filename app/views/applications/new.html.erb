@@ -1,16 +1,11 @@
-<%= form_with url: '/applications', method: :post, local: true do |form|  %>
-  <%= form.label :name %>
-  <%= form.text_field :name %>
-  <%= form.label :street_address %>
-  <%= form.text_field :street_address %>
-  <%= form.label :city %>
-  <%= form.text_field :city %>
-  <%= form.label :state %>
-  <%= form.text_field :state %>
-  <%= form.label :zip_code %>
-  <%= form.text_field :zip_code %>
-  <%= form.submit 'Submit' %>
-<% end %>
+<%= render partial: 'form', locals: {
+    path: "/applications",
+    method: :post,
+    button_text: "Submit",
+    fields: [:name, :street_address, :city, :state, :zip_code]
+  } 
+%>
+
 <% if params[:error] %>
   <%= "Please fill in all fields." %>
 <% end %>

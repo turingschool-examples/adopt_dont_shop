@@ -19,12 +19,12 @@ RSpec.describe 'new application' do
         zip_code: 80020
       )
 
-      visit '/applications/new'      
+      visit '/applications/new'    
       fill_in('Name', with: 'Bob')
-      fill_in('Street address', with: '123 Lead Street')
+      fill_in('Street Address', with: '123 Lead Street')
       fill_in('City', with: 'Denver')
       fill_in('State', with: 'CO')
-      fill_in('Zip code', with: '80020')
+      fill_in('Zip Code', with: '80020')
       
       click_on 'Submit'
       application_2 = Application.last
@@ -42,7 +42,7 @@ RSpec.describe 'new application' do
         visit '/applications/new' 
 
         fill_in('Name', with: 'Bob')
-        fill_in('Street address', with: '123 Lead Street')
+        fill_in('Street Address', with: '123 Lead Street')
         fill_in('City', with: 'Denver')
         fill_in('State', with: 'CO')
           
