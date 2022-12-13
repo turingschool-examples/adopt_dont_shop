@@ -50,29 +50,34 @@ RSpec.describe 'AdminApplication show page' do
 
       expect(page).to have_button('Approve')
     end
-
+    
     it 'can approve adoption when the button is pressed' do
       seed_shelters
       seed_pets
       seed_applications
       ApplicationPet.create!(
-        application: @application_1, 
+        application: @application_2, 
         pet: @pet_1
       )
-      ApplicationPet.create!(
-        application: @application_1, 
-        pet: @pet_2
-      )
-
-      visit "/admin/applications/#{@application_1.id}"
       
+      visit "/admin/applications/#{@application_2.id}"
+      expect(@application_2.status).to eq('Pending')
+      expect(page).to have_content('Pending')
+
       within("#pet-#{@pet_1.id}") do
         click_button('Approve')
       end
-      # expect(has_current_path?("/admin/applications/#{@application_1.id}?adopt=#{@pet_1.id}")).to be(true)
-      expect(current_path).to eq("/admin/applications/#{@application_1.id}")
+
+      expect(current_path).to eq("/admin/applications/#{@application_2.id}")
       expect(page).to_not have_button('Approve')
       expect(page).to have_content(@pet_1.name)
+
+      @application_2.reload
+      expect(@application_2.status).to eq('Approved')
+      expect(page).to have_content('Approved')
+      @pet_1.reload
+      expect(@pet_1.adoptable).to eq(false)
+      expect(page).to have_content('false')
     end
   end
-end
+end 

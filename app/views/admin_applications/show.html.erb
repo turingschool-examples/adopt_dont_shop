@@ -1,7 +1,7 @@
-<h3><%= @application.name %></h3>
+<h2><%= @application.name %></h2>
 
-<p>Address: <%= @application.full_address %></p>
-<p>Description: <%= @application.description %></p>
+<p><i>Address: </i><%= @application.full_address %></p>
+<p><i>Description: </i><%= @application.description %></p>
 
 <% if @application.approved? == false %>
   <p>Pets applying for: </p>
@@ -12,5 +12,10 @@
     </section>
   <% end %>
 <% else %>
-  <p>Pet: <%= @application.approved_pet.name %></p>
+
+  <p><b>Pet applying for: </b><%= @application.approved_pet.name%></p> 
+  <p>Application Status: <b><i><%= @application.status %></b></i></p>   
+  <% @application.pets.each do |pet| %></p>
+    <%= pet.name %>'s adoption status is now: <i><%= pet.adoptable %></i>
+  <% end %>
 <% end %>
