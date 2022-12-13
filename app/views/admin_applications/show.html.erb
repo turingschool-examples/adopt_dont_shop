@@ -8,6 +8,7 @@
   <% @pet_id_pairs.each do |pet| %>
     <section id='pet-<%= pet[0] %>'>
       <p><%= link_to pet[1], "/pets/#{pet[0]}" %> <%= button_to 'Approve', "/admin/applications/#{@application.id}?adopt=#{pet[0]}", :method => :patch %></p>
+      <%= button_to 'Reject', "/admin/applications/#{@application.id}?adopt=#{pet[0]}", :method => :patch %></p>
       <p>Status: <%= @application.status %></p>   
     </section>
   <% end %>
