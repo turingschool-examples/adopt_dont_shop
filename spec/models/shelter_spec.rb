@@ -23,7 +23,8 @@ RSpec.describe Shelter, type: :model do
     @pet_3 = @shelter_3.pets.create(name: 'Lucille Bald', breed: 'sphynx', age: 8, adoptable: true)
     @pet_4 = @shelter_1.pets.create(name: 'Ann', breed: 'ragdoll', age: 5, adoptable: true)
 
-    @application = @pet_1.applications.create!(name: 'John Doe', street: '123 N Washington Ave.', city: 'Denver', state: 'Colorado', zip: '91234', applicant_argument: 'caring and loving', app_status: "Pending")
+    @application1 = @pet_1.applications.create!(name: 'John Doe', street: '123 N Washington Ave.', city: 'Denver', state: 'Colorado', zip: '91234', applicant_argument: 'caring and loving', app_status: "Pending")
+    @application2 = @pet_3.applications.create!(name: 'Jerry Rice', street: '123 N Washington Ave.', city: 'Denver', state: 'Colorado', zip: '91234', applicant_argument: 'caring and loving', app_status: "Pending")
   end
 
   describe 'class methods' do
@@ -72,8 +73,12 @@ RSpec.describe Shelter, type: :model do
     end
 
     describe '.pending' do
-      it 'returns shelters with pending applications' do
-        expect(Shelter.pending).to eq([@shelter_1])
+      it 'returns shelters with pending applications in alphabetical order' do
+        shelter4 = Shelter.create!(name: 'AAA Nashville Shelters', city: 'Nashville', foster_program: true, rank: 10)
+        pet1 = shelter4.pets.create!(name: 'Mr. Krabs', breed: 'tuxedo shorthair', age: 5, adoptable: false)
+        application1 = pet1.applications.create!(name: 'John Doe', street: '123 N Washington Ave.', city: 'Denver', state: 'Colorado', zip: '91234', applicant_argument: 'caring and loving', app_status: "Pending")
+
+        expect(Shelter.pending).to eq([shelter4, @shelter_1, @shelter_3])
       end
     end
   end
@@ -105,4 +110,3 @@ RSpec.describe Shelter, type: :model do
     end
   end
 end
-
