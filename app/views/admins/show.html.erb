@@ -1,6 +1,5 @@
 <h2>Application Details</h2>
 <h3>Application Status: <%= @application.status %></h3>
-
 <% @pet_applications.each do |pet_app| %>
   <div id="pet-<%= pet_app.pet.id %>">
     <%= pet_app.pet.name %>
@@ -13,6 +12,7 @@
       <% end %>
     <% else %>      
       <%= render partial: 'pet_approval', locals: { pet_id: pet_app.pet.id } %>
+      <%= render partial: 'pet_reject', locals: { pet_id: pet_app.pet.id } %>
     <% end %>
   </div>
 <% end %>

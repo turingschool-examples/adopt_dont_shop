@@ -6,9 +6,12 @@ class AdminsController < ApplicationController
 
   def show 
     @application = Application.find(params[:id])
-    @application.update!(status: "Approved") if approved
-    @application.update!(status: "Rejected") if rejected
     @pets = @application.pets
+    if approved
+      @application.update!(status: "Approved")
+      adopt_pets
+    end
+    @application.update!(status: "Rejected") if rejected
     @pet_applications = @application.pet_applications
   end
 
@@ -24,5 +27,11 @@ class AdminsController < ApplicationController
 
   def rejected
     check_approved.include?('false') && check_approved.include?(nil) == false
+  end
+
+  def adopt_pets
+    @pets.each do |pet|
+      pet.update!(adoptable: false)
+    end
   end
 end

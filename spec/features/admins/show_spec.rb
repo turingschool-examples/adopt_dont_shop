@@ -150,4 +150,34 @@ RSpec.describe 'admin show page' do
 
     expect(page).to have_content("Application Status: Rejected")
   end
+
+  it 'does not allow an application to be approved on a pet when that pet has an approved application' do
+    app2 = Application.create!(
+      name: 'Alex Pitzel',
+      street_address: '6969 Canuck Ave',
+      city: 'Flavortown',
+      state: 'Canada, eh', zip_code: '32243', description: "buster is my dog, fight me",
+      status: 'In Progress'
+    )
+    PetApplication.create!(pet: @buster, application: @app1)
+    PetApplication.create!(pet: @buster, application: app2)
+    @app1.update(status: "Pending")
+    app2.update(status: "Pending")
+
+    visit "/admin/applications/#{@app1.id}" 
+    within "#pet-#{@buster.id}" do
+      click_button("Approve This Application")
+    end
+    expect(page).to have_content("Application Status: Approved")
+
+    visit "/admin/applications/#{app2.id}"
+    within "#pet-#{@buster.id}" do
+      expect(page).to have_content(@buster.name)
+      expect(page).to_not have_button("Approve This Application")
+      expect(page).to have_button("Reject This Application")
+      expect(page).to have_content("This Pet has been Approved for Adoption")
+    end
+    
+
+  end
 end
