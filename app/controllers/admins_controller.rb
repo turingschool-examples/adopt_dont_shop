@@ -9,7 +9,7 @@ class AdminsController < ApplicationController
     
     @application = Application.find(params[:id])
     @application.update!(status: "Approved") if approved
-    
+    @application.update!(status: "Rejected") if rejected
     @pets = @application.pets
     @pet_applications = @application.pet_applications
     
@@ -25,4 +25,9 @@ class AdminsController < ApplicationController
   def approved
     check_approved.all? { |status| status == "true" }
   end
+
+  def rejected
+    check_approved.include?("false") && check_approved.include?(nil) == false
+  end
+
 end
