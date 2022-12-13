@@ -9,6 +9,7 @@ class AdminsController < ApplicationController
     @application = Application.find(params[:id])
     @application.update!(status: "Approved") if approved
     @application.update!(status: "Rejected") if rejected
+    @pet_app_status = 
     @pets = @application.pets
     @pet_applications = @application.pet_applications
   end
