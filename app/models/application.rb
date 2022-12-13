@@ -8,6 +8,10 @@ class Application < ApplicationRecord
   validates :state, presence: true
   validates :zip_code, presence: true
 
+
+  STATUS = ['In Progress', 'Pending', 'Approved', 'Rejected'].freeze
+  #safety guard, nobody can access this/mess it up
+
   def full_address 
     "#{street_address}, #{city}, #{state} #{zip_code}"
   end
