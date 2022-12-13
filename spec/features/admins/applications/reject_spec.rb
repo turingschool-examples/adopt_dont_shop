@@ -14,9 +14,12 @@ RSpec.describe 'rejecting application' do
       click_on("Reject #{pet_1.name}")
 
       expect(current_path).to eq("/admin/applications/#{application_1.id}")
-      expect(page).to have_content("Rejected")
-      expect(page).to_not have_content("Reject #{pet_1.name}")
-      expect(page).to_not have_content("Approve #{pet_1.name}")
+
+      within "#Pets" do
+        expect(page).to have_content("Rejected")
+        expect(page).to_not have_button("Reject #{pet_1.name}")
+        expect(page).to_not have_button("Approve #{pet_1.name}")
+      end
     end 
 
     it 'will not effect another application if approved or rejected' do 
