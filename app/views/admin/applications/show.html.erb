@@ -5,7 +5,16 @@
 <h3>Zip Code: <%= @application.zip_code  %></h3>
 <h3>Why they'd make a great home: <%= @application.description  %></h3>
 <h3>Application Status: <%= @application.status  %></h3>
-<h3>Pets Applied For: 
-  <% @application.pets.each do |pet|  %>
-    <p> <h4><%= "#{pet.name}" %></h4></p>
-  <% end %></h3>
+<% if @application.status == ('Pending' || 'In Progress') && @application.has_pets? %>
+  <h3>Pets Applied For: 
+    <% @application.pets.each do |pet|  %>
+      <p> <h4><%= link_to pet.name, "/pets/#{pet.id}" %></h4></p> 
+<% elsif @application.status == 'Accepted' %>
+  <h3>Pets Adopted: 
+    <% @application.pets.each do |pet|  %>
+      <p> <h4><%= link_to pet.name, "/pets/#{pet.id}" %></h4></p> 
+    <% end %></h3>
+  <% end %>
+
+
+
