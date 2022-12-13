@@ -59,6 +59,10 @@ RSpec.describe 'AdminApplication show page' do
         application: @application_2, 
         pet: @pet_1
       )
+      ApplicationPet.create!(
+        application: @application_2, 
+        pet: @pet_2
+      )
       
       visit "/admin/applications/#{@application_2.id}"
       expect(@application_2.status).to eq('Pending')
@@ -69,15 +73,18 @@ RSpec.describe 'AdminApplication show page' do
       end
 
       expect(current_path).to eq("/admin/applications/#{@application_2.id}")
-      expect(page).to_not have_button('Approve')
-      expect(page).to have_content(@pet_1.name)
 
-      @application_2.reload
-      expect(@application_2.status).to eq('Approved')
-      expect(page).to have_content('Approved')
-      @pet_1.reload
-      expect(@pet_1.adoptable).to eq(false)
-      expect(page).to have_content('false')
+      within("#pet-#{@pet_1.id}") do
+        expect(page).to_not have_button('Approve')
+        expect(page).to have_content(@pet_1.name)
+        expect(page).to have_content("#{@pet_1.name}'s application status is now: Approved")
+      end
+      
+      within("#pet-#{@pet_2.id}") do
+        expect(page).to have_button('Approve')
+        expect(page).to have_content(@pet_2.name)
+        expect(page).to have_content("#{@pet_2.name}'s application status is now: Pending")
+      end
     end
   end
 
@@ -102,6 +109,35 @@ RSpec.describe 'AdminApplication show page' do
       visit "/admin/applications/#{@application_1.id}"
 
       expect(page).to have_button('Reject')
+    end
+
+    it 'can reject adoption when the button is pressed' do
+      seed_shelters
+      seed_pets
+      seed_applications
+      ApplicationPet.create!(
+        application: @application_2, 
+        pet: @pet_1
+      )
+      
+      visit "/admin/applications/#{@application_2.id}"
+      expect(@application_2.status).to eq('Pending')
+      expect(page).to have_content('Pending')
+
+      within("#pet-#{@pet_1.id}") do
+        click_button('Reject')
+      end
+
+      expect(current_path).to eq("/admin/applications/#{@application_2.id}")
+      expect(page).to_not have_button('Reject')
+      expect(page).to have_content(@pet_1.name)
+
+      @application_2.reload
+      expect(@application_2.status).to eq('Rejected')
+      expect(page).to have_content('Rejected')
+      # @pet_1.reload
+      # expect(@pet_1.adoptable).to eq(true)
+      # expect(page).to have_content('true')
     end
   end
 end 
