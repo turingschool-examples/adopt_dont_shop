@@ -70,9 +70,7 @@ RSpec.describe 'the admin application show page' do
     visit "admin/applications/#{@app1.id}"
     click_on "Approve #{@pet1.name}'s Adoption"
     
-    expect(current_path).to eq ("/applications/#{@app1.id}") #Not the path outlined in the US, that's the next line
-    
-    # expect(current_path).to eq ("/admin/applications/#{@app1.id}")
+    expect(current_path).to eq ("/admin/applications/#{@app1.id}")
     # expect(@app1.status).to eq('Approved')
     # √ When I visit an admin application show page ('/admin/applications/:id')
     # √ For every pet that the application is for, I see a button to approve the application for that specific pet
@@ -95,7 +93,7 @@ RSpec.describe 'the admin application show page' do
     visit "admin/applications/#{@app1.id}"
     click_on "Reject #{@pet1.name}'s Adoption"
     
-    expect(current_path).to eq ("/applications/#{@app1.id}") #Not the path outlined in the US, that's the next line
+    expect(current_path).to eq ("/admin/applications/#{@app1.id}")
 
     # √ When I visit an admin application show page ('/admin/applications/:id')
     # √ For every pet that the application is for, I see a button to reject the application for that specific pet

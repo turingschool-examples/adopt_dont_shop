@@ -14,7 +14,6 @@
       <% if pet.adoptable %>
         <%= button_to "Approve #{pet.name}'s Adoption", "/admin/applications/#{@application.id}", method: :patch, params: {pet_id: pet.id, status: 'Approved'}%>
         <%= button_to "Reject #{pet.name}'s Adoption", "/admin/applications/#{@application.id}", method: :patch, params: {pet_id: pet.id, status: 'Rejected'}%><br>
-        <!-- The buttons both route you to the applications/:id, not admin/applications/:id -->
       <% end %>
   <% end %>
   </section>
