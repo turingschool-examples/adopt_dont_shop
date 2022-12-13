@@ -4,7 +4,7 @@ For the project eval, you should prepare a video presentation that clearly demon
 
 ### Presentation Points
 
-**User Story Presentation**
+**1. User Story Presentation**
 
 Each partner should present 1 user story. If your project has 2 partners, your team should present a total of 2 stories. Try to pick user stories that you think will deliever the highest value in terms of feedback from the instructor. 
 
@@ -14,7 +14,7 @@ For each story:
 * Show the test(s) for the user story
 * Show all code that implements the user story
 
-**Questions**
+**2. Student Questions and Requested Feedback**
 
 In your presentation, please also include any questions or areas of your code where you would like to receive instructor feedback.
 
