@@ -35,7 +35,7 @@ RSpec.describe 'the application show page' do
     click_button("Submit")
 
     expect(current_path).to eq("/applications/new")
-
+save_and_open_page
     expect(page).to have_content("Application not created. Please complete all fields.")
   end
 end
