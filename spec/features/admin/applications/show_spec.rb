@@ -17,7 +17,8 @@ RSpec.describe 'admin shelters index' do
     
     @pet_1 = @application_1.pets.create!(name: 'Scooby', age: 2, breed: 'Great Dane', adoptable: true, shelter_id: @shelter_1.id)
     @pet_2 = @application_1.pets.create!(name: 'Scrappy', age: 1, breed: 'Great Dane', adoptable: true, shelter_id: @shelter_1.id)
-    @pet_3 = @application_2.pets.create!(name: 'Spot', age: 3, breed: 'Dalmation', adoptable: true, shelter_id: @shelter_3.id)
+    @pet_1 = @application_2.pets.create!(name: 'Scooby', age: 2, breed: 'Great Dane', adoptable: true, shelter_id: @shelter_1.id)
+    @pet_2 = @application_2.pets.create!(name: 'Scrappy', age: 1, breed: 'Great Dane', adoptable: true, shelter_id: @shelter_1.id)
     @pet_4 = @application_3.pets.create!(name: 'Garfield', age: 7, breed: 'Tabby', adoptable: true, shelter_id: @shelter_2.id)
   end
 
@@ -42,5 +43,21 @@ RSpec.describe 'admin shelters index' do
     expect(page).to_not have_button("Approve Scooby")
     expect(page).to have_button('Approve Scrappy')
     expect(page).to have_content('Scooby\'s status: Rejected')
+  end
+  describe 'when there are multiple application in system for same pet and I visit admin application show page for one of those applications' do 
+    describe 'and I approve or reject the pet for that application' do
+      describe 'then I visit the other applications admin show page' do
+        it 'does not show pet has been accepted or rejected but shows buttons to approve or reject the pet on the current application' do
+
+          visit "/admin/applications/#{@application_1.id}"
+          click_button "Approve Scooby"
+          click_button "Reject Scrappy"
+          visit "/admin/applications/#{@application_2.id}"
+          
+          expect(page).to have_button("Approve Scooby")
+          expect(page).to have_button('Approve Scrappy')
+        end
+      end
+    end
   end
 end
