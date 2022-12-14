@@ -20,7 +20,7 @@ RSpec.describe 'the shelter show' do
 
     visit "/pets/#{pet.id}"
 
-    click_on("Delete #{pet.name}")
+    click_on "Delete #{pet.name}"
 
     expect(page).to have_current_path('/pets')
     expect(page).to_not have_content(pet.name)

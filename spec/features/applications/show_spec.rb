@@ -2,44 +2,13 @@ require 'rails_helper'
 
 RSpec.describe 'the application show page' do
   before(:each) do
-    @app1 = Application.create!(name: "Max", 
-                                street_address: "Made up St", city: "Denver", 
-                                state: "CO", 
-                                zip_code: "80000", 
-                                description: "Love mix breeds. Lots of energy to play with a dog", 
-                                status: "In Progress")
-    @app2 = Application.create!(name: "Alastair", 
-                                street_address: "Fictional St", 
-                                city: "Golden", 
-                                state: "CO", 
-                                zip_code: "80001", 
-                                description: "Love big dogs. Great mountain walks on doorstep", 
-                                status: "Accepted")
-    @app3 = Application.create!(name: "Chloe", 
-                                street_address: "Fake Street", 
-                                city: "Denver", 
-                                state: "CO", 
-                                zip_code: "80002", 
-                                status: "In Progress")
-    @shelter = Shelter.create!(name: 'Aurora shelter', 
-                                city: 'Aurora, CO', 
-                                foster_program: false, 
-                                rank: 9)
-    @pet1 = @app1.pets.create!(name: 'Noodle', 
-                                age: 2, 
-                                breed: 'Border Collie', 
-                                adoptable: true, 
-                                shelter_id: @shelter.id)
-    @pet2 = @app1.pets.create!(name: 'Hercules', 
-                                age: 2, 
-                                breed: 'American Akita', 
-                                adoptable: true, 
-                                shelter_id: @shelter.id)
-    @pet3 = Pet.create!(name: 'Bumblebee', 
-                                age: 1, 
-                                breed: 'Welsh Corgi', 
-                                adoptable: true,
-                                shelter_id: @shelter.id)
+    @app1 = Application.create!(name: "Max", street_address: "Made up St", city: "Denver", state: "CO", zip_code: "80000", description: "Love mix breeds. Lots of energy to play with a dog", status: "In Progress")
+    @app2 = Application.create!(name: "Alastair", street_address: "Fictional St", city: "Golden", state: "CO", zip_code: "80001", description: "Love big dogs. Great mountain walks on doorstep", status: "Accepted")
+    @app3 = Application.create!(name: "Chloe", street_address: "Fake Street", city: "Denver", state: "CO", zip_code: "80002", status: "In Progress")
+    @shelter = Shelter.create!(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
+    @pet1 = @app1.pets.create!(name: 'Noodle', age: 2, breed: 'Border Collie', adoptable: true, shelter_id: @shelter.id)
+    @pet2 = @app1.pets.create!(name: 'Hercules', age: 2, breed: 'American Akita', adoptable: true, shelter_id: @shelter.id)
+    @pet3 = Pet.create!(name: 'Bumblebee', age: 1, breed: 'Welsh Corgi', adoptable: true, shelter_id: @shelter.id)
   end
   
   it 'shows the application and all its attributes' do
@@ -56,7 +25,8 @@ RSpec.describe 'the application show page' do
     expect(page).to have_link(@pet1.name)
     expect(page).to have_link(@pet2.name)
     
-    click_link(@pet2.name)
+    click_link @pet2.name
+
     expect(page).to have_current_path("/pets/#{@pet2.id}")
   end
   
@@ -90,7 +60,9 @@ RSpec.describe 'the application show page' do
     click_button 'Search Pets'
 
     expect(page).to have_content(@pet3.name)
+    
     click_on 'Bumblebee'
+
     expect(current_path).to eq ("/pets/#{@pet3.id}")
   end
 
@@ -99,6 +71,7 @@ RSpec.describe 'the application show page' do
     
     fill_in 'Add a Pet to this Application', with: "#{@pet2.name}"
     click_button 'Search Pets'
+
     expect(page).to have_content('Hercules')
     expect(page).to have_button('Adopt this pet')
     expect("Hercules").to appear_before('Adopt this pet')
@@ -109,7 +82,6 @@ RSpec.describe 'the application show page' do
 
     fill_in 'Add a Pet to this Application', with: "#{@pet3.name}"
     click_button 'Search Pets'
-
     click_button 'Adopt this pet'
 
     expect(page).to have_content('Bumblebee')
@@ -125,8 +97,7 @@ RSpec.describe 'the application show page' do
     
     
     fill_in 'Why I would make a good owner:', with: "Love large dogs. Lots of energy to play with a dog."
-    
-    click_button('Submit Application')
+    click_button 'Submit Application'
     
     expect(page).to have_content("Love large dogs. Lots of energy to play with a dog.")
   end
