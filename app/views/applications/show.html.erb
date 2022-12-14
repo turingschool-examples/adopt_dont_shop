@@ -24,19 +24,17 @@
         <% @selected_pets.each do |pet| %>
           <pre><h3>   <%= link_to "#{pet.name}", "pets/#{pet.id}" %>
           <% if request.path_info.include?("admin") %>
-            <%= render partial: "buttons_approve_reject" %></h3></pre>
+            <%= render partial: "buttons_approve_reject", locals: {pet: pet} %></h3></pre>
           <% end %>
         <% end %>
       </h3>
     </div>
   <% end %>
 
-  <h3>
     <h3>
       <%= label :text, :status, 'Status: ' %>
       <%= @application.status %>
     </h3>
-  </h3>
 
   <% if @application.status == "in progress" %>
     <%= render partial: "in_progress" %>

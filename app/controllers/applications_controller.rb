@@ -20,6 +20,12 @@ class ApplicationsController < ApplicationController
     @selected_pets = @application.pets
     @search_pets = Pet.search(params[:search]) if params[:search].present?
     @status = params[:approve_reject]
+    pet_app = PetApplication.find_by(pet_id: params[:pet_id])
+    if @status == "accepted"
+      pet_app.accepted!
+    elsif @status == "rejected"
+      pet_app.rejected!
+    end
   end
 
   def update

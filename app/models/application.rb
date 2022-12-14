@@ -15,7 +15,7 @@ class Application < ApplicationRecord
   end
 
   def self.pending_shelter_ids
-    where(status: "pending").joins(:pets).pluck(:shelter_id).uniq
+    where(status: "pending").joins(:pets).distinct.pluck(:shelter_id)
   end
 
 end
