@@ -4,10 +4,11 @@
   <p><%= shelter.name %></p>
 <%end%>
 
+<div>
 <h2>Shelters with Pending Applications<h2>
 <ul>
 <% Shelter.pending_applications.each do |shelter| %>
   <li><%= shelter %></li>
 <% end %>
 </ul>
-  
+</div>  

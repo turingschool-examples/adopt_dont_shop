@@ -6,6 +6,7 @@ FactoryBot.define do
     state { Faker::Address.state }
     zip_code { Faker::Number.number(digits: 5) }
     status { "In Progress" }
+    description { "Waiting for user description." }
   end
 
   factory :shelter do

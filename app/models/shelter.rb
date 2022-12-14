@@ -7,7 +7,7 @@ class Shelter < ApplicationRecord
   has_many :application_pets, through: :pets
   has_many :applications, through: :application_pets
 
-  scope :pending_applications, -> {joins(:applications).where("applications.status = 'Pending'").pluck(:name) }
+  scope :pending_applications, -> {joins(:applications).where("applications.status = 'Pending'").order(:name).pluck(:name) }
 
   scope :order_by_recently_created, -> {order(created_at: :desc)}
 
