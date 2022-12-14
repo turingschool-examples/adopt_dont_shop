@@ -1,0 +1,14 @@
+<h1> ADMIN APPLICATIONS show page</h1>
+
+<p> Pets applied for: </p>
+<% @pets.each do |pet| %>
+
+  <p><%= pet.name %></p>
+  
+  <% if pet.approval(@application.id) == 'Pending' %>
+    <%= button_to "Approve #{pet.name}", "/admin/applications/#{@application.id}?pet_id=#{pet.id}&status=Approved", method: :patch %>
+    
+  <% end %>
+  
+  <p> <%= pet.name %>'s status: <%= pet.approval(@application.id) %></p>
+<% end %>
