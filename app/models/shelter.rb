@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Shelter < ApplicationRecord
   validates :name, presence: true
   validates :rank, presence: true, numericality: true
@@ -11,10 +13,10 @@ class Shelter < ApplicationRecord
   end
 
   def self.order_by_number_of_pets
-    select("shelters.*, count(pets.id) AS pets_count")
-      .joins("LEFT OUTER JOIN pets ON pets.shelter_id = shelters.id")
-      .group("shelters.id")
-      .order("pets_count DESC")
+    select('shelters.*, count(pets.id) AS pets_count')
+      .joins('LEFT OUTER JOIN pets ON pets.shelter_id = shelters.id')
+      .group('shelters.id')
+      .order('pets_count DESC')
   end
 
   def pet_count
@@ -34,12 +36,12 @@ class Shelter < ApplicationRecord
   end
 
   def self.order_by_alpha_desc
-    self.find_by_sql('SELECT * FROM shelters ORDER BY name DESC')
+    find_by_sql('SELECT * FROM shelters ORDER BY name DESC')
   end
 
   def self.pending_app_shelters
     # self.joins(:pets).joins(:applications).where(Application.arel_table[:status].matches("Pending")).distinct
     # self.joins(:pets => [:applications]).where("applications.status" => "Pending").distinct
-    self.joins(:applications).where(applications: { status: 'Pending' }).distinct
+    joins(:applications).where(applications: { status: 'Pending' }).distinct
   end
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Application < ApplicationRecord
   validates_presence_of :name, :street_address, :city, :state, :zip_code
   has_many :pet_applications
@@ -10,7 +12,6 @@ class Application < ApplicationRecord
   end
 
   def status_update
-    # require 'pry'; binding.pry
     if approved
       update!(status: 'Approved')
       adopt_pets
@@ -19,21 +20,19 @@ class Application < ApplicationRecord
     end
   end
 
-  def check_approved
-    pet_applications.pluck(:status)
+  def check_status
+    pet_applications.select(:status)
   end
 
   def approved
-    check_approved.all? { |status| status == 'true' }
+    check_status.to_a.count == check_status.where(status: 'true').count
   end
 
   def rejected
-    check_approved.include?('false') && check_approved.include?(nil) == false
+    check_status.where(status: 'false').count >= 1 && check_status.where(status: nil).count.zero?
   end
 
   def adopt_pets
-    pets.each do |pet|
-      pet.update!(adoptable: false)
-    end
+    pets.update_all(adoptable: false)
   end
 end
