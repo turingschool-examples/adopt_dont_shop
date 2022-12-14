@@ -3,8 +3,8 @@ require 'rails_helper'
 RSpec.describe 'the application show' do
 
   before :each do
-    @application_1 = create(:application)
-    @application_2 = create(:application)
+    @application = create(:application)
+    # @application_2 = create(:application)
     @shelter_1     = create(:shelter)
     @pet_1         = create(:pet, shelter: @shelter_1)
     @pet_2         = create(:pet, shelter: @shelter_1)
@@ -131,21 +131,6 @@ RSpec.describe 'the application show' do
       expect(page).to_not have_button("search")
       expect(page).to_not have_button("submit")
       expect(current_path).to eq("/applications/#{@application.id}")
-    end
-  end
-
-  describe 'US 14' do
-    it 'will a approve pet on one application but not another' do
-      @application_1.pets << @pet_1
-      @application_2.pets << @pet_1
-
-      visit "/admin/applications/#{@application_1.id}"
-
-      expect(page).to have_content(@pet_1.name)
-
-      click_button "Approve"
-
-      expect(page).to have_content("This pet has been approved")
     end
   end
 end
