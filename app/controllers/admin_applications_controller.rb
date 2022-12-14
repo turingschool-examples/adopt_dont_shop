@@ -10,8 +10,8 @@ class AdminApplicationsController < ApplicationController
     # binding.pry
     if admin_application_params[:status] == 'Approved'
       application_pet.update(status: 'Approved')
-    # else
-    #   application_pet.update(status: 'Rejected')
+    else
+      application_pet.update(status: 'Rejected')
     end
     # binding.pry
     redirect_to "/admin/applications/#{application_pet.application.id}"
