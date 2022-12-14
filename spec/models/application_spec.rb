@@ -94,7 +94,7 @@ RSpec.describe Application, type: :model do
 
       expect(@application_1.approved?).to eq(false)
 
-      application_pet.update(adopted: true)
+      application_pet.update(status: "Approved")
       
       expect(@application_1.approved?).to eq(true)
     end
@@ -110,7 +110,7 @@ RSpec.describe Application, type: :model do
         pet: @pet_1
       )
 
-      application_pet.update(adopted: true)
+      application_pet.update(status: "Approved")
       expect(@application_1.approved_pet).to eq(@pet_1)
     end
   end
