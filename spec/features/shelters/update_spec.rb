@@ -5,7 +5,7 @@ RSpec.describe 'the shelter update' do
     shelter = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
 
     visit "/shelters/#{shelter.id}/edit"
-
+    
     expect(find('form')).to have_content('Name')
     expect(find('form')).to have_content('City')
     expect(find('form')).to have_content('Rank')
