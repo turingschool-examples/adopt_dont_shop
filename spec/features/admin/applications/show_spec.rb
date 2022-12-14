@@ -32,4 +32,15 @@ RSpec.describe 'admin shelters index' do
     expect(page).to have_button('Approve Scrappy')
     expect(page).to have_content('Scooby\'s status: Approved')
   end
+
+  it 'rejects pet' do
+    visit "/admin/applications/#{@application_1.id}"
+    expect(page).to have_button("Reject Scooby")
+    expect(page).to have_button("Reject Scrappy")
+    click_button "Reject Scooby"
+    expect(current_path).to eq("/admin/applications/#{@application_1.id}")
+    expect(page).to_not have_button("Approve Scooby")
+    expect(page).to have_button('Approve Scrappy')
+    expect(page).to have_content('Scooby\'s status: Rejected')
+  end
 end
