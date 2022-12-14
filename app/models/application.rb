@@ -6,7 +6,7 @@ class Application < ApplicationRecord
   validates :street_address, presence: true
   validates :city, presence: true
   validates :state, presence: true
-  validates :zip_code, presence: true
+  validates :zip_code, presence: true, numericality: true
 
 
   STATUS = ['In Progress', 'Pending', 'Approved', 'Rejected'].freeze
