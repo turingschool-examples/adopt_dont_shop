@@ -88,16 +88,15 @@ RSpec.describe "ADMIN Application Show" do
       @ap_2 = ApplicationPet.create!(application_id: @application_1.id, pet_id: @pet_2.id)
 
       visit "/admin/applications/#{@application_1.id}"
-      # save_and_open_page
+
       within("##{@ap_1.id}") do
         click_button("Approve")
       end
       within("##{@ap_2.id}") do
         click_button("Approve")
       end
-      # save_and_open_page
+      
       expect(current_path).to eq("/admin/applications/#{@application_1.id}")
-      save_and_open_page
       
       expect(page).to have_content("Status: Approved")
       # expect(@application_1.status).to eq("Approved")

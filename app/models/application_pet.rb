@@ -13,9 +13,12 @@ class ApplicationPet < ApplicationRecord
   end
 
   def approved?
-    if ApplicationPet.where(application_id: self.application.id).uniq.pluck(:status).all?(true)
-      self.application.update(status: "Approved")
-    elsif ApplicationPet.where(application_id: self.application.id).uniq.pluck(:status).any?(false)
+    if ApplicationPet.where(application_id: self.application.id).pluck(:status).all?(true)
+      application = self.application
+      application.update!(status: "Approved")
+      application.save
+
+    elsif ApplicationPet.where(application_id: self.application.id).pluck(:status).any?(false)
       self.application.update(status: "Denied")
     else
 
