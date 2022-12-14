@@ -104,7 +104,7 @@ RSpec.describe 'AdminApplication show page' do
 # And instead I see an indicator next to the pet that they have been rejected
 
   describe 'User story 13' do
-    xit 'has a button to reject a specific pet' do
+    it 'has a button to reject a specific pet' do
       seed_shelters
       seed_pets
       seed_applications
@@ -118,7 +118,7 @@ RSpec.describe 'AdminApplication show page' do
       expect(page).to have_button('Reject')
     end
 
-    xit 'can reject adoption when the button is pressed' do
+    it 'can reject adoption when the button is pressed' do
       seed_shelters
       seed_pets
       seed_applications
@@ -133,6 +133,7 @@ RSpec.describe 'AdminApplication show page' do
 
       within("#pet-#{@pet_1.id}") do
         click_button('Reject')
+        expect(page).to have_content('Rejected')
       end
 
       expect(current_path).to eq("/admin/applications/#{@application_2.id}")
@@ -140,11 +141,7 @@ RSpec.describe 'AdminApplication show page' do
       expect(page).to have_content(@pet_1.name)
 
       @application_2.reload
-      expect(@application_2.status).to eq('Rejected')
-      expect(page).to have_content('Rejected')
-      # @pet_1.reload
-      # expect(@pet_1.adoptable).to eq(true)
-      # expect(page).to have_content('true')
+      @pet_1.reload
     end
   end
 end 
