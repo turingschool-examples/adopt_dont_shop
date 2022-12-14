@@ -62,44 +62,61 @@ RSpec.describe 'the admin application show page' do
   it 'every pet listed has an approve button' do
     visit "admin/applications/#{@app1.id}"
 
-    expect(page).to have_button("Approve #{@pet1.name}'s Adoption")
-    expect(page).to have_button("Approve #{@pet2.name}'s Adoption")
+    expect(page).to have_button("Approve #{@pet1.name}")
+    expect(page).to have_button("Approve #{@pet2.name}")
   end
   
-  it 'clicking the approve button changes the application status' do
+  it 'clicking the approve button changes the pet status' do
     visit "admin/applications/#{@app1.id}"
-    click_on "Approve #{@pet1.name}'s Adoption"
+    click_on "Approve #{@pet1.name}"
     
+    expect(page).to have_content("Approved")
     expect(current_path).to eq ("/admin/applications/#{@app1.id}")
-    # expect(@app1.status).to eq('Approved')
-    # √ When I visit an admin application show page ('/admin/applications/:id')
-    # √ For every pet that the application is for, I see a button to approve the application for that specific pet
-    # √ When I click that button
-    
-    # Then I'm taken back to the admin application show page
-    
-    # √ And next to the pet that I approved, I do not see a button to approve this pet
-    # √ And instead I see an indicator next to the pet that they have been approved
   end
   
   it 'every pet listed has a reject button' do
     visit "admin/applications/#{@app1.id}"
 
-    expect(page).to have_button("Reject #{@pet1.name}'s Adoption")
-    expect(page).to have_button("Reject #{@pet2.name}'s Adoption")
+    expect(page).to have_button("Reject #{@pet1.name}")
+    expect(page).to have_button("Reject #{@pet2.name}")
   end
   
-  xit 'clicking the reject button changes the application status' do
+  it 'clicking the reject button changes the pet status' do
     visit "admin/applications/#{@app1.id}"
-    click_on "Reject #{@pet1.name}'s Adoption"
+    click_on "Reject #{@pet1.name}"
     
+    expect(page).to have_content("Rejected")
     expect(current_path).to eq ("/admin/applications/#{@app1.id}")
-
-    # √ When I visit an admin application show page ('/admin/applications/:id')
-    # √ For every pet that the application is for, I see a button to reject the application for that specific pet
-    # √ When I click that button
-    # Then I'm taken back to the admin application show page
-    # And next to the pet that I rejected, I do not see a button to approve or reject this pet
-    # And instead I see an indicator next to the pet that they have been rejected
+  end
+  
+  describe 'User Story 14' do
+    before(:each) do
+      visit "applications/#{@app3.id}"
+      fill_in 'Add a Pet to this Application', with: "#{@pet1.name}"
+      click_button 'Search Pets'
+      click_button 'Adopt this pet'
+      fill_in 'Why I would make a good owner:', with: "Big yard, small child in need of herding."
+      click_button('Submit Application')
+    end
+    
+    it 'more than one application can have the same pet' do
+      visit "admin/applications/#{@app3.id}"
+      expect(page).to have_button('Approve Noodle')
+      expect(page).to have_button('Reject Noodle')
+      
+      visit "admin/applications/#{@app1.id}"
+      expect(page).to have_button('Approve Noodle')
+      expect(page).to have_button('Reject Noodle')
+    end
+    
+    it 'will not change the status of a pet on another application' do
+      visit "admin/applications/#{@app3.id}"
+      click_on "Approve #{@pet1.name}"
+      
+      visit "admin/applications/#{@app1.id}"
+      expect(page).to have_content('Noodle')
+      expect(page).to have_button('Approve Noodle')
+      expect(page).to have_button('Reject Noodle')
+    end
   end
 end

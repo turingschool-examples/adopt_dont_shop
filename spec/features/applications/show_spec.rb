@@ -35,7 +35,7 @@ RSpec.describe 'the application show page' do
                                 breed: 'American Akita', 
                                 adoptable: true, 
                                 shelter_id: @shelter.id)
-    @pet3 = @app2.pets.create!(name: 'Bumblebee', 
+    @pet3 = Pet.create!(name: 'Bumblebee', 
                                 age: 1, 
                                 breed: 'Welsh Corgi', 
                                 adoptable: true,
@@ -111,8 +111,8 @@ RSpec.describe 'the application show page' do
     click_button 'Search Pets'
 
     click_button 'Adopt this pet'
-        
-    expect("Interested in adopting:").to appear_before ('Bumblebee')
+
+    expect(page).to have_content('Bumblebee')
     expect(@app1.pets).to eq([@pet1, @pet2, @pet3])
   end
   
