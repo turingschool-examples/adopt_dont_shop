@@ -2,44 +2,13 @@ require 'rails_helper'
 
 RSpec.describe 'the application show page' do
   before(:each) do
-    @app1 = Application.create!(name: "Max", 
-                                street_address: "Made up St", city: "Denver", 
-                                state: "CO", 
-                                zip_code: "80000", 
-                                description: "Love mix breeds. Lots of energy to play with a dog", 
-                                status: "In Progress")
-    @app2 = Application.create!(name: "Alastair", 
-                                street_address: "Fictional St", 
-                                city: "Golden", 
-                                state: "CO", 
-                                zip_code: "80001", 
-                                description: "Love big dogs. Great mountain walks on doorstep", 
-                                status: "Accepted")
-    @app3 = Application.create!(name: "Chloe", 
-                                street_address: "Fake Street", 
-                                city: "Denver", 
-                                state: "CO", 
-                                zip_code: "80002", 
-                                status: "In Progress")
-    @shelter = Shelter.create!(name: 'Aurora shelter', 
-                                city: 'Aurora, CO', 
-                                foster_program: false, 
-                                rank: 9)
-    @pet1 = @app1.pets.create!(name: 'Noodle', 
-                                age: 2, 
-                                breed: 'Border Collie', 
-                                adoptable: true, 
-                                shelter_id: @shelter.id)
-    @pet2 = @app1.pets.create!(name: 'Hercules', 
-                                age: 2, 
-                                breed: 'American Akita', 
-                                adoptable: true, 
-                                shelter_id: @shelter.id)
-    @pet3 = Pet.create!(name: 'Bumblebee', 
-                                age: 1, 
-                                breed: 'Welsh Corgi', 
-                                adoptable: true,
-                                shelter_id: @shelter.id)
+    @app1 = Application.create!(name: "Max", street_address: "Made up St", city: "Denver", state: "CO", zip_code: "80000", description: "Love mix breeds. Lots of energy to play with a dog", status: "In Progress")
+    @app2 = Application.create!(name: "Alastair", street_address: "Fictional St", city: "Golden", state: "CO", zip_code: "80001", description: "Love big dogs. Great mountain walks on doorstep", status: "Accepted")
+    @app3 = Application.create!(name: "Chloe", street_address: "Fake Street", city: "Denver", state: "CO", zip_code: "80002", status: "In Progress")
+    @shelter = Shelter.create!(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
+    @pet1 = @app1.pets.create!(name: 'Noodle', age: 2, breed: 'Border Collie', adoptable: true, shelter_id: @shelter.id)
+    @pet2 = @app1.pets.create!(name: 'Hercules', age: 2, breed: 'American Akita', adoptable: true, shelter_id: @shelter.id)
+    @pet3 = Pet.create!(name: 'Bumblebee', age: 1, breed: 'Welsh Corgi', adoptable: true, shelter_id: @shelter.id)
   end
   
   it 'shows the application and all its attributes' do
