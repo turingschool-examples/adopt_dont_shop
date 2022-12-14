@@ -9,7 +9,6 @@ class AdminApplicationsController < ApplicationController
     if permitted_params[:status] == "Approved"
       application_pet.update(status: 'Approved')
     else
-      # require 'pry'; binding.pry
       application_pet.update(status: 'Rejected')
     end
     redirect_to "/admin/applications/#{application_pet.application.id}"

@@ -66,11 +66,6 @@ RSpec.describe 'AdminApplication show page' do
 
   describe 'User story 13' do
     it 'has a button to reject a specific pet' do
-      ApplicationPet.create!(
-        application: @application_1, 
-        pet: @pet_1
-      )
-  
       visit "/admin/applications/#{@application_1.id}"
 
       expect(page).to have_button('Reject')

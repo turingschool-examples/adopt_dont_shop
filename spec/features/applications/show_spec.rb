@@ -80,15 +80,6 @@ RSpec.describe "Application Show Page" do
     end
   end
 
-  #As a visitor
-  # When I visit an application's show page
-  # And I search for a Pet by name
-  # And I see the names Pets that match my search
-  # Then next to each Pet's name I see a button to "Adopt this Pet"
-  # When I click one of these buttons
-  # Then I am taken back to the application show page
-  # And I see the Pet I want to adopt listed on this application
-
   describe "User story 5" do
     describe "Search a pet by name" do
       it "has a button 'Adopt this Pet' next to the pet's name" do
@@ -117,18 +108,6 @@ RSpec.describe "Application Show Page" do
       end
     end
   end
-
-  # As a visitor
-  # When I visit an application's show page
-  # And I have added one or more pets to the application
-  # Then I see a section to submit my application
-  # And in that section I see an input to enter why I would make a good owner for these pet(s)
-  # When I fill in that input
-  # And I click a button to submit this application
-  # Then I am taken back to the application's show page
-  # And I see an indicator that the application is "Pending"
-  # And I see all the pets that I want to adopt
-  # And I do not see a section to add more pets to this application
 
   describe "User Story 6" do
     describe "User has added pets to application" do
@@ -177,11 +156,6 @@ RSpec.describe "Application Show Page" do
     end
   end
 
-  # When I visit an application show page
-  # And I search for Pets by name
-  # Then I see any pet whose name PARTIALLY matches my search
-  # For example, if I search for "fluff", my search would match pets with names "fluffy", "fluff", and "mr. fluff"
-
   describe "User Story 8" do
     describe "Partial matches" do
       it 'can see any pet whos name partially matches the search' do
@@ -225,11 +199,6 @@ RSpec.describe "Application Show Page" do
       end
     end
   end
-
-# When I visit an application show page
-# And I search for Pets by name
-# Then my search is case insensitive
-# For example, if I search for "fluff", my search would match pets with names "Fluffy", "FLUFF", and "Mr. FlUfF"
 
   describe "User story 9" do
     describe "case insensitive" do

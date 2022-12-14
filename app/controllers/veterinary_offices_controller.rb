@@ -30,7 +30,6 @@ class VeterinaryOfficesController < ApplicationController
 
   def create
     vet_office = VeterinaryOffice.new(vet_office_params)
-
     if vet_office.save
       redirect_to '/veterinary_offices'
     else
