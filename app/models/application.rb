@@ -5,17 +5,17 @@ class Application < ApplicationRecord
   has_many :shelters, through: :pets
 
   def find_app_approved(pet_id)
-    app = Application.joins(:pets).where(pets: {id: pet_id }).pluck(:status)
-    app.include?("Approved")
+    app = Application.joins(:pets).where(pets: { id: pet_id }).pluck(:status)
+    app.include?('Approved')
   end
 
   def status_update
     # require 'pry'; binding.pry
     if approved
-      self.update!(status: "Approved")
+      update!(status: 'Approved')
       adopt_pets
     elsif rejected
-      self.update!(status: "Rejected")
+      update!(status: 'Rejected')
     end
   end
 
@@ -32,7 +32,7 @@ class Application < ApplicationRecord
   end
 
   def adopt_pets
-    self.pets.each do |pet|
+    pets.each do |pet|
       pet.update!(adoptable: false)
     end
   end
