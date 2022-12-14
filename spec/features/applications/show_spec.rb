@@ -152,6 +152,8 @@ RSpec.describe "Application Show Page" do
         expect(current_path).to eq("/applications/#{@application_1.id}")
         expect(page).to have_content("I work from home")
         expect(page).to have_content("Pending")
+        @application_1.reload
+        expect(@application_1.status).to eq("Pending")
         
         within("#application_pets") do
           expect(page).to have_content("Pepper")

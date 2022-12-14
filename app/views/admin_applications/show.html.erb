@@ -2,20 +2,23 @@
 
 <p><i>Address: </i><%= @application.full_address %></p>
 <p><i>Description: </i><%= @application.description %></p>
+<p><i>Application status: </i><%= @application.status %></p>
 
-<% if @application.approved? == false %>
-  <p>Pets applying for: </p>
-  <% @pet_id_pairs.each do |pet| %>
-    <section id='pet-<%= pet[0] %>'>
-      <p><%= link_to pet[1], "/pets/#{pet[0]}" %> <%= button_to 'Approve', "/admin/applications/#{@application.id}?adopt=#{pet[0]}", :method => :patch %></p>
-      <p>Status: <%= @application.status %></p>   
-    </section>
-  <% end %>
-<% else %>
+<p>Pets applying for: </p>
+<% @application_pets.each do |pet| %>
+  <section id='pet-<%= pet.id %>'>
+    <p><%= link_to pet.name, "/pets/#{pet.id}" %></p> 
+ 
+    <% if pet.pet_approved(@application.id) == 'Pending' %>
+      <%= button_to 'Approve', "/admin/applications/#{@application.id}?pet_id=#{pet.id}&status=Approved", :method => :patch %>
 
-  <p><b>Pet applying for: </b><%= @application.approved_pet.name%></p> 
-  <p>Application Status: <b><i><%= @application.status %></b></i></p>   
-  <% @application.pets.each do |pet| %></p>
-    <%= pet.name %>'s adoption status is now: <i><%= pet.adoptable %></i>
-  <% end %>
+      <%# <%= button_to 'Reject', "/admin/applications/#{@application.id}?adopt=#{pet.id}", :method => :patch %>
+    <% else %>
+      
+    <% end %>
+      <p> <%= pet.name %>'s application status is now: <%= pet.pet_approved(@application.id) %></p>
+  </section>
 <% end %>
+
+
+

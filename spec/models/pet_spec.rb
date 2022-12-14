@@ -1,4 +1,5 @@
 require 'rails_helper'
+require 'test_helper'
 
 RSpec.describe Pet, type: :model do
   describe 'relationships' do
@@ -39,6 +40,43 @@ RSpec.describe Pet, type: :model do
       it 'returns the shelter name for the given pet' do
         expect(@pet_3.shelter_name).to eq(@shelter_1.name)
       end
+    end
+  end
+
+  describe '#pet_approved' do
+    it 'returns pets that are approved per specific application' do
+      shelter_1 = Shelter.create!(
+        foster_program: true,
+        name: "Healthy Paws",
+        city: "Denver",
+        rank: 3
+      )
+
+      application_2 = Application.create!(
+        name: "Tom",
+        street_address: "508 Maple Street",
+        city: "Denver",
+        state: "CO",
+        zip_code: 80020,
+        description: "Love animals",
+        status: "Pending"
+      )
+      
+      pet_2 = Pet.create!(
+        name: "Daisy",
+        adoptable: true,
+        age: 14,
+        breed: "Beagle",
+        shelter_id: shelter_1.id
+      )
+
+      application_pet_2 = ApplicationPet.create!(
+        status: 'Pending',
+        application: application_2, 
+        pet: pet_2
+      )
+
+      expect(pet_2.pet_approved(application_2.id)).to eq('Pending')
     end
   end
 end
