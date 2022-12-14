@@ -10,6 +10,7 @@
     <p><%= link_to pet.name, "/pets/#{pet.id}" %></p> 
     <% if pet.pet_approved(@application.id) == 'Pending' %>
       <%= button_to 'Approve', "/admin/applications/#{@application.id}?pet_id=#{pet.id}&status=Approved", :method => :patch %>
+      <br>
       <%= button_to 'Reject', "/admin/applications/#{@application.id}?pet_id=#{pet.id}&status=Rejected", :method => :patch %>
     <% else %>  
     <% end %>
