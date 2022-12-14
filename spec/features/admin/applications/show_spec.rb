@@ -88,4 +88,35 @@ RSpec.describe 'the admin application show page' do
     expect(page).to have_content("Rejected")
     expect(current_path).to eq ("/admin/applications/#{@app1.id}")
   end
+  
+  describe 'User Story 14' do
+    before(:each) do
+      visit "applications/#{@app3.id}"
+      fill_in 'Add a Pet to this Application', with: "#{@pet1.name}"
+      click_button 'Search Pets'
+      click_button 'Adopt this pet'
+      fill_in 'Why I would make a good owner:', with: "Big yard, small child in need of herding."
+      click_button('Submit Application')
+    end
+    
+    it 'more than one application can have the same pet' do
+      visit "admin/applications/#{@app3.id}"
+      expect(page).to have_button('Approve Noodle')
+      expect(page).to have_button('Reject Noodle')
+      
+      visit "admin/applications/#{@app1.id}"
+      expect(page).to have_button('Approve Noodle')
+      expect(page).to have_button('Reject Noodle')
+    end
+    
+    it 'will not change the status of a pet on another application' do
+      visit "admin/applications/#{@app3.id}"
+      click_on "Approve #{@pet1.name}"
+      
+      visit "admin/applications/#{@app1.id}"
+      expect(page).to have_content('Noodle')
+      expect(page).to have_button('Approve Noodle')
+      expect(page).to have_button('Reject Noodle')
+    end
+  end
 end
