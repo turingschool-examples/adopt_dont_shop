@@ -16,7 +16,6 @@ RSpec.describe "admin" do
     
     visit '/admin/shelters'
     #  save_and_open_page
-    # binding.pry
     expect(shelter_3.name).to appear_before(shelter.name)
   end
   
