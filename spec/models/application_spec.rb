@@ -45,7 +45,7 @@ RSpec.describe Application, type: :model do
     end
   end
 
-  describe '#app_pets_status' do
+  describe '#uniq_app_pets_status' do
     it 'returns array of unique application pet statuses for the application' do
       shelter = Shelter.create!(name: 'Mystery Building', city: 'Irvine CA', foster_program: false, rank: 9)
       pet = Pet.create!(name: 'Scooby', age: 2, breed: 'Great Dane', adoptable: true, shelter_id: shelter.id)
@@ -53,15 +53,15 @@ RSpec.describe Application, type: :model do
       application = pet.applications.create!(name: 'John Doe', street: '123 N Washington Ave.', city: 'Denver', state: 'Colorado', zip: '91234', applicant_argument: 'caring and loving', app_status: "Pending")
       application.pets << pet2
 
-      expect(application.app_pets_status).to eq(["Pending"])
+      expect(application.uniq_app_pets_status).to eq(["Pending"])
 
       application.application_pets.second.reject
 
-      expect(application.app_pets_status).to eq(["Pending", "Rejected"])
+      expect(application.uniq_app_pets_status).to eq(["Pending", "Rejected"])
 
       application.application_pets.first.reject
 
-      expect(application.app_pets_status).to eq(["Rejected"])
+      expect(application.uniq_app_pets_status).to eq(["Rejected"])
     end
   end
 end

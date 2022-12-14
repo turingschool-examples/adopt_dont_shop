@@ -17,7 +17,7 @@ class Application < ApplicationRecord
     pets.map { |pet| ApplicationPet.find_by_pet_and_app(pet.id, self.id) }
   end
 
-  def app_pets_status
+  def uniq_app_pets_status
     order_app_pets_by_pets.pluck(:status).uniq
   end
 end

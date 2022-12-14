@@ -4,7 +4,7 @@ class Admin::ApplicationsController < ApplicationController
     @pets = @application.pets
     @application_pets = @application.order_app_pets_by_pets
     
-    app_pets_status = @application.app_pets_status
+    app_pets_status = @application.uniq_app_pets_status
     @already_adopted = "This pet has already been approved for adoption"
     
     if app_pets_status == ["Approved"]
