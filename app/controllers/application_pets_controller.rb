@@ -9,6 +9,8 @@ class ApplicationPetsController < ApplicationController
     
     application_pet.update(application_pets_params)
 
+    application_pet.approved?
+
     redirect_to "/admin/applications/#{application_pet.application.id}"
   end
 
