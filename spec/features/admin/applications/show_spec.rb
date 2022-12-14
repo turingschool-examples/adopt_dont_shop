@@ -66,10 +66,11 @@ RSpec.describe 'the admin application show page' do
     expect(page).to have_button("Approve #{@pet2.name}")
   end
   
-  it 'clicking the approve button changes the application status' do
+  it 'clicking the approve button changes the pet status' do
     visit "admin/applications/#{@app1.id}"
     click_on "Approve #{@pet1.name}"
     
+    expect(page).to have_content("Approved")
     expect(current_path).to eq ("/admin/applications/#{@app1.id}")
   end
   
@@ -80,10 +81,11 @@ RSpec.describe 'the admin application show page' do
     expect(page).to have_button("Reject #{@pet2.name}")
   end
   
-  xit 'clicking the reject button changes the application status' do
+  it 'clicking the reject button changes the pet status' do
     visit "admin/applications/#{@app1.id}"
     click_on "Reject #{@pet1.name}"
     
+    expect(page).to have_content("Rejected")
     expect(current_path).to eq ("/admin/applications/#{@app1.id}")
   end
 end

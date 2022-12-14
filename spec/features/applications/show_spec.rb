@@ -111,7 +111,7 @@ RSpec.describe 'the application show page' do
     click_button 'Search Pets'
 
     click_button 'Adopt this pet'
-    save_and_open_page
+
     expect(page).to have_content('Bumblebee')
     expect(@app1.pets).to eq([@pet1, @pet2, @pet3])
   end
