@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'admin show page' do
+RSpec.describe 'admin applications show page' do
   before :each do
     @shelter = Shelter.create!(name: 'Snoops Dogs', city: 'Compton', rank: 1, foster_program: true)
 
