@@ -29,6 +29,7 @@
    </p>
    <% end %>
 <% end %>
+
 <% if @application.status == 'In Progress' && @application.has_pets? %>
   <%= form_with url: "/applications/#{@application.id}", method: :patch, params: {status_change: "Pending"}, local: true do |f| %>
     <%= f.label :description, "Why I would make a good owner:" %>
