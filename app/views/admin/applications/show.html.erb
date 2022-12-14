@@ -1,0 +1,22 @@
+<h2>Application Details</h2>
+<h3>Application Status: <%= @application.status %></h3>
+<% @pet_applications.each do |pet_app| %>
+  <div id="pet-<%= pet_app.pet.id %>">
+    <%= pet_app.pet.name %>
+
+    <% if pet_app.status %>
+      <% if pet_app.status == 'true' %>
+        <%= 'Application Approved!' %>
+      <% else %>
+        <%= 'Application Rejected' %>  
+      <% end %>
+    <% else %>
+      <% if @application.find_app_approved(pet_app.pet.id) == false %>      
+        <%= render partial: 'pet_approval', locals: { pet_id: pet_app.pet.id } %>
+      <% else %>
+        <%= 'This Pet has been Approved for Adoption' %>
+      <% end %>
+      <%= render partial: 'pet_reject', locals: { pet_id: pet_app.pet.id } %>
+    <% end %>
+  </div>
+<% end %>
