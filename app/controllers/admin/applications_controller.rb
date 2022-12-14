@@ -4,15 +4,14 @@ class Admin::ApplicationsController < ApplicationController
     @pets = @application.pets
     @application_pets = @application.order_app_pets_by_pets
     
-    app_pets_status = @application_pets.pluck(:status).uniq
+    app_pets_status = @application.app_pets_status
     @already_adopted = "This pet has already been approved for adoption"
     
-    if app_pets_status.length == 1 && app_pets_status.first == "Approved"
-      @application.update(app_status: "Approved")
+    if app_pets_status == ["Approved"]
+        @application.update(app_status: "Approved")
     elsif !app_pets_status.include?("Pending")
       @application.update(app_status: "Rejected")
     end
-
 
     if params[:app_pet_id]
       @application_pet = ApplicationPet.find(params[:app_pet_id])

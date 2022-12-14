@@ -14,10 +14,10 @@ class Application < ApplicationRecord
   end
 
   def order_app_pets_by_pets
-    application_pets = []
-    pets.each do |pet|
-      application_pets << ApplicationPet.find_by_pet_and_app(pet.id, self.id)
-    end
-    application_pets
+    pets.map { |pet| ApplicationPet.find_by_pet_and_app(pet.id, self.id) }
+  end
+
+  def app_pets_status
+    order_app_pets_by_pets.pluck(:status).uniq
   end
 end

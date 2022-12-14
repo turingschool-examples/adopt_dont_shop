@@ -42,7 +42,26 @@ RSpec.describe Application, type: :model do
       still_ordered_app_pets = application.order_app_pets_by_pets
 
       expect(ordered_app_pets).to eq(still_ordered_app_pets)
-      #couldn't figure out good testing here
+    end
+  end
+
+  describe '#app_pets_status' do
+    it 'returns array of unique application pet statuses for the application' do
+      shelter = Shelter.create!(name: 'Mystery Building', city: 'Irvine CA', foster_program: false, rank: 9)
+      pet = Pet.create!(name: 'Scooby', age: 2, breed: 'Great Dane', adoptable: true, shelter_id: shelter.id)
+      pet2 = Pet.create!(name: 'Scrappy', age: 2, breed: 'Terrior', adoptable: true, shelter_id: shelter.id)
+      application = pet.applications.create!(name: 'John Doe', street: '123 N Washington Ave.', city: 'Denver', state: 'Colorado', zip: '91234', applicant_argument: 'caring and loving', app_status: "Pending")
+      application.pets << pet2
+
+      expect(application.app_pets_status).to eq(["Pending"])
+
+      application.application_pets.second.reject
+
+      expect(application.app_pets_status).to eq(["Pending", "Rejected"])
+
+      application.application_pets.first.reject
+
+      expect(application.app_pets_status).to eq(["Rejected"])
     end
   end
 end
