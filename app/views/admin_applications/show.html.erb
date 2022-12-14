@@ -8,14 +8,12 @@
 <% @application_pets.each do |pet| %>
   <section id='pet-<%= pet.id %>'>
     <p><%= link_to pet.name, "/pets/#{pet.id}" %></p> 
- 
     <% if pet.pet_approved(@application.id) == 'Pending' %>
       <%= button_to 'Approve', "/admin/applications/#{@application.id}?pet_id=#{pet.id}&status=Approved", :method => :patch %>
-
-      <%# <%= button_to 'Reject', "/admin/applications/#{@application.id}?adopt=#{pet.id}", :method => :patch %>
-    <% else %>
-      
+      <%= button_to 'Reject', "/admin/applications/#{@application.id}?pet_id=#{pet.id}&status=Rejected", :method => :patch %>
+    <% else %>  
     <% end %>
+
       <p> <%= pet.name %>'s application status is now: <%= pet.pet_approved(@application.id) %></p>
   </section>
 <% end %>
