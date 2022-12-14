@@ -17,8 +17,8 @@
 
 <section id='application_pets'>
   <p>Pets applying for: </p>
-  <% @pet_id_pairs.each do |pet| %>
-    <p><%= link_to pet[1], "/pets/#{pet[0]}" %></p>
+  <% @application_pets.each do |pet| %>
+    <p><%= link_to pet.name, "/pets/#{pet.id}" %></p>
   <% end %>
 </section>
 

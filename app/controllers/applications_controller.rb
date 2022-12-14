@@ -1,7 +1,8 @@
 class ApplicationsController < ApplicationController
   def show
     @application = Application.find(params[:id])
-    @pet_id_pairs = @application.pets.pluck(:id, :name)
+    # @pet_id_pairs = @application.pets.pluck(:id, :name)
+    @application_pets = @application.pets
     if params[:search].present?
       @pet_searches = Pet.search(params[:search])
     end
