@@ -10,7 +10,7 @@ RSpec.describe "admin" do
   let!(:pet_4) { Pet.create!(name: 'Jerry', age: 2, breed: 'Great Dane', adoptable: true, shelter_id: shelter.id)}
   let!(:application_1) { Application.create!(name: 'Joe', street_address: "123 street lane", city: "denver", state: "co", zip_code: "12345",  description: "I like dogs", status: "Pending" ) }
   let!(:application_2) { Application.create!(name: 'Boe', street_address: "124 street lane", city: "denver", state: "co", zip_code: "12345",  description: "I like dogs also", status: "In Progress" ) }
-  let!(:application_3) { Application.create!(name: 'Foe', street_address: "125 street lane", city: "denver", state: "co", zip_code: "12345",  description: "I like dogs also", status: "in progress" ) }
+  let!(:application_3) { Application.create!(name: 'Foe', street_address: "125 street lane", city: "denver", state: "co", zip_code: "12345",  description: "I like dogs also", status: "In Progress" ) }
   let!(:applicationpet_1) {ApplicationPet.create!(application_id: application_1.id, pet_id: pet_2.id )}
 
   it 'displays shelters in reverse alphabetical order' do

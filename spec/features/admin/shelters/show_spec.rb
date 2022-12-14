@@ -2,8 +2,8 @@ require 'rails_helper'
 
 RSpec.describe "Admin Shelters Show" do
 
-  let!(:shelter) {build_stubbed(:shelter)}
-  let!(:another_shelter) {build_stubbed(:shelter)}
+  let!(:shelter) {create(:shelter)}
+  let!(:another_shelter) {create(:shelter)}
   
   describe "User Story 19" do
     it 'shows name and full address on show page' do
