@@ -44,14 +44,6 @@ class PetsController < ApplicationController
     Pet.find(params[:id]).destroy
     redirect_to '/pets'
   end
-  
-  def self.search(term)
-    if term
-      where('name ILIKE ?', "%#{term}%")
-    else 
-      Pet.all
-    end
-  end
 
   private
 
