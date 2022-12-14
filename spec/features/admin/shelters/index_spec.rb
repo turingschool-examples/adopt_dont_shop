@@ -25,4 +25,17 @@ RSpec.describe "admin" do
     expect(page).to have_content("Shelters with Pending Applications")
     expect(page).to have_content(shelter_3.name, count: 2)
   end
+
+  it 'shelters with pending applications is ordered by name' do
+    shelter_4 = create(:shelter, name: "Big Shelter")
+    pet_5 = create(:pet, shelter_id: shelter_4.id)
+    application_4 = create(:application, status: "Pending")
+    ApplicationPet.create!(application_id: application_4.id, pet_id: pet_5.id)
+    
+    visit '/admin/shelters'
+    
+    within('div') do
+      expect(shelter_4.name).to appear_before(shelter_3.name)
+    end
+  end
 end
