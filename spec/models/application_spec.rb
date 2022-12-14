@@ -33,7 +33,7 @@ RSpec.describe Application, type: :model do
       application.pets << pet2
 
       ordered_app_pets = application.order_app_pets_by_pets
-
+      
       expect(ordered_app_pets).to eq(application.application_pets)
 
       application.application_pets.second.reject
@@ -62,6 +62,34 @@ RSpec.describe Application, type: :model do
       application.application_pets.first.reject
 
       expect(application.uniq_app_pets_status).to eq(["Rejected"])
+    end
+  end
+
+  describe '#accept_application' do
+    it 'can accept an application' do
+      shelter = Shelter.create!(name: 'Mystery Building', city: 'Irvine CA', foster_program: false, rank: 9)
+      pet = Pet.create!(name: 'Scooby', age: 2, breed: 'Great Dane', adoptable: true, shelter_id: shelter.id)
+      application = pet.applications.create!(name: 'John Doe', street: '123 N Washington Ave.', city: 'Denver', state: 'Colorado', zip: '91234', applicant_argument: 'caring and loving', app_status: "Pending")
+
+      expect(application.app_status).to eq("Pending")
+
+      application.accept_application
+
+      expect(application.app_status).to eq("Approved")
+    end
+  end
+
+  describe '#reject_application' do
+    it 'can reject an application' do
+      shelter = Shelter.create!(name: 'Mystery Building', city: 'Irvine CA', foster_program: false, rank: 9)
+      pet = Pet.create!(name: 'Scooby', age: 2, breed: 'Great Dane', adoptable: true, shelter_id: shelter.id)
+      application = pet.applications.create!(name: 'John Doe', street: '123 N Washington Ave.', city: 'Denver', state: 'Colorado', zip: '91234', applicant_argument: 'caring and loving', app_status: "Pending")
+
+      expect(application.app_status).to eq("Pending")
+
+      application.reject_application
+
+      expect(application.app_status).to eq("Rejected")
     end
   end
 end

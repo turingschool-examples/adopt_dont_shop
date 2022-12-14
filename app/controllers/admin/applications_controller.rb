@@ -8,9 +8,9 @@ class Admin::ApplicationsController < ApplicationController
     @already_adopted = "This pet has already been approved for adoption"
     
     if app_pets_status == ["Approved"]
-        @application.update(app_status: "Approved")
+      @application.accept_application
     elsif !app_pets_status.include?("Pending")
-      @application.update(app_status: "Rejected")
+      @application.reject_application
     end
 
     if params[:app_pet_id]

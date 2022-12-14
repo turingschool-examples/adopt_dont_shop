@@ -20,4 +20,12 @@ class Application < ApplicationRecord
   def uniq_app_pets_status
     order_app_pets_by_pets.pluck(:status).uniq
   end
+
+  def accept_application
+    self.update(app_status: "Approved")
+  end
+
+  def reject_application
+    self.update(app_status: "Rejected")
+  end
 end
