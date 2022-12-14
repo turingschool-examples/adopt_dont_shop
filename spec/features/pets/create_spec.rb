@@ -27,6 +27,7 @@ RSpec.describe 'pet creation' do
         fill_in 'Breed', with: 'Welsh Corgi'
         check 'Adoptable'
         click_button 'Save'
+
         expect(page).to have_current_path("/shelters/#{@shelter.id}/pets")
         expect(page).to have_content('Bumblebee')
       end
@@ -37,6 +38,7 @@ RSpec.describe 'pet creation' do
         visit "/shelters/#{@shelter.id}/pets/new"
 
         click_button 'Save'
+        
         expect(page).to have_current_path("/shelters/#{@shelter.id}/pets/new")
         expect(page).to have_content("Error: Name can't be blank, Age can't be blank, Age is not a number")
       end

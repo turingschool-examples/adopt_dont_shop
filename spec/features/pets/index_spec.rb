@@ -12,7 +12,6 @@ RSpec.describe 'the pets index' do
     expect(page).to have_content(pet_1.breed)
     expect(page).to have_content(pet_1.age)
     expect(page).to have_content(shelter.name)
-
     expect(page).to have_content(pet_2.name)
     expect(page).to have_content(pet_2.breed)
     expect(page).to have_content(pet_2.age)
@@ -40,7 +39,7 @@ RSpec.describe 'the pets index' do
     expect(page).to have_content("Edit #{pet_1.name}")
     expect(page).to have_content("Edit #{pet_2.name}")
 
-    click_link("Edit #{pet_1.name}")
+    click_link "Edit #{pet_1.name}"
 
     expect(page).to have_current_path("/pets/#{pet_1.id}/edit")
   end

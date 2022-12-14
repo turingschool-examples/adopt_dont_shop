@@ -59,7 +59,7 @@ RSpec.describe Application, type: :model do
     end
 
     describe '#has_pets?' do
-      it 'returns true is the application has more than 0 pets' do
+      it 'returns true if the application has more than 0 pets' do
 
         expect(@app1.has_pets?).to eq true
         expect(@app2.has_pets?).to eq false

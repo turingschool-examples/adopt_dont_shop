@@ -17,7 +17,7 @@ RSpec.describe 'the application show page' do
     fill_in 'City', with: "Denver"
     fill_in 'State', with: "CO"
     fill_in 'Zip code', with: "80000"
-    click_button("Submit")
+    click_button "Submit"
 
     expect(current_path).to eq("/applications/#{(Application.last.id)}")
     expect(page).to have_content("Max")
@@ -31,11 +31,9 @@ RSpec.describe 'the application show page' do
     fill_in 'street_address', with: 'Made up St'
     fill_in 'City', with: 'Denver'
     fill_in 'State', with: "CO"
-
-    click_button("Submit")
+    click_button "Submit"
 
     expect(current_path).to eq("/applications/new")
-
     expect(page).to have_content("Application not created. Please complete all fields.")
   end
 end

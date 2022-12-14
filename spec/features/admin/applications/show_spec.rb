@@ -61,7 +61,7 @@ RSpec.describe 'the admin application show page' do
   
   it 'every pet listed has an approve button' do
     visit "admin/applications/#{@app1.id}"
-
+    
     expect(page).to have_button("Approve #{@pet1.name}")
     expect(page).to have_button("Approve #{@pet2.name}")
   end
