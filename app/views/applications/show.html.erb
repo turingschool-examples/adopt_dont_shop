@@ -29,4 +29,4 @@
 <% end %>
 <h3>Status: <%= @application.status %></h3>
 
-<h3>Description: <%= @application.description %></h3>
+<h3>Description: <%= @application.description if !@application.no_description? %></h3>
