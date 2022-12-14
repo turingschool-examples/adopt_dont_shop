@@ -13,10 +13,6 @@ class Pet < ApplicationRecord
     where(adoptable: true)
   end
   
-  def index
-    @pets.all
-  end
-  
   def application_status(app_id)
     application_pets.find_by_application_id(app_id).status
   end
