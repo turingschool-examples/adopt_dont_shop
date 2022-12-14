@@ -35,14 +35,14 @@ RSpec.describe 'admin show page' do
     end
 
     within "#pet-#{@buster.id}" do
-      click_button("Approve This Application")
+      click_button('Approve This Application')
     end
 
     expect(current_path).to eq("/admin/applications/#{@app1.id}")
 
     within "#pet-#{@buster.id}" do
       expect(page).to_not have_button('Approve This Application')
-      expect(page).to have_content("Application Approved!")
+      expect(page).to have_content('Application Approved!')
     end
 
     within "#pet-#{@marlowe.id}" do
@@ -67,7 +67,7 @@ RSpec.describe 'admin show page' do
     end
 
     within "#pet-#{@marlowe.id}" do
-      click_button("Reject This Application")
+      click_button('Reject This Application')
     end
 
     expect(current_path).to eq("/admin/applications/#{@app1.id}")
@@ -75,7 +75,7 @@ RSpec.describe 'admin show page' do
     within "#pet-#{@marlowe.id}" do
       expect(page).to_not have_button('Approve This Application')
       expect(page).to_not have_button('Reject This Application')
-      expect(page).to have_content("Application Rejected")
+      expect(page).to have_content('Application Rejected')
     end
 
     within "#pet-#{@buster.id}" do
@@ -89,7 +89,7 @@ RSpec.describe 'admin show page' do
       name: 'Alex Pitzel',
       street_address: '6969 Canuck Ave',
       city: 'Toronto',
-      state: 'Canada, eh', zip_code: '32243', description: "buster is my dog, fight me",
+      state: 'Canada, eh', zip_code: '32243', description: 'buster is my dog, fight me',
       status: 'In Progress'
     )
     PetApplication.create!(pet: @buster, application: @app1)
@@ -98,7 +98,7 @@ RSpec.describe 'admin show page' do
     visit "/admin/applications/#{@app1.id}"
 
     within "#pet-#{@buster.id}" do
-      click_button("Reject This Application")
+      click_button('Reject This Application')
     end
 
     visit "/admin/applications/#{app2.id}"
@@ -112,43 +112,43 @@ RSpec.describe 'admin show page' do
   it 'sets an applications status to approved if all pets are approved' do
     PetApplication.create!(pet: @buster, application: @app1)
     PetApplication.create!(pet: @marlowe, application: @app1)
-    @app1.update(status: "Pending")
+    @app1.update(status: 'Pending')
 
     visit "/admin/applications/#{@app1.id}"
-    expect(page).to have_content("Application Status: Pending")
+    expect(page).to have_content('Application Status: Pending')
 
     within "#pet-#{@buster.id}" do
-      click_button("Approve This Application")
+      click_button('Approve This Application')
     end
 
-    expect(page).to have_content("Application Status: Pending")
+    expect(page).to have_content('Application Status: Pending')
 
     within "#pet-#{@marlowe.id}" do
-      click_button("Approve This Application")
+      click_button('Approve This Application')
     end
 
-    expect(page).to have_content("Application Status: Approved")
+    expect(page).to have_content('Application Status: Approved')
   end
 
   it 'sets an application status to rejected if any of the pets on that application are rejected' do
     PetApplication.create!(pet: @buster, application: @app1)
     PetApplication.create!(pet: @marlowe, application: @app1)
-    @app1.update(status: "Pending")
+    @app1.update(status: 'Pending')
 
     visit "/admin/applications/#{@app1.id}"
-    expect(page).to have_content("Application Status: Pending")
+    expect(page).to have_content('Application Status: Pending')
 
     within "#pet-#{@buster.id}" do
-      click_button("Approve This Application")
+      click_button('Approve This Application')
     end
 
-    expect(page).to have_content("Application Status: Pending")
+    expect(page).to have_content('Application Status: Pending')
 
     within "#pet-#{@marlowe.id}" do
-      click_button("Reject This Application")
+      click_button('Reject This Application')
     end
 
-    expect(page).to have_content("Application Status: Rejected")
+    expect(page).to have_content('Application Status: Rejected')
   end
 
   it 'does not allow an application to be approved on a pet when that pet has an approved application' do
@@ -156,26 +156,26 @@ RSpec.describe 'admin show page' do
       name: 'Alex Pitzel',
       street_address: '6969 Canuck Ave',
       city: 'Flavortown',
-      state: 'Canada, eh', zip_code: '32243', description: "buster is my dog, fight me",
+      state: 'Canada, eh', zip_code: '32243', description: 'buster is my dog, fight me',
       status: 'In Progress'
     )
     PetApplication.create!(pet: @buster, application: @app1)
     PetApplication.create!(pet: @buster, application: app2)
-    @app1.update(status: "Pending")
-    app2.update(status: "Pending")
+    @app1.update(status: 'Pending')
+    app2.update(status: 'Pending')
 
-    visit "/admin/applications/#{@app1.id}" 
+    visit "/admin/applications/#{@app1.id}"
     within "#pet-#{@buster.id}" do
-      click_button("Approve This Application")
+      click_button('Approve This Application')
     end
-    expect(page).to have_content("Application Status: Approved")
+    expect(page).to have_content('Application Status: Approved')
 
     visit "/admin/applications/#{app2.id}"
     within "#pet-#{@buster.id}" do
       expect(page).to have_content(@buster.name)
-      expect(page).to_not have_button("Approve This Application")
-      expect(page).to have_button("Reject This Application")
-      expect(page).to have_content("This Pet has been Approved for Adoption")
+      expect(page).to_not have_button('Approve This Application')
+      expect(page).to have_button('Reject This Application')
+      expect(page).to have_content('This Pet has been Approved for Adoption')
     end
   end
 end
