@@ -21,7 +21,8 @@ class Application < ApplicationRecord
   end
 
   def approved?
-    if ApplicationPet.where(application_id: id).where(adopted: true).any?
+    if ApplicationPet.where(application_id: id).where(status: "Approved").any?
+      #missing state change
       true
     else
       false
@@ -29,7 +30,8 @@ class Application < ApplicationRecord
   end
 
   def approved_pet
-    pet = ApplicationPet.where(application_id: id).where(adopted: true).first.pet_id
+    # how does this account for multiple pets
+    pet = ApplicationPet.where(application_id: id).where(status: "Approved").first.pet_id
     Pet.find(pet)
   end
 end

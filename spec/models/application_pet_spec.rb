@@ -14,7 +14,7 @@ RSpec.describe ApplicationPet, type: :model do
       seed_pets
       seed_application_pets
 
-      expect(@application_pet_1.adopted).to eq(false)
+      expect(@application_pet_1.status).to eq("Pending")
     end
   end
 end
