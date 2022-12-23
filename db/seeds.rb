@@ -26,6 +26,7 @@ end
 
 50.times do
   Pet.create(
+    name: Faker::FunnyName.name,
     adoptable: Faker::Boolean::boolean(true_ratio: 0.66),
     age: rand(1..1000),
     breed: Faker::Creature::Cat.breed,
@@ -56,7 +57,7 @@ end
     street_address: Faker::Address.street_address,
     city: Faker::Address.city,
     state: Faker::Address.state,
-    zipcode: Faker::Address.zip_code,
+    zip_code: Faker::Address.zip_code,
     description: Faker::Lorem.sentence
   )
 end
