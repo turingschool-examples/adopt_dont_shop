@@ -10,4 +10,9 @@ class Pet < ApplicationRecord
   def self.adoptable
     where(adoptable: true)
   end
+
+  def self.name_includes(name)
+    downcase_name = name.downcase
+    where("name ILIKE ?", "%#{downcase_name}%")
+  end
 end

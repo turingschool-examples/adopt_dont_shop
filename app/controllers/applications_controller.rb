@@ -3,6 +3,9 @@ class ApplicationsController < ApplicationController
   def show
     @application = Application.find(params[:id])
     @pets = @application.pets
+    if params[:search]
+      @pets = Pet.name_includes(params[:search])
+    end
   end
 
   def new
