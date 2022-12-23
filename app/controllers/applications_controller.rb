@@ -6,14 +6,14 @@ class ApplicationsController < ApplicationController
   end
 
   def new
-
+    @application = Application.new
   end
 
   def create
-    application = Application.new(app_params)
-    
-    if application.save
-      redirect_to "/applications/#{application.id}"
+    @application = Application.new(app_params)
+
+    if @application.save
+      redirect_to "/applications/#{@application.id}"
     else
       render :new
     end
