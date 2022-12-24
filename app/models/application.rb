@@ -8,4 +8,6 @@ class Application < ApplicationRecord
     "approved": 2,
     "rejected": 3
   }
+
+  validates_presence_of [:name, :street_address, :city, :state, :zip_code, :description]
 end

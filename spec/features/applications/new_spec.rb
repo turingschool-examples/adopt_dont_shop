@@ -21,4 +21,17 @@ RSpec.describe 'applications new' do
     expect(page).to have_content("That's like your opinion, man")
     expect(page).to have_content("in progress")
   end
+
+  it 'will return a list of error messages if any part of the form is left unfilled' do
+    visit '/applications/new'
+    
+    click_button "Submit"
+
+    expect(page).to have_content("Name can't be blank")
+    expect(page).to have_content("Street address can't be blank")
+    expect(page).to have_content("City can't be blank")
+    expect(page).to have_content("State can't be blank")
+    expect(page).to have_content("Zip code can't be blank")
+    expect(page).to have_content("Description can't be blank")
+  end
 end
