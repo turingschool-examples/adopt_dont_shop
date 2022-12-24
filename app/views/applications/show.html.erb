@@ -7,7 +7,7 @@
     <%= f.label :search, "Search for a pet" %>
     <%= f.text_field :search %>
     <%= f.text_field :id, value: @application.id, hidden: true %>
-    <%= f.submit "Submit" %>
+    <%= f.submit "Search" %>
   <% end %>
 <% end %>
   <% @pets.each do |pet| %>
