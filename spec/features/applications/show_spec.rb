@@ -76,7 +76,6 @@ RSpec.describe 'show page' do
 
   it 'shows the apps pets' do
     visit "/applications/#{@app.id}"
-    save_and_open_page
     @app.pets.each do |pet|
       expect(page).to have_content(pet.name)
     end
