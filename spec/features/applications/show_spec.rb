@@ -93,7 +93,6 @@ RSpec.describe 'show page' do
 
     @pet = Pet.create!(adoptable: true, age: 28, breed: "human", name: "Henry", shelter: @shelter)
 
-    # fill_in "Search", with @pet.name
     fill_in('search', with: @pet.name)
     click_button "Search"
 
