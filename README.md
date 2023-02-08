@@ -16,6 +16,13 @@ In this project, students will build upon the code in this repo to create a Pet 
 * Track user stories using GitHub Projects
 * Deploy your application to the internet
 
+## Requirements
+* Project must use Rails 5.2.x, Ruby 2.7.4, and PostgreSQL
+* Use of `resources` on this project is not permitted
+* Use of scaffolding on this project is not permitted
+* Students wanting to use any extra gems on this project must first get permission from your instructors
+  * Pre-approved gems are `capybara, pry, faker, factorybot, orderly, simplecov, shoulda-matchers, launchy`
+
 ## Project Phases
 
 1. [Set Up](./doc/set_up.md)
