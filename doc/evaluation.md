@@ -6,7 +6,7 @@ For the project eval, you should prepare a video presentation that clearly demon
 
 **1. User Story Presentation**
 
-Each partner should present 1 user story. If your project has 2 partners, your team should present a total of 2 stories. Try to pick user stories that you think will deliever the highest value in terms of feedback from the instructor. 
+Each partner should present 1 user story. If your project has 2 partners, your team should present a total of 2 stories. Try to pick user stories that you think will deliver the highest value in terms of feedback from the instructor. 
 
 For each story:
 
