@@ -18,32 +18,23 @@ RSpec.describe 'application creation' do
     end
   end
 
-  # describe 'the veterinarian create' do
-  #   context 'given valid data' do
-  #     it 'creates the vet and redirects to the veterinary offices vet index' do
-  #       visit "/veterinary_offices/#{@vet_office.id}/veterinarians/new"
+  describe 'the petition create' do
+    context 'given valid data' do
+      it 'creates the petition and redirects to the petitions show' do
+        visit "/petitions/new"
 
-  #       fill_in 'Name', with: 'Dr. Burstyn'
-  #       fill_in 'Review rating', with: 10
-  #       check 'On call'
-  #       click_button 'Save'
-  #       expect(page).to have_current_path(
-  #         "/veterinary_offices/#{@vet_office.id}/veterinarians"
-  #       )
-  #       expect(page).to have_content('Dr. Burstyn')
-  #     end
-  #   end
-
-  #   context 'given invalid data' do
-  #     it 're-renders the new form' do
-  #       visit "/veterinary_offices/#{@vet_office.id}/veterinarians/new"
-
-  #       click_button 'Save'
-  #       expect(page).to have_current_path(
-  #         "/veterinary_offices/#{@vet_office.id}/veterinarians/new"
-  #       )
-  #       expect(page).to have_content("Error: Name can't be blank, Review rating can't be blank, Review rating is not a number")
-  #     end
-  #   end
-  # end
+        fill_in 'Name', with: 'Henry'
+        fill_in 'Street address', with: '230 Ocean Dr.'
+        fill_in 'City', with: 'Austin'
+        fill_in 'State', with: 'Texas'
+        fill_in 'Zip code', with: 34098
+        save_and_open_page
+        click_button 'Submit'
+        expect(page).to have_current_path(
+          "/petitions/#{@petition.id}"
+        )
+        expect(page).to have_content('Henry')
+      end
+    end
+  end
 end
