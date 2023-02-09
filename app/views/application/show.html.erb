@@ -1,0 +1,13 @@
+<h1>Application Preview</h1>
+<p>Applicant Name: <%= @application.name %></p>
+<br>
+<p>Applicant Address: <%= @application.street_address %> <%=@application.city %>, <%= @application.state%> <%= @application.zip%> </p>
+<br>
+<p>Application Justification: <%= @application.description %></p>
+<br>
+<p>Pets Applied For <% @application.pets.each do |pet| %>
+                          <%= link_to "#{pet.name}", "/pets/#{pet.id}"%>
+                    <% end%></p>
+                    <br>
+<p>Application Status: <%= @application.status %></p>
+
