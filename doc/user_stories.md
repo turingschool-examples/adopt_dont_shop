@@ -5,15 +5,15 @@
 ```
 [ ] done
 
-0: Deploy your application to Fly.io
+0: Deploy your application to Heroku
 
 As a visitor of the site
 I will perform all user stories
-By visiting the application on Fly.io.
+By visiting the application on Heroku.
 Localhost is fine for development, but
-the application must be hosted on Fly.io.
+the application must be hosted on Heroku.
 
-Use these guides: https://backend.turing.edu/module2/misc/deploying_with_fly
+Use these guides: https://devcenter.heroku.com/articles/getting-started-with-rails5
 
 Continuous Integration / Deployment is not allowed for this project.
 ```
