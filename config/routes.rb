@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  root 'welcome#index'
   get '/', to: 'application#welcome'
 
   get '/shelters', to: 'shelters#index'
