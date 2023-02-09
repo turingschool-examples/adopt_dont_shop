@@ -1,4 +1,5 @@
 class PetitionsController < ApplicationController
+
   def new
     
   end
@@ -14,3 +15,9 @@ class PetitionsController < ApplicationController
     params.permit(:id, :name, :street_address, :city, :state, :zip_code)
   end
 end
+
+  def show
+    @petition = Petition.find(params[:id])
+  end
+end
+
