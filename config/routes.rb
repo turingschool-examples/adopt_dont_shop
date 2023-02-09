@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   get '/shelters', to: 'shelters#index'
   get '/shelters/new', to: 'shelters#new'
   get '/shelters/:id', to: 'shelters#show'
+	
   post '/shelters', to: 'shelters#create'
   get '/shelters/:id/edit', to: 'shelters#edit'
   patch '/shelters/:id', to: 'shelters#update'
@@ -36,4 +37,6 @@ Rails.application.routes.draw do
   get '/veterinary_offices/:veterinary_office_id/veterinarians', to: 'veterinary_offices#veterinarians'
   get '/veterinary_offices/:veterinary_office_id/veterinarians/new', to: 'veterinarians#new'
   post '/veterinary_offices/:veterinary_office_id/veterinarians', to: 'veterinarians#create'
+
+	get '/:id', to: 'application#show'
 end
