@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  require 'pry'; binding.pry
   root 'welcome#index'
 
   get '/shelters', to: 'shelters#index'
