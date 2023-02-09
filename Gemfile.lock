@@ -45,6 +45,7 @@ GEM
     addressable (2.8.0)
       public_suffix (>= 2.0.2, < 5.0)
     arel (9.0.0)
+    ast (2.4.2)
     bindex (0.8.1)
     bootsnap (1.12.0)
       msgpack (~> 1.2)
@@ -80,6 +81,7 @@ GEM
     jbuilder (2.11.5)
       actionview (>= 5.0.0)
       activesupport (>= 5.0.0)
+    json (2.6.3)
     launchy (2.5.0)
       addressable (~> 2.7)
     listen (3.1.5)
@@ -98,6 +100,8 @@ GEM
     mini_portile2 (2.8.0)
     minitest (5.16.2)
     msgpack (1.5.3)
+    net-http (0.3.2)
+      uri
     nio4r (2.5.8)
     nokogiri (1.13.7)
       mini_portile2 (~> 2.8.0)
@@ -107,6 +111,9 @@ GEM
     orderly (0.1.1)
       capybara (>= 1.1)
       rspec (>= 2.14)
+    parallel (1.22.1)
+    parser (3.2.0.0)
+      ast (~> 2.4.1)
     pg (1.4.1)
     pry (0.14.1)
       coderay (~> 1.1)
@@ -141,11 +148,13 @@ GEM
       method_source
       rake (>= 0.8.7)
       thor (>= 0.19.0, < 2.0)
+    rainbow (3.1.1)
     rake (13.0.6)
     rb-fsevent (0.11.1)
     rb-inotify (0.10.1)
       ffi (~> 1.0)
     regexp_parser (2.5.0)
+    rexml (3.2.5)
     rspec (3.11.0)
       rspec-core (~> 3.11.0)
       rspec-expectations (~> 3.11.0)
@@ -167,6 +176,19 @@ GEM
       rspec-mocks (~> 3.10)
       rspec-support (~> 3.10)
     rspec-support (3.11.0)
+    rubocop (1.45.1)
+      json (~> 2.3)
+      parallel (~> 1.10)
+      parser (>= 3.2.0.0)
+      rainbow (>= 2.2.2, < 4.0)
+      regexp_parser (>= 1.8, < 3.0)
+      rexml (>= 3.2.5, < 4.0)
+      rubocop-ast (>= 1.24.1, < 2.0)
+      ruby-progressbar (~> 1.7)
+      unicode-display_width (>= 2.4.0, < 3.0)
+    rubocop-ast (1.24.1)
+      parser (>= 3.1.1.0)
+    ruby-progressbar (1.11.0)
     ruby_dep (1.5.0)
     sass (3.7.4)
       sass-listen (~> 4.0.0)
@@ -208,6 +230,8 @@ GEM
       thread_safe (~> 0.1)
     uglifier (4.2.0)
       execjs (>= 0.3.0, < 3)
+    unicode-display_width (2.4.2)
+    uri (0.12.0)
     web-console (3.7.0)
       actionview (>= 5.0)
       activemodel (>= 5.0)
@@ -230,12 +254,14 @@ DEPENDENCIES
   jbuilder (~> 2.5)
   launchy
   listen (>= 3.0.5, < 3.2)
+  net-http
   orderly
   pg (>= 0.18, < 2.0)
   pry
   puma (~> 3.11)
-  rails (~> 5.2.6)
+  rails (~> 5.2.8)
   rspec-rails
+  rubocop
   sass-rails (~> 5.0)
   shoulda-matchers
   simplecov
