@@ -6,3 +6,6 @@
 <p>Zip Code: <%= @petition.zip_code %></p>
 <p>Description: <%= @petition.description %></p>
 <p>Status: <%= @petition.status %></p>
+<% @petition.pets.each do |pet| %>
+  <%= link_to"#{pet.name}", "/pets/#{pet.id}" %>
+<% end %>
