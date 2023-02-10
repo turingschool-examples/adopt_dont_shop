@@ -2,6 +2,7 @@
 
 <%= link_to "Sort alphabetically", "/shelters/#{@shelter.id}/pets?sort=alphabetical" %>
 
+
 <% @shelter_pets.each do |pet| %>
   <h3><%= pet.name %></h3>
   <p>Age: <%= pet.age %></p>

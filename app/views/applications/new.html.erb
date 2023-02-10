@@ -1,0 +1,25 @@
+<h1> Please fill out every field </h1>
+
+<%= form_with url: "/applications/#{@new_app.id}", method: :post, local: :true do |form| %>
+  <%= form.label :name, "Name" %>
+  <%= form.text_field :name, value: @new_app.name %>
+
+  <%= form.label :street_address, "Street Address" %>
+  <%= form.text_field :street_address, value: @new_app.street_address%>
+
+  <%= form.label :city, "City" %>
+  <%= form.text_field :city, value: @new_app.city %>
+
+  <%= form.label :state, "State" %>
+  <%= form.text_field :state, value: @new_app.state%>
+
+  <%= form.label :zipcode, "Zipcode" %>
+  <%= form.number_field :zipcode, value: @new_app.zipcode %>
+
+  <%= form.label :description, "Description" %>
+  <%= form.text_field :description, value: @new_app.description %>
+
+  <%= form.hidden_field :status, value: "In Progress" %>
+
+  <%= form.button "Submit" %>
+<% end %>
