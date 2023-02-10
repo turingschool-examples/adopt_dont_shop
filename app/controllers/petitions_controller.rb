@@ -10,8 +10,12 @@ class PetitionsController < ApplicationController
 
   def create
     @petition = Petition.new(petition_params)
-    @petition.save
-    redirect_to "/petitions/#{@petition.id}"
+    if @petition.save
+      redirect_to "/petitions/#{@petition.id}"
+    else
+      redirect_to "/petitions/new"
+      flash[:alert] = "Error: #{error_message(@petition.errors)}"
+    end
   end
   
   def show
