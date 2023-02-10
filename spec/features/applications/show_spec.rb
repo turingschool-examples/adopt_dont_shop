@@ -16,9 +16,17 @@ RSpec.describe "Application show page", type: :feature do
         expect(page).to have_content(application.state)
         expect(page).to have_content(application.zip_code)
         expect(page).to have_content(application.description)
-        expect(page).to have_content(jax.name)
-        expect(page).to have_content(rylo.name)
         expect(page).to have_content(application.status)
+
+        expect(page).to have_link("#{jax.name}", href: "/pets/#{jax.id}")
+        expect(page).to have_link("#{rylo.name}", href: "/pets/#{rylo.id}")
+
+        click_link "#{jax.name}"
+        expect(current_path).to eq("/pets/#{jax.id}")
+
+        visit "/applications/#{application.id}"
+        click_link "#{rylo.name}"
+        expect(current_path).to eq("/pets/#{rylo.id}")
       end
     end
   end
