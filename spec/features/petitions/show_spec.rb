@@ -5,6 +5,8 @@ RSpec.describe 'applications show page', type: :feature do
     before :each do
       @petition = Petition.create!(name: 'John', street_address: '1 Sesame St', city: 'Denver',
                     state: 'CO', zip_code: 12345, description: 'I like dogs', status: 'Pending')
+      @pet1 = Pet.create!(name: 'Scooby', age: 2, breed: 'Great Dane', adoptable: true, petition_id: @petition.id)
+      @pet2 = Pet.create!(name: 'Dooby', age: 3, breed: 'Greater Dane', adoptable: true, petition_id: @petition.id)
     end
 
     it 'I can see the applications attributes' do
@@ -17,5 +19,22 @@ RSpec.describe 'applications show page', type: :feature do
       expect(page).to have_content('I like dogs')
       expect(page).to have_content('Pending')
     end
+
+    it 'has names of pets as links to their show pages' do
+      visit "petitions/#{@petition.id}"
+
+      expect(page).to have_link('Scooby')
+      expect(page).to have_link('Dooby')
+
+      click_link 'Scooby'
+
+      expect(page).to have_current_path("/pets/#{@pet1.id}")
+    end
+
+    # it 'I can see a section on the page to add a pet to this appliction' do
+    #   visit "petitions/#{@petition.id}"
+
+
+    # end
   end
 end
