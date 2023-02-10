@@ -4,4 +4,6 @@ class Petition < ApplicationRecord
   validates :city, presence: true
   validates :state, presence: true
   validates :zip_code, presence: true, numericality: true
+
+  has_many :pets
 end
