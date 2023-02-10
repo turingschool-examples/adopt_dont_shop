@@ -1,8 +1,9 @@
 class ApplicationsController < ApplicationController 
 
-  def show 
-
-  end
+   def show
+    @application = Application.find(params[:id])
+    @pets = @application.pets
+   end
 
   def new 
     @new_app = Application.new
@@ -15,7 +16,6 @@ class ApplicationsController < ApplicationController
       #   @new_app.save
       # end # otherwise, it saved without a status..
     redirect_to "/applications/#{@new_app.id}"
-    
   end
 
   def application_attributes 
