@@ -5,8 +5,9 @@ RSpec.describe 'applications show page', type: :feature do
     before :each do
       @petition = Petition.create!(name: 'John', street_address: '1 Sesame St', city: 'Denver',
                     state: 'CO', zip_code: 12345, description: 'I like dogs', status: 'Pending')
-      @pet1 = Pet.create!(name: 'Scooby', age: 2, breed: 'Great Dane', adoptable: true, petition_id: @petition.id)
-      @pet2 = Pet.create!(name: 'Dooby', age: 3, breed: 'Greater Dane', adoptable: true, petition_id: @petition.id)
+      @shelter = Shelter.create(name: 'Mystery Building', city: 'Irvine CA', foster_program: false, rank: 9)
+      @pet1 = Pet.create!(name: 'Scooby', age: 2, breed: 'Great Dane', adoptable: true, shelter_id: @shelter.id, petition_id: @petition.id)
+      @pet2 = Pet.create!(name: 'Dooby', age: 3, breed: 'Greater Dane', adoptable: true, shelter_id: @shelter.id, petition_id: @petition.id)
     end
 
     it 'I can see the applications attributes' do

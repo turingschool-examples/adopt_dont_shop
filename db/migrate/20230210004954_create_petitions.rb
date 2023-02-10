@@ -8,7 +8,6 @@ class CreatePetitions < ActiveRecord::Migration[5.2]
       t.integer :zip_code
       t.string :description
       t.string :status
-      t.references :pets, foreign_key: true
     end
   end
 end

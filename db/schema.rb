@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_02_10_004954) do
+ActiveRecord::Schema.define(version: 2023_02_10_192756) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,8 +23,6 @@ ActiveRecord::Schema.define(version: 2023_02_10_004954) do
     t.integer "zip_code"
     t.string "description"
     t.string "status"
-    t.bigint "pets_id"
-    t.index ["pets_id"], name: "index_petitions_on_pets_id"
   end
 
   create_table "pets", force: :cascade do |t|
@@ -33,10 +31,10 @@ ActiveRecord::Schema.define(version: 2023_02_10_004954) do
     t.string "breed"
     t.string "name"
     t.bigint "shelter_id", null: false
-    t.bigint "pets_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["pets_id"], name: "index_pets_on_pets_id"
+    t.bigint "petition_id"
+    t.index ["petition_id"], name: "index_pets_on_petition_id"
     t.index ["shelter_id"], name: "index_pets_on_shelter_id"
   end
 
@@ -67,8 +65,7 @@ ActiveRecord::Schema.define(version: 2023_02_10_004954) do
     t.datetime "updated_at", null: false
   end
 
-  add_foreign_key "petitions", "pets", column: "pets_id"
-  add_foreign_key "pets", "pets", column: "pets_id"
+  add_foreign_key "pets", "petitions"
   add_foreign_key "pets", "shelters"
   add_foreign_key "veterinarians", "veterinary_offices"
 end
