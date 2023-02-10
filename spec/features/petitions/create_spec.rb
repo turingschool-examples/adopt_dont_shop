@@ -42,8 +42,7 @@ RSpec.describe 'application creation' do
 
         click_button 'Submit'
         expect(page).to have_current_path("/petitions/new")
-        expect(page).to have_content("Error: Name can't be blank, street address can't be blank, city can't be blank,
-                    state can't be blank, and zip code can't be blank.")
+        expect(page).to have_content("Error: Name can't be blank, Street address can't be blank, City can't be blank, State can't be blank, Zip code can't be blank, Zip code is not a number")
       end
     end
   end
