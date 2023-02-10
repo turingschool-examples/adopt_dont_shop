@@ -1,0 +1,21 @@
+<%= form_with url: "/applications", local: true do |f| %>
+	<%= f.label :name, 'Applicant Name'%>
+	<%= f.text_field :name %>
+	<br/><br/>
+	<%= f.label :street, 'Street Address:'%>
+	<%= f.text_field :street %>
+	<br/><br/>
+	<%= f.label :city, 'City:' %>
+	<%= f.text_field :city %>
+	<br/><br/>
+	<%= f.label :state, 'State:' %>
+	<%= f.text_field :state %>
+	<br/><br/>
+	<%= f.label :zip, 'Zipcode:' %>
+	<%= f.text_field :zip %>
+	<br/><br/>
+	<%= f.label :desc, 'Why are you a good home?' %>
+	<%= f.text_area :desc %>
+	<%= f.hidden_field :status, value: 'In Progress' %>
+	<%= f.submit 'Submit Application' %>
+<% end %>
