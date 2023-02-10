@@ -35,5 +35,16 @@ RSpec.describe 'application creation' do
         expect(page).to have_content('Henry')
       end
     end
+
+    context 'given invalid data' do
+      it 're-renders the new form' do
+        visit "/petitions/new"
+
+        click_button 'Submit'
+        expect(page).to have_current_path("/petitions/new")
+        expect(page).to have_content("Error: Name can't be blank, street address can't be blank, city can't be blank,
+                    state can't be blank, and zip code can't be blank.")
+      end
+    end
   end
 end
