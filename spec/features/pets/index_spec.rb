@@ -81,4 +81,23 @@ RSpec.describe 'the pets index' do
     expect(page).to have_content(pet_2.name)
     expect(page).to_not have_content(pet_3.name)
   end
+
+  # When I visit the pet index page
+  # Then I see a link to "Start an Application"
+
+  describe 'When I visit the pet index page Then I see a link to "Start an Application' do
+    it 'When I click this link Then I am taken to the new application page where I see a form' do
+      shelter = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
+      pet_1 = Pet.create(adoptable: true, age: 7, breed: 'sphynx', name: 'Bare-y Manilow', shelter_id: shelter.id)
+      app_1 = Form.create!(name: "John Smith", street_address: "123 Main St.", city: "Denver", state: "CO", zip_code: 80202, description: "I want a pet.", status: "Accepted")
+
+      visit '/pets'
+
+      expect(page).to have_link("Start an Application")
+      
+      click_link "Start an Application"
+
+      expect(current_path).to eq("/forms/new")
+    end
+  end
 end
