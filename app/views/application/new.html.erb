@@ -7,9 +7,14 @@
   <%= form.text_field :city %>
   <%= form.label :state, 'State:'%>
   <%= form.text_field :state %>
-  <%= form.label :zip_code, 'Zip Code:'%>
-  <%= form.text_field :zip_code %>
+  <%= form.label :zip, 'Zip Code:'%>
+  <%= form.text_field :zip %>
   <%= form.label :description, 'Application Justification'%>
   <%= form.text_field :description %>
   <%= form.submit 'Submit Application' %>
+    <%if flash[:messages] %>
+      <% flash[:messages].each do |message|%> 
+        <h3><%=message%></h3> 
+      <%end%>
+    <%end%>
 <%end%>
