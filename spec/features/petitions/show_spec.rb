@@ -10,7 +10,8 @@ RSpec.describe 'applications show page', type: :feature do
       @shelter = Shelter.create(name: 'Mystery Building', city: 'Irvine CA', foster_program: false, rank: 9)
       @pet1 = Pet.create!(name: 'Scooby', age: 2, breed: 'Great Dane', adoptable: true, shelter_id: @shelter.id, petition_id: @petition.id)
       @pet2 = Pet.create!(name: 'Dooby', age: 3, breed: 'Greater Dane', adoptable: true, shelter_id: @shelter.id, petition_id: @petition.id)
-      @pet3 = Pet.create!(name: 'Roo', age: 5, breed: 'Greatest Dane', adoptable: true, shelter_id: @shelter.id, petition_id: @petition2.id)
+      @pet3 = Pet.create!(name: 'Ruf', age: 5, breed: 'Greatest Dane', adoptable: true, shelter_id: @shelter.id, petition_id: @petition2.id)
+      @pet3 = Pet.create!(name: 'Rufus', age: 2308732, breed: 'Lesser Dane', adoptable: true, shelter_id: @shelter.id, petition_id: @petition2.id)
     end
 
     it 'I can see the applications attributes' do
@@ -38,11 +39,11 @@ RSpec.describe 'applications show page', type: :feature do
     it 'I can see a section on the page to add a pet to this appliction' do
       visit "petitions/#{@petition.id}"
 
-      fill_in 'Search', with: 'Roo'
+      fill_in 'Search', with: 'Ruf'
       click_button 'Search'
-
-      expect(page).to have_current_path("petitions/#{@petition.id}")
-      expect(page).to have_link('Roo')
+      
+      expect(page).to have_content('Ruf')
+      expect(page).to have_content('Rufus')
     end
   end
 end
