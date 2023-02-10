@@ -12,10 +12,18 @@ class ApplicationController < ActionController::Base
   end
 
   def new
-    
+  end
+
+  def create
+    application = Application.create!(application_params)
+    redirect_to "/applications/#{Application.last.id}"
   end
 
   private
+
+  def application_params
+    params.permit(:applicant_name, :app_street, :app_city, :app_state, :app_zip_code, :description)
+  end
 
   def error_message(errors)
     errors.full_messages.join(', ')

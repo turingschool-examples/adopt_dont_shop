@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   root 'welcome#index'
 
   get '/', to: 'application#welcome'
+  post '/applications', to: 'application#create'
 
   get '/applications', to: 'application#index'
   get '/applications/new', to: 'application#new'
