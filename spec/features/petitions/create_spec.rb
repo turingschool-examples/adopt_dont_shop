@@ -1,9 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe 'application creation' do
-  before(:each) do
-    @application = Petition.create!(name: 'Pete', street_address: "249 Tition Dr.", city: "Denver", state: "Colorado", zip_code: 80823)
-  end
+  # before(:each) do
+  #   @petition = Petition.create!(name: 'Pete', street_address: "249 Tition Dr.", city: "Denver", state: "Colorado", zip_code: 80823)
+  # end
 
   describe 'the application new' do
     it 'renders the new form' do
@@ -28,10 +28,9 @@ RSpec.describe 'application creation' do
         fill_in 'City', with: 'Austin'
         fill_in 'State', with: 'Texas'
         fill_in 'Zip code', with: 34098
-        save_and_open_page
         click_button 'Submit'
         expect(page).to have_current_path(
-          "/petitions/#{@petition.id}"
+          "/petitions/#{Petition.last.id}"
         )
         expect(page).to have_content('Henry')
       end
