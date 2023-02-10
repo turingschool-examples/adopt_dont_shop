@@ -12,7 +12,13 @@ describe 'application show page' do
 # - The Application's status, either "In Progress", "Pending", "Accepted", or "Rejected"
   describe 'application details' do
     before(:each) do 
-      @application = Application.create!(name: 'John Smith', address: '123 Fake Street', city: 'Springfield', state: 'IL', zipcode: 12345)
+      @application = Application.create!( name: 'John Smith', 
+                                          address: '123 Fake Street',
+                                          city: 'Springfield', 
+                                          state: 'IL', 
+                                          zipcode: 12345,
+                                          description: 'I like dogs.'
+                                        )
       visit "/applications/#{@application.id}"
     end
     
@@ -26,7 +32,7 @@ describe 'application show page' do
       expect(page).to have_content("12345")
     end
     it 'has the description' do
-      
+      expect(page).to have_content('I like dogs.')
     end
     it 'has all pets names' do
 
