@@ -1,0 +1,31 @@
+<%= form_with url: '/applications', method: :post, local: true do |form| %>
+<%= form.label :name, "Your Name:" %>
+<%= form.text_field :name %>
+<br>
+<%= form.label :street_address, "Street Address:" %>
+<%= form.text_field :app_street %>
+<br>
+<%= form.label :city, "City:" %>
+<%= form.text_field :app_city %>
+<br>
+<%= form.label :state, "State:" %>
+<%= form.text_field :app_state %>
+<br>
+<%= form.label :zip_code, "Zip:" %>
+<%= form.text_field :app_zip_code %>
+<br>
+<%= form.label :description, "Reason for Adopting:" %>
+<%= form.text_field :description %>
+<br>
+<%= form.submit "Submit Application" %>
+
+<% end %>
+
+
+
+
+
+
+
+
+

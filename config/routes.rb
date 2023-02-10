@@ -2,8 +2,11 @@ Rails.application.routes.draw do
   root 'welcome#index'
 
   get '/', to: 'application#welcome'
+  post '/applications', to: 'application#create'
 
-  get '/applicaiton/:id', to: 'application#show'
+  get '/applications', to: 'application#index'
+  get '/applications/new', to: 'application#new'
+  get '/applications/:id', to: 'application#show'
 
   get '/shelters', to: 'shelters#index'
   get '/shelters/new', to: 'shelters#new'

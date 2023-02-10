@@ -24,18 +24,12 @@ ActiveRecord::Schema.define(version: 2023_02_09_225250) do
     t.index ["pet_id"], name: "index_application_pets_on_pet_id"
   end
 
-  create_table "application_tables", force: :cascade do |t|
-    t.string "applicant_name"
-    t.string "applicant_address"
-    t.string "description"
-    t.integer "status", default: 0
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "applications", force: :cascade do |t|
     t.string "applicant_name"
-    t.string "applicant_address"
+    t.string "app_state"
+    t.string "app_city"
+    t.string "app_street"
+    t.string "app_zip_code"
     t.string "description"
     t.integer "status", default: 0
     t.datetime "created_at", null: false
