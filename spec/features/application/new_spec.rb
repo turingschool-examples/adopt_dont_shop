@@ -14,6 +14,12 @@ RSpec.describe "#show" do
       click_button "Submit Application"
 
       expect(current_path).to eq "/applications/#{Application.last}"
+      expect(page).to have_content("Test")
+      expect(page).to have_content("Street Address: 123 Court Dr")
+      expect(page).to have_content("City: San Francisco")
+      expect(page).to have_content("State: California")
+      expect(page).to have_content("Zip Code: 90439")
+      expect(page).to have_content("Description: Cuz I'm fresh")
     end
   end
 end

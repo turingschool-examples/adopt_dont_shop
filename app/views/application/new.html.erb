@@ -1,0 +1,28 @@
+<%= form_with url: '/application', method: :post, local: true do |form| %>
+<%= form.label :name, "Your Name" %>
+<%= form.text_field :name %>
+
+<%= form.label :street_address, "Street Address" %>
+<%= form.text_field :street_address %>
+
+<%= form.label :city, "San Francisco" %>
+<%= form.text_field :city %>
+
+<%= form.label :state, "California" %>
+<%= form.text_field :state %>
+
+<%= form.label :zip_code, "90439" %>
+<%= form.text_field :zip_code %>
+
+<%= form.label :description, "Cuz I'm fresh" %>
+<%= form.text_field :description %>
+
+<%= form.submit "Submit Application" %>
+
+
+
+
+
+
+
+
