@@ -1,7 +1,7 @@
 class PetitionsController < ApplicationController
 
   def index
-    
+
   end
   
   def new
@@ -20,12 +20,15 @@ class PetitionsController < ApplicationController
   
   def show
     @petition = Petition.find(params[:id])
+    if Pet.search(params[:search]) != nil
+      @results = Pet.search(params[:search])
+    end
   end
   
   private
 
   def petition_params
-    params.permit(:name, :street_address, :city, :state, :zip_code)
+    params.permit(:name, :street_address, :city, :state, :zip_code, :search)
   end
 
 end
