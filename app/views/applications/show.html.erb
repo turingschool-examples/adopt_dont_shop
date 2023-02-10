@@ -1,14 +1,18 @@
 
 <h1><%= @application.name %></h1>
-<p><%= @application.street %></p>
-<p><%= @application.city %></p>
-<p><%= @application.state %></p>
-<p><%= @application.zip %></p>
-<p><%= @application.desc %></p>
-<p><%= @application.status %></p>
+<p style='font-weight: bold'>Street Address:</p>
+<%= @application.street %>
+<p style='font-weight: bold'>City:</p>
+<%= @application.city %>
+<p style='font-weight: bold'>State:</p>
+<%= @application.state %>
+<p style='font-weight: bold'>Zip:</p>
+<%= @application.zip %>
+<p style='font-weight: bold'>Description:</p>
+<%= @application.desc %>
+<p style='font-weight: bold'>Status:</p>
+<%= @application.status %>
 
 <% @pets.each do |pet| %>
   <p><%= pet.name %></p>
 <% end %>
-
-
