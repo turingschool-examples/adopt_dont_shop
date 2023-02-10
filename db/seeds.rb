@@ -5,3 +5,11 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+@pound = Shelter.create!(foster_program: true, name: 'The Pound', city: "Denver", rank: 1)
+
+@snugglez = @pound.pets.create!(adoptable: true, age: 2, breed: "Tabby Cat", name: 'Snugglez')
+
+@huy = Application.create!(applicant_name: "Huy Phan", applicant_address: "123 Park Ave, Denver, CO 80205", description: "Im super cool and stuffy" )
+
+ApplicationPet.create!(pet: @snugglez, application: @huy)

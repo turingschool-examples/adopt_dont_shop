@@ -1,0 +1,6 @@
+<h1> <%= "#{@application.applicant_name}'s Application for Pet Adoption" %> </h1>
+<p> <%= "Applicant's Address: #{@application.applicant_address}" %> </p>
+<p> <%= "Applicant's Reason For Adopting: #{@application.description}" %> </p>
+<p> <%= "Applicant's Desired Pets:" %> </p>
+<p> <%= @pets.each { |pet| p pet.name } %> </p>
+<p> <%= "Application Status: #{@application.status}" %> </p>
