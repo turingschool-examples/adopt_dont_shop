@@ -28,5 +28,17 @@ RSpec.describe 'visit application new page' do
 			expect(page).to have_content(@applicant.desc)
 			expect(page).to have_content(@applicant.status)
 		end
+  
+  describe 'application has to be filled completely' do
+    it 'sends an error when form is not complete' do
+      visit 'applications/new'
+
+      fill_in 'name', with: 'Melissa Comfort'
+      click_button
+
+      expect(current_path).to eq("/applications/new")
+      expect(page).to have_content("Required Information Missing")
+    end
+  end
 	end
 end
