@@ -5,6 +5,5 @@
 <p>Status: <%= @application.status %><p>
 <p>Pets: <p>
 <% @pets.each do |pet| %><p>
-<p><%= pet.name %><p>
-<%= link_to "#{pet.name}'s Page", "/pets/#{pet.id}"  %>
+<%= link_to "#{pet.name}", "/pets/#{pet.id}"  %>
 <%end%>
