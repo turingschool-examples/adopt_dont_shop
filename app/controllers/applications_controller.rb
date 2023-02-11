@@ -15,7 +15,6 @@ class ApplicationsController < ApplicationController
   end
 
   def new
-
   end
 
   def create
@@ -30,7 +29,6 @@ class ApplicationsController < ApplicationController
   end
 
   private
-
   def app_params
     params.permit(:name, :street_address, :city, :state, :zip, :description, :status, :pet_search)
   end

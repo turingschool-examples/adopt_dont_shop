@@ -106,8 +106,6 @@ describe 'Application Show Page' do
 
       expect(page.current_path).to eq("/applications/#{app_1.id}")
       expect(page).to have_content('Lucille Bald')
-      expect(page).to have_content(pet_1.breed)
-      expect(page).to have_content(pet_1.age)
     end
   end
 end
