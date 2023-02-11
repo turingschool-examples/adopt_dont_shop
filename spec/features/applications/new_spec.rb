@@ -36,7 +36,6 @@ RSpec.describe 'new application page' do
       click_on 'Submit'
 
       expect(current_path).to_not eq '/applications/new'
-      save_and_open_page
       expect(page).to have_content('My Application')
       expect(page).to have_content('123 Main Street')
       expect(page).to have_content('San Francisco')
