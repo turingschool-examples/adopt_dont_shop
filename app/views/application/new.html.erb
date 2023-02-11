@@ -14,10 +14,10 @@
   <br>
   <%= form.label :state, 'State:'%>
   <%= form.text_field :state %>
+   <br>
   <br>
-  <br>
-  <%= form.label :zip_code, 'Zip Code:'%>
-  <%= form.text_field :zip_code %>
+  <%= form.label :zip, 'Zip Code:'%>
+  <%= form.text_field :zip %>
   <br>
   <br>
   <%= form.label :description, 'Application Justification'%>
@@ -25,4 +25,9 @@
   <br>
   <br>
   <%= form.submit 'Submit Application' %>
+    <%if flash[:messages] %>
+      <% flash[:messages].each do |message|%> 
+        <h3><%=message%></h3> 
+      <%end%>
+    <%end%>
 <%end%>
