@@ -30,7 +30,7 @@ ActiveRecord::Schema.define(version: 2023_02_10_220600) do
     t.integer "zip_code"
     t.string "description"
     t.string "pets_on_app"
-    t.string "app_status"
+    t.integer "app_status", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
