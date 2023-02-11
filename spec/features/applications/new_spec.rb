@@ -23,7 +23,6 @@ RSpec.describe 'applications new page' do
       reason_for_adoption: "Because I have a tight house and my name is Steve",
       status: "In Progress"
       )
-      require 'pry'; binding.pry
     visit '/applications/new'
 
     fill_in 'Name', with: 'Steve Steveson'
@@ -34,7 +33,7 @@ RSpec.describe 'applications new page' do
     fill_in 'Why I would make a good home', with: 'Because I have a tight house and my name is Steve'
     click_on 'Submit'
 
-    expect(page).to have_current_path(visit "/applications/#{applicant.id}")
+    expect(page).to have_current_path("/applications/#{applicant.id}")
     expect(page).to have_content('Steve Steveson')
     expect(page).to have_content('1800 Steve Ln')
     expect(page).to have_content('Steveburg')
