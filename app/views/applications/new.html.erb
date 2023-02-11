@@ -17,6 +17,10 @@
   <%= f.label :zip_code %>
   <%= f.text_field :zip_code %>
   <br>
+  <%# <%= f.label :description %>
+  <%= f.hidden_field :description, value: "here is a description" %>
+  <%= f.hidden_field :status, value: "In Progress" %>
+  <br>
   <%= f.label :submit %>
   <%= f.submit %>
   <%# change label from save to submit? %>

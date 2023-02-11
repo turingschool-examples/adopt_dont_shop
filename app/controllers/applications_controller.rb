@@ -1,6 +1,7 @@
 class ApplicationsController < ApplicationController
 
   def index
+    @applications = Application.all
   end
 
   def show
@@ -12,18 +13,15 @@ class ApplicationsController < ApplicationController
   end
 
   def create
-    application = Application.new({
-      name: params[:application][:name],
-      street_address: params[:application][:street_address],
-      city: params[:application][:city],
-      state: params[:application][:state],
-      zip_code: params[:application][:zip_code],
-      created_at: params[:application][:created_at],
-      updated_at: params[:application][:updated_at]
-      })
+    new_application = Application.new(application_params)
+    new_application.save
 
-    application.save
+    redirect_to "/applications/#{new_application.id}"
+  end
 
-    redirect_to '/application'
+  private
+
+  def application_params
+    params.permit(:name, :street_address, :city, :state, :zip_code, :description, :status)
   end
 end

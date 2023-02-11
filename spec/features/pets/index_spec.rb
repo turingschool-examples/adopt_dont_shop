@@ -101,17 +101,17 @@ RSpec.describe 'the pets index' do
     visit "/pets"
     click_on("Start an Application")
     
+    expect(page).to have_button("Save")
+
     fill_in "Name", with: "Avery"
     fill_in "Street address", with: "123 January"
     fill_in "City", with: "New York"
     fill_in "State", with: "NY"
     fill_in "Zip code", with: "11111"
 
-    expect(page).to have_button("Save")
-
     click_button "Save"
-
-    # expect(current_path).to eq('/applications')
+    @application_1 = Application.last
+    expect(current_path).to eq("/applications/#{@application_1.id}")
+    expect(page).to have_content("In Progress")
   end
-
 end
