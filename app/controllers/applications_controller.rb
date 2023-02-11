@@ -1,7 +1,7 @@
 class ApplicationsController < ApplicationController
   def show
     @application = Application.find(params[:id])
-    @pet = Pet.find_by_name(params[:pet_name])
+    @pets = Pet.find_by_name(params[:pet_name])
   end
 
   def new; end
@@ -15,6 +15,13 @@ class ApplicationsController < ApplicationController
       redirect_to "/applications/new"
       flash[:alert] = "Please provide a response for all fields."
     end
+  end
+
+  def update
+    application = Application.find(params[:id])
+    pet = Pet.find(params[:pet_adopt])
+    pet_application = PetApplication.create!(application_id: application.id, pet_id: pet.id)
+    redirect_to "/applications/#{application.id}"
   end
 
   private
