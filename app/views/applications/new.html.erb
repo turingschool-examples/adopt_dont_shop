@@ -1,3 +1,11 @@
+
+  <% if flash[:messages] %>
+  <% flash[:messages].each do |message| %>
+  <h2><%= message%></h2> <br>
+  <% end %>
+  <% end %>
+
+
 <h1> Please fill out every field </h1>
 
 <%= form_with url: "/applications/#{@new_app.id}", method: :post, local: :true do |form| %>
@@ -23,3 +31,5 @@
 
   <%= form.button "Submit" %>
 <% end %>
+
+ 
