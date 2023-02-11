@@ -28,5 +28,23 @@ RSpec.describe 'Form page', type: :feature do
         expect(page).to have_content("Application Status")
       end
     end
+
+    # 4. Searching for Pets for an Application
+
+    describe 'When I visit an applications show page And that application has not been submitted' do
+      describe 'Then I see a section on the page to "Add a Pet to this Application"' do
+        it 'In that section I see an input where I can search for Pets by name' do
+          visit "forms/#{@app_1.id}"
+  
+          fill_in :search, with: "Scooby"
+         
+          click_button "Pet Submit"
+          
+          expect(current_path).to eq("/forms/#{@app_1.id}")  
+      
+          expect(page).to have_content("Scooby")
+        end
+      end
+    end
   end
 end

@@ -17,13 +17,13 @@ RSpec.describe Form, type: :model do
       @form = Form.create!(name: "John Smith", street_address: "123 Main St.", city: "Denver", state: "CO", zip_code: 80202, description: "I want a pet.", status: 0)
      
       @form.status = 0
-      (@form.status).to eq("In Progress")
+      expect(@form.status).to eq("In Progress")
       @form.status = 1
-      (@form.status).to eq("Pending")
+      expect(@form.status).to eq("Pending")
       @form.status = 2
-      (@form.status).to eq("Accepted")
+      expect(@form.status).to eq("Accepted")
       @form.status = 3
-      (@form.status).to eq("Rejected")
+      expect(@form.status).to eq("Rejected")
     end
   end
 end

@@ -10,3 +10,16 @@
 <p><%= "Description: #{@form.description}"%><p>
 <p>Names of Pets: 
 <p><%= "Application Status: #{@form.status}"%><p>
+
+<%= form_with url: "/forms/#{@form.id}", method: :get, local: true do |f| %>
+  <%= f.label :search, "Add A Pet To This Application" %>:
+  <%= f.text_field :search %>
+  <%= f.submit "Pet Submit" %>
+<% end %>
+
+<% if params[:search] %>
+  <% @pet_search.each do |pet| %>
+    <%= pet.name %>
+  <% end %>
+<% end%>
+
