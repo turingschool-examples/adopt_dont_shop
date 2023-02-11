@@ -4,4 +4,5 @@ class Application < ApplicationRecord
   has_many :pets, through: :application_pets
 
   enum status: ["In Progress", "Pending", "Accepted", "Rejected"]
+
 end
