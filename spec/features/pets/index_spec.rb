@@ -88,6 +88,7 @@ RSpec.describe 'the pets index' do
 
     click_on("Start an Application")
 
-    expect(page).to have_current_path("applications/#{application.id}/new")
+    # expect(page).to have_current_path("applications/#{@application.id}/new")
+    expect(page).to have_current_path("/applications/new")
   end
 end
