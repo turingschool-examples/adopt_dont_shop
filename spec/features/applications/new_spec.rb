@@ -36,7 +36,7 @@ RSpec.describe 'new application page' do
       click_on 'Submit'
 
       expect(current_path).to_not eq '/applications/new'
-      save_and_open_page
+
       expect(page).to have_content('My Application')
       expect(page).to have_content('123 Main Street')
       expect(page).to have_content('San Francisco')
@@ -44,6 +44,22 @@ RSpec.describe 'new application page' do
       expect(page).to have_content('94107')
       expect(page).to have_content('I luv dawgs')
       expect(page).to have_content('In Progress')
+    end
+  end
+
+  describe 'user story 3 (#5) visitor new app' do
+    describe 'if a field is left blank #submit clicked' do
+      it 'routes to app#new, and gives an error message' do
+      visit '/applications/new'
+      fill_in 'Name', with: 'My Application'
+      fill_in 'Street Address', with: '123 Main Street'
+      fill_in 'City', with: 'San Francisco'
+
+      click_on 'Submit'
+
+      expect(current_path).to eq('/applications/new')
+      expect(page).to have_content('Please provide a response for all fields.')
+      end
     end
   end
 end
