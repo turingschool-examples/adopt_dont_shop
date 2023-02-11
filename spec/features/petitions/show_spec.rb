@@ -31,7 +31,6 @@ RSpec.describe 'applications show page', type: :feature do
       visit "petitions/#{@petition.id}"
       
       expect(page).to have_link('Scooby')
-      # expect(page).to have_link('Dooby')
 
       click_link 'Scooby'
 
@@ -40,7 +39,7 @@ RSpec.describe 'applications show page', type: :feature do
 
     it 'I can see a section on the page to add a pet to this appliction' do
       visit "petitions/#{@petition.id}"
-      # save_and_open_page
+
       fill_in 'search', with: 'Ruf'
       click_button 'Search'
       
@@ -54,7 +53,6 @@ RSpec.describe 'applications show page', type: :feature do
       fill_in 'search', with: 'Sufur'
       click_button 'Search'
       expect(page).to have_button('Adopt this Pet')
-      save_and_open_page
       
       click_button 'Adopt this Pet'
 
