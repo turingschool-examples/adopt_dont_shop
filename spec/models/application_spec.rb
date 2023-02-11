@@ -1,0 +1,24 @@
+require 'rails_helper'
+
+RSpec.describe Application, type: :model do
+  describe 'relationships' do
+    it { should have_many(:pets).through(:application_pets) }
+
+  end
+
+  describe "US1" do 
+    it "status" do 
+      app_1 = Application.create!(name: "joe", street_address: "123 Main St", city: "Boston", state: "MA", zip: 12346, description: "This is a description", status: 0)
+      expect(app_1.status).to eq("In Progress")
+
+      app_1.status = 1
+      expect(app_1.status).to eq("Pending")
+    
+      app_1.status = 2
+      expect(app_1.status).to eq("Accepted")
+       
+      app_1.status = 3
+      expect(app_1.status).to eq("Rejected")
+    end
+  end
+end
