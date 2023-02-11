@@ -11,8 +11,4 @@ class Petition < ApplicationRecord
   def can_add_pet?
     status == "In Progress"
   end
-
-  def status_pending
-    self.status = 'Pending'
-  end
 end
