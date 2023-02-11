@@ -23,8 +23,22 @@ class ApplicationsController < ApplicationController
     redirect_to "/applications/#{@new_app.id}"
   end
 
+  def update 
+    
+    @application = Application.find(params[:id])
+    @application.update(submission_update_attributes)
+    # create a new PetApplication, with the pet id and application id. 
+    redirect_to "/applications/#{@application.id}"
+  end
+
+  private
+
   def application_attributes 
     params.permit(:name, :street_address, :city, :state, :zipcode, :description, :status)
+  end
+
+  def submission_update_attributes 
+    params.permit(:description, :status)
   end
 
 end
