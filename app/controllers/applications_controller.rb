@@ -30,6 +30,12 @@ class ApplicationsController < ApplicationController
     end
   end
 
+  def add_pet
+    @application = Application.find(params[:id])
+    @application.pets << Pet.find(params[:pet_id])
+    redirect_to "/applications/#{@application.id}"
+  end
+
   private
 
   def application_params
