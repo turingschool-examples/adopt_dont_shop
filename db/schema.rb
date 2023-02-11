@@ -25,15 +25,13 @@ ActiveRecord::Schema.define(version: 2023_02_10_211935) do
   create_table "applications", force: :cascade do |t|
     t.string "name"
     t.string "address"
-    t.string "status"
+    t.integer "status", default: 0
     t.text "description"
-  end
-
-  create_table "applications_pets", id: false, force: :cascade do |t|
-    t.bigint "pet_id"
-    t.bigint "application_id"
-    t.index ["application_id"], name: "index_applications_pets_on_application_id"
-    t.index ["pet_id"], name: "index_applications_pets_on_pet_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "zip_code"
+    t.string "state"
+    t.string "city"
   end
 
   create_table "pets", force: :cascade do |t|
@@ -76,8 +74,6 @@ ActiveRecord::Schema.define(version: 2023_02_10_211935) do
 
   add_foreign_key "application_pets", "applications"
   add_foreign_key "application_pets", "pets"
-  add_foreign_key "applications_pets", "applications"
-  add_foreign_key "applications_pets", "pets"
   add_foreign_key "pets", "shelters"
   add_foreign_key "veterinarians", "veterinary_offices"
 end

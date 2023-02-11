@@ -81,4 +81,25 @@ RSpec.describe 'the pets index' do
     expect(page).to have_content(pet_2.name)
     expect(page).to_not have_content(pet_3.name)
   end
+
+  describe "as a visitor" do 
+    context "when I visit the pets index page" do 
+      it "has a link to create an application" do 
+        visit "/pets"
+
+        expect(page).to have_link('Start an Application', href: "/applications/new")
+
+      end
+
+      it "when I click on the link, taken to a new application page where there is a form that includes name, street address, city, state, zip code" do 
+
+        visit "/pets"  
+        click_link "Start an Application"
+        save_and_open_page
+        expect(page).to have_current_path("/applications/new")
+        #rest of the test is continued on the new_spec page for applications
+
+      end
+    end
+  end
 end

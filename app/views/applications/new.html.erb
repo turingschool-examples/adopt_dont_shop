@@ -1,0 +1,25 @@
+<%= form_with url: "/applications", method: :post, local: true do |form| %>
+  <%= form.label :name %>
+  <%= form.text_field :name %>
+<br>
+  <%= form.label :street_address %>
+  <%= form.text_field :address %>
+
+<br>
+  <%= form.label :city %>
+  <%= form.text_field :city %>
+
+<br>
+  <%= form.label :state %>
+  <%= form.text_field :state %>
+
+<br>
+  <%= form.label :zip_code %>
+  <%= form.number_field :zip_code %>
+
+  <br>
+  <%= form.label :description_of_why_you_would_be_a_good_caretaker %>
+  <%= form.text_area :description %>
+
+  <%= form.submit 'Submit Application' %>
+<% end %>
