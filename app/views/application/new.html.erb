@@ -1,16 +1,29 @@
 <%= form_with url: "/applications/new", method: :post, local: true do |form|%>
+<h1>Apply For Adoption</h1>
   <%= form.label :name, 'Name:' %>
   <%= form.text_field :name %>
+  <br>
+  <br>
   <%= form.label :street_address, 'Street Address:' %>
   <%= form.text_field :street_address %>
+  <br>
+  <br>
   <%= form.label :city, 'City:' %>
   <%= form.text_field :city %>
+  <br>
+  <br>
   <%= form.label :state, 'State:'%>
   <%= form.text_field :state %>
+   <br>
+  <br>
   <%= form.label :zip, 'Zip Code:'%>
   <%= form.text_field :zip %>
+  <br>
+  <br>
   <%= form.label :description, 'Application Justification'%>
   <%= form.text_field :description %>
+  <br>
+  <br>
   <%= form.submit 'Submit Application' %>
     <%if flash[:messages] %>
       <% flash[:messages].each do |message|%> 

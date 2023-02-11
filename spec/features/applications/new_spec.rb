@@ -2,7 +2,7 @@ require 'rails_helper'
 RSpec.describe 'Starting a new application' do
  
   it 'allows an applicant to fill out an application' do
-    visit '/application/new'
+    visit '/applications/new'
 
     fill_in 'Name:', with: 'Amy Nelson'
     fill_in 'Street Address:', with: '123 Rainbow rd'

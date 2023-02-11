@@ -10,4 +10,28 @@
                     <% end%></p>
                     <br>
 <p>Application Status: In Progress <%= @application.status %></p>
+<br>
+<br>
+<% if @application.in_progress? %>
+      <div>
+            <h3>Add a Pet to this Application</h3>
+            <%= form_tag("/applications/#{@application.id}", method: :get, local: true) do %>
+            <p>Enter Pet Name:</p>
+            <%= text_field_tag(:pet_search, params[:pet_search])%>
+            <%= submit_tag ("Find Pet") %>
+            <% end %>
+            <br>
+            <br>
+      <% @pets.each do |pet| %>
+            <p>Pet Name: <%= pet.name%><br>
+            <p>Breed: <%= pet.breed%><br>
+            <p>Age: <%= pet.age%><br>
+            <br>
+            <br>
+      <%end%>
+      </div>
+<%end%>
+
+
+
 
