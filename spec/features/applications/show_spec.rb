@@ -34,6 +34,7 @@ RSpec.describe "Application show page", type: :feature do
 
       context "the application has not been submitted" do
         it "can see a section on the page to 'Add a Pet to this Application'" do
+          @application.pets.create!(adoptable: true, age: 2, breed: "Shih Tzu", name: "Rylo", shelter: @shelter)
           within(".add_pet") { expect(page).to have_content("Add a Pet to this Application") }
           within(".add_pet") { expect(page).to have_content("Search for pet by name:") }
 
@@ -42,6 +43,8 @@ RSpec.describe "Application show page", type: :feature do
 
           expect(current_path).to eq("/applications/#{@application.id}")
           within(".add_pet") { expect(page).to have_content("Rylo") }
+          within(".add_pet") { expect(page).to have_content("Lab") }
+          within(".add_pet") { expect(page).to have_content("Shih Tzu") }
         end
       end
     end
