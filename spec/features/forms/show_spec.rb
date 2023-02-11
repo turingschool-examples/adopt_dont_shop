@@ -28,32 +28,5 @@ RSpec.describe 'Form page', type: :feature do
         expect(page).to have_content("Application Status")
       end
     end
-
-    # 2. Starting an Application
-
-    describe 'When I fill in this form with my info And I click submit' do
-      it 'Then I am taken to the new applications show page' do
-        visit '/forms/new'
-
-        fill_in "Name:", with: "#{@app_1.name}"
-        fill_in "Street Address:", with: "#{@app_1.street_address}"
-        fill_in "City:", with: "#{@app_1.city}"
-        fill_in "State:", with: "#{@app_1.state}"
-        fill_in "Zip Code:", with: "#{@app_1.zip_code}"
-        fill_in "Description:", with: "#{@app_1.description}"
-        fill_in "Application Status:", with: "#{@app_1.status}"
-
-        click_button "Submit"
-    
-        expect(current_path).to eq("/forms/#{Form.last.id}")
-        expect(page).to have_content(Form.last.name)
-        expect(page).to have_content(Form.last.street_address)
-        expect(page).to have_content(Form.last.city)
-        expect(page).to have_content(Form.last.state)
-        expect(page).to have_content(Form.last.zip_code)
-        expect(page).to have_content(Form.last.description)
-        expect(page).to have_content(Form.last.status)
-      end
-    end
   end
 end

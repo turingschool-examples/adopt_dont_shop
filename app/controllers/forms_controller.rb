@@ -7,9 +7,14 @@ class FormsController < ApplicationController
   end
 
   def create
-    # require 'pry'; binding.pry
     form = Form.create!(form_params)
-    redirect_to "/forms/#{form.id}"
+    if form.save
+      redirect_to "/forms/#{form.id}"
+    else #<== this needs fixed.
+      redirect_to "/forms/#{form_params[:id]}new"
+      flash[:alert] = "Error: #{error_message(form.errors)}"
+    end
+    
   end
 
   def form_params
