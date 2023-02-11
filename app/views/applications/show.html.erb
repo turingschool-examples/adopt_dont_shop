@@ -4,4 +4,8 @@
 <%=@application.state%>
 <%=@application.zipcode%>
 <%=@application.description%>
-<%#@application.pet_names%>
+<%@application.pets.each do |pet|%>
+<%= pet.name %>
+<% end %>
+<%=@application.status%>
+
