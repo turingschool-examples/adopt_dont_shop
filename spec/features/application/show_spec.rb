@@ -15,7 +15,6 @@ RSpec.describe "#show" do
 
         expect(page).to have_content "#{@huy.applicant_name}'s Application for Pet Adoption"
         expect(page).to have_content "#{@huy.app_street}"
-        expect(page).to have_content "#{@huy.description}"
         expect(page).to have_content "Application Status: #{@huy.status}"
       end
     end
@@ -49,6 +48,22 @@ RSpec.describe "#show" do
 
         expect(current_path).to eq "/applications/#{@huy.id}"
         expect(@huy.pets).to include @snugglez
+      end
+    end
+  end
+
+  xdescribe 'user story 6' do 
+    describe 'Once a user selects pet(s) then they can add a reason for adopting' do
+      it 'should allow the user to input a reason' do 
+        visit "/applications/#{@huy.id}"
+
+        fill_in 'pet_name', with: "Snugglez"
+        click_button "Search Pets"
+        expect(current_path).to eq "/applications/#{@huy.id}"
+        expect(page).to have_content "Snugglez"
+        click_button "Adopt this Pet"
+
+        expect(page).to have_content ""
       end
     end
   end

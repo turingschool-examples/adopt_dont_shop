@@ -23,4 +23,24 @@ RSpec.describe Application, type: :model  do
     end
   end
 
+  describe '#add_pet' do 
+    it 'can add a pet to an application' do
+      @pound = Shelter.create!(foster_program: true, name: 'The Pound', city: "Denver", rank: 1)
+      @snugglez = @pound.pets.create!(adoptable: true, age: 2, breed: "Tabby Cat", name: 'Snugglez')
+      @huy = Application.create!(applicant_name: "Huy Phan", app_street: "123 Park Ave", app_city: "Denver", app_state: "CO", app_zip_code: "80205", description: "Im super cool and stuffy" )
+
+      expect(@huy.pets).to eq []
+      @huy.add_pet(@snugglez)
+      expect(@huy.pets).to eq [@snugglez]
+    end
+  end
+
+  xdescribe '#has_pets?' do
+    it 'returns true if the Application has pets' do 
+      expect(@huy.has_pets?).to eq false
+
+
+    end
+  end
+
 end
