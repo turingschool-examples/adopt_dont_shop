@@ -40,12 +40,40 @@ RSpec.describe 'Application New Page' do
 
       expect(current_path).to eq("/applications/new")
       expect(page).to have_content("Name can't be blank")
-      # expect(page).to have_content("Street address can't be blank")
-      # expect(page).to have_content("City can't be blank")
-      # expect(page).to have_content("State can't be blank")
-      # expect(page).to have_content("Zip code can't be blank")
-      # expect(page).to have_content("Description can't be blank")
+      expect(page).to have_content("Street address can't be blank")
+      expect(page).to have_content("City can't be blank")
+      expect(page).to have_content("State can't be blank")
+      expect(page).to have_content("Zip code can't be blank")
+      expect(page).to have_content("Description can't be blank")
 
+    end
+
+    describe 'zip code format validation' do
+      it 'required zip_code to be ##### or #####-####' do
+        visit "/applications/new"
+      
+        fill_in 'Name', with: 'Meredith'
+        fill_in 'street_address', with: '20 E. Bayaud Ave.'
+        fill_in 'City', with: 'Denver'
+        fill_in 'State', with: 'Colorado'
+        fill_in 'zip_code', with: '8009'
+        fill_in 'Description', with: 'I love dogs with all my heart and soul'
+        click_on "Submit"
+
+        expect(page).to have_content("Zip code should be 12345 or 12345-1234")
+
+        visit "/applications/new"
+
+        fill_in 'Name', with: 'Meredith'
+        fill_in 'street_address', with: '20 E. Bayaud Ave.'
+        fill_in 'City', with: 'Denver'
+        fill_in 'State', with: 'Colorado'
+        fill_in 'zip_code', with: 'abcde'
+        fill_in 'Description', with: 'I love dogs with all my heart and soul'
+
+        click_on "Submit"
+        expect(page).to have_content("Zip code should be 12345 or 12345-1234")
+      end
     end
   end
 end
