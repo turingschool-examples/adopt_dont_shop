@@ -1,8 +1,8 @@
 
 <%= form_with url: "/forms/new", method: :post, local: true do |form| %>
 
-  <%= form.label :name, "Name:" %>
-  <%= form.text_field :name %> 
+  <%= form.label :name, "Name:"  %>
+  <%= form.text_field :name, required: true %> 
   <br><br>
   <%= form.label :street_address, "Street Address:" %>
   <%= form.text_field :street_address %> 
