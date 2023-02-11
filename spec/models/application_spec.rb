@@ -21,4 +21,5 @@ RSpec.describe Application, type: :model do
 
       expect(app_1.in_progress?).to be true
     end
+  end
 end
