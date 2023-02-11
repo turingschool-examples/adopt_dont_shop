@@ -84,8 +84,24 @@ RSpec.describe "#show" do
         expect(current_path).to eq "/applications/#{@huy.id}"
         expect(page).to have_content "Application Status: Pending"
         expect(page).to_not have_content "Search for Pets by Name:"
-
       end
+    end
+  end
+ 
+  describe 'user story 7' do
+    it 'when I visit the show page and havent added pets I cannot submit the application' do
+      visit "/applications/#{@huy.id}"
+
+      expect(page).to_not have_button "Submit Application for Review"
+
+      fill_in 'pet_name', with: "Snugglez"
+      click_button "Search Pets"
+      expect(current_path).to eq "/applications/#{@huy.id}"
+      expect(page).to have_content "Snugglez"
+      click_button "Adopt this Pet"
+
+      expect(page).to have_button "Submit Application for Review"
+
     end
   end
 end
