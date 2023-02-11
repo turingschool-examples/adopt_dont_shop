@@ -12,6 +12,7 @@ RSpec.describe 'applications show page', type: :feature do
       @pet2 = Pet.create!(name: 'Dooby', age: 3, breed: 'Greater Dane', adoptable: true, shelter_id: @shelter.id, petition_id: @petition.id)
       @pet3 = Pet.create!(name: 'Ruf', age: 5, breed: 'Greatest Dane', adoptable: true, shelter_id: @shelter.id, petition_id: @petition2.id)
       @pet3 = Pet.create!(name: 'Rufus', age: 2308732, breed: 'Lesser Dane', adoptable: true, shelter_id: @shelter.id, petition_id: @petition2.id)
+      @pet4 = Pet.create!(name: 'Sufur', age: 230, breed: 'Less Dane', adoptable: true, shelter_id: @shelter.id, petition_id: @petition2.id)
     end
 
     it 'I can see the applications attributes' do
@@ -44,6 +45,19 @@ RSpec.describe 'applications show page', type: :feature do
       
       expect(page).to have_content('Ruf')
       expect(page).to have_content('Rufus')
+    end
+
+    it 'I can adopt pets' do
+      visit "petitions/#{@petition.id}"
+
+      fill_in 'Search', with: 'Sufur'
+      click_button 'Search'
+      expect(page).to have_button('Adopt this Pet')
+      
+      click_button 'Adopt this Pet'
+      save_and_open_page
+
+      expect(page).to have_link('Sufur')
     end
   end
 end

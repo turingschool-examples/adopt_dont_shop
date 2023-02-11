@@ -20,9 +20,18 @@ class PetitionsController < ApplicationController
   
   def show
     @petition = Petition.find(params[:id])
-    if Pet.search(params[:search]) != nil
+    if params[:search] != nil
+      # binding.pry
       @results = Pet.search(params[:search])
     end
+  end
+
+  def add
+    @petition = Petition.find(params[:id])
+    @pet = Pet.find(params[:pet_id])
+    @petition.add_pet(@pet)
+    binding.pry
+    redirect_to "/petitions/#{@petition.id}"
   end
   
   private

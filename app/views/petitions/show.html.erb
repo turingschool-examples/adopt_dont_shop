@@ -14,7 +14,9 @@
   <%= form.label :search %>
   <%= form.text_field :search %>
   <%= form.submit 'Search' %>
-  <% @results.each do |result| %>
-    <%= result.name %>
+  <% if @results != nil %>
+    <% @results.each do |result| %>
+      <p><%= result.name %> <%= button_to 'Adopt this Pet', "/petitions/#{@petition.id}/#{result.id}", method: :patch %></p>
+    <% end %>
   <% end %>
 <% end %>
