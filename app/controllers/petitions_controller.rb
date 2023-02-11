@@ -26,25 +26,16 @@ class PetitionsController < ApplicationController
   end
 
   def update
-    @petition = Petition.find(params[:petition_id])
-    @pet = Pet.find(params[:pet_id])
-    @petition.add_pet(@pet)
-    binding.pry
+    @petition = Petition.find(params[:id])
+    @petition.update(petition_params)
+    @petition.update_attribute(:status, 'Pending')
     redirect_to "/petitions/#{@petition.id}"
   end
-
-  # def add
-  #   @petition = Petition.find(params[:id])
-  #   @pet = Pet.find(params[:pet_id])
-  #   @petition.add_pet(@pet)
-  #   binding.pry
-  #   redirect_to "/petitions/#{@petition.id}"
-  # end
   
   private
 
   def petition_params
-    params.permit(:name, :street_address, :city, :state, :zip_code, :search)
+    params.permit(:name, :street_address, :city, :state, :zip_code, :description, :status, :search)
   end
 
 end

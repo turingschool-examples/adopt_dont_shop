@@ -57,6 +57,69 @@ RSpec.describe 'applications show page', type: :feature do
       click_button 'Adopt this Pet'
 
       expect(page).to have_link('Sufur')
+
+      click_link 'Sufur'
+
+      expect(page).to have_current_path("/pets/#{@pet4.id}")
+    end
+
+    it 'When I add pets to the application and sbumit I see a form to enter description input' do
+      visit "petitions/#{@petition.id}"
+
+      fill_in 'search', with: 'Sufur'
+      click_button 'Search'
+      click_button 'Adopt this Pet'
+
+      fill_in 'search', with: 'Dooby'
+      click_button 'Search'
+      click_button 'Adopt this Pet'
+      
+      expect(page).to have_field('description')
+    end
+
+    it 'I can submit the input and return to the show page' do
+      visit "petitions/#{@petition.id}"
+
+      fill_in 'search', with: 'Sufur'
+      click_button 'Search'
+      click_button 'Adopt this Pet'
+
+      fill_in 'search', with: 'Dooby'
+      click_button 'Search'
+      click_button 'Adopt this Pet'
+      
+      fill_in 'description', with: 'I need these dogs. I NEED THEM.'
+      click_button 'Submit'
+
+      expect(page).to have_current_path("/petitions/#{@petition.id}")
+    end
+
+    it 'I can see the status indicator and cannot adopt another pet if the status is pending' do
+      visit "petitions/#{@petition2.id}"
+      
+      expect(@petition2.status).to eq("Pending")
+      expect(page).to have_content("Status: Pending")
+      expect(page).to_not have_button("Search")
+      expect(page).to_not have_button("Submit")
+    end
+
+    it 'I can see the status indicator' do
+      visit "petitions/#{@petition.id}"
+
+      fill_in 'search', with: 'Sufur'
+      click_button 'Search'
+      click_button 'Adopt this Pet'
+
+      fill_in 'search', with: 'Dooby'
+      click_button 'Search'
+      click_button 'Adopt this Pet'
+      
+      fill_in 'description', with: 'I need these dogs. I NEED THEM.'
+      click_button 'Submit'
+
+      expect(page).to have_content("Status: Pending")
+      expect(page).to_not have_button("Search")
+      expect(page).to_not have_button("Submit")
     end
   end
 end
