@@ -23,16 +23,10 @@ RSpec.describe Application, type: :model do
 
   describe 'validations' do
     it { should validate_presence_of :name }
-    # it { should validate_presence_of :street_address }
-    # it { should validate_presence_of :city }
-    # it { should validate_presence_of :state }
-    # it { should validate_presence_of :zip_code }
-    # it { should validate_presence_of :description }
+    it { should validate_presence_of :street_address }
+    it { should validate_presence_of :city }
+    it { should validate_presence_of :state }
+    it { should validate_presence_of :zip_code }
+    it { should validate_presence_of :description }
   end
-
-  # describe '#valid' do
-  #   @application = Application.create!(name: "Andra", street_address: "2305 W. Lake St.", city: "Fort Collins", state: "Colorado", zip_code: 80525, description: "I love them", pets_on_app: "Daisy, Sal", app_status: "Accepted" )
-  
-  #   expect(@application.valid?).to be true
-  # end
 end

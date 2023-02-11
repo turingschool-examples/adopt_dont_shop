@@ -1,6 +1,8 @@
 <%= form_with url: "/applications/new", method: :post, local: :true do |form|%>
 <%= form.label :name %>
-<%= form.text_field :name, required: true %>
+<%= form.text_field :name %>
+<%# <%= form.text_field :name, required: true %>
+<%# ^above gives you a worry to fill out the fill prior to submitting %>
 
 <%= form.label :street_address %>
 <%= form.text_field :street_address %>
