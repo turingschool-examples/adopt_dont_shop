@@ -16,7 +16,7 @@ describe 'app show page' do
                                  address: '123 Fake Street',
                                  city: 'Springfield',
                                  state: 'IL',
-                                 zipcode: 12_345,
+                                 zipcode: 12345,
                                  description: 'I like dogs.',
                                  status: 'In Progress')
     end
@@ -89,6 +89,51 @@ describe 'app show page' do
     it 'has app\'s status' do
       visit "/applications/#{@app.id}"
       expect(page).to have_content(@app.status)
+    end
+  end
+
+  describe 'Searching for pets' do
+    before(:each) do
+      @app = Application.create!(name: 'John Smith',
+                                 address: '123 Fake Street',
+                                 city: 'Springfield',
+                                 state: 'IL',
+                                 zipcode: 12345,
+                                 description: 'I like dogs.',
+                                 status: 'In Progress')
+    end
+# 4. Searching for Pets for an Application
+
+# As a visitor
+# When I visit an application's show page
+# And that application has not been submitted,
+# Then I see a section on the page to "Add a Pet to this Application"
+# In that section I see an input where I can search for Pets by name
+# When I fill in this field with a Pet's name
+# And I click submit,
+# Then I am taken back to the application show page
+# And under the search bar I see any Pet whose name matches my search
+    it 'has a section \'Add a Pet to this Application\' when not yet submitted' do
+      shelter = Shelter.create!(
+        foster_program: true,
+        name: 'Dog house',
+        city: 'Springfield',
+        rank: 1
+      )
+      fido = shelter.pets.create!(
+        adoptable: true,
+        age: 1,
+        breed: 'weiner',
+        name: 'Fido'
+      )
+      visit "/applications/#{@app.id}"
+      expect(@app.status).to eq('In Progress')
+      expect(page).to have_content('Add a Pet to this Application')
+      expect(page).to have_field('pet_name')
+      fill_in 'pet_name', with: 'Fido'
+      click_on 'Submit'
+      expect(current_path).to eq("/applications/#{@app.id}")
+      expect(page).to have_content('Fido')
     end
   end
 end
