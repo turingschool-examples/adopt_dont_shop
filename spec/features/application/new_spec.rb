@@ -10,7 +10,6 @@ RSpec.describe "#show" do
       fill_in "app_city", with: "San Francisco"
       fill_in "app_state", with: "California"
       fill_in "app_zip_code", with: "90439"
-      fill_in "description", with: "Cuz I'm fresh"
       click_button "Submit Application"
 
       expect(current_path).to eq "/applications/#{Application.last.id}"
@@ -19,7 +18,6 @@ RSpec.describe "#show" do
       expect(page).to have_content("San Francisco")
       expect(page).to have_content("California")
       expect(page).to have_content("90439")
-      expect(page).to have_content("Applicant's Reason For Adopting: Cuz I'm fresh")
     end
   end
 

@@ -9,6 +9,7 @@ class ApplicationsController < ApplicationController
   def show
     @application = Application.find(params[:id])
     @pets = @application.pets
+    @has_pets = @application.has_pets?
     if params[:pet_name] != nil
       @pet_search = Pet.search_pets(params[:pet_name])
     else 
@@ -32,14 +33,25 @@ class ApplicationsController < ApplicationController
 
   def add_pet
     @application = Application.find(params[:id])
-    @application.pets << Pet.find(params[:pet_id])
+    @application.add_pet(Pet.find(params[:pet_id]))
+    @has_pets = @application.has_pets?
+    redirect_to "/applications/#{@application.id}"
+  end
+
+  def update
+    @application = Application.find(params[:id])
+    @application.update(update_params)
     redirect_to "/applications/#{@application.id}"
   end
 
   private
 
   def application_params
-    params.permit(:applicant_name, :app_street, :app_city, :app_state, :app_zip_code, :description)
+    params.permit(:applicant_name, :app_street, :app_city, :app_state, :app_zip_code)
+  end
+
+  def update_params
+    params.permit(:description, :status)
   end
 
 
