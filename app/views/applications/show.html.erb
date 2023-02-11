@@ -6,9 +6,7 @@
 <%= "Description: " + @application.description%><br>
 <%= "Status: " + @application.status%><br>
 <%= "Pets Applying for: " + @application.pets_list%><br>
-<%@application.pets.each do |pet|%>
-<%= link_to pet.name, "/pets/#{pet.id}" %>
-<% end %>
+
 
 <h2> Add a Pet to this Application</h2>
 
@@ -17,8 +15,15 @@
 <%= form.text_field :pet_name%>
 <%= form.submit "Submit" %>
 <% end %>
-<% if !@pets.nil? %>
-<% @pets.each do |pet| %>
+<%@application.pets.each do |pet|%>
 <%= link_to pet.name, "/pets/#{pet.id}" %>
 <% end %>
+<% if !@pets.nil? %>
+  <% @pets.each do |pet| %>
+    <%= link_to pet.name, "/pets/#{pet.id}" %>
+    <%=form_with(url: "/applications/#{@application.id}", method: "PATCH") do |form| %>
+      <%= form.hidden_field :pet_adopt, value:"#{pet.id}"%>
+     <%= form.submit "Adopt this Pet" %>
+    <% end %>
+  <% end %>
 <% end %>

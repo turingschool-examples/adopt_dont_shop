@@ -195,10 +195,13 @@ describe 'app show page' do
       visit "/applications/#{@app.id}"
       fill_in 'pet_name', with: 'Fido'
       click_on 'Submit'
-      expect(page).to have_content('Adopt this Pet')
+      save_and_open_page
+
+      expect(page).to have_button('Adopt this Pet')
       click_on 'Adopt this Pet'
-      expect(current_path).to eq('/applications/#{@app.id}')
-      
+      expect(current_path).to eq("/applications/#{@app.id}")
+      expect(page).to have_content("Pets Applying for: #{fido.name}")
+      save_and_open_page
       end
   end
 end
