@@ -2,6 +2,7 @@ class ApplicationsController < ApplicationController
 
   def show
     @application = Application.find(params[:id])
+    @pet = Pet.find_by(name: params[:pet_name])
   end
 
   def new

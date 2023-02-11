@@ -13,5 +13,18 @@
 </p>
 
 <p> Application Status: <%= @application.status %> </P>
+<br>
 
+<div class="add_pet">
+  <h3>Add a Pet to this Application</h3>
+  <%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |form| %>
+      <%= form.label :pet_name, "Search for pet by name: " %>
+      <%= form.text_field :pet_name %>
+      <%= form.submit "Submit" %>
+  <% end %>
+  <br>
 
+  <% if @pet %>
+    <%= @pet.name %>
+  <% end %>
+</div>
