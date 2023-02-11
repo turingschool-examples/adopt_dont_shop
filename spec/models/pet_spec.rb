@@ -35,7 +35,12 @@ RSpec.describe Pet, type: :model do
 
     describe '#find_by_name' do
       it 'finds a pet by the name' do
-        expect(Pet.find_by_name(@pet_1.name)).to eq(@pet_1)
+        expect(Pet.find_by_name(@pet_1.name)).to eq([@pet_1])
+      end
+
+      it 'supports multiple pets with same name' do
+        pirate = @shelter_1.pets.create(name: 'Mr. Pirate', breed: 'a dog', age: 2, adoptable: true)
+        expect(Pet.find_by_name(@pet_1.name)).to eq([@pet_1, pirate])
       end
     end
   end
