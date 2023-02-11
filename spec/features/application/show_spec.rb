@@ -22,7 +22,7 @@ RSpec.describe 'Application Show Page' do
     end
   end
 
-  describe 'User Story 4' do
+  describe 'User Story 4 & 5' do
     describe "When I visit an application's show page" do 
       describe "And that application has not been submitted," do
         it "Then I see a section on the page to 'Add a Pet to this Application'" do
@@ -38,6 +38,30 @@ RSpec.describe 'Application Show Page' do
           expect(page).to have_content("Larry")
         end
       end
+
+      describe "I search for a Pet by name, see results" do
+        it "next to each Pet's name I see a button to 'Adopt this Pet'" do
+
+          visit "/applications/#{Application.last.id}"
+          fill_in :search, with: "#{pet_1.name}"
+          click_on "Search"
+
+          expect(page).to have_button("Adopt this Pet")
+
+        end
+
+        it "I am redirected to application show page and see the pet I want to adopt listed on application" do
+
+          visit "/applications/#{Application.last.id}"
+          fill_in :search, with: "#{pet_1.name}"
+          click_on "Search"
+          click_on "Adopt this Pet"
+          expect(current_path).to eq("/applications/#{Application.last.id}")
+          expect(page).to have_content(pet_1.name)
+        end
+      end
+
     end
   end
+
 end
