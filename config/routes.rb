@@ -39,5 +39,5 @@ Rails.application.routes.draw do
 
   get 'forms/new', to: 'forms#new'
   get '/forms/:id', to: 'forms#show'
-  post '/forms', to: 'forms#create'
+  post '/forms/:id', to: 'forms#create'
 end
