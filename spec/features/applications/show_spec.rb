@@ -64,12 +64,33 @@ describe 'app show page' do
 
     end
     it 'pet names are links to the pet show page' do
-
+      shelter = Shelter.create!(
+        foster_program: true, 
+        name: 'Dog house', 
+        city: 'Springfield', 
+        rank: 1
+      )
+      fido = shelter.pets.create!( 
+        adoptable: true,
+        age: 1,
+        breed: 'weiner',
+        name: 'Fido',
+      )
+      santa = shelter.pets.create!( 
+        adoptable: true,
+        age: 1,
+        breed: 'whippet',
+        name: 'Santa\'s Little Helper',
+        )
+      petapp1 = PetApplication.create!(application_id: @app.id, pet_id: fido.id)
+      petapp2 = PetApplication.create!(application_id: @app.id, pet_id: santa.id)
+      visit "/applications/#{@app.id}"
+      click_link "Fido"
+      expect(current_path).to eq("/pets/#{fido.id}")
     end
     it 'has app\'s status' do
       visit "/applications/#{@app.id}"
       expect(page).to have_content(@app.status)
-
     end
   end
 

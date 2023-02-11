@@ -5,7 +5,7 @@
 <%=@application.zipcode%>
 <%=@application.description%>
 <%@application.pets.each do |pet|%>
-<%= pet.name %>
+<%= link_to pet.name, "/pets/#{pet.id}" %>
 <% end %>
 <%=@application.status%>
 
