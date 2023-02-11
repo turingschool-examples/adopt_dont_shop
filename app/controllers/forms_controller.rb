@@ -7,14 +7,16 @@ class FormsController < ApplicationController
   end
 
   def create
-    form = Form.create!(form_params)
-    if form.save
+    form = Form.new(form_params)
+    if form.valid?
+      form.save
       redirect_to "/forms/#{form.id}"
-    else #<== this needs fixed.
-      redirect_to "/forms/#{form_params[:id]}new"
-      flash[:alert] = "Error: #{error_message(form.errors)}"
+    else 
+      # flash[:alert] = "Error: #{error_message(form.errors)}"
+      flash.now[:messages] = form.errors.full_messages
+      # redirect_to "/forms/#{form_params[:id]}/new"
+      render :new
     end
-    
   end
 
   def form_params

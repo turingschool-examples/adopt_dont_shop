@@ -36,19 +36,17 @@ RSpec.describe "create" do
   describe "When I visit the new application page, And I fail to fill in any of the form fields " do
     it 'Then I am taken back to the new applications page and I see a message that I must fill in those fields.' do
       visit '/forms/new'
+      
       fill_in "Name:", with: "#{@app_1.name}"
       fill_in "Street Address:", with: "#{@app_1.street_address}"
       fill_in "City:", with: "#{@app_1.city}"
       fill_in "State:", with: "#{@app_1.state}"
+
       click_button "Submit"
-save_and_open_page
-      expect(current_path).to eq("/forms/#{Form.last.id}")
-      expect(page).to have_content(Form.last.name)
-      expect(page).to have_content(Form.last.street_address)
-      expect(page).to have_content(Form.last.city)
-      expect(page).to have_content(Form.last.state)
+
+      expect(current_path).to eq("/forms/new")
       expect(page).to_not have_content(Form.last.zip_code)
-      expect(page).to have_content("Please fill out this field.")
+      expect(page).to have_content("Zip code can't be blank")
     end
   end
 end
