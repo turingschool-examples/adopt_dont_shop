@@ -57,6 +57,24 @@ RSpec.describe 'applications show page', type: :feature do
       click_button 'Adopt this Pet'
 
       expect(page).to have_link('Sufur')
+
+      click_link 'Sufur'
+
+      expect(page).to have_current_path("/pets/#{@pet4.id}")
+    end
+
+    it 'When I add pets to the application and sbumit I see a form to enter description input' do
+      visit "petitions/#{@petition.id}"
+
+      fill_in 'search', with: 'Sufur'
+      click_button 'Search'
+      click_button 'Adopt this Pet'
+
+      fill_in 'search', with: 'Dooby'
+      click_button 'Search'
+      click_button 'Adopt this Pet'
+
+      fill_in 'adoption_request', with: 'I love dogs. Dogs aare the best. I need dogs.'
     end
   end
 end
