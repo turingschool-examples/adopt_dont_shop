@@ -9,7 +9,18 @@
                           <%= link_to "#{pet.name}", "/pets/#{pet.id}"%>
                     <% end%></p>
                     <br>
-<p>Application Status: In Progress <%= @application.status %></p>
+<p>Application Status:<%= @application.status %></p>
+<br>
+<br>
+
+<div> 
+<h3>Why would you make a good owner?</h3>
+            <%= form_tag("/applications/#{@application.id}", method: :get, local: true) do %>
+            <%= text_field_tag(:submit, params[:submit])%>
+            <%= submit_tag ("Submit") %>
+            <% end %>
+            </div>
+
 <br>
 <br>
 <% if @application.in_progress? %>
