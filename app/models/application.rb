@@ -8,4 +8,6 @@ class Application < ApplicationRecord
   validates :state, presence: true
   validates :zip_code, presence: true
   validates :description, presence: true
+
+  enum status: ["In Progress", "Pending", "Accepted", "Rejected"]
 end

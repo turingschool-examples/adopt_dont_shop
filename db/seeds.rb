@@ -13,8 +13,7 @@ application_1 = Application.create!({
     city: "Avon",
     state: "Colorado",
     zip_code: "81620",
-    description: "Looking for a good boy",
-    status: "Pending"
+    description: "Looking for a good boy"
   }
 )
 
