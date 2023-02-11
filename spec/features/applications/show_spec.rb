@@ -128,6 +128,7 @@ describe 'app show page' do
       )
       visit "/applications/#{@app.id}"
       expect(@app.status).to eq('In Progress')
+      expect(page).to_not have_content('Fido')
       expect(page).to have_content('Add a Pet to this Application')
       expect(page).to have_field('pet_name')
       fill_in 'pet_name', with: 'Fido'
