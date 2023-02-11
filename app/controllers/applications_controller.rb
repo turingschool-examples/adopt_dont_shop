@@ -8,8 +8,13 @@ class ApplicationsController < ApplicationController
   end
 
   def create
-    application = Application.create!(application_params.merge({status: "In Progress"}))
-    redirect_to "/applications/#{application.id}"
+    application = Application.new(application_params.merge({status: "In Progress"}))
+    if application.save
+      redirect_to "/applications/#{application.id}"
+    else
+      flash[:notice] = "Application not created: Required information missing."
+      render :new
+    end  
   end
 
   private
