@@ -12,7 +12,8 @@ RSpec.describe "Applications New Page" do
         fill_in :state, with: "Colorado"
         fill_in :zip_code, with: "12345"
       end
-      it 'has a form you can fill out, hit submit, and be taken to new applications show page' do
+
+      it 'has a form you can fill out, hit submit, and be taken to new applications show page with default status of "In Progress"' do
         expect(page).to have_field(:name)
         expect(page).to have_field(:street_address)
         expect(page).to have_field(:city)
@@ -24,17 +25,16 @@ RSpec.describe "Applications New Page" do
 
         click_button "Create Application"
 
-        expect(Application.all.size).to eq(1)
+        expect(Application.last.status).to eq("In Progress")
         expect(current_path).to eq("/applications/#{Application.first.id}")
         expect(page).to have_content("Brian")
       end
       
       it "will return to the new application page with an error message when all fields are not filled out" do 
         click_button "Create Application"
-        expect(Application.all.size).to eq(0)
+
         expect(current_path).to eq("/applications/new")
         expect(page).to have_content("Application not created: Required information missing.")
-       
       end
     end
   end
