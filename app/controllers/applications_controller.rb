@@ -4,16 +4,23 @@ class ApplicationsController < ApplicationController
   end
 
   def new 
-    
   end
 
   def create 
-    
     application = Application.new(application_params)
-    application.save
-    # require 'pry'; binding.pry
+  
+    if application.save
+      redirect_to "/applications/#{application.id}" 
 
-    redirect_to "/applications/#{application.id}" 
+    else
+      redirect_to "/applications/new"
+      @errors = application.errors.messages
+
+      flash[:alert] = @errors.map do |error|
+        "#{error.first.capitalize} #{error.last}.".gsub(/[\["\]]/, "")
+      end.join.gsub(/\./, ". ")
+      require 'pry'; binding.pry
+    end 
   end
 
   private 

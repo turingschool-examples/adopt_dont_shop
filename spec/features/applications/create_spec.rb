@@ -33,7 +33,6 @@ RSpec.describe 'applications new page features' do
         fill_in "description", with: "I have a yard with lots of space and 3 kids who want to have a dog!"
 
         click_button("Submit Application") 
-        # require 'pry'; binding.pry
         expect(current_path).to eq("/applications/#{Application.last.id}")
 
         expect(page).to have_content("Hady")
@@ -43,6 +42,20 @@ RSpec.describe 'applications new page features' do
         expect(page).to have_content("32901")
         expect(page).to have_content("I have a yard with lots of space and 3 kids who want to have a dog!")
         expect(page).to have_content("Status of Application: In Progress")
+      end
+
+      it "if i fail to fill in any of the form fields and click submit, i am redirected to the new applications page and told to fill in the fields" do 
+        visit "/applications/new"
+
+        fill_in "address", with: "1133 Lemon Drive"
+        fill_in "State", with: "Florida"
+        fill_in "Zip code", with: "32901"
+        fill_in "description", with: "I have a yard with lots of space and 3 kids who want to have a dog!"
+        click_button("Submit Application") 
+save_and_open_page
+        expect(page).to have_content("Name can't be blank")
+        expect(page).to have_content("City can't be blank")
+
       end
     end
   end
