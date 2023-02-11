@@ -14,7 +14,28 @@
     <%= form.text_field :searched_name %>
     <%= form.submit "Search" %>
   <% end %>
+
+    <%= @display_result %>
+  
+  <% elsif @application.status == "Pending" %>
+    <ul>
+      <% @pets.each do |pet| %>
+        <li><%= pet.name %></li>
+      <% end %>
+    </ul>
+
 <% end%>
+
+<% if @application.status == "In Progress" %>
+  <%= form_with url: "/applications/#{@application.id}", method: :patch, local: true do |form| %>
+    <%= form.label :description, "Submit Application"%>
+    <%= form.text_field :description, value: @application.description %>
+    <%= form.hidden_field :status, value: "Pending" %>
+    <%= form.submit "Submit" %>
+  <% end %>
+<% end %>
+
+
 
   <% if @display_result != nil && @display_result != "Pet name not in system" %>
     <%= @display_result.name %>
@@ -22,4 +43,5 @@
   <% else %>
       <%= @display_result %>
   <% end %>
+
 
