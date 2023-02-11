@@ -39,29 +39,30 @@ gem 'bootsnap', '>= 1.1.0', require: false
 
 group :development, :test do
   gem 'capybara'
+  gem 'shoulda-matchers'
   gem 'launchy'
   gem 'orderly'
   gem 'pry'
   gem 'rspec-rails'
-  gem 'shoulda-matchers'
   gem 'simplecov'
 end
 
 group :development do
   # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
-  gem 'listen', '>= 3.0.5', '< 3.2'
   gem 'web-console', '>= 3.3.0'
+  gem 'listen', '>= 3.0.5', '< 3.2'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
 end
 
-# Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 
-# Linter:
+# Windows does not include zoneinfo files, so bundle the tzinfo-data gem
+gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+
+#Linter: 
 gem 'rubocop', require: false
 
-gem 'factory_bot_rails', '~> 6.2', groups: %i[development test]
+gem "factory_bot_rails", "~> 6.2", :groups => [:development, :test]
 
-gem 'faker', '~> 3.1', groups: %i[development test]
+gem "faker", "~> 3.1", :groups => [:development, :test]
