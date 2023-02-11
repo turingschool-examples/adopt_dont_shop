@@ -31,5 +31,21 @@ RSpec.describe 'Application New Page' do
       expect(page).to have_content(80209)
       expect(page).to have_content('I love dogs with all my heart and soul')
     end
+
+    it 'I fail to fill in form fields, submit, and am taken back to new applications page' do
+      
+      visit "/applications/new"
+      
+      click_on "Submit"
+
+      expect(current_path).to eq("/applications/new")
+      expect(page).to have_content("Name can't be blank")
+      # expect(page).to have_content("Street address can't be blank")
+      # expect(page).to have_content("City can't be blank")
+      # expect(page).to have_content("State can't be blank")
+      # expect(page).to have_content("Zip code can't be blank")
+      # expect(page).to have_content("Description can't be blank")
+
+    end
   end
 end

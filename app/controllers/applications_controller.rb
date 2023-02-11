@@ -11,8 +11,13 @@ class ApplicationsController < ApplicationController
 
   def create
     @application = Application.new(application_params)
-    @application.save
-    redirect_to "/applications/#{@application.id}"
+    if @application.valid?
+      @application.save
+      redirect_to "/applications/#{@application.id}"
+    else
+      flash.now[:messages] = @application.errors.full_messages
+      render :new
+    end
   end
 
   private

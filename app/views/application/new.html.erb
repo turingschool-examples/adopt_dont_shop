@@ -1,6 +1,6 @@
 <%= form_with url: "/applications/new", method: :post, local: :true do |form|%>
 <%= form.label :name %>
-<%= form.text_field :name %>
+<%= form.text_field :name, required: true %>
 
 <%= form.label :street_address %>
 <%= form.text_field :street_address %>
@@ -18,4 +18,5 @@
 <%= form.text_field :description %>
 
 <%= form.submit "Submit" %>
+
 <% end %>
