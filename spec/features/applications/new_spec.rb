@@ -34,7 +34,7 @@ RSpec.describe "Applications New Page" do
         click_button "Create Application"
 
         expect(current_path).to eq("/applications/new")
-        expect(page).to have_content("Application not created: Required information missing.")
+        within(".error_message") { expect(page).to have_content("Application not created: Required information missing.") }
       end
     end
   end
