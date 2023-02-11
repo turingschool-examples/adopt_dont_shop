@@ -24,7 +24,14 @@
   <% end %>
   <br>
 
-  <% if @pet %>
-    <%= @pet.name %>
+  <% if @pets %>
+    <% @pets.each do |pet| %>
+      <div class="pet">
+        <%= "Name: #{pet.name}" %><br>
+        <%= "Age: #{pet.age}" %><br>
+        <%= "Breed: #{pet.breed}" %><br>
+        <%= "Adoptable: #{pet.adoptable}" %><br>
+      </div>
+    <% end %>
   <% end %>
 </div>
