@@ -11,7 +11,7 @@
 
 
 <% @pet_search.each do |pet| %>
-  <p><%= pet.name %> <%= button_to "Adopt this Pet", "/applications/#{@application.id}/pets/#{pet.id}", method: :post %></p>
+  <p><%= pet.name %> <%= button_to "Adopt this Pet", "/applications/#{@application.id}/application_pets", method: :post, params: {pet_id: pet.id} %></p>
 <% end %>
   
 
