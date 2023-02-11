@@ -46,6 +46,19 @@ RSpec.describe "Application show page", type: :feature do
           within(".add_pet") { expect(page).to have_content("Lab") }
           within(".add_pet") { expect(page).to have_content("Shih Tzu") }
         end
+
+        it 'can see a button to "Adopt this Pet" next to each pets name which adds the pet to this application' do 
+
+          fill_in :pet_name, with: "Rylo"
+          click_button "Submit"
+
+          within('.pet') { expect(page).to have_button("Adopt this Pet")}
+
+          click_button "Adopt this Pet"
+
+          expect(current_path).to eq("/applications/#{@application.id}")
+          
+        end
       end
     end
   end
