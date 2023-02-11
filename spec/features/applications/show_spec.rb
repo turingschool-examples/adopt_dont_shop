@@ -137,15 +137,7 @@ describe 'app show page' do
       expect(page).to have_content(fido.name)
     end
 
-    # 5. Add a Pet to an Application
-      # As a visitor
-      # When I visit an application's show page
-      # And I search for a Pet by name
-      # And I see the names Pets that match my search
-      # Then next to each Pet's name I see a button to "Adopt this Pet"
-      # When I click one of these buttons
-      # Then I am taken back to the application show page
-      # And I see the Pet I want to adopt listed on this application
+    
 
       it 'can populate multiple pets' do
         shelter = Shelter.create!(
@@ -179,7 +171,34 @@ describe 'app show page' do
       end
 
       it 'has a button to "Adopt this Pet", that adopts the pet' do
-
+        # 5. Add a Pet to an Application
+      # As a visitor
+      # When I visit an application's show page
+      # And I search for a Pet by name
+      # And I see the names Pets that match my search
+      # Then next to each Pet's name I see a button to "Adopt this Pet"
+      # When I click one of these buttons
+      # Then I am taken back to the application show page
+      # And I see the Pet I want to adopt listed on this application
+      shelter = Shelter.create!(
+        foster_program: true,
+        name: 'Dog house',
+        city: 'Springfield',
+        rank: 1
+      )
+      fido = shelter.pets.create!(
+        adoptable: true,
+        age: 1,
+        breed: 'weiner',
+        name: 'Fido'
+      )
+      visit "/applications/#{@app.id}"
+      fill_in 'pet_name', with: 'Fido'
+      click_on 'Submit'
+      expect(page).to have_content('Adopt this Pet')
+      click_on 'Adopt this Pet'
+      expect(current_path).to eq('/applications/#{@app.id}')
+      
       end
   end
 end

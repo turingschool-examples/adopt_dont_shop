@@ -5,6 +5,7 @@
 <%= "Zip Code: " + @application.zipcode.to_s%><br>
 <%= "Description: " + @application.description%><br>
 <%= "Status: " + @application.status%><br>
+<%= "Pets Applying for: " + @application.pets_list%><br>
 <%@application.pets.each do |pet|%>
 <%= link_to pet.name, "/pets/#{pet.id}" %>
 <% end %>
