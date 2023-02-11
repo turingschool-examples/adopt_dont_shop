@@ -3,11 +3,10 @@ require 'rails_helper'
 RSpec.describe Application, type: :model do
   describe 'relationships' do
     it { should have_many(:pets).through(:application_pets) }
-
   end
 
-  describe "US1" do 
-    it "status" do 
+  describe "User Story 1" do 
+    it "status is set to In Progress by default and can change" do 
       app_1 = Application.create!(name: "joe", street_address: "123 Main St", city: "Boston", state: "MA", zip: 12346, description: "This is a description", status: 0)
       expect(app_1.status).to eq("In Progress")
 
