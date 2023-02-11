@@ -39,6 +39,17 @@ application_3 = Application.create!({
   }
 )
 
+
+application_4 = Application.create!({
+  name: "John",
+  street_address: "152 Doe Rd",
+  city: "Denver",
+  state: "Colorado",
+  zip_code: "81233",
+  description: "Have cats"
+}
+)
+
 pet_1 = Pet.create!({
     adoptable: true,
     age: 2,
