@@ -1,4 +1,9 @@
 <h1>Application Form</h1>
+
+<% if flash[:messages] %>
+  <h2> <%= flash[:messages] %></h2>
+<% end %>
+
 <%= form_with url: '/applications/:id', method: :post, local: true do |form|  %>
   <p><%= form.label :name, "Name" %><br></p>
   <p><%= form.text_field :name %></p>
