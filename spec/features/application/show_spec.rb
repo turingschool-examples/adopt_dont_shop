@@ -32,7 +32,24 @@ RSpec.describe "#show" do
       click_button "Search Pets"
       expect(current_path).to eq "/applications/#{@huy.id}"
       expect(page).to have_content "Snugglez"
+    end
+  end
 
+  describe 'user story 5' do 
+    describe "When I visit an application's show page" do
+      it 'should have a button next to the searched pet name to adopt the pet' do 
+        visit "/applications/#{@huy.id}"
+
+        fill_in 'pet_name', with: "Snugglez"
+        click_button "Search Pets"
+        expect(current_path).to eq "/applications/#{@huy.id}"
+        expect(page).to have_content "Snugglez"
+
+        click_button "Adopt this Pet"
+
+        expect(current_path).to eq "/applications/#{@huy.id}"
+        expect(@huy.pets).to include @snugglez
+      end
     end
   end
 end

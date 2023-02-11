@@ -9,7 +9,7 @@
 <% end %>
 
 <% @pet_search.each do |pet| %>
-<%= pet.name %>
+<p><%= pet.name %> <%= button_to "Adopt this Pet", "/applications/#{@application.id}/pets/#{pet.id}", method: :post %></p>
 <% end %>
 
 <p> Applicant's Desired Pets: <% @pets.each do |pet| %> 
