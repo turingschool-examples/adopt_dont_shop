@@ -24,7 +24,7 @@ describe 'applications show page', type: :feature do
 
     it 'has a link to the show page of each pet listed in the application' do
       visit "applications/#{application.id}"
-      
+
       expect(page).to have_link(pet1.name)
       expect(page).to have_link(pet2.name)
 
@@ -34,14 +34,14 @@ describe 'applications show page', type: :feature do
     end
   end
 
-  describe 'user story 2' do
+  describe 'user story 4' do
     it "has a section to search for a pet on an 'In Progress' application" do
       visit "applications/#{application2.id}"
 
       expect(page).to have_content("In Progress")
       expect(page).to_not have_content("#{pet2.name}")
 
-      within "#application-pets" do
+      within "#application-add-pets" do
         expect(page).to have_content("Add a Pet to this Application")
         
         fill_in 'search', with: 'Lobster'
@@ -53,6 +53,25 @@ describe 'applications show page', type: :feature do
         expect(page).to have_content("Breed: #{pet2.breed}")
         expect(page).to have_content("Adoptable? #{pet2.adoptable}")
         expect(page).to have_content("At #{pet2.shelter_name}")
+      end
+    end
+  end
+
+  describe 'user story 5' do
+    it "has a link to add a pet to an 'In Progress' application" do
+      visit "applications/#{application2.id}"
+    
+      fill_in 'search', with: 'Lobster'
+      click_on "Submit"
+
+      expect(page).to have_link("Adopt this Pet")
+      
+      click_link "Adopt this Pet"
+
+      expect(current_path).to eq("/applications/#{application2.id}")
+
+      within '#application-pets' do
+        expect(page).to have_content("#{pet2.name}")
       end
     end
   end
