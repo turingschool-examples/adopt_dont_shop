@@ -45,4 +45,35 @@ RSpec.describe 'new application page' do
       expect(page).to have_content('In Progress')
     end
   end
+
+  describe 'user story 3 (#5) visitor new app' do
+    describe 'if a field is left blank #submit clicked' do
+      it 'routes to app#new, and gives an error message' do
+        visit '/applications/new'
+        fill_in 'Name', with: 'My Application'
+        fill_in 'Street Address', with: '123 Main Street'
+        fill_in 'City', with: 'San Francisco'
+
+        click_on 'Submit'
+
+        expect(current_path).to eq('/applications/new')
+        expect(page).to have_content('Please provide a response for all fields.')
+      end
+
+      it 'will only accept a numerical zipcode' do
+        visit '/applications/new'
+        fill_in 'Name', with: 'My Application'
+        fill_in 'Street Address', with: '123 Main Street'
+        fill_in 'City', with: 'San Francisco'
+        fill_in 'State', with: 'CA'
+        fill_in 'Zip Code', with: '94lol'
+        fill_in 'Description', with: 'I luv dawgs'
+
+        click_on 'Submit'
+
+        expect(current_path).to eq('/applications/new')
+        expect(page).to have_content('Please provide a response for all fields.')
+      end
+    end
+  end
 end
