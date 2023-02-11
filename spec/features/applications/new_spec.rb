@@ -32,7 +32,7 @@ RSpec.describe "Applications New Page" do
       it "will return to the new application page with an error message when all fields are not filled out" do 
         click_button "Create Application"
         expect(Application.all.size).to eq(0)
-        expect(current_path).to eq("/applications")
+        expect(current_path).to eq("/applications/new")
         expect(page).to have_content("Application not created: Required information missing.")
        
       end
