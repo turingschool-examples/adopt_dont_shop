@@ -90,5 +90,28 @@ RSpec.describe 'the pets index' do
       click_on("Start an Application")
 
       expect(page).to have_current_path("/applications/new")
+      expect(page).to have_content("Name")
+      expect(page).to have_content("Street address")
+      expect(page).to have_content("City")
+      expect(page).to have_content("State")
+      expect(page).to have_content("Zip code")
     end
+
+  it 'has a submit button named save that takes user to application show page' do
+    visit "/pets"
+    click_on("Start an Application")
+    
+    fill_in "Name", with: "Avery"
+    fill_in "Street address", with: "123 January"
+    fill_in "City", with: "New York"
+    fill_in "State", with: "NY"
+    fill_in "Zip code", with: "11111"
+
+    expect(page).to have_button("Save")
+
+    click_button "Save"
+
+    # expect(current_path).to eq('/applications')
+  end
+
 end
