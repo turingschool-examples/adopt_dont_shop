@@ -73,6 +73,16 @@ RSpec.describe "Application show page", type: :feature do
           within('.application_status_pending') { expect(page).to have_content("Pending") }
         end   
       end
+      
+      context "the application has been submitted" do
+        it 'does not see a section to add more pets to this application' do
+          application_2 = Application.create!(name: "Brian", street_address: "853 West Linden st", city: "Louisville", state: "colorado", zip_code: "80027", description: "I like animals")
+
+          visit "/applications/#{application_2.id}"
+
+          expect(page).to_not have_button("Submit Application")
+        end
+      end     
     end
   end
 end
