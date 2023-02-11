@@ -5,5 +5,5 @@
 <h3>State: <%= @applicant.state %></h3>
 <h3>Zip Code: <%= @applicant.zip_code %></h3>
 <p>Applicant's reason for adoption: <br> <%= @applicant.reason_for_adoption %></p>
-<h3>Pets they're interested in adopting: <%= @applicant.pet_id %></h3>
+<h3>Pets they're interested in adopting: <%= link_to "#{@pet.name}", "/pets/#{@pet.id}" %></h3>
 <h3>Current Application Status: <%= @applicant.status %></h3>

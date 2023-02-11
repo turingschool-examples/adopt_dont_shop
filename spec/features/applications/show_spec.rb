@@ -11,27 +11,32 @@
 require 'rails_helper'
 
 RSpec.describe 'the application show' do
-  shelter = Shelter.create(name: 'Mystery Building', city: 'Irvine CA', foster_program: false, rank: 9)
-  pet = Pet.create!(name: 'Scooby', age: 2, breed: 'Great Dane', adoptable: true, shelter_id: shelter.id)
-  applicant = Application.create!(name: 'Dawson', 
-  street_address: '1234 example ave.', 
-  city: 'Denver', 
-  state: 'CO',
-  zip_code: 12345, 
-  reason_for_adoption: "I love dogs",
-  pet_id: pet.id,
-  status: "In Progress"
-  )
-  it "shows the visitor the applicant and all of it's attributes" do
-    visit "/applications/#{applicant.id}"
-    require 'pry'; binding.pry
-    expect(page).to have_content(applicant.name)
-    expect(page).to have_content(applicant.street_address)
-    expect(page).to have_content(applicant.city)
-    expect(page).to have_content(applicant.state)
-    expect(page).to have_content(applicant.zip_code)
-    expect(page).to have_content(applicant.reason_for_adoption)
-    expect(page).to have_content(applicant.pet_id)
-    expect(page).to have_content(applicant.status)
+  before(:each) do 
+    @shelter = Shelter.create!(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
+    @pet = @shelter.pets.create!(name: 'Mr. Pirate', breed: 'tuxedo shorthair', age: 5, adoptable: true)
+    @applicant = @pet.applications.create!(name: 'Dawson', 
+    street_address: '1234 example ave.', 
+    city: 'Denver', 
+    state: 'CO',
+    zip_code: 12345, 
+    reason_for_adoption: "I love dogs",
+    status: "In Progress"
+    )
   end
+  it "shows the visitor the applicant and all of it's attributes" do
+    visit "/applications/#{@applicant.id}"
+
+    expect(current_path).to eq("/applications/#{@applicant.id}")
+    expect(page).to have_content(@applicant.name)
+    expect(page).to have_content(@applicant.street_address)
+    expect(page).to have_content(@applicant.city)
+    expect(page).to have_content(@applicant.state)
+    expect(page).to have_content(@applicant.zip_code)
+    expect(page).to have_content(@applicant.reason_for_adoption)
+    expect(page).to have_content(@pet.name)
+    expect(page).to have_content(@applicant.status)
+
+    expect(page).to have_link("#{@pet.name}", href: "/pets/#{@pet.id}")
+  end
+
 end
