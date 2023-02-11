@@ -15,7 +15,7 @@ RSpec.describe Application, type: :model do
       expect(app_1.status).to eq("Pending")
     
       app_1.status = 2
-      expect(app_1.status).to eq("Accpeted")
+      expect(app_1.status).to eq("Accepted")
        
       app_1.status = 3
       expect(app_1.status).to eq("Rejected")
