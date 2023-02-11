@@ -52,10 +52,12 @@ RSpec.describe "#show" do
     end
   end
 
-  xdescribe 'user story 6' do 
+  describe 'user story 6' do 
     describe 'Once a user selects pet(s) then they can add a reason for adopting' do
-      it 'should allow the user to input a reason' do 
+      it 'Reason for Adoption doesnt show until pets added' do 
         visit "/applications/#{@huy.id}"
+
+        expect(page).to_not have_content "Reason for Adoption:"
 
         fill_in 'pet_name', with: "Snugglez"
         click_button "Search Pets"
@@ -63,7 +65,26 @@ RSpec.describe "#show" do
         expect(page).to have_content "Snugglez"
         click_button "Adopt this Pet"
 
-        expect(page).to have_content ""
+        expect(page).to have_content "Reason for Adoption:"
+      end
+
+      it 'Allows the user to input their reason and allows them to submit their app for pending' do 
+        visit "/applications/#{@huy.id}"
+
+        expect(page).to_not have_content "Reason for Adoption:"
+
+        fill_in 'pet_name', with: "Snugglez"
+        click_button "Search Pets"
+        expect(current_path).to eq "/applications/#{@huy.id}"
+        expect(page).to have_content "Snugglez"
+        click_button "Adopt this Pet"
+        fill_in "description", with: "Im so fresh"
+        click_button "Submit Application for Review"
+
+        expect(current_path).to eq "/applications/#{@huy.id}"
+        expect(page).to have_content "Application Status: Pending"
+        expect(page).to_not have_content "Search for Pets by Name:"
+
       end
     end
   end

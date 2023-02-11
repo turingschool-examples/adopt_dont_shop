@@ -14,9 +14,6 @@
 <%= form.label :zip_code, "Zip:" %>
 <%= form.text_field :app_zip_code %>
 <br>
-<%= form.label :description, "Reason for Adopting:" %>
-<%= form.text_field :description %>
-<br>
 <%= form.submit "Submit Application" %>
 <% if flash[:messages] %>
   <% flash[:messages].each do |message| %>

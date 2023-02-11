@@ -9,4 +9,12 @@ class Application < ApplicationRecord
   def add_pet(pet)
     self.pets << pet
   end
+
+  def has_pets?
+    if self.pets.count > 0
+      true
+    else
+      false
+    end
+  end
 end
