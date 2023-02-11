@@ -3,7 +3,16 @@ class ApplicationsController < ApplicationController
    def show
     @application = Application.find(params[:id])
     @pets = @application.pets
-   end
+    
+    if !params[:searched_name].nil?
+      search_result = @application.search_for_pet(params[:searched_name])
+      if search_result != "Pet name not in system"
+        @display_result = search_result.name
+      else 
+        @display_result = search_result
+      end
+    end
+  end
 
   def new 
     @new_app = Application.new
