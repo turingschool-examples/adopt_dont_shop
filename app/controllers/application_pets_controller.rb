@@ -1,4 +1,4 @@
-class ApplicationPetsController < ActionController::Base
+class ApplicationPetsController < ApplicationController
 
   def show
     @applicant = Application.find(params[:id])

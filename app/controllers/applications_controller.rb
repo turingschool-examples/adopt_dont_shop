@@ -1,14 +1,14 @@
-class ApplicationsController < ActionController::Base
+class ApplicationsController < ApplicationController
   def welcome
   end
 
   def show
+    # @pet = Pet.find(params[:id])
     @applicant = Application.find(params[:id])
+    @pets = @applicant.pets
   end
 
-  private
-
-  def error_message(errors)
-    errors.full_messages.join(', ')
+  def create
   end
+
 end
