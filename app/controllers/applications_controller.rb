@@ -6,7 +6,11 @@ class ApplicationsController < ApplicationController
   def show
     @application = Application.find(params[:id])
     if @application.in_progress?
-      @pets = Pet.search(params[:pet_search])
+      if params[:pet_search]
+        @pets = Pet.search(params[:pet_search])
+      else
+        @pets = []
+      end
     end
   end
 
@@ -26,7 +30,7 @@ class ApplicationsController < ApplicationController
   end
 
   private
-  
+
   def app_params
     params.permit(:name, :street_address, :city, :state, :zip, :description, :status, :pet_search)
   end
