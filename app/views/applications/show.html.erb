@@ -14,6 +14,7 @@
     <%= form.text_field :searched_name %>
     <%= form.submit "Search" %>
   <% end %>
+
     <%= @display_result %>
   
   <% elsif @application.status == "Pending" %>
@@ -33,3 +34,14 @@
     <%= form.submit "Submit" %>
   <% end %>
 <% end %>
+
+
+
+  <% if @display_result != nil && @display_result != "Pet name not in system" %>
+    <%= @display_result.name %>
+    <p><%= button_to 'Adopt this pet', "/pet_applications/new", method: :post, params: {application_id: @application.id, pet_id: @display_result.id } %><p>
+  <% else %>
+      <%= @display_result %>
+  <% end %>
+
+

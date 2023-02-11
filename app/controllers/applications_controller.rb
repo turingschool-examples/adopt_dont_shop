@@ -7,7 +7,7 @@ class ApplicationsController < ApplicationController
     if !params[:searched_name].nil?
       search_result = @application.search_for_pet(params[:searched_name])
       if search_result != "Pet name not in system"
-        @display_result = search_result.name
+        @display_result = search_result
       else 
         @display_result = search_result
       end
@@ -19,8 +19,13 @@ class ApplicationsController < ApplicationController
   end
 
   def create 
-    @new_app = Application.create(application_attributes)
-    redirect_to "/applications/#{@new_app.id}"
+    @new_app = Application.new(application_attributes)
+      if @new_app.save
+        redirect_to "/applications/#{@new_app.id}"
+      else
+        flash.now[:messages] = @new_app.errors.full_messages
+        render :new
+     end  
   end
 
   def update 
