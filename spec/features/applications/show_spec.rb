@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe "Applications" do
   describe "when I visit /applications/:id" do
-    describe "User story 1 / As a user " do
+    describe "User Story 1 / As a user " do
       it " I see the applicant name, full adress, description, name of all pet( pet name is link to show page), application status" do
         shelter = Shelter.create!(name: 'Petz R Us', city: 'Denver', foster_program: true, rank: 10)
         max = shelter.pets.create!(name: 'Max', breed: 'goldendoodle', age: 2, adoptable: true)
