@@ -5,10 +5,10 @@ class Petition < ApplicationRecord
   validates :state, presence: true
   validates :zip_code, presence: true, numericality: true
 
-  has_many :pets
+  has_many :petition_pets
+  has_many :pets, through: :petition_pets
 
-  def add_pet(pet)
-    pet.petition_id = self.id
-    binding.pry
+  def add_pet?
+    status == "In Progress"
   end
 end
