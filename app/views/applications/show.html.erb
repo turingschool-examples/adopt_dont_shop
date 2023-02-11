@@ -30,7 +30,8 @@
         <%= "Name: #{pet.name}" %><br>
         <%= "Age: #{pet.age}" %><br>
         <%= "Breed: #{pet.breed}" %><br>
-        <%= "Adoptable: #{pet.adoptable}" %><br>
+        <%= "Adoptable: #{pet.adoptable}" %><br><br>
+        <%= button_to "Adopt this Pet", "/applications/#{@application.id}/pets", params:{pet_id: pet.id} %>
       </div>
     <% end %>
   <% end %>
