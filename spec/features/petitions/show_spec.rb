@@ -93,5 +93,33 @@ RSpec.describe 'applications show page', type: :feature do
 
       expect(page).to have_current_path("/petitions/#{@petition.id}")
     end
+
+    it 'I can see the status indicator and cannot adopt another pet if the status is pending' do
+      visit "petitions/#{@petition2.id}"
+      
+      expect(@petition2.status).to eq("Pending")
+      expect(page).to have_content("Status: Pending")
+      expect(page).to_not have_button("Search")
+      expect(page).to_not have_button("Submit")
+    end
+
+    it 'I can see the status indicator' do
+      visit "petitions/#{@petition.id}"
+
+      fill_in 'search', with: 'Sufur'
+      click_button 'Search'
+      click_button 'Adopt this Pet'
+
+      fill_in 'search', with: 'Dooby'
+      click_button 'Search'
+      click_button 'Adopt this Pet'
+      
+      fill_in 'description', with: 'I need these dogs. I NEED THEM.'
+      click_button 'Submit'
+
+      expect(page).to have_content("Status: Pending")
+      expect(page).to_not have_button("Search")
+      expect(page).to_not have_button("Submit")
+    end
   end
 end

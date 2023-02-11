@@ -28,13 +28,14 @@ class PetitionsController < ApplicationController
   def update
     @petition = Petition.find(params[:id])
     @petition.update(petition_params)
+    @petition.update_attribute(:status, 'Pending')
     redirect_to "/petitions/#{@petition.id}"
   end
   
   private
 
   def petition_params
-    params.permit(:name, :street_address, :city, :state, :zip_code, :description, :search)
+    params.permit(:name, :street_address, :city, :state, :zip_code, :description, :status, :search)
   end
 
 end
