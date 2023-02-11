@@ -11,7 +11,7 @@
   <%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
 <% end %>
 
-<% if @petition.add_pet? %>
+<% if @petition.can_add_pet? %>
   <h4>Add a Pet to this Application</h4>
   <%= form_tag("/petitions/#{@petition.id}", method: :get, local: true) do %>
     <p>Pet Name</p>
@@ -20,7 +20,7 @@
   <% end %>
     <% if @results != nil %>
       <% @results.each do |result| %>
-        <p><%= result.name %> <%= button_to 'Adopt this Pet', method: :get, local: true %></p>
+        <p><%= result.name %> <%= button_to 'Adopt this Pet', "/petition_pets/#{result.id}/#{@petition.id}", method: :post %></p>
       <% end %>
     <% end %>
 <% end %>

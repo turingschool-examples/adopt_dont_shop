@@ -40,7 +40,7 @@ RSpec.describe 'applications show page', type: :feature do
 
     it 'I can see a section on the page to add a pet to this appliction' do
       visit "petitions/#{@petition.id}"
-      save_and_open_page
+      # save_and_open_page
       fill_in 'search', with: 'Ruf'
       click_button 'Search'
       
