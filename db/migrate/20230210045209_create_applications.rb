@@ -7,7 +7,6 @@ class CreateApplications < ActiveRecord::Migration[5.2]
       t.string :state
       t.integer :zip_code
       t.string :reason_for_adoption
-      t.references :pet, foreign_key: true
       t.string :status
       
       t.timestamps
