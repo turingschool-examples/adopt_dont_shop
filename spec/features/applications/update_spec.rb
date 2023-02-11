@@ -21,7 +21,8 @@ RSpec.describe "Applications Update" do
 
       expect(current_path).to eq("/applications/#{app2.id}")
       expect(page).to have_content("Benedict McBark")
-
+      save_and_open_page
+      click_button("Adopt this pet")
       expect(page).to have_content("Submit Application")
 
       fill_in("Submit Application", with: "I would be a good dog dad")
