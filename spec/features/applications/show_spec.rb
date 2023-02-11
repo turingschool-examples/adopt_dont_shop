@@ -4,7 +4,7 @@ RSpec.describe "Application show page", type: :feature do
   describe "As a visitor" do 
     describe "When I visit an application's show page" do 
       before(:each) do
-        @application = Application.create!(name: "Brian", street_address: "853 West Linden st", city: "Louisville", state: "colorado", zip_code: "80027", description: "I like animals", status: "Accepted")
+        @application = Application.create!(name: "Brian", street_address: "853 West Linden st", city: "Louisville", state: "colorado", zip_code: "80027", description: "I like animals")
         @shelter = Shelter.create!(foster_program: true, name: "Boulder Humane Society", city: "Boulder", rank: 1)
         @jax = @application.pets.create!(adoptable: false, age: 4, breed: "ACD", name: "Jax", shelter: @shelter)
         @rylo = @application.pets.create!(adoptable: false, age: 1, breed: "Lab", name: "Rylo", shelter: @shelter)
@@ -59,6 +59,19 @@ RSpec.describe "Application show page", type: :feature do
           expect(current_path).to eq("/applications/#{@application.id}")
           
         end
+
+        it 'can have the option to update the description and submit the application once pets have been added' do
+          within('.submit_application') { expect(page).to have_content("Finalize Submission") }
+          within('.submit_application') { expect(page).to have_field(:description, with: "I like animals")}
+          within('.submit_application') { expect(page).to have_button("Submit Application") }
+          
+          fill_in :description, with: "I REALLY like animals"
+          click_button "Submit Application"
+
+          expect(current_path).to eq("/applications/#{@application.id}")
+          expect(page).to_not have_button("Add this Pet")
+          within('.application_status_pending') { expect(page).to have_content("Pending") }
+        end   
       end
     end
   end
