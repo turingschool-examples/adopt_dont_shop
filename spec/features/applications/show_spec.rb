@@ -175,10 +175,10 @@ describe 'app show page' do
         click_on 'Submit'
         expect(current_path).to eq("/applications/#{@app.id}")
         expect(page).to have_link 'Fido', href: "/pets/#{fido.id}"
-        expect(page).to have_link 'Fido', href: "/pets/#{fido1.id}"
+        expect(page).to have_link 'Fido', href: "/pets/#{fido2.id}"
       end
 
-      xit 'has a button to "Adopt this Pet", that adopts the pet' do
+      it 'has a button to "Adopt this Pet", that adopts the pet' do
 
       end
   end
