@@ -134,7 +134,52 @@ describe 'app show page' do
       fill_in 'pet_name', with: 'Fido'
       click_on 'Submit'
       expect(current_path).to eq("/applications/#{@app.id}")
-      expect(page).to have_content('Fido')
+      expect(page).to have_content(fido.name)
     end
+
+    # 5. Add a Pet to an Application
+      # As a visitor
+      # When I visit an application's show page
+      # And I search for a Pet by name
+      # And I see the names Pets that match my search
+      # Then next to each Pet's name I see a button to "Adopt this Pet"
+      # When I click one of these buttons
+      # Then I am taken back to the application show page
+      # And I see the Pet I want to adopt listed on this application
+
+      it 'can populate multiple pets' do
+        shelter = Shelter.create!(
+          foster_program: true,
+          name: 'Dog house',
+          city: 'Springfield',
+          rank: 1
+        )
+        fido = shelter.pets.create!(
+          adoptable: true,
+          age: 1,
+          breed: 'weiner',
+          name: 'Fido'
+        )
+        fido2 = shelter.pets.create!(
+          adoptable: true,
+          age: 3,
+          breed: 'schnauzer',
+          name: 'Fido'
+        )
+        visit "/applications/#{@app.id}"
+        expect(@app.status).to eq('In Progress')
+        expect(page).to_not have_content('Fido')
+        expect(page).to have_content('Add a Pet to this Application')
+        expect(page).to have_field('pet_name')
+        fill_in 'pet_name', with: 'Fido'
+        click_on 'Submit'
+        expect(current_path).to eq("/applications/#{@app.id}")
+        expect(page).to have_link 'Fido', href: "/pets/#{fido.id}"
+        expect(page).to have_link 'Fido', href: "/pets/#{fido1.id}"
+      end
+
+      xit 'has a button to "Adopt this Pet", that adopts the pet' do
+
+      end
   end
 end
