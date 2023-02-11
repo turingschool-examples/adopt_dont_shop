@@ -4,6 +4,10 @@ class Application < ApplicationRecord
   validates :name, :street_address, :city, :state, :zip, :description, presence: true
 
   def in_progress?
-    pets == []
+    if pets == []
+      "In Progress"
+    else
+      "Pending"
+    end
   end
 end
