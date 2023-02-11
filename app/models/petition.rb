@@ -5,5 +5,14 @@ class Petition < ApplicationRecord
   validates :state, presence: true
   validates :zip_code, presence: true, numericality: true
 
-  has_many :pets
+  has_many :petition_pets
+  has_many :pets, through: :petition_pets
+
+  def can_add_pet?
+    status == "In Progress"
+  end
+
+  def add_pet
+    
+  end
 end

@@ -6,15 +6,21 @@
 <p>Zip Code: <%= @petition.zip_code %></p>
 <p>Description: <%= @petition.description %></p>
 <p>Status: <%= @petition.status %></p>
+
 <% @petition.pets.each do |pet| %>
-  <%= link_to"#{pet.name}", "/pets/#{pet.id}" %>
+  <%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
 <% end %>
-<h4>Add a Pet to this Application</h4>
-<%= form_with url: "/petitions/#{@petition.id}", method: :get, local: true do |form| %>
-  <%= form.label :search %>
-  <%= form.text_field :search %>
-  <%= form.submit 'Search' %>
-  <% @results.each do |result| %>
-    <%= result.name %>
+
+<% if @petition.can_add_pet? %>
+  <h4>Add a Pet to this Application</h4>
+  <%= form_tag("/petitions/#{@petition.id}", method: :get, local: true) do %>
+    <p>Pet Name</p>
+    <%= text_field_tag(:search, params[:search]) %>
+    <%= submit_tag ('Search') %>
   <% end %>
+    <% if @results != nil %>
+      <% @results.each do |result| %>
+        <p><%= result.name %> <%= button_to 'Adopt this Pet', "/petition_pets/#{result.id}/#{@petition.id}", method: :post %></p>
+      <% end %>
+    <% end %>
 <% end %>

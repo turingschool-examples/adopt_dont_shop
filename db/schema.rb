@@ -10,10 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_02_10_192756) do
+ActiveRecord::Schema.define(version: 2023_02_11_154919) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "petition_pets", force: :cascade do |t|
+    t.bigint "pet_id"
+    t.bigint "petition_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["pet_id"], name: "index_petition_pets_on_pet_id"
+    t.index ["petition_id"], name: "index_petition_pets_on_petition_id"
+  end
 
   create_table "petitions", force: :cascade do |t|
     t.string "name"
@@ -23,6 +32,8 @@ ActiveRecord::Schema.define(version: 2023_02_10_192756) do
     t.integer "zip_code"
     t.string "description"
     t.string "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "pets", force: :cascade do |t|
@@ -33,8 +44,6 @@ ActiveRecord::Schema.define(version: 2023_02_10_192756) do
     t.bigint "shelter_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "petition_id"
-    t.index ["petition_id"], name: "index_pets_on_petition_id"
     t.index ["shelter_id"], name: "index_pets_on_shelter_id"
   end
 
@@ -65,7 +74,8 @@ ActiveRecord::Schema.define(version: 2023_02_10_192756) do
     t.datetime "updated_at", null: false
   end
 
-  add_foreign_key "pets", "petitions"
+  add_foreign_key "petition_pets", "petitions"
+  add_foreign_key "petition_pets", "pets"
   add_foreign_key "pets", "shelters"
   add_foreign_key "veterinarians", "veterinary_offices"
 end
