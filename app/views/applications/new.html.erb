@@ -1,0 +1,18 @@
+<h1>New Application</h1>
+
+<%= form_with do |form| %>
+  <%= form.label :name %>
+  <%= form.text_field :name %><br>
+  <%= form.label :address, "Street Address" %>
+  <%= form.text_field :address %><br>
+  <%= form.label :city %>
+  <%= form.text_field :city %><br>
+  <%= form.label :state %>
+  <%= form.text_field :state %><br>
+  <%= form.label :zipcode, "Zip Code" %>
+  <%= form.number_field :zipcode %><br>
+  <%= form.label :description, "Description" %>
+  <%= form.text_field :description %><br>
+  <%= form.hidden_field :status, value: "In Progress" %>
+  <%= form.submit "Submit" %>
+<% end %>
