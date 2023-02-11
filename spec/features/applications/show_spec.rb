@@ -16,7 +16,7 @@ describe 'app show page' do
                                  address: '123 Fake Street',
                                  city: 'Springfield',
                                  state: 'IL',
-                                 zipcode: 12345,
+                                 zipcode: 12_345,
                                  description: 'I like dogs.',
                                  status: 'In Progress')
     end

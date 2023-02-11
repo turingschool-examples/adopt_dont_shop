@@ -24,17 +24,26 @@ RSpec.describe 'new application page' do
       expect(page).to have_field('Zip Code')
     end
 
-    xit 'saves the information' do
+    it 'saves the information' do
       visit '/applications/new'
       fill_in 'Name', with: 'My Application'
       fill_in 'Street Address', with: '123 Main Street'
       fill_in 'City', with: 'San Francisco'
       fill_in 'State', with: 'CA'
       fill_in 'Zip Code', with: '94107'
+      fill_in 'Description', with: 'I luv dawgs'
 
       click_on 'Submit'
 
-      expect_current_path('/applications/')
+      expect(current_path).to_not eq '/applications/new'
+      save_and_open_page
+      expect(page).to have_content('My Application')
+      expect(page).to have_content('123 Main Street')
+      expect(page).to have_content('San Francisco')
+      expect(page).to have_content('CA')
+      expect(page).to have_content('94107')
+      expect(page).to have_content('I luv dawgs')
+      expect(page).to have_content('In Progress')
     end
   end
 end
