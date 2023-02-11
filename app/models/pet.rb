@@ -13,4 +13,8 @@ class Pet < ApplicationRecord
   def self.adoptable
     where(adoptable: true)
   end
+
+  def self.search(input)
+    where(name: input)
+  end
 end

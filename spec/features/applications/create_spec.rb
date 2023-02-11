@@ -32,7 +32,7 @@ RSpec.describe 'applications new page features' do
         fill_in "Zip code", with: "32901"
         fill_in "description", with: "I have a yard with lots of space and 3 kids who want to have a dog!"
 
-        click_button("Submit Application") 
+        click_button("Submit") 
         expect(current_path).to eq("/applications/#{Application.last.id}")
 
         expect(page).to have_content("Hady")
@@ -51,7 +51,7 @@ RSpec.describe 'applications new page features' do
         fill_in "State", with: "Florida"
         fill_in "Zip code", with: "32901"
         fill_in "description", with: "I have a yard with lots of space and 3 kids who want to have a dog!"
-        click_button("Submit Application") 
+        click_button("Submit") 
 save_and_open_page
         expect(page).to have_content("Name can't be blank")
         expect(page).to have_content("City can't be blank")
