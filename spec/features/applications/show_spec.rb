@@ -102,7 +102,7 @@ describe 'Application Show Page' do
       fill_in 'pet_search', with: 'Lucille Bald'
       click_button 'Find Pet'
       click_button 'Adopt this Pet'
-      # require 'pry'; binding.pry
+    
 
       expect(page.current_path).to eq("/applications/#{app_1.id}")
       expect(page).to have_content('Lucille Bald')
