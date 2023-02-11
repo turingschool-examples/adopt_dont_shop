@@ -21,7 +21,6 @@ RSpec.describe 'applications new page' do
       state: 'CO',
       zip_code: 81789, 
       reason_for_adoption: "Because I have a tight house and my name is Steve",
-      pet_id: pet.id,
       status: "In Progress"
       )
       require 'pry'; binding.pry
@@ -32,7 +31,7 @@ RSpec.describe 'applications new page' do
     fill_in 'City', with: 'Steveburg'
     fill_in 'State', with: 'CO'
     fill_in 'Zip Code', with: '81789'
-    fill_in 'Description of why I would make a good home', with: 'Because I have a tight house and my name is Steve'
+    fill_in 'Why I would make a good home', with: 'Because I have a tight house and my name is Steve'
     click_on 'Submit'
 
     expect(page).to have_current_path(visit "/applications/#{applicant.id}")
