@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe 'applications show page', type: :feature do
   let!(:application) {Application.create!(name: 'Jasmine', street_address: '1011 P St.', city: 'Las Vegas', state: 'Nevada', zip_code: '89178', description: "I'm lonely.", status: 'Pending')}
-  let!(:application2) {Application.create!(name: 'Elle', street_address: '2023 Something St.', city: 'Denver', state: 'Colorado', zip_code: '80014', description: "I love animals!", status: 'Accepted')}
+  let!(:application2) {Application.create!(name: 'Elle', street_address: '2023 Something St.', city: 'Denver', state: 'Colorado', zip_code: '80014', description: "I love animals!", status: 'In Progress')}
 
   let!(:pet1) {application.pets.create!(adoptable: true, age: 1, breed: 'sphynx', name: 'Lucille Bald', shelter_id: shelter.id)}
   let!(:pet2) {application.pets.create!(adoptable: true, age: 3, breed: 'doberman', name: 'Lobster', shelter_id: shelter.id)}
@@ -31,6 +31,29 @@ describe 'applications show page', type: :feature do
       click_link "#{pet1.name}"
 
       expect(current_path).to eq("/pets/#{pet1.id}")
+    end
+  end
+
+  describe 'user story 2' do
+    it "has a section to search for a pet on an 'In Progress' application" do
+      visit "applications/#{application2.id}"
+
+      expect(page).to have_content("In Progress")
+      expect(page).to_not have_content("#{pet2.name}")
+
+      within "#application-pets" do
+        expect(page).to have_content("Add a Pet to this Application")
+        
+        fill_in 'search', with: 'Lobster'
+        click_on "Submit"
+
+        expect(current_path).to eq("/applications/#{application2.id}")
+        expect(page).to have_content("#{pet2.name}")
+        expect(page).to have_content("#{pet2.age} years old")
+        expect(page).to have_content("Breed: #{pet2.breed}")
+        expect(page).to have_content("Adoptable? #{pet2.adoptable}")
+        expect(page).to have_content("At #{pet2.shelter_name}")
+      end
     end
   end
 end

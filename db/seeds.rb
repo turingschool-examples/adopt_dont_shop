@@ -18,5 +18,5 @@
 @pet_5 = Pet.create!(adoptable: true, age: 3, breed: 'GSD', name: 'Charlie', shelter_id: @shelter_3.id)
 @pet_6 = Pet.create!(adoptable: false, age: 3, breed: 'Whippet', name: 'Annabelle', shelter_id: @shelter_1.id)
 
-@applicant_1 = Application.create!(name: 'Jasmine', street_address: '1011 P St.', city: 'Las Vegas', state: 'Nevada', zip_code: '89178', description: "I'm lonely.", status: 'Pending')
-@applicant_2 = Application.create!(name: 'Elle', street_address: '2023 Something St.', city: 'Denver', state: 'Colorado', zip_code: '80014', description: "I love animals!", status: 'Accepted')
+@applicant_1 = Application.create!(name: 'Jasmine', street_address: '1011 P St.', city: 'Las Vegas', state: 'Nevada', zip_code: '89178', description: "I'm lonely.", status: 'In Progress')
+@applicant_2 = Application.create!(name: 'Elle', street_address: '2023 Something St.', city: 'Denver', state: 'Colorado', zip_code: '80014', description: "I love animals!", status: 'Pending')
