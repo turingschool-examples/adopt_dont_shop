@@ -24,7 +24,7 @@ RSpec.describe 'the application show' do
   )
   it "shows the visitor the applicant and all of it's attributes" do
     visit "/applications/#{applicant.id}"
-    require 'pry'; binding.pry
+    
     expect(page).to have_content(applicant.name)
     expect(page).to have_content(applicant.street_address)
     expect(page).to have_content(applicant.city)
