@@ -82,7 +82,7 @@ RSpec.describe 'the pets index' do
     expect(page).to_not have_content(pet_3.name)
   end
 
-  describe 'user story 2'
+  describe 'user story 2'do
     it 'has a a link to start an application' do
       visit "/pets"
       expect(page).to have_link("Start an Application")
@@ -97,21 +97,22 @@ RSpec.describe 'the pets index' do
       expect(page).to have_content("Zip code")
     end
 
-  it 'has a submit button named save that takes user to application show page' do
-    visit "/pets"
-    click_on("Start an Application")
-    
-    expect(page).to have_button("Save")
+    it 'has a submit button named save that takes user to application show page' do
+      visit "/pets"
+      click_on("Start an Application")
+      
+      expect(page).to have_button("Save")
 
-    fill_in "Name", with: "Avery"
-    fill_in "Street address", with: "123 January"
-    fill_in "City", with: "New York"
-    fill_in "State", with: "NY"
-    fill_in "Zip code", with: "11111"
+      fill_in "Name", with: "Avery"
+      fill_in "Street address", with: "123 January"
+      fill_in "City", with: "New York"
+      fill_in "State", with: "NY"
+      fill_in "Zip code", with: "11111"
 
-    click_button "Save"
-    @application_1 = Application.last
-    expect(current_path).to eq("/applications/#{@application_1.id}")
-    expect(page).to have_content("In Progress")
-  end
+      click_button "Save"
+      @application_1 = Application.last
+      expect(current_path).to eq("/applications/#{@application_1.id}")
+      expect(page).to have_content("In Progress")
+    end 
+  end  
 end
