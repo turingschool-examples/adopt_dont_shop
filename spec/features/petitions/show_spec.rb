@@ -73,8 +73,25 @@ RSpec.describe 'applications show page', type: :feature do
       fill_in 'search', with: 'Dooby'
       click_button 'Search'
       click_button 'Adopt this Pet'
+      
+      expect(page).to have_field('description')
+    end
 
-      fill_in 'adoption_request', with: 'I love dogs. Dogs aare the best. I need dogs.'
+    it 'I can submit the input and return to the show page' do
+      visit "petitions/#{@petition.id}"
+
+      fill_in 'search', with: 'Sufur'
+      click_button 'Search'
+      click_button 'Adopt this Pet'
+
+      fill_in 'search', with: 'Dooby'
+      click_button 'Search'
+      click_button 'Adopt this Pet'
+      
+      fill_in 'description', with: 'I need these dogs. I NEED THEM.'
+      click_button 'Submit'
+
+      expect(page).to have_current_path("/petitions/#{@petition.id}")
     end
   end
 end
