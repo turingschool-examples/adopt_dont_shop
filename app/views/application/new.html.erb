@@ -1,6 +1,6 @@
-<%= form_with url: '/applications', method: :post, local: true do |form| %>
+<%= form_with url: '/applications/new', method: :post, local: true do |form| %>
 <%= form.label :name, "Your Name:" %>
-<%= form.text_field :name %>
+<%= form.text_field :applicant_name %>
 <br>
 <%= form.label :street_address, "Street Address:" %>
 <%= form.text_field :app_street %>
@@ -18,7 +18,11 @@
 <%= form.text_field :description %>
 <br>
 <%= form.submit "Submit Application" %>
-
+<% if flash[:messages] %>
+  <% flash[:messages].each do |message| %>
+    <h3><%= message %></h3>
+  <%end%>
+<% end %>
 <% end %>
 
 

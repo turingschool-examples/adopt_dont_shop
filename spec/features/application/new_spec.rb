@@ -5,7 +5,7 @@ RSpec.describe "#show" do
     it 'has a form to create a new application' do
       visit "/applications/new"
 
-      fill_in "Name:", with: "Test"
+      fill_in "applicant_name", with: "Test"
       fill_in "app_street", with: "123 Court Dr"
       fill_in "app_city", with: "San Francisco"
       fill_in "app_state", with: "California"
@@ -20,6 +20,20 @@ RSpec.describe "#show" do
       expect(page).to have_content("California")
       expect(page).to have_content("90439")
       expect(page).to have_content("Applicant's Reason For Adopting: Cuz I'm fresh")
+    end
+  end
+
+  describe "User Story 3" do
+    it "redirect to the new application page application form is incomplete" do
+      visit "/applications/new"
+
+      fill_in "app_street", with: "123 Court Dr"
+      fill_in "app_city", with: "San Francisco"
+      fill_in "app_state", with: "California"
+
+      click_button "Submit Application"
+      expect(current_path).to eq("/applications/new")
+      expect(page).to have_content("Applicant name can't be blank")
     end
   end
 end
