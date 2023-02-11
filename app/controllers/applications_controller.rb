@@ -29,10 +29,8 @@ class ApplicationsController < ApplicationController
   end
 
   def update 
-    
     @application = Application.find(params[:id])
     @application.update(submission_update_attributes)
-    # create a new PetApplication, with the pet id and application id. 
     redirect_to "/applications/#{@application.id}"
   end
 
