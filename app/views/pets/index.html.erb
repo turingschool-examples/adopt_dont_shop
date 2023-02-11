@@ -7,8 +7,7 @@
 <% end %>
 
 <%= link_to "Start an Application", "/applications/new" %>
-<%# <%= link_to "Start an Application", "/applications/#{@application.id}/new" %> %>
-<%# above link breaks all the tests in feature pets index %>
+
 <% @pets.each do |pet| %>
   <h3><%= pet.name %></h3>
   <p>Age: <%= pet.age %></p>
