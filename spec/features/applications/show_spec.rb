@@ -60,5 +60,18 @@ RSpec.describe 'visit application show page' do
 			expect(page).to have_content(pet_1.name)
 			expect(page).to have_content(pet_4.name)
 		end
+
+    it 'has a button to adopt pet' do
+      visit "/applications/#{app_1.id}"
+      
+      fill_in 'pet_name', with: 'Pirate'
+			click_button
+
+      expect(page).to have_button("Adopt #{pet_1.name}")
+      click_button("Adopt #{pet_1.name}")
+
+      expect(current_path).to eq("/applications/#{app_1.id}")
+      expect(page).to have_content("#{pet_1.name}")
+    end
 	end
 end
