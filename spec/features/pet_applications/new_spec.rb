@@ -13,7 +13,6 @@ RSpec.describe 'pet_application creation' do
     fill_in("Add pet to this Application", with: "Benedict McBark")
     click_button "Search"
     expect(page).to have_content("Benedict McBark")
-    # click_button "Adopt this pet"
     first(:button, "Adopt this pet").click
     expect(current_path).to eq("/applications/#{app2.id}")
     expect(page).to have_content("Pets:\nBenedict McBark")
