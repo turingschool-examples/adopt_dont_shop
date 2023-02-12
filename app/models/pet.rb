@@ -17,4 +17,5 @@ class Pet < ApplicationRecord
     where("name ILIKE ?", "%#{pet_name}%")
   end
 
+
 end
