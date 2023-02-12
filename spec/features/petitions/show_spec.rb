@@ -39,10 +39,11 @@ RSpec.describe 'applications show page', type: :feature do
       expect(page).to have_current_path("/pets/#{@pet1.id}")
     end
 
-    it 'I can see a section on the page to add a pet to this appliction' do
+    it 'I can see a section on the page to add a pet to this appliction
+      by searching for a partial name match that is case insensitive' do
       visit "petitions/#{@petition.id}"
 
-      fill_in 'search', with: 'Ruf'
+      fill_in 'search', with: 'rUf'
       click_button 'Search'
       
       expect(page).to have_content('Ruf')
