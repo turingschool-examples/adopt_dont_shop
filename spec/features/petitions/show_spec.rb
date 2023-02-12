@@ -7,6 +7,8 @@ RSpec.describe 'applications show page', type: :feature do
                     state: 'CO', zip_code: 12345, description: 'I like dogs', status: 'In Progress')
       @petition2 = Petition.create!(name: 'Nhoj', street_address: '2 Sesame St', city: 'Renved',
                     state: 'OC', zip_code: 54321, description: 'Dogs like I', status: 'Pending')
+      @petition3 = Petition.create!(name: 'Bill', street_address: '2 Sesame St', city: 'Nedver',
+                    state: 'CA', zip_code: 89876, description: '', status: 'In Progress') 
       @shelter = Shelter.create(name: 'Mystery Building', city: 'Irvine CA', foster_program: false, rank: 9)
       @pet1 = Pet.create!(name: 'Scooby', age: 2, breed: 'Great Dane', adoptable: true, shelter_id: @shelter.id)
       @pet2 = Pet.create!(name: 'Dooby', age: 3, breed: 'Greater Dane', adoptable: true, shelter_id: @shelter.id)
@@ -119,6 +121,17 @@ RSpec.describe 'applications show page', type: :feature do
 
       expect(page).to have_content("Status: Pending")
       expect(page).to_not have_button("Search")
+      expect(page).to_not have_button("Submit")
+    end
+
+    it 'I have not added any pets to the application
+      Then I do not see a section to submit my application' do
+      visit "petitions/#{@petition3.id}"
+
+      fill_in 'search', with: 'Sufur'
+      click_button 'Search'
+
+      expect(page).to_not have_content("Why do you want to Adopt?")
       expect(page).to_not have_button("Submit")
     end
   end

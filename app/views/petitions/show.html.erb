@@ -18,10 +18,12 @@
     <%= text_field_tag(:search, params[:search]) %>
     <%= submit_tag ('Search') %>
   <% end %>
-  <h4>Why do you want to Adopt?</h4>
-  <%= form_tag("/petitions/#{@petition.id}", method: :patch, local: true) do %>
-    <%= text_field_tag(:description, params[:description]) %>
-    <%= submit_tag ('Submit') %>
+  <% if @petition.pets.count >= 1 && @petition.status == "In Progress" %>
+    <h4>Why do you want to Adopt?</h4>
+    <%= form_tag("/petitions/#{@petition.id}", method: :patch, local: true) do %>
+      <%= text_field_tag(:description, params[:description]) %>
+      <%= submit_tag ('Submit') %>
+      <% end %>
   <% end %>
   <% if @results != nil %>
     <% @results.each do |result| %>
