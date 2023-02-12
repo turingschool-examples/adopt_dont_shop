@@ -9,11 +9,24 @@ class ApplicationsController < ApplicationController
     @results = Pet.where("name like ?", "%#{params[:search]}%")
   end
 
+  def new
+    # @application = Application.new(application_params)
+  end
+
   def create
-    @new_app = Application.create!(application_params)
-    @new_app.status = "In Progress"
-    @new_app.update(application_params)
-    redirect_to "/applications/#{@new_app.id}"
+    @app = Application.new(application_params)
+    # require 'pry'; binding.pry
+    # require 'pry'; binding.pry
+      if @app.valid?
+        @app.status = "In Progress"
+        @app.update(application_params)
+        @app.save
+        # require 'pry'; binding.pry
+        redirect_to "/applications/#{@app.id}"
+      else
+        flash[:error] = @app.errors.full_messages.join(", ")
+        redirect_to "/applications/new"
+      end
   end
 
   private
