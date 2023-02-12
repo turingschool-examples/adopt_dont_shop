@@ -199,4 +199,71 @@ describe 'app show page' do
       expect(page).to have_content("Pets Applying for: #{fido.name}")
     end
   end
+
+  describe 'submitting an application' do
+    # 6. Submit an Application
+
+    # As a visitor
+    # When I visit an application's show page
+    # And I have added one or more pets to the application
+    # Then I see a section to submit my application
+    # And in that section I see an input to enter why I would make a good owner for these pet(s)
+    # When I fill in that input
+    # And I click a button to submit this application
+    # Then I am taken back to the application's show page
+    # And I see an indicator that the application is "Pending"
+    # And I see all the pets that I want to adopt
+    # And I do not see a section to add more pets to this application
+
+
+# 7. No Pets on an Application
+
+# As a visitor
+# When I visit an application's show page
+# And I have not added any pets to the application
+# Then I do not see a section to submit my application
+
+    before(:each) do
+      @app = Application.create!(name: 'John Smith',
+                                address: '123 Fake Street',
+                                city: 'Springfield',
+                                state: 'IL',
+                                zipcode: 12345,
+                                description: 'I like dogs.',
+                                status: 'In Progress')
+    end
+    it 'does not have a button to submit when I have no pets on the application' do
+      visit "/applications/#{@app.id}"
+      expect(page).to_not have_content ("Submit Application")
+    end
+    
+    it 'has a button to submit when I have pets on the application' do
+      shelter = Shelter.create!(
+        foster_program: true,
+        name: 'Dog house',
+        city: 'Springfield',
+        rank: 1
+      )
+      fido = shelter.pets.create!(
+        adoptable: true,
+        age: 1,
+        breed: 'weiner',
+        name: 'Fido'
+      )
+      santa = shelter.pets.create!(
+        adoptable: true,
+        age: 1,
+        breed: 'whippet',
+        name: 'Santa\'s Little Helper'
+      )
+      petapp1 = PetApplication.create!(application_id: @app.id, pet_id: fido.id)
+      petapp2 = PetApplication.create!(application_id: @app.id, pet_id: santa.id)
+      visit "/applications/#{@app.id}"
+      expect(page).to have_content ("Submit Application")
+      fill_in "description", with: "I like dogs and cats"
+      click_button "Submit Application"
+      expect(current_path).to eq "/applications/#{@app.id}"
+      expect(page).to have_content("Status: Pending")
+    end
+  end
 end
