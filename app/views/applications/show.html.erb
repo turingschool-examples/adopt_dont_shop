@@ -6,7 +6,28 @@
 <h3>Zip Code: <%= @applicant.zip_code %></h3>
 <p>Applicant's reason for adoption: <br> <%= @applicant.reason_for_adoption %></p>
 <h3>Pets they're interested in adopting: 
+
 <% @pets.each do |pet| %>
 <%= link_to "#{pet.name}", "/pets/#{pet.id}" %></h3>
 <% end %>
+
+<h3> Add a Pet to this Application </h3>
+<%= form_with url: "/applications/#{@applicant.id}", method: :get, local: true do |f| %>
+  <%= f.label :search %>
+  <%= f.text_field :search, value: params[:search] %>
+  <%= f.submit "Search" %>
+<% end %>
+
+<% if params[:search] != nil %>
+  <h2>Search Results</h2>
+  <ul> 
+    <% @results.each do |result| %>
+      <li><%= result.name %></li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>No results found</p>
+<% end %>
+
+
 <h3>Current Application Status: <%= @applicant.status %></h3>
