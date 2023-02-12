@@ -14,10 +14,11 @@
 <h2> Add a Pet to this Application</h2>
 
 <%= form_with(url: "/applications/#{@application.id}", method: "GET") do |form| %>
-<%= form.label :pet_name %>
-<%= form.text_field :pet_name%>
-<%= form.submit "Submit" %>
+  <%= form.label :pet_name %>
+  <%= form.text_field :pet_name%>
+  <%= form.submit "Submit" %>
 <% end %>
+
 <% if !@pets.nil? %>
   <% @pets.each do |pet| %>
     <%= link_to pet.name, "/pets/#{pet.id}" %>
