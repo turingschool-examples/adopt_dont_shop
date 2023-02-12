@@ -136,4 +136,42 @@ describe 'Application Show Page' do
       expect(page).to have_no_content('Add a Pet to this Application')
     end
   end
+
+   describe 'partial matches for pet names' do
+    let!(:shelter) {Shelter.create(name: 'Mystery Building', city: 'Irvine CA', foster_program: false, rank: 9)}
+
+    let!(:app_1) {Application.create(name: 'Jonah Hill', street_address: '65 High St', city: 'New York', state: 'NY', zip: 28938, status: 'In Progress')}
+    let!(:pet_1) {Pet.create(adoptable: true, age: 1, breed: 'sphynx', name: 'fluffy', shelter_id: shelter.id)}
+    let!(:pet_2) {Pet.create(adoptable: true, age: 3, breed: 'doberman', name: 'fluff', shelter_id: shelter.id)}
+    let!(:pet_3) {Pet.create(adoptable: false, age: 2, breed: 'saint bernard', name: 'mr.fluff', shelter_id: shelter.id)}
+
+    it 'displays pets names that partially match the search' do
+     visit "/applications/#{app_1.id}"
+      fill_in 'pet_search', with: 'fluff'
+      click_button 'Find Pet'
+    
+      expect(page).to have_content("fluffy")
+      expect(page).to have_content("fluff")
+      expect(page).to have_content("mr.fluff")
+    end
+  end
+
+  describe 'case insensitve matches for pet names' do
+    let!(:shelter) {Shelter.create(name: 'Mystery Building', city: 'Irvine CA', foster_program: false, rank: 9)}
+
+    let!(:app_1) {Application.create(name: 'Jonah Hill', street_address: '65 High St', city: 'New York', state: 'NY', zip: 28938, status: 'In Progress')}
+    let!(:pet_1) {Pet.create(adoptable: true, age: 1, breed: 'sphynx', name: 'Fluffy', shelter_id: shelter.id)}
+    let!(:pet_2) {Pet.create(adoptable: true, age: 3, breed: 'doberman', name: 'FLUFF', shelter_id: shelter.id)}
+    let!(:pet_3) {Pet.create(adoptable: false, age: 2, breed: 'saint bernard', name: 'Mr.FlUfF', shelter_id: shelter.id)}
+
+    it 'returns case insensitive matches for search' do
+      visit "/applications/#{app_1.id}"
+      fill_in 'pet_search', with: 'fluff'
+      click_button 'Find Pet'
+      
+      expect(page).to have_content('Fluffy')
+      expect(page).to have_content('FLUFF')
+      expect(page).to have_content('Mr.FlUfF')
+    end
+  end
 end
