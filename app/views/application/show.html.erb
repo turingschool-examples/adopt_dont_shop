@@ -23,7 +23,7 @@
             <br>
             <br>
       <% @pets.each do |pet| %>
-            <p>Pet Name: <%= pet.name%><br>
+            <p>Pet Name: <%= pet.name%> <%= button_to 'Adopt this Pet', "/applications/#{@application.id}/application_pets", method: :post, params: {pet_id: pet.id} %><br>
             <p>Breed: <%= pet.breed%><br>
             <p>Age: <%= pet.age%><br>
             <br>
@@ -31,6 +31,8 @@
       <%end%>
       </div>
 <%end%>
+
+
 
 
 

@@ -24,10 +24,5 @@
   <%= form.text_field :description %>
   <br>
   <br>
-  <%= form.submit 'Submit Application' %>
-    <%if flash[:messages] %>
-      <% flash[:messages].each do |message|%> 
-        <h3><%=message%></h3> 
-      <%end%>
-    <%end%>
+  <%= form.submit 'Submit Application' %> 
 <%end%>

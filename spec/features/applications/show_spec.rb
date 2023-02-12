@@ -96,5 +96,16 @@ describe 'Application Show Page' do
       expect(page).to have_content(pet_2.age)
     end
 
+    it 'has an Adopt this Pet button next to each pets name after search' do
+      visit "/applications/#{app_1.id}"
+
+      fill_in 'pet_search', with: 'Lucille Bald'
+      click_button 'Find Pet'
+      click_button 'Adopt this Pet'
+    
+
+      expect(page.current_path).to eq("/applications/#{app_1.id}")
+      expect(page).to have_content('Lucille Bald')
+    end
   end
 end
