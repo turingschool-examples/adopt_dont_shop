@@ -11,7 +11,7 @@
   <%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
 <% end %>
 
-<% if @petition.can_add_pet? %>
+<% if @petition.status == "In Progress" %>
   <h4>Add a Pet to this Application</h4>
   <%= form_tag("/petitions/#{@petition.id}", method: :get, local: true) do %>
     <p>Pet Name</p>

@@ -9,6 +9,6 @@ class Petition < ApplicationRecord
   has_many :pets, through: :petition_pets
 
   def can_add_pet?
-    status == "In Progress"
+    self.status = "In Progress"
   end
 end
