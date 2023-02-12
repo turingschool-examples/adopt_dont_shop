@@ -101,7 +101,32 @@ RSpec.describe "#show" do
       click_button "Adopt this Pet"
 
       expect(page).to have_button "Submit Application for Review"
+    end
+  end
 
+  describe 'user story 8' do
+    describe 'When I visit an application show page and search for Pets by name' do
+      it 'see any pet whose name PARTIALLY matches my search' do
+      visit "/applications/#{@huy.id}"
+
+      fill_in 'pet_name', with: "Snug"
+      click_button "Search Pets"
+
+      expect(page).to have_content "Snugglez"
+      end
+    end
+  end
+
+  describe 'user story 9' do
+    describe 'When I visit an application show page and search for Pets by name' do
+      it 'search for the name which is case insensitive' do
+      visit "/applications/#{@huy.id}"
+
+      fill_in 'pet_name', with: "snugglez"
+      click_button "Search Pets"
+
+      expect(page).to have_content "Snugglez"
+      end
     end
   end
 end
