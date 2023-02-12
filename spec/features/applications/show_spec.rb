@@ -40,6 +40,8 @@ RSpec.describe 'the applications show page' do
     end
 
     it 'search results return buttons to add a pet to the application' do 
+      Shelter.destroy_all 
+      Pet.destroy_all
       shelter1 = Shelter.create!(foster_program: true, name: 'Pet Friends', city: "Denver", rank: 3)
       app1 = Application.create!(name: 'Matt Smith', street_address: "1101 Main", city: "Denver", state: "CO", zipcode: 55555, description: "I like turtles!", status: "In Progress",)
       app2 = Application.create!(name: 'Jake Smith', street_address: "1101 Main", city: "Denver", state: "CO", zipcode: 55555, description: "I like turtles!", status: "In Progress",)
@@ -56,7 +58,12 @@ RSpec.describe 'the applications show page' do
       click_button "Search"
       expect(current_path).to eq("/applications/#{app2.id}")
       expect(page).to have_content("Benedict McBark")
-      end
+
+      fill_in("Add pet to this Application", with: "Dude")
+      click_button "Search"
+      expect(current_path).to eq("/applications/#{app2.id}")
+      expect(page).to have_content("Pet name not in system")
+    end
   end
 
   describe 'when visiting show page where no pets have been added' do 
