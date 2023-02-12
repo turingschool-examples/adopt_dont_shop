@@ -8,10 +8,9 @@ describe 'applications show page', type: :feature do
   let!(:pet2) {application.pets.create!(adoptable: true, age: 3, breed: 'doberman', name: 'Lobster', shelter_id: shelter.id)}
 
   let!(:shelter) {Shelter.create!(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)}
-
-  describe 'user story 1' do
-    it 'shows applicant name, address, description, application pets, and application status' do
-      visit "applications/#{application.id}"
+  
+  it 'shows applicant name, address, description, application pets, and application status' do
+    visit "applications/#{application.id}"
 
       expect(page).to have_content(application.name)
       expect(page).to_not have_content(application2.name)
@@ -20,11 +19,11 @@ describe 'applications show page', type: :feature do
       expect(page).to have_content(pet1.name)
       expect(page).to have_content(pet2.name)
       expect(page).to have_content(application.status)
-    end
+   end
 
     it 'has a link to the show page of each pet listed in the application' do
       visit "applications/#{application.id}"
-      
+
       expect(page).to have_link(pet1.name)
       expect(page).to have_link(pet2.name)
 
@@ -32,9 +31,9 @@ describe 'applications show page', type: :feature do
 
       expect(current_path).to eq("/pets/#{pet1.id}")
     end
-  end
+ 
 
-  describe 'user story 2' do
+  describe 'user story 4' do
     it "has a section to search for a pet on an 'In Progress' application" do
       visit "applications/#{application2.id}"
 
@@ -55,5 +54,6 @@ describe 'applications show page', type: :feature do
         expect(page).to have_content("At #{pet2.shelter_name}")
       end
     end
-  end
-end
+   end
+ end  
+
