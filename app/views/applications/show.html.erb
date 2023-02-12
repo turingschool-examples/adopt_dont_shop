@@ -37,11 +37,20 @@
 
 
 
+  <%# if @display_result != nil && @display_result != "Pet name not in system" %>
+    <%#= @display_result.name %>
+    <p><%#= button_to 'Adopt this pet', "/pet_applications/new", method: :post, params: {application_id: @application.id, pet_id: @display_result.id } %><p>
+  <%# <% else %> 
+      <%# <%= @display_result %> 
+  <%# <% end %> 
+
   <% if @display_result != nil && @display_result != "Pet name not in system" %>
-    <%= @display_result.name %>
-    <p><%= button_to 'Adopt this pet', "/pet_applications/new", method: :post, params: {application_id: @application.id, pet_id: @display_result.id } %><p>
+    <% @display_result.each do |result| %>
+      <%= result.name %>
+      <p><%= button_to 'Adopt this pet', "/pet_applications/new", method: :post, params: {application_id: @application.id, pet_id: result.id } %><p>
+    <% end %>
   <% else %>
-      <%= @display_result %>
+    <%= @display_result %>
   <% end %>
 
 
