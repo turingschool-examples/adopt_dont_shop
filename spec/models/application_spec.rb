@@ -9,12 +9,12 @@ RSpec.describe Application, type: :model do
   describe '.pets_list' do
     it 'should return a list of pets on the application' do
       app = Application.create!(name: 'John Smith',
-        address: '123 Fake Street',
-        city: 'Springfield',
-        state: 'IL',
-        zipcode: 12_345,
-        description: 'I like dogs.',
-        status: 'In Progress')
+                                address: '123 Fake Street',
+                                city: 'Springfield',
+                                state: 'IL',
+                                zipcode: 12_345,
+                                description: 'I like dogs.',
+                                status: 'In Progress')
       shelter = Shelter.create!(
         foster_program: true,
         name: 'Dog house',
