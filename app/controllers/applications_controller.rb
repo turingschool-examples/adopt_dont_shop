@@ -14,9 +14,13 @@ class ApplicationsController < ApplicationController
 
   def create
     new_application = Application.new(application_params)
-    new_application.save
-
-    redirect_to "/applications/#{new_application.id}"
+    if new_application.valid?
+      new_application.save
+      redirect_to "/applications/#{new_application.id}"
+    else 
+      redirect_to '/applications/new'
+      flash[:incomplete] = "Form cannot be blank"
+    end  
   end
 
   private

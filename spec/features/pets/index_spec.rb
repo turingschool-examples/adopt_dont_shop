@@ -74,7 +74,7 @@ RSpec.describe 'the pets index' do
   end
 
   describe 'user story 2' do
-    it 'has a a link to start an application' do
+    it 'has a link to start an application' do
       visit "/pets"
       
       expect(page).to have_link("Start an Application")
@@ -89,7 +89,7 @@ RSpec.describe 'the pets index' do
       expect(page).to have_content("Zip code")
     end
 
-    it 'has a submit button named save that takes user to application show page' do
+    it 'has a submit button that takes user to application show page' do
       visit "/pets"
       click_on("Start an Application")
       
@@ -101,11 +101,12 @@ RSpec.describe 'the pets index' do
       fill_in "State", with: "NY"
       fill_in "Zip code", with: "11111"
 
-      click_button "Save"
+      click_button "Submit"
       @application_1 = Application.last
-      
+
       expect(current_path).to eq("/applications/#{@application_1.id}")
       expect(page).to have_content("In Progress")
     end 
   end  
 end
+
