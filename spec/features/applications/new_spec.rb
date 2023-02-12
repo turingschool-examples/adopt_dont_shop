@@ -6,32 +6,25 @@ RSpec.describe 'applications new page' do
 
     expect(page).to have_content("New Application Form")
     expect(page).to have_field('Name')
+    # save_and_open_page
     expect(page).to have_field('Street Address')
     expect(page).to have_field('City')
     expect(page).to have_field('State')
-    expect(page).to have_field('Zip Code:')
+    expect(page).to have_field('Zip Code')
     expect(page).to have_field('Why I would make a good home')
     expect(page).to have_button('Submit')
   end
 
   it 'can take information, post it to the database, and redirect me to the new application show page with content' do
-    # Application.destroy_all
-    # applicant = Application.create!(name: 'Steve Steveson', 
-    #   street_address: '1800 Steve Ln', 
-    #   city: 'Steveburg', 
-    #   state: 'CO',
-    #   zip_code: 81789, 
-    #   reason_for_adoption: "Because I have a tight house and my name is Steve",
-    #   status: "In Progress"
-    #   )
     visit '/applications/new'
 
-    fill_in 'Name', with: 'Steve Steveson'
-    fill_in 'Street Address', with: '1800 Steve Ln'
-    fill_in 'City', with: 'Steveburg'
-    fill_in 'State', with: 'CO'
-    fill_in 'Zip Code', with: '81789'
-    fill_in 'Why I would make a good home', with: 'Because I have a tight house and my name is Steve'
+    fill_in "Name", with: "Steve Steveson"
+    fill_in "Street Address", with: "1800 Steve Ln"
+    fill_in "City", with: "Steveburg"
+    fill_in "State", with: "CO"
+    fill_in "Zip Code", with: 81789
+    # save_and_open_page
+    fill_in "Why I would make a good home", with: 'Because I have a tight house and my name is Steve'
     click_on 'Submit'
     # require 'pry'; binding.pry
     expect(page).to have_current_path("/applications/#{Application.last.id}")
@@ -44,5 +37,22 @@ RSpec.describe 'applications new page' do
     # require 'pry'; binding.pry
     # save_and_open_page
     expect(page).to have_content('In Progress')
+  end
+  
+  describe 'User Story 3' do
+    it 'will redirect user to the new application page if an incomplete form is submitted' do
+      visit '/applications/new'
+
+    fill_in 'Name', with: 'Steve Steveson'
+    fill_in 'Street Address', with: '1800 Steve Ln'
+    fill_in 'City', with: 'Steveburg'
+    fill_in 'Zip Code', with: '81789'
+    fill_in 'Why I would make a good home', with: 'Because I have a tight house and my name is Steve'
+    
+    click_on 'Submit'
+    
+    expect(page).to have_current_path("/applications/new")
+    expect(page).to have_content("State can't be blank")
+    end
   end
 end

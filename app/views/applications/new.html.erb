@@ -1,18 +1,31 @@
 <h1>New Application Form</h1>
 
-<%= form_with url:'/applications', method: :post, local: true do |form| %>
-<%= form.label :name, "Name:" %>
-<%= form.text_field :name %>
-<%= form.label :street_address, "Street Address:" %>
-<%= form.text_field :street_address %>
-<%= form.label :city, "City:" %>
-<%= form.text_field :city %>
-<%= form.label :state, "State:" %>
-<%= form.text_field :state %>
-<%= form.label :zip_code, "Zip Code:" %>
-<%= form.text_field :zip_code %>
-<%= form.label :reason_for_adoption, "Why I would make a good home:" %>
-<%= form.text_field :reason_for_adoption %>
 
-<%= form.submit "Submit"%>
+<%= form_with model: @applications, url:'/applications', method: :post, local: true do |form| %>  
+  
+  <%= form.label :name, "Name" %>
+  <%= form.text_field :name %>
+  <br>
+  <br>
+  <%= form.label :street_address, "Street Address" %>
+  <%= form.text_field :street_address %>
+  <br>
+  <br>
+  <%= form.label :city, "City" %>
+  <%= form.text_field :city %>
+  <br>
+  <br>
+  <%= form.label :state, "State" %>
+  <%= form.text_field :state %>
+  <br>
+  <br>
+  <%= form.label :zip_code, "Zip Code" %>
+  <%= form.text_field :zip_code %>
+  <br>
+  <br>
+  <%= form.label :reason_for_adoption, "Why I would make a good home" %>
+  <%= form.text_field :reason_for_adoption %>
+  <br>
+  <br>
+  <%= form.submit "Submit" %>
 <% end %>
