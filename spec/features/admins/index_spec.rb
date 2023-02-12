@@ -16,7 +16,6 @@ RSpec.describe "Admin Shelters Index" do
 
       expect(shelter_2.name).to appear_before(shelter_3.name)
       expect(shelter_3.name).to appear_before(shelter_1.name)
-      save_and_open_page
     end
   end
 end
