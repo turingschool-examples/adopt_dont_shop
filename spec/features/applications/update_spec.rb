@@ -2,6 +2,8 @@ require 'rails_helper'
 
 RSpec.describe "Applications Update" do 
   describe 'when visiting the applications show page' do 
+    Shelter.destroy_all 
+    Pet.destroy_all
     shelter1 = Shelter.create!(foster_program: true, name: 'Pet Friends', city: "Denver", rank: 3)
     app1 = Application.create!(name: 'Matt Smith', street_address: "1101 Main", city: "Denver", state: "CO", zipcode: 55555, description: "I like turtles!", status: "In Progress",)
     app2 = Application.create!(name: 'Jake Smith', street_address: "1101 Main", city: "Denver", state: "CO", zipcode: 55555, description: "I like turtles!", status: "In Progress",)
@@ -21,7 +23,6 @@ RSpec.describe "Applications Update" do
 
       expect(current_path).to eq("/applications/#{app2.id}")
       expect(page).to have_content("Benedict McBark")
-      save_and_open_page
       click_button("Adopt this pet")
       expect(page).to have_content("Submit Application")
 
