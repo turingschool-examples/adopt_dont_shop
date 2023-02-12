@@ -5,6 +5,8 @@ RSpec.describe 'Application Show Page' do
   let!(:application) { Application.create!(name: "Andra", street_address: "2305 W. Lake St.", city: "Fort Collins", state: "Colorado", zip_code: 80525) }
   let!(:shelter_1) {Shelter.create!(name: "Dumb Friends League", foster_program: true, city: "Denver", rank: "1") }
   let!(:pet_1) { Pet.create!(shelter_id: shelter_1.id, adoptable: true, age: 6, breed: "Soft Coated Wheaton Terrier", name: "Larry") }
+  let!(:pet_2) { Pet.create!(shelter_id: shelter_1.id, adoptable: true, age: 3, breed: "Soft Coated Wheaton Terrier", name: "Lady") }
+
 
   describe 'User Story 1' do
     describe 'When I visit an applications show page' do
@@ -96,6 +98,26 @@ RSpec.describe 'Application Show Page' do
 
             expect(page).to_not have_content("Why I would make a good owner for these pet(s)")
             expect(page).to_not have_button("Submit my application")
+          end
+        end
+
+        describe 'User Story 8 & 9' do
+          it "I enter my search and see any pet whose name partially matches my search" do
+            visit "/applications/#{Application.last.id}"
+            fill_in :search, with: "La"
+            click_on "Search"
+
+            expect(page).to have_content(pet_1.name)
+            expect(page).to have_content(pet_2.name)
+          end
+
+          it "I enter my search and see any pet whose name partially matches my search" do
+            visit "/applications/#{Application.last.id}"
+            fill_in :search, with: "la"
+            click_on "Search"
+
+            expect(page).to have_content(pet_1.name)
+            expect(page).to have_content(pet_2.name)
           end
         end
       end
