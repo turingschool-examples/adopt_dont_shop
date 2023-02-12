@@ -13,3 +13,66 @@
  *= require_tree .
  *= require_self
  */
+ .error_message {
+  
+ }
+
+ .add_pet {
+
+ }
+
+ .pet {
+  padding: 10px;
+  margin: 10px;
+  border-radius: 25px;
+  border: 5px solid #2d3f1f;
+  display: inline-block;
+ }
+
+ .submit_application {
+
+ }
+
+ .application_status_in_progress {
+  font-size: 15px;
+  font-weight: bold;
+  padding: 10px;
+  margin: 10px;
+  margin-left: 0px;
+  border-radius: 25px;
+  border: 5px solid #c5bf02;
+  display: inline-block;
+ }
+
+ .application_status_pending {
+  font-size: 15px;
+  font-weight: bold;
+  padding: 10px;
+  margin: 10px;
+  margin-left: 0px;
+  border-radius: 25px;
+  border: 5px solid #f9aa16;
+  display: inline-block;
+ }
+
+ .application_status_accepted {
+  font-size: 15px;
+  font-weight: bold;
+  padding: 10px;
+  margin: 10px;
+  margin-left: 0px;
+  border-radius: 25px;
+  border: 5px solid #44fe0b;
+  display: inline-block;
+ }
+
+ .application_status_rejected {
+  font-size: 15px;
+  font-weight: bold;
+  padding: 10px;
+  margin: 10px;
+  margin-left: 0px;
+  border-radius: 25px;
+  border: 5px solid #fe170b;
+  display: inline-block;
+ }

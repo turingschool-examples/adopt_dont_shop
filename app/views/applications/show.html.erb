@@ -1,0 +1,54 @@
+<h2>Name: <%= @application.name %></h2>
+<p> Street Address: <%= @application.street_address %> </p>
+<p> City: <%= @application.city %> </p>
+<p> State: <%= @application.state %> </p>
+<p> Zip Code: <%= @application.zip_code %> </p>
+
+<p> Description: <%= @application.description %> </p>
+
+<p> Pet Names: 
+<% @application.pets.each do |pet| %> 
+  <%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
+<% end %>
+</p>
+
+<% if @application.status == "In Progress" %>
+  <p> <div class="application_status_in_progress">Application Status: <%= @application.status %></div></p>
+
+  <div class="add_pet">
+    <h3>Add a Pet to this Application</h3>
+    <%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |form| %>
+        <%= form.label :pet_name, "Search for pet by name: " %>
+        <%= form.text_field :pet_name %>
+        <%= form.submit "Submit" %>
+    <% end %>
+    <br>
+
+    <% if @pet_search %>
+      <% @pet_search.each do |pet| %>
+        <div class="pet">
+          <%= "Name: #{pet.name}" %><br>
+          <%= "Age: #{pet.age}" %><br>
+          <%= "Breed: #{pet.breed}" %><br>
+          <%= "Adoptable: #{pet.adoptable}" %><br><br>
+          <%= button_to "Adopt this Pet", "/applications/#{@application.id}/pets", params:{pet_id: pet.id} %>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+
+  <% unless @application_pets.empty? %>
+    <div class="submit_application">
+      <h3>Finalize Submission</h3>
+      <%= form_with url: "/applications/#{@application.id}/edit", method: :patch, local: true do |form| %>
+        <%= form.label :description, "Update description: "%><br><br>
+        <%= form.text_area :description, value: @application.description %><br>
+        <%= form.hidden_field :status, value: 1 %>
+        <%= form.submit "Submit Application" %>
+      <% end %>
+    </div>
+  <% end %>
+
+<% elsif @application.status == "Pending" %>
+    <p> <div class="application_status_pending">Application Status: <%= @application.status %></div></p>
+<% end %>
