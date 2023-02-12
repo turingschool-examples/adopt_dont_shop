@@ -12,15 +12,18 @@ class ApplicationsController < ApplicationController
     if application.save
       redirect_to "/applications/#{application.id}"
     else
-      redirect_to "/applications/new"
-      flash[:alert] = "Please provide a response for all fields."
+      redirect_to '/applications/new'
+      flash[:alert] = 'Please provide a response for all fields.'
     end
   end
 
   def update
     application = Application.find(params[:id])
-    pet = Pet.find(params[:pet_adopt])
-    pet_application = PetApplication.create!(application_id: application.id, pet_id: pet.id)
+    unless params[:pet_adopt].nil?
+      pet = Pet.find(params[:pet_adopt])
+      pet_application = PetApplication.create!(application_id: application.id, pet_id: pet.id)
+    end
+    application.update_attributes(description: params[:description], status: 'Pending') unless params[:description].nil?
     redirect_to "/applications/#{application.id}"
   end
 

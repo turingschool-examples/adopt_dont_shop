@@ -137,41 +137,39 @@ describe 'app show page' do
       expect(page).to have_content(fido.name)
     end
 
-    
+    it 'can populate multiple pets' do
+      shelter = Shelter.create!(
+        foster_program: true,
+        name: 'Dog house',
+        city: 'Springfield',
+        rank: 1
+      )
+      fido = shelter.pets.create!(
+        adoptable: true,
+        age: 1,
+        breed: 'weiner',
+        name: 'Fido'
+      )
+      fido2 = shelter.pets.create!(
+        adoptable: true,
+        age: 3,
+        breed: 'schnauzer',
+        name: 'Fido'
+      )
+      visit "/applications/#{@app.id}"
+      expect(@app.status).to eq('In Progress')
+      expect(page).to_not have_content('Fido')
+      expect(page).to have_content('Add a Pet to this Application')
+      expect(page).to have_field('pet_name')
+      fill_in 'pet_name', with: 'Fido'
+      click_on 'Submit'
+      expect(current_path).to eq("/applications/#{@app.id}")
+      expect(page).to have_link 'Fido', href: "/pets/#{fido.id}"
+      expect(page).to have_link 'Fido', href: "/pets/#{fido2.id}"
+    end
 
-      it 'can populate multiple pets' do
-        shelter = Shelter.create!(
-          foster_program: true,
-          name: 'Dog house',
-          city: 'Springfield',
-          rank: 1
-        )
-        fido = shelter.pets.create!(
-          adoptable: true,
-          age: 1,
-          breed: 'weiner',
-          name: 'Fido'
-        )
-        fido2 = shelter.pets.create!(
-          adoptable: true,
-          age: 3,
-          breed: 'schnauzer',
-          name: 'Fido'
-        )
-        visit "/applications/#{@app.id}"
-        expect(@app.status).to eq('In Progress')
-        expect(page).to_not have_content('Fido')
-        expect(page).to have_content('Add a Pet to this Application')
-        expect(page).to have_field('pet_name')
-        fill_in 'pet_name', with: 'Fido'
-        click_on 'Submit'
-        expect(current_path).to eq("/applications/#{@app.id}")
-        expect(page).to have_link 'Fido', href: "/pets/#{fido.id}"
-        expect(page).to have_link 'Fido', href: "/pets/#{fido2.id}"
-      end
-
-      it 'has a button to "Adopt this Pet", that adopts the pet' do
-        # 5. Add a Pet to an Application
+    it 'has a button to "Adopt this Pet", that adopts the pet' do
+      # 5. Add a Pet to an Application
       # As a visitor
       # When I visit an application's show page
       # And I search for a Pet by name
@@ -195,13 +193,76 @@ describe 'app show page' do
       visit "/applications/#{@app.id}"
       fill_in 'pet_name', with: 'Fido'
       click_on 'Submit'
-      save_and_open_page
-
       expect(page).to have_button('Adopt this Pet')
       click_on 'Adopt this Pet'
       expect(current_path).to eq("/applications/#{@app.id}")
       expect(page).to have_content("Pets Applying for: #{fido.name}")
-      save_and_open_page
-      end
+    end
+  end
+
+  describe 'submitting an application' do
+    # 6. Submit an Application
+
+    # As a visitor
+    # When I visit an application's show page
+    # And I have added one or more pets to the application
+    # Then I see a section to submit my application
+    # And in that section I see an input to enter why I would make a good owner for these pet(s)
+    # When I fill in that input
+    # And I click a button to submit this application
+    # Then I am taken back to the application's show page
+    # And I see an indicator that the application is "Pending"
+    # And I see all the pets that I want to adopt
+    # And I do not see a section to add more pets to this application
+
+    # 7. No Pets on an Application
+
+    # As a visitor
+    # When I visit an application's show page
+    # And I have not added any pets to the application
+    # Then I do not see a section to submit my application
+
+    before(:each) do
+      @app = Application.create!(name: 'John Smith',
+                                 address: '123 Fake Street',
+                                 city: 'Springfield',
+                                 state: 'IL',
+                                 zipcode: 12_345,
+                                 description: 'I like dogs.',
+                                 status: 'In Progress')
+    end
+    it 'does not have a button to submit when I have no pets on the application' do
+      visit "/applications/#{@app.id}"
+      expect(page).to_not have_content('Submit Application')
+    end
+
+    it 'has a button to submit when I have pets on the application' do
+      shelter = Shelter.create!(
+        foster_program: true,
+        name: 'Dog house',
+        city: 'Springfield',
+        rank: 1
+      )
+      fido = shelter.pets.create!(
+        adoptable: true,
+        age: 1,
+        breed: 'weiner',
+        name: 'Fido'
+      )
+      santa = shelter.pets.create!(
+        adoptable: true,
+        age: 1,
+        breed: 'whippet',
+        name: 'Santa\'s Little Helper'
+      )
+      petapp1 = PetApplication.create!(application_id: @app.id, pet_id: fido.id)
+      petapp2 = PetApplication.create!(application_id: @app.id, pet_id: santa.id)
+      visit "/applications/#{@app.id}"
+      expect(page).to have_button('Submit Application')
+      fill_in 'description', with: 'I like dogs and cats'
+      click_button 'Submit Application'
+      expect(current_path).to eq "/applications/#{@app.id}"
+      expect(page).to have_content('Status: Pending')
+    end
   end
 end
