@@ -19,9 +19,9 @@ describe 'applications show page', type: :feature do
       expect(page).to have_content(pet1.name)
       expect(page).to have_content(pet2.name)
       expect(page).to have_content(application.status)
-    end
+   end
 
-    it 'has a link to the show page of each pet listed in the application' do
+   it 'has a link to the show page of each pet listed in the application' do
       visit "applications/#{application.id}"
       
       expect(page).to have_link(pet1.name)
@@ -29,6 +29,6 @@ describe 'applications show page', type: :feature do
 
       click_link "#{pet1.name}"
 
-    expect(current_path).to eq("/pets/#{pet1.id}")
-  end
-end
+      expect(current_path).to eq("/pets/#{pet1.id}")
+   end
+ end  
