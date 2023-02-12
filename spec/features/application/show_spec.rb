@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'Application Show Page' do
 
-  let!(:application) { Application.create!(name: "Andra", street_address: "2305 W. Lake St.", city: "Fort Collins", state: "Colorado", zip_code: 80525, description: "I love them") }
+  let!(:application) { Application.create!(name: "Andra", street_address: "2305 W. Lake St.", city: "Fort Collins", state: "Colorado", zip_code: 80525) }
   let!(:shelter_1) {Shelter.create!(name: "Dumb Friends League", foster_program: true, city: "Denver", rank: "1") }
   let!(:pet_1) { Pet.create!(shelter_id: shelter_1.id, adoptable: true, age: 6, breed: "Soft Coated Wheaton Terrier", name: "Larry") }
 
@@ -22,8 +22,8 @@ RSpec.describe 'Application Show Page' do
     end
   end
 
-  describe 'User Story 4 & 5' do
-    describe "When I visit an application's show page" do 
+  describe 'User Story 4, 5 & 6' do
+    describe "application's show page" do 
       describe "And that application has not been submitted," do
         it "Then I see a section on the page to 'Add a Pet to this Application'" do
                    
@@ -61,7 +61,33 @@ RSpec.describe 'Application Show Page' do
         end
       end
 
+      describe "And I have added one or more pets to the application" do
+        it "Then I see a section to submit my application" do
+          visit "/applications/#{Application.last.id}"
+          fill_in :search, with: "#{pet_1.name}"
+          click_on "Search"
+          click_on "Adopt this Pet"
+
+          expect(page).to have_content("Why I would make a good owner for these pet(s)")
+          expect(page).to have_button("Submit my application")
+        end
+
+        describe 'fill in input, click submit, back to app show page' do
+          it 'should show application as pending, seeing pets to adopt and no section to add pets' do
+            visit "/applications/#{Application.last.id}"
+            fill_in :search, with: "#{pet_1.name}"
+            click_on "Search"
+            click_on "Adopt this Pet"
+
+            fill_in :description, with: "I love pets"
+            click_on "Submit my application"
+
+            expect(current_path).to eq("/applications/#{Application.last.id}")
+            expect(page).to have_content("Larry")
+            expect(page).to have_content("Pending")
+          end
+        end
+      end
     end
   end
-
 end

@@ -19,7 +19,6 @@ RSpec.describe 'Application New Page' do
       fill_in 'City', with: 'Denver'
       fill_in 'State', with: 'Colorado'
       fill_in 'zip_code', with: '80209'
-      fill_in 'Description', with: 'I love dogs with all my heart and soul'
       
       click_on "Submit"
 
@@ -29,7 +28,7 @@ RSpec.describe 'Application New Page' do
       expect(page).to have_content('Denver')
       expect(page).to have_content('Colorado')
       expect(page).to have_content(80209)
-      expect(page).to have_content('I love dogs with all my heart and soul')
+      expect(page).to have_content("In Progress")
     end
 
     it 'I fail to fill in form fields, submit, and am taken back to new applications page' do
@@ -44,7 +43,6 @@ RSpec.describe 'Application New Page' do
       expect(page).to have_content("City can't be blank")
       expect(page).to have_content("State can't be blank")
       expect(page).to have_content("Zip code can't be blank")
-      expect(page).to have_content("Description can't be blank")
 
     end
 
@@ -57,7 +55,6 @@ RSpec.describe 'Application New Page' do
         fill_in 'City', with: 'Denver'
         fill_in 'State', with: 'Colorado'
         fill_in 'zip_code', with: '8009'
-        fill_in 'Description', with: 'I love dogs with all my heart and soul'
         click_on "Submit"
 
         expect(page).to have_content("Zip code should be 12345 or 12345-1234")
@@ -69,7 +66,6 @@ RSpec.describe 'Application New Page' do
         fill_in 'City', with: 'Denver'
         fill_in 'State', with: 'Colorado'
         fill_in 'zip_code', with: 'abcde'
-        fill_in 'Description', with: 'I love dogs with all my heart and soul'
 
         click_on "Submit"
         expect(page).to have_content("Zip code should be 12345 or 12345-1234")
