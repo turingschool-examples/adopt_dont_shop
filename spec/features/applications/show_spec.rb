@@ -215,28 +215,27 @@ describe 'app show page' do
     # And I see all the pets that I want to adopt
     # And I do not see a section to add more pets to this application
 
+    # 7. No Pets on an Application
 
-# 7. No Pets on an Application
-
-# As a visitor
-# When I visit an application's show page
-# And I have not added any pets to the application
-# Then I do not see a section to submit my application
+    # As a visitor
+    # When I visit an application's show page
+    # And I have not added any pets to the application
+    # Then I do not see a section to submit my application
 
     before(:each) do
       @app = Application.create!(name: 'John Smith',
-                                address: '123 Fake Street',
-                                city: 'Springfield',
-                                state: 'IL',
-                                zipcode: 12345,
-                                description: 'I like dogs.',
-                                status: 'In Progress')
+                                 address: '123 Fake Street',
+                                 city: 'Springfield',
+                                 state: 'IL',
+                                 zipcode: 12_345,
+                                 description: 'I like dogs.',
+                                 status: 'In Progress')
     end
     it 'does not have a button to submit when I have no pets on the application' do
       visit "/applications/#{@app.id}"
-      expect(page).to_not have_content ("Submit Application")
+      expect(page).to_not have_content('Submit Application')
     end
-    
+
     it 'has a button to submit when I have pets on the application' do
       shelter = Shelter.create!(
         foster_program: true,
@@ -259,11 +258,11 @@ describe 'app show page' do
       petapp1 = PetApplication.create!(application_id: @app.id, pet_id: fido.id)
       petapp2 = PetApplication.create!(application_id: @app.id, pet_id: santa.id)
       visit "/applications/#{@app.id}"
-      expect(page).to have_button ("Submit Application")
-      fill_in "description", with: "I like dogs and cats"
-      click_button "Submit Application"
+      expect(page).to have_button('Submit Application')
+      fill_in 'description', with: 'I like dogs and cats'
+      click_button 'Submit Application'
       expect(current_path).to eq "/applications/#{@app.id}"
-      expect(page).to have_content("Status: Pending")
+      expect(page).to have_content('Status: Pending')
     end
   end
 end
