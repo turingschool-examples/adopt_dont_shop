@@ -1,4 +1,4 @@
-<h1><%= "#{@application.name}'s Application" %><h1>
+<h1><%= "#{@application.name}'s Application" %></h1>
 <p>Name: <%= @application.name %><p>
 <p>Address: <%= "#{@application.street_address}, #{@application.city},  #{@application.state}  #{@application.zipcode}" %><p>
 <p>Description: <%= @application.description %><p>
@@ -14,8 +14,15 @@
     <%= form.text_field :searched_name %>
     <%= form.submit "Search" %>
   <% end %>
+  
 
-    <%= @display_result %>
+  <% if @display_result.nil? || @display_result == "Pet name not in system" %>
+    <p> Pet name not in system </p>
+  <% else %>
+    <% @display_result.each do |result| %> 
+      <%= result.name %>
+    <% end %>
+  <% end %>
   
   <% elsif @application.status == "Pending" %>
     <ul>
