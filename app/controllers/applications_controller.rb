@@ -33,7 +33,7 @@ class ApplicationsController < ApplicationController
 
   def update
     @application = Application.find(params[:id])
-    @application.update(update_params)
+    @application.update(description: params[:description], status: 1)
     redirect_to "/applications/#{@application.id}"
   end
 
@@ -42,10 +42,5 @@ class ApplicationsController < ApplicationController
   def application_params
     params.permit(:applicant_name, :app_street, :app_city, :app_state, :app_zip_code)
   end
-
-  def update_params
-    params.permit(:description, :status)
-  end
-
 
 end

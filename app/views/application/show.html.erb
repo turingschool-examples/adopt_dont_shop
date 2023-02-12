@@ -23,7 +23,6 @@
   <%= form_with url: "/applications/#{@application.id}", method: :patch, local: true do |form| %>
     <%= form.label :description, "Reason for Adoption:" %>
     <%= form.text_field :description %>
-    <%= form.hidden_field :status, value: "Pending" %>
     <%= form.submit "Submit Application for Review" %>
   <% end %> 
 <% end %>

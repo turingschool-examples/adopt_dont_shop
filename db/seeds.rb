@@ -21,4 +21,3 @@ Shelter.destroy_all
 @tori = Application.create!(applicant_name: "Tori", app_street: "345 Main St", app_city: "Denver", app_state: "CO", app_zip_code: "80206", description: "I lyke pets and treat them nice")
 @khoa = Application.create!(applicant_name: "Khoa", app_street: "Somewhere St", app_city: "Littleton", app_state: "CO", app_zip_code: "80121", description: "I am the best, duh" )
 @axel = Application.create!(applicant_name: "Axel", app_street: "959 Broadway", app_city: "Louisville", app_state: "CO", app_zip_code: "80423", description: "I can grow plants, why not raise pets" )
-
