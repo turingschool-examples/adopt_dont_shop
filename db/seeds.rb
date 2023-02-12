@@ -5,11 +5,20 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-
+ApplicationPet.destroy_all
 Pet.destroy_all
 Shelter.destroy_all
 Application.destroy_all
 
-# shelter = Shelter.create!(name: 'Mystery Building', city: 'Irvine CA', foster_program: false, rank: 9)
-# pet = shelter.pets.create!(name: 'Scooby', age: 2, breed: 'Great Dane', adoptable: true, shelter_id: shelter.id)
-# applicant = shelter.pets.applications.create!(name: 'Dawson', street_address: '1234 example ave.', city: 'Denver', state: 'CO', zip_code: 12345, reason_for_adoption: "I love dogs", pet_id: pet.id, status: "In Progress")
+shelter = Shelter.create!(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
+pet_1 = Pet.create!(adoptable: true, age: 7, breed: 'sphynx', name: 'Bare-y Manilow', shelter_id: shelter.id)
+pet_2 = Pet.create!(adoptable: true, age: 3, breed: 'domestic pig', name: 'Babe', shelter_id: shelter.id)
+pet_3 = Pet.create!(adoptable: true, age: 4, breed: 'chihuahua', name: 'Elle', shelter_id: shelter.id)
+applicant = Application.create!(name: 'Dawson', 
+street_address: '1234 example ave.', 
+city: 'Denver', 
+state: 'CO',
+zip_code: 12345, 
+reason_for_adoption: "I love dogs",
+status: "In Progress"
+)
