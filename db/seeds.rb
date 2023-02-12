@@ -24,3 +24,4 @@ Shelter.destroy_all
 
 @applicant_1 = Application.create!(name: 'Jasmine', street_address: '1011 P St.', city: 'Las Vegas', state: 'Nevada', zip_code: '89178', description: "I'm lonely.", status: 'In Progress')
 @applicant_2 = Application.create!(name: 'Elle', street_address: '2023 Something St.', city: 'Denver', state: 'Colorado', zip_code: '80014', description: "I love animals!", status: 'Pending')
+

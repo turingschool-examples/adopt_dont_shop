@@ -76,5 +76,6 @@ describe 'applications show page', type: :feature do
         expect(page).to have_content("#{@pet2.name}")
       end
     end
-  end
-end
+   end
+ end  
+
