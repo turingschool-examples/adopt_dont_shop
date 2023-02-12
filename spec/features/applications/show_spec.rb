@@ -25,7 +25,6 @@ RSpec.describe 'the applications show page' do
     pet1 = Pet.create!(adoptable: true, age: 46, breed: 'snapping', name: 'Shelly', shelter_id: shelter1.id, )
     pet2 = Pet.create!(adoptable: true, age: 2, breed: 'husky', name: 'Benedict McBark', shelter_id: shelter1.id,)
     petapplication1 = PetApplication.create!(pet_id: pet1.id, application_id: app1.id)
-    # petapplication2 = PetApplication.create!(pet_id: nil, application_id: app2.id)
 
     visit "/applications/#{app2.id}"
 
@@ -48,7 +47,6 @@ RSpec.describe 'the applications show page' do
       pet1 = Pet.create!(adoptable: true, age: 46, breed: 'snapping', name: 'Shelly', shelter_id: shelter1.id, )
       pet2 = Pet.create!(adoptable: true, age: 2, breed: 'husky', name: 'Benedict McBark', shelter_id: shelter1.id,)
       petapplication1 = PetApplication.create!(pet_id: pet1.id, application_id: app1.id)
-      # petapplication2 = PetApplication.create!(pet_id: nil, application_id: app2.id)
   
       visit "/applications/#{app2.id}"
 
