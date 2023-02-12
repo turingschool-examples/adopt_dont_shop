@@ -259,7 +259,7 @@ describe 'app show page' do
       petapp1 = PetApplication.create!(application_id: @app.id, pet_id: fido.id)
       petapp2 = PetApplication.create!(application_id: @app.id, pet_id: santa.id)
       visit "/applications/#{@app.id}"
-      expect(page).to have_content ("Submit Application")
+      expect(page).to have_button ("Submit Application")
       fill_in "description", with: "I like dogs and cats"
       click_button "Submit Application"
       expect(current_path).to eq "/applications/#{@app.id}"

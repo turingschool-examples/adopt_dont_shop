@@ -27,4 +27,11 @@
      <%= form.submit "Adopt this Pet" %>
     <% end %>
   <% end %>
+
+  <%=form_with(url: "/applications/#{@application.id}", method: "PATCH") do |form| %>
+      <%= form.label :description, "Why would you make a good owner? " %>
+      <%= form.text_field :description%>
+     <%= form.submit "Submit Application" %>
+    <% end %>
 <% end %>
+

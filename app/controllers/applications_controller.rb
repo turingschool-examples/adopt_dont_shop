@@ -19,8 +19,13 @@ class ApplicationsController < ApplicationController
 
   def update
     application = Application.find(params[:id])
-    pet = Pet.find(params[:pet_adopt])
-    pet_application = PetApplication.create!(application_id: application.id, pet_id: pet.id)
+    if !params[:pet_adopt].nil?
+      pet = Pet.find(params[:pet_adopt])
+      pet_application = PetApplication.create!(application_id: application.id, pet_id: pet.id)
+    end
+    if !params[:description].nil?
+      application.update_attributes(description: params[:description], status: "Pending")
+    end
     redirect_to "/applications/#{application.id}"
   end
 
