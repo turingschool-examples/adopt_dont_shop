@@ -8,10 +8,9 @@ describe 'applications show page', type: :feature do
   let!(:pet2) {application.pets.create!(adoptable: true, age: 3, breed: 'doberman', name: 'Lobster', shelter_id: shelter.id)}
 
   let!(:shelter) {Shelter.create!(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)}
-
-  describe 'user story 1' do
-    it 'shows applicant name, address, description, application pets, and application status' do
-      visit "applications/#{application.id}"
+  
+  it 'shows applicant name, address, description, application pets, and application status' do
+    visit "applications/#{application.id}"
 
       expect(page).to have_content(application.name)
       expect(page).to_not have_content(application2.name)
@@ -30,7 +29,6 @@ describe 'applications show page', type: :feature do
 
       click_link "#{pet1.name}"
 
-      expect(current_path).to eq("/pets/#{pet1.id}")
-    end
+    expect(current_path).to eq("/pets/#{pet1.id}")
   end
 end
