@@ -16,7 +16,7 @@ describe 'app show page' do
                                  address: '123 Fake Street',
                                  city: 'Springfield',
                                  state: 'IL',
-                                 zipcode: 12345,
+                                 zipcode: 12_345,
                                  description: 'I like dogs.',
                                  status: 'In Progress')
     end
@@ -262,7 +262,6 @@ describe 'app show page' do
       petapp1 = PetApplication.create!(application_id: @app.id, pet_id: fido.id)
       petapp2 = PetApplication.create!(application_id: @app.id, pet_id: santa.id)
       visit "/applications/#{@app.id}"
-      save_and_open_page
       expect(page).to have_button('Submit Application')
       fill_in 'description', with: 'I like dogs and cats'
       click_button 'Submit Application'
@@ -270,8 +269,7 @@ describe 'app show page' do
       expect(page).to have_content('Status: Pending')
     end
 
-    describe "User Story 8 (#10), partial matches" do
-
+    describe 'User Story 8 (#10), partial matches' do
       # 8. Partial Matches for Pet Names
 
       # As a visitor
@@ -279,20 +277,20 @@ describe 'app show page' do
       # And I search for Pets by name
       # Then I see any pet whose name PARTIALLY matches my search
       # For example, if I search for "fluff", my search would match pets with names "fluffy", "fluff", and "mr. fluff"
-      it "returns partial matches for pet names" do
+      it 'returns partial matches for pet names' do
         # Solution can be created using pets controller and application_record
         shelter = Shelter.create!(
           foster_program: true,
           name: 'Dog house',
           city: 'Springfield',
           rank: 1
-          )
+        )
         fido = shelter.pets.create!(
           adoptable: true,
           age: 1,
           breed: 'weiner',
           name: 'Fido'
-          )
+        )
         fidilly = shelter.pets.create!(
           adoptable: true,
           age: 1,
@@ -306,6 +304,43 @@ describe 'app show page' do
 
         expect(page).to have_content(fido.name)
         expect(page).to have_content(fidilly.name)
+      end
+    end
+
+    describe 'case insensitve matches for pet names' do
+      # [ ] done
+
+      # 9. Case Insensitive Matches for Pet Names
+      
+      # As a visitor
+      # When I visit an application show page
+      # And I search for Pets by name
+      # Then my search is case insensitive
+      # For example, if I search for "fluff", my search would match pets with names "Fluffy", "FLUFF", and "Mr. FlUfF"
+      it 'does not care about case' do
+        shelter = Shelter.create!(
+          foster_program: true,
+          name: 'Dog house',
+          city: 'Springfield',
+          rank: 1
+        )
+        fido = shelter.pets.create!(
+          adoptable: true,
+          age: 1,
+          breed: 'weiner',
+          name: 'Fido'
+        )
+
+        visit "/applications/#{@app.id}"
+        fill_in 'pet_name', with: 'fid'
+        click_on 'Submit'
+
+        expect(page).to have_content(fido.name)
+        visit "/applications/#{@app.id}"
+        expect(page).to_not have_content(fido.name)
+        fill_in 'pet_name', with: 'ID'
+        click_on 'Submit'
+        expect(page).to have_content(fido.name)
       end
     end
   end
