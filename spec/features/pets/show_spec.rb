@@ -25,4 +25,16 @@ RSpec.describe 'the shelter show' do
     expect(page).to have_current_path('/pets')
     expect(page).to_not have_content(pet.name)
   end
+
+  it "has a link to start a new application" do
+    shelter = Shelter.create(name: 'Mystery Building', city: 'Irvine CA', foster_program: false, rank: 9)
+    pet = Pet.create(name: 'Scrappy', age: 1, breed: 'Great Dane', adoptable: true, shelter_id: shelter.id)
+    visit "/pets/#{pet.id}"
+
+    expect(page).to have_link("Start an Application", href: '/applications/new')
+
+    click_on("Start an Application")
+
+    expect(page).to have_current_path('/applications/new')
+  end
 end

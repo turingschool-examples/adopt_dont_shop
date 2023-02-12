@@ -15,14 +15,15 @@ RSpec.describe 'applications new page' do
   end
 
   it 'can take information, post it to the database, and redirect me to the new application show page with content' do
-    applicant = Application.create!(name: 'Steve Steveson', 
-      street_address: '1800 Steve Ln', 
-      city: 'Steveburg', 
-      state: 'CO',
-      zip_code: 81789, 
-      reason_for_adoption: "Because I have a tight house and my name is Steve",
-      status: "In Progress"
-      )
+    # Application.destroy_all
+    # applicant = Application.create!(name: 'Steve Steveson', 
+    #   street_address: '1800 Steve Ln', 
+    #   city: 'Steveburg', 
+    #   state: 'CO',
+    #   zip_code: 81789, 
+    #   reason_for_adoption: "Because I have a tight house and my name is Steve",
+    #   status: "In Progress"
+    #   )
     visit '/applications/new'
 
     fill_in 'Name', with: 'Steve Steveson'
@@ -32,14 +33,16 @@ RSpec.describe 'applications new page' do
     fill_in 'Zip Code', with: '81789'
     fill_in 'Why I would make a good home', with: 'Because I have a tight house and my name is Steve'
     click_on 'Submit'
-
-    expect(page).to have_current_path("/applications/#{applicant.id}")
+    # require 'pry'; binding.pry
+    expect(page).to have_current_path("/applications/#{Application.last.id}")
     expect(page).to have_content('Steve Steveson')
     expect(page).to have_content('1800 Steve Ln')
     expect(page).to have_content('Steveburg')
     expect(page).to have_content('CO')
     expect(page).to have_content('81789')
     expect(page).to have_content('Because I have a tight house and my name is Steve')
+    # require 'pry'; binding.pry
+    # save_and_open_page
     expect(page).to have_content('In Progress')
   end
 end
