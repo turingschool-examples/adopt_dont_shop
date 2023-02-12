@@ -34,7 +34,7 @@ RSpec.describe Pet, type: :model do
 
     describe '::search_by_name' do 
       it 'returns all pets with a specific name' do 
-        expect(Pet.search_by_name('Clawdia')).to eq([@pet_2])
+        expect(Pet.search_by_name('Mr.')).to eq([@pet_1])
       end
     end
   end
