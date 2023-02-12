@@ -32,5 +32,5 @@ describe 'applications show page', type: :feature do
 
       expect(current_path).to eq("/pets/#{pet1.id}")
     end
-  end
+  end  
 end
