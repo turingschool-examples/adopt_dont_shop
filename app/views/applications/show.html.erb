@@ -6,34 +6,11 @@
 <%= @application.description %>
 <br>
 <h3>Names of the pet(s) you want to adopt</h3>
-
 <% if @application.status == "In Progress" %>
-  <div id="application-pets">
-    <b>Add a Pet to this Application</b>
-    <%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |f| %>
-      <%= f.label :search, "Search by name" %>
-      <%= f.text_field :search %>
-      <%= f.submit "Submit" %>
-    <% end %>
-    <br>
-    <% @pets.each do |pet| %>
-      <b><%= pet.name %></b>
-      <br>
-      <%= pet.age %> years old
-      <br>
-      <%= "Breed: #{pet.breed}" %>
-      <br>
-      <%= "Adoptable? #{pet.adoptable}" %>
-      <br>
-      <%= "At #{pet.shelter_name}" %>
-    <% end %>
+  <%= render "app_pets" %>
+  <%= render "add_pets" %>
 <% else %>
-  <% @pets.each do |pet| %>
-    <%= link_to pet.name, "/pets/#{pet.id}" %>
-    <br>
-  <% end %>
+  <%= render "app_pets" %>
 <% end %>
-  </div>
-
 <h3>Status</h3>
 <%= @application.status %>

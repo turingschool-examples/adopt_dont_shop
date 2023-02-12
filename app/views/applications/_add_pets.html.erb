@@ -1,0 +1,25 @@
+<div id="application-add-pets">
+    <b>Add a Pet to this Application</b>
+    <br>
+    <%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |f| %>
+      <%= f.label :search, "Search by name" %>
+      <%= f.text_field :search %>
+      <%= f.submit "Submit" %>
+    <% end %>
+    <br>
+    <% if @pets != nil %>
+    <% @pets.each do |pet| %>
+      <b><%= pet.name %></b>
+      <%= link_to "Adopt this Pet", "/applications/#{@application.id}?mypet=#{pet.id}" %>
+      <br>
+      <%= pet.age %> years old
+      <br>
+      <%= "Breed: #{pet.breed}" %>
+      <br>
+      <%= "Adoptable? #{pet.adoptable}" %>
+      <br>
+      <%= "At #{pet.shelter_name}" %>
+      <br>
+    <% end %>
+    <% end %>
+</div>
