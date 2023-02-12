@@ -262,6 +262,7 @@ describe 'app show page' do
       petapp1 = PetApplication.create!(application_id: @app.id, pet_id: fido.id)
       petapp2 = PetApplication.create!(application_id: @app.id, pet_id: santa.id)
       visit "/applications/#{@app.id}"
+      save_and_open_page
       expect(page).to have_button('Submit Application')
       fill_in 'description', with: 'I like dogs and cats'
       click_button 'Submit Application'
@@ -270,6 +271,14 @@ describe 'app show page' do
     end
 
     describe "User Story 8 (#10), partial matches" do
+
+      # 8. Partial Matches for Pet Names
+
+      # As a visitor
+      # When I visit an application show page
+      # And I search for Pets by name
+      # Then I see any pet whose name PARTIALLY matches my search
+      # For example, if I search for "fluff", my search would match pets with names "fluffy", "fluff", and "mr. fluff"
       it "returns partial matches for pet names" do
         # Solution can be created using pets controller and application_record
         shelter = Shelter.create!(

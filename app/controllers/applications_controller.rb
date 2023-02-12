@@ -1,9 +1,9 @@
 class ApplicationsController < ApplicationController
   def show
     @application = Application.find(params[:id])
-    @pets = Pet.find_by_name(params[:pet_name])
-    # @pets = Pet.search(params[:pet_name])
-    # Best way to complete UserStory 8 (#10) but breaks 3 tests app/show_spec
+    unless params[:pet_name].nil?
+      @pets = Pet.search(params[:pet_name])
+    end
   end
 
   def new; end
