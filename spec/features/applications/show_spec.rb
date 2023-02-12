@@ -271,6 +271,7 @@ describe 'app show page' do
 
     describe "User Story 8 (#10), partial matches" do
       it "returns partial matches for pet names" do
+        # Solution can be created using pets controller and application_record
         shelter = Shelter.create!(
           foster_program: true,
           name: 'Dog house',
