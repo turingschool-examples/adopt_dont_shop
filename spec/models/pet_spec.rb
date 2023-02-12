@@ -33,8 +33,8 @@ RSpec.describe Pet, type: :model do
     end
 
     describe '::search_by_name' do 
-      it 'returns all pets with a specific name' do 
-        expect(Pet.search_by_name('Mr.')).to eq([@pet_1])
+      it 'returns all pets with a case insensitive partial name' do 
+        expect(Pet.search_by_name('mr.')).to eq([@pet_1])
       end
     end
   end
