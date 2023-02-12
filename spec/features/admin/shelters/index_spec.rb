@@ -13,10 +13,11 @@ RSpec.describe 'the admin shelters index' do
   it 'I see all shelters in reverse alphabetical order by name' do
     visit "/admin/shelters"
 
-    expect(@shelter_1.name).to appear_before(@shelter_2.name)
-    expect(@shelter_1.name).to appear_before(@shelter_3.name)
-    expect(@shelter_3.name).to appear_before(@shelter_2.name)
-    expect(@shelter_2.name).to appear_after(@shelter_3.name)
-    expect(@shelter_2.name).to appear_after(@shelter_1.name)
+    expect(@shelter_2.name).to appear_before(@shelter_3.name)
+    expect(@shelter_2.name).to appear_before(@shelter_1.name)
+    expect(@shelter_3.name).to appear_before(@shelter_1.name)
+    expect(@shelter_1.name).to_not appear_before(@shelter_2.name)
+    expect(@shelter_1.name).to_not appear_before(@shelter_3.name)
+    expect(@shelter_3.name).to_not appear_before(@shelter_2.name)
   end
 end
