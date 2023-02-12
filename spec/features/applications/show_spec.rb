@@ -16,7 +16,7 @@ describe 'app show page' do
                                  address: '123 Fake Street',
                                  city: 'Springfield',
                                  state: 'IL',
-                                 zipcode: 12_345,
+                                 zipcode: 12345,
                                  description: 'I like dogs.',
                                  status: 'In Progress')
     end
@@ -25,6 +25,7 @@ describe 'app show page' do
       visit "/applications/#{@app.id}"
       expect(page).to have_content(@app.name)
     end
+
     it 'has the address' do
       visit "/applications/#{@app.id}"
       expect(page).to have_content(@app.address)
@@ -32,10 +33,12 @@ describe 'app show page' do
       expect(page).to have_content(@app.state)
       expect(page).to have_content(@app.zipcode)
     end
+
     it 'has the description' do
       visit "/applications/#{@app.id}"
       expect(page).to have_content('I like dogs.')
     end
+
     it 'has all pets names' do
       shelter = Shelter.create!(
         foster_program: true,
@@ -61,6 +64,7 @@ describe 'app show page' do
       expect(page).to have_content(santa.name)
       expect(page).to have_content(fido.name)
     end
+
     it 'pet names are links to the pet show page' do
       shelter = Shelter.create!(
         foster_program: true,
@@ -263,6 +267,37 @@ describe 'app show page' do
       click_button 'Submit Application'
       expect(current_path).to eq "/applications/#{@app.id}"
       expect(page).to have_content('Status: Pending')
+    end
+
+    describe "User Story 8 (#10), partial matches" do
+      it "returns partial matches for pet names" do
+        # Solution can be created using pets controller and application_record
+        shelter = Shelter.create!(
+          foster_program: true,
+          name: 'Dog house',
+          city: 'Springfield',
+          rank: 1
+          )
+        fido = shelter.pets.create!(
+          adoptable: true,
+          age: 1,
+          breed: 'weiner',
+          name: 'Fido'
+          )
+        fidilly = shelter.pets.create!(
+          adoptable: true,
+          age: 1,
+          breed: 'doxon',
+          name: 'Fidilly'
+        )
+
+        visit "/applications/#{@app.id}"
+        fill_in 'pet_name', with: 'Fid'
+        click_on 'Submit'
+
+        expect(page).to have_content(fido.name)
+        expect(page).to have_content(fidilly.name)
+      end
     end
   end
 end
