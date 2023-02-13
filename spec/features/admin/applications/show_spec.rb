@@ -16,7 +16,7 @@ RSpec.describe 'admin_shelter show page' do
       click_button "Approve Application"
 
       expect(current_path).to eq("/admin/applications/#{@khoa.id}")
-      expect(page).to have_content("Pet with applications\n#{@snugglez.name} Application Status: Approved")
+      expect(page).to have_content("Pets Applied For\n#{@snugglez.name} Application Status: Accepted")
       expect(page).to_not have_button("Approve Application")
     end
   end
