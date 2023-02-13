@@ -66,7 +66,6 @@ describe 'Application Show Page' do
 
       #needs to change to be OR pending or accepted or rejected (could use a ruby if statement?)
       expect(page).to have_content('In Progress')
-      # save_and_open_page
     end
 
     it 'shows an add pets section when application hasnt been submitted' do

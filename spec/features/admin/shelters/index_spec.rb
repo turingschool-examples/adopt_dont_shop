@@ -8,7 +8,6 @@ describe 'As a visitor' do
 
     it 'I see all Shelters in the system listed in reverse alphabetical order by name' do
       visit '/admin/shelters'
-      save_and_open_page
       expect(page).to have_content('Aurora shelter')
       expect(page).to have_content('RGV animal shelter')
       expect(page).to have_content('Fancy pets of Colorado')
