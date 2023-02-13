@@ -1,6 +1,17 @@
 require 'rails_helper'
 
 RSpec.describe Application, type: :model do
+  before(:each) do
+    @shelter_1 = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
+    @shelter_2 = Shelter.create(name: 'RGV animal shelter', city: 'Harlingen, TX', foster_program: false, rank: 5)
+  
+    @pet_1 = @shelter_1.pets.create(name: 'Mr. Pirate', breed: 'tuxedo shorthair', age: 5, adoptable: false)
+
+    @application_1 = Application.create!(name: "Andra", street_address: "2305 W. Lake St.", city: "Fort Collins", state: "Colorado", zip_code: 80525, app_status: "Pending", pets_on_app: @pet_1.name)
+    
+    ApplicationPet.create!(pet_id: @pet_1.id, application_id: @application_1.id)
+  end
+
   describe 'relationships' do
     it { should have_many :application_pets }
     it { should have_many(:pets).through(:application_pets) }
