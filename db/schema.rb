@@ -27,6 +27,12 @@ ActiveRecord::Schema.define(version: 2023_02_09_230409) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "artists", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "pet_applications", force: :cascade do |t|
     t.bigint "pet_id"
     t.bigint "application_id"
@@ -54,6 +60,16 @@ ActiveRecord::Schema.define(version: 2023_02_09_230409) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "songs", force: :cascade do |t|
+    t.string "title"
+    t.integer "length"
+    t.integer "play_count"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "artist_id"
+    t.index ["artist_id"], name: "index_songs_on_artist_id"
+  end
+
   create_table "veterinarians", force: :cascade do |t|
     t.boolean "on_call"
     t.integer "review_rating"
@@ -75,5 +91,6 @@ ActiveRecord::Schema.define(version: 2023_02_09_230409) do
   add_foreign_key "pet_applications", "applications"
   add_foreign_key "pet_applications", "pets"
   add_foreign_key "pets", "shelters"
+  add_foreign_key "songs", "artists"
   add_foreign_key "veterinarians", "veterinary_offices"
 end

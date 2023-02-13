@@ -8,7 +8,7 @@
   <div id = <%= "#{pet_app.id}" %>>
     <ul>
       <%= "#{pet_app.pet.name}" %>
-      <%= button_to("Approve this pet", "/admin/applications/#{pet_app.id}", method: :patch, params: {status: "Accepted"}) %></li>
+      <%= button_to("Approve #{pet_app.pet.name} ", "/admin/applications/#{pet_app.id}", method: :patch, params: {status: "Accepted"}) %></li>
       <%= button_to("Reject this pet for adoption", "/admin/applications/#{pet_app.id}", method: :patch, params: {status: "Rejected"}) %></li>
     </ul>
   <% end %>

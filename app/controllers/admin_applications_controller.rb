@@ -9,6 +9,8 @@ class AdminApplicationsController < ApplicationController
   def update 
     pet_application = PetApplication.find(params[:id])
     status_updated = pet_application.application.update(status: params[:status])
+
+      
     # require 'pry'; binding.pry
     redirect_to "/admin/applications/#{pet_application.application.id}"
   end
