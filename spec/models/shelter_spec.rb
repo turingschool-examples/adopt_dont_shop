@@ -43,12 +43,8 @@ RSpec.describe Shelter, type: :model do
     end
 
     describe '#reverse_alphabetical' do
-      let!(:shelter_1) {Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)}
-      let!(:shelter_2) {Shelter.create(name: 'RGV animal shelter', city: 'Harlingen, TX', foster_program: false, rank: 5)}
-      let!(:shelter_3) {Shelter.create(name: 'Fancy pets of Colorado', city: 'Denver, CO', foster_program: true, rank: 10)}
-  
       it 'orders shelters reverse alphabetically' do
-        expect(Shelter.reverse_alphabetical).to eq(['Aurora shelter', 'Fancy pets of Colorado', 'RGV animal shelter'])
+        expect(Shelter.reverse_alphabetical).to eq([@shelter_2, @shelter_3, @shelter_1])
       end
     end
   end
