@@ -7,7 +7,7 @@ class Admin::ApplicationsController < ApplicationController
 
   def update
     @application = Application.find(params[:id])
-    @application.update(status: 2)
+    @application.update(status: params[:status])
     redirect_to "/admin/applications/#{@application.id}"
   end
 

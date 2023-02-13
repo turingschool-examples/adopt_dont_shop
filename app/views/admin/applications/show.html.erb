@@ -2,6 +2,7 @@
 <% @pets.each do |pet|%>
   <%= pet.name %> <%= "Application Status: #{@application.status}"%> 
   <% if @application.status == "Pending"%>
-    <%= button_to "Approve Application", "/admin/applications/#{@application.id}", method: :patch%>
+    <%= button_to "Approve Application", "/admin/applications/#{@application.id}", method: :patch, params: {status: "Accepted"}%>
+    <%= button_to "Reject Application", "/admin/applications/#{@application.id}", method: :patch, params: {status: "Rejected"}%>
   <% end %>
 <% end %>
