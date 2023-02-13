@@ -1,5 +1,18 @@
-<h1> <%= "Application Number: #{@application.id}" %>
+<h1> <%= "Application Number: #{@application.id}" %> </h1>
 
 <% @application.pets.each do |pet| %>
-  <%= pet.name %>
+  <%= pet.name %> <br>
+  <%= form_with url: "/admin/applications/#{@application.id}", method: :patch do |form| %>
+      <%= form.hidden_field :pet_application_id, value: @application.pet_applications.where(pet_id: pet.id).first.id %>
+    <%= form.hidden_field :petid, value: "#{pet.id}" %>
+    <%= form.hidden_field :status, value: "Pending" %>
+    <% if @application.pet_applications.where(pet_id: pet.id).pluck(:status).first == 'Pending' %>
+      <%= form.button "Approve #{pet.name} for #{@application.name}", formmethod: :patch, type: "submit", name: "status", value: "Approved"  %>
+      <%= form.button "Reject #{pet.name} for #{@application.name}", formmethod: :patch, type: "submit", name: "status", value: "Rejected"  %>
+    <%else  %>
+      <%= "#{pet.name} approved for #{@application.name}" if @application.pet_applications.where(pet_id: pet.id).pluck(:status).first == 'Approved' %>
+      <%= "#{pet.name} rejected for #{@application.name}" if @application.pet_applications.where(pet_id: pet.id).pluck(:status).first == 'Rejected' %>
+    <% end %>
+  <% end %>
+  <%@application.pet_applications.where(pet_id: pet.id)%>
 <% end %>

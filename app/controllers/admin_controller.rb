@@ -7,4 +7,10 @@ class AdminController < ApplicationController
   def applications_show
     @application = Application.find(params[:id])
   end
+
+  def applications_update
+    @petapplication = PetApplication.find(params[:pet_application_id])
+    @petapplication.update(application_id: params[:id], pet_id: params[:petid], status: params[:status])
+    redirect_to "/admin/applications/#{params[:id]}"
+  end
 end

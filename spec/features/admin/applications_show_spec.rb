@@ -48,7 +48,7 @@ describe 'admin applications show' do
     expect(page).to have_content(@santa.name)
   end
 
-  xit 'can approve pets' do
+  it 'can approve pets' do
     visit "/admin/applications/#{@app.id}"
     expect(page).to have_button("Approve #{@fido.name} for #{@app.name}")
     click_button("Approve #{@fido.name} for #{@app.name}")
@@ -57,7 +57,7 @@ describe 'admin applications show' do
     expect(page).to have_content("#{@fido.name} approved for #{@app.name}")
   end
 
-  xit 'can reject pets' do
+  it 'can reject pets' do
     visit "/admin/applications/#{@app.id}"
     expect(page).to have_button("Reject #{@fido.name} for #{@app.name}")
     click_button("Reject #{@fido.name} for #{@app.name}")
