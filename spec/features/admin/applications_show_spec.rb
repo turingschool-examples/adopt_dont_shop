@@ -65,4 +65,25 @@ describe 'admin applications show' do
     expect(page).to_not have_button("Reject #{@fido.name} for #{@app.name}")
     expect(page).to have_content("#{@fido.name} rejected for #{@app.name}")
   end
+
+  it 'pets on one application do not affect other applications (Approve)' do
+    visit "/admin/applications/#{@app.id}"
+    expect(page).to have_button("Approve #{@fido.name} for #{@app.name}")
+    expect(page).to have_button("Reject #{@fido.name} for #{@app.name}")
+    expect(page).to have_button("Approve #{@santa.name} for #{@app.name}")
+    expect(page).to have_button("Reject #{@santa.name} for #{@app.name}")
+
+    click_button("Approve #{@fido.name} for #{@app.name}")
+
+    expect(page).to have_button("Approve #{@santa.name} for #{@app.name}")
+    expect(page).to have_button("Reject #{@santa.name} for #{@app.name}")
+  end
+
+  it 'pets on one application do not affect other applications (Reject)' do
+    visit "/admin/applications/#{@app.id}"
+    click_button("Reject #{@fido.name} for #{@app.name}")
+
+    expect(page).to have_button("Approve #{@santa.name} for #{@app.name}")
+    expect(page).to have_button("Reject #{@santa.name} for #{@app.name}")
+  end
 end

@@ -11,4 +11,8 @@ class Application < ApplicationRecord
   def pets_list
     pets.pluck(:name).join(', ').chomp.chomp
   end
+
+  def pet_application_by_pet(pet)
+    pet_applications.where(pet_id: pet.id).first
+  end
 end
