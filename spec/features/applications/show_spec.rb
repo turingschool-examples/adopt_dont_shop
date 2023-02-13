@@ -1,13 +1,3 @@
-# As a visitor
-# When I visit an applications show page
-# Then I can see the following:
-
-# Name of the Applicant
-# Full Address of the Applicant including street address, city, state, and zip code
-# Description of why the applicant says they'd be a good home for this pet(s)
-# names of all pets that this application is for (all names of pets should be links to their show page)
-# The Application's status, either "In Progress", "Pending", "Accepted", or "Rejected"
-
 require 'rails_helper'
 
 RSpec.describe 'the application show' do
@@ -196,4 +186,30 @@ RSpec.describe 'the application show' do
     end
   end
 
+  describe "User Story 9" do
+    it "Shows the visitor any pet whose name matches their search, being case insensitive" do
+      shelter = Shelter.create!(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
+      pet_1 = Pet.create!(adoptable: true, age: 7, breed: 'sphynx', name: 'Bare-y Manilow', shelter_id: shelter.id)
+      pet_2 = Pet.create!(adoptable: true, age: 3, breed: 'domestic pig', name: 'Babe', shelter_id: shelter.id)
+      pet_3 = Pet.create!(adoptable: true, age: 4, breed: 'chihuahua', name: 'Elle', shelter_id: shelter.id)
+      applicant_1 = Application.create!(name: 'Dawson', 
+        street_address: '1234 example ave.', 
+        city: 'Denver', 
+        state: 'CO',
+        zip_code: 12345, 
+        reason_for_adoption: "I love dogs",
+        status: "In Progress"
+      )
+      
+      visit "/applications/#{applicant_1.id}"
+
+      fill_in 'Search', with: "bA"
+      click_on("Search")
+
+      expect(page).to have_content(pet_1.name)
+      expect(page).to have_content(pet_2.name)
+      expect(page).to_not have_content(pet_3.name)
+
+    end
+  end
 end
