@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Shelter, type: :model do
+
   describe 'relationships' do
     it { should have_many(:pets) }
   end
@@ -21,6 +22,9 @@ RSpec.describe Shelter, type: :model do
     @pet_2 = @shelter_1.pets.create(name: 'Clawdia', breed: 'shorthair', age: 3, adoptable: true)
     @pet_3 = @shelter_3.pets.create(name: 'Lucille Bald', breed: 'sphynx', age: 8, adoptable: true)
     @pet_4 = @shelter_1.pets.create(name: 'Ann', breed: 'ragdoll', age: 5, adoptable: true)
+  
+    @application_1 = Application.create!(name: "Andra", street_address: "2305 W. Lake St.", city: "Fort Collins", state: "Colorado", zip_code: 80525, app_status: "Pending", pets_on_app: @pet_1.name)
+    ApplicationPet.create!(pet_id: @pet_1.id, application_id: @application_1.id)
   end
 
   describe 'class methods' do
@@ -41,6 +45,14 @@ RSpec.describe Shelter, type: :model do
         expect(Shelter.order_by_number_of_pets).to eq([@shelter_1, @shelter_3, @shelter_2])
       end
     end
+
+
+    describe '::list_pending_apps' do
+      it 'lists every shelter with a pending application' do
+        expect(Shelter.list_pending_apps).to eq([@shelter_1])
+      end
+    end
+
   end
 
   describe 'instance methods' do
@@ -67,5 +79,6 @@ RSpec.describe Shelter, type: :model do
         expect(@shelter_1.pet_count).to eq(3)
       end
     end
+
   end
 end
