@@ -147,8 +147,10 @@ describe 'Application Show Page' do
       expect(page).to have_no_field('justification')
       expect(page).to have_no_content('Submit Your Application')
       expect(page).to have_no_content("Why would you make a good owner?")
-      
-   describe 'partial matches for pet names' do
+    end
+  end
+
+  describe 'partial matches for pet names' do
     let!(:shelter) {Shelter.create(name: 'Mystery Building', city: 'Irvine CA', foster_program: false, rank: 9)}
 
     let!(:app_1) {Application.create(name: 'Jonah Hill', street_address: '65 High St', city: 'New York', state: 'NY', zip: 28938, status: 'In Progress')}
@@ -157,7 +159,7 @@ describe 'Application Show Page' do
     let!(:pet_3) {Pet.create(adoptable: false, age: 2, breed: 'saint bernard', name: 'mr.fluff', shelter_id: shelter.id)}
 
     it 'displays pets names that partially match the search' do
-     visit "/applications/#{app_1.id}"
+    visit "/applications/#{app_1.id}"
       fill_in 'pet_search', with: 'fluff'
       click_button 'Find Pet'
     
@@ -166,6 +168,7 @@ describe 'Application Show Page' do
       expect(page).to have_content("mr.fluff")
     end
   end
+
 
   describe 'case insensitve matches for pet names' do
     let!(:shelter) {Shelter.create(name: 'Mystery Building', city: 'Irvine CA', foster_program: false, rank: 9)}
