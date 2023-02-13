@@ -7,4 +7,9 @@ class AdminController < ApplicationController
   def applications_show
     @application = Application.find(params[:id])
   end
+
+  def applications_update
+    @application = Application.find(params[:id])
+    require 'pry'; binding.pry
+  end
 end

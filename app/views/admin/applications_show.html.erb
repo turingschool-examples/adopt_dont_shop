@@ -1,10 +1,12 @@
 <h1> <%= "Application Number: #{@application.id}" %> </h1>
 
 <% @application.pets.each do |pet| %>
-  <%= pet.name %>
-  <% form_with url: "/admin/applications_show", method: :patch do |form| %>
-  <%= form.button "Approve #{pet.name} for #{@application.name}", formmethod: :patch, data: { status: "Approved" } %>
-  <%= form.button "Reject #{pet.name} for #{@application.name}", formmethod: :patch, data: { status: "Rejected" } %>
-  <% end %>
+  <%= pet.name %> <br>
+  <%= form_with url: "/admin/applications/#{@application.id}", method: :patch do |form| %>
+  <%= form.hidden_field :petid, value: "#{pet.id}" %>
+  <%= form.hidden_field :status, value: "pending" %>
+  <%= form.button "Approve #{pet.name} for #{@application.name}", formmethod: :patch, type: "submit", name: "status", value: "Approved"  %>
+  <%= form.button "Reject #{pet.name} for #{@application.name}", formmethod: :patch, type: "submit", name: "status", value: "Rejected"  %>
+<% end %>
   <%@application.pet_applications.where(pet_id: pet.id)%>
 <% end %>

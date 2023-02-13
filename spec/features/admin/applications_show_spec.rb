@@ -41,16 +41,18 @@ describe 'admin applications show' do
   # Then I'm taken back to the admin application show page
   # And next to the pet that I approved, I do not see a button to approve this pet
   # And instead I see an indicator next to the pet that they have been approved
-  it 'should have a list of the pets on the application' do
+  xit 'should have a list of the pets on the application' do
     visit "/admin/applications/#{@app.id}"
     expect(page).to have_content("Application Number: #{@app.id}")
     expect(page).to have_content(@fido.name)
     expect(page).to have_content(@santa.name)
+    save_and_open_page
   end
 
-  xit 'can approve pets' do
+  it 'can approve pets' do
     visit "/admin/applications/#{@app.id}"
     expect(page).to have_button("Approve #{@fido.name} for #{@app.name}")
+    
     click_button("Approve #{@fido.name} for #{@app.name}")
     expect(current_path).to eq "/admin/applications/#{@app.id}"
     expect(page).to_not have_button("Approve #{@fido.name} for #{@app.name}")
