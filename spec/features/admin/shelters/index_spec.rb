@@ -15,5 +15,20 @@ describe 'As a visitor' do
       expect('RGV animal shelter').to appear_before('Fancy pets of Colorado')
       expect('Fancy pets of Colorado').to appear_before('Aurora shelter')
     end
+
+    describe "I see a section for 'Shelters with Pending Applications'" do
+      it 'in this section I see the name of every shelter that has a pending application' do
+        app_1 = Application.create(name: 'Jonah Hill', street_address: '65 High St', city: 'New York', state: 'NY', zip: 28938, status: 'Pending', description: 'i luv animals')
+        pet_1 = app_1.pets.create(adoptable: true, age: 3, breed: 'doberman', name: 'Lobster', shelter_id: shelter_1.id)
+  
+        app_2 = Application.create(name: 'Nick Fury', street_address: '123 Avenger Ave', city: 'New York', state: 'NY', zip: 28938, status: 'Pending', description: 'im rlly cool')
+        pet_2 = app_2.pets.create(adoptable: true, age: 3, breed: 'doberman', name: 'Lobster', shelter_id: shelter_2.id)
+
+        visit '/admin/shelters'
+        save_and_open_page
+        expect(page).to have_content("Shelters with Pending Applications\nAurora shelter\nRGV animal shelter")
+      end
+    end
   end
+
 end
