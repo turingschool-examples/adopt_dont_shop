@@ -9,7 +9,6 @@ class SheltersController < ApplicationController
                 end
   end
 
-  
   def pets
     @shelter = Shelter.find(params[:shelter_id])
 

@@ -60,7 +60,7 @@ RSpec.describe Shelter, type: :model do
           status: 'Pending')
 
         PetApplication.create!(application_id: app.id, pet_id: @pet_1.id)
-        expect(Shelter.with_pending).to_eq([@shelter_1])
+        expect(Shelter.with_pending).to eq([@shelter_1])
       end
     end
   end
