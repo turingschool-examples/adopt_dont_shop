@@ -311,7 +311,7 @@ describe 'app show page' do
       # [ ] done
 
       # 9. Case Insensitive Matches for Pet Names
-      
+
       # As a visitor
       # When I visit an application show page
       # And I search for Pets by name
