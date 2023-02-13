@@ -136,7 +136,19 @@ describe 'Application Show Page' do
       expect(page).to have_no_content('Add a Pet to this Application')
     end
   end
+  
+  describe 'no pets on on application' do
+    let!(:shelter) {Shelter.create(name: 'Mystery Building', city: 'Irvine CA', foster_program: false, rank: 9)}
+    let!(:app_1) {Application.create(name: 'Jonah Hill', street_address: '65 High St', city: 'New York', state: 'NY', zip: 28938, status: "In Progress")}
+    let!(:pet_1) {Pet.create(adoptable: true, age: 1, breed: 'sphynx', name: 'Lucille Bald', shelter_id: shelter.id)}
 
+    it 'doesnt show submission section if there are no attached pets' do
+      visit "/applications/#{app_1.id}"
+
+      expect(page).to have_no_field('justification')
+      expect(page).to have_no_content('Submit Your Application')
+      expect(page).to have_no_content("Why would you make a good owner?")
+      
    describe 'partial matches for pet names' do
     let!(:shelter) {Shelter.create(name: 'Mystery Building', city: 'Irvine CA', foster_program: false, rank: 9)}
 
