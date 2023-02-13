@@ -3,11 +3,20 @@ class ApplicationsController < ApplicationController
   end
 
   def show
-    # @pet = Pet.find(params[:id])
     @applicant = Application.find(params[:id])
     @pets = @applicant.pets
-    @results = Pet.where("name like ?", "%#{params[:search]}%")
+    @results = Pet.search(params[:search])
   end
+
+  # @results = Pet.where("name like ?", "%#{params[:search]}%")
+  # def adopt
+  #   @applicant = Application.find(params[:id])
+  #   @pets = @applicant.pets
+  #   require 'pry'; binding.pry
+  #   @pets.create!()
+  #   redirect_to "/applications/#{@applicant.id}"
+  # end
+  
 
   def new
     # @application = Application.new(application_params)
