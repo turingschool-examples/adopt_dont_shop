@@ -52,12 +52,12 @@ RSpec.describe Shelter, type: :model do
     describe '#with_pending' do
       it 'lists all the shelters with pending applications' do
         app = Application.create!(name: 'John Smith',
-          address: '123 Fake Street',
-          city: 'Springfield',
-          state: 'IL',
-          zipcode: 12345,
-          description: 'I like dogs.',
-          status: 'Pending')
+                                  address: '123 Fake Street',
+                                  city: 'Springfield',
+                                  state: 'IL',
+                                  zipcode: 12_345,
+                                  description: 'I like dogs.',
+                                  status: 'Pending')
 
         PetApplication.create!(application_id: app.id, pet_id: @pet_1.id)
         expect(Shelter.with_pending).to eq([@shelter_1])
