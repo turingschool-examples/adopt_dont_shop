@@ -1,48 +1,29 @@
 <h1>Application For: <%= @application.name %></h1>
 
-<%# <div class = "approve_or_reject">
-  <h3>Pets Wanted</h3>
-
-  <% @pets.each do |pet| %>
-  <%# <div id = <%= "#{pet.id}" %>>
-    <%# <ul>
-      <li><%= pet.name %>
-      <%# <% if @button_clicked != "true" %>
-        <%#= button_to("Approve this pet", "/admin/applications/#{@application.id}", method: :get, params: {decision: "approved", clicked: "true"}) %></li>
-      <%# end %>
-    </ul> %> %>
-  <% #end %>
-</div> %> %>
-
-
-
-
 
 <div class = "approve_or_reject">
   <h3>Pets Wanted</h3>
 
-  <% @pets.each do |pet| %>
-  <div id = <%= "#{pet.id}" %>>
+  <% @pet_applications.each do |pet_app| %>
+  <div id = <%= "#{pet_app.id}" %>>
     <ul>
-      <li><%= pet.name %>
-      <% if @button_clicked != "approved" && @button_clicked != "rejected" %>
-        <%= button_to("Approve this pet", "/admin/applications/#{@application.id}", method: :get, params: {pet_id: pet.id, clicked: "approved"}) %></li>
-        <%= button_to("Reject this pet for adoption", "/admin/applications/#{@application.id}", method: :get, params: {pet_id: pet.id, clicked: "rejected"}) %></li>
-      <%elsif @button_clicked == "approved" && @button_clicked == "rejected" %>
-      <% end %>
+      <%= "#{pet_app.pet.name}" %>
+      <%= button_to("Approve this pet", "/admin/applications/#{pet_app.id}", method: :patch, params: {status: "Accepted"}) %></li>
+      <%= button_to("Reject this pet for adoption", "/admin/applications/#{pet_app.id}", method: :patch, params: {status: "Rejected"}) %></li>
     </ul>
   <% end %>
 </div>
 
 <h3>Pets Approved for Adoption</h3>
-
-<div class = 'approved_pets' >
-  <% @pets.each do |pet| %>
-    <% if @pet_ids.include?(pet.id.to_s) %>
-      <%= "#{pet.name}: Approved" %><br>
+<div class = 'approved_pets'>
+  <% @pet_applications.each do |app| %>
+    <%if app.application.status == "Accepted" %>
+      <%="#{app.pet.name}: Approved"%>
     <% end %>
   <% end %>
 </div>
+
+
 
 
 

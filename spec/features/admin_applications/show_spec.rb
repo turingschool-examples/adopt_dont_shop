@@ -23,19 +23,26 @@ RSpec.describe 'Admin Applications Show Page' do
         expect(page).to have_content(pet1.name)
         expect(page).to have_content(pet2.name)
 
-        within("##{pet1.id}") do
+        within("##{petapplication1.id}") do
           expect(page).to have_button("Approve this pet")
 
           first(:button, "Approve this pet").click
 
           expect(current_path).to eq("/admin/applications/#{app1.id}")
           # require 'pry'; binding.pry
+          # expect(app1.status).to eq("Accepted")
+          # expect(page).to have_content("#{pet1.name}: Approved")
         end
+        visit "/admin/applications/#{app1.id}"
+        # expect(petapplication1.application.status).to eq("Accepted")
+        
        
-        within('div.approved_pets') do 
-          expect(page).to have_content("#{pet1.name}: Approved") 
-          expect(page).to_not have_content("#{pet2.name}: Approved")
-        end
+         within('div.approved_pets') do 
+            # expect(app1.status).to eq("Accepted")
+            expect(page).to have_content("#{pet1.name}: Approved")
+        #   expect(page).to have_content("#{pet1.name}: Approved") 
+        #   expect(page).to_not have_content("#{pet2.name}: Approved")
+         end
 
         # expect(page).to_not have_content("#{pet1.name}: Approve this pet")
          save_and_open_page
