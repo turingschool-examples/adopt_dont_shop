@@ -20,7 +20,7 @@ class ApplicationsController < ApplicationController
   def create
     new_app = Application.new(app_params)
     if new_app.valid?
-      new_app.save
+      new_app.save!
       new_app.update_status
       redirect_to "/applications/#{new_app.id}"
     else 
