@@ -5,6 +5,6 @@ class AdminController < ApplicationController
   end
 
   def applications_show
-    
+    @application =Application.find(params[:id])
   end
 end
