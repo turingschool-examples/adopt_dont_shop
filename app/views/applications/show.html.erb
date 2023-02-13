@@ -8,7 +8,7 @@
 <h3>Pets they're interested in adopting: 
 
 <% @pets.each do |pet| %>
-<%= link_to "#{pet.name}", "/pets/#{pet.id}" %></h3>
+<h3> <%= link_to "#{pet.name}", "/pets/#{pet.id}" %></h3>
 <% end %>
 
 <h3> Add a Pet to this Application </h3>
@@ -22,7 +22,7 @@
   <h2>Search Results</h2>
   <ul> 
     <% @results.each do |result| %>
-      <li><%= result.name %></li>
+      <li> <p> <%= result.name %> <%= button_to "Adopt this Pet", "/applications/#{@applicant.id}/application_pets", params:{application_id: @applicant.id, pet_id: result.id}%> </p></li>
     <% end %>
   </ul>
 <% else %>

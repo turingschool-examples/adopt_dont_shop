@@ -101,4 +101,73 @@ RSpec.describe 'the application show' do
     end
   end
 
+  describe 'User Story 5' do
+    it "shows the visitor an option to 'Adopt this Pet' next to each pet's name" do
+      shelter = Shelter.create!(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
+      pet_1 = Pet.create!(adoptable: true, age: 7, breed: 'sphynx', name: 'Bare-y Manilow', shelter_id: shelter.id)
+      applicant_1 = Application.create!(name: 'Dawson', 
+      street_address: '1234 example ave.', 
+      city: 'Denver', 
+      state: 'CO',
+      zip_code: 12345, 
+      reason_for_adoption: "I love dogs",
+      status: "In Progress"
+      )
+
+      ApplicationPet.create!(application: applicant_1, pet: pet_1)
+      visit "/applications/#{applicant_1.id}"
+
+      fill_in 'Search', with: "Ba"
+      click_on("Search")
+
+      expect(page).to have_button("Adopt this Pet")
+    end
+
+    it "takes the user back to the application show page" do
+      shelter = Shelter.create!(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
+      pet_1 = Pet.create!(adoptable: true, age: 7, breed: 'sphynx', name: 'Bare-y Manilow', shelter_id: shelter.id)
+      applicant_1 = Application.create!(name: 'Dawson', 
+      street_address: '1234 example ave.', 
+      city: 'Denver', 
+      state: 'CO',
+      zip_code: 12345, 
+      reason_for_adoption: "I love dogs",
+      status: "In Progress"
+      )
+
+      ApplicationPet.create!(application: applicant_1, pet: pet_1)
+
+      visit "/applications/#{applicant_1.id}"
+
+      fill_in 'Search', with: "Ba"
+      click_on("Search")
+
+      click_button("Adopt this Pet")
+
+      expect(current_path).to eq("/applications/#{applicant_1.id}")
+    end
+
+    it "adds the pet to the user's application" do
+      shelter = Shelter.create!(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
+      pet_1 = Pet.create!(adoptable: true, age: 7, breed: 'sphynx', name: 'Bare-y Manilow', shelter_id: shelter.id)
+      pet_3 = Pet.create!(adoptable: true, age: 4, breed: 'chihuahua', name: 'Elle', shelter_id: shelter.id)
+      applicant_1 = Application.create!(name: 'Dawson', 
+      street_address: '1234 example ave.', 
+      city: 'Denver', 
+      state: 'CO',
+      zip_code: 12345, 
+      reason_for_adoption: "I love dogs",
+      status: "In Progress"
+      )
+      
+      visit "/applications/#{applicant_1.id}"
+      
+      fill_in 'Search', with: "Ba"
+      click_on("Search")
+      
+      click_button("Adopt this Pet")
+      expect(applicant_1.pets).to eq([pet_1])
+    end
+  end
+
 end
