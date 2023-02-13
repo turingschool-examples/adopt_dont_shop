@@ -77,7 +77,7 @@ describe 'admin shelter index' do
     petapp1 = PetApplication.create!(application_id: app.id, pet_id: fido.id)
     petapp2 = PetApplication.create!(application_id: app2.id, pet_id: bruno.id)
     visit '/admin/shelters'
-    expect(page).to have_content("Shelters with Pending Applications")
+    expect(page).to have_content('Shelters with Pending Applications')
     expect(page).to have_text(@shelter1.name, count: 2)
     expect(page).to have_text(@shelter2.name, count: 2)
   end
