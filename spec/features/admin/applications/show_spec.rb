@@ -9,16 +9,17 @@ RSpec.describe 'admin applications show page' do
   
       it 'I see a button to approve the application for that specific pet' do 
         visit "/admin/applications/#{app_1.id}"
-      save_and_open_page
+    
         expect(page).to have_button('Approve')
       end
 
-      xit 'when I click that button then Im taken back to the admin applications show page' do 
+      it 'when I click that button then Im taken back to the admin applications show page' do 
         visit "/admin/applications/#{app_1.id}"
 
         click_button 'Approve'
 
         expect(current_path).to be("/admin/applications/#{app_1.id}")
+        expect(app_1.status).to be("Approved")
       end
 
       xit 'I no longer see an approval button for that pet instead I see an approved indicator' do

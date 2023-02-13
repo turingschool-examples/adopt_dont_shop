@@ -1,0 +1,10 @@
+      <h3>Application Status:<%= @application.status %></h3>
+      <p>Applicant Name: <%= @application.name %></p>
+      <p>Applicant Address: <%= @application.street_address %> <%=@application.city %>, <%= @application.state%> <%= @application.zip%> </p>
+      <p>Application Justification: <%= @application.description %></p>
+      <p>Pets Applied For <% @application.pets.each do |pet| %>
+                              <% if @application.status == "Pending" %>
+                                <%= link_to "#{pet.name}", "/pets/#{pet.id}"%> 
+                                <%= button_to "Approve", "/admin/applications/#{@application.id}", params: {status: "Approved"}, method: :patch %>
+                              <%end%>
+                          <% end%></p>
