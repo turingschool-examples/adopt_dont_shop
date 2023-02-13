@@ -10,6 +10,7 @@ class AdminController < ApplicationController
 
   def applications_update
     @application = Application.find(params[:id])
-    require 'pry'; binding.pry
+    @pet_application.create!(application_id: params[:id], pet_id: params[:petid])
+    redirect_to "/admin/applications/#{params[:id]}"
   end
 end
