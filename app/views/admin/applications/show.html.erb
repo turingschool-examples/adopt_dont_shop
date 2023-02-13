@@ -1,0 +1,7 @@
+<h2> Pets Applied For </h2>
+<% @pets.each do |pet|%>
+  <%= pet.name %> <%= "Application Status: #{@application.status}"%> 
+  <% if @application.status == "Pending"%>
+    <%= button_to "Approve Application", "/admin/applications/#{@application.id}", method: :patch%>
+  <% end %>
+<% end %>
