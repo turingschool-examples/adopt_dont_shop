@@ -52,19 +52,20 @@ describe 'admin applications show' do
   it 'can approve pets' do
     visit "/admin/applications/#{@app.id}"
     expect(page).to have_button("Approve #{@fido.name} for #{@app.name}")
-    
     click_button("Approve #{@fido.name} for #{@app.name}")
     expect(current_path).to eq "/admin/applications/#{@app.id}"
     expect(page).to_not have_button("Approve #{@fido.name} for #{@app.name}")
     expect(page).to have_content("#{@fido.name} approved for #{@app.name}")
+    save_and_open_page
   end
 
-  xit 'can reject pets' do
+  it 'can reject pets' do
     visit "/admin/applications/#{@app.id}"
     expect(page).to have_button("Reject #{@fido.name} for #{@app.name}")
     click_button("Reject #{@fido.name} for #{@app.name}")
     expect(current_path).to eq "/admin/applications/#{@app.id}"
     expect(page).to_not have_button("Reject #{@fido.name} for #{@app.name}")
     expect(page).to have_content("#{@fido.name} rejected for #{@app.name}")
+    save_and_open_page
   end
 end
