@@ -111,4 +111,20 @@ describe 'admin applications show' do
     expect(page).to have_button("Approve #{@fido.name} for #{app2.name}")
     expect(page).to have_button("Reject #{@fido.name} for #{app2.name}")
   end
+
+  it 'Changes application\'s status' do
+  # 15. All Pets Accepted on an Application
+
+  # As a visitor
+  # When I visit an admin application show page
+  # And I approve all pets for an application
+  # Then I am taken back to the admin application show page
+  # And I see the application's status has changed to "Approved"
+    visit "/admin/applications/#{@app.id}"
+    expect(page).to have_content("Application Status: Pending")
+    click_button("Approve #{@fido.name} for #{@app.name}")
+    click_button("Approve #{@santa.name} for #{@app.name}")
+    expect(current_path).to eq "/admin/applications/#{@app.id}"
+    expect(page).to have_content("Application Status: Approved")
+  end
 end
