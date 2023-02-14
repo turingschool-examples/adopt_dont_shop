@@ -7,11 +7,11 @@ class AdminController < ApplicationController
 
   def show
    @application = Application.find(params[:id])
-  # flash[:notice] = "Approved!" if @application.status == "Approved"
-    # redirect_to "/admin/applications/#{@application.id}"
   end
 
-  def create
-    require 'pry'; binding.pry
+  def update
+    @app = Application.find(params[:id])
+    @app.update(status: "Approved")
+    redirect_to "/admin/applications/#{@app.id}"
   end
 end
