@@ -171,7 +171,6 @@ describe 'app show page' do
       expect(page).to have_link 'Fido', href: "/pets/#{fido.id}"
       expect(page).to have_link 'Fido', href: "/pets/#{fido2.id}"
 
-      save_and_open_page
       within("##{fido.id}") do
         click_link 'Fido'
         expect(current_path).to eq("/pets/#{fido.id}")

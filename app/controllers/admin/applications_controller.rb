@@ -1,14 +1,9 @@
-class AdminController < ApplicationController
-  def shelters_index
-    @shelters = Shelter.order_by_name_reverse
-    @pending_shelters = Shelter.with_pending
-  end
-
-  def applications_show
+class Admin::ApplicationsController < ApplicationController
+  def show
     @application = Application.find(params[:id])
   end
 
-  def applications_update
+  def update
     @application = Application.find(params[:id])
     @petapplication = PetApplication.find(params[:pet_application_id])
     @petapplication.update(application_id: params[:id], pet_id: params[:petid], status: params[:status])
