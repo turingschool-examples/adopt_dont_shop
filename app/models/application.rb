@@ -11,4 +11,8 @@ class Application < ApplicationRecord
       name_present
     end
   end
+
+  def application_status_count(admin_decision)
+    self.pet_applications.where(status: admin_decision).count
+  end
 end

@@ -6,10 +6,14 @@
 
   <% @pet_applications.each do |pet_app| %>
   <div id = <%= "#{pet_app.id}" %>>
+   <%= "#{pet_app.pet.name}" %>
     <ul>
-      <%= "#{pet_app.pet.name}" %>
+    <%if pet_app.application.status == "Accepted" %>
+      <%= pet_app.status %>
+    <%elsif pet_app.application.status != "Accepted" %>
       <%= button_to("Approve #{pet_app.pet.name} ", "/admin/applications/#{pet_app.id}", method: :patch, params: {status: "Accepted"}) %></li>
       <%= button_to("Reject this pet for adoption", "/admin/applications/#{pet_app.id}", method: :patch, params: {status: "Rejected"}) %></li>
+    <% end %>
     </ul>
   <% end %>
 </div>
