@@ -23,8 +23,7 @@ application_2 = Application.create!({
     city: "Boulder",
     state: "Colorado",
     zip_code: "80310",
-    description: "Big yard to play in",
-    status: "Accepted"
+    description: "Big yard to play in"
   }
 )
 
@@ -34,8 +33,7 @@ application_3 = Application.create!({
     city: "Denver",
     state: "Colorado",
     zip_code: "81233",
-    description: "Have cats",
-    status: "Rejected",
+    description: "Have cats"
   }
 )
 
