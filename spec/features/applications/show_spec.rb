@@ -170,6 +170,12 @@ describe 'app show page' do
       expect(current_path).to eq("/applications/#{@app.id}")
       expect(page).to have_link 'Fido', href: "/pets/#{fido.id}"
       expect(page).to have_link 'Fido', href: "/pets/#{fido2.id}"
+
+      save_and_open_page
+      within("##{fido.id}") do
+        click_link 'Fido'
+        expect(current_path).to eq("/pets/#{fido.id}")
+      end
     end
 
     it 'has a button to "Adopt this Pet", that adopts the pet' do

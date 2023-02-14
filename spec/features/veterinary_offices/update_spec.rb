@@ -17,10 +17,12 @@ RSpec.describe 'the vet office update' do
 
       visit "/veterinary_offices/#{vet_office.id}/edit"
 
-      fill_in 'Name', with: 'Wichita vet office'
-      uncheck 'Boarding services'
-      fill_in 'Max patient capacity', with: 10
-      click_button 'Save'
+      within('form') do
+        fill_in 'Name', with: 'Wichita vet office'
+        uncheck 'Boarding services'
+        fill_in 'Max patient capacity', with: 10
+        click_button 'Save'
+      end
 
       expect(page).to have_current_path('/veterinary_offices')
       expect(page).to have_content('Wichita vet office')
@@ -34,7 +36,10 @@ RSpec.describe 'the vet office update' do
 
       visit "/veterinary_offices/#{vet_office.id}/edit"
 
-      fill_in 'Name', with: ''
+      within('form') do
+        fill_in 'Name', with: ''
+      end
+      
       click_button 'Save'
 
       expect(page).to have_content("Error: Name can't be blank")
