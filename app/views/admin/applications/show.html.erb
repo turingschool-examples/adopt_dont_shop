@@ -1,0 +1,17 @@
+
+<%if @app.app_status == "Pending" %>
+<p>Application for: </p><%=@app.name%>
+<p>Pet(s): </p><%@app.pets.each do |pet|%>
+  <%=pet.name%>
+  <p><%= button_to "Approve Application", "/admin/applications/#{@app.id}", method: :patch, local: true %></p>
+<%end%>
+<%end%>
+
+
+<%if @app.app_status == "Accepted" %>
+<p>Application for: </p><%=@app.name%>
+<p>Pet(s): </p><%@app.pets.each do |pet|%>
+<%=pet.name%>
+  <p> You've been approved</p>
+<%end%>
+<%end%>
