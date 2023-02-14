@@ -3,30 +3,34 @@ class ApplicationsController < ApplicationController
   end
 
   def show
-    # @pet = Pet.find(params[:id])
     @applicant = Application.find(params[:id])
     @pets = @applicant.pets
-    @results = Pet.where("name like ?", "%#{params[:search]}%")
+    @results = Pet.search(params[:search])
   end
 
   def new
-    # @application = Application.new(application_params)
+    
   end
 
   def create
     @app = Application.new(application_params)
-    # require 'pry'; binding.pry
-    # require 'pry'; binding.pry
       if @app.valid?
         @app.status = "In Progress"
         @app.update(application_params)
         @app.save
-        # require 'pry'; binding.pry
         redirect_to "/applications/#{@app.id}"
       else
         flash[:error] = @app.errors.full_messages.join(", ")
         redirect_to "/applications/new"
       end
+  end
+
+  def update
+    @applicant = Application.find(params[:id])
+    @applicant.update(application_params)
+    @applicant.status = "Pending"
+    @applicant.save
+    redirect_to "/applications/#{@applicant.id}"
   end
 
   private

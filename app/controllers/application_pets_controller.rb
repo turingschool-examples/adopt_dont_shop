@@ -1,7 +1,12 @@
 class ApplicationPetsController < ApplicationController
 
-  def show
-    @applicant = Application.find(params[:id])
-    @pet = Pet.find(params[:id])
+  def create
+    ApplicationPet.create!(applicaton_pet_params)
+    redirect_to "/applications/#{params[:application_id]}"
+  end
+
+private
+  def applicaton_pet_params
+    params.permit(:application_id, :pet_id)
   end
 end
