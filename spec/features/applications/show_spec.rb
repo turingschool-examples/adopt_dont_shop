@@ -1,13 +1,3 @@
-# As a visitor
-# When I visit an applications show page
-# Then I can see the following:
-
-# Name of the Applicant
-# Full Address of the Applicant including street address, city, state, and zip code
-# Description of why the applicant says they'd be a good home for this pet(s)
-# names of all pets that this application is for (all names of pets should be links to their show page)
-# The Application's status, either "In Progress", "Pending", "Accepted", or "Rejected"
-
 require 'rails_helper'
 
 RSpec.describe 'the application show' do
@@ -101,9 +91,76 @@ RSpec.describe 'the application show' do
     end
   end
 
-  describe 'User Story 6' do
-    before(:each) do
+  describe 'User Story 5' do
+    it "shows the visitor an option to 'Adopt this Pet' next to each pet's name" do
+      shelter = Shelter.create!(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
+      pet_1 = Pet.create!(adoptable: true, age: 7, breed: 'sphynx', name: 'Bare-y Manilow', shelter_id: shelter.id)
+      applicant_1 = Application.create!(name: 'Dawson', 
+      street_address: '1234 example ave.', 
+      city: 'Denver', 
+      state: 'CO',
+      zip_code: 12345, 
+      reason_for_adoption: "I love dogs",
+      status: "In Progress"
+      )
+
+      ApplicationPet.create!(application: applicant_1, pet: pet_1)
+      visit "/applications/#{applicant_1.id}"
+
+      fill_in 'Search', with: "Ba"
+      click_on("Search")
+
+      expect(page).to have_button("Adopt this Pet")
     end
+
+    it "takes the user back to the application show page" do
+      shelter = Shelter.create!(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
+      pet_1 = Pet.create!(adoptable: true, age: 7, breed: 'sphynx', name: 'Bare-y Manilow', shelter_id: shelter.id)
+      applicant_1 = Application.create!(name: 'Dawson', 
+      street_address: '1234 example ave.', 
+      city: 'Denver', 
+      state: 'CO',
+      zip_code: 12345, 
+      reason_for_adoption: "I love dogs",
+      status: "In Progress"
+      )
+
+      ApplicationPet.create!(application: applicant_1, pet: pet_1)
+
+      visit "/applications/#{applicant_1.id}"
+
+      fill_in 'Search', with: "Ba"
+      click_on("Search")
+
+      click_button("Adopt this Pet")
+
+      expect(current_path).to eq("/applications/#{applicant_1.id}")
+    end
+
+    it "adds the pet to the user's application" do
+      shelter = Shelter.create!(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
+      pet_1 = Pet.create!(adoptable: true, age: 7, breed: 'sphynx', name: 'Bare-y Manilow', shelter_id: shelter.id)
+      pet_3 = Pet.create!(adoptable: true, age: 4, breed: 'chihuahua', name: 'Elle', shelter_id: shelter.id)
+      applicant_1 = Application.create!(name: 'Dawson', 
+      street_address: '1234 example ave.', 
+      city: 'Denver', 
+      state: 'CO',
+      zip_code: 12345, 
+      reason_for_adoption: "I love dogs",
+      status: "In Progress"
+      )
+      
+      visit "/applications/#{applicant_1.id}"
+      
+      fill_in 'Search', with: "Ba"
+      click_on("Search")
+      
+      click_button("Adopt this Pet")
+      expect(applicant_1.pets).to eq([pet_1])
+    end
+  end
+  
+  describe 'User Story 6' do
     it "when I visit an applications show page and add one or more pets a submit section appears" do
       shelter = Shelter.create!(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
       pet_1 = Pet.create!(adoptable: true, age: 7, breed: 'sphynx', name: 'Bare-y Manilow', shelter_id: shelter.id)
@@ -123,7 +180,7 @@ RSpec.describe 'the application show' do
       click_on("Search")
       expect(page).to have_content(pet_1.name)
       expect(page).to have_button("Adopt this Pet")
-      # save_and_open_page
+     
       click_on 'Adopt this Pet'
       
       expect(page).to have_button("Submit Adoption Application")
@@ -157,4 +214,56 @@ RSpec.describe 'the application show' do
     end
   end
 
+  describe "User Story 8" do
+    it "Shows the visitor any pet whose name PARTIALLY matches their search, when searching for a pet by name" do
+      shelter = Shelter.create!(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
+      pet_1 = Pet.create!(adoptable: true, age: 7, breed: 'sphynx', name: 'Bare-y Manilow', shelter_id: shelter.id)
+      pet_2 = Pet.create!(adoptable: true, age: 3, breed: 'domestic pig', name: 'Babe', shelter_id: shelter.id)
+      pet_3 = Pet.create!(adoptable: true, age: 4, breed: 'chihuahua', name: 'Elle', shelter_id: shelter.id)
+      applicant_1 = Application.create!(name: 'Dawson', 
+        street_address: '1234 example ave.', 
+        city: 'Denver', 
+        state: 'CO',
+        zip_code: 12345, 
+        reason_for_adoption: "I love dogs",
+        status: "In Progress"
+      )
+      
+      visit "/applications/#{applicant_1.id}"
+
+      fill_in 'Search', with: "Ba"
+      click_on("Search")
+
+      expect(page).to have_content(pet_1.name)
+      expect(page).to have_content(pet_2.name)
+      expect(page).to_not have_content(pet_3.name)
+    end
+  end
+
+  describe "User Story 9" do
+    it "Shows the visitor any pet whose name matches their search, being case insensitive" do
+      shelter = Shelter.create!(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
+      pet_1 = Pet.create!(adoptable: true, age: 7, breed: 'sphynx', name: 'Bare-y Manilow', shelter_id: shelter.id)
+      pet_2 = Pet.create!(adoptable: true, age: 3, breed: 'domestic pig', name: 'Babe', shelter_id: shelter.id)
+      pet_3 = Pet.create!(adoptable: true, age: 4, breed: 'chihuahua', name: 'Elle', shelter_id: shelter.id)
+      applicant_1 = Application.create!(name: 'Dawson', 
+        street_address: '1234 example ave.', 
+        city: 'Denver', 
+        state: 'CO',
+        zip_code: 12345, 
+        reason_for_adoption: "I love dogs",
+        status: "In Progress"
+      )
+      
+      visit "/applications/#{applicant_1.id}"
+
+      fill_in 'Search', with: "bA"
+      click_on("Search")
+
+      expect(page).to have_content(pet_1.name)
+      expect(page).to have_content(pet_2.name)
+      expect(page).to_not have_content(pet_3.name)
+
+    end
+  end
 end

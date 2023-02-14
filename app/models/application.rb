@@ -4,5 +4,4 @@ class Application < ApplicationRecord
 
   validates :name, :street_address, :city, :state, :reason_for_adoption, presence: true
   validates_numericality_of :zip_code
-
 end

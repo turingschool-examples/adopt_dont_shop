@@ -8,6 +8,16 @@ class ApplicationsController < ApplicationController
     @results = Pet.search(params[:search])
   end
 
+  # @results = Pet.where("name like ?", "%#{params[:search]}%")
+  # def adopt
+  #   @applicant = Application.find(params[:id])
+  #   @pets = @applicant.pets
+  #   require 'pry'; binding.pry
+  #   @pets.create!()
+  #   redirect_to "/applications/#{@applicant.id}"
+  # end
+  
+
   def new
     
   end
