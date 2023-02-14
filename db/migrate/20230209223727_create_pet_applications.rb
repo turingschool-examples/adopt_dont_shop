@@ -3,7 +3,7 @@ class CreatePetApplications < ActiveRecord::Migration[5.2]
     create_table :pet_applications do |t|
       t.references :pet, foreign_key: true
       t.references :application, foreign_key: true
-      t.string :status, default: "Pending", null: false
+      t.string :status, default: 'Pending', null: false
 
       t.timestamps
     end

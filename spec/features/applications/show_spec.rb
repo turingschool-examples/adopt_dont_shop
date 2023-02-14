@@ -307,7 +307,7 @@ describe 'app show page' do
       end
     end
 
-    describe 'case insensitve matches for pet names' do
+    describe 'case insensitive matches for pet names' do
       # [ ] done
 
       # 9. Case Insensitive Matches for Pet Names
