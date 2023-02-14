@@ -18,7 +18,7 @@ class AdminController < ApplicationController
     unless status_array.include?('Pending')
       if status_array.include?('Rejected')
         @application.update(status: 'Rejected')
-      else 
+      else
         @application.update(status: 'Approved')
         @application.pets.each do |pet|
           pet.update(adoptable: false)
