@@ -14,6 +14,12 @@ class Pet < ApplicationRecord
     where(adoptable: true)
   end
 
+  def approved?(app_id)
+    status = application_pets.where(application_id: app_id).pluck(:pet_status).first
+    status == "Accepted"
+  end 
+
+
   # def self.search(pet_name)
   #   if pet_name 
   #     pet = Pet.find_by(name: pet_name)

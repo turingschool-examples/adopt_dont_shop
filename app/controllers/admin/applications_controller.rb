@@ -1,19 +1,14 @@
 class Admin::ApplicationsController < ApplicationController
 
   def show
-    @applications = Application.all
-    @pending_applications = Application.all.where(applications: {app_status: 1})
     @app = Application.find(params[:id])
   end
   
   def update
     @app = Application.find(params[:id])
-    @app.update(app_status: 2)
-    redirect_to "/admin/applications/#{@app.id}"
-  end
+    pet_application = ApplicationPet.find_application_pet(params[:pet_id], params[:id])
+    pet_application.update(pet_status: params[:pet_status].to_i)
 
-  private
-  def admin_app_params
-    params.permit(:app_status)
+    redirect_to "/admin/applications/#{@app.id}"
   end
 end
