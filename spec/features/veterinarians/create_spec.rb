@@ -21,9 +21,12 @@ RSpec.describe 'veterinarian creation' do
       it 'creates the vet and redirects to the veterinary offices vet index' do
         visit "/veterinary_offices/#{@vet_office.id}/veterinarians/new"
 
-        fill_in 'Name', with: 'Dr. Burstyn'
-        fill_in 'Review rating', with: 10
-        check 'On call'
+        within('form') do
+          fill_in 'Name', with: 'Dr. Burstyn'
+          fill_in 'Review rating', with: 10
+          check 'On call'
+        end
+
         click_button 'Save'
         expect(page).to have_current_path(
           "/veterinary_offices/#{@vet_office.id}/veterinarians"
