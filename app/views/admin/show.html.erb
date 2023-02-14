@@ -5,8 +5,11 @@
       <h3>Pets Applied For <% @application.pets.each do |pet| %></h3>
                               <% if @application.status == "Pending" %>
                                   <%= link_to "#{pet.name}", "/pets/#{pet.id}"%> 
-                                  <%= button_to "Approve", "/admin/applications/#{@application.id}", method: :patch %>
+                                  <%= button_to "Approve", "/admin/applications/#{@application.id}", params: {status: 'a'}, method: :patch %>
+                                  <%= button_to "Reject", "/admin/applications/#{@application.id}",params: {status: 'r'}, method: :patch %>
                                 <% elsif @application.status == "Approved" %>
                                   <p><%= link_to "#{pet.name}", "/pets/#{pet.id}" %> - <%=@application.status%></p>
+                                <% elsif @application.status == "Rejected" %>
+                                <p><%= link_to "#{pet.name}", "/pets/#{pet.id}" %> - <%=@application.status%></p>
                               <%end%>
                           <% end%>
