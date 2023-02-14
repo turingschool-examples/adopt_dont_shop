@@ -10,8 +10,8 @@ class AdminController < ApplicationController
   end
 
   def update
-    @app = Application.find(params[:id])
-    @app.update(status: "Approved")
-    redirect_to "/admin/applications/#{@app.id}"
+    @application = Application.find(params[:id])
+    @application.update(status: "Approved")
+    redirect_to "/admin/applications/#{@application.id}"
   end
 end
