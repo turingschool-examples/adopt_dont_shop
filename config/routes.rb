@@ -42,7 +42,10 @@ Rails.application.routes.draw do
   get '/applications/:id', to: 'applications#show'
   patch '/applications/:id', to: 'applications#update'
 
-  get '/admin/shelters', to: 'admin#shelters_index'
-  get '/admin/applications/:id', to: 'admin#applications_show'
-  patch 'admin/applications/:id', to: 'admin#applications_update'
+  
+  namespace :admin do
+    get 'shelters', to: 'shelters#index'
+    get 'applications/:id', to: 'applications#show'
+    patch 'applications/:id', to: 'applications#update'
+  end
 end
