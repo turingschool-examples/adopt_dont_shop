@@ -13,7 +13,10 @@
 <%= pet.name %>
   <%if pet.approved?(@app.id) %>
     <p> Pet has been approved</p>
+  <% elsif pet.rejected?(@app.id) %>
+    <p> Pet has been rejected</p>
   <% else %>
     <p><%= button_to "Approve #{pet.name}", "/admin/applications/#{@app.id}?pet_id=#{pet.id}", method: :patch, local: true, params: {pet_status: 1} %></p>
+    <p><%= button_to "Reject #{pet.name}", "/admin/applications/#{@app.id}?pet_id=#{pet.id}", method: :patch, local: true, params: {pet_status: 2} %></p>
   <% end %>
 <% end %>

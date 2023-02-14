@@ -34,4 +34,26 @@ RSpec.describe 'visiting admin app show page' do
       end
     end
   end
+
+  describe 'For every pet that the application is for, I see a button to reject the application for that specific pet' do
+    describe 'when I click that button' do
+      it "taken back to the admin app show page, next to pet that I rejected, no button and isntead indicator they've been rejected" do
+        visit "/admin/applications/#{application_1.id}"
+
+        expect(page).to have_button("Reject #{pet_1.name}")
+        expect(page).to have_button("Reject #{pet_2.name}")
+        
+        click_on "Reject #{pet_1.name}"
+
+        expect(current_path).to eq("/admin/applications/#{application_1.id}")
+        expect(page).to_not have_button("Reject #{pet_1.name}")
+        expect(page).to have_button("Reject #{pet_2.name}")
+
+        expect(page).to have_content("#{pet_1.name}")
+        expect(page).to have_content("#{pet_2.name}")
+
+        expect(page).to have_content("Pet has been rejected")
+      end
+    end
+  end
 end

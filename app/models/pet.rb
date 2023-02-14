@@ -19,18 +19,8 @@ class Pet < ApplicationRecord
     status == "Accepted"
   end 
 
-
-  # def self.search(pet_name)
-  #   if pet_name 
-  #     pet = Pet.find_by(name: pet_name)
-  #     if pet 
-  #       self.where(name: pet)
-  #     else
-  #       Pet.all
-  #     end
-  #   else 
-  #     Pet.all
-  #   end
-  #   # where("name ILIKE ", "%#{pet_name}%")
-  # end
+  def rejected?(app_id)
+    status = application_pets.where(application_id: app_id).pluck(:pet_status).first
+    status == "Rejected"
+  end
 end
