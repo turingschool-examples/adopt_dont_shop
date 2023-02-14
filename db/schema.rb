@@ -28,6 +28,7 @@ ActiveRecord::Schema.define(version: 2023_02_10_000004) do
   end
 
   create_table "pet_applications", force: :cascade do |t|
+    t.integer "status", default: 0
     t.bigint "pet_id"
     t.bigint "application_id"
     t.datetime "created_at", null: false
