@@ -36,5 +36,19 @@ RSpec.describe Application do
       expect(applicant_1.search_for_pet("Lil")).to eq([pet_4, pet_5])
       expect(applicant_1.search_for_pet("Geoff Dawg")).to eq("Pet name not in system")
     end
+
+    it 'counts the number of rejected or accepted applications' do 
+      shelter1 = Shelter.create!(foster_program: true, name: 'Pet Friends', city: "Denver", rank: 3)
+      app1 = Application.create!(name: 'Matt Smith', street_address: "1101 Main", city: "Denver", state: "CO", zipcode: 55555, description: "I like turtles!", status: "In Progress",)
+      pet1 = Pet.create!(adoptable: true, age: 46, breed: 'snapping', name: 'Shelly', shelter_id: shelter1.id, )
+      pet2 = Pet.create!(adoptable: true, age: 2, breed: 'husky', name: 'Benedict McBark', shelter_id: shelter1.id,)
+      pet3 = Pet.create!(adoptable: true, age: 2, breed: 'husky', name: 'Gabe', shelter_id: shelter1.id,)
+      petapplication1 = PetApplication.create!(pet_id: pet1.id, application_id: app1.id, status: "Accepted")
+      petapplication2 = PetApplication.create!(pet_id: pet2.id, application_id: app1.id, status: "Accepted")
+      petapplication3 = PetApplication.create!(pet_id: pet3.id, application_id: app1.id, status: "Rejected")
+
+      expect(app1.application_status_count("Accepted")).to eq(2)
+      expect(app1.application_status_count("Rejected")).to eq(1)
+    end
   end
 end
