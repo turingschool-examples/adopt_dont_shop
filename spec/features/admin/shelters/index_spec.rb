@@ -6,12 +6,12 @@ RSpec.describe "Admin Shelters Index Page" do
       @shelter_1 = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
       @shelter_2 = Shelter.create(name: 'RGV animal shelter', city: 'Harlingen, TX', foster_program: false, rank: 5)
       @shelter_3 = Shelter.create(name: 'Fancy pets of Colorado', city: 'Denver, CO', foster_program: true, rank: 10)
-
-      visit '/admin/shelters'
     end 
 
     describe "When I visit the admin shelter index '/admin/shelters'" do
       it 'can see all shelters in the system listed in reverse alphabetical order by name' do
+        visit '/admin/shelters'
+        
         expect('RGV animal shelter').to appear_before('Fancy pets of Colorado')
         expect('Fancy pets of Colorado').to appear_before('Aurora shelter')
       end
@@ -23,7 +23,9 @@ RSpec.describe "Admin Shelters Index Page" do
         jax = application_1.pets.create!(adoptable: false, age: 4, breed: "ACD", name: "Jax", shelter: @shelter_1)
         rylo = application_2.pets.create!(adoptable: false, age: 1, breed: "Lab", name: "Rylo", shelter: @shelter_3)
         frankie = application_3.pets.create!(adoptable: false, age: 1, breed: "Shih Tzu", name: "Frankie", shelter: @shelter_2)
-        
+       
+        visit '/admin/shelters'
+
         within(".pending_applications") {
           expect(page).to have_content("Shelters with Pending Applications")
           expect(page).to have_content("Aurora shelter")
