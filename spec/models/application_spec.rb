@@ -29,6 +29,26 @@ RSpec.describe Application, type: :model do
       expect(app_1.pets?).to be true
     end
 
+    it 'can update params_status to approved' do
+      shelter_1 = Shelter.create!(name: 'Fancy pets of Colorado', city: 'Denver, CO', foster_program: true, rank: 10)
+      app_1 = Application.create!(name: 'Jonah Hill', street_address: '65 High St', city: 'New York', state: 'NY', zip: 28938, status: "Pending", description: 'i luv animals') 
+      pet_1 = app_1.pets.create!(adoptable: true, age: 3, breed: 'doberman', name: 'Lobster', shelter_id: shelter_1.id)
+
+      app_1.params_status('a', app_1.id)
+
+      expect(app_1.status).to eq("Approved") # WHY DOESN"T THIS WORK?!
+    end
+
+    it 'can update params_status to rejected' do
+      shelter_1 = Shelter.create(name: 'Fancy pets of Colorado', city: 'Denver, CO', foster_program: true, rank: 10)
+      app_1 = Application.create(name: 'Jonah Hill', street_address: '65 High St', city: 'New York', state: 'NY', zip: 28938, status: "Pending", description: 'i luv animals') 
+      pet_1 = app_1.pets.create(adoptable: true, age: 3, breed: 'doberman', name: 'Lobster', shelter_id: shelter_1.id)
+
+      app_1.params_status('r', app_1.id)
+
+      expect(app_1.status).to eq("Rejected")
+    end
+
     describe 'it can update app status' do
       it 'should be able to update status to In Progress' do
         shelter = Shelter.create(name: 'Mystery Building', city: 'Irvine CA', foster_program: false, rank: 9)
