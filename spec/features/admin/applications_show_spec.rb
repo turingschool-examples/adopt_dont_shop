@@ -86,4 +86,29 @@ describe 'admin applications show' do
     expect(page).to have_button("Approve #{@santa.name} for #{@app.name}")
     expect(page).to have_button("Reject #{@santa.name} for #{@app.name}")
   end
+
+  it 'Does not affect other applications when another button is clicked on an application' do
+    # 14. Approved/Rejected Pets on one Application do not affect other Applications
+
+    #   As a visitor
+    #   When there are two applications in the system for the same pet
+    #   When I visit the admin application show page for one of the applications
+    #   And I approve or reject the pet for that application
+    #   When I visit the other application's admin show page
+    #   Then I do not see that the pet has been accepted or rejected for that application
+    #   And instead I see buttons to approve or reject the pet for this specific application
+    app2 = Application.create!(name: 'Homer Simpson',
+      address: '742 Evergreen Terrace',
+      city: 'Springfield',
+      state: 'IL',
+      zipcode: 12345,
+      description: 'I like dogs more than John.',
+      status: 'Pending')
+    petapp2 = PetApplication.create!(application_id: app2.id, pet_id: @fido.id)
+    visit "/admin/applications/#{@app.id}"
+    click_button("Approve #{@fido.name} for #{@app.name}")
+    visit "/admin/applications/#{app2.id}"
+    expect(page).to have_button("Approve #{@fido.name} for #{app2.name}")
+    expect(page).to have_button("Reject #{@fido.name} for #{app2.name}")
+  end
 end
