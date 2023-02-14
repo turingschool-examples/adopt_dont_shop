@@ -13,6 +13,14 @@ class Application < ApplicationRecord
     end
   end
 
+  def params_status(application, params_stat)
+    if params_stat == 'a'
+      application.update(status: "Approved")
+    elsif params_stat == 'r'
+      application.update(status: "Rejected")
+    end
+  end
+
   def update_status
     if pets? && description?
       self.update(status: "Pending")
