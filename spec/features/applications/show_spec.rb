@@ -217,7 +217,18 @@ RSpec.describe 'the application show' do
 
   describe "User Story 7" do
     it "does not show a 'submit' application when there are no pets" do
-      
+      applicant_1 = Application.create!(name: 'Dawson', 
+        street_address: '1234 example ave.', 
+        city: 'Denver', 
+        state: 'CO',
+        zip_code: 12345, 
+        reason_for_adoption: "I love dogs",
+        status: "In Progress"
+      )
+      visit "/applications/#{applicant_1.id}"
+
+      expect(page).to_not have_content("Why I would make a good owner for these pet(s)")
+      expect(page).to_not have_button("Submit Adoption Application")
     end
   end
 
