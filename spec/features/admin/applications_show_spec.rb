@@ -144,4 +144,23 @@ describe 'admin applications show' do
     expect(current_path).to eq "/admin/applications/#{@app.id}"
     expect(page).to have_content("Application Status: Rejected")
   end
+
+  
+  it 'changes the pets adoptable status to false when the application is approved' do
+    # 17. Application Approval makes Pets not adoptable
+    
+    # As a visitor
+    # When I visit an admin application show page
+    # And I approve all pets on the application
+    # And when I visit the show pages for those pets
+    # Then I see that those pets are no longer "adoptable"
+    visit "/admin/applications/#{@app.id}"
+    expect(@fido.adoptable).to be(true)
+    click_button("Approve #{@fido.name} for #{@app.name}")
+    click_button("Approve #{@santa.name} for #{@app.name}")
+    visit "/pets/#{@fido.id}"
+    expect(page).to have_content("false")
+    
+  end
+  
 end

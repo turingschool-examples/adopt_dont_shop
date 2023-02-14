@@ -20,6 +20,10 @@ class AdminController < ApplicationController
         @application.update(status: 'Rejected')
       else 
         @application.update(status: 'Approved')
+        @application.pets.each do |pet|
+          pet.update(adoptable: false)
+          pet.reload
+        end
       end
     end
     redirect_to "/admin/applications/#{params[:id]}"
