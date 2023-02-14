@@ -1,0 +1,16 @@
+<h1><%= "Application: #{@application.id}" %></h1>
+
+<% @pets.each do |pet| %>
+  <div class="pet" id="pet-<% pet.id %>">
+    <%= "Name: #{pet.name}" %><br>
+    <%= "Age: #{pet.age}" %><br>
+    <%= "Breed: #{pet.breed}" %><br>
+    <%= "Adoptable: #{pet.adoptable}" %><br>
+    <%= "Shelter: #{pet.shelter.name}" %><br>
+    <%= "Status: #{pet.pet_applications.status(@application.id)}" %><br><br>
+    <% if pet.pet_applications.status(@application.id) == "In Progress" %>
+      <%= button_to "Approve", "/applications/#{@application.id}/pets/#{pet.id}", method: :patch, params:{status: 1} %>
+    <% end %>
+    <br>
+  </div>
+<% end %>
