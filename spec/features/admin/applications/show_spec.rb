@@ -18,7 +18,7 @@ RSpec.describe 'admin applications show page' do
         
         click_button 'Approve'
 
-        # expect(app_1.status).to eq("Approved")
+        # expect(app_1.status).to eq("Approved") WHY DOESN't THIS WORK?!
         expect(current_path).to eq("/admin/applications/#{app_1.id}")
       end
 
@@ -27,9 +27,31 @@ RSpec.describe 'admin applications show page' do
 
         click_button 'Approve'
 
+        expect(page).to have_content("Lobster - Approved")
+      end
+
+      it 'I see a button to reject the application for that specific pet' do 
+        visit "/admin/applications/#{app_1.id}"
+    
+        expect(page).to have_button('Reject')
+      end
+
+      it 'when I click that button then Im taken back to the admin applications show page' do 
+        visit "/admin/applications/#{app_1.id}"
+        
+        click_button 'Reject'
+
+        expect(current_path).to eq("/admin/applications/#{app_1.id}")
+      end
+
+      it 'I no longer see an approval button for that pet instead I see an approved indicator' do
+        visit "/admin/applications/#{app_1.id}"
+
+        click_button 'Reject'
+
         save_and_open_page
 
-        expect(page).to have_content("Lobster - Approved!")
+        expect(page).to have_content("Lobster - Rejected")
       end
     end
   end
