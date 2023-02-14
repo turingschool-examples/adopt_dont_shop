@@ -41,5 +41,23 @@ RSpec.describe Pet, type: :model do
         expect(@pet_3.shelter_name).to eq(@shelter_1.name)
       end
     end
+
+    describe "#approved?" do
+      it 'should return false if application_pet is pending' do
+        application_1 = Application.create!(name: "Andra", street_address: "2305 W. Lake St.", city: "Fort Collins", state: "Colorado", zip_code: 80525, app_status: "Pending", pets_on_app: [@pet_1.name, @pet_2.name])
+      
+        application_pet = ApplicationPet.create!(pet_id: @pet_1.id, application_id: application_1.id)
+        
+        expect(@pet_1.approved?(application_1.id)).to eq(false)
+      end
+
+      it 'should return true if application_pet is accepted' do
+        application_1 = Application.create!(name: "Andra", street_address: "2305 W. Lake St.", city: "Fort Collins", state: "Colorado", zip_code: 80525, pets_on_app: [@pet_2.name])
+    
+        application_pet = ApplicationPet.create!(pet_id: @pet_2.id, application_id: application_1.id, pet_status: "Accepted")
+      
+        expect(@pet_2.approved?(application_1.id)).to eq(true)
+      end
+    end
   end
 end

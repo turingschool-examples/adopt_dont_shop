@@ -1,17 +1,19 @@
+<h1><%= @app.name %></h1>
 
-<%if @app.app_status == "Pending" %>
-<p>Application for: </p><%=@app.name%>
-<p>Pet(s): </p><%@app.pets.each do |pet|%>
-  <%=pet.name%>
-  <p><%= button_to "Approve Application", "/admin/applications/#{@app.id}", method: :patch, local: true %></p>
-<%end%>
-<%end%>
+<h4>Full Address: </h4>
+  <p><%= @app.street_address %></p>
+  <p><%= @app.city %>, 
+  <%= @app.state %> 
+  <%= @app.zip_code %></p>
+<br> 
 
+<h4>Requested Pets: </h4>
 
-<%if @app.app_status == "Accepted" %>
-<p>Application for: </p><%=@app.name%>
-<p>Pet(s): </p><%@app.pets.each do |pet|%>
-<%=pet.name%>
-  <p> You've been approved</p>
-<%end%>
-<%end%>
+<% @app.pets.each do |pet| %>
+<%= pet.name %>
+  <%if pet.approved?(@app.id) %>
+    <p> Pet has been approved</p>
+  <% else %>
+    <p><%= button_to "Approve #{pet.name}", "/admin/applications/#{@app.id}?pet_id=#{pet.id}", method: :patch, local: true, params: {pet_status: 1} %></p>
+  <% end %>
+<% end %>
