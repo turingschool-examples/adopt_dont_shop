@@ -127,4 +127,21 @@ describe 'admin applications show' do
     expect(current_path).to eq "/admin/applications/#{@app.id}"
     expect(page).to have_content("Application Status: Approved")
   end
+
+  it 'one or more pets rejected on an application' do
+    # 16. One or More Pets Rejected on an Application
+
+    # As a visitor
+    # When I visit an admin application show page
+    # And I reject one or more pets for the application
+    # And I approve all other pets on the application
+    # Then I am taken back to the admin application show page
+    # And I see the application's status has changed to "Rejected"
+    visit "/admin/applications/#{@app.id}"
+    expect(page).to have_content("Application Status: Pending")
+    click_button("Reject #{@fido.name} for #{@app.name}")
+    click_button("Approve #{@santa.name} for #{@app.name}")
+    expect(current_path).to eq "/admin/applications/#{@app.id}"
+    expect(page).to have_content("Application Status: Rejected")
+  end
 end
