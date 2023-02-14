@@ -6,26 +6,30 @@
 
   <% @pet_applications.each do |pet_app| %>
   <div id = <%= "#{pet_app.id}" %>>
-   <%= "#{pet_app.pet.name}" %>
-    <ul>
-    <%if pet_app.application.status == "Accepted" %>
-      <%= pet_app.status %>
-    <%elsif pet_app.application.status != "Accepted" %>
-      <%= button_to("Approve #{pet_app.pet.name} ", "/admin/applications/#{pet_app.id}", method: :patch, params: {status: "Accepted"}) %></li>
-      <%= button_to("Reject this pet for adoption", "/admin/applications/#{pet_app.id}", method: :patch, params: {status: "Rejected"}) %></li>
-    <% end %>
-    </ul>
+   <h4><%= "#{pet_app.pet.name}" %></h4>
+    <p>
+      <%if pet_app.status == "Accepted" %> 
+        <%= pet_app.status %> 
+      <%elsif pet_app.status == "Rejected" %>
+        <%= pet_app.status %>
+      <%elsif pet_app.status != "Accepted" && pet_app.status != "Rejected" %> 
+        <%= button_to("Approve #{pet_app.pet.name} ", "/admin/applications/#{pet_app.id}", method: :patch, params: {status: "Accepted"}) %></li>
+        <%= button_to("Reject this pet for adoption", "/admin/applications/#{pet_app.id}", method: :patch, params: {status: "Rejected"}) %></li>
+      <% end %> 
+    </p>
   <% end %>
 </div>
 
 <h3>Pets Approved for Adoption</h3>
 <div class = 'approved_pets'>
   <% @pet_applications.each do |app| %>
-    <%if app.application.status == "Accepted" %>
+    <%if app.status == "Accepted" %><br>
       <%="#{app.pet.name}: Approved"%>
     <% end %>
   <% end %>
 </div>
+
+
 
 
 
