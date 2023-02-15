@@ -62,6 +62,36 @@ RSpec.describe Shelter, type: :model do
         PetApplication.create!(application_id: app.id, pet_id: @pet_1.id)
         expect(Shelter.with_pending).to eq([@shelter_1])
       end
+
+      it 'lists all them alphabetically' do
+        app = Application.create!(name: 'John Smith',
+          address: '123 Fake Street',
+          city: 'Springfield',
+          state: 'IL',
+          zipcode: 12_345,
+          description: 'I like dogs.',
+          status: 'Pending')
+        app_2 = Application.create!(name: 'Mark Smith',
+          address: '123 Fake Street',
+          city: 'Springfield',
+          state: 'IL',
+          zipcode: 12_345,
+          description: 'I like dogs.',
+          status: 'Pending')
+        app_3 = Application.create!(name: 'Mary Smith',
+          address: '123 Fake Street',
+          city: 'Springfield',
+          state: 'IL',
+          zipcode: 12_345,
+          description: 'I like dogs.',
+          status: 'Pending')
+        @pet_5 = @shelter_2.pets.create(name: 'Doug', breed: 'dunno', age: 5, adoptable: true)
+
+        PetApplication.create!(application_id: app.id, pet_id: @pet_2.id)
+        PetApplication.create!(application_id: app_2.id, pet_id: @pet_3.id)
+        PetApplication.create!(application_id: app_3.id, pet_id: @pet_5.id)
+        expect(Shelter.with_pending.to_a).to eq([@shelter_1, @shelter_3, @shelter_2])
+      end
     end
   end
 

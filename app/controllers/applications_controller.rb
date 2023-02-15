@@ -33,8 +33,8 @@ class ApplicationsController < ApplicationController
 
   def application_params
     params.permit(:name, :address, :city,
-                  :state, :zipcode, :description, 
+                  :state, :zipcode, :description,
                   :status)
-          .merge(description: "")
+          .merge(description: '')
   end
 end
