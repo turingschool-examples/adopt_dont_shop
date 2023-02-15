@@ -177,7 +177,6 @@ describe 'admin applications show' do
     click_button("Approve #{@santa.name} for #{@app.name}")
     visit "/admin/applications/#{app_2.id}"
     expect(page).to have_content('This pet has already been approved for adoption')
-    save_and_open_page
     expect(page).to_not have_button("Approve #{@fido.name} for #{app_2.name}")
     expect(page).to_not have_button("Approve #{@santa.name} for #{app_2.name}")
   end
