@@ -242,7 +242,8 @@ describe 'app show page' do
     end
     it 'does not have a button to submit when I have no pets on the application' do
       visit "/applications/#{@app.id}"
-      expect(page).to_not have_content('Submit Application')
+      expect(page).to_not have_content('Why would you make a good owner?')
+      expect(page).to_not have_button('Submit Application')
     end
 
     it 'has a button to submit when I have pets on the application' do
@@ -346,6 +347,14 @@ describe 'app show page' do
         fill_in 'pet_name', with: 'ID'
         click_on 'Submit'
         expect(page).to have_content(fido.name)
+      end
+
+      it 'after a successful submission, I no longer see the button to add pets' do
+
+      end
+
+      it 'do not see the button to submit the application unless there is at least one pet' do
+        
       end
     end
   end
