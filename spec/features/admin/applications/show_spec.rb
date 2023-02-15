@@ -8,9 +8,12 @@ RSpec.describe 'visiting admin app show page' do
   
   let!(:application_1) { Application.create!(name: "Andra", street_address: "2305 W. Lake St.", city: "Fort Collins", state: "Colorado", zip_code: 80525, app_status: "Pending", pets_on_app: [pet_1.name, pet_2.name]) }
   let!(:application_2) { Application.create!(name: "Holly", street_address: "2307 W. Lake St.", city: "Fort Collins", state: "Colorado", zip_code: 80525, app_status: "In Progress", pets_on_app: pet_1.name) }
+  let!(:application_3) { Application.create!(name: "Elsa", street_address: "4801 N. Ocean St.", city: "Fort Collins", state: "Colorado", zip_code: 80535, app_status: "Pending", pets_on_app: pet_1.name) }
+
 
   let!(:application_pet) { ApplicationPet.create!(pet_id: pet_1.id, application_id: application_1.id) }
   let!(:application_pet_2) { ApplicationPet.create!(pet_id: pet_2.id, application_id: application_1.id) }
+  let!(:application_pet_3) { ApplicationPet.create!(pet_id: pet_1.id, application_id: application_3.id) }
 
 
   describe 'For every pet that the application is for, I see a button to approve the application for that specific pet' do
@@ -54,6 +57,18 @@ RSpec.describe 'visiting admin app show page' do
 
         expect(page).to have_content("Pet has been rejected")
       end
+    end
+  end
+
+  describe 'When there are two applications in the system for the same pet' do
+    it 'I approve/reject the pet for one application, and it can still be approved/rejected on the other application' do
+      visit "/admin/applications/#{application_1.id}"
+      click_on "Reject #{pet_1.name}"
+
+      visit "/admin/applications/#{application_3.id}"
+      expect(page).to have_content(pet_1.name)
+      expect(page).to have_button("Reject #{pet_1.name}")
+      expect(page).to have_button("Approve #{pet_1.name}")
     end
   end
 end
