@@ -1,16 +1,5 @@
 <h1>Edit Veterinarian</h1>
-<%= form_with url: "/pets/#{@pet.id}", method: :patch, local: true do |f| %>
-  <%= f.label :name %>
-  <%= f.text_field :name %>
 
-  <%= f.label :breed %>
-  <%= f.text_field :breed %>
-
-  <%= f.label :adoptable %>
-  <%= f.check_box :adoptable %>
-
-  <%= f.label :age %>
-  <%= f.number_field :age %>
-
-  <%= f.submit %>
-<% end %>
+ <%= render partial: 'form', locals: {
+  path: "/pets/#{@pet.id}",
+  method: :patch } %>
