@@ -18,5 +18,4 @@
       <%= "#{pet.name} rejected for #{@application.name}" if @application.pet_application_by_pet(pet).status == 'Rejected' %>
     <% end %>
   <% end %>
-  <%@application.pet_applications.where(pet_id: pet.id)%>
 <% end %>
