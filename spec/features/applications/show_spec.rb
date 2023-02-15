@@ -348,14 +348,6 @@ describe 'app show page' do
         click_on 'Submit'
         expect(page).to have_content(fido.name)
       end
-
-      it 'after a successful submission, I no longer see the button to add pets' do
-
-      end
-
-      it 'do not see the button to submit the application unless there is at least one pet' do
-        
-      end
     end
   end
 end
