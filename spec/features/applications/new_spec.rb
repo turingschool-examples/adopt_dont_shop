@@ -1,19 +1,15 @@
 require 'rails_helper'
 
-# Then I am taken to the new application page where I see a form
-# When I fill in this form with my:
-
-# Name
-# Street Address
-# City
-# State
-# Zip Code
-# And I click submit
-# Then I am taken to the new application's show page
-# And I see my Name, address information, and description of why I would make a good home
-# And I see an indicator that this application is "In Progress"
+# User Story #? Then I am taken to the new application page where I see a form
 
 RSpec.describe 'new application page' do
+  def fill_in_fields_except_zipcode
+    fill_in 'Name', with: 'My Application'
+    fill_in 'Street Address', with: '123 Main Street'
+    fill_in 'City', with: 'San Francisco'
+    fill_in 'State', with: 'CA'
+  end
+
   describe 'fields' do
     it 'has correct fields' do
       visit '/applications/new'
@@ -26,12 +22,8 @@ RSpec.describe 'new application page' do
 
     it 'saves the information' do
       visit '/applications/new'
-      fill_in 'Name', with: 'My Application'
-      fill_in 'Street Address', with: '123 Main Street'
-      fill_in 'City', with: 'San Francisco'
-      fill_in 'State', with: 'CA'
+      fill_in_fields_except_zipcode
       fill_in 'Zip Code', with: '94107'
-
       click_on 'Submit'
 
       expect(current_path).to_not eq '/applications/new'
@@ -48,10 +40,7 @@ RSpec.describe 'new application page' do
     describe 'if a field is left blank #submit clicked' do
       it 'routes to app#new, and gives an error message' do
         visit '/applications/new'
-        fill_in 'Name', with: 'My Application'
-        fill_in 'Street Address', with: '123 Main Street'
-        fill_in 'City', with: 'San Francisco'
-
+        fill_in_fields_except_zipcode
         click_on 'Submit'
 
         expect(current_path).to eq('/applications/new')
@@ -60,10 +49,7 @@ RSpec.describe 'new application page' do
 
       it 'will only accept a numerical zipcode' do
         visit '/applications/new'
-        fill_in 'Name', with: 'My Application'
-        fill_in 'Street Address', with: '123 Main Street'
-        fill_in 'City', with: 'San Francisco'
-        fill_in 'State', with: 'CA'
+        fill_in_fields_except_zipcode
         fill_in 'Zip Code', with: '94lol'
 
         click_on 'Submit'
