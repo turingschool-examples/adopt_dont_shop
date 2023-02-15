@@ -2,30 +2,10 @@ require 'rails_helper'
 
 describe 'admin shelter index' do
   before(:each) do
-    @shelter1 = Shelter.create!(
-      foster_program: true,
-      name: 'Alpha house',
-      city: 'Springfield',
-      rank: 1
-    )
-    @shelter2 = Shelter.create!(
-      foster_program: true,
-      name: 'Sigma house',
-      city: 'Springfield',
-      rank: 3
-    )
-    @shelter3 = Shelter.create!(
-      foster_program: true,
-      name: 'Beta house',
-      city: 'Springfield',
-      rank: 2
-    )
-    @shelter4 = Shelter.create!(
-      foster_program: true,
-      name: 'Omega house',
-      city: 'Springfield',
-      rank: 7
-    )
+    @shelter1 = create(:shelter, name:'Alpha House')
+    @shelter2 = create(:shelter, name:'Sigma House')
+    @shelter3 = create(:shelter, name:'Beta House')
+    @shelter4 = create(:shelter, name:'Omega House')
   end
   # SQL Only Story
   # For this story, you should write your queries in raw sql. You can use the ActiveRecord find_by_sql method to execute raw sql queries: https://guides.rubyonrails.org/active_record_querying.html#finding-by-sql
