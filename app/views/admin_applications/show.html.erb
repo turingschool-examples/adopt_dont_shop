@@ -1,0 +1,19 @@
+<h1> <%= @applicant.name %> </h1>
+
+<h3>Street Address: <%= @applicant.street_address %></h3>
+<h3>City: <%= @applicant.city %></h3>
+<h3>State: <%= @applicant.state %></h3>
+<h3>Zip Code: <%= @applicant.zip_code %></h3>
+<p>Applicant's reason for adoption: <br> <%= @applicant.reason_for_adoption %></p>
+<h3>Pets they're interested in adopting: 
+
+
+<% @pets.each do |pet| %>
+  <div id = "pending-<%= pet.id %>">
+    <% if pet.pet_status == "Pending" %>
+      <h3> <%= "#{pet.name}" %> <%= button_to "Approve Adoption", url: "/admin/applications/#{@applicant.id}", method: :patch, params:{pet_id: pet.id, status: "Accepted"} %></h3>
+    <% elsif pet.pet_status == "Approved"%>
+      <h3> <%= "#{pet.name}" %> Has been Approved </h3>
+    <% end %>
+  </div>
+<% end %>
