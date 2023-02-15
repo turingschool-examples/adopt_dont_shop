@@ -1,5 +1,5 @@
-<h1> <%= "Application Number: #{@application.id}" %> </h1>
-<%= "Application Status: #{@application.status}" %>
+<h1> <%= "Application Number: #{@application.id}" %> </h1> <br>
+<%= "Application Status: #{@application.status}" %> <br><br>
 <% @application.pets.each do |pet| %>
   <%= pet.name %> <br>
   <%= form_with url: "/admin/applications/#{@application.id}", method: :patch, local: true do |form| %>
