@@ -26,3 +26,5 @@ RSpec.describe 'the shelter show' do
     expect(page).to_not have_content(pet.name)
   end
 end
+
+
