@@ -13,7 +13,4 @@ class Pet < ApplicationRecord
     where(adoptable: true)
   end
 
-  def self.find_by_name(name)
-    where(name: name)
-  end
 end

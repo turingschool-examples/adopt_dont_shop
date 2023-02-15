@@ -1,3 +1,7 @@
+Pet.destroy_all
+Application.destroy_all
+Shelter.destroy_all
+
 # This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
 #
@@ -9,7 +13,7 @@
                            address: '123 Fake Street',
                            city: 'Springfield',
                            state: 'IL',
-                           zipcode: 12_345,
+                           zipcode: 12345,
                            description: 'I like dogs.',
                            status: 'In Progress')
 
