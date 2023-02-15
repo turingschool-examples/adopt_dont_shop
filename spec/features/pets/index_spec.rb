@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'the pets index' do
   before(:each) do
-    @shelter = Shelter.create(name: 'Aurora @shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
+    @shelter = create(:shelter)
     @pet_1 = create(:pet, shelter_id: @shelter.id)
     @pet_2 = create(:pet, shelter_id: @shelter.id)
     @pet_3 = create(:pet, name: 'Elle', shelter_id: @shelter.id, adoptable: false)
