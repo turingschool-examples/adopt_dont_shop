@@ -7,13 +7,20 @@
 <p>Applicant's reason for adoption: <br> <%= @applicant.reason_for_adoption %></p>
 <h3>Pets they're interested in adopting: 
 
-
 <% @pets.each do |pet| %>
   <div id = "pending-<%= pet.id %>">
-    <% if pet.pet_status == "Pending" %>
-      <h3> <%= "#{pet.name}" %> <%= button_to "Approve Adoption", url: "/admin/applications/#{@applicant.id}", method: :patch, params:{pet_id: pet.id, status: "Accepted"} %></h3>
-    <% elsif pet.pet_status == "Approved"%>
-      <h3> <%= "#{pet.name}" %> Has been Approved </h3>
-    <% end %>
-  </div>
+    <%= pet.name %>
+      <%= form_with url: "/admin/applications/#{@applicant.id}", method: :patch, local: true do |form| %>
+        <%= form.hidden_field :pet_id, value: "#{pet.id}"%>
+        <%= form.hidden_field :app_pet_id, value: @applicant.app_pet_by_pet(pet).id %>
+        <% if @applicant.app_pet_by_pet(pet).status == "Pending" %>
+          <%= form.button "Approve Adoption", type: "submit", name: "status", value: "Approved" %>
+          <%= form.button "Reject Adoption", type: "submit", name: "status", value: "Rejected" %>
+        <% elsif @applicant.app_pet_by_pet(pet).status == "Approved"%>
+          <p> The Application for <%= "#{pet.name}" %> has been APPROVED!!! </p>
+        <% else %>
+          <p> The Application for <%= "#{pet.name}" %> has been REJECTED!!! </p>
+        <% end %>
+      <% end %>
+  </div>   
 <% end %>
