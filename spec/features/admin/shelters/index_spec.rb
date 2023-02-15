@@ -152,6 +152,5 @@ describe 'admin shelter index' do
       expect(@shelter3.name).to appear_before(@shelter4.name)
       expect(@shelter4.name).to appear_before(@shelter2.name)
     end
-
   end
 end
