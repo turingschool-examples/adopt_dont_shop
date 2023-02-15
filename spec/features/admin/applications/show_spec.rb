@@ -160,4 +160,25 @@ describe 'admin applications show' do
     visit "/pets/#{@fido.id}"
     expect(page).to have_content('false')
   end
+
+  it 'does not have the option to approve a pet if it is not adoptable' do
+    app_2 = Application.create!(name: 'John Smith',
+      address: '123 Fake Street',
+      city: 'Springfield',
+      state: 'IL',
+      zipcode: 12_345,
+      description: 'I like dogs.',
+      status: 'Pending')
+    PetApplication.create!(application_id: app_2.id, pet_id: @fido.id)
+    PetApplication.create!(application_id: app_2.id, pet_id: @santa.id)
+    visit "/admin/applications/#{@app.id}"
+    expect(@fido.adoptable).to be(true)
+    click_button("Approve #{@fido.name} for #{@app.name}")
+    click_button("Approve #{@santa.name} for #{@app.name}")
+    visit "/admin/applications/#{app_2.id}"
+    expect(page).to have_content("This pet has already been approved for adoption")
+    save_and_open_page
+    expect(page).to_not have_button("Approve #{@fido.name} for #{app_2.name}")
+    expect(page).to_not have_button("Approve #{@santa.name} for #{app_2.name}")
+  end
 end
