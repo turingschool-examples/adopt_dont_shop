@@ -4,6 +4,7 @@ class AdminApplicationsController < ApplicationController
     @pets = @applicant.pets
   end
 
+
   def update
     require 'pry'; binding.pry
   end

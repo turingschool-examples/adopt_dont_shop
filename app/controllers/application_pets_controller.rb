@@ -6,8 +6,11 @@ class ApplicationPetsController < ApplicationController
   end
 
   def update
-    ApplicationPet.update(applicaton_pet_params)
-    redirect_to "admin/applications/#{params[:application_id]}"
+    @application = Application.find(params[:id])
+    @application_pet = ApplicationPet.find(params[:app_pet_id])
+    @application_pet.update!(status: params[:status])
+    @application_pet.save
+    redirect_to "/admin/applications/#{@application.id}"
   end
 
 private
