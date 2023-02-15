@@ -147,7 +147,6 @@ describe 'admin shelter index' do
     petapp3 = PetApplication.create!(application_id: app3.id, pet_id: charlie.id)
     petapp4 = PetApplication.create!(application_id: app4.id, pet_id: mark.id)
     visit '/admin/shelters'
-    save_and_open_page
     within('#pendings') do
       expect(@shelter1.name).to appear_before(@shelter3.name)
       expect(@shelter3.name).to appear_before(@shelter4.name)
