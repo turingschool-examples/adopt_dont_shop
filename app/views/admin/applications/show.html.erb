@@ -7,7 +7,11 @@
     <%= form.hidden_field :petid, value: "#{pet.id}" %>
     <%= form.hidden_field :status, value: "Pending" %>
     <% if @application.pet_application_by_pet(pet).status == 'Pending' %>
-      <%= form.button "Approve #{pet.name} for #{@application.name}", type: "submit", name: "status", value: "Approved"  %>
+      <% if pet.adoptable  %>
+        <%= form.button "Approve #{pet.name} for #{@application.name}", type: "submit", name: "status", value: "Approved"  %>
+      <% else %>
+        <p>"This pet has already been approved for adoption"</p>
+      <% end %>
       <%= form.button "Reject #{pet.name} for #{@application.name}", type: "submit", name: "status", value: "Rejected"  %>
     <%else  %>
       <%= "#{pet.name} approved for #{@application.name}" if @application.pet_application_by_pet(pet).status == 'Approved' %>
