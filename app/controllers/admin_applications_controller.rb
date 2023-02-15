@@ -3,10 +3,4 @@ class AdminApplicationsController < ApplicationController
     @applicant = Application.find(params[:id])
     @pets = @applicant.pets
   end
-
-
-  def update
-    require 'pry'; binding.pry
-  end
-
 end

@@ -80,8 +80,8 @@ RSpec.describe 'the shelters pets index' do
 
     expect(@pet_1.name).to appear_before(@pet_2.name)
     expect(@pet_2.name).to appear_before(@pet_4.name)
-
     expect(page).to have_link("Sort alphabetically")
+    
     click_on("Sort alphabetically")
 
     expect(@pet_1.name).to appear_before(@pet_4.name)

@@ -6,7 +6,6 @@ RSpec.describe 'applications new page' do
 
     expect(page).to have_content("New Application Form")
     expect(page).to have_field('Name')
-    # save_and_open_page
     expect(page).to have_field('Street Address')
     expect(page).to have_field('City')
     expect(page).to have_field('State')
@@ -23,10 +22,10 @@ RSpec.describe 'applications new page' do
     fill_in "City", with: "Steveburg"
     fill_in "State", with: "CO"
     fill_in "Zip Code", with: 81789
-    # save_and_open_page
+    
     fill_in "Why I would make a good home", with: 'Because I have a tight house and my name is Steve'
     click_on 'Submit'
-    # require 'pry'; binding.pry
+   
     expect(page).to have_current_path("/applications/#{Application.last.id}")
     expect(page).to have_content('Steve Steveson')
     expect(page).to have_content('1800 Steve Ln')
@@ -34,8 +33,6 @@ RSpec.describe 'applications new page' do
     expect(page).to have_content('CO')
     expect(page).to have_content('81789')
     expect(page).to have_content('Because I have a tight house and my name is Steve')
-    # require 'pry'; binding.pry
-    # save_and_open_page
     expect(page).to have_content('In Progress')
   end
   
@@ -43,16 +40,16 @@ RSpec.describe 'applications new page' do
     it 'will redirect user to the new application page if an incomplete form is submitted' do
       visit '/applications/new'
 
-    fill_in 'Name', with: 'Steve Steveson'
-    fill_in 'Street Address', with: '1800 Steve Ln'
-    fill_in 'City', with: 'Steveburg'
-    fill_in 'Zip Code', with: '81789'
-    fill_in 'Why I would make a good home', with: 'Because I have a tight house and my name is Steve'
-    
-    click_on 'Submit'
-    
-    expect(page).to have_current_path("/applications/new")
-    expect(page).to have_content("State can't be blank")
+      fill_in 'Name', with: 'Steve Steveson'
+      fill_in 'Street Address', with: '1800 Steve Ln'
+      fill_in 'City', with: 'Steveburg'
+      fill_in 'Zip Code', with: '81789'
+      fill_in 'Why I would make a good home', with: 'Because I have a tight house and my name is Steve'
+      
+      click_on 'Submit'
+      
+      expect(page).to have_current_path("/applications/new")
+      expect(page).to have_content("State can't be blank")
     end
   end
 end
