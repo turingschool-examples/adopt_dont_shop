@@ -242,7 +242,8 @@ describe 'app show page' do
     end
     it 'does not have a button to submit when I have no pets on the application' do
       visit "/applications/#{@app.id}"
-      expect(page).to_not have_content('Submit Application')
+      expect(page).to_not have_content('Why would you make a good owner?')
+      expect(page).to_not have_button('Submit Application')
     end
 
     it 'has a button to submit when I have pets on the application' do

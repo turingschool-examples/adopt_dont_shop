@@ -11,7 +11,7 @@
     <%= link_to pet.name, "/pets/#{pet.id}" %>
   <% end %>
 </div>
-
+<% if @application.status == "In Progress" %>
   <h2> Add a Pet to this Application</h2>
   <%= form_with(url: "/applications/#{@application.id}", method: "GET") do |form| %>
     <%= form.label :pet_name %>
@@ -19,7 +19,8 @@
     <%= form.submit "Submit" %>
   <% end %>
 
-  <% unless@pets.nil? %>
+<% #binding.pry %>
+  <% if !@pets.nil? && @application.status == "In Progress" %>
     <% @pets.each do |pet| %>
     <div id="<%= pet.id %>">
       <%= link_to pet.name, "/pets/#{pet.id}" %>
@@ -31,11 +32,12 @@
       </div>
     <% end %>
   <% end %>
-
-  <% unless @application.pets.nil? %>
+<% #binding.pry %>
+  <% if !@application.pets.empty? && @application.status == "In Progress" %>
     <%=form_with(url: "/applications/#{@application.id}", method: "PATCH") do |form| %>
         <%= form.label :description, "Why would you make a good owner? " %>
         <%= form.text_field :description%>
         <%= form.submit "Submit Application" %>
       <% end %>
   <% end %>
+<% end %>

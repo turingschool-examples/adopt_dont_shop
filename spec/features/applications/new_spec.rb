@@ -31,7 +31,6 @@ RSpec.describe 'new application page' do
       fill_in 'City', with: 'San Francisco'
       fill_in 'State', with: 'CA'
       fill_in 'Zip Code', with: '94107'
-      fill_in 'Description', with: 'I luv dawgs'
 
       click_on 'Submit'
 
@@ -41,7 +40,6 @@ RSpec.describe 'new application page' do
       expect(page).to have_content('San Francisco')
       expect(page).to have_content('CA')
       expect(page).to have_content('94107')
-      expect(page).to have_content('I luv dawgs')
       expect(page).to have_content('In Progress')
     end
   end
@@ -67,7 +65,6 @@ RSpec.describe 'new application page' do
         fill_in 'City', with: 'San Francisco'
         fill_in 'State', with: 'CA'
         fill_in 'Zip Code', with: '94lol'
-        fill_in 'Description', with: 'I luv dawgs'
 
         click_on 'Submit'
 
