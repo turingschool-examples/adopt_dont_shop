@@ -6,7 +6,6 @@ class Application < ApplicationRecord
   validates_numericality_of :zip_code
 
   def app_pet_by_pet(pet)
-    require 'pry'; binding.pry
     application_pets.where(pet_id: pet.id).last
   end
 end
