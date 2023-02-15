@@ -5,9 +5,9 @@ RSpec.describe 'the shelters index' do
     @shelter_1 = create(:shelter, name:'Aurora shelter')
     @shelter_2 = create(:shelter, name:'RGV animal shelter')
     @shelter_3 = create(:shelter, name: 'Fancy pets of Colorado' )
-    @shelter_1.pets.create(name: 'Mr. Pirate', breed: 'tuxedo shorthair', age: 5, adoptable: true)
-    @shelter_1.pets.create(name: 'Clawdia', breed: 'shorthair', age: 3, adoptable: true)
-    @shelter_3.pets.create(name: 'Lucille Bald', breed: 'sphynx', age: 8, adoptable: true)
+    create(:pet, shelter_id: @shelter_1.id)
+    create(:pet, shelter_id: @shelter_1.id)
+    create(:pet, shelter_id: @shelter_3.id)
   end
 
   it 'lists all the shelter names' do
