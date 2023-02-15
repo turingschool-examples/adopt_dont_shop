@@ -10,7 +10,7 @@
       <% if pet.adoptable  %>
         <%= form.button "Approve #{pet.name} for #{@application.name}", type: "submit", name: "status", value: "Approved"  %>
       <% else %>
-        <p>"This pet has already been approved for adoption"</p>
+        <p>This pet has already been approved for adoption</p>
       <% end %>
       <%= form.button "Reject #{pet.name} for #{@application.name}", type: "submit", name: "status", value: "Rejected"  %>
     <%else  %>
