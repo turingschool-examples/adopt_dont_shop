@@ -1,11 +1,4 @@
-<h1> <%= @applicant.name %> </h1>
-
-<h3>Street Address: <%= @applicant.street_address %></h3>
-<h3>City: <%= @applicant.city %></h3>
-<h3>State: <%= @applicant.state %></h3>
-<h3>Zip Code: <%= @applicant.zip_code %></h3>
-<p>Applicant's reason for adoption: <br> <%= @applicant.reason_for_adoption %></p>
-<h3>Pets they're interested in adopting: 
+<%= render partial: 'shared/form', locals: { path: "/applications/#{@applicant.id}", method: :get } %>
 
 <% @pets.each do |pet| %>
 <h3> <%= link_to "#{pet.name}", "/pets/#{pet.id}" %></h3>

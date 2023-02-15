@@ -20,12 +20,12 @@ RSpec.describe "The Admin Shelter Index" do
       shelter_3 = Shelter.create!(name: 'Vail shelter', city: 'Vail, CO', foster_program: false, rank: 7)
       pet_1 = Pet.create!(adoptable: true, age: 7, breed: 'sphynx', name: 'Bare-y Manilow', shelter_id: shelter_1.id)
       applicant_1 = Application.create!(name: 'Dawson', 
-        street_address: '1234 example ave.', 
-        city: 'Denver', 
-        state: 'CO',
-        zip_code: 12345, 
-        reason_for_adoption: "I love dogs",
-        status: "In Progress"
+      street_address: '1234 example ave.', 
+      city: 'Denver', 
+      state: 'CO',
+      zip_code: 12345, 
+      reason_for_adoption: "I love dogs",
+      status: "In Progress"
       )
       ApplicationPet.create!(application: applicant_1, pet: pet_1)
       visit "/admin/shelters"
@@ -39,12 +39,12 @@ RSpec.describe "The Admin Shelter Index" do
       shelter_3 = Shelter.create!(name: 'Vail shelter', city: 'Vail, CO', foster_program: false, rank: 7)
       pet_1 = Pet.create!(adoptable: true, age: 7, breed: 'sphynx', name: 'Bare-y Manilow', shelter_id: shelter_1.id)
       applicant_1 = Application.create!(name: 'Dawson', 
-        street_address: '1234 example ave.', 
-        city: 'Denver', 
-        state: 'CO',
-        zip_code: 12345, 
-        reason_for_adoption: "I love dogs",
-        status: "Pending"
+      street_address: '1234 example ave.', 
+      city: 'Denver', 
+      state: 'CO',
+      zip_code: 12345, 
+      reason_for_adoption: "I love dogs",
+      status: "Pending"
       )
       ApplicationPet.create!(application: applicant_1, pet: pet_1)
 

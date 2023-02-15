@@ -165,12 +165,12 @@ RSpec.describe 'the application show' do
       shelter = Shelter.create!(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
       pet_1 = Pet.create!(adoptable: true, age: 7, breed: 'sphynx', name: 'Bare-y Manilow', shelter_id: shelter.id)
       applicant_1 = Application.create!(name: 'Dawson', 
-        street_address: '1234 example ave.', 
-        city: 'Denver', 
-        state: 'CO',
-        zip_code: 12345, 
-        reason_for_adoption: "I love dogs",
-        status: "In Progress"
+      street_address: '1234 example ave.', 
+      city: 'Denver', 
+      state: 'CO',
+      zip_code: 12345, 
+      reason_for_adoption: "I love dogs",
+      status: "In Progress"
       )
       visit "/applications/#{applicant_1.id}"
       
@@ -191,39 +191,39 @@ RSpec.describe 'the application show' do
       shelter = Shelter.create!(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
       pet_1 = Pet.create!(adoptable: true, age: 7, breed: 'sphynx', name: 'Bare-y Manilow', shelter_id: shelter.id)
       applicant_1 = Application.create!(name: 'Dawson', 
-        street_address: '1234 example ave.', 
-        city: 'Denver', 
-        state: 'CO',
-        zip_code: 12345, 
-        reason_for_adoption: "I love dogs",
-        status: "In Progress"
+      street_address: '1234 example ave.', 
+      city: 'Denver', 
+      state: 'CO',
+      zip_code: 12345, 
+      reason_for_adoption: "I love dogs",
+      status: "In Progress"
       )
       visit "/applications/#{applicant_1.id}"
 
-        fill_in 'Search', with: "Ba"
-        click_on("Search")
-        
-        click_on 'Adopt this Pet'
+      fill_in 'Search', with: "Ba"
+      click_on("Search")
+      
+      click_on 'Adopt this Pet'
 
-        fill_in "Why I would make a good owner for these pet(s):", with: "Because I love Them"
-        click_on "Submit Adoption Application"
+      fill_in "Why I would make a good owner for these pet(s):", with: "Because I love Them"
+      click_on "Submit Adoption Application"
 
-        expect(page).to have_current_path("/applications/#{applicant_1.id}")
-        expect(page).to have_content("Pending")
-        expect(page).to have_content(pet_1.name)
-        expect(page).to_not have_content("Add a Pet to this Application")
+      expect(page).to have_current_path("/applications/#{applicant_1.id}")
+      expect(page).to have_content("Pending")
+      expect(page).to have_content(pet_1.name)
+      expect(page).to_not have_content("Add a Pet to this Application")
     end
   end
 
   describe "User Story 7" do
     it "does not show a 'submit' application when there are no pets" do
       applicant_1 = Application.create!(name: 'Dawson', 
-        street_address: '1234 example ave.', 
-        city: 'Denver', 
-        state: 'CO',
-        zip_code: 12345, 
-        reason_for_adoption: "I love dogs",
-        status: "In Progress"
+      street_address: '1234 example ave.', 
+      city: 'Denver', 
+      state: 'CO',
+      zip_code: 12345, 
+      reason_for_adoption: "I love dogs",
+      status: "In Progress"
       )
       visit "/applications/#{applicant_1.id}"
 
@@ -239,12 +239,12 @@ RSpec.describe 'the application show' do
       pet_2 = Pet.create!(adoptable: true, age: 3, breed: 'domestic pig', name: 'Babe', shelter_id: shelter.id)
       pet_3 = Pet.create!(adoptable: true, age: 4, breed: 'chihuahua', name: 'Elle', shelter_id: shelter.id)
       applicant_1 = Application.create!(name: 'Dawson', 
-        street_address: '1234 example ave.', 
-        city: 'Denver', 
-        state: 'CO',
-        zip_code: 12345, 
-        reason_for_adoption: "I love dogs",
-        status: "In Progress"
+      street_address: '1234 example ave.', 
+      city: 'Denver', 
+      state: 'CO',
+      zip_code: 12345, 
+      reason_for_adoption: "I love dogs",
+      status: "In Progress"
       )
       
       visit "/applications/#{applicant_1.id}"
@@ -265,12 +265,12 @@ RSpec.describe 'the application show' do
       pet_2 = Pet.create!(adoptable: true, age: 3, breed: 'domestic pig', name: 'Babe', shelter_id: shelter.id)
       pet_3 = Pet.create!(adoptable: true, age: 4, breed: 'chihuahua', name: 'Elle', shelter_id: shelter.id)
       applicant_1 = Application.create!(name: 'Dawson', 
-        street_address: '1234 example ave.', 
-        city: 'Denver', 
-        state: 'CO',
-        zip_code: 12345, 
-        reason_for_adoption: "I love dogs",
-        status: "In Progress"
+      street_address: '1234 example ave.', 
+      city: 'Denver', 
+      state: 'CO',
+      zip_code: 12345, 
+      reason_for_adoption: "I love dogs",
+      status: "In Progress"
       )
       
       visit "/applications/#{applicant_1.id}"
