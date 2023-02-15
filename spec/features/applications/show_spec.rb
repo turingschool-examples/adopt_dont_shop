@@ -3,6 +3,9 @@ require 'rails_helper'
 describe 'app show page' do
   before(:each) do
     @app = create(:application, description: 'I like dogs.', status: 'In Progress')
+    @shelter = create(:shelter)
+    @pet_1 = create(:pet, shelter_id: @shelter.id)
+    @pet_2 = create(:pet, shelter_id: @shelter.id)
   end
   
   describe 'app details' do
@@ -84,27 +87,15 @@ describe 'app show page' do
   describe 'Searching for pets' do
     # 4. Searching for Pets for an Application
     it 'has a section \'Add a Pet to this Application\' when not yet submitted' do
-      shelter = Shelter.create!(
-        foster_program: true,
-        name: 'Dog house',
-        city: 'Springfield',
-        rank: 1
-      )
-      fido = shelter.pets.create!(
-        adoptable: true,
-        age: 1,
-        breed: 'weiner',
-        name: 'Fido'
-      )
       visit "/applications/#{@app.id}"
-      expect(@app.status).to eq('In Progress')
-      expect(page).to_not have_content('Fido')
+      expect(@app.status).to eq("In Progress")
+      expect(page).to_not have_content(@pet_1.name)
       expect(page).to have_content('Add a Pet to this Application')
       expect(page).to have_field('pet_name')
-      fill_in 'pet_name', with: 'Fido'
+      fill_in 'pet_name', with: @pet_1.name
       click_on 'Submit'
       expect(current_path).to eq("/applications/#{@app.id}")
-      expect(page).to have_content(fido.name)
+      expect(page).to have_content(@pet_1.name)
     end
 
     it 'can populate multiple pets' do
@@ -170,15 +161,6 @@ describe 'app show page' do
   describe 'submitting an application' do
     # 6. Submit an Application
     # 7. No Pets on an Application
-    before(:each) do
-      @app = Application.create!(name: 'John Smith',
-                                 address: '123 Fake Street',
-                                 city: 'Springfield',
-                                 state: 'IL',
-                                 zipcode: 12_345,
-                                 description: 'I like dogs.',
-                                 status: 'In Progress')
-    end
     it 'does not have a button to submit when I have no pets on the application' do
       visit "/applications/#{@app.id}"
       expect(page).to_not have_content('Why would you make a good owner?')
@@ -186,26 +168,8 @@ describe 'app show page' do
     end
 
     it 'has a button to submit when I have pets on the application' do
-      shelter = Shelter.create!(
-        foster_program: true,
-        name: 'Dog house',
-        city: 'Springfield',
-        rank: 1
-      )
-      fido = shelter.pets.create!(
-        adoptable: true,
-        age: 1,
-        breed: 'weiner',
-        name: 'Fido'
-      )
-      santa = shelter.pets.create!(
-        adoptable: true,
-        age: 1,
-        breed: 'whippet',
-        name: 'Santa\'s Little Helper'
-      )
-      petapp1 = PetApplication.create!(application_id: @app.id, pet_id: fido.id)
-      petapp2 = PetApplication.create!(application_id: @app.id, pet_id: santa.id)
+      petapp1 = PetApplication.create!(application_id: @app.id, pet_id: @pet_1.id)
+      petapp2 = PetApplication.create!(application_id: @app.id, pet_id: @pet_2.id)
       visit "/applications/#{@app.id}"
       expect(page).to have_button('Submit Application')
       fill_in 'description', with: 'I like dogs and cats'
