@@ -39,7 +39,7 @@ RSpec.describe 'the vet office update' do
       within('form') do
         fill_in 'Name', with: ''
       end
-      
+
       click_button 'Save'
 
       expect(page).to have_content("Error: Name can't be blank")
