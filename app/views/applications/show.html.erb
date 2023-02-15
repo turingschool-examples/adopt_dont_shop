@@ -19,7 +19,6 @@
     <%= form.submit "Submit" %>
   <% end %>
 
-<% #binding.pry %>
   <% if !@pets.nil? && @application.status == "In Progress" %>
     <% @pets.each do |pet| %>
     <div id="<%= pet.id %>">
@@ -32,7 +31,7 @@
       </div>
     <% end %>
   <% end %>
-<% #binding.pry %>
+
   <% if !@application.pets.empty? && @application.status == "In Progress" %>
     <%=form_with(url: "/applications/#{@application.id}", method: "PATCH") do |form| %>
         <%= form.label :description, "Why would you make a good owner? " %>

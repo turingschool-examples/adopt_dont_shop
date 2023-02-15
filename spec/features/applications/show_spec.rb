@@ -95,7 +95,7 @@ describe 'app show page' do
       expect(page).to_not have_content(@pet_1.name)
       expect(page).to have_content('Add a Pet to this Application')
       expect(page).to have_field('pet_name')
-      
+
       fill_in 'pet_name', with: @pet_1.name
       click_on 'Submit'
       expect(current_path).to eq("/applications/#{@app.id}")
@@ -126,10 +126,13 @@ describe 'app show page' do
       fill_in 'pet_name', with: 'Fido'
       click_on 'Submit'
       expect(page).to have_button('Adopt this Pet')
+      
+      within("##{@fido.id}") do
+        click_on 'Adopt this Pet'
+      end
 
-      click_on 'Adopt this Pet' # create within block to resolve capybara::ambiguous
       expect(current_path).to eq("/applications/#{@app.id}")
-      expect(page).to have_content("Pets Applying for: #{fido.name}")
+      expect(page).to have_content("Pets Applying for: #{@fido.name}")
     end
   end
 
