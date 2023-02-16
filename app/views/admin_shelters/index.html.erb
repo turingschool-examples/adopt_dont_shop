@@ -5,6 +5,7 @@
 <div id="pending">
 <h2>Shelters with Pending Applications</h2>
 <% @pending_app_shelters.each do |shelter| %>
-  <%= shelter.name %>
+  <b><%= shelter.name %></b>
+  <br>
 <% end %>
 </div>
