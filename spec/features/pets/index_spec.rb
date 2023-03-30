@@ -81,4 +81,10 @@ RSpec.describe 'the pets index' do
     expect(page).to have_content(pet_2.name)
     expect(page).to_not have_content(pet_3.name)
   end
+
+  #User Story 2
+  describe "When I visit /pets" do
+    it "displays a link to 'Start and Application'"
+    it "click the link redirects me to "
+  end
 end
