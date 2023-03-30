@@ -3,6 +3,8 @@ require 'rails_helper'
 RSpec.describe Veterinarian, type: :model do
   describe 'relationships' do
     it { should belong_to(:veterinary_office) }
+    it {should have_many(:shelter_veterinarians)}
+    it {should have_many(:shelters).through(:shelter_veterinarians)}
   end
 
   describe 'validations' do
