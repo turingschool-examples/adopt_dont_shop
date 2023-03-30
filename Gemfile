@@ -47,7 +47,7 @@ group :development, :test do
   gem 'simplecov'
   gem 'net-http' # for removing white trace.
   gem 'faker'
-  # gem 'factorybot'
+  gem 'factory_bot'
 end
 
 group :development do
