@@ -20,7 +20,7 @@ RSpec.describe 'the application show' do
   )
 end
   it 'shows the name, description, pets, app status' do
-    visit "/#{@application_1.id}"
+    visit "/applications/#{@application_1.id}"
 
     expect(page).to have_content("#{@application_1.name}")
     expect(page).to have_content("#{@pet_1.name}")
@@ -28,17 +28,17 @@ end
   end
 
   it 'shows address' do
-    visit "/#{@application_1.id}"
+    visit "/applications/#{@application_1.id}"
     save_and_open_page
 
     expect(page).to have_content("#{@application_1.street_address}, #{@application_1.city} #{@application_1.state} #{@application_1.zip}")
   end
 
   it 'links to pet page' do
-    visit "/#{@application_1.id}"
+    visit "/applications/#{@application_1.id}"
 
     click_link("#{@pet_1.name}")
-
+    save_and_open_page
     expect(current_path).to eq("/pets/#{@pet_1.id}")
   end
 end

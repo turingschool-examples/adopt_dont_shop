@@ -5,7 +5,7 @@
   <li>Address: <%= @application.street_address%>, <%= @application.city%> 
   <%=@application.state%> <%=@application.zip%></li>
   <li>Pets: <% @application.pets.each do |pet|%>
-  <%=link_to "#{pet.name}", "pets/#{pet.id}"%>, 
+  <%=link_to "#{pet.name}", "/pets/#{pet.id}"%> 
   <% end %>
   </li>
   <li>App Status: <%= @application.status %>
