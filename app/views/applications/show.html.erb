@@ -6,3 +6,11 @@
 <p>Description: <%= @application.description %></p>
 <p>Name of Pet: <%= @application.name_of_pet %></p>
 <p>Application Status: <%= @application.application_status %></p>
+<br>
+<p>"Add a Pet to this Application"<br>
+<%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |form| %>
+  <%= form.label :pet_search %>
+  <%= form.text_field :pet_search %>
+
+  <%= form.submit 'Search Pets' %></p>
+<% end %>
