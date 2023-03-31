@@ -3,11 +3,24 @@
 <p><strong>Address:</strong> <%= @application.street_address %>, <%= @application.city %> <%= @application.state %> <%= @application.zip_code %></p>
 <p><strong>Why I would make a good home for this pet(s):</strong> <%= @application.description %></p>
 
-<h2>Pets</h2>
+<h2>Pets Applied For</h2>
 <ul>
   <% @application.pets.each do |pet| %>
-    <li><%= link_to "#{pet.name}", "/pets/#{pet.id}" %></li>
+    <li><%= link_to pet.name, "/pets/#{pet.id}" %></li>
   <% end %>
 </ul>
 
 <p><strong>Status:</strong> <%= @application.status %></p>
+
+<h2>Add a Pet to this Application</h2>
+<%= form_with url: "/applications/#{@application.id}", method: :get do |form| %>
+  <%= form.label :query, "Search for Pet by Name" %>
+  <%= form.text_field :query, placeholder: "Enter pet name..." %>
+  <%= form.submit "Search" %>
+<% end %>
+
+<% if @search_results %>
+  <% @search_results.each do |pet| %>
+    <%= pet.name %>
+  <% end %>
+<% end %>
