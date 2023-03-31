@@ -15,9 +15,17 @@ RSpec.describe 'admin shelters' do
       city: "Aurora",
       state: "CO",
       zip: "80012",
-      status: "",
       description: "I like pets",
       status: "Pending"
+  )
+  @application_2 = @pet_1.applications.create(
+    name: "Gwen Stefani",
+    street_address:  "125 Main St",
+    city: "Aurora",
+    state: "CO",
+    zip: "80012",
+    description: "I like pets even more",
+    status: "In Progress"
   )
   end
 

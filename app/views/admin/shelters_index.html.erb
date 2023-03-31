@@ -1,1 +1,9 @@
 <h2>Shelters with Pending applications:</h2> 
+
+<p>
+<% if @shelters_pending.empty? != true %>
+  <%@shelters_pending.each do |shelter_name|%>
+    <%=shelter_name%>
+  <% end %>
+<% end %>
+</p>

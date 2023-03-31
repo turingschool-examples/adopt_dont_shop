@@ -28,7 +28,6 @@ RSpec.describe Shelter, type: :model do
       city: "Aurora",
       state: "CO",
       zip: "80012",
-      status: "",
       description: "I like pets",
       status: "In Progress"
   )
@@ -38,7 +37,6 @@ RSpec.describe Shelter, type: :model do
     city: "Aurora",
     state: "CO",
     zip: "80012",
-    status: "",
     description: "I like pets even more",
     status: "Pending"
   )
@@ -65,7 +63,7 @@ RSpec.describe Shelter, type: :model do
 
     describe "#join_applicaiton_pending" do
       it 'joins on pending app and plucks shelter name' do
-        expect(Shelter.join_applicaiton_pending).to eq(["#{@shelter_3.name}"])
+        expect(Shelter.join_application_pending).to eq(["#{@shelter_3.name}"])
       end
     end
   end
