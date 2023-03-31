@@ -1,0 +1,18 @@
+<h1>Create an Application</h1>
+<ul>
+<%= form_with url: "/applications", method: :post, local: true do |f| %>
+  <li><%= f.label :name%></li>
+  <li><%= f.text_field :name, required: true %></li>
+  <li><%= f.label :street_address %></li>
+  <li><%= f.text_field :street_address, required: true %></li>
+  <li><%= f.label :city %></li>
+  <li><%= f.text_field :city, required: true %></li>
+  <li><%= f.label :state %></li>
+  <li><%= f.text_field :state, required: true %></li>
+  <li><%= f.label :zip %></li>
+  <li><%= f.text_field :zip, required: true %></li>
+  <li><%= f.label :description %></li>
+  <li><%= f.text_field :description, required: true %></li>
+  <li><%= f.submit 'Create Application'%></li>
+<% end %>
+</ul>
