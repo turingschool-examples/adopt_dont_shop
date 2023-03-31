@@ -25,6 +25,7 @@ RSpec.describe "Applicant Show" do
     PetApplicant.create!(applicant: @olivia,
                          pet: @pet_2)
   end
+  
   it "shows applicant's attributes" do
     visit "/applicants/#{@olivia.id}"
     save_and_open_page
@@ -34,8 +35,8 @@ RSpec.describe "Applicant Show" do
     expect(page).to have_content("Status: #{@olivia.status}")
     expect(page).to have_content("Currently applying for: #{@pet_1.name}")
     expect(page).to have_content("Currently applying for: #{@pet_2.name}")
-    
   end
+  
   it "has link to each pet's show page" do
     visit "/applicants/#{@olivia.id}"
 
