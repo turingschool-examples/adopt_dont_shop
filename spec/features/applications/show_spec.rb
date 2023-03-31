@@ -129,5 +129,13 @@ RSpec.describe 'the application show' do
       expect(page).to have_content("Name: Lobster")
     end
   end
+
+  #User Story 5
+  describe "When i visit /applications/:id" do
+    it "displays pets that match search"
+    it "displays button 'Adopt this Pet'"
+    it "clicking takes me back to /applications/:id with pet listed on application"
+  end
+  
 end
 
