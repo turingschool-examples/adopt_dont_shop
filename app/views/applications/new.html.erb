@@ -1,8 +1,8 @@
 <h1>New Application</h1>
-<%= form_with url: "/applications", method: :post, local: true do |f| %>
+<%= form_with url: "/applications/:id", method: :post, local: true do |f| %>
   
-  <p><%= f.label :name %>
-  <%= f.text_field :name %></p>
+  <p><%= f.label :applicant_name %>
+  <%= f.text_field :applicant_name %></p>
 
   <p><%= f.label :street_address %>
   <%= f.text_field :street_address %></p>
@@ -16,8 +16,8 @@
   <p><%= f.label :zip_code %>
   <%= f.text_field :zip_code %></p>
 
-  <p><%= f.label :Explain_why_you_would_make_a_good_home_for_this_pet %>
-  <%= f.text_field :Explain_why_you_would_make_a_good_home_for_this_pet %></p>
+  <p><%= f.label :description %>
+  <%= f.text_field :description %></p>
 
   <%= f.submit "Submit" %>
 <% end %>
