@@ -17,6 +17,16 @@ RSpec.describe 'the application show' do
       status: "In Progress",
       description: "I like pets",
   )
+
+  @application_2 = Application.create!(
+    name: "Charlie Puth",
+    street_address:  "124 Main St",
+    city: "Aurora",
+    state: "CO",
+    zip: "80012",
+    description: "I like pets even more",
+    status: "Pending"
+  )
   @application_2 = @pet_2.applications.create(
     name: "Gwen Stefani",
     street_address:  "125 Main St",
@@ -24,9 +34,10 @@ RSpec.describe 'the application show' do
     state: "CO",
     zip: "80012",
     status: "",
-    description: "I like pets even more",
-    status: "Pending"
-  )
+    description: "I haven't chosen any pets",
+    status: "In Progress"
+)
+
    @application_3 = Application.create!(
    name: "Jorge King",
    street_address:  "333 Round Blvd.",
@@ -57,8 +68,6 @@ end
 
   it 'shows address' do
     visit "/applications/#{@application_1.id}"
-    # save_and_open_page
-
     expect(page).to have_content("#{@application_1.street_address}, #{@application_1.city} #{@application_1.state} #{@application_1.zip}")
   end
 
@@ -66,6 +75,48 @@ end
     visit "/applications/#{@application_1.id}"
 
     click_link("#{@pet_1.name}")
+
+
+    expect(current_path).to eq("/pets/#{@pet_1.id}")
+  end
+
+  it "doesn't have submit button" do
+    visit "/applications/#{@application_2.id}"
+
+    expect(page).not_to have_button("Submit Application")
+  end
+
+  it 'has a submit button and submits application' do
+    visit "/applications/#{@application_1.id}"
+    
+    expect(page).to have_button("Submit Application")
+
+    fill_in 'description', with: "Because, obviously"
+
+    click_button "Submit Application"
+    save_and_open_page
+
+    expect(page).to have_current_path("/applications/#{@application_1.id}")
+    expect(page).to have_content("Pending")
+  end
+end
+
+#6 Submit an Applicaiton
+
+# As a visitor
+# When I visit an application's show page
+# And I have added one or more pets to the application
+# Then I see a section to submit my application
+# And in that section I see an input to enter why I would make a good owner for these pet(s)
+# When I fill in that input
+# And I click a button to submit this application
+# Then I am taken back to the application's show page
+# And I see an indicator that the application is "Pending"
+# And I see all the pets that I want to adopt
+# And I do not see a section to add more pets to this application
+
+# <%= f.text_field :criteria_reason, class:"form-control", placeholder:'Reason',
+#       style:"#{'display:none' if f.object.criteria == ''}" %>
     # save_and_open_page
     expect(current_path).to eq("/pets/#{@pet_1.id}")
   end
@@ -99,3 +150,4 @@ end
     end
   end
 end
+
