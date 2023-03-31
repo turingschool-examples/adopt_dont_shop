@@ -10,18 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_03_30_235405) do
+ActiveRecord::Schema.define(version: 2023_03_31_051159) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "applicants", force: :cascade do |t|
     t.string "name"
-    t.string "address"
-    t.string "reasons_for_adoption"
+    t.string "street"
+    t.string "city"
+    t.string "state", limit: 2
+    t.string "zip", limit: 5
+    t.string "good_home"
+    t.string "status", default: "In Progress"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "status"
   end
 
   create_table "pet_applicants", force: :cascade do |t|
