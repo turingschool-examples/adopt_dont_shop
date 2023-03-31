@@ -1,0 +1,15 @@
+<h1><%= @app.name %>'s Application for Adoption</h1>
+<ul>
+  <li>Street Address: <%= @app.street_address %></li>
+  <li>City: <%= @app.city %></li>
+  <li>State: <%= @app.state %></li>
+  <li>Zip Code: <%= @app.zip_code %></li>
+  <li>Description: <%= @app.description %></li>
+  <li>Applied to Adopt:</li>
+  <ol>
+    <% @pets.each do |pet| %>
+      <li><%= pet.name %></li>
+    <% end %>
+  </ol>
+  <li>Application Status: <%= @app.status %></li>
+</ul>

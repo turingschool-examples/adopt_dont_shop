@@ -12,13 +12,15 @@ RSpec.describe 'the apps show', type: :feature do
     it 'I can see applications information' do
       visit "/apps/#{@app_1.id}"
 
+      save_and_open_page
+
       expect(page).to have_content("#{@app_1.name}'s Application for Adoption")
       expect(page).to have_content("Street Address: #{@app_1.street_address}")
       expect(page).to have_content("City: #{@app_1.city}")
       expect(page).to have_content("State: #{@app_1.state}")
       expect(page).to have_content("Zip Code: #{@app_1.zip_code}")
       expect(page).to have_content("Description: #{@app_1.description}")
-      expect(page).to have_content("Applied to Adopt: ")
+      expect(page).to have_content("Applied to Adopt:")
       expect(page).to have_content(@pet_1.name)
       expect(page).to have_content(@pet_2.name)
       expect(page).to have_content("Application Status: #{@app_1.status}")
