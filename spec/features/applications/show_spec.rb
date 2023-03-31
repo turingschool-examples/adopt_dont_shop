@@ -8,7 +8,7 @@ RSpec.describe 'the application show' do
     @pet_2 = Pet.create(adoptable: true, age: 3, breed: 'doberman', name: 'Lobster', shelter_id: @shelter.id)
     @pet_3 = Pet.create(adoptable: true, age: 1, breed: 'domestic shorthair', name: 'Sylvester', shelter_id: @shelter_2.id)
     @pet_4 = Pet.create(adoptable: true, age: 1, breed: 'orange tabby shorthair', name: 'Lasagna', shelter_id: @shelter.id)
-    @application_1 = @pet_1.applications.create!(
+    @application_1 = @pet_1.applications.create(
       name: "Billy Mays",
       street_address:  "123 Main St",
       city: "Aurora",
@@ -18,10 +18,20 @@ RSpec.describe 'the application show' do
       description: "I like pets",
       status: "In Progress"
   )
+  @application_2 = @pet_2.applications.create(
+    name: "Gwen Stefani",
+    street_address:  "125 Main St",
+    city: "Aurora",
+    state: "CO",
+    zip: "80012",
+    status: "",
+    description: "I like pets even more",
+    status: "Pending"
+  )
 end
   it 'shows the name, description, pets, app status' do
     visit "/applications/#{@application_1.id}"
-
+    
     expect(page).to have_content("#{@application_1.name}")
     expect(page).to have_content("#{@pet_1.name}")
     expect(page).to have_content("#{@application_1.status}")
