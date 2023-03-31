@@ -1,0 +1,10 @@
+<h1><%= @application.applicant_name %>'s Application</h1>
+<p>Address: <%="#{@application.street_address} #{@application.city}, #{@application.state} #{@application.zip_code}"%><p>
+<p>Reason for adopting: <%= @application.description %>
+<p>Animal Wishlist:<p>
+<% @pets.each do |pet| %>
+<ul>
+<li><%= link_to "#{pet.name}", "/pets/#{pet.id}"%></li>
+</ul>
+<%end%>
+<p>Application status: <%= @application.status%></p>
