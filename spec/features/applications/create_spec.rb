@@ -10,12 +10,12 @@ RSpec.describe 'application creation' do
         visit "/applications/new"
         
         expect(page).to have_content("New Application")
-        expect(find('form')).to have_content("Applicant name")
-        expect(find('form')).to have_content("Street address")
-        expect(find('form')).to have_content("City")
-        expect(find('form')).to have_content("State")
-        expect(find('form')).to have_content("Zip code")
-        expect(find('form')).to have_content("Description")
+        expect(find('form')).to have_content("Name:")
+        expect(find('form')).to have_content("Street Address:")
+        expect(find('form')).to have_content("City:")
+        expect(find('form')).to have_content("State:")
+        expect(find('form')).to have_content("Zip Code:")
+        expect(find('form')).to have_content("Explain why you would be a good home to this pet:")
       end
     end
 
@@ -24,12 +24,12 @@ RSpec.describe 'application creation' do
         it "creates the new application and redirects to the application's show page" do
           visit "/applications/new"
           
-          fill_in 'Applicant name', with: 'Bob'
-          fill_in 'Street address', with: '123 Main St'
-          fill_in 'City', with: 'Denver'
-          fill_in 'State', with: 'CO'
-          fill_in 'Zip code', with: '80238'
-          fill_in 'Description', with: 'I love animals'
+          fill_in 'Name:', with: 'Bob'
+          fill_in 'Street Address:', with: '123 Main St'
+          fill_in 'City:', with: 'Denver'
+          fill_in 'State:', with: 'CO'
+          fill_in 'Zip Code:', with: '80238'
+          fill_in 'Explain why you would be a good home to this pet:', with: 'I love animals'
           click_button "Submit"
          
           expect(page).to have_current_path("/applications/#{Application.last.id}")
@@ -41,7 +41,7 @@ RSpec.describe 'application creation' do
         it 're-renders the new form' do
           visit "/applications/new"
           click_button "Submit"
-          save_and_open_page
+          
           expect(page).to have_current_path("/applications/new")
           expect(page).to have_content("Error: All sections must be filled out")
         end
