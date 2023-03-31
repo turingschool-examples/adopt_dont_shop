@@ -1,0 +1,24 @@
+<h2>New Application</h2>
+
+<%= form_with url: '/applications', method: :post, local: true do |form| %>
+  <%= form.label :name %>
+  <%= form.text_field :name %>
+  <%= form.label :street_address %>
+  <%= form.text_field :street_address %>
+  <%= form.label :city %>
+  <%= form.text_field :city %>
+  <%= form.label :state %>
+  <%= form.text_field :state %>
+  <%= form.label :zip_code %>
+  <%= form.text_field :zip_code %>
+  <%= form.label :reason %>
+  <%= form.text_field :reason %>
+  <%= form.label :status %>
+  <%= select_tag(:status, options_for_select([['In Progress', 0], ['Pending', 1], ['Accepted', 2], ['Rejected', 3]])) %>
+
+  <%= form.submit 'Create Application' %>
+<% end %>
+    
+
+   
+ 
