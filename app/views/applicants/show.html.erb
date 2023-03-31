@@ -1,0 +1,9 @@
+<h2>Applicant Info</h2>
+
+<p>Name: <%= @applicant.name%></p>
+<p>Address: <%= @applicant.address%></p>
+<p>Reasons for Adoption: <%= @applicant.reasons_for_adoption%></p>
+<p>Status: <%= @applicant.status%></p>
+<p><% @applicant.pets.each do |pet|%>
+<p>Currently applying for: <%= link_to pet.name, "/pets/#{pet.id}" %></p>
+<% end %>
