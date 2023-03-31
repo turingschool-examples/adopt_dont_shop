@@ -4,3 +4,4 @@ class PetApplication < ApplicationRecord
 end
 
 # Logans merge conflict
+# Thomas merge conflict
