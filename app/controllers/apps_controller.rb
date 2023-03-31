@@ -5,6 +5,5 @@ class AppsController < ApplicationController
   end
   
   def new
-    
   end
 end
