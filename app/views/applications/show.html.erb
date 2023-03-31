@@ -4,14 +4,21 @@
   <li>Name: <%= @application.name %></li>
   <li>Address: <%= @application.street_address%>, <%= @application.city%> 
   <%=@application.state%> <%=@application.zip%></li>
+  <li><%=@application.description%></li>
   <li>Pets: <% @application.pets.each do |pet|%>
   <%=link_to "#{pet.name}", "/pets/#{pet.id}"%> 
   <% end %>
   </li>
   <li>App Status: <%= @application.status %>
 
-
+<% if @application.pets.empty? != true %>
 <%= form_with url: "/applications/#{@application.id}", method: :patch, local: true do |form| %>
+<% form.label :description%>
+Why would you make a good owner for these pet(s)
+<%=form.text_field :description %><br>
+<%=form.submit "Submit Application"%>
+<% end %>
+<% end %>
 
 </ul>
 

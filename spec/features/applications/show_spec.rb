@@ -54,14 +54,22 @@ end
 
   it "doesn't have submit button" do
     visit "/applications/#{@application_2.id}"
-    
-    expect(page).not_to have_content("Submit Application")
+
+    expect(page).not_to have_button("Submit Application")
   end
 
-  it 'has a submit button' do
+  it 'has a submit button and submits application' do
     visit "/applications/#{@application_1.id}"
+    
+    expect(page).to have_button("Submit Application")
 
-    expect(page).to have_content("Submit Application")
+    fill_in 'description', with: "Because, obviously"
+
+    click_button "Submit Application"
+    save_and_open_page
+
+    expect(page).to have_current_path("/applications/#{@application_1.id}")
+    expect(page).to have_content("Pending")
   end
 end
 
