@@ -1,0 +1,2 @@
+      invoke  active_record
+      create    db/migrate/20230331005712_set_default_value.rb

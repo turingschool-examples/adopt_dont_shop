@@ -123,7 +123,18 @@ RSpec.describe 'the pets index' do
       # expect(page).to have_current_path("/applications/:id")
     end
     it "displays submitted info with an 'In Progress' indicator" do
-      visit "/applications/:id"
+      visit "/applications/new"
+      fill_in(:name, :with => 'John')
+      fill_in(:street_address, :with => '1234 F. Street')
+      fill_in(:city, :with => 'Los Angeles')
+      fill_in(:state, :with => 'California')
+      fill_in(:zip, :with => '80005')
+      fill_in(:description, :with => 'I am the best pet owner')
+      click_on("Create Application")
+      # expect(page).to have_current_path("/applications/:id")
+      expect(page).to have_content("Name: John")
+      expect(page).to have_content("Address: 1234 F. Street")
+      expect(page).to have_content("App Status: In Progress")
     end
   end
 end
