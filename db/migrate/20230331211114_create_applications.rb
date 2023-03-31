@@ -7,9 +7,9 @@ class CreateApplications < ActiveRecord::Migration[5.2]
       t.string :state
       t.string :zip
       t.string :description
-      t.integer :status
 
       t.timestamps
     end
+    add_column :applications, :status, :integer, default: 0
   end
 end
