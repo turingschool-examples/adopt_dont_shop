@@ -22,7 +22,7 @@ ActiveRecord::Schema.define(version: 2023_03_30_213130) do
     t.string "state"
     t.integer "zip_code"
     t.string "description"
-    t.string "names_of_pets"
+    t.string "name_of_pet"
     t.string "application_status"
   end
 
