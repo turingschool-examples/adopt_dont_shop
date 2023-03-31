@@ -8,7 +8,7 @@
   <li>Applied to Adopt:</li>
   <ol>
     <% @pets.each do |pet| %>
-      <li><%= pet.name %></li>
+      <li><%= link_to "#{pet.name}", "/pets/#{pet.id}" %></li>
     <% end %>
   </ol>
   <li>Application Status: <%= @app.status %></li>

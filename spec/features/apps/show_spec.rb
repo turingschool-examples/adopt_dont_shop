@@ -12,8 +12,6 @@ RSpec.describe 'the apps show', type: :feature do
     it 'I can see applications information' do
       visit "/apps/#{@app_1.id}"
 
-      save_and_open_page
-
       expect(page).to have_content("#{@app_1.name}'s Application for Adoption")
       expect(page).to have_content("Street Address: #{@app_1.street_address}")
       expect(page).to have_content("City: #{@app_1.city}")
@@ -24,6 +22,19 @@ RSpec.describe 'the apps show', type: :feature do
       expect(page).to have_content(@pet_1.name)
       expect(page).to have_content(@pet_2.name)
       expect(page).to have_content("Application Status: #{@app_1.status}")
+    end
+
+    it 'I can click on links that go to pets show page' do
+      visit "/apps/#{@app_1.id}"
+
+      save_and_open_page
+      expect(page).to have_link("#{@pet_1.name}", href: "/pets/#{@pet_1.id}")
+      click_link "#{@pet_1.name}"
+      expect(current_path).to eq("/pets/#{@pet_1.id}")
+
+      expect(page).to have_link("#{@pet_2.name}", href: "/pets/#{@pet_2.id}")
+      click_link "#{@pet_2.name}"
+      expect(current_path).to eq("/pets/#{@pet_2.id}")
     end
   end
 end
