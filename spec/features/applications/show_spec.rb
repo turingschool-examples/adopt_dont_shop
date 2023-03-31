@@ -16,5 +16,17 @@ RSpec.describe "/applications/:id" do
       expect(page).to have_link(pet_1.name)
       expect(page).to have_content(application_1.status)
     end
+
+    it "I can search for pets by name and see results" do
+      visit "/applications/#{application_1.id}"
+
+      expect(page).to have_content("Search for Pets to Add to Application")
+      expect(page).to have_button("Search")
+
+      fill_in :search, with: "Clawdia"
+      click_button "Search"
+
+      expect(page).to have_content(pet_2.name)
+    end
   end
 end
