@@ -34,6 +34,19 @@ RSpec.describe "Applicant Show" do
     expect(page).to have_content("Status: #{@olivia.status}")
     expect(page).to have_content("Currently applying for: #{@pet_1.name}")
     expect(page).to have_content("Currently applying for: #{@pet_2.name}")
+    
+  end
+  it "has link to each pet's show page" do
+    visit "/applicants/#{@olivia.id}"
 
+    click_link "#{@pet_1.name}"
+
+    expect(current_path).to eq("/pets/#{@pet_1.id}")
+
+    visit "/applicants/#{@olivia.id}"
+
+    click_link "#{@pet_2.name}"
+
+    expect(current_path).to eq("/pets/#{@pet_2.id}")
   end
 end
