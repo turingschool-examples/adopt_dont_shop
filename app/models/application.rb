@@ -7,4 +7,6 @@ class Application < ApplicationRecord
                         :state, 
                         :zip_code, 
                         :description
+
+  
 end

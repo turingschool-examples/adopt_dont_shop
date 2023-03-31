@@ -5,8 +5,6 @@ class ApplicationsController < ApplicationController
 
   def show
     @application = Application.find(params[:id])
-    if params[:query]
-      @search_results = Pet.search(params[:query])
-    end
+    @search_results = Pet.search(params[:query])
   end      
 end
