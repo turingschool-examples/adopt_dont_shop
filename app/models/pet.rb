@@ -9,6 +9,10 @@ class Pet < ApplicationRecord
     shelter.name
   end
 
+  def self.filter_by_name(params)
+    where(name: params[:Name])
+  end
+
   def self.adoptable
     where(adoptable: true)
   end

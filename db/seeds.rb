@@ -27,6 +27,7 @@
   status: "In Progress",
   description: "I like pets",
 )
+
 Application.create!(
 name: "John Mayer",
 street_address:  "777 Fake Ave",
@@ -36,6 +37,7 @@ zip: "77777",
 status: "In Progress",
 description: "I am the best!",
 )
+
 Application.create!(
 name: "Jorge King",
 street_address:  "333 Round Blvd.",
@@ -47,4 +49,5 @@ description: "I LOVE pets",
 )
 
 # ShelterVeterinarian.destroy_all
+# Shelter.destroy_all
 # Shelter.destroy_all
