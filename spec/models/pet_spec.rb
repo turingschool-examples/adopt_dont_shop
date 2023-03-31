@@ -38,5 +38,11 @@ RSpec.describe Pet, type: :model do
         expect(@pet_3.shelter_name).to eq(@shelter_1.name)
       end
     end
+
+    describe '::search' do
+      it 'returns partial matches' do
+        expect(Pet.search("Claw")).to eq([@pet_2])
+      end
+    end
   end
 end
