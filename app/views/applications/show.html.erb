@@ -6,7 +6,7 @@
   <p><%= @application.city %>, <%= @application.state %> <%= @application.zip %></p>
   <p><b>Animals I'd like to adopt:</b></p>
     <% @application.pets.each do |pet| %>
-  <p><%= pet.name %></p>
+  <p><%= link_to pet.name, "/pets/#{pet.id}" %></p>
     <% end %>
   <p><b>Why I'd make a good cat dad:</b><br>
   <%= @application.description %></p>
