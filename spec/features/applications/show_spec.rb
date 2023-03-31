@@ -27,16 +27,6 @@ RSpec.describe 'the application show' do
     description: "I like pets even more",
     status: "Pending"
   )
-  @application_2 = @pet_2.applications.create(
-    name: "Gwen Stefani",
-    street_address:  "125 Main St",
-    city: "Aurora",
-    state: "CO",
-    zip: "80012",
-    status: "",
-    description: "I haven't chosen any pets",
-    status: "In Progress"
-)
 
    @application_3 = Application.create!(
    name: "Jorge King",
@@ -94,7 +84,6 @@ RSpec.describe 'the application show' do
     fill_in 'description', with: "Because, obviously"
 
     click_button "Submit Application"
-    save_and_open_page
 
     expect(page).to have_current_path("/applications/#{@application_1.id}")
     expect(page).to have_content("Pending")
@@ -132,9 +121,27 @@ RSpec.describe 'the application show' do
 
   #User Story 5
   describe "When i visit /applications/:id" do
-    it "displays pets that match search"
-    it "displays button 'Adopt this Pet'"
-    it "clicking takes me back to /applications/:id with pet listed on application"
+    it "displays pets that match search and a button 'Adopt this Pet'" do
+      visit "/applications/#{@application_4.id}"
+      fill_in(:Name, :with => 'Lobster')
+      click_on("Search")
+      expect(page).to have_content("Add a Pet to this Application")
+      expect(page).to have_content("Adoptable: true")
+      expect(page).to have_content("Age: 3")
+      expect(page).to have_content("Breed: doberman")
+      expect(page).to have_content("Name: Lobster")
+      expect(page).to have_selector(:button, "Adopt this Pet")
+    end
+
+    it "clicking takes me back to /applications/:id with pet listed on application" do
+      visit "/applications/#{@application_4.id}"
+      fill_in(:Name, :with => 'Lobster')
+      click_on("Search")
+      click_on("Adopt this Pet")
+      expect(page).to have_current_path("/applications/#{@application_4.id}")
+      expect(page).to have_content("Pets: Lobster")
+      expect(page).to have_content("App Status: Pending")
+    end
   end
   
 end

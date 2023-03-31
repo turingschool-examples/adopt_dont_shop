@@ -39,6 +39,7 @@ Why would you make a good owner for these pet(s)
   <li>Age: <%= pet.age %></li>
   <li>Breed: <%= pet.breed %></li>
   <li>Name: <%= pet.name %></li>
+  <%= button_to 'Adopt this Pet', "/applications/#{params[:id]}?pet_id=#{pet.id}", method: :patch %>
   </ul>
   <% end %>
   <% end %>
