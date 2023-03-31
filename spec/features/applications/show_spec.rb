@@ -5,6 +5,7 @@ RSpec.describe 'Application Show', type: :feature do
 
   it 'I see applicants name, full address, descripition, name of all pets applying for and status'  do
     visit "/applications/#{applicant1.id}"
+    save_and_open_page
 
     expect(page).to have_content('Jamison Ordway') 
     expect(page).to have_content('123 Cat St, Denver, CO 80238') 

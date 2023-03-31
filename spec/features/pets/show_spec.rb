@@ -6,6 +6,7 @@ RSpec.describe 'the shelter show' do
     pet = Pet.create(name: 'Scooby', age: 2, breed: 'Great Dane', adoptable: true, shelter_id: shelter.id)
 
     visit "/pets/#{pet.id}"
+    
 
     expect(page).to have_content(pet.name)
     expect(page).to have_content(pet.age)
