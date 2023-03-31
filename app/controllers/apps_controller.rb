@@ -1,9 +1,4 @@
 class AppsController < ApplicationController
-
-  def index
-    @apps = App.all 
-  end
-
   def show
     @app = App.find(params[:id])
     @pets = @app.pets
@@ -14,10 +9,10 @@ class AppsController < ApplicationController
 
   def create
     app = App.new(app_params)
+    app.status = "In Progress"
 
     if app.save
-      app.status = "In Progress"
-      redirect_to "/apps/#{app_params[:app_id]}"
+      redirect_to "/apps/#{app.id}"
     else 
       redirect_to "/apps/new"
       flash[:alert] = "Error: #{error_message(app.errors)}"

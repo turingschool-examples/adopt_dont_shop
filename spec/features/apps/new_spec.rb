@@ -31,14 +31,15 @@ RSpec. describe 'New Application' do
       fill_in "description", with: "I like dogs. Give me a dog"
 
       click_button "Submit"
+  
       # expect(current_path).to be("/apps/#{app.id}")
-      expect(page).to have_content("Name: John Travolta")
-      expect(page).to have_content("Street address: 1234 Lamy")
+      expect(page).to have_content("John Travolta's Application for Adoption")
+      expect(page).to have_content("Street Address: 1234 Lamy")
       expect(page).to have_content("City: Denver")
-      expect(page).to have_content("State: Coloarado")
-      expect(page).to have_content("Zip code: 80906")
+      expect(page).to have_content("State: Colorado")
+      expect(page).to have_content("Zip Code: 80906")
       expect(page).to have_content("Description: I like dogs. Give me a dog")
-      espect(page).to have_content("Status: In Progress")
+      expect(page).to have_content("Status: In Progress")
     end
   end
 end
