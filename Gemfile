@@ -45,6 +45,10 @@ group :development, :test do
   gem 'pry'
   gem 'rspec-rails'
   gem 'simplecov'
+  gem 'net-http'
+  gem 'pry-byebug'
+  gem 'faker'
+  gem 'factory_bot'
 end
 
 group :development do
