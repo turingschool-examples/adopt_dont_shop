@@ -90,9 +90,7 @@ RSpec.describe 'the pets index' do
 
     visit "/pets"
 
-    expect(page).to have_link("Start an Application for #{pet_1.name}")
-    expect(page).to have_link("Start an Application for #{pet_2.name}")
-    expect(page).to have_link("Start an Application for #{pet_3.name}")
+    expect(page).to have_link("Start an Application")
   end
 
   it 'takes you to a new application page' do
@@ -103,10 +101,10 @@ RSpec.describe 'the pets index' do
 
     visit "/pets"
 
-    click_link("Start an Application for #{pet_1.name}")
+    click_link("Start an Application")
 
     expect(page).to have_current_path("/applications/new")
-
+    
     expect(page).to have_field("Name")
     fill_in "Name", with: "Bob"
     expect(page).to have_field("Address")
@@ -115,16 +113,24 @@ RSpec.describe 'the pets index' do
     fill_in "City", with: "Bobville"
     expect(page).to have_field("State")
     fill_in "State", with: "FL"
-    expect(page).to have_field("Zip")
-    fill_in "Zip", with: "12345"
-    expect(page).to have_field("Why I would make a good home")
-    fill_in "Why I would make a good home", with: "I love cats"
+    expect(page).to have_field("ZIP")
+    fill_in "ZIP", with: "12345"
+    expect(page).to have_field("Why mine would make a good home")
+    fill_in "Why mine would make a good home", with: "I love cats"
 
     expect(page).to have_button("Submit Application")
 
     click_button("Submit Application")
-
+    
     expect(page).to have_current_path("/applications/#{Application.last.id}")
     expect(page).to have_content("In Progress")
+  end
+
+  it 'requires all fields to be filled in' do
+    visit "/applications/new"
+    fill_in "Name", with: "Bob"
+    click_button("Submit Application")
+    
+    expect(current_path).to eq("/applications/new")
   end
 end
