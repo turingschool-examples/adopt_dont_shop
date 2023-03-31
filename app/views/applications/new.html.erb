@@ -1,4 +1,4 @@
-<%= form_with method: :post, local: true do |form| %>
+<%= form_with url: "/applications", method: :post, local: true do |form| %>
 <p><%= form.label :name %>
 <%= form.text_field :name %></p>
 <p><%= form.label :street_address %>
@@ -11,7 +11,5 @@
 <%= form.text_field :zip_code %></p>
 <p><%= form.label :description %>
 <%= form.text_field :description %></p>
-<p><%= form.label :names_of_pets %>
-<%= form.text_field :names_of_pets %></p>
 <p><%= form.submit "Submit Application" %></p>
 <% end %>

@@ -29,22 +29,21 @@ RSpec.describe 'application creation' do
       expect(current_path).to eq("/pets/#{pet_1.id}/applications/new")
     end
 
-    it 'can create new application for pet' do
+    it 'can create new application for future pet owner' do
       shelter = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
       pet_1 = Pet.create(adoptable: true, age: 1, breed: 'sphynx', name: 'Lucille Bald', shelter_id: shelter.id)
       pet_2 = Pet.create(adoptable: true, age: 3, breed: 'doberman', name: 'Lobster', shelter_id: shelter.id)
 
       visit "/pets/#{pet_1.id}/applications/new"
 
-      fill_in('Name', with: 'Bob')
-      fill_in('Street Name', with: '1234 Southeast St')
-      fill_in('City', with: 'San Francisco')
-      fill_in('State', with: 'CA')
-      fill_in('Zip Code', with: 12345)
-      fill_in('Description', with: 'Wants a dog')
-      fill_in('Names of Pets', with: 'Lobster')
+      fill_in(:name, with: 'Bob')
+      fill_in(:street_address, with: '1234 Southeast St')
+      fill_in(:city, with: 'San Francisco')
+      fill_in(:state, with: 'CA')
+      fill_in(:zip_code, with: 12345)
+      fill_in(:description, with: 'Wants a dog')
       click_button('Submit Application')
 
-      expect(current_path).to eq("/applications/#{application_1.id}")
+      expect(current_path).to eq("/applications/#{application_2.id}")
     end
 end
