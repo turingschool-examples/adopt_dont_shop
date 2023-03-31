@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Application, type: :model do
   before :each do
-    @application_1 = Application.create!(name: 'John Doe', address: '123 Main St', city: 'Denver', state: 'CO', zip: '80202', description: 'I love animals!')
+    @application_1 = Application.create!(name: 'John Doe', address: '123 Main St', city: 'Denver', state: 'CO', zip: '80202', description: 'I love animals!', status: 0)
     @application_2 = Application.create!(name: 'Jane Doe', address: '456 Main St', city: 'Denver', state: 'CO', zip: '80202', description: 'I love animals!', status: 1)
     @application_3 = Application.create!(name: 'John Smith', address: '789 Main St', city: 'Denver', state: 'CO', zip: '80202', description: 'I eat animals!', status: 2)
     @application_4 = Application.create!(name: 'Jane Smith', address: '101 Main St', city: 'Denver', state: 'CO', zip: '80202', description: 'I hate animals!', status: 3)
@@ -10,6 +10,15 @@ RSpec.describe Application, type: :model do
   describe 'relationships' do
     it { should have_many(:pet_applications) }
     it { should have_many(:pets).through(:pet_applications) }
+  end
+
+  describe 'validations' do
+    it { should validate_presence_of(:name) }
+    it { should validate_presence_of(:address) }
+    it { should validate_presence_of(:city) }
+    it { should validate_presence_of(:state) }
+    it { should validate_presence_of(:zip) }
+    it { should validate_presence_of(:description) }
   end
 
   describe 'enum' do
