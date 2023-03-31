@@ -4,5 +4,8 @@
 <p>State: <%= @application.state %></p>
 <p>Zip Code: <%= @application.zip_code %></p>
 <p>Description: <%= @application.description %></p>
-<p>Names of Pets: <%= @application.names_of_pets %></p>
+
+Names of Pets: <% @application.pets.each do |pet| %>
+  
+  <% end %>
 <p>Application Status: <%= @application.application_status %></p>
