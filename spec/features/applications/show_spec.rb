@@ -22,29 +22,32 @@ RSpec.describe "/applications/:id" do
   it "shows application info" do
     visit "/applications/#{@application_1.id}"
 
+    expect(page).to have_content("Bob's Application")
     expect(page).to have_content("123 Home St Denver, CO 80238")
     expect(page).to have_content("I love animals")
-    expect(page).to have_link("#{@pet_1.name}", "/pets/#{@pet_1.id}")
-    expect(page).to have_link("#{@pet_3.name}", "/pets/#{@pet_3.id}")
-    expect(page).to have_link("#{@pet_5.name}", "/pets/#{@pet_5.id}")
+    expect(page).to have_link("#{@pet_1.name}", :href => "/pets/#{@pet_1.id}")
+    expect(page).to have_link("#{@pet_3.name}", :href => "/pets/#{@pet_3.id}")
+    expect(page).to have_link("#{@pet_5.name}", :href => "/pets/#{@pet_5.id}")
     expect(page).to have_content("In Progress")
 
 
     visit "/applications/#{@application_2.id}"
 
+    expect(page).to have_content("Nebula's Application")
     expect(page).to have_content("45 Hippy Avenue Portland, OR 40009")
     expect(page).to have_content("Animals deserve to be freed into the woods")
-    expect(page).to have_link("#{@pet_2.name}", "/pets/#{@pet_2.id}")
-    expect(page).to have_link("#{@pet_4.name}", "/pets/#{@pet_4.id}")
+    expect(page).to have_link("#{@pet_2.name}", :href => "/pets/#{@pet_2.id}")
+    expect(page).to have_link("#{@pet_4.name}", :href => "/pets/#{@pet_4.id}")
     expect(page).to have_content("Pending")
 
 
     visit "/applications/#{@application_3.id}"
 
+    expect(page).to have_content("Angry Tim's Application")
     expect(page).to have_content("94 Gun Street Dallas, TX 60888")
     expect(page).to have_content("Don't question me or my motives")
-    expect(page).to have_link("#{@pet_4.name}", "/pets/#{@pet_4.id}")
-    expect(page).to have_link("#{@pet_5.name}", "/pets/#{@pet_5.id}")
+    expect(page).to have_link("#{@pet_4.name}", :href => "/pets/#{@pet_4.id}")
+    expect(page).to have_link("#{@pet_5.name}", :href => "/pets/#{@pet_5.id}")
     expect(page).to have_content("Approved")
   end
 
