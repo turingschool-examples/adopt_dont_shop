@@ -9,6 +9,10 @@
   <% end %>
   </li>
   <li>App Status: <%= @application.status %>
+
+
+<%= form_with url: "/applications/#{@application.id}", method: :patch, local: true do |form| %>
+
 </ul>
 
 

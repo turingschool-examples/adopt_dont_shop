@@ -18,7 +18,18 @@ RSpec.describe 'the application show' do
       description: "I like pets",
       status: "In Progress"
   )
+  @application_2 = Application.create!(
+    name: "Charlie Puth",
+    street_address:  "124 Main St",
+    city: "Aurora",
+    state: "CO",
+    zip: "80012",
+    status: "",
+    description: "I haven't chosen any pets",
+    status: "In Progress"
+)
 end
+
   it 'shows the name, description, pets, app status' do
     visit "/applications/#{@application_1.id}"
 
@@ -29,7 +40,6 @@ end
 
   it 'shows address' do
     visit "/applications/#{@application_1.id}"
-    save_and_open_page
 
     expect(page).to have_content("#{@application_1.street_address}, #{@application_1.city} #{@application_1.state} #{@application_1.zip}")
   end
@@ -38,18 +48,36 @@ end
     visit "/applications/#{@application_1.id}"
 
     click_link("#{@pet_1.name}")
-    save_and_open_page
+
     expect(current_path).to eq("/pets/#{@pet_1.id}")
+  end
+
+  it "doesn't have submit button" do
+    visit "/applications/#{@application_2.id}"
+    
+    expect(page).not_to have_content("Submit Application")
+  end
+
+  it 'has a submit button' do
+    visit "/applications/#{@application_1.id}"
+
+    expect(page).to have_content("Submit Application")
   end
 end
 
-# 1. Application Show Page
+#6 Submit an Applicaiton
 
 # As a visitor
-# When I visit an applications show page
-# Then I can see the following:
-# - Name of the Applicant
-# - Full Address of the Applicant including street address, city, state, and zip code
-# - Description of why the applicant says they'd be a good home for this pet(s)
-# - names of all pets that this application is for (all names of pets should be links to their show page)
-# - The Application's status, either "In Progress", "Pending", "Accepted", or "Rejected"
+# When I visit an application's show page
+# And I have added one or more pets to the application
+# Then I see a section to submit my application
+# And in that section I see an input to enter why I would make a good owner for these pet(s)
+# When I fill in that input
+# And I click a button to submit this application
+# Then I am taken back to the application's show page
+# And I see an indicator that the application is "Pending"
+# And I see all the pets that I want to adopt
+# And I do not see a section to add more pets to this application
+
+# <%= f.text_field :criteria_reason, class:"form-control", placeholder:'Reason',
+#       style:"#{'display:none' if f.object.criteria == ''}" %>
