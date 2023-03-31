@@ -4,4 +4,7 @@ class AppsController < ApplicationController
     @pets = @app.pets
   end
   
+  def new
+    
+  end
 end
