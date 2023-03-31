@@ -3,4 +3,5 @@ class AppsController < ApplicationController
     @app = App.find(params[:id])
     @pets = @app.pets
   end
+  
 end
