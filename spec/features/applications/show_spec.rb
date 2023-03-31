@@ -17,17 +17,6 @@ RSpec.describe 'the application show' do
       status: "In Progress",
       description: "I like pets",
   )
-
-   @application_3 = Application.create!(
-   name: "Jorge King",
-   street_address:  "333 Round Blvd.",
-   city: "Sacramento",
-   state: "CA",
-   zip: "90071",
-   status: "Rejected",
-   description: "I LOVE pets",
-)
-
   @application_2 = @pet_2.applications.create(
     name: "Gwen Stefani",
     street_address:  "125 Main St",
@@ -38,7 +27,24 @@ RSpec.describe 'the application show' do
     description: "I like pets even more",
     status: "Pending"
   )
-
+   @application_3 = Application.create!(
+   name: "Jorge King",
+   street_address:  "333 Round Blvd.",
+   city: "Sacramento",
+   state: "CA",
+   zip: "90071",
+   status: "Rejected",
+   description: "I LOVE pets",
+)
+  @application_4 = Application.create!(
+    name: "Jorge King",
+    street_address:  "333 Round Blvd.",
+    city: "Sacramento",
+    state: "CA",
+    zip: "90071",
+    status: "In Progress",
+    description: "I LOVE pets",
+ )
 end
 
   it 'shows the name, description, pets, app status' do
@@ -68,7 +74,7 @@ end
   describe "When i visit /applications/:id" do
 
     it "displays a section to add a pet if application has not been submitted" do
-      visit "/applications/#{@application_2.id}"
+      visit "/applications/#{@application_4.id}"
       expect(page).to have_content("Add a Pet to this Application")
 
       visit "/applications/#{@application_3.id}"
@@ -76,13 +82,13 @@ end
     end
 
     it "displays an input to search for pets by name" do
-      visit "/applications/#{@application_2.id}"
+      visit "/applications/#{@application_4.id}"
       expect(page).to have_content("Add a Pet to this Application")
       expect(page).to have_field(:Name)
       expect(page).to have_selector(:button, "Search")
     end
     it "filling and submitting search redirects to /applications/:id and displays results" do
-      visit "/applications/#{@application_2.id}"
+      visit "/applications/#{@application_4.id}"
       fill_in(:Name, :with => 'Lobster')
       click_on("Search")
       expect(page).to have_content("Add a Pet to this Application")
