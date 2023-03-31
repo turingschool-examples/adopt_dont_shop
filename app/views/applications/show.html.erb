@@ -1,0 +1,13 @@
+<h1><%= @application.name %>'s Application</h2>
+
+<div>
+  <p><b>Address:</b></p>
+  <p><%= @application.address %></p>
+  <p><%= @application.city %>, <%= @application.state %> <%= @application.zip %></p>
+  <p><b>Animals I'd like to adopt:</b></p>
+    <% @application.pets.each do |pet| %>
+  <p><%= pet.name %></p>
+    <% end %>
+  <p><b>Why I'd make a good cat dad:</b><br>
+  <%= @application.description %></p>
+  <p><b>Application Status:</b> <%= @application.status %></p>
