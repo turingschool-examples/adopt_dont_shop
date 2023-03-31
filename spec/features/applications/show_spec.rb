@@ -23,7 +23,7 @@ RSpec.describe 'Application Show Page' do
    describe 'As a visitor' do
     it 'I can see the application and its attributes' do
       visit "/applications/#{@application_1.id}"
-      save_and_open_page
+      
       expect(page).to have_content(@application_1.name)
       expect(page).to have_content(@application_1.address)
       expect(page).to have_content(@application_1.city)
@@ -33,6 +33,19 @@ RSpec.describe 'Application Show Page' do
       expect(page).to have_content("Lucille Bald")
       expect(page).to have_content("Lobster")
       expect(page).to have_content(@application_1.status)
+    end
+  end
+
+  describe 'As a visitor' do
+    describe 'When I visit an applications show page' do
+      it 'I can see a section to search for pets by name' do
+        visit "/applications/#{@application_1.id}"
+        
+        expect(page).to have_content("Add a Pet to this Application")
+        expect(page).to have_content("Search for Pets")
+        expect(page).to have_field(:search)
+        expect(page).to have_button("Search")
+      end
     end
   end
 end
