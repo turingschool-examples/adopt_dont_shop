@@ -1,14 +1,19 @@
 class ApplicationsController < ApplicationController
 
-  def index
-    @applications = Application.all
-  end
-
   def new
-    @application = Application.new
   end
 
   def show
     @application = Application.find(params[:id])
   end
+
+  def create
+    application = Application.create!(application_params)
+    @application = application
+    redirect_to "/applications/#{application.id}"
+   end
+ 
+   def application_params
+    params.permit(:name, :street_address, :city, :state, :zip_code, :description)
+   end
 end
