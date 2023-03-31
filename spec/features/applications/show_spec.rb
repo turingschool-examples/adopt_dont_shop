@@ -18,7 +18,7 @@ RSpec.describe 'the application show' do
       description: "I like pets",
   )
 
-  @application_2 = Application.create!(
+  @application_5 = Application.create!(
     name: "Charlie Puth",
     street_address:  "124 Main St",
     city: "Aurora",
@@ -56,6 +56,15 @@ RSpec.describe 'the application show' do
     status: "In Progress",
     description: "I LOVE pets",
  )
+ @application_5 = Application.create!(
+  name: "Charlie Puth",
+  street_address:  "124 Main St",
+  city: "Aurora",
+  state: "CO",
+  zip: "80012",
+  description: "I like pets even more",
+  status: "Pending"
+)
   end
 
   it 'shows the name, description, pets, app status' do
@@ -81,7 +90,7 @@ RSpec.describe 'the application show' do
   end
 
   it "doesn't have submit button" do
-    visit "/applications/#{@application_2.id}"
+    visit "/applications/#{@application_5.id}"
 
     expect(page).not_to have_button("Submit Application")
   end
