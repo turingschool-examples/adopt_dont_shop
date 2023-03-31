@@ -17,13 +17,22 @@ RSpec.describe 'admin shelters' do
       zip: "80012",
       status: "",
       description: "I like pets",
-      status: "In Progress"
+      status: "Pending"
   )
   end
 
   it 'shows shelters with pending applications' do
     visit '/admin/shelters' 
-
     expect(page).to have_content("#{@shelter_1.name}")
   end
 end
+
+
+# For this story, you should fully leverage ActiveRecord methods in your query.
+
+# 11. Shelters with Pending Applications
+
+# As a visitor
+# When I visit the admin shelter index ('/admin/shelters')
+# Then I see a section for "Shelters with Pending Applications"
+# And in this section I see the name of every shelter that has a pending application

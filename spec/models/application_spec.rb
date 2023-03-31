@@ -5,8 +5,7 @@ RSpec.describe Application, type: :model do
     it {should have_many(:application_pets)}
     it {should have_many(:pets).through(:application_pets)}
   end
-
-  it 'sorts for pending' do
+  before(:each) do
     @application_1 = Application.create(
       name: "Billy Mays",
       street_address:  "123 Main St",
@@ -27,7 +26,5 @@ RSpec.describe Application, type: :model do
     description: "I like pets even more",
     status: "Pending"
   )
-  
-  expect(Application.only_pending).to eq([@application_2])
   end
 end

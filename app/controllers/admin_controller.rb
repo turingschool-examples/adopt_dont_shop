@@ -1,6 +1,6 @@
 class AdminController < ApplicationController
   def shelters_index
-    @shelters = Shelters.all
-    @pets = Pets.all
+    @shelters = Shelter.all
+    @pets = Pet.all
   end
 end

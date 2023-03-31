@@ -22,6 +22,26 @@ RSpec.describe Shelter, type: :model do
     @pet_2 = @shelter_1.pets.create(name: 'Clawdia', breed: 'shorthair', age: 3, adoptable: true)
     @pet_3 = @shelter_3.pets.create(name: 'Lucille Bald', breed: 'sphynx', age: 8, adoptable: true)
     @pet_4 = @shelter_1.pets.create(name: 'Ann', breed: 'ragdoll', age: 5, adoptable: true)
+    @application_1 = @pet_1.applications.create(
+      name: "Billy Mays",
+      street_address:  "123 Main St",
+      city: "Aurora",
+      state: "CO",
+      zip: "80012",
+      status: "",
+      description: "I like pets",
+      status: "In Progress"
+  )
+  @application_2 = @pet_3.applications.create(
+    name: "Gwen Stefani",
+    street_address:  "125 Main St",
+    city: "Aurora",
+    state: "CO",
+    zip: "80012",
+    status: "",
+    description: "I like pets even more",
+    status: "Pending"
+  )
   end
 
   describe 'class methods' do
@@ -40,6 +60,12 @@ RSpec.describe Shelter, type: :model do
     describe '#order_by_number_of_pets' do
       it 'orders the shelters by number of pets they have, descending' do
         expect(Shelter.order_by_number_of_pets).to eq([@shelter_1, @shelter_3, @shelter_2])
+      end
+    end
+
+    describe "#join_applicaiton_pending" do
+      it 'joins on pending app and plucks shelter name' do
+        expect(Shelter.join_applicaiton_pending).to eq(["#{@shelter_3.name}"])
       end
     end
   end
