@@ -1,15 +1,15 @@
 <%= form_with url: "/applications", method: :post, local: true do |form| %>
 <p><%= form.label :name %>
-<%= form.text_field :name %></p>
+<%= form.text_field :name, :required => true %></p>
 <p><%= form.label :street_address %>
-<%= form.text_field :street_address %></p>
+<%= form.text_field :street_address, :required => true %></p>
 <p><%= form.label :city %>
-<%= form.text_field :city %></p>
+<%= form.text_field :city, :required => true %></p>
 <p><%= form.label :state %>
-<%= form.text_field :state %></p>
+<%= form.text_field :state, :required => true %></p>
 <p><%= form.label :zip_code %>
-<%= form.text_field :zip_code %></p>
+<%= form.text_field :zip_code, :required => true %></p>
 <p><%= form.label :description %>
-<%= form.text_field :description %></p>
+<%= form.text_field :description, :required => true %></p>
 <p><%= form.submit "Submit Application" %></p>
 <% end %>
