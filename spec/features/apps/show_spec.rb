@@ -27,7 +27,6 @@ RSpec.describe 'the apps show', type: :feature do
     it 'I can click on links that go to pets show page' do
       visit "/apps/#{@app_1.id}"
 
-      save_and_open_page
       expect(page).to have_link("#{@pet_1.name}", href: "/pets/#{@pet_1.id}")
       click_link "#{@pet_1.name}"
       expect(current_path).to eq("/pets/#{@pet_1.id}")
