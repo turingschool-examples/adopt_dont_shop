@@ -38,7 +38,7 @@ RSpec.describe "/applications/:id" do
       click_button "Adopt this Pet"
 
       expect(page).to have_link(pet_2.name)
-      expect(pet_2.name).to appear_before("Add a Pet to this Application")
+      expect(pet_2.name).to appear_before("Submit Application")
     end
 
     it "I can submit an application for one or more pets, and add a description on why I would make a good pet owner" do
@@ -58,6 +58,31 @@ RSpec.describe "/applications/:id" do
       expect(page).to have_content("Status: Pending")
       expect(page).to_not have_button("Submit Application")
       expect(page).to_not have_content("Why would you make a good pet owner?")
+    end
+
+    it 'does not allow me to submit an application without a pet selected' do
+      visit "/applications/#{application_1.id}"
+
+      expect(page).to_not have_button("Submit Application")
+      expect(page).to_not have_content("Why would you make a good pet owner?")
+    end
+
+    it 'can find results with partial matches' do
+      visit "/applications/#{application_1.id}"
+
+      fill_in :query, with: "Mr"
+      click_button "Search"
+
+      expect(page).to have_content(pet_1.name)
+    end
+
+    it 'can find results with partial matches and case insensitive' do
+      visit "/applications/#{application_1.id}"
+
+      fill_in :query, with: "mr"
+      click_button "Search"
+
+      expect(page).to have_content(pet_1.name)
     end
   end
 end

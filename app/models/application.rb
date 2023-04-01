@@ -9,6 +9,14 @@ class Application < ApplicationRecord
                         :description
 
   def eligible?
-    status == "In Progress"
+    status == "In Progress" && !pets.empty?
+  end
+
+  def self.create_app(params)
+    application = Application.new(params)
+    if application.valid?
+      application.save!
+      application
+    end
   end
 end
