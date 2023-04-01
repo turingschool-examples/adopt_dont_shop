@@ -136,16 +136,16 @@ RSpec.describe "/applications/:id" do
     expect(page.has_button?("Submit")).to eq(true)
   end
 
-  # it 'does not display a section to submit application if no pets have been added' do
-  #   visit "/applications/#{@application_4.id}"
+  it 'does not display a section to submit application if no pets have been added' do
+    visit "/applications/#{@application_4.id}"
   
-  #   expect(@application_4.pets.empty?).to eq(true)
-  #   expect(page).to_not have_content(@pet_1.name)
-  #   expect(page).to_not have_content(@pet_2.name)
-  #   expect(page).to_not have_content("Submit my application")
-  #   expect(page.has_field?("freeform")).to eq(false)
-  #   expect(page.has_button?("Submit")).to eq(false)
-  # end
+    expect(@application_4.pets.empty?).to eq(true)
+    expect(page).to_not have_content(@pet_1.name)
+    expect(page).to_not have_content(@pet_2.name)
+    expect(page).to_not have_content("Submit my application")
+    expect(page.has_field?("freeform")).to eq(false)
+    expect(page.has_button?("Submit")).to eq(false)
+  end
 
   it 'Submit button updates description attribute to given text and status to pending' do
     visit "/applications/#{@application_4.id}"
