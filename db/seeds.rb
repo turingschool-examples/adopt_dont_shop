@@ -1,5 +1,10 @@
 require 'faker'
 
+Shelter.destroy_all
+Pet.destroy_all
+Application.destroy_all
+ApplicationPet.destroy_all
+
 # shelters
 5.times do 
   Shelter.create!(
