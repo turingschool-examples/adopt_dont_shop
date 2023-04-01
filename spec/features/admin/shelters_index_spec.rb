@@ -33,14 +33,14 @@ RSpec.describe 'admin shelters' do
     visit '/admin/shelters' 
     expect(page).to have_content("#{@shelter_1.name}")
   end
+
+  #User Story 10
+  describe "When i visit /admin/shelters" do
+    it "displays all shelters in reverse alphabetical order" do
+      visit '/admin/shelters' 
+      expect(@shelter_2.name).to appear_before(@shelter_3.name)
+      expect(@shelter_3.name).to appear_before(@shelter_1.name)
+    end
+  end
 end
 
-
-# For this story, you should fully leverage ActiveRecord methods in your query.
-
-# 11. Shelters with Pending Applications
-
-# As a visitor
-# When I visit the admin shelter index ('/admin/shelters')
-# Then I see a section for "Shelters with Pending Applications"
-# And in this section I see the name of every shelter that has a pending application

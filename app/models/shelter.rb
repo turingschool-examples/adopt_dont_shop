@@ -7,7 +7,9 @@ class Shelter < ApplicationRecord
   has_many :ShelterVeterinarians
 
   def self.order_alpha
-    order(name: :desc)
+    select("shelters.*")
+    .from("shelters")
+    .order("name DESC")
   end
 
   def self.order_by_recently_created
