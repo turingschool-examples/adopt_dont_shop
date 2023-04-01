@@ -2,6 +2,7 @@ class ApplicantsController < ApplicationController
 
   def show
     @applicant = Applicant.find(params[:id])
+    @searched_pets = Pet.search(params[:search_name]) if !params[:search_name].nil?
   end
 
   def new
@@ -20,6 +21,6 @@ class ApplicantsController < ApplicationController
 
   private
   def applicant_params
-    params.permit(:id, :name, :street, :city, :state, :zip, :good_home)  
+    params.permit(:id, :name, :street, :city, :state, :zip, :good_home, :search_name)  
   end
 end
