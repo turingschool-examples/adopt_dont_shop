@@ -23,5 +23,12 @@ class ApplicationsController < ApplicationController
       redirect_to "/applications/new"
     end
   end
+
+  def update
+    application = Application.find(params[:id])
+    application.update(status: 1)
+    application.update(good_owner: params[:good_owner])
+    redirect_to "/applications/#{application.id}"
+  end
   
 end
