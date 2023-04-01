@@ -7,4 +7,8 @@ class App < ApplicationRecord
   validates :description, presence: true
   has_many :app_pets
   has_many :pets, through: :app_pets
+
+  def apply_adopt(p_input_id)
+    AppPet.create(app_id: id, pet_id: p_input_id)
+  end
 end

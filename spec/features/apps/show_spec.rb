@@ -53,12 +53,14 @@ RSpec.describe 'the apps show', type: :feature do
     end
 
     it 'I see a button to adopt a searched pet' do
+      visit "/apps/#{@app_1.id}"
+
       fill_in 'search', with: 'Maximus'
       click_button 'Search Pets'
       expect(page).to have_content('Maximus')
       expect(@app_1.pets.count).to eq(2)
 
-      expect(@pet_3.name).to appear_after('Add a pet to this Application')
+      expect('Add a pet to this Application').to appear_before(@pet_3.name)
       expect(page).to have_button('Adopt this Pet')
 
       click_button 'Adopt this Pet'
