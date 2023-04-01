@@ -10,7 +10,6 @@ class ApplicantsController < ApplicationController
 
   def create
     applicant = Applicant.new(applicant_params)
-    # require 'pry'; binding.pry
      if applicant.save
       redirect_to "/applicants/#{applicant.id}"
      else 
@@ -21,7 +20,6 @@ class ApplicantsController < ApplicationController
 
   private
   def applicant_params
-    
     params.permit(:id, :name, :street, :city, :state, :zip, :good_home)  
   end
 end
