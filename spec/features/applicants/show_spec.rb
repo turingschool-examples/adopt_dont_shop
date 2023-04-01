@@ -14,13 +14,13 @@ RSpec.describe "Applicant Show" do
                                foster_program: false, 
                                rank: 9)
 
-    @pet_1 = Pet.create(adoptable: true,
+    @pet_1 = Pet.create!(adoptable: true,
                         age: 1, 
                         breed: 'sphynx', 
                         name: 'Lucille Bald', 
                         shelter_id: @shelter.id)
 
-    @pet_2 = Pet.create(adoptable: true, 
+    @pet_2 = Pet.create!(adoptable: true, 
                         age: 3, 
                         breed: 'doberman', 
                         name: 'Lobster', 
