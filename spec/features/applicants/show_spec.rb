@@ -61,25 +61,36 @@ RSpec.describe "Applicant Show" do
   end
   
   describe "Add a Pet to this Application" do
+    before :each do
+      @shelter_1 = Shelter.create(name: 'Mystery Building', city: 'Irvine CA', foster_program: false, rank: 9)
+      @scooby = Pet.create(name: 'Scooby', age: 2, breed: 'Great Dane', adoptable: true, shelter_id: @shelter_1.id)
+      @heather = Applicant.create(name: "Heather", street: "pearl st", city: "denver", state: "CO", zip: "80203", good_home: "live close to dog parks")
+    end
+
     it "has a search bar for a pet by name, that displays any pet names that matches the search" do
-      shelter_1 = Shelter.create(name: 'Mystery Building', city: 'Irvine CA', foster_program: false, rank: 9)
-      scooby = Pet.create(name: 'Scooby', age: 2, breed: 'Great Dane', adoptable: true, shelter_id: shelter_1.id)
-      heather = Applicant.create(name: "Heather", street: "pearl st", city: "denver", state: "CO", zip: "80203", good_home: "live close to dog parks")
-      visit "/applicants/#{heather.id}"
+      visit "/applicants/#{@heather.id}"
 
       expect(page).to have_content("Add a Pet to this Application")
       fill_in :search_name, with: "Scooby"
       
       click_on "Search" 
 
-      expect(current_path).to eq("/applicants/#{heather.id}") 
-      expect(page).to have_content(scooby.name)
+      expect(current_path).to eq("/applicants/#{@heather.id}") 
+      expect(page).to have_content(@scooby.name)
     end
 
     it 'can add a searched pet to an application' do 
+      visit "/applicants/#{@heather.id}"
+
+      expect(page).to_not have_content("Adopt this Pet")
+
+      fill_in :search_name, with: "Scooby"
+      click_on "Search"
+      click_on "Adopt this Pet"
+
+      expect(current_path).to eq("/applicants/#{@heather.id}")
+      expect(page).to have_content("#{@heather.pets.name}")
     # 5. Add a Pet to an Application
-    # As a visitor
-    # When I visit an application's show page
     # And I search for a Pet by name
     # And I see the names Pets that match my search
     # Then next to each Pet's name I see a button to "Adopt this Pet"

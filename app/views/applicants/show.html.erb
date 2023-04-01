@@ -17,20 +17,28 @@
   <br>
 <p> <% end %> </p>
 <br>
-<br>
-<h3>Add a Pet to this Application</h3>
-<ul>
-<% if !@searched_pets.nil? %>
-  <% @searched_pets.each do |pet| %>
-    <b><%= pet.name %></b>   <small><%= "adoptable: #{pet.adoptable}" %></small> 
+<% if @applicant.status == 'In Progress' %>
+  <h3>Add a Pet to this Application</h3>
+  <%= form_with url: "/applicants/#{@applicant.id}", method: :get, local: true do |form| %>
+    <%= form.label :search_name %>
+    <%= form.text_field :search_name %>
+    <%= form.submit "Search" %>
   <% end %>
-<% end %>
-</ul>
-<br>
-<%= form_with url: "/applicants/#{@applicant.id}", method: :get, local: true do |form| %>
-  <%= form.label :search_name %>
-  <%= form.text_field :search_name %>
-  <%= form.submit "Search" %>
+  <br>
+    <% if params[:search_name] && @searched_pets.empty? %>
+      <p> No pets found with that name </p>
+    <% elsif params[:search_name] %>
+      <% @searched_pets.each do |pet| %>
+      <div id="pet-<%= pet.id %>">
+      <%= link_to pet.name, "/pets/#{pet.id}" %>
+      <%= form_with model: PetApplicant.new, url: "/pet_applicants", local: true, method: :post do |form| %>
+        <%= form.hidden_field :pet_id, value: pet.id %>
+        <%= form.hidden_field :applicant_id, value: @applicant.id %>
+        <%= form.submit "Adopt this Pet" %>
+      <% end %> 
+    <% end %> 
+  <% end %>
+    <br> 
 <% end %>
 <br>
 </body>
