@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'new applicatiom' do
-  it 'displays fieklds' do
+  it 'displays fields' do
     visit '/applications/new'
     expect(page).to have_content("Name")
     expect(page).to have_content("Address")
