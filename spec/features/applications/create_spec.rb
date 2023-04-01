@@ -33,7 +33,7 @@ RSpec.describe 'application creation' do
           click_button "Submit"
          
           expect(page).to have_current_path("/applications/#{Application.last.id}")
-          # expect(page).to have_content('Bob')
+          expect(page).to have_content('Bob')
         end
       end
 
