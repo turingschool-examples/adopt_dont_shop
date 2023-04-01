@@ -14,13 +14,13 @@ RSpec.describe "Applicant Show" do
                                foster_program: false, 
                                rank: 9)
 
-    @pet_1 = Pet.create(adoptable: true,
+    @pet_1 = Pet.create!(adoptable: true,
                         age: 1, 
                         breed: 'sphynx', 
                         name: 'Lucille Bald', 
                         shelter_id: @shelter.id)
 
-    @pet_2 = Pet.create(adoptable: true, 
+    @pet_2 = Pet.create!(adoptable: true, 
                         age: 3, 
                         breed: 'doberman', 
                         name: 'Lobster', 
@@ -58,5 +58,45 @@ RSpec.describe "Applicant Show" do
     click_link "#{@pet_2.name}"
 
     expect(current_path).to eq("/pets/#{@pet_2.id}")
+  end
+  
+  describe "Add a Pet to this Application" do
+    before :each do
+      @shelter_1 = Shelter.create(name: 'Mystery Building', city: 'Irvine CA', foster_program: false, rank: 9)
+      @scooby = Pet.create(name: 'Scooby', age: 2, breed: 'Great Dane', adoptable: true, shelter_id: @shelter_1.id)
+      @heather = Applicant.create(name: "Heather", street: "pearl st", city: "denver", state: "CO", zip: "80203", good_home: "live close to dog parks")
+    end
+
+    it "has a search bar for a pet by name, that displays any pet names that matches the search" do
+      visit "/applicants/#{@heather.id}"
+
+      expect(page).to have_content("Add a Pet to this Application")
+      fill_in :search_name, with: "Scooby"
+      
+      click_on "Search" 
+
+      expect(current_path).to eq("/applicants/#{@heather.id}") 
+      expect(page).to have_content(@scooby.name)
+    end
+
+    it 'can add a searched pet to an application' do 
+      visit "/applicants/#{@heather.id}"
+
+      expect(page).to_not have_content("Adopt this Pet")
+
+      fill_in :search_name, with: "Scooby"
+      click_on "Search"
+      click_on "Adopt this Pet"
+
+      expect(current_path).to eq("/applicants/#{@heather.id}")
+      expect(page).to have_content("#{@heather.pets.name}")
+    # 5. Add a Pet to an Application
+    # And I search for a Pet by name
+    # And I see the names Pets that match my search
+    # Then next to each Pet's name I see a button to "Adopt this Pet"
+    # When I click one of these buttons
+    # Then I am taken back to the application show page
+    # And I see the Pet I want to adopt listed on this application
+    end
   end
 end
