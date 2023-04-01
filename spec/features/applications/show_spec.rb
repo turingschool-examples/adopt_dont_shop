@@ -11,6 +11,7 @@ RSpec.describe "/applications/:id" do
     @application_1 = Application.create!(applicant_name: "Bob", street_address: "123 Home St", city: "Denver", state: "CO", zip_code: "80238", description: "I love animals")
     @application_2 = Application.create!(applicant_name: "Nebula", street_address: "45 Hippy Avenue", city: "Portland", state: "OR", zip_code: "40009", description: "Animals deserve to be freed into the woods", status: "Pending")
     @application_3 = Application.create!(applicant_name: "Angry Tim", street_address: "94 Gun Street", city: "Dallas", state: "TX", zip_code: "60888", description: "Don't question me or my motives", status: "Approved")
+    @application_4 = Application.create!(applicant_name: "Hubert Farnsworth", street_address: "Farnsvill 34", city: "New New York", state: "NY", zip_code: "00123")
     PetApplication.create!(pet_id: @pet_1.id, application_id: @application_1.id)
     PetApplication.create!(pet_id: @pet_3.id, application_id: @application_1.id)
     PetApplication.create!(pet_id: @pet_5.id, application_id: @application_1.id)
@@ -113,6 +114,25 @@ RSpec.describe "/applications/:id" do
     click_link("Adopt #{@pet_6.id}")
 
     expect(page).to have_link("#{@pet_6.name}")
+  end
+
+  it 'displays section to submit application  if pets have been added' do
+    visit "/applications/#{@application_2.id}"
+
+    expect(page).to have_content(@pet_2.name)
+    expect(page).to have_content("Submit my application")
+    expect(page).to have_content("Enter a desccription of why you would make a good owner for these pet(s)")
+    expect(page.has_button?("Submit")).to eq(true)
+  end
+
+  it 'does not display a section to submit application if no pets have been added' do
+    visit "/applications/#{@application_4.id}"
+  
+    expect(page).to_not have_content(@pet_1.name)
+    expect(page).to_not have_content(@pet_2.name)
+    expect(page).to_not have_content("Submit my application")
+    expect(page).to_not have_content("Enter a desccription of why you would make a good owner for these pet(s)")
+    expect(page.has_button?("Submit")).to eq(false)
   end
 end
 

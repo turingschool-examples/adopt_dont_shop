@@ -15,7 +15,7 @@ RSpec.describe 'application creation' do
         expect(find('form')).to have_content("City:")
         expect(find('form')).to have_content("State:")
         expect(find('form')).to have_content("Zip Code:")
-        expect(find('form')).to have_content("Explain why you would be a good home to this pet:")
+        # expect(find('form')).to have_content("Explain why you would be a good home to this pet:")
       end
     end
 
