@@ -41,5 +41,14 @@ RSpec. describe 'New Application' do
       expect(page).to have_content("Description: I like dogs. Give me a dog")
       expect(page).to have_content("Status: In Progress")
     end
+
+    xit 'I can not create an application without all the data' do
+      visit '/apps/new'
+
+      click_button "Submit"
+      
+      expect(page).to have_content("Application not created: Required information missing.")
+      expect(page).to have_button('Create Application')
+    end
   end
 end

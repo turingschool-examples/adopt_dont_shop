@@ -9,13 +9,12 @@ class AppsController < ApplicationController
 
   def create
     app = App.new(app_params)
-    app.status = "In Progress"
-
+    
     if app.save
       redirect_to "/apps/#{app.id}"
-    else 
-      redirect_to "/apps/new"
-      flash[:alert] = "Error: #{error_message(app.errors)}"
+    else
+      flash[:notice] = "Application not created: Required information missing."
+      render :new
     end
   end
 
