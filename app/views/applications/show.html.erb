@@ -21,6 +21,6 @@
 
 <% if @search_results %>
   <% @search_results.each do |pet| %>
-    <%= pet.name %>
+    <%= pet.name %><%= button_to "Adopt this Pet", "/application_pets/#{pet.id}/new?application_id=#{@application.id}" %>
   <% end %>
 <% end %>

@@ -27,5 +27,19 @@ RSpec.describe "/applications/:id" do
 
       expect(page).to have_content(pet_2.name)
     end
+
+    it "There is a button to 'Adopt this Pet' next to each pet" do
+      visit "/applications/#{application_1.id}"
+
+      fill_in :query, with: "Clawdia"
+      click_button "Search"
+
+      expect(page).to have_button("Adopt this Pet")
+
+      click_button "Adopt this Pet"
+
+      expect(page).to have_link(pet_2.name)
+      expect(pet_2.name).to appear_before("Add a Pet to this Application")
+    end
   end
 end
