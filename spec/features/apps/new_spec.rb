@@ -47,7 +47,6 @@ RSpec. describe 'New Application' do
 
       click_button "Submit"
       
-      save_and_open_page
       expect(page).to have_content("Application not created: Required information missing.")
       # expect(page).to have_button('Create Application')
     end
