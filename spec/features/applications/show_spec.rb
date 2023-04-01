@@ -21,6 +21,7 @@ RSpec.describe 'Application Show Page' do
     PetApplication.create!(pet_id: @pet_1.id, application_id: @application_1.id)
     PetApplication.create!(pet_id: @pet_3.id, application_id: @application_1.id)
   end
+  
    describe 'As a visitor' do
     it 'I can see the application and its attributes' do
       visit "/applications/#{@application_1.id}"

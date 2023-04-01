@@ -5,8 +5,11 @@
   <%= f.submit "Search" %>
 <% end %>
 
-<% if @pet_search != nil %>
+<% if @pet_search.present? %>
   <% @pet_search.each do |pet| %>
-    <p><%= link_to pet.name, "/pets/#{pet.id}" %></p>
+    <p>
+      <%= link_to pet.name, "/pets/#{pet.id}" %>
+      <%= link_to "Adopt this Pet", add_pet_application_path(@application, pet_id: pet.id), method: :post %>
+    v</p>
   <% end %>
 <% end %>
