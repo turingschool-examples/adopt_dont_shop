@@ -7,7 +7,7 @@ class CreateApplications < ActiveRecord::Migration[5.2]
       t.string :state
       t.string :zip
       t.string :description
-      t.string :status, default: "Pending"
+      t.string :status, default: "In Progress"
       t.references :pet, foreign_key: true
       t.timestamps
     end
