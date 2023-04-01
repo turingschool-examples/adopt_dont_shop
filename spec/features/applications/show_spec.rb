@@ -16,9 +16,10 @@ RSpec.describe 'Application Show Page' do
     @shelter = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
     @pet_1 = Pet.create(adoptable: true, age: 1, breed: 'sphynx', name: 'Lucille Bald', shelter_id: @shelter.id)
     @pet_2 = Pet.create(adoptable: true, age: 3, breed: 'doberman', name: 'Lobster', shelter_id: @shelter.id)
+    @pet_3 = Pet.create(adoptable: true, age: 2, breed: 'sphynx', name: 'Sphynx', shelter_id: @shelter.id)
     @application_1 = Application.create!(name: 'John Doe', address: '123 Main St', city: 'Aurora', state: 'CO', zip: '80041', description: 'I love animals', status: 'In Progress')
     PetApplication.create!(pet_id: @pet_1.id, application_id: @application_1.id)
-    PetApplication.create!(pet_id: @pet_2.id, application_id: @application_1.id)
+    PetApplication.create!(pet_id: @pet_3.id, application_id: @application_1.id)
   end
    describe 'As a visitor' do
     it 'I can see the application and its attributes' do
@@ -31,7 +32,7 @@ RSpec.describe 'Application Show Page' do
       expect(page).to have_content(@application_1.zip)
       expect(page).to have_content(@application_1.description)
       expect(page).to have_content("Lucille Bald")
-      expect(page).to have_content("Lobster")
+      expect(page).to have_content("Sphynx")
       expect(page).to have_content(@application_1.status)
     end
   end
@@ -41,10 +42,20 @@ RSpec.describe 'Application Show Page' do
       it 'I can see a section to search for pets by name' do
         visit "/applications/#{@application_1.id}"
         
-        expect(page).to have_content("Add a Pet to this Application")
-        expect(page).to have_content("Search for Pets")
-        expect(page).to have_field(:search)
+        expect(page).to have_content("Add Pet to Application")
+        expect(page).to have_content("Pet name")
+        expect(page).to have_field(:pet_name)
         expect(page).to have_button("Search")
+      end
+
+      it 'I can search for pets by name' do
+        visit "/applications/#{@application_1.id}"
+
+        fill_in :pet_name, with: "Lucille"
+        click_button "Search"
+
+        expect(page).to have_content("Lucille Bald")
+        expect(page).to_not have_content("Lobster")
       end
     end
   end
