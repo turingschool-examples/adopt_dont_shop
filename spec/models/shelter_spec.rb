@@ -48,6 +48,14 @@ RSpec.describe Shelter, type: :model do
         expect(Shelter.order_by_number_of_pets).to eq([@shelter_1, @shelter_3, @shelter_2])
       end
     end
+
+    describe '#find_name_and_address' do
+      it 'returns the name and address of the shelter' do
+        result = Shelter.find_name_and_address(@shelter_1.id)
+        expect(result.name).to eq(@shelter_1.name)
+        expect(result.city).to eq(@shelter_1.city)
+      end
+    end
   end
 
   describe 'instance methods' do
