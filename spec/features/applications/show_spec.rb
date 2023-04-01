@@ -116,12 +116,20 @@ RSpec.describe "/applications/:id" do
     expect(page).to have_link("#{@pet_6.name}")
   end
 
-  it 'displays section to submit application  if pets have been added' do
-    visit "/applications/#{@application_1.id}"
+  it 'displays section to submit application  if pets have been added and no description is found' do
+    visit "/applications/#{@application_4.id}"
+
+    expect(@application_4.description).to eq(nil)
+    expect(page).to_not have_content(@pet_1.name)
+    expect(page).to_not have_content("Submit my application")
+    expect(page.has_field?("freeform")).to eq(false)
+    expect(page.has_button?("Submit")).to eq(false)
+    
+    fill_in("pet_name", with: "Foster")
+    click_button("Search")
+    click_link("Adopt #{@pet_1.id}")
     
     expect(page).to have_content(@pet_1.name)
-    expect(page).to have_content(@pet_3.name)
-    expect(page).to have_content(@pet_5.name)
     expect(page).to have_content("Submit my application")
     expect(page.has_field?("freeform")).to eq(true)
     expect(page.has_button?("Submit")).to eq(true)
