@@ -4,3 +4,11 @@
 <%= form.text_field :pet_name %>
 <%= form.submit "Search" %><br/>
 <% end %>
+<% if !@searched_pets.nil? %>
+  <% @searched_pets.each do |pet| %>
+  <%= "Name: #{pet.name} Breed: #{pet.breed} Age: #{pet.age}" %>
+  <%= form_with url: "/pet_applications/new?pet=#{pet.id}&application=#{@application.id}", method: :get, local:true do |form| %>
+  <%= button_tag "Adopt this pet", id: "#{pet.id}" %>
+  <% end %>  <br/>
+  <% end %>
+<% end %>

@@ -82,11 +82,36 @@ RSpec.describe "/applications/:id" do
     @pet_6 = @shelter_1.pets.create!(name: "Bento", age: 900, breed: "cat")
     visit "/applications/#{@application_1.id}"
     expect(page).to have_no_content("Bento")
-    save_and_open_page
+  
     fill_in("pet_name", with: "Bento")
     click_button("Search")
-    save_and_open_page
+
     expect(page).to have_content("Name: Bento Breed: dog Age: 23")
     expect(page).to have_content("Name: Bento Breed: cat Age: 900")
+  end
+
+  it "has buttons next to searched_for pets" do
+    visit "/applications/#{@application_1.id}"
+    fill_in("pet_name", with: "Bento")
+    click_button("Search")
+
+    expect(page.all(:button, "Adopt this pet").count).to eq(1)
+
+    @pet_6 = @shelter_1.pets.create!(name: "Bento", age: 900, breed: "cat")
+
+    fill_in("pet_name", with: "Bento")
+    click_button("Search")
+  
+    expect(page.all(:button, "Adopt this pet").count).to eq(2)
+  end
+
+  it "button adds pet to wishlist" do
+    @pet_6 = @shelter_1.pets.create!(name: "Bento", age: 900, breed: "cat")
+    visit "/applications/#{@application_1.id}"
+    fill_in("pet_name", with: "Bento")
+    click_button("Search")
+    click_button("Adopt this pet", id: "Adopt #{@pet_6.id}")
+
+    expect(page).to have_link("#{@pet_6.name}")
   end
 end
