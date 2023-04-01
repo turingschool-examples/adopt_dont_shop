@@ -8,5 +8,7 @@ class Application < ApplicationRecord
                         :zip_code, 
                         :description
 
-  
+  def eligibile?
+    status == "In Progress"
+  end
 end
