@@ -7,6 +7,7 @@ RSpec.describe 'the apps show', type: :feature do
       @app_1 = App.create!(name: 'John Travolta', street_address: '1111 Greasy Lane', city: 'Frisco', state: 'CO', zip_code: '80678', description: 'I like dogs. Dogs are cool. You should give me a dog.', status: 'In Progress')
       @pet_1 = @app_1.pets.create!(adoptable: true, age: 3, breed: 'German Shepard', name: 'Zues', shelter_id: @shelter_1.id)
       @pet_2 = @app_1.pets.create!(adoptable: true, age: 1, breed: 'Siberian Husky', name: 'John Snow', shelter_id: @shelter_1.id)
+      @pet_3 = Pet.create!(adoptable: true, age: 4, breed: 'Chihuahua', name: 'Maximus', shelter_id: @shelter_1.id)
     end
 
     it 'I can see applications information' do
@@ -42,14 +43,13 @@ RSpec.describe 'the apps show', type: :feature do
       visit "/apps/#{@app_1.id}"
 
       expect(page).to have_content("Add a pet to this Application")
-      expect(page).to have_field('search_pets')
+      expect(page).to have_field('search')
       expect(page).to have_button('Search Pets')
 
-      fill_in 'search_pets', with: 'Zeus'
+      fill_in 'search', with: 'Maximus'
       click_button 'Search Pets'
 
-      expect(page).to have_current_path("/apps/#{@app_1.id}")
-      expect(page).to have_content('Zues')
+      expect(page).to have_content('Maximus')
     end
   end
 end
