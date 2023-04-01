@@ -59,4 +59,35 @@ RSpec.describe "Applicant Show" do
 
     expect(current_path).to eq("/pets/#{@pet_2.id}")
   end
+  describe "Add a Pet to this Application" do
+    it "I see a section to search for a pet by name. When I fill the
+        search bar, then I click submit, I am taken to '/applicaiton/:id' page
+        where I see any pet names that my search" do
+
+      shelter_1 = Shelter.create(name: 'Mystery Building', city: 'Irvine CA', foster_program: false, rank: 9)
+      scooby = Pet.create(name: 'Scooby', age: 2, breed: 'Great Dane', adoptable: true, shelter_id: shelter_1.id)
+      heather = Applicant.create(name: "Heather", street: "pearl st", city: "denver", state: "CO", zip: "80203", good_home: "live close to dog parks")
+      visit "/applicants/#{heather.id}"
+
+      expect(page).to have_content("Add a Pet to this Application")
+      fill_in :search_name, with: "Scooby"
+      
+      click_on "Search" 
+      
+      expect(current_path).to eq("/applicants/#{heather.id}") 
+      save_and_open_page
+      
+      expect(page).to have_content(scooby.name)
+    end
+  end
 end
+# Searching for Pets for an Application
+# As a visitor
+# When I visit an application's show page
+# And that application has not been submitted,
+# Then I see a section on the page to "Add a Pet to this Application"
+# In that section I see an input where I can search for Pets by name
+# When I fill in this field with a Pet's name
+# And I click submit,
+# Then I am taken back to the application show page
+# And under the search bar I see any Pet whose name matches my search
