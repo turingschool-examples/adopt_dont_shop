@@ -1,7 +1,13 @@
 class AppsController < ApplicationController
   def show
-    @app = App.find(params[:id])
-    @pets = @app.pets
+    if params[:search].present?
+      @app = App.find(params[:id])
+      @pets = @app.pets
+      @searched_pets = Pet.search(params[:search])
+    else
+      @app = App.find(params[:id])
+      @pets = @app.pets
+    end
   end
   
   def new
@@ -9,13 +15,12 @@ class AppsController < ApplicationController
 
   def create
     app = App.new(app_params)
-    app.status = "In Progress"
-
+    
     if app.save
       redirect_to "/apps/#{app.id}"
-    else 
-      redirect_to "/apps/new"
-      flash[:alert] = "Error: #{error_message(app.errors)}"
+    else
+      flash[:notice] = "Application not created: Required information missing."
+      render :new
     end
   end
 
