@@ -11,6 +11,7 @@ RSpec.describe "/applications/:id" do
     @application_1 = Application.create!(applicant_name: "Bob", street_address: "123 Home St", city: "Denver", state: "CO", zip_code: "80238", description: "I love animals")
     @application_2 = Application.create!(applicant_name: "Nebula", street_address: "45 Hippy Avenue", city: "Portland", state: "OR", zip_code: "40009", description: "Animals deserve to be freed into the woods", status: "Pending")
     @application_3 = Application.create!(applicant_name: "Angry Tim", street_address: "94 Gun Street", city: "Dallas", state: "TX", zip_code: "60888", description: "Don't question me or my motives", status: "Approved")
+    @application_4 = Application.create!(applicant_name: "Hubert Farnsworth", street_address: "Farnsvill 34", city: "New New York", state: "NY", zip_code: "00123")
     PetApplication.create!(pet_id: @pet_1.id, application_id: @application_1.id)
     PetApplication.create!(pet_id: @pet_3.id, application_id: @application_1.id)
     PetApplication.create!(pet_id: @pet_5.id, application_id: @application_1.id)
@@ -115,6 +116,76 @@ RSpec.describe "/applications/:id" do
     expect(page).to have_link("#{@pet_6.name}")
   end
 
+
+  it 'displays section to submit application if pets have been added and no description is found' do
+    visit "/applications/#{@application_4.id}"
+
+    expect(@application_4.description).to eq(nil)
+    expect(page).to_not have_content(@pet_1.name)
+    expect(page).to_not have_content("Submit my application")
+    expect(page.has_field?("freeform")).to eq(false)
+    expect(page.has_button?("Submit")).to eq(false)
+    
+    fill_in("pet_name", with: "Foster")
+    click_button("Search")
+    click_link("Adopt #{@pet_1.id}")
+    
+    expect(page).to have_content(@pet_1.name)
+    expect(page).to have_content("Submit my application")
+    expect(page.has_field?("freeform")).to eq(true)
+    expect(page.has_button?("Submit")).to eq(true)
+  end
+
+  # it 'does not display a section to submit application if no pets have been added' do
+  #   visit "/applications/#{@application_4.id}"
+  
+  #   expect(@application_4.pets.empty?).to eq(true)
+  #   expect(page).to_not have_content(@pet_1.name)
+  #   expect(page).to_not have_content(@pet_2.name)
+  #   expect(page).to_not have_content("Submit my application")
+  #   expect(page.has_field?("freeform")).to eq(false)
+  #   expect(page.has_button?("Submit")).to eq(false)
+  # end
+
+  it 'Submit button updates description attribute to given text and status to pending' do
+    visit "/applications/#{@application_4.id}"
+ 
+    fill_in("pet_name", with: "Foster")
+    click_button("Search")
+    click_link("Adopt #{@pet_1.id}")
+    fill_in("Description", with: "This animal is my calling")
+    click_button("Submit")
+    
+    @new_app = Application.find(@application_4.id)
+    
+    expect(current_path).to eq("/applications/#{@new_app.id}")
+    expect(@new_app.description).to eq("This animal is my calling")
+    expect(@new_app.status).to eq("Pending")
+    expect(page).to have_content("Pending")
+    expect(page).to have_content(@pet_1.name)
+    expect(page.has_button?("Search")).to eq(false)
+  end
+
+  it 'submission of application only updates description and status attributes of application' do
+    visit "/applications/#{@application_4.id}"
+
+    fill_in("pet_name", with: "Foster")
+    click_button("Search")
+    click_link("Adopt #{@pet_1.id}")
+    fill_in("Description", with: "This animal is my calling")
+    click_button("Submit")
+
+    @new_app = Application.find(@application_4.id)
+
+    expect(@new_app.description).to eq("This animal is my calling")
+    expect(@new_app.status).to eq("Pending")
+
+    expect(@new_app.applicant_name).to eq("Hubert Farnsworth")
+    expect(@new_app.street_address).to eq("Farnsvill 34")
+    expect(@new_app.city).to eq("New New York")
+    expect(@new_app.state).to eq("NY")
+    expect(@new_app.zip_code).to eq("00123")
+
   it "partial matches for pet names" do
     @pet_7 = @shelter_1.pets.create(name: 'bindle', breed: 'tuxedo shorthair', age: 5, adoptable: true)
     @pet_8 = @shelter_1.pets.create(name: 'quagbindle', breed: 'tuxedo shorthair', age: 5, adoptable: true)
@@ -157,6 +228,7 @@ RSpec.describe "/applications/:id" do
     expect(page).to have_content(@pet_8.name)
     expect(page).to have_content(@pet_9.name)
     expect(page).to have_content(@pet_10.name)
+
   end
 end
 
