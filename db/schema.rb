@@ -24,6 +24,10 @@ ActiveRecord::Schema.define(version: 2023_03_31_221354) do
     t.string "description"
     t.string "name_of_pet"
     t.string "application_status", default: "In Progress"
+    t.bigint "pet_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["pet_id"], name: "index_applications_on_pet_id"
   end
 
   create_table "pets", force: :cascade do |t|
@@ -64,6 +68,7 @@ ActiveRecord::Schema.define(version: 2023_03_31_221354) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "applications", "pets"
   add_foreign_key "pets", "shelters"
   add_foreign_key "veterinarians", "veterinary_offices"
 end
