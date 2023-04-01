@@ -12,11 +12,13 @@
 
 <p><strong>Status:</strong> <%= @application.status %></p>
 
-<h2>Add a Pet to this Application</h2>
-<%= form_with url: "/applications/#{@application.id}", method: :get do |form| %>
-  <%= form.label :query, "Search for Pet by Name" %>
-  <%= form.text_field :query, placeholder: "Enter pet name..." %>
-  <%= form.submit "Search" %>
+<% if @application.eligible? %>
+  <h2>Add a Pet to this Application</h2>
+  <%= form_with url: "/applications/#{@application.id}", method: :get do |form| %>
+    <%= form.label :query, "Search for Pet by Name" %>
+    <%= form.text_field :query, placeholder: "Enter pet name..." %>
+    <%= form.submit "Search" %>
+  <% end %>
 <% end %>
 
 <% if @search_results %>

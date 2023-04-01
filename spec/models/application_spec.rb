@@ -40,9 +40,9 @@ RSpec.describe Application, type: :model do
   end
 
   describe 'class methods' do
-    it ".eligibile?" do
-      expect(application_1.eligibile?).to eq(true)
-      expect(application_2.eligibile?).to eq(false)
+    it ".eligible?" do
+      expect(application_1.eligible?).to eq(true)
+      expect(application_2.eligible?).to eq(false)
     end
 
   end
