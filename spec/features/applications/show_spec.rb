@@ -95,14 +95,14 @@ RSpec.describe "/applications/:id" do
     fill_in("pet_name", with: "Bento")
     click_button("Search")
 
-    expect(page.all(:button, "Adopt this pet").count).to eq(1)
+    expect(page.all(:link, "Adopt this pet").count).to eq(1)
 
     @pet_6 = @shelter_1.pets.create!(name: "Bento", age: 900, breed: "cat")
 
     fill_in("pet_name", with: "Bento")
     click_button("Search")
   
-    expect(page.all(:button, "Adopt this pet").count).to eq(2)
+    expect(page.all(:link, "Adopt this pet").count).to eq(2)
   end
 
   it "button adds pet to wishlist" do
@@ -110,8 +110,13 @@ RSpec.describe "/applications/:id" do
     visit "/applications/#{@application_1.id}"
     fill_in("pet_name", with: "Bento")
     click_button("Search")
-    click_button("Adopt this pet", id: "Adopt #{@pet_6.id}")
+    click_link("Adopt #{@pet_6.id}")
 
     expect(page).to have_link("#{@pet_6.name}")
   end
 end
+
+# <%= form_with url: "/pet_applications/new?pet=#{pet.id}&application=#{@application.id}", method: :get, local:true do |form| %>
+# <%= button_tag "Adopt this pet", id: "Adopt #{pet.id}" %>
+# <% input type= "hidden" name = "_this_pet" value= "#{pet.id}"%>
+# <% input type= "hidden" name = "_this_app" value= "#{@application.id}"%>

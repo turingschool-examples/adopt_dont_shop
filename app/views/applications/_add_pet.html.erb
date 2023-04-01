@@ -7,8 +7,6 @@
 <% if !@searched_pets.nil? %>
   <% @searched_pets.each do |pet| %>
   <%= "Name: #{pet.name} Breed: #{pet.breed} Age: #{pet.age}" %>
-  <%= form_with url: "/pet_applications/new?pet=#{pet.id}&application=#{@application.id}", method: :get, local:true do |form| %>
-  <%= button_tag "Adopt this pet", id: "#{pet.id}" %>
-  <% end %>  <br/>
+<%= link_to "Adopt this pet", "/pet_applications/new?pet=#{pet.id}&application=#{@application.id}", method: :get, id: "Adopt #{pet.id}" %><br/>
   <% end %>
 <% end %>
