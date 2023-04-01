@@ -67,7 +67,7 @@ ActiveRecord::Schema.define(version: 2023_04_01_013448) do
     t.datetime "updated_at", null: false
   end
 
-  add_foreign_key "applications", "pets"
+  add_foreign_key "pets_applications", "pets"
   add_foreign_key "pets", "shelters"
   add_foreign_key "veterinarians", "veterinary_offices"
 end
