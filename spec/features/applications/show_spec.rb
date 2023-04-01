@@ -144,6 +144,26 @@ RSpec.describe "/applications/:id" do
     expect(page.has_field?("freeform")).to eq(false)
     expect(page.has_button?("Submit")).to eq(false)
   end
+
+  it 'Submit button updates description attribute to given text and status to pending' do
+    visit "/applications/#{@application_4.id}"
+
+    fill_in("pet_name", with: "Foster")
+    click_button("Search")
+    click_link("Adopt #{@pet_1.id}")
+    fill_in("Description", with: "This animal is my calling")
+    click_button("Submit")
+
+    expect(current_path).to eq("/applications/#{@application_4.id}")
+    expect(@application_4.description).to eq("This animal is my calling")
+    expect(page).to have_content("Pending")
+    expect(page).to have_content(@pet_1.name)
+    expect(page.has_button?("Search")).to eq(false)
+  end
+
+  # it 'submit button updates status to "Pending' do
+  #   visit "/applications/#{@application_4.id}"
+  # end
 end
 
 # <%= form_with url: "/pet_applications/new?pet=#{pet.id}&application=#{@application.id}", method: :get, local:true do |form| %>
