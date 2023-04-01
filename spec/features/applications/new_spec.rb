@@ -29,4 +29,13 @@ RSpec.describe 'Application creation', type: :feature do
     expect(page).to have_content("#{@application.zip_code}")
     expect(page).to have_content("#{@application.description}")
   end
+
+  it 'takes the user back to the new applications page and shows a message they must fill in all fields' do
+    visit "/applications/new"
+
+    fill_in('name', with: 'Mario')
+    click_button('Submit')
+    expect(current_path).to eq('/applications/new')
+    expect(page).to have_content('Please fill in all fields.')
+  end
 end
