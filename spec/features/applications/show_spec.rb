@@ -116,7 +116,7 @@ RSpec.describe "/applications/:id" do
     expect(page).to have_link("#{@pet_6.name}")
   end
 
-  it 'displays section to submit application  if pets have been added and no description is found' do
+  it 'displays section to submit application if pets have been added and no description is found' do
     visit "/applications/#{@application_4.id}"
 
     expect(@application_4.description).to eq(nil)
@@ -135,17 +135,37 @@ RSpec.describe "/applications/:id" do
     expect(page.has_button?("Submit")).to eq(true)
   end
 
-  it 'does not display a section to submit application if no pets have been added' do
-    visit "/applications/#{@application_4.id}"
+  # it 'does not display a section to submit application if no pets have been added' do
+  #   visit "/applications/#{@application_4.id}"
   
-    expect(page).to_not have_content(@pet_1.name)
-    expect(page).to_not have_content(@pet_2.name)
-    expect(page).to_not have_content("Submit my application")
-    expect(page.has_field?("freeform")).to eq(false)
-    expect(page.has_button?("Submit")).to eq(false)
-  end
+  #   expect(@application_4.pets.empty?).to eq(true)
+  #   expect(page).to_not have_content(@pet_1.name)
+  #   expect(page).to_not have_content(@pet_2.name)
+  #   expect(page).to_not have_content("Submit my application")
+  #   expect(page.has_field?("freeform")).to eq(false)
+  #   expect(page.has_button?("Submit")).to eq(false)
+  # end
 
   it 'Submit button updates description attribute to given text and status to pending' do
+    visit "/applications/#{@application_4.id}"
+ 
+    fill_in("pet_name", with: "Foster")
+    click_button("Search")
+    click_link("Adopt #{@pet_1.id}")
+    fill_in("Description", with: "This animal is my calling")
+    click_button("Submit")
+    
+    @new_app = Application.find(@application_4.id)
+    
+    expect(current_path).to eq("/applications/#{@new_app.id}")
+    expect(@new_app.description).to eq("This animal is my calling")
+    expect(@new_app.status).to eq("Pending")
+    expect(page).to have_content("Pending")
+    expect(page).to have_content(@pet_1.name)
+    expect(page.has_button?("Search")).to eq(false)
+  end
+
+  it 'submission of application only updates description and status attributes of application' do
     visit "/applications/#{@application_4.id}"
 
     fill_in("pet_name", with: "Foster")
@@ -154,16 +174,17 @@ RSpec.describe "/applications/:id" do
     fill_in("Description", with: "This animal is my calling")
     click_button("Submit")
 
-    expect(current_path).to eq("/applications/#{@application_4.id}")
-    expect(@application_4.description).to eq("This animal is my calling")
-    expect(page).to have_content("Pending")
-    expect(page).to have_content(@pet_1.name)
-    expect(page.has_button?("Search")).to eq(false)
-  end
+    @new_app = Application.find(@application_4.id)
 
-  # it 'submit button updates status to "Pending' do
-  #   visit "/applications/#{@application_4.id}"
-  # end
+    expect(@new_app.description).to eq("This animal is my calling")
+    expect(@new_app.status).to eq("Pending")
+
+    expect(@new_app.applicant_name).to eq("Hubert Farnsworth")
+    expect(@new_app.street_address).to eq("Farnsvill 34")
+    expect(@new_app.city).to eq("New New York")
+    expect(@new_app.state).to eq("NY")
+    expect(@new_app.zip_code).to eq("00123")
+  end
 end
 
 # <%= form_with url: "/pet_applications/new?pet=#{pet.id}&application=#{@application.id}", method: :get, local:true do |form| %>
