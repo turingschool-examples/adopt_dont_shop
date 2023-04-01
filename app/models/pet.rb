@@ -10,7 +10,7 @@ class Pet < ApplicationRecord
   end
 
   def self.filter_by_name(params)
-    where(name: params[:Name])
+    where("name ILIKE ?", "%#{params[:name]}%")
   end
 
   def self.adoptable

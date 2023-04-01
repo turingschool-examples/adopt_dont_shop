@@ -18,7 +18,7 @@ class ApplicationsController < ApplicationController
     application = Application.find(params[:id])
     application.update(application_params)
     redirect_to "/applications/#{application.id}"
-    application.change_status_to_pending
+    # application.change_status_to_pending
     if params[:pet_id]
       pet = Pet.find(params[:pet_id])
       ApplicationPet.create!(pet: pet, application: application)

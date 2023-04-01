@@ -149,7 +149,7 @@ RSpec.describe 'the application show' do
       click_on("Adopt this Pet")
       expect(page).to have_current_path("/applications/#{@application_4.id}")
       expect(page).to have_content("Pets: Lobster")
-      expect(page).to have_content("App Status: Pending")
+      expect(page).to have_content("App Status: In Progress")
     end
   end
   
