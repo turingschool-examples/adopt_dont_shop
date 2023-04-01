@@ -10,4 +10,9 @@
 <p>Application status: <%= @application.status%></p>
 <% if @application.status == "In Progress" %>
 <%= render "add_pet" %>
+<% if !@searched_pets.nil? %>
+  <% @searched_pets.each do |pet| %>
+  <%= "Name: #{pet.name} Breed: #{pet.breed} Age: #{pet.age}" %><br/>
+  <% end %>
+<% end %>
 <% end %>
