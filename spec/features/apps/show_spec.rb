@@ -51,5 +51,21 @@ RSpec.describe 'the apps show', type: :feature do
 
       expect(page).to have_content('Maximus')
     end
+
+    it 'I see a button to adopt a searched pet' do
+      fill_in 'search', with: 'Maximus'
+      click_button 'Search Pets'
+      expect(page).to have_content('Maximus')
+      expect(@app_1.pets.count).to eq(2)
+
+      expect(@pet_3.name).to appear_after('Add a pet to this Application')
+      expect(page).to have_button('Adopt this Pet')
+
+      click_button 'Adopt this Pet'
+
+      expect(current_path).to eq("/apps/#{@app_1.id}")
+      expect(@app_1.pets.count).to eq(3)
+      expect(@pet_3.name).to appear_before('Add a pet to this Application')
+    end
   end
 end
