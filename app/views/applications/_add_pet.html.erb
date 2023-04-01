@@ -1,0 +1,6 @@
+<%= form_with url: "/applications/#{@application.id}", method: :GET, local:true do |form| %>
+<h3><%= "Add a pet to this application" %><h3>
+<%= form.label :pet_name %>
+<%= form.text_field :pet_name %>
+<%= form.submit "Search" %><br/>
+<% end %>

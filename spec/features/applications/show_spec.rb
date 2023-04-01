@@ -2,9 +2,9 @@ require 'rails_helper'
 
 RSpec.describe "/applications/:id" do
   before do
-    @shelter_1 = Shelter.create!(foster_program: true, name: "Tah Mahal for Dogs", city: "Sky City", rank: 20)
-    @pet_1 = @shelter_1.pets.create!(name: "Foster", age: 1000, breed: "dog", )
-    @pet_2 = @shelter_1.pets.create!(name: "Bento", age: 23,)
+    @shelter_1 = Shelter.create!(foster_program: true, name: "Taj Mahal for Dogs", city: "Sky City", rank: 20)
+    @pet_1 = @shelter_1.pets.create!(name: "Foster", age: 1000, breed: "dog")
+    @pet_2 = @shelter_1.pets.create!(name: "Bento", age: 23, breed: "dog")
     @pet_3 = @shelter_1.pets.create!(name: "Quiggle", age: 555,)
     @pet_4 = @shelter_1.pets.create!(name: "Simpleton", age: 80,)
     @pet_5 = @shelter_1.pets.create!(name: "Snapchat", age: 799,)
@@ -59,5 +59,34 @@ RSpec.describe "/applications/:id" do
     visit "/applications/#{@application_1.id}"
     click_link "#{@pet_3.name}"
     expect(page).to have_current_path("/pets/#{@pet_3.id}")
+  end
+
+  it "renders Add Pet section only if application is in progress" do
+    visit "/applications/#{@application_1.id}"
+ 
+    expect(page).to have_content("Add a pet to this application")
+    expect(page).to have_field("pet_name")
+
+    visit "/applications/#{@application_2.id}"
+
+    expect(page).to have_no_content("Add a pet to this application")
+    expect(page).to_not have_field("pet_name")
+
+    visit "/applications/#{@application_3.id}"
+
+    expect(page).to have_no_content("Add a pet to this application")
+    expect(page).to_not have_field("pet_name")
+  end
+
+  it "searches for pets by name and displays them" do
+    @pet_6 = @shelter_1.pets.create!(name: "Bento", age: 900, breed: "cat")
+    visit "/applications/#{@application_1.id}"
+    expect(page).to have_no_content("Bento")
+    save_and_open_page
+    fill_in("pet_name", with: "Bento")
+    click_button("Search")
+    save_and_open_page
+    expect(page).to have_content("Name: Bento Breed: dog Age: 23")
+    expect(page).to have_content("Name: Bento Breed: cat Age: 900")
   end
 end
