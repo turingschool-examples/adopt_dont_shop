@@ -11,15 +11,26 @@
 <br>
 <p><h3>Status: </h3> <%= @applicant.status %> </p>
 <br>
-<h3>Add a Pet to this Application</h3>
-<%= form_with url: "/applicants/#{@applicant.id}", method: :get, local: true do |form| %>
-  <%= form.label :search_name %>
-  <%= form.text_field :search_name %>
-  <%= form.submit "Search" %>
-<% end %>
 <p><h3>Currently Applying For: </h3></p>
 <p> <% @applicant.pets.each do |pet|%> </p>
   <p> <%= link_to pet.name, "/pets/#{pet.id}" %> </p>
   <br>
 <p> <% end %> </p>
+<br>
+<br>
+<h3>Add a Pet to this Application</h3>
+<ul>
+<% if !@searched_pets.nil? %>
+  <% @searched_pets.each do |pet| %>
+    <b><%= pet.name %></b>   <small><%= "adoptable: #{pet.adoptable}" %></small> 
+  <% end %>
+<% end %>
+</ul>
+<br>
+<%= form_with url: "/applicants/#{@applicant.id}", method: :get, local: true do |form| %>
+  <%= form.label :search_name %>
+  <%= form.text_field :search_name %>
+  <%= form.submit "Search" %>
+<% end %>
+<br>
 </body>
