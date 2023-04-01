@@ -23,6 +23,12 @@ RSpec.describe Pet, type: :model do
   describe 'class methods' do
     describe '#search' do
       it 'returns partial matches' do
+        @pet_4 = @shelter_1.pets.create(name: 'bindle', breed: 'tuxedo shorthair', age: 5, adoptable: true)
+        @pet_5 = @shelter_1.pets.create(name: 'quagbindle', breed: 'tuxedo shorthair', age: 5, adoptable: true)
+        @pet_6 = @shelter_1.pets.create(name: 'BINDLEsticks', breed: 'tuxedo shorthair', age: 5, adoptable: true)
+        @pet_7 = @shelter_1.pets.create(name: 'Sir binDletonshiresworth', breed: 'tuxedo shorthair', age: 5, adoptable: true)
+        
+        expect(Pet.search("bindle").to_a).to eq([@pet_4, @pet_5, @pet_6, @pet_7])
         expect(Pet.search("Claw")).to eq([@pet_2])
       end
     end
