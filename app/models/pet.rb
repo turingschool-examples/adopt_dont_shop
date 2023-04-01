@@ -16,8 +16,6 @@ class Pet < ApplicationRecord
   def self.search(query)
     if query.present?
       where("name ILIKE ?", "%#{query}%")
-    else
-      all
     end
   end
 end

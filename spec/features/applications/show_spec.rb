@@ -55,7 +55,7 @@ RSpec.describe "/applications/:id" do
 
       expect(current_path).to eq("/applications/#{application_1.id}")
       expect(page).to have_content("I love dogs")
-      expect(page).to have_content(Status: "Pending")
+      expect(page).to have_content("Status: Pending")
       expect(page).to_not have_button("Submit Application")
       expect(page).to_not have_content("Why would you make a good pet owner?")
     end
