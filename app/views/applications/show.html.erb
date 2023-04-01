@@ -1,5 +1,5 @@
 
-<%# <% binding.pry%> %>
+
 <p> Name:<%= @application.name %> </p> 
 <p> Address:<%= @application.address %> </p>
 <p> City: <%=  @application.city %> </p>
@@ -8,3 +8,7 @@
 <p> Description: <%=  @application.description %> </p>
 <p> Status: <%=  @application.status %> </p>
 
+<p> Applying For: </p>
+<p> <% @application.pets.each do |pet| %>
+<p> <%= link_to pet.name, "pets/#{pet.id}" %> </p>
+<p> <% end %> </p>
