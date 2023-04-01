@@ -37,5 +37,19 @@ RSpec.describe 'the apps show', type: :feature do
       click_link "#{@pet_2.name}"
       expect(current_path).to eq("/pets/#{@pet_2.id}")
     end
+
+    it 'I can search and add a pet to my application' do
+      visit "/apps/#{@app_1.id}"
+
+      expect(page).to have_content("Add a pet to this Application")
+      expect(page).to have_field('search_pets')
+      expect(page).to have_button('Search Pets')
+
+      fill_in 'search_pets', with: 'Zeus'
+      click_button 'Search Pets'
+
+      expect(page).to have_current_path("/apps/#{@app_1.id}")
+      expect(page).to have_content('Zues')
+    end
   end
 end
