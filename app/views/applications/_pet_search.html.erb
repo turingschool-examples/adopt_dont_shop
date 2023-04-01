@@ -1,0 +1,12 @@
+<%= form_with url: "/applications/#{@application.id}", method: :GET, local:true do |f| %>
+  <h2> Add Pet to Application </h2>
+  <%= f.label :pet_name %>
+  <%= f.text_field :pet_name %>
+  <%= f.submit "Search" %>
+<% end %>
+
+<% if @pet_search != nil %>
+  <% @pet_search.each do |pet| %>
+    <p><%= link_to pet.name, "/pets/#{pet.id}" %></p>
+  <% end %>
+<% end %>

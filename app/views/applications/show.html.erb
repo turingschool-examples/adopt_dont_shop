@@ -11,23 +11,9 @@
   <p><b>Why I'd make a good cat dad:</b><br>
   <%= @application.description %></p>
   <p><b>Application Status:</b> <%= @application.status %></p>
-  </div>
+</div>
   <br/>
 
-  <div><h2>Add a Pet to this Application</h2>
-    <%= form_tag '/pets#index' , method: :get do %>
-      <%= label_tag :search, "Search for Pets" %><br/>
-      <%= text_field_tag :search, params[:search] %>
-      <%= hidden_field_tag :application_id, @application.id %>
-      <%= submit_tag "Search", :name => nil %>
-    <% end %>
-  </div>
-<% require 'pry'; binding.pry %>
-  <div>
-    <% if @pets != nil %>
-      <% @pets.each do |pet| %>
-        <p><%= link_to pet.name, "/pets/#{pet.id}" %></p>
-        <p><%= button_to "Add Pet to Application", "/applications/#{@application.id}", method: :patch %></p>
-      <% end %>
-    <% end %>
-  </div>
+<div> 
+  <%= render "pet_search" %>
+</div>
