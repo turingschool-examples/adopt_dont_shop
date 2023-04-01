@@ -136,5 +136,27 @@ RSpec.describe "/applications/:id" do
     expect(page).to have_content(@pet_9.name)
     expect(page).to have_content(@pet_10.name)
   end
+
+  it "case insensitive pet search" do
+    @pet_7 = @shelter_1.pets.create(name: 'bInDlE', breed: 'tuxedo shorthair', age: 5, adoptable: true)
+    @pet_8 = @shelter_1.pets.create(name: 'quagBINDLE', breed: 'tuxedo shorthair', age: 5, adoptable: true)
+    @pet_9 = @shelter_1.pets.create(name: 'bINDlesticks', breed: 'tuxedo shorthair', age: 5, adoptable: true)
+    @pet_10 = @shelter_1.pets.create(name: 'Sir BINDLetonshiresworth', breed: 'tuxedo shorthair', age: 5, adoptable: true)
+    
+    visit "/applications/#{@application_1.id}"
+
+    expect(page).to have_no_content(@pet_7.name)
+    expect(page).to have_no_content(@pet_8.name)
+    expect(page).to have_no_content(@pet_9.name)
+    expect(page).to have_no_content(@pet_10.name)
+
+    fill_in("pet_name", with: "bindle")
+    click_button("Search")
+
+    expect(page).to have_content(@pet_7.name)
+    expect(page).to have_content(@pet_8.name)
+    expect(page).to have_content(@pet_9.name)
+    expect(page).to have_content(@pet_10.name)
+  end
 end
 
