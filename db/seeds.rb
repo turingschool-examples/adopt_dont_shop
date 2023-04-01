@@ -1,6 +1,5 @@
 
-Shelter.destroy_all
-Applicant.destroy_all
+
 
 ##SHELTERS
     @aurora = Shelter.create!(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
