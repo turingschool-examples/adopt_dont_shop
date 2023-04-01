@@ -1,0 +1,6 @@
+<%= form_with url: "/applications/add_pet", method: :PATCH do |form| %>
+<h3><%= "Add a pet to this application" %><h3>
+<%= form.label :pet_name, "Pet Name" %>
+<%= form.text_field :pet_name %>
+<%= form.submit "Search" %>
+<% end %>

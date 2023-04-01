@@ -60,4 +60,21 @@ RSpec.describe "/applications/:id" do
     click_link "#{@pet_3.name}"
     expect(page).to have_current_path("/pets/#{@pet_3.id}")
   end
+
+  it "renders Add Pet section only if application is in progress" do
+    visit "/applications/#{@application_1.id}"
+ 
+    expect(page).to have_content("Add a pet to this application")
+    expect(page).to have_field("pet_name")
+
+    visit "/applications/#{@application_2.id}"
+
+    expect(page).to have_no_content("Add a pet to this application")
+    expect(page).to_not have_field("pet_name")
+
+    visit "/applications/#{@application_3.id}"
+
+    expect(page).to have_no_content("Add a pet to this application")
+    expect(page).to_not have_field("pet_name")
+  end
 end
