@@ -28,6 +28,13 @@ RSpec.describe Shelter, type: :model do
       it 'returns partial matches' do
         expect(Shelter.search("Fancy")).to eq([@shelter_3])
       end
+
+      describe '#reverse_alpha_shelters' do
+        it 'returns shelters in reverse alphabetical order' do
+          expect(Shelter.all).to_not eq([@shelter_2, @shelter_3, @shelter_1])
+          expect(Shelter.reverse_alpha_shelters).to eq([@shelter_2, @shelter_3, @shelter_1])
+        end
+      end
     end
 
     describe '#order_by_recently_created' do
