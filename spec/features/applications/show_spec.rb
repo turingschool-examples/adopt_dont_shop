@@ -28,7 +28,6 @@ RSpec.describe '/applications/:id', type: :feature do
       expect(page).to have_content("Pets to apply for:")
       expect(page).to have_link("Bella")
       expect(page).to have_link("Rigby")
-      save_and_open_page
     end
   end
 end
