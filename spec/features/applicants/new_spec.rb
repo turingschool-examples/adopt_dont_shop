@@ -16,7 +16,6 @@ RSpec.describe 'the new applicant page' do
 
     it 'can be submitted' do
       visit "/applicants/new"
-      # applicant = Applicant.new
 
       fill_in :name, with: "Maura McGonagle"
       fill_in :street, with: "124 Hill Rd"
