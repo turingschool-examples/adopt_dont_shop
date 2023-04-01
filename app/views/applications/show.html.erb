@@ -1,3 +1,4 @@
+<h2>Application</h2>
 <p>Name: <%= @application.name %></p>
 <p>Street Address: <%= @application.street_address %></p>
 <p>City: <%= @application.city %></p>
@@ -7,14 +8,15 @@
 <p>Name of Pet: <%= @application.name_of_pet %></p>
 <p>Application Status: <%= @application.application_status %></p>
 <br>
-<p>"Add a Pet to this Application"<br>
-  <% if !@searched_pets.nil? %>
-    <% @searched_pets.each do |pet| %>
-    <%= pet.name %>
-    <% end %>
-  <% end %>
+<h2><p>Add a Pet to this Application</h2>  
 <%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |form| %>
   <%= form.label :search_pet %>
   <%= form.text_field :search_pet %>
   <%= form.submit 'Search Pet' %>
-<% end %></p>
+<% end %><br>
+  <% if !@searched_pets.nil? %>
+    <% @searched_pets.each do |pet| %>
+    <b><%= pet.name %></b>
+    <%= button_to "Adopt This Pet", "/applications/#{@application.id}", method: :get %>
+    <% end %>
+  <% end %></p>

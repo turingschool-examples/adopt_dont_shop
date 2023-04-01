@@ -14,36 +14,59 @@ RSpec.describe 'application show page' do
                                             description: 'Interested in sibling pets', name_of_pet: 'Beethoven', application_status: "In Progress") }
 
 
-    it 'displays application information' do
-      visit "/applications/#{application_1.id}"
-      expect(page).to have_content(application_1.name)
-      expect(page).to have_content(application_1.street_address)
-      expect(page).to have_content(application_1.city)
-      expect(page).to have_content(application_1.state)
-      expect(page).to have_content(application_1.zip_code)
-      expect(page).to have_content(application_1.description)
-      expect(page).to have_content(application_1.name_of_pet)
-      expect(page).to have_content(application_1.application_status)
-    end
+  it 'displays application information' do
+    visit "/applications/#{application_1.id}"
+    expect(page).to have_content(application_1.name)
+    expect(page).to have_content(application_1.street_address)
+    expect(page).to have_content(application_1.city)
+    expect(page).to have_content(application_1.state)
+    expect(page).to have_content(application_1.zip_code)
+    expect(page).to have_content(application_1.description)
+    expect(page).to have_content(application_1.name_of_pet)
+    expect(page).to have_content(application_1.application_status)
+  end
 
-    it 'lists partial matches as search results' do
-      shelter_1 = Shelter.create!(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
-      shelter_2 = Shelter.create!(name: 'RGV animal shelter', city: 'Harlingen, TX', foster_program: false, rank: 5)
-      shelter_3 = Shelter.create!(name: 'Fancy pets of Colorado', city: 'Denver, CO', foster_program: true, rank: 10)
+  it 'lists partial matches as search results' do
+    shelter_1 = Shelter.create!(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
+    shelter_2 = Shelter.create!(name: 'RGV animal shelter', city: 'Harlingen, TX', foster_program: false, rank: 5)
+    shelter_3 = Shelter.create!(name: 'Fancy pets of Colorado', city: 'Denver, CO', foster_program: true, rank: 10)
 
-      pet_1 = Pet.create!(adoptable: true, age: 1, breed: 'sphynx', name: 'Lucille Bald', shelter: shelter_1)
-      pet_2 = Pet.create!(adoptable: true, age: 3, breed: 'doberman', name: 'Lobster', shelter: shelter_2)
-      pet_3 = Pet.create!(adoptable: false, age: 2, breed: 'saint bernard', name: 'Beethoven', shelter: shelter_3)
+    pet_1 = Pet.create!(adoptable: true, age: 1, breed: 'sphynx', name: 'Lucille Bald', shelter: shelter_1)
+    pet_2 = Pet.create!(adoptable: true, age: 3, breed: 'doberman', name: 'Lobster', shelter: shelter_2)
+    pet_3 = Pet.create!(adoptable: false, age: 2, breed: 'saint bernard', name: 'Beethoven', shelter: shelter_3)
 
-  
-      visit "/applications/#{application_1.id}"
-  
-      fill_in(:search_pet, with: 'Lobster')
-      click_button('Search Pet')
-  
-      expect(page).to have_content(pet_2.name)
-      expect(page).to_not have_content(pet_1.name)
-      expect(page).to_not have_content(pet_3.name)
-      expect(current_path).to eq("/applications/#{application_1.id}")
-    end
+
+    visit "/applications/#{application_1.id}"
+
+    fill_in(:search_pet, with: 'Lobster')
+    click_button('Search Pet')
+
+    expect(page).to have_content(pet_2.name)
+    expect(page).to_not have_content(pet_1.name)
+    expect(page).to_not have_content(pet_3.name)
+    expect(current_path).to eq("/applications/#{application_1.id}")
+  end
+    
+  it 'can add a pet to an application' do
+    shelter_1 = Shelter.create!(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
+    shelter_2 = Shelter.create!(name: 'RGV animal shelter', city: 'Harlingen, TX', foster_program: false, rank: 5)
+    shelter_3 = Shelter.create!(name: 'Fancy pets of Colorado', city: 'Denver, CO', foster_program: true, rank: 10)
+    
+    pet_1 = Pet.create!(adoptable: true, age: 1, breed: 'sphynx', name: 'Lucille Bald', shelter: shelter_1)
+    pet_2 = Pet.create!(adoptable: true, age: 3, breed: 'doberman', name: 'Lobster', shelter: shelter_2)
+    pet_3 = Pet.create!(adoptable: false, age: 2, breed: 'saint bernard', name: 'Beethoven', shelter: shelter_3)
+    
+    visit "/applications/#{application_1.id}"
+    
+    fill_in(:search_pet, with: 'Lobster')
+    click_button('Search Pet')
+
+    expect(page).to have_content(pet_2.name)
+    expect(current_path).to eq("/applications/#{application_1.id}")
+    
+    click_button('Adopt This Pet')
+    
+    expect(page).to have_content(pet_2.name)
+    expect(current_path).to eq("/applications/#{application_1.id}")
+  end
 end
