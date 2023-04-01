@@ -7,5 +7,20 @@
 
 <p>Pets to apply for:</p>
 <% @pets.each do |pet| %>
-  <p><%= link_to pet.name, "pets/#{pet.id}"  %></p>
+  <p><%= link_to pet.name, "/pets/#{pet.id}"  %></p>
+<% end %>
+
+<p>Add a Pet to this Application</p>
+<%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |f| %>
+  <%= f.label :search, 'Pet Name' %>
+  <%= f.text_field :search %>
+  <%= f.submit "Search" %>
+<% end %>
+<br>
+<% @pets_search.each do |pet| %>
+<%= form_with url: "/pet_applications", local: true do |f| %>
+  <%= f.hidden_field :application_id, value: @application.id %>
+  <%= f.hidden_field :pet_id, value: pet.id %>
+   <%= pet.name %> <%= f.submit "Adopt this Pet" %>
+  <% end %>
 <% end %>
