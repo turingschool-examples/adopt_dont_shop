@@ -16,6 +16,10 @@ RSpec.describe Pet, type: :model do
     @pet_1 = @shelter_1.pets.create(name: 'Mr. Pirate', breed: 'tuxedo shorthair', age: 5, adoptable: true)
     @pet_2 = @shelter_1.pets.create(name: 'Clawdia', breed: 'shorthair', age: 3, adoptable: true)
     @pet_3 = @shelter_1.pets.create(name: 'Ann', breed: 'ragdoll', age: 3, adoptable: false)
+    @application_1 = Application.create!(name: "John Doe", street_address: "123 Main St", city: "Denver", state: "CO", zip_code: "80202", description: "I love dogs", status: "In Progress")
+    @application_2 = Application.create!(name: "John Doe", street_address: "123 Main St", city: "Denver", state: "CO", zip_code: "80202", description: "I love dogs", status: "In Progress")
+    @application_pets_1 = ApplicationPet.create!(application_id: @application_1.id, pet_id: @pet_1.id)
+    @application_pets_2 = ApplicationPet.create!(application_id: @application_2.id, pet_id: @pet_3.id, status: 'Approved')
   end
 
   describe 'class methods' do
@@ -36,6 +40,16 @@ RSpec.describe Pet, type: :model do
     describe '.shelter_name' do
       it 'returns the shelter name for the given pet' do
         expect(@pet_3.shelter_name).to eq(@shelter_1.name)
+      end
+    end
+
+    describe 'pending?' do
+      it 'returns true when the application is Pending' do
+        expect(@pet_1.pending?(@application_pets_1.application_id)).to eq(true)
+      end
+      
+      it 'returns false when the application status is not Pending' do
+        expect(@pet_3.pending?(@application_pets_2.application_id)).to eq(false)
       end
     end
 
