@@ -5,22 +5,34 @@
 <p>Description: <%= @application.description %>
 <p>Status: <%= @application.status %>
 
-<p>Pets to apply for:</p>
+<p>Pets on Application:</p>
 <% @pets.each do |pet| %>
   <p><%= link_to pet.name, "/pets/#{pet.id}"  %></p>
 <% end %>
 
-<p>Add a Pet to this Application</p>
-<%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |f| %>
-  <%= f.label :search, 'Pet Name' %>
-  <%= f.text_field :search %>
-  <%= f.submit "Search" %>
+<% if @application.status == 'In Progress' %>
+  <p>Add a Pet to this Application</p>
+  <%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |f| %>
+    <%= f.label :search, 'Pet Name' %>
+    <%= f.text_field :search %>
+    <%= f.submit "Search" %>
+  <% end %>
 <% end %>
 <br>
+
 <% @pets_search.each do |pet| %>
 <%= form_with url: "/pet_applications", local: true do |f| %>
   <%= f.hidden_field :application_id, value: @application.id %>
   <%= f.hidden_field :pet_id, value: pet.id %>
    <%= pet.name %> <%= f.submit "Adopt this Pet" %>
+  <% end %>
+<% end %>
+<br>
+
+<% if @pets != [] && @application.status == 'In Progress' %>
+  <%= form_with url: "/applications/#{@application.id}", method: :patch, local: true do |f| %>
+    <%= f.label :good_owner, 'Why would you make a good owner to these pet(s)?' %>
+    <p><%= f.text_area :good_owner %></p>
+    <p><%= f.submit "Submit Application" %></p>
   <% end %>
 <% end %>
