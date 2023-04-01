@@ -29,5 +29,31 @@ RSpec.describe '/applications/:id', type: :feature do
       expect(page).to have_link("Bella")
       expect(page).to have_link("Rigby")
     end
+
+    it 'If the application has not been submitted, I can search for pets by name' do
+      visit "/applications/#{application_1.id}"
+
+      expect(page).to have_content("Add a Pet to this Application")
+      
+      fill_in 'Pet Name', with: "Luna"
+      
+      click_button "Search"
+
+      expect(current_path).to eq("/applications/#{application_1.id}")
+      expect(page).to have_content("Luna")
+      expect(page).to have_button('Adopt this Pet')
+    end
+
+    it 'If the application has not been submitted, I can add a pet to the application' do
+      visit "/applications/#{application_1.id}"
+
+      fill_in 'Pet Name', with: "Luna"
+      
+      click_button "Search"
+      click_button 'Adopt this Pet'
+
+      expect(current_path).to eq("/applications/#{application_1.id}")
+      expect(page).to have_link("Luna")
+    end
   end
 end
