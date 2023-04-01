@@ -26,3 +26,12 @@
     <%= pet.name %><%= button_to "Adopt this Pet", "/application_pets/#{pet.id}/new?application_id=#{@application.id}" %>
   <% end %>
 <% end %>
+
+<% if @application.eligible? %>
+  <h3>Submit Application</h3>
+  <%= form_with url: "/applications/#{@application.id}", method: :patch, local: true do |f| %>
+    <%= f.label :description, "Why would you make a good pet owner?" %>
+    <%= f.text_area :description, value: @application.description %><br>
+    <%= f.submit "Submit Application" %>
+  <% end %>
+<% end %>
