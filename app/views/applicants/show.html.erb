@@ -1,9 +1,19 @@
-<h2>Applicant Info</h2>
-
-<p>Name: <%= @applicant.name%></p>
-<p>Address: <%= @applicant.address%></p>
-<p>Reasons for Adoption: <%= @applicant.reasons_for_adoption%></p>
-<p>Status: <%= @applicant.status%></p>
-<p><% @applicant.pets.each do |pet|%>
-<p>Currently applying for: <%= link_to pet.name, "/pets/#{pet.id}" %></p>
-<% end %>
+<h1><%= @applicant.name %>'s Application</h1>
+<body>
+<p><h3>Name: </h3> <%= @applicant.name %> </p>
+<br>
+<h3><p>Address: </h3></p>
+<p> <%= @applicant.street %> </p>
+<p> <%= @applicant.city %>,  <%= @applicant.state.upcase %> <%= @applicant.zip %> </p>
+<br>
+<p><h3>"Description of why You would make a Good Home:" </h3></p>
+<p><%= @applicant.good_home %></p>
+<br>
+<p><h3>Status: </h3> <%= @applicant.status %> </p>
+<br>
+<p><h3>Currently Applying For: </h3></p>
+<p> <% @applicant.pets.each do |pet|%> </p>
+  <p> <%= link_to pet.name, "/pets/#{pet.id}" %> </p>
+  <br>
+<p> <% end %> </p>
+</body>

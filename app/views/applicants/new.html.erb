@@ -1,0 +1,26 @@
+<h1>New Applicant Form</h1>
+
+<%= form_with url: "/applicants", method: :post, local: true do |form| %>
+ <p><h3> <%= form.label :name %> </h3></p>
+  <p> <%= form.text_field :name %> </p> 
+  <br><br> 
+  <p><h3> <%= form.label :home_address %> </h3></p>
+  <p>
+  <%= form.label :street_address %>
+  <%= form.text_field :street %><br><br>
+  <%= form.label :city %>
+  <%= form.text_field :city %><br><br>
+  <%= form.label :state %>
+  <%= form.text_field :state, maxlength: 2 %>
+  <%= form.label :zip_code %>
+  <%= form.text_field :zip, maxlength: 5 %>
+  </p><br><br>
+  <p><h3><%= form.label "Description of why You would make a Good Home:" %> </h3></p>
+  <%= form.text_field :good_home, size: "50x5" %>
+<br><br><br>
+<%= form.submit "Submit" %>
+<% end %>
+
+
+
+
