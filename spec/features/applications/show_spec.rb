@@ -66,5 +66,23 @@ RSpec.describe "/applications/:id" do
       expect(page).to_not have_button("Submit Application")
       expect(page).to_not have_content("Why would you make a good pet owner?")
     end
+
+    it 'can find results with partial matches' do
+      visit "/applications/#{application_1.id}"
+
+      fill_in :query, with: "Mr"
+      click_button "Search"
+
+      expect(page).to have_content(pet_1.name)
+    end
+
+    it 'can find results with partial matches and case insensitive' do
+      visit "/applications/#{application_1.id}"
+
+      fill_in :query, with: "mr"
+      click_button "Search"
+
+      expect(page).to have_content(pet_1.name)
+    end
   end
 end
