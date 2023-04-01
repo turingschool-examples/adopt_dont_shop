@@ -2,7 +2,7 @@ class ApplicantsController < ApplicationController
 
   def show
     @applicant = Applicant.find(params[:id])
-    @searched_pets = Pet.search(params[:search_name]) if !params[:search_name].nil?
+    @searched_pets = Pet.search(params[:search_name]).adoptable
   end
 
   def new
