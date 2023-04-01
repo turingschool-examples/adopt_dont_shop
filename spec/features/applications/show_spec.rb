@@ -46,6 +46,16 @@ RSpec.describe 'Application Show Page' do
         expect(page).to have_field(:search)
         expect(page).to have_button("Search")
       end
+
+      it 'I can search for pets by name' do
+        visit "/applications/#{@application_1.id}"
+
+        fill_in :search, with: "Lucille"
+        click_button "Search"
+
+        expect(page).to have_content("Lucille Bald")
+        expect(page).to_not have_content("Lobster")
+      end
     end
   end
 end
