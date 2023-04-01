@@ -29,10 +29,12 @@ RSpec.describe 'the new applicant page' do
       expect(current_path).to eq("/applicants/#{Applicant.last.id}")
     end
   end
+  
   describe "fail to fill any form fields" do
     it "If I don't fill out any form field and press submit, I am
         taken back to 'applicants/new' where I see messages to fill
         those fields" do
+        
       visit "/applicants/new"
 
       fill_in :name, with: "Maura McGonagle"
@@ -44,8 +46,6 @@ RSpec.describe 'the new applicant page' do
       click_on "Submit"
 
       expect(current_path).to eq("/applicants/new")
-
-      
     end
   end
 end
