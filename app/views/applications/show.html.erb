@@ -11,3 +11,13 @@
 <% if @application.status == "In Progress" %>
 <%= render "add_pet" %>
 <% end %>
+<% if @application.description.nil? == false %>
+<p>Submit my application</p>
+<p>Enter a description of why you would make a good owner for these pet(s):</p>
+<%= form_with url: "/applications/#{@application.id}/edit", method: :patch, local: true do |f| %>
+  <%= f.label :freeform %>
+  <%= f.text_area :freeform %>
+  <%= f.submit "Submit" %>
+  <% end %>
+<% end %>
+
