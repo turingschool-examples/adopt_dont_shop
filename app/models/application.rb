@@ -11,4 +11,12 @@ class Application < ApplicationRecord
   def eligible?
     status == "In Progress" && !pets.empty?
   end
+
+  def self.create_app(params)
+    application = Application.new(params)
+    if application.valid?
+      application.save!
+      application
+    end
+  end
 end

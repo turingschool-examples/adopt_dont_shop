@@ -15,6 +15,7 @@ RSpec.describe Application, type: :model do
                                           zip_code: "12345", 
                                           description: "Dogs are great", 
                                           status: "Rejected") }
+  let!(:shelter) { Shelter.create!(name: "Best Friends Animal Society", city: "Los Angeles", foster_program: true, rank: 1) }                                         
 
   describe 'relationships' do
     it { should have_many(:application_pets) }
@@ -41,9 +42,11 @@ RSpec.describe Application, type: :model do
 
   describe 'class methods' do
     it ".eligible?" do
-      expect(application_1.eligible?).to eq(true)
+      expect(application_1.eligible?).to eq(false)
       expect(application_2.eligible?).to eq(false)
-    end
 
+      application_1.pets << shelter.pets.create!(name: 'Mr. Pirate', breed: 'tuxedo shorthair', age: 5, adoptable: false)
+      expect(application_1.eligible?).to eq(true)
+    end
   end
 end
