@@ -6,6 +6,7 @@ RSpec.describe 'application show page' do
       @shelter_1 = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
       @pet_1 = @shelter_1.pets.create(name: 'Mr. Pirate', breed: 'tuxedo shorthair', age: 5, adoptable: true)
       @app_1 = Application.create!(name: 'JoJo', address: '23 Tanby', city: 'Denver', state: 'CO', zip: '90345', description: 'I have dog food and a roof', status: "In Progress")
+      PetApplication.create!(application: @app_1, pet: @pet_1)
     end
 
     it 'displays an application with attributes'do
@@ -18,7 +19,17 @@ RSpec.describe 'application show page' do
     expect(page).to have_content(@app_1.zip)
     expect(page).to have_content(@app_1.description)
     expect(page).to have_content(@app_1.status)
+    expect(page).to have_content(@pet_1.name)
     end
+
+    # it 'has a link to pet show page' do
+    #   visit "/applications/#{@app_1.id}"
+
+    #   click_on "#{@pet_1.name}"
+
+    #   expect(current_path).to eq("pets/#{@pet_1.id}")
+
+    # end
   end
 
   describe 'does not have submitted application' do
@@ -27,10 +38,11 @@ RSpec.describe 'application show page' do
       @pet_1 = @shelter_1.pets.create(name: 'Mr. Pirate', breed: 'tuxedo shorthair', age: 5, adoptable: true)
       @app_1 = Application.create!(name: 'JoJo', address: '23 Tanby', city: 'Denver', state: 'CO', zip: '90345', description: 'I have dog food and a roof', status: "In Progress")
     end
-    it 'display a place to add a pet to application'
+
+    it 'display a place to add a pet to application' do
       visit "/applications/#{@app_1.id}"
 
-       expect(page).to have_content ("Add a Pet to this Application")
+      expect(page).to have_content("Add a Pet to this Application")
     end
   end
 end
