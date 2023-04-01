@@ -24,11 +24,12 @@ end
 # applications
 10.times do
   Application.create!(
-    human_name: Faker::Name.unique.name,
+    name: Faker::Name.unique.name,
     street_address: Faker::Address.unique.street_address,
     city: Faker::Address.city,
     state: Faker::Address.state,
-    zip: Faker::Address.zip,
+    zip_code: Faker::Address.zip,
+    description: Faker::Lorem.paragraph(sentence_count: 2),
     status: "In Progress"
   )
 end

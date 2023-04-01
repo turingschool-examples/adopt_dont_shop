@@ -9,6 +9,6 @@ class Application < ApplicationRecord
                         :description
 
   def eligible?
-    status == "In Progress"
+    status == "In Progress" && !pets.empty?
   end
 end
