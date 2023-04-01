@@ -32,6 +32,22 @@ RSpec.describe Pet, type: :model do
         expect(Pet.adoptable).to eq([@pet_1, @pet_2])
       end
     end
+    #User Story 10/11
+    describe '#filter_by_name' do
+      it 'filters pets by name and partial matches and is case insensitive' do
+        params_1 = {"utf8"=>"✓", :name=>"lawd", "commit"=>"Search", "controller"=>"applications", "action"=>"show", "id"=>"31"}
+        pets_1 = Pet.filter_by_name(params_1)
+        expect(pets_1.first).to eq(@pet_2)
+
+        params_2 = {"utf8"=>"✓", :name=>"Pir", "commit"=>"Search", "controller"=>"applications", "action"=>"show", "id"=>"31"}
+        pets_2 = Pet.filter_by_name(params_2)
+        expect(pets_2.first).to eq(@pet_1)
+
+        params_3 = {"utf8"=>"✓", :name=>"aNN", "commit"=>"Search", "controller"=>"applications", "action"=>"show", "id"=>"31"}
+        pets_3 = Pet.filter_by_name(params_3)
+        expect(pets_3.first).to eq(@pet_3)
+      end
+    end
   end
 
   describe 'instance methods' do

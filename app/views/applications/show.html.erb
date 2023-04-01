@@ -26,10 +26,9 @@ Why would you make a good owner for these pet(s)
   <%= form_with url: "/applications/#{@application.id}/?name=", method: :get, local: true do |form| %>   
   <h2>Add a Pet to this Application </h2>
   <ul>
-   <span> <%= form.label :Name %> </span>
-   <span> <%= form.text_field :Name %> </span>
+   <span> <%= form.label :name %> </span>
+   <span> <%= form.text_field :name %> </span>
    <span> <%= form.submit 'Search' %> </span>
-  
   <% end %>
 
   <% if @pets.empty? != true %>

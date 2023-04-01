@@ -6,6 +6,10 @@ class Shelter < ApplicationRecord
   has_many :pets, dependent: :destroy
   has_many :ShelterVeterinarians
 
+  def self.order_alpha
+    order(name: :desc)
+  end
+
   def self.order_by_recently_created
     order(created_at: :desc)
   end
