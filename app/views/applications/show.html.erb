@@ -8,9 +8,13 @@
 <p>Application Status: <%= @application.application_status %></p>
 <br>
 <p>"Add a Pet to this Application"<br>
+  <% if !@searched_pets.nil? %>
+    <% @searched_pets.each do |pet| %>
+    <%= pet.name %>
+    <% end %>
+  <% end %>
 <%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |form| %>
-  <%= form.label :pet_search %>
-  <%= form.text_field :pet_search %>
-
-  <%= form.submit 'Search Pets' %></p>
-<% end %>
+  <%= form.label :search_pet %>
+  <%= form.text_field :search_pet %>
+  <%= form.submit 'Search Pet' %>
+<% end %></p>

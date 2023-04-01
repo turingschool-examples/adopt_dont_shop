@@ -26,8 +26,7 @@ RSpec.describe 'application show page' do
       expect(page).to have_content(application_1.application_status)
     end
 
-    it 'can search for pet name to add to application' do
-      
+    it 'lists partial matches as search results' do
       shelter_1 = Shelter.create!(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
       shelter_2 = Shelter.create!(name: 'RGV animal shelter', city: 'Harlingen, TX', foster_program: false, rank: 5)
       shelter_3 = Shelter.create!(name: 'Fancy pets of Colorado', city: 'Denver, CO', foster_program: true, rank: 10)
@@ -36,14 +35,15 @@ RSpec.describe 'application show page' do
       pet_2 = Pet.create!(adoptable: true, age: 3, breed: 'doberman', name: 'Lobster', shelter: shelter_2)
       pet_3 = Pet.create!(adoptable: false, age: 2, breed: 'saint bernard', name: 'Beethoven', shelter: shelter_3)
 
+  
       visit "/applications/#{application_1.id}"
-
-      expect(page).to have_content("In Progress")
-      expect(page).to have_content("Add a Pet to this Application")
-
-      fill_in(:pet_search, with: 'Lobster')
+  
+      fill_in(:search_pet, with: 'Lobster')
       click_button('Search Pet')
-
+  
+      expect(page).to have_content(pet_2.name)
+      expect(page).to_not have_content(pet_1.name)
+      expect(page).to_not have_content(pet_3.name)
       expect(current_path).to eq("/applications/#{application_1.id}")
     end
 end

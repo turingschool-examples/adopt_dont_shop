@@ -23,8 +23,5 @@ RSpec.describe Application, type: :model do
       city: 'Los Angeles', state: 'CA', zip_code: 67890,
       description: 'Interested in sibling pets', name_of_pet: 'Beethoven', application_status: "In Progress") }
      
-    it '::search_pet' do
-      expect(application_1.search_pet).to eq('Lobster')
-    end
   end
 end
