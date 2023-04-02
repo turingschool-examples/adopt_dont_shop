@@ -17,9 +17,15 @@
   <%= form.text_field :search_pet %>
   <%= form.submit 'Search Pet' %>
 <% end %><br>
-  <% if !@searched_pets.nil? %>
-    <% @searched_pets.each do |pet| %>
-    <b><%= pet.name %></b>
-    <%= button_to "Adopt This Pet", "/applications/#{@application.id}", method: :get %>
-    <% end %>
+  
+<% if params[:search_pet] %>
+<% @searched_pets.each do |searched_pet| %>
+<%= searched_pet.id %>
+<%= link_to searched_pet.name, "/pets/#{searched_pet.id}" %>
+<%= form_with model: PetsApplication.new, url: "/pets_applications", local: true, method: :post do |form| %>
+<%= form.hidden_field :pet_id, value: searched_pet.id  %>
+<%= form.hidden_field :application_id, value: @application.id %>
+<%= form.submit "Adopt This Pet" %>
+<% end %>
+<% end %>
 <% end %></p>

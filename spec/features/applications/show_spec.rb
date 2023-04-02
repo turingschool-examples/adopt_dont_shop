@@ -69,8 +69,9 @@ RSpec.describe 'application show page' do
     expect(current_path).to eq("/applications/#{application_1.id}")
     
     click_button('Adopt This Pet')
-
+    
     expect(page).to have_content(pet_2.name)
+
     expect(current_path).to eq("/applications/#{application_1.id}")
   end
 end
