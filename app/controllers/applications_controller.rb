@@ -29,7 +29,7 @@ class ApplicationsController < ApplicationController
   end
 
   def search_by_name(name)
-    Pet.search(search_params[:search]) if name.present?
+    Pet.search(name) if name.present?
   end
   
   private
