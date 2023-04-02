@@ -41,6 +41,7 @@ Rails.application.routes.draw do
 
   get 'admin/shelters', to: "admins#shelter_index"
   get 'admin/applications/:id', to: "admins#application_show"
+  post 'admin/applications/:id', to: "admins#application_pet_condition_change"
 
   get '/veterinary_offices/:veterinary_office_id/veterinarians', to: 'veterinary_offices#veterinarians'
   get '/veterinary_offices/:veterinary_office_id/veterinarians/new', to: 'veterinarians#new'

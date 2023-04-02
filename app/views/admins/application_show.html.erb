@@ -3,6 +3,8 @@
 <% @application.pets.each do |pet| %>
 <h3><%= pet.name %><p>
   <% if PetApplication.joins(:pet).where("pet_id = #{pet.id}").pluck(:condition).first == "Pending" %>
-  <p><%= link_to "Approve this Pet!", "/admin/applications/:id", id: "Approve #{pet.id}", method: :post %></p>
+  <p><%= link_to "Approve this Pet!", "/admin/applications/#{PetApplication.joins(:pet).where("pet_id = #{pet.id}").pluck(:id).first}?condition_update=Approved", id: "Approve #{pet.id}", method: :post %></p>
+  <% elsif PetApplication.joins(:pet).where("pet_id = #{pet.id}").pluck(:condition).first == "Approved" %>
+  <p><%= "The application for this pet has been approved." %>
   <% end %>
 <% end %>
