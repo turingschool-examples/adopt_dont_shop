@@ -17,83 +17,109 @@ RSpec.describe '/applications/:id', type: :feature do
     it 'I can see all attributes of the application' do
       visit "/applications/#{application_1.id}" 
 
-      expect(page).to have_content("Name: Taylor")
-      expect(page).to have_content("Address: 123 Side St, Denver, CO 80202")
-      expect(page).to have_content("Description: I love animals")
-      expect(page).to have_content("Status: In Progress")
+      expect(page).to have_content('Name: Taylor')
+      expect(page).to have_content('Address: 123 Side St, Denver, CO 80202')
+      expect(page).to have_content('Description: I love animals')
+      expect(page).to have_content('Status: In Progress')
 
     end
 
     it 'I can see all pets that this application is for and they are links that go to that pets show page' do
       visit "/applications/#{application_1.id}" 
-      expect(page).to have_content("Pets on Application:")
-      expect(page).to have_link("Bella")
-      expect(page).to have_link("Rigby")
+      expect(page).to have_content('Pets on Application:')
+      expect(page).to have_link('Bella')
+      expect(page).to have_link('Rigby')
 
-      click_link "Bella"
+      click_link 'Bella'
 
       expect(current_path).to eq("/pets/#{bella.id}")
     end
 
-    it 'If the application has not been submitted, I can search for pets by name' do
-      visit "/applications/#{application_1.id}"
-
-      expect(page).to have_content("Add a Pet to this Application")
+    describe 'Pet search' do
+      it 'If the application has not been submitted, I can search for pets by name' do
+        visit "/applications/#{application_1.id}"
+        
+        expect(page).to have_content('Add a Pet to this Application')
+        
+        fill_in 'Pet Name', with: 'Luna'
+        
+        click_button 'Search'
+        
+        expect(current_path).to eq("/applications/#{application_1.id}")
+        expect(page).to have_content('Luna')
+        expect(page).to have_button('Adopt this Pet')
+      end
       
-      fill_in 'Pet Name', with: "Luna"
-      
-      click_button "Search"
+      it 'If the application has not been submitted, I can add a pet to the application' do
+        visit "/applications/#{application_2.id}"
+        
+        fill_in 'Pet Name', with: 'Luna'
+        
+        click_button 'Search'
+        click_button 'Adopt this Pet'
+        
+        expect(current_path).to eq("/applications/#{application_2.id}")
+        expect(page).to have_link('Luna')
+      end
 
-      expect(current_path).to eq("/applications/#{application_1.id}")
-      expect(page).to have_content("Luna")
-      expect(page).to have_button('Adopt this Pet')
-    end
+      it 'I can search for pets by partial name' do
+        visit "/applications/#{application_2.id}"
+        
+        fill_in 'Pet Name', with: 'Lun'
+        
+        click_button 'Search'
+        
+        expect(current_path).to eq("/applications/#{application_2.id}")
+        expect(page).to have_content('Luna')
+        expect(page).to have_button('Adopt this Pet')
+      end
 
-    it 'If the application has not been submitted, I can add a pet to the application' do
-      visit "/applications/#{application_1.id}"
+      it 'I can search for pets regardless of case' do
+        visit "/applications/#{application_2.id}"
 
-      fill_in 'Pet Name', with: "Luna"
-      
-      click_button "Search"
-      click_button 'Adopt this Pet'
+        fill_in 'Pet Name', with: 'luna'
+        click_button 'Search'
 
-      expect(current_path).to eq("/applications/#{application_1.id}")
-      expect(page).to have_link("Luna")
-    end
-  end
-
-  describe 'Submit Application' do
-    it 'If the application does not have any pets then there is no submit button' do
-      visit "/applications/#{application_2.id}"
-      
-      expect(page).to_not have_content('Why would you make a good owner to these pet(s)?')
-      expect(page).to_not have_button('Submit Application')
+        expect(page).to have_content('Luna')
+        expect(page).to_not have_content('Bella')
+        expect(page).to_not have_content('Rigby')
+        expect(page).to have_button('Adopt this Pet')
+      end
     end
     
-    it 'If the application does have pets then there is a submit button and a text field' do
-      visit "/applications/#{application_1.id}"
+    describe 'Submit Application' do
+      it 'If the application does not have any pets then there is no submit button' do
+        visit "/applications/#{application_2.id}"
+        
+        expect(page).to_not have_content('Why would you make a good owner to these pet(s)?')
+        expect(page).to_not have_button('Submit Application')
+      end
       
-      expect(page).to have_content('Why would you make a good owner to these pet(s)?')
-      expect(page).to have_button('Submit Application')
-    end
-
-    it 'If the submit button is clicked, the application status changes to "Pending"' do
-      visit "/applications/#{application_1.id}"
-      fill_in :good_owner, with: 'They are good pets'
-      click_button('Submit Application')
-
-      expect(current_path).to eq("/applications/#{application_1.id}")
-      expect(page).to have_content("Status: Pending")
-    end
-    
-    it 'If the application has been submitted, I can no longer search for pets' do
-      visit "/applications/#{application_1.id}"
-      fill_in :good_owner, with: 'They are good pets'
-      click_button('Submit Application')
-
-      expect(page).to_not have_content('Add a Pet to this Application')
-      expect(page).to_not have_button('Search')
-      expect(page).to_not have_button('Submit Application')
+      it 'If the application does have pets then there is a submit button and a text field' do
+        visit "/applications/#{application_1.id}"
+        
+        expect(page).to have_content('Why would you make a good owner to these pet(s)?')
+        expect(page).to have_button('Submit Application')
+      end
+      
+      it 'If the submit button is clicked, the application status changes to "Pending"' do
+        visit "/applications/#{application_1.id}"
+        fill_in :good_owner, with: 'They are good pets'
+        click_button('Submit Application')
+        
+        expect(current_path).to eq("/applications/#{application_1.id}")
+        expect(page).to have_content('Status: Pending')
+      end
+      
+      it 'If the application has been submitted, I can no longer search for pets' do
+        visit "/applications/#{application_1.id}"
+        fill_in :good_owner, with: 'They are good pets'
+        click_button('Submit Application')
+        
+        expect(page).to_not have_content('Add a Pet to this Application')
+        expect(page).to_not have_button('Search')
+        expect(page).to_not have_button('Submit Application')
+      end
     end
   end
 end
