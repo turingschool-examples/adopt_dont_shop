@@ -4,7 +4,7 @@ class ApplicationsController < ApplicationController
     @application = Application.find(params[:id])
     @pets = @application.pets
     @searched_pets = Pet.search(params[:pet_name]) if !params[:pet_name].nil?
-    @application.status = 'Pending' if !params[:commit].nil?
+    @application.status = 'Pending' if params[:commit] == 'Submit'
   end
 
   def new

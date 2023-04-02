@@ -28,8 +28,7 @@
 <%= link_to "Adopt this pet", "/pet_applications/new?pet=#{pet.id}&application=#{@application.id}", method: :get, id: "Adopt #{pet.id}" %><br/>
   <% end %>
 <% end %>
-
-<% if @application.status == 'In Progress' %>
+<% if @application.status == 'In Progress' && @application.pets != [] %>
   <% if !@application.pets.nil? %>
     <%= form_with url: "/applications/#{@application.id}", method: :GET, local:true do |form| %>
     <h3><%= "Submit Application" %><h3>
