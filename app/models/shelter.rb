@@ -33,7 +33,7 @@ class Shelter < ApplicationRecord
   end
 
   def self.open_apps
-    Shelter.joins(pets: :applications).where(applications: {status: "Pending"})
+    Shelter.find_by_sql("SELECT * FROM shelters ORDER BY name DESC").joins(pets: :applications).where(applications: {status: "Pending"})
   end
 
   def self.reverse_alph
