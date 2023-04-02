@@ -42,24 +42,6 @@ RSpec.describe Shelter, type: :model do
         expect(Shelter.order_by_number_of_pets).to eq([@shelter_1, @shelter_3, @shelter_2])
       end
     end
-
-    describe '#shelters_with_pending_applications' do
-      it 'returns all shelters with pending applications' do
-        shelter1 = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
-        shelter3 = Shelter.create(name: 'Fancy pets of Colorado', city: 'Denver, CO', foster_program: true, rank: 10)
-
-        pet2 = shelter1.pets.create(name: 'Clawdia', breed: 'shorthair', age: 3, adoptable: true)
-        pet3 = shelter3.pets.create(name: 'Lucille Bald', breed: 'sphynx', age: 8, adoptable: true)
-
-        application1 = Application.create!(name: 'John Doe', address: '123 Main St', city: 'Denver', state: 'CO', zip: '80202', description: 'I love animals', status: 'Pending')
-        application2 = Application.create!(name: 'Jane Doe', address: '123 Main St', city: 'Denver', state: 'CO', zip: '80202', description: 'I love animals', status: 'Pending')
-
-        PetApplication.create!(pet: pet2, application: application1)
-        PetApplication.create!(pet: pet3, application: application2)
-        
-        expect(shelter1.with_pending_applications).to eq("Aurora shelter")
-      end
-    end
   end
 
   describe 'instance methods' do
@@ -84,6 +66,24 @@ RSpec.describe Shelter, type: :model do
     describe '.pet_count' do
       it 'returns the number of pets at the given shelter' do
         expect(@shelter_1.pet_count).to eq(3)
+      end
+    end
+
+    describe '.with_pending_applications' do
+      it 'returns shelters with pending applications' do
+        shelter1 = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
+        shelter3 = Shelter.create(name: 'Fancy pets of Colorado', city: 'Denver, CO', foster_program: true, rank: 10)
+
+        pet2 = shelter1.pets.create(name: 'Clawdia', breed: 'shorthair', age: 3, adoptable: true)
+        pet3 = shelter3.pets.create(name: 'Lucille Bald', breed: 'sphynx', age: 8, adoptable: true)
+
+        application1 = Application.create!(name: 'John Doe', address: '123 Main St', city: 'Denver', state: 'CO', zip: '80202', description: 'I love animals', status: 'Pending')
+        application2 = Application.create!(name: 'Jane Doe', address: '123 Main St', city: 'Denver', state: 'CO', zip: '80202', description: 'I love animals', status: 'Pending')
+
+        PetApplication.create!(pet: pet2, application: application1)
+        PetApplication.create!(pet: pet3, application: application2)
+        
+        expect(shelter1.with_pending_applications).to eq("Aurora shelter")
       end
     end
   end
