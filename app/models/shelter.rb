@@ -37,6 +37,6 @@ class Shelter < ApplicationRecord
   end
 
   def self.reverse_alph
-    self.find_by_sql("SELECT name FROM shelters ORDER BY name DESC")
+    self.find_by_sql("SELECT * FROM shelters ORDER BY name DESC")
   end
 end
