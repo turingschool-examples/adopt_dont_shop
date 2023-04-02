@@ -27,6 +27,13 @@ RSpec.describe '/admin/application/:id', type: :feature do
       expect(page).to have_button('Approve Bella')
       expect(page).to have_button('Approve Rigby')
     end
+
+    it 'I see a button next to each pet to reject the application for that pet' do
+      visit "/admin/applications/#{application_1.id}"
+      
+      expect(page).to have_button('Reject Bella')
+      expect(page).to have_button('Reject Rigby')
+    end
   end
 
   describe 'When I click approve button for a pet' do
@@ -35,8 +42,19 @@ RSpec.describe '/admin/application/:id', type: :feature do
 
       click_button 'Approve Bella'
       
-      expect(page).to have_content('Approved')
+      expect(page).to have_content('Bella is Approved')
       expect(page).to_not have_button('Approve Bella')
+    end
+  end
+
+  describe 'When I click reject button for a pet' do
+    it 'It displays Rejected next to the pet and no buttons are displayed' do
+      visit "/admin/applications/#{application_1.id}"
+      
+      click_button 'Reject Bella'
+      
+      expect(page).to have_content('Bella is Rejected')
+      expect(page).to_not have_button('Reject Bella')
     end
   end
 end
