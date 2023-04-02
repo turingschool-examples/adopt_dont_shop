@@ -6,3 +6,16 @@
 <p>Zip Code: <%= @application.zip_code %></p>
 <p>Reason: <%= @application.reason %></p>
 <p>Status: <%= @application.status %></p>
+
+<h3>Add a Pet to this Application</h3>
+<%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |form| %>
+  <%= form.label :search_pets %>
+  <%= form.search_field :search_pets %>
+  <%= form.submit 'Search Pets' %>
+<% end %>
+
+<% if params[:search_pets] %>
+  <% @pets.each do |pet| %>
+    <p><%= pet.name %></p>
+  <% end %>
+<% end %>

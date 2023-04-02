@@ -1,5 +1,9 @@
 <h2>New Application</h2>
 
+<% if params[:missing_field] %>
+  <h3>You must fill in all fields</h3>
+<% end %>
+
 <%= form_with url: '/applications', method: :post, local: true do |form| %>
   <%= form.label :name %>
   <%= form.text_field :name %>
