@@ -28,4 +28,15 @@ RSpec.describe '/admin/application/:id', type: :feature do
       expect(page).to have_button('Approve Rigby')
     end
   end
+
+  describe 'When I click approve button for a pet' do
+    it 'It displays Approved next to the pet and no buttons are displayed' do
+      visit "/admin/applications/#{application_1.id}"
+
+      click_button 'Approve Bella'
+
+      expect(page).to have_content('Approved')
+      expect(page).to_not have_button('Approve Bella')
+    end
+  end
 end
