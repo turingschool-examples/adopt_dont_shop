@@ -14,10 +14,18 @@ class AdminController < ApplicationController
     @application = Application.find(params[:id])
     @pet = Pet.find(params[:pet_id])
     @applicationpet = ApplicationPet.find_application(@pet,@application)
+    if params['commit'] == "Approve #{@pet.name}"
     @applicationpet.first.update({
       approved: true,
     })
+    end
+    if params['commit'] == "Reject #{@pet.name}"
+      @applicationpet.first.update({
+        approved: false,
+      })
+    end
     redirect_to "/admin/applications/#{@application.id}"
+
   end
 
 end

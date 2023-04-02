@@ -10,6 +10,7 @@
       <%= form_with url: "/admin/applications/#{@application.id}/?pet_id=#{appPet.pet_id}", method: :patch, local: true do |form| %>
       <%=link_to "#{appPet.find_name}", "/pets/#{appPet.pet_id}"%>
           <%= form.submit "Approve #{appPet.find_name}"%>
+          <%= form.submit "Reject #{appPet.find_name}"%> 
   <% end %>
   <% else %>
   <span><%= appPet.find_name %>:Approved <%= appPet.approved %></span>

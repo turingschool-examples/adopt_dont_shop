@@ -44,4 +44,31 @@ RSpec.describe 'admin/applications/:id' do
       expect(page).to have_content("Pets: Bare-y Manilow:Approved true\nMr. Pirate")
     end
   end
+
+  #User Story 13
+  describe "When i visit admin/applications/:id" do
+    it "Displays 'Reject' button next to each added pet" do
+      visit "/admin/applications/#{@application_1.id}" 
+      expect(page).to have_content("Pets:\nBare-y Manilow\nMr. Pirate")
+      expect(page).to have_selector(:button, "Reject Bare-y Manilow")
+      expect(page).to have_selector(:button, "Reject Mr. Pirate")
+    end
+    it "Clicking it redirects me to same page" do
+      visit "/admin/applications/#{@application_1.id}" 
+      click_button("Reject Bare-y Manilow")
+      expect(page).to have_current_path("/admin/applications/#{@application_1.id}")
+    end
+    it "Indicates that pet has been approved and button is gone" do
+      visit "/admin/applications/#{@application_1.id}" 
+      click_button("Reject Bare-y Manilow")
+      expect(page).to have_current_path("/admin/applications/#{@application_1.id}")
+
+      expect(page).to have_selector(:button, "Approve Mr. Pirate")
+      expect(page).to have_selector(:button, "Reject Mr. Pirate")
+
+      expect(page).to_not have_selector(:button, "Approve Bare-y Manilow")
+      expect(page).to_not have_selector(:button, "Reject Bare-y Manilow")
+      expect(page).to have_content("Pets: Bare-y Manilow:Approved false\nMr. Pirate")
+    end
+  end
 end
