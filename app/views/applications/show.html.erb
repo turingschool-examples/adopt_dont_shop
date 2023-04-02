@@ -1,20 +1,31 @@
+<h2>Application</h2>
 <p>Name: <%= @application.name %></p>
 <p>Street Address: <%= @application.street_address %></p>
 <p>City: <%= @application.city %></p>
 <p>State: <%= @application.state %></p>
 <p>Zip Code: <%= @application.zip_code %></p>
 <p>Description: <%= @application.description %></p>
-<p>Name of Pet: <%= @application.name_of_pet %></p>
 <p>Application Status: <%= @application.application_status %></p>
 <br>
-<p>"Add a Pet to this Application"<br>
-  <% if !@searched_pets.nil? %>
-    <% @searched_pets.each do |pet| %>
-    <%= pet.name %>
-    <% end %>
-  <% end %>
+<p><h2>Name of Pet Applying For:</h2></p>
+<p><% @application.pets.each do |pet| %>
+  <%= link_to pet.name, "/pets/#{pet.id}" %>
+  <% end %></p>
+<h2><p>Add a Pet to this Application</h2>  
 <%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |form| %>
   <%= form.label :search_pet %>
   <%= form.text_field :search_pet %>
   <%= form.submit 'Search Pet' %>
+<% end %><br>
+  
+<% if params[:search_pet] %>
+<% @searched_pets.each do |searched_pet| %>
+<%= searched_pet.id %>
+<%= link_to searched_pet.name, "/pets/#{searched_pet.id}" %>
+<%= form_with model: PetsApplication.new, url: "/pets_applications", local: true, method: :post do |form| %>
+<%= form.hidden_field :pet_id, value: searched_pet.id  %>
+<%= form.hidden_field :application_id, value: @application.id %>
+<%= form.submit "Adopt This Pet" %>
+<% end %>
+<% end %>
 <% end %></p>
