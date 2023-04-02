@@ -1,4 +1,4 @@
-class PetApplicationsController < ApplicationController
+ class PetApplicationsController < ApplicationController
 
   def create
     PetApplication.create!(pet_id: params[:pet], application_id: params[:application])
