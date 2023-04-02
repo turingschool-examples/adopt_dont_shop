@@ -47,8 +47,8 @@ RSpec.describe 'admin shelters index', type: :feature do
     expect(page).to have_link(@shelter_2.name)
     expect(page).to have_link(@shelter_3.name)
 
-    click_link(@shelter_1.name)
+    click_link(@shelter_1.name, match: :first)
 
-    expect(current_path).to eq("/admin/shelters/#{shelter_1.id}"
+    expect(current_path).to eq("/admin/shelters/#{@shelter_1.id}")
   end
 end
