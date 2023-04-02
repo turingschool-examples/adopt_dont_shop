@@ -23,7 +23,7 @@ RSpec.describe '/admin/application/:id', type: :feature do
 
     it 'I see a button next to each pet to approve the application for that pet' do
       visit "/admin/applications/#{application_1.id}"
-
+      
       expect(page).to have_button('Approve Bella')
       expect(page).to have_button('Approve Rigby')
     end
@@ -34,7 +34,7 @@ RSpec.describe '/admin/application/:id', type: :feature do
       visit "/admin/applications/#{application_1.id}"
 
       click_button 'Approve Bella'
-
+      
       expect(page).to have_content('Approved')
       expect(page).to_not have_button('Approve Bella')
     end
