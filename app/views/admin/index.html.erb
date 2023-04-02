@@ -22,3 +22,8 @@
     <% end %>
   </tbody>
 </table>
+
+  <h2>Shelters with Pending Applications</h2>
+  <% Shelter.all do |shelter| %>
+    <p><%= shelter.with_pending_applications %></p>
+  <% end %>
