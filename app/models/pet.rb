@@ -9,8 +9,8 @@ class Pet < ApplicationRecord
     shelter.name
   end
 
-  def self.filter_by_name(params)
-    where("name ILIKE ?", "%#{params[:name]}%")
+  def self.filter_by_name(params, application)
+      test = where("name ILIKE ?", "%#{params[:name]}%").where.not(id: application.pet_ids)
   end
 
   def self.adoptable

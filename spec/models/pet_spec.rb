@@ -18,6 +18,15 @@ RSpec.describe Pet, type: :model do
     @pet_1 = @shelter_1.pets.create(name: 'Mr. Pirate', breed: 'tuxedo shorthair', age: 5, adoptable: true)
     @pet_2 = @shelter_1.pets.create(name: 'Clawdia', breed: 'shorthair', age: 3, adoptable: true)
     @pet_3 = @shelter_1.pets.create(name: 'Ann', breed: 'ragdoll', age: 3, adoptable: false)
+    @application_1 = Application.create(
+      name: "Billy Mays",
+      street_address:  "123 Main St",
+      city: "Aurora",
+      state: "CO",
+      zip: "80012",
+      description: "I like pets",
+      status: "Pending"
+  )
   end
 
   describe 'class methods' do
@@ -36,15 +45,15 @@ RSpec.describe Pet, type: :model do
     describe '#filter_by_name' do
       it 'filters pets by name and partial matches and is case insensitive' do
         params_1 = {"utf8"=>"✓", :name=>"lawd", "commit"=>"Search", "controller"=>"applications", "action"=>"show", "id"=>"31"}
-        pets_1 = Pet.filter_by_name(params_1)
+        pets_1 = Pet.filter_by_name(params_1,@application_1)
         expect(pets_1.first).to eq(@pet_2)
 
         params_2 = {"utf8"=>"✓", :name=>"Pir", "commit"=>"Search", "controller"=>"applications", "action"=>"show", "id"=>"31"}
-        pets_2 = Pet.filter_by_name(params_2)
+        pets_2 = Pet.filter_by_name(params_2,@application_1)
         expect(pets_2.first).to eq(@pet_1)
 
         params_3 = {"utf8"=>"✓", :name=>"aNN", "commit"=>"Search", "controller"=>"applications", "action"=>"show", "id"=>"31"}
-        pets_3 = Pet.filter_by_name(params_3)
+        pets_3 = Pet.filter_by_name(params_3,@application_1)
         expect(pets_3.first).to eq(@pet_3)
       end
     end
