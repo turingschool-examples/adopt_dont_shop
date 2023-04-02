@@ -1,0 +1,4 @@
+<h1><%= "#{@application.applicant_name}'s application" %></h1>
+<p> Pet Wishlist </p><br/><br/>
+<% @application.pets.each do |pet| %>
+<% if PetAppllication.find(pet_id: pet.id).%>

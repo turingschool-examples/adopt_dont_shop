@@ -4,4 +4,8 @@ class AdminsController < ApplicationController
     @all_shelters = Shelter.all
     @app_shelters = Shelter.open_apps
   end
+
+  def application_show
+    @application = Application.find(params[:id])
+  end
 end
