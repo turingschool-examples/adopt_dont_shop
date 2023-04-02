@@ -1,36 +1,29 @@
 <h1><%= @applicant.name %>'s Application</h1>
-<body>
-<p><h3>Name: </h3> <%= @applicant.name %> </p>
 <br>
-<h3><p>Address: </h3></p>
+<p><h3>Name: </h3> <%= @applicant.name %> </p>
+<p><h3>Address: </h3></p>
 <p> <%= @applicant.street %> </p>
 <p> <%= @applicant.city %>,  <%= @applicant.state.upcase %> <%= @applicant.zip %> </p>
-<br>
-<p><h3>"Description of why You would make a Good Home:" </h3></p>
-<p><%= @applicant.good_home %></p>
 <br>
 <p><h3>Status: </h3> <%= @applicant.status %> </p>
 <br>
 <p><h3>Currently Applying For: </h3></p>
-<p> <% @applicant.pets.each do |pet|%> </p>
-  <p> <%= link_to pet.name, "/pets/#{pet.id}" %> </p>
-  <br>
-<p> <% end %> </p>
+  <% @applicant.pets.each do |pet|%>
+    <p> <%= link_to pet.name, "/pets/#{pet.id}" %> </p>
+  <% end %>
 <br>
-<% if @applicant.status == 'In Progress' %>
-  <h3>Add a Pet to this Application</h3>
-  <%= form_with url: "/applicants/#{@applicant.id}", method: :get, local: true do |form| %>
-    <%= form.label :search_name %>
-    <%= form.text_field :search_name %>
-    <%= form.submit "Search" %>
+  <% if @applicant.status == 'In Progress' %>
+    <%= form_with url: "/applicants/#{@applicant.id}", method: :get, local: true do |form| %>
+    <h3>Add a Pet to this Application</h3>
+      <%= form.label :search_name %>
+      <%= form.text_field :search_name %>
+      <%= form.submit "Search" %>
+    <% end %>
   <% end %>
   <br>
-    <% if params[:search_name] && @searched_pets.empty? %>
-      <p> No pets found with that name </p>
-    <% elsif params[:search_name] %>
-      <% @searched_pets.each do |pet| %>
-      <div id="pet-<%= pet.id %>">
-      <%= link_to pet.name, "/pets/#{pet.id}" %>
+  <% if !@searched_pets.nil? %>
+    <% @searched_pets.each do |pet| %>
+      <b><%= pet.name %></b>
       <%= form_with model: PetApplicant.new, url: "/pet_applicants", local: true, method: :post do |form| %>
         <%= form.hidden_field :pet_id, value: pet.id %>
         <%= form.hidden_field :applicant_id, value: @applicant.id %>
@@ -38,7 +31,15 @@
       <% end %> 
     <% end %> 
   <% end %>
-    <br> 
-<% end %>
 <br>
-</body>
+  <% if @applicant.status == 'In Progress' && @applicant.pets != [] %>
+    <% if !@applicant.pets.nil? %>
+      <%= form_with url: "/applicants/#{@applicant.id}", method: :patch, local: true do |form| %>
+        <p><h3><%= form.label "Description of why You would make a Good Home:" %> </h3></p>
+        <%= form.text_field :good_home, size: "50x5" %>
+        <%= form.submit "Submit Application" %>
+      <% end %>
+    <% end %>
+  <% end %>
+    <h3>Description of why You would make a Good Home:</h3>
+    <p><%= @applicant.good_home %></p>

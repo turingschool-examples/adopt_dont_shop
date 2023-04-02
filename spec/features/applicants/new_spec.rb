@@ -10,7 +10,6 @@ RSpec.describe 'the new applicant page' do
       expect(page).to have_field(:city)
       expect(page).to have_field(:state)
       expect(page).to have_field(:zip)
-      expect(page).to have_field(:good_home)
       expect(page).to have_button("Submit")
     end
 
@@ -22,7 +21,6 @@ RSpec.describe 'the new applicant page' do
       fill_in :city, with: "Denver"
       fill_in :state, with: "CO"
       fill_in :zip, with: "80210"
-      fill_in :good_home, with: "Fenced in yard, lots of love"
 
       click_on "Submit" 
 
@@ -41,7 +39,6 @@ RSpec.describe 'the new applicant page' do
       fill_in :street, with: "124 Hill Rd"
       fill_in :city, with: "Denver"
       fill_in :state, with: "CO"
-      fill_in :zip, with: "80210"
 
       click_on "Submit"
 

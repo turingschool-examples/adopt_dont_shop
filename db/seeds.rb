@@ -1,6 +1,9 @@
 
 
-
+PetApplicant.delete_all
+Pet.delete_all  
+Shelter.delete_all
+Applicant.delete_all
 ##SHELTERS
     @aurora = Shelter.create!(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
     @mystery_bldg = Shelter.create!(name: 'Mystery Building', city: 'Irvine CA', foster_program: false, rank: 9)
@@ -10,6 +13,7 @@
     @fancy_colordo = Shelter.create!(name: 'Fancy pets of Colorado', city: 'Denver, CO', foster_program: true, rank: 10)
 
  ##PETS   
+    
     @mr_pirate = @aurora.pets.create!(name: 'Mr. Pirate', breed: 'tuxedo shorthair', age: 5, adoptable: true)
     @clawdia = @aurora.pets.create!(name: 'Clawdia', breed: 'shorthair', age: 3, adoptable: true)
     @ann = @aurora.pets.create!(name: 'Ann', breed: 'ragdoll', age: 3, adoptable: false)

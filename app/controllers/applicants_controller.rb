@@ -2,7 +2,9 @@ class ApplicantsController < ApplicationController
 
   def show
     @applicant = Applicant.find(params[:id])
-    @searched_pets = Pet.search(params[:search_name]).adoptable
+    @pets = @applicant.pets
+    @searched_pets = Pet.search(params[:search_name]).adoptable if !params[:search_name].nil?
+    @application.status = "Pending" if params[:submit_app] == "Submit Application"
   end
 
   def new
@@ -17,6 +19,14 @@ class ApplicantsController < ApplicationController
       redirect_to "/applicants/new"
       flash[:alert] = "Error: #{error_message(applicant.errors)}"
      end
+  end
+
+  def update
+    applicant = Applicant.find(params[:id])
+    applicant.update({good_home: params[:good_home],
+                      status: "Pending"})
+    applicant.save
+    redirect_to "/applicants/#{applicant.id}"
   end
 
   private

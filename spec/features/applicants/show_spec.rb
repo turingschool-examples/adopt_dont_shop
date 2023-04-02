@@ -6,8 +6,7 @@ RSpec.describe "Applicant Show" do
                                 street: "1234 Main St",
                                 city: "Denver",
                                 state: "CO",
-                                zip: "80203",
-                                good_home: "I have vetenarian expierence")
+                                zip: "80203")
 
     @shelter = Shelter.create!(name: 'Aurora shelter', 
                                city: 'Aurora, CO', 
@@ -40,7 +39,6 @@ RSpec.describe "Applicant Show" do
     expect(page).to have_content("#{@olivia.street}")
     expect(page).to have_content("#{@olivia.city}")
     expect(page).to have_content("#{@olivia.state}")
-    expect(page).to have_content("#{@olivia.good_home}")
     expect(page).to have_content("#{@olivia.status}")
     expect(page).to have_content("#{@pet_1.name}")
     expect(page).to have_content("#{@pet_2.name}")
@@ -64,7 +62,7 @@ RSpec.describe "Applicant Show" do
     before :each do
       @shelter_1 = Shelter.create(name: 'Mystery Building', city: 'Irvine CA', foster_program: false, rank: 9)
       @scooby = Pet.create(name: 'Scooby', age: 2, breed: 'Great Dane', adoptable: true, shelter_id: @shelter_1.id)
-      @heather = Applicant.create(name: "Heather", street: "pearl st", city: "denver", state: "CO", zip: "80203", good_home: "live close to dog parks")
+      @heather = Applicant.create(name: "Heather", street: "pearl st", city: "denver", state: "CO", zip: "80203")
     end
 
     it "has a search bar for a pet by name, that displays any pet names that matches the search" do
@@ -90,13 +88,42 @@ RSpec.describe "Applicant Show" do
 
       expect(current_path).to eq("/applicants/#{@heather.id}")
       expect(page).to have_content("#{@heather.pets.name}")
-    # 5. Add a Pet to an Application
-    # And I search for a Pet by name
-    # And I see the names Pets that match my search
-    # Then next to each Pet's name I see a button to "Adopt this Pet"
-    # When I click one of these buttons
-    # Then I am taken back to the application show page
-    # And I see the Pet I want to adopt listed on this application
     end
   end
+
+  describe "Application pending" do
+      it "I see input to enter good home, submits application after filling form,
+          status changes to pending." do
+        visit "/applicants/#{@olivia.id}"
+        expect(page).to have_field(:good_home)
+        expect(page).to have_button("Submit Application")
+        
+        fill_in :good_home, with: "to save lives"
+        click_on "Submit Application"
+        
+        expect(current_path).to eq("/applicants/#{@olivia.id}")
+        expect(page).to have_content("Pending")
+
+        expect(page).to_not have_link("Submit Application")
+        expect(page).to_not have_link("Adopt this Pet")
+        expect(page).to_not have_link("Search")
+        expect(page).to have_content(@olivia.good_home)
+        expect(page).to have_content("Description of why You would make a Good Home:")
+    end
+   
+  end
+# 6.  Submit an Application
+# As a visitor
+# When I visit an application's show page
+# And I have added one or more pets to the application
+# Then I see a section to submit my application
+# And in that section I see an input to enter why I would make a good owner for these pet(s)
+# When I fill in that input
+# And I click a button to submit this application
+# Then I am taken back to the application's show page
+# And I see an indicator that the application is "Pending"
+# And I see all the pets that I want to adopt
+# And I do not see a section to add more pets to this application
+
+
 end
