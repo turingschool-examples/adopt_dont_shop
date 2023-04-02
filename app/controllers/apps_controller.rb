@@ -1,13 +1,16 @@
 class AppsController < ApplicationController
   def show
+    @app = App.find(params[:id])
+    @pets = @app.pets
+    @app_submitted = false
     if params[:search].present?
-      @app = App.find(params[:id])
-      @pets = @app.pets
       @searched_pets = Pet.search(params[:search])
-    else
-      @app = App.find(params[:id])
-      @pets = @app.pets
+    elsif params[:pet_id].present?
+      @app.apply_adopt(params[:pet_id])
+    elsif params[:application_text].present?
+      @app.status = "Pending"
     end
+    @app_submitted = true if @app.status == "Pending"
   end
   
   def new

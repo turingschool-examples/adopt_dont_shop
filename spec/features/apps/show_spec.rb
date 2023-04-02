@@ -51,5 +51,51 @@ RSpec.describe 'the apps show', type: :feature do
 
       expect(page).to have_content('Maximus')
     end
+
+    it 'I see a button to adopt a searched pet' do
+      visit "/apps/#{@app_1.id}"
+
+      fill_in 'search', with: 'Maximus'
+      click_button 'Search Pets'
+      expect(page).to have_content('Maximus')
+      expect(@app_1.pets.count).to eq(2)
+
+      expect('Add a pet to this Application').to appear_before(@pet_3.name)
+      expect(page).to have_button('Adopt this Pet')
+
+      click_button 'Adopt this Pet'
+
+      expect(current_path).to eq("/apps/#{@app_1.id}")
+      expect(@app_1.pets.count).to eq(3)
+      expect(@pet_3.name).to appear_before('Add a pet to this Application')
+    end
+
+    it 'I see a section to submit my application and why I would make a good owner' do
+      visit "/apps/#{@app_1.id}"
+
+      expect(page).to have_content("I feel I would make a good owner for these pets because:")
+      expect(page).to have_field("application_text")
+      expect(page).to have_button("Submit Application")
+    end
+
+    it 'When I submit the application I am taken back to the show page and see an indicator the application is Pending and a list of pets' do
+      visit "/apps/#{@app_1.id}"
+
+      # save_and_open_page
+      fill_in 'application_text', with: 'I like dogs. They will like me. You should give me my dogs now.'
+      click_button 'Submit Application'
+
+      expect(current_path).to eq("/apps/#{@app_1.id}")
+      expect(page).to have_content("#{@app_1.name}'s Application for Adoption")
+      expect(page).to have_content("APPLICATION PENDING")
+      expect(page).to have_content("#{@pet_1.name}")
+      expect(page).to have_content("#{@pet_2.name}")
+      expect(page).to_not have_content("Add a pet to this Application")
+      expect(page).to_not have_field('search')
+      expect(page).to_not have_button('Search Pets')
+      expect(page).to_not have_content("I feel I would make a good owner for these pets because:")
+      expect(page).to_not have_field("application_text")
+      expect(page).to_not have_button("Submit Application")
+    end
   end
 end
