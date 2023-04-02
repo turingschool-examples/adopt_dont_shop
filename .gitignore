@@ -92,3 +92,4 @@ yarn-debug.log*
 /storage/*
 !/storage/.keep
 coverage
+.DS_Store

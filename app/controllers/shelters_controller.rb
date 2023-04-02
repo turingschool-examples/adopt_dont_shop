@@ -55,6 +55,8 @@ class SheltersController < ApplicationController
 
   def destroy
     shelter = Shelter.find(params[:id])
+    PetApplication.joins(:pet).where("pets.shelter_id = #{shelter.id}").destroy_all
+    shelter.pets.destroy_all
     shelter.destroy
     redirect_to '/shelters'
   end
