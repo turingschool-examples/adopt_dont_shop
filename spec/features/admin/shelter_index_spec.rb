@@ -56,6 +56,8 @@ RSpec.describe "/admin/shelters" do
   end
 
   it "sorts open shelters by reverse alphabeital order by name" do
+    visit "admin/shelters" 
+    
     within("#open_app_shelters") do
       expect(@shelter_2.name).to appear_before(@shelter_4.name)
     end
