@@ -43,5 +43,9 @@ class Shelter < ApplicationRecord
       FROM shelters
       WHERE id = #{shelter_id}
     ").first
+   end
+   
+  def self.pending_app_shelters
+    joins(:applications).where(applications: {status: "Pending"}).distinct
   end
 end
