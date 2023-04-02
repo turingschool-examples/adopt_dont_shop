@@ -3,5 +3,3 @@ class PetApplication < ApplicationRecord
   belongs_to :application
 end
 
-# Logans merge conflict
-# Thomas merge conflict
