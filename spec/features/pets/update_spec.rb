@@ -14,17 +14,17 @@ RSpec.describe 'the veterinarian update' do
   end
 
   context "given valid data" do
-    it "submits the edit form and updates the veterinarian" do
+    it "submits the edit form and updates the pets" do
       shelter = Shelter.create(name: 'Heavenly pets', city: 'Aurora, CO', foster_program: true, rank: 7)
       pet = Pet.create(adoptable: true, age: 3, breed: 'GSD', name: 'Charlie', shelter_id: shelter.id)
-
+      
       visit "/pets/#{pet.id}/edit"
 
       fill_in 'Name', with: 'Itchy'
       uncheck 'Adoptable'
       fill_in 'Age', with: 1
       click_button 'Save'
-
+      
       expect(page).to have_current_path("/pets/#{pet.id}")
       expect(page).to have_content('Itchy')
       expect(page).to_not have_content('Charlie')

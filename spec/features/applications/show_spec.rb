@@ -32,4 +32,21 @@ RSpec.describe 'application show page', type: :feature do
     expect(page).to_not have_content("Tango Mango")
     expect(page).to_not have_content("Cheesebro")
   end
+
+  it 'can add a pet to the application' do
+    expect(page).to have_content("Add a Pet to this Application")
+
+    fill_in("Search pets", with: "Cheese")
+    click_button("Search Pets")
+
+    expect(current_path).to eq("/applications/#{@app_1.id}")
+    expect(page).to have_button("Adopt this Pet")
+
+    click_button("Adopt this Pet")
+    expect(current_path).to eq("/applications/#{@app_1.id}")
+    expect(page).to have_link("Cheesebro")
+
+    click_on("Cheesebro")
+    expect(current_path).to eq("/pets/#{@pet_2.id}")
+  end
 end
