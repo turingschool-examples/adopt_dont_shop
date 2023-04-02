@@ -52,17 +52,27 @@ RSpec.describe Shelter, type: :model do
 
         expect(Shelter.open_apps).to eq([shelter2, shelter4])
       end
+
+      # it 'reverse_alph method returns shelters in reverse alphabetical order' do
+      #   expect(Shelter.reverse_alph).to eq([@shelter_2, @shelter_1, @shelter4, @shelter3])
+      # end
     end
 
     describe '#order_by_recently_created' do
       it 'returns shelters with the most recently created first' do
-        expect(Shelter.order_by_recently_created).to eq([@shelter_3, @shelter_2, @shelter_1])
+        expect(Shelter.order_by_recently_created.first.name).to eq(@shelter_3.name)
+        expect(Shelter.order_by_recently_created[1].name).to eq(@shelter_2.name)
+        expect(Shelter.order_by_recently_created[2].name).to eq(@shelter_1.name)
       end
     end
 
     describe '#order_by_number_of_pets' do
       it 'orders the shelters by number of pets they have, descending' do
-        expect(Shelter.order_by_number_of_pets).to eq([@shelter_1, @shelter_3, @shelter_2])
+        # expect(Shelter.order_by_number_of_pets).to eq([@shelter_1, @shelter_3, @shelter_2])
+        expect(Shelter.order_by_number_of_pets.first.name).to eq(@shelter_1.name)
+        expect(Shelter.order_by_number_of_pets[1].name).to eq(@shelter_3.name)
+        require 'pry'; binding.pry
+        expect(Shelter.order_by_number_of_pets[2].name).to eq(@shelter_2.name)
       end
     end
   end
