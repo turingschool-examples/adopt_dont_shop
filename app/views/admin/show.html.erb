@@ -1,0 +1,15 @@
+<h1>Admin Portal</h1>
+<h2>Application</h2>
+<h3><%= @application.name %></h3>
+<h3>Application Status: <%= @application.status %>
+<p>Pets applying for:</p>
+
+<% @pets.each do |pet| %>
+<ul>
+  <li><%= pet.name %>
+    <% if pet.approved.nil? %>
+      <%= button_to "Approve #{pet.name}" %> 
+      <% end %>
+  </li>
+</ul>
+<% end %>
