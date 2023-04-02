@@ -40,7 +40,7 @@ RSpec.describe "Applicant Show" do
     expect(page).to have_content("#{@olivia.street}")
     expect(page).to have_content("#{@olivia.city}")
     expect(page).to have_content("#{@olivia.state}")
-    expect(page).to have_content("#{@olivia.good_home}")
+    # expect(page).to have_content("#{@olivia.good_home}")
     expect(page).to have_content("#{@olivia.status}")
     expect(page).to have_content("#{@pet_1.name}")
     expect(page).to have_content("#{@pet_2.name}")
@@ -90,6 +90,7 @@ RSpec.describe "Applicant Show" do
 
       expect(current_path).to eq("/applicants/#{@heather.id}")
       expect(page).to have_content("#{@heather.pets.name}")
+      # save_and_open_page
     # 5. Add a Pet to an Application
     # And I search for a Pet by name
     # And I see the names Pets that match my search
@@ -99,4 +100,41 @@ RSpec.describe "Applicant Show" do
     # And I see the Pet I want to adopt listed on this application
     end
   end
+
+  describe "Application pending" do
+      it "I see input to enter good home, submits application after filling form,
+          status changes to pending." do
+        visit "/applicants/#{@olivia.id}"
+        expect(page).to have_field(:good_home)
+        expect(page).to have_button("Submit Application")
+        
+        fill_in :good_home, with: "to save lives"
+        click_on "Submit Application"
+        save_and_open_page
+        
+        expect(current_path).to eq("/applicants/#{@olivia.id}")
+        expect(page).to have_content("Pending")
+
+        expect(page).to_not have_link("Submit Application")
+        expect(page).to_not have_link("Adopt this Pet")
+        require 'pry'; binding.pry
+        expect(page).to_not have_link("Search")
+        
+    end
+   
+  end
+# 6.  Submit an Application
+# As a visitor
+# When I visit an application's show page
+# And I have added one or more pets to the application
+# Then I see a section to submit my application
+# And in that section I see an input to enter why I would make a good owner for these pet(s)
+# When I fill in that input
+# And I click a button to submit this application
+# Then I am taken back to the application's show page
+# And I see an indicator that the application is "Pending"
+# And I see all the pets that I want to adopt
+# And I do not see a section to add more pets to this application
+
+
 end
