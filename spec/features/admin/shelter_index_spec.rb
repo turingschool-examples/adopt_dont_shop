@@ -23,6 +23,16 @@ RSpec.describe "/admin/shelters" do
     PetApplication.create!(pet_id: @pet_5.id, application_id: @application_3.id)
   end
 
+  it 'lists all shelter names that have been created' do
+    visit "admin/shelters" 
+    within("#all_shelters") do
+      expect(page).to have_content("Taj Mahal for Dogs")
+      expect(page).to have_content("Valhalla for Cats")
+      expect(page).to have_content("Alexandria for Squirrels")
+      expect(page).to have_content("Shangri La for Turtles")
+    end
+  end
+
   it "has a section for only shelters with open applications" do
     visit "admin/shelters"  
     
@@ -35,4 +45,21 @@ RSpec.describe "/admin/shelters" do
     end
   end
 
+  it 'sorts shelters by reverse alphabetical order by name' do
+    visit "admin/shelters" 
+    
+    within("#all_shelters") do
+      expect(@shelter_2.name).to appear_before(@shelter_1.name)
+      expect(@shelter_1.name).to appear_before(@shelter_4.name)
+      expect(@shelter_4.name).to appear_before(@shelter_3.name)
+    end
+  end
+
+  it "sorts open shelters by reverse alphabeital order by name" do
+    visit "admin/shelters" 
+    
+    within("#open_app_shelters") do
+      expect(@shelter_2.name).to appear_before(@shelter_4.name)
+    end
+  end
 end
