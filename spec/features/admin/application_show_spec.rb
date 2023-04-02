@@ -23,20 +23,20 @@ RSpec.describe "/admin/applications/:id" do
   it "has an accept button next to each pet" do
     visit "/admin/applications/#{@application_1.id}"
 
-    expect(page.all(:link, "Approve this Pet").count).to eq(3)
+    expect(page.all(:link, "Approve this Pet!").count).to eq(3)
 
     visit "/admin/applications/#{@application_3.id}"
 
-    expect(page.all(:link, "Approve this Pet").count).to eq(2)    
+    expect(page.all(:link, "Approve this Pet!").count).to eq(2)    
   end
 
   it "removes link and shows that pet has been approved" do
     visit "/admin/applications/#{@application_1.id}"
-    expect(page.all(:link, "Approve this Pet").count).to eq(3)
+    expect(page.all(:link, "Approve this Pet!").count).to eq(3)
     expect(page).to have_no_content("The application for this pet has been approved.")
 
     click_link("Approve #{@pet_1.id}")
-    expect(page.all(:link, "Approve this Pet").count).to eq(2)
+    expect(page.all(:link, "Approve this Pet!").count).to eq(2)
     expect(page).to have_content("The application for this pet has been approved.")
   end
 end
