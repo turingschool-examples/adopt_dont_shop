@@ -5,6 +5,10 @@ class ApplicationsController < ApplicationController
     if params[:search_pets]
       @pets = Pet.search_adoptable_pets(params[:search_pets])
     end
+
+    if params[:commit] == "Adopt this Pet"
+      pet_app = PetApplication.create(application_id: params[:id], pet_id: params[:adopted_pet_id])
+    end
   end
 
   def new
