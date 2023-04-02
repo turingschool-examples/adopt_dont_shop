@@ -1,0 +1,24 @@
+<h1>Shelters</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>City</th>
+      <th>Foster Program</th>
+      <th>Rank</th>
+      <th>Pets</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @shelters.each do |shelter| %>
+      <tr>
+        <td><%= shelter.name %></td>
+        <td><%= shelter.city %></td>
+        <td><%= shelter.foster_program ? 'Yes' : 'No' %></td>
+        <td><%= shelter.rank %></td>
+        <td><%= link_to 'Pets', '/pets' %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
