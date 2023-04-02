@@ -9,7 +9,11 @@ class PetApplicationsController < ApplicationController
 
   def update
     pet_app = PetApplication.find(params[:id])
-    pet_app.update(approved: true)
+    if params[:approved] == "true"
+      pet_app.update(approved: true)
+    else
+      pet_app.update(approved: false)
+    end
     redirect_to "/admin/applications/#{pet_app.application.id}"
   end
 end
