@@ -55,5 +55,34 @@ RSpec.describe 'application show page' do
       expect(page).to have_content(@pet_1.breed)
       expect(page).to have_content(@pet_1.age)
     end
+
+    it 'can add pet' do
+      visit "/applications/#{@app_1.id}"
+      fill_in 'pet_name', with: 'Mr. Pirate'
+      click_on 'Search'
+      click_on 'Adopt this pet'
+
+      expect(page).to have_link 'Mr. Pirate'
+      expect(page).to have_current_path("/applications/#{@app_1.id}")
+    end
+
+    it 'has submit application section' do
+      visit "/applications/#{@app_1.id}"
+
+      expect(page).to have_no_content('Submit Application')
+
+      fill_in 'pet_name', with: 'Mr. Pirate'
+      click_on 'Search'
+      click_on 'Adopt this pet'
+
+      expect(page).to have_content('Submit Application')
+
+      fill_in 'description', with: 'I have cookies'
+
+      click_on 'Submit'
+
+      expect(page).to have_no_content('Submit Application')
+      expect(page).to have_link 'Mr. Pirate'
+    end
   end
 end
