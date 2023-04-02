@@ -92,7 +92,25 @@ RSpec.describe 'application show page' do
 
       expect(page).to have_content(@pet_1.name)
       expect(page).to have_content(@pet_2.name)
+    end
+  end
 
+  describe 'can search for pets by name' do
+    before(:each) do
+    @shelter_1 = Shelter.create!(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
+    @pet_1 = @shelter_1.pets.create!(name: 'Mr. pirate', breed: 'tuxedo shorthair', age: 5, adoptable: true)
+    @pet_2 = @shelter_1.pets.create!(name: 'PInhead', breed: 'guinea pig', age: 1, adoptable: true)
+    @app_1 = Application.create!(name: 'JoJo', address: '23 Tanby', city: 'Denver', state: 'CO', zip: '90345', description: 'I have dog food and a roof', status: "In Progress")
+    end
+
+    it 'displays all matches that are case insensitive' do
+      visit "/applications/#{@app_1.id}"
+
+      fill_in 'pet_name', with: 'Pi'
+      click_on 'Search'
+
+      expect(page).to have_content(@pet_1.name)
+      expect(page).to have_content(@pet_2.name)
     end
   end
 end
