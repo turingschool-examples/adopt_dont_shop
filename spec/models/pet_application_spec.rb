@@ -1,6 +1,19 @@
 require 'rails_helper'
 
 RSpec.describe PetApplication, type: :model do
+  describe "instantiation" do
+    it "validates" do
+      shelter_1 = Shelter.create!(foster_program: true, name: "Taj Mahal for Dogs", city: "Sky City", rank: 20)
+      pet_1 = shelter_1.pets.create!(name: "Foster", age: 1000, breed: "dog")
+      pet_2 = shelter_1.pets.create!(name: "Bento", age: 23, breed: "dog")
+      application_1 = Application.create!(applicant_name: "Bob", street_address: "123 Home St", city: "Denver", state: "CO", zip_code: "80238", description: "I love animals")
+      PetApplication.create(pet_id: pet_1.id, application_id: application_1.id, condition: "Approved")
+      expect(PetApplication.all.count).to eq(1)
+      PetApplication.create(pet_id: pet_2.id, application_id: application_1.id, condition: "Wow!")
+      expect(PetApplication.all.count).to eq(1)
+    end
+  end
+
   describe "relationships" do
     it {should belong_to :pet}
     it {should belong_to :application}
