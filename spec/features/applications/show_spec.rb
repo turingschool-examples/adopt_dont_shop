@@ -185,6 +185,7 @@ RSpec.describe "/applications/:id" do
     expect(@new_app.city).to eq("New New York")
     expect(@new_app.state).to eq("NY")
     expect(@new_app.zip_code).to eq("00123")
+  end
 
   it "partial matches for pet names" do
     @pet_7 = @shelter_1.pets.create(name: 'bindle', breed: 'tuxedo shorthair', age: 5, adoptable: true)
