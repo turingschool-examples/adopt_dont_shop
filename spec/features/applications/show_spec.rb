@@ -75,10 +75,18 @@ RSpec.describe 'application show page' do
   it 'can enter a description on why applicant would make a good owner and submit application' do
     visit "/applications/#{application_1.id}"
 
-    fill_in(:description, with: 'Why do you want to adopt a pet?')
+    fill_in(:description, with: 'Description:')
     click_button('Submit Your Application')
 
     expect(page).to have_content("Pending")
     expect(current_path).to eq("/applications/#{application_1.id}")
+  end
+
+  it 'cannot submit application if no pets are added to application' do
+    visit "/applications/#{application_1.id}"
+
+    # if pets_application
+
+    expect(page).to_not have_button("Submit Your Application")
   end
 end

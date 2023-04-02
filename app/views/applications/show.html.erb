@@ -13,7 +13,7 @@
 <h2><p>Add a Pet to this Application</h2>  
 <%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |form| %>
   <%= form.label :search_pet %>
-  <%= form.text_field :search_pet %>
+  <%= form.text_field :search_pet, :required => true %>
   <%= form.submit 'Search Pet' %>
 <% end %><br>
   
@@ -29,10 +29,12 @@
   <% end %>
 <% end %>
 
-<h2>Detailed Description:</h2>
-  <%= form_with url: "/applications/#{@application.id}", method: :patch, local: true do |form| %>
-    <%= form.hidden_field :application_status, value: "Pending" %>
-    <%= form.label :description, "Why do you want to adopt a pet?" %>
-    <%= form.text_field :description %>
-    <%= form.submit "Submit Your Application" %>
-  <% end %></p>
+<% if @application.pets.any? %> 
+  <p><b>Why would you make a good pet owner?</b></p>
+    <%= form_with url: "/applications/#{@application.id}", method: :patch, local: true do |form| %>
+      <%= form.hidden_field :application_status, value: "Pending" %>
+      <%= form.label :description, "Description:" %>
+      <%= form.text_field :description, :required => true %>
+      <%= form.submit "Submit Your Application" %>
+    <% end %>
+<% end %></p>
