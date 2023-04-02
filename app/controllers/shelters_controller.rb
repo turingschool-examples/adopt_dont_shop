@@ -4,7 +4,6 @@ class SheltersController < ApplicationController
       @shelters = Shelter.order_by_number_of_pets
     elsif params[:search].present?
       @shelters = Shelter.search(params[:search])
-      require 'pry'; binding.pry
     else
       @shelters = Shelter.order_by_recently_created
     end
@@ -56,6 +55,8 @@ class SheltersController < ApplicationController
 
   def destroy
     shelter = Shelter.find(params[:id])
+    PetApplication.joins(:pet).where("pets.shelter_id = #{shelter.id}").destroy_all
+    shelter.pets.destroy_all
     shelter.destroy
     redirect_to '/shelters'
   end
