@@ -1,0 +1,21 @@
+<h1>Admin Portal</h1>
+<h2>Application</h2>
+<h3><%= @application.name %></h3>
+<h3>Application Status: <%= @application.status %></h3>
+<p>Pets applying for:</p>
+
+<% @pets.each do |pet| %>
+<ul>
+  <li><%= pet.name %>
+    <% if pet.pet_app(@application).approved.nil? %>
+      <%= form_with url: "/pet_applications/#{pet.pet_app(@application).id}", method: :patch, local: true do |form|%> 
+        <%= form.submit "Approve #{pet.name}" %>
+      <% end %>
+    <% elsif pet.pet_app(@application).approved == true %>
+      is Approved
+    <% else %>
+      is Rejected
+    <% end %>
+  </li>
+</ul>
+<% end %>
