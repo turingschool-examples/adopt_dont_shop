@@ -43,7 +43,6 @@ RSpec.describe 'application creation' do
       fill_in(:city, with: 'San Francisco')
       fill_in(:state, with: 'CA')
       fill_in(:zip_code, with: 12345)
-      fill_in(:description, with: 'Wants a dog')
       click_button('Submit Application')
 
       expected_id = Application.last.id
