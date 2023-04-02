@@ -48,6 +48,7 @@ RSpec.describe 'the shelters index' do
     click_link("Sort by number of pets")
 
     expect(page).to have_current_path('/shelters?sort=pet_count')
+
     expect(@shelter_1.name).to appear_before(@shelter_3.name)
     expect(@shelter_3.name).to appear_before(@shelter_2.name)
   end
@@ -99,10 +100,11 @@ RSpec.describe 'the shelters index' do
   it 'lists partial matches as search results' do
     visit "/shelters"
 
-    fill_in 'Search', with: "RGV"
+    fill_in 'Search', with: "Happy"
     click_on("Search")
 
-    expect(page).to have_content(@shelter_2.name)
+    expect(page).to have_content(@shelter_3.name)
     expect(page).to_not have_content(@shelter_1.name)
+    expect(page).to_not have_content(@shelter_2.name)
   end
 end
