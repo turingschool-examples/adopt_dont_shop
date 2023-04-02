@@ -20,11 +20,13 @@
 <% end %>
 <br>
 
-<% @pets_search.each do |pet| %>
-<%= form_with url: "/pet_applications", local: true do |f| %>
-  <%= f.hidden_field :application_id, value: @application.id %>
-  <%= f.hidden_field :pet_id, value: pet.id %>
-   <%= pet.name %> <%= f.submit "Adopt this Pet" %>
+<% if @pets_search.present? %>
+  <% @pets_search.each do |pet| %>
+  <%= form_with url: "/pet_applications", local: true do |f| %>
+    <%= f.hidden_field :application_id, value: @application.id %>
+    <%= f.hidden_field :pet_id, value: pet.id %>
+    <%= pet.name %> <%= f.submit "Adopt this Pet" %>
+    <% end %>
   <% end %>
 <% end %>
 <br>
