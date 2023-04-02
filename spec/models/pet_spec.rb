@@ -40,5 +40,13 @@ RSpec.describe Pet, type: :model do
         expect(@pet_3.shelter_name).to eq(@shelter_1.name)
       end
     end
+    describe '#pet_app' do
+      it 'returns the pet application for a given pet' do
+        application = Application.create!(name: 'Taylor', address: '123 Side St', city: 'Denver', state: 'CO', zip: '80202', description: 'I love animals', status: 1)
+        pet_app = PetApplication.create!(pet: @pet_1, application: application)
+
+        expect(@pet_1.pet_app(application)).to eq(pet_app)
+      end
+    end
   end
 end
