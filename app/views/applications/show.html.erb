@@ -1,11 +1,10 @@
 <h2>Application</h2>
-<p>Name: <%= @application.name %></p>
-<p>Street Address: <%= @application.street_address %></p>
-<p>City: <%= @application.city %></p>
-<p>State: <%= @application.state %></p>
-<p>Zip Code: <%= @application.zip_code %></p>
-<p>Description: <%= @application.description %></p>
-<p>Application Status: <%= @application.application_status %></p>
+<p>Name: <b><%= @application.name %></b></p>
+<p>Street Address: <b><%= @application.street_address %></b></p>
+<p>City: <b><%= @application.city %></b></p>
+<p>State: <b><%= @application.state %></b></p>
+<p>Zip Code: <b><%= @application.zip_code %></b></p>
+<p>Application Status: <b><%= @application.application_status %><b></p>
 <br>
 <p><h2>Name of Pet Applying For:</h2></p>
 <p><% @application.pets.each do |pet| %>
@@ -19,13 +18,21 @@
 <% end %><br>
   
 <% if params[:search_pet] %>
-<% @searched_pets.each do |searched_pet| %>
-<%= searched_pet.id %>
-<%= link_to searched_pet.name, "/pets/#{searched_pet.id}" %>
-<%= form_with model: PetsApplication.new, url: "/pets_applications", local: true, method: :post do |form| %>
-<%= form.hidden_field :pet_id, value: searched_pet.id  %>
-<%= form.hidden_field :application_id, value: @application.id %>
-<%= form.submit "Adopt This Pet" %>
+  <% @searched_pets.each do |searched_pet| %>
+  <%= searched_pet.id %>
+  <%= link_to searched_pet.name, "/pets/#{searched_pet.id}" %>
+    <%= form_with model: PetsApplication.new, url: "/pets_applications", method: :post, local: true do |form| %>
+    <%= form.hidden_field :pet_id, value: searched_pet.id  %>
+    <%= form.hidden_field :application_id, value: @application.id %>
+    <%= form.submit "Adopt This Pet" %>
+    <% end %>
+  <% end %>
 <% end %>
-<% end %>
-<% end %></p>
+
+<h2>Detailed Description:</h2>
+  <%= form_with url: "/applications/#{@application.id}", method: :patch, local: true do |form| %>
+    <%= form.hidden_field :application_status, value: "Pending" %>
+    <%= form.label :description, "Why do you want to adopt a pet?" %>
+    <%= form.text_field :description %>
+    <%= form.submit "Submit Your Application" %>
+  <% end %></p>

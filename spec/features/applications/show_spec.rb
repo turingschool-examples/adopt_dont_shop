@@ -34,7 +34,6 @@ RSpec.describe 'application show page' do
     expect(page).to have_content(application_1.city)
     expect(page).to have_content(application_1.state)
     expect(page).to have_content(application_1.zip_code)
-    expect(page).to have_content(application_1.description)
     expect(page).to have_content(application_1.application_status)
   end
 
@@ -59,7 +58,6 @@ RSpec.describe 'application show page' do
   end
     
   it 'can add a pet to an application' do
-    
     visit "/applications/#{application_1.id}"
     
     fill_in(:search_pet, with: 'Lobster')
@@ -71,7 +69,16 @@ RSpec.describe 'application show page' do
     click_button('Adopt This Pet')
     
     expect(page).to have_content(pet_2.name)
+    expect(current_path).to eq("/applications/#{application_1.id}")
+  end
 
+  it 'can enter a description on why applicant would make a good owner and submit application' do
+    visit "/applications/#{application_1.id}"
+
+    fill_in(:description, with: 'Why do you want to adopt a pet?')
+    click_button('Submit Your Application')
+
+    expect(page).to have_content("Pending")
     expect(current_path).to eq("/applications/#{application_1.id}")
   end
 end
