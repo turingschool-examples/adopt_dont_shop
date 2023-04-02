@@ -23,8 +23,10 @@ RSpec.describe Shelter, type: :model do
     @pet_4 = @shelter_1.pets.create(name: 'Ann', breed: 'ragdoll', age: 5, adoptable: true)
 
     @application_1 = Application.create!(name: 'John Doe', street_address: '123 Main St', city: 'Denver', state: 'CO', zip_code: '80202', description: 'I love animals!', status: 'Pending')
+    @application_2 = Application.create!(name: 'Jane Doe', street_address: '456 Main St', city: 'Denver', state: 'CO', zip_code: '80202', description: 'I love animals!', status: 'Pending')
 
     @application_pet_1 = ApplicationPet.create!(application: @application_1, pet: @pet_1)
+    @application_pet_2 = ApplicationPet.create!(application: @application_2, pet: @pet_3)
   end
 
   describe 'class methods' do
@@ -41,8 +43,8 @@ RSpec.describe Shelter, type: :model do
       end
 
       describe '#pending_app_shelters' do
-        it 'returns shelters with pending applications' do
-          expect(Shelter.pending_app_shelters).to eq([@shelter_1])
+        it 'returns shelters with pending applications sorted in alphabetical order' do
+          expect(Shelter.pending_app_shelters).to eq([@shelter_1, @shelter_3])
         end
       end
     end
