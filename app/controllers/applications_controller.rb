@@ -17,7 +17,10 @@ class ApplicationsController < ApplicationController
   def update
     application = Application.find(params[:id])
     application.update(application_params)
-    # application.change_status_to_pending
+    if params["commit"]
+      application = Application.find(params[:id])
+      application.change_status_to_pending
+    end
     if params[:pet_id]
       pet = Pet.find(params[:pet_id])
       ApplicationPet.create!(pet: pet, application: application)
