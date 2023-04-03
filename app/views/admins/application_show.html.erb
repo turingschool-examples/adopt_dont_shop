@@ -2,7 +2,7 @@
 <h2> Pet Wishlist </h2><br/><br/>
 <% @application.pets.each do |pet| %>
 <h3><%= pet.name %></h3>
-  <% if PetApplication.joins(:pet).where("pet_id = #{pet.id}").pluck(:condition).first == "Pending" %>
+  <% if PetApplication.joins(:pet).where("pet_id = #{pet.id} and application_id = #{@application.id}").pluck(:condition).first == "Pending" %>
   <p><%= link_to "Approve this Pet!", "/admin/applications/#{PetApplication.joins(:pet).where("pet_id = #{pet.id}").pluck(:id).first}?condition_update=Approved", id: "Approve #{pet.id}", method: :post %> 
   <p><%= link_to "Reject this Pet", "/admin/applications/#{PetApplication.joins(:pet).where("pet_id = #{pet.id}").pluck(:id).first}?condition_update=Denied", id: "Reject #{pet.id}", method: :post %></p>
   <% elsif PetApplication.joins(:pet).where("pet_id = #{pet.id}").pluck(:condition).first == "Approved" %>
@@ -11,3 +11,4 @@
   <p><%= "The application for this pet has been denied." %></p>
   <% end %>
 <% end %>
+exit
