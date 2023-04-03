@@ -106,9 +106,9 @@ RSpec.describe 'the apps show', type: :feature do
     end
 
     it 'I see any pet whose name partially matches my search' do
-      visit "/apps#{@app_1.id}"
+      visit "/apps/#{@app_1.id}"
 
-      fill_in("Search by pet name:", with: "Ze")
+      fill_in("Search Pets", with: "Ze")
       click_button("Search")
 
       expect(current_path).to eq("/apps/#{app_1.id}")
