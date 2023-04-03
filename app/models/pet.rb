@@ -22,6 +22,14 @@ class Pet < ApplicationRecord
   def pending?(application_id)
     app_pet(application_id).status == "Pending"
   end
+  
+  def approved?(application_id)
+    app_pet(application_id).status == "Approved"
+  end
+  
+  def rejected?(application_id)
+    app_pet(application_id).status == "Rejected"
+  end
 
   private
 

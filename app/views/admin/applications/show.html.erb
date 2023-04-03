@@ -1,10 +1,21 @@
 <h1>Admin Application</h1>
 
+<p><%= "Application Status: #{@application.status}" %></p>
+
 <% @application.pets.each do |pet| %>
   <p><%= pet.name %>
   <% if pet.pending?(@application.id) %>
-    <%= button_to 'Approve Pet', "/application_pets/#{@application.id}?pet_id=#{pet.id}&status=approved", method: :patch %></p>
-  <% else %>
-    <p><%= 'Approved' %></p>
+    <%= button_to 'Approve Pet', "/application_pets/#{@application.id}?pet_id=#{pet.id}&status=approved", method: :patch %>
+    <%= button_to 'Reject Pet', "/application_pets/#{@application.id}?pet_id=#{pet.id}&status=rejected", method: :patch %></p> 
+  <% elsif pet.approved?(@application.id) %>
+    <p>Approved</p>
+  <% elsif pet.rejected?(@application.id) %>
+    <p>Rejected</p>
   <% end %>
 <% end %>
+<br>
+<div>
+<% unless @application.status == "Approved" %>
+  <%= button_to 'Approve All Pets', "/application_pets/#{@application.id}?approve_all=true", method: :patch %>
+<% end %>
+</div>
