@@ -60,8 +60,23 @@ RSpec.describe "/admin/applications/:id" do
     expect(page).to have_content("The application for this pet has been denied.")
   end
 
-  describe 'All Pets accepted on Application' do
+  describe 'Application status change' do
     it 'Once all pets are approved page redirects to show page and shows Approved status' do
+      visit "/admin/applications/#{@application_1.id}"
+
+      click_link("Approve #{@pet_1.id}")
+      click_link("Approve #{@pet_3.id}")
+      click_link("Approve #{@pet_5.id}")
+
+      @application_1.update_status
+      expect(@application_1.status).to eq("Approved")
+      expect(page.all(:link, "Reject this Pet").count).to eq(0)
+      expect(page.all(:link, "Approve this Pet!").count).to eq(0)
+      expect(current_path).to eq("/admin/applications/#{@application_1.id}")
+      expect(page).to have_content("Application Status: Approved")
+    end
+
+    it 'if any pet_application conditions are still pending, application status does not change' do
       visit "/admin/applications/#{@application_1.id}"
 
       click_link("Approve #{@pet_1.id}")
