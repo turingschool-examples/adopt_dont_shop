@@ -102,8 +102,15 @@ RSpec.describe 'admin/applications/:id' do
   end
   #User Story 15
   describe "When I visit admin/applications/:id" do
-    xit "Approving all pets takes me back to the showpage and changes status to 'Approved'" do
-      
+    it "Approving all pets takes me back to the showpage and changes status to 'Approved'" do
+
+      visit "/admin/applications/#{@application_1.id}"
+      expect(page).to have_content("App Status: Pending")
+      click_button("Approve Bare-y Manilow")
+      click_button("Approve Mr. Pirate")
+
+      expect(page).to have_current_path("/admin/applications/#{@application_1.id}")
+      expect(page).to have_content("App Status: Approved!")
     end
   end
 end
