@@ -26,7 +26,6 @@ class Shelter < ApplicationRecord
   end
 
   def adoptable_pets_count
-    require 'pry'; binding.pry
     pets.where(adoptable: true).count
   end
 
