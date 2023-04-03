@@ -6,7 +6,7 @@ class CreateApplication < ActiveRecord::Migration[5.2]
       t.string :city, null: false
       t.string :state, null: false
       t.string :zip_code, null: false
-      t.string :reason, null: false
+      t.string :reason
       t.integer :status, default: 0
 
       t.timestamps

@@ -15,7 +15,6 @@ RSpec.describe 'new application page', type: :feature do
     fill_in('City', with: 'Oxford')
     fill_in('State', with: 'MS')
     fill_in('Zip code', with: '38655')
-    fill_in('Reason', with: 'Im lonely')
     click_button('Create Application')
     new_app = Application.find_by(name: "Samuel Xander")
 
@@ -30,7 +29,6 @@ RSpec.describe 'new application page', type: :feature do
     fill_in('Street address', with: '749 Bank Street')
     fill_in('City', with: 'Oxford')
     fill_in('State', with: 'MS')
-    fill_in('Reason', with: 'Im lonely')
     click_button('Create Application')
 
     expect(current_path).to eq('/applications/new')

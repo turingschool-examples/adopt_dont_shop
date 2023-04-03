@@ -6,8 +6,13 @@ class ApplicationsController < ApplicationController
       @pets = Pet.search_adoptable_pets(params[:search_pets])
     end
 
-    if params[:commit] == "Adopt this Pet"
+    if params[:adopted_pet_id] && !@application.already_added?(params[:adopted_pet_id])
       pet_app = PetApplication.create(application_id: params[:id], pet_id: params[:adopted_pet_id])
+      params[:adopted_pet_id] = nil
+    end
+
+    if params[:reason_for_adopting]
+      @application.update(status: "Pending")
     end
   end
 
