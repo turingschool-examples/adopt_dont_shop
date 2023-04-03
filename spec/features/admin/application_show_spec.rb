@@ -67,12 +67,13 @@ RSpec.describe "/admin/applications/:id" do
       click_link("Approve #{@pet_1.id}")
       click_link("Approve #{@pet_3.id}")
       click_link("Approve #{@pet_5.id}")
-      
+
+      @application_1.update_status
       expect(@application_1.status).to eq("Approved")
       expect(page.all(:link, "Reject this Pet").count).to eq(0)
       expect(page.all(:link, "Approve this Pet!").count).to eq(0)
-      expect(current_path).to eq("/admin/#{@application_1.id}")
-      expect(page).to have_content("Application Approved")
+      expect(current_path).to eq("/admin/applications/#{@application_1.id}")
+      expect(page).to have_content("Application Status: Approved")
     end
   end
 

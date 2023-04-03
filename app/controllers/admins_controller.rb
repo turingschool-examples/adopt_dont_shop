@@ -10,7 +10,9 @@ class AdminsController < ApplicationController
   end
 
   def application_pet_condition_change
-    PetApplication.find(params[:id]).change_condition(params[:condition_update])
+    @pet_application = PetApplication.find(params[:id]).change_condition(params[:condition_update])
+    @application = PetApplication.find(params[:id]).application
+    @application.update_status
     redirect_to "/admin/applications/#{PetApplication.find(params[:id])[:application_id]}"
   end
 end
