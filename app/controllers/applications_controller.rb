@@ -29,5 +29,3 @@ class ApplicationsController < ApplicationController
     params.permit(:name, :street_address, :city, :state, :zip_code, :reason, :status)
   end
 end
-
-

@@ -16,14 +16,14 @@ RSpec.describe 'new application page', type: :feature do
     fill_in('State', with: 'MS')
     fill_in('Zip code', with: '38655')
     fill_in('Reason', with: 'Im lonely')
-    page.select('Pending', from: 'Status').click
+    save_and_open_page
     click_button('Create Application')
     new_app = Application.find_by(name: "Samuel Xander")
-    
+
     expect(current_path).to eq("/applications/#{new_app.id}")
     expect(page).to have_content('Samuel Xander')
   end
-  
+
   it 'can test to see if the form is filled in correctly' do
     expect(page).to_not have_content('You must fill in all fields')
 
@@ -32,7 +32,6 @@ RSpec.describe 'new application page', type: :feature do
     fill_in('City', with: 'Oxford')
     fill_in('State', with: 'MS')
     fill_in('Reason', with: 'Im lonely')
-    page.select('Pending', from: 'Status').click
     click_button('Create Application')
 
     expect(current_path).to eq('/applications/new')
