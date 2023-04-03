@@ -26,6 +26,7 @@ class Shelter < ApplicationRecord
   end
 
   def adoptable_pets_count
+    require 'pry'; binding.pry
     pets.where(adoptable: true).count
   end
 
@@ -47,7 +48,7 @@ class Shelter < ApplicationRecord
 
   def self.find_name_and_address(shelter_id)
     find_by_sql("
-      SELECT name, city
+      SELECT id, name, city
       FROM shelters
       WHERE id = #{shelter_id}
     ").first
