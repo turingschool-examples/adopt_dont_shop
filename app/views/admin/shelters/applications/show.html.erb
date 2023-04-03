@@ -1,0 +1,14 @@
+ <% @application.find_app_pets.each do |pet| %>
+    <%= "Pet:" %>
+    <%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
+      <% if @application.status == "Pending" || @application.status == "In Progress" %>
+        <%= button_to "Approve #{pet.name}", {controller: "admin/applications", action: "update", application_id: @application.id, pet_id: pet.id, pet_status: "approved"}, method: :patch %> 
+       
+      <% else %> 
+      <%="Pet Status: #{@application.status}" %>
+      <% end %>
+  <% end %>
+
+<section id="application-status">
+  <%= "Application Status: #{@application.status}"%>
+</section>
