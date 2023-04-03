@@ -2,6 +2,7 @@ require 'simplecov'
 
 SimpleCov.start do
   enable_coverage :branch
+  add_filter "spec/rails_helper.rb"
 end
 
 require './spec/fixtures/veterinary_office_data'
