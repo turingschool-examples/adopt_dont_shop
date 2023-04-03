@@ -126,4 +126,38 @@ RSpec.describe "Applicant Show" do
       expect(page).to_not have_link("Submit Application")
     end
   end
+  describe "Search for partial matches" do
+    it "When I search scooby, I see pets: scooby, scooby doobie, 
+        and scooby doobie doo" do
+      @shelter_1 = Shelter.create(name: 'Mystery Building', city: 'Irvine CA', foster_program: false, rank: 9)
+      @scooby = Pet.create(name: 'scooby', age: 2, breed: 'Great Dane', adoptable: true, shelter_id: @shelter_1.id)
+      @scoobydoob = Pet.create(name: 'scooby doobie', age: 3, breed: 'Golden Retriever', adoptable: true, shelter_id: @shelter_1.id)
+      @scoobydoobiedoo = Pet.create(name: 'scooby doobie doo', age: 4, breed: 'Poodle', adoptable: true, shelter_id: @shelter_1.id)
+      @heather = Applicant.create(name: "Heather", street: "pearl st", city: "denver", state: "CO", zip: "80203")
+    
+      visit "/applicants/#{@heather.id}"
+
+      fill_in :search_name, with: "scooby"
+      click_on "Search"
+      expect(page).to have_content(@scooby.name)
+      expect(page).to have_content(@scoobydoob.name)
+      expect(page).to have_content(@scoobydoobiedoo.name)
+    end
+
+    it "Case Insensitivity check when I search fluff, I see Fluffy, FLUFF, Mr. Fluff" do
+      @shelter_1 = Shelter.create(name: 'Mystery Building', city: 'Irvine CA', foster_program: false, rank: 9)
+      @fluffy = Pet.create(name: 'Fluffy', age: 2, breed: 'Great Dane', adoptable: true, shelter_id: @shelter_1.id)
+      @fluff = Pet.create(name: 'FLUFF', age: 3, breed: 'Golden Retriever', adoptable: true, shelter_id: @shelter_1.id)
+      @mr_fluff = Pet.create(name: 'Mr. Fluff', age: 4, breed: 'Poodle', adoptable: true, shelter_id: @shelter_1.id)
+      @heather = Applicant.create(name: "Heather", street: "pearl st", city: "denver", state: "CO", zip: "80203")
+      
+      visit "/applicants/#{@heather.id}"
+
+      fill_in :search_name, with: "fluff"
+      click_on "Search"
+      expect(page).to have_content(@fluff.name)
+      expect(page).to have_content(@fluffy.name)
+      expect(page).to have_content(@mr_fluff.name) 
+    end
+  end
 end
