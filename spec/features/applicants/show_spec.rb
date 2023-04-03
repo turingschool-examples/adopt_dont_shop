@@ -143,5 +143,21 @@ RSpec.describe "Applicant Show" do
       expect(page).to have_content(@scoobydoob.name)
       expect(page).to have_content(@scoobydoobiedoo.name)
     end
+
+    it "When I search fluff, I see Fluffy, FLUFF, Mr. Fluff" do
+      @shelter_1 = Shelter.create(name: 'Mystery Building', city: 'Irvine CA', foster_program: false, rank: 9)
+      @fluffy = Pet.create(name: 'Fluffy', age: 2, breed: 'Great Dane', adoptable: true, shelter_id: @shelter_1.id)
+      @fluff = Pet.create(name: 'FLUFF', age: 3, breed: 'Golden Retriever', adoptable: true, shelter_id: @shelter_1.id)
+      @mr_fluff = Pet.create(name: 'Mr. Fluff', age: 4, breed: 'Poodle', adoptable: true, shelter_id: @shelter_1.id)
+      @heather = Applicant.create(name: "Heather", street: "pearl st", city: "denver", state: "CO", zip: "80203")
+      
+      visit "/applicants/#{@heather.id}"
+
+      fill_in :search_name, with: "fluff"
+      click_on "Search"
+      expect(page).to have_content(@fluff.name)
+      expect(page).to have_content(@fluffy.name)
+      expect(page).to have_content(@mr_fluff.name) 
+    end
   end
 end
