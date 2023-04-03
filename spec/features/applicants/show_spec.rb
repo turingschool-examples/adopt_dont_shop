@@ -95,6 +95,8 @@ RSpec.describe "Applicant Show" do
       it "I see input to enter good home, submits application after filling form,
           status changes to pending." do
         visit "/applicants/#{@olivia.id}"
+       
+        expect(@olivia.good_home).to eq(nil)
         expect(page).to have_field(:good_home)
         expect(page).to have_button("Submit Application")
         
@@ -110,20 +112,18 @@ RSpec.describe "Applicant Show" do
         expect(page).to have_content(@olivia.good_home)
         expect(page).to have_content("Description of why You would make a Good Home:")
     end
-   
   end
-# 6.  Submit an Application
-# As a visitor
-# When I visit an application's show page
-# And I have added one or more pets to the application
-# Then I see a section to submit my application
-# And in that section I see an input to enter why I would make a good owner for these pet(s)
-# When I fill in that input
-# And I click a button to submit this application
-# Then I am taken back to the application's show page
-# And I see an indicator that the application is "Pending"
-# And I see all the pets that I want to adopt
-# And I do not see a section to add more pets to this application
+  
+  describe "visit applicant with no pets added" do
+    before :each do
+      @shelter_1 = Shelter.create(name: 'Mystery Building', city: 'Irvine CA', foster_program: false, rank: 9)
+      @scooby = Pet.create(name: 'Scooby', age: 2, breed: 'Great Dane', adoptable: true, shelter_id: @shelter_1.id)
+      @heather = Applicant.create(name: "Heather", street: "pearl st", city: "denver", state: "CO", zip: "80203")
+    end
+    it "No pets added, I do not see submit application" do
+      visit "/applicants/#{@heather.id}"
 
-
+      expect(page).to_not have_link("Submit Application")
+    end
+  end
 end

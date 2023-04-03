@@ -41,5 +41,7 @@
       <% end %>
     <% end %>
   <% end %>
+  <% if @applicant.status == "Pending" %>
     <h3>Description of why You would make a Good Home:</h3>
     <p><%= @applicant.good_home %></p>
+    <% end %>
