@@ -8,7 +8,7 @@ RSpec.describe 'the apps show', type: :feature do
       @pet_1 = @app_1.pets.create!(adoptable: true, age: 3, breed: 'German Shepard', name: 'Zues', shelter_id: @shelter_1.id)
       @pet_2 = @app_1.pets.create!(adoptable: true, age: 1, breed: 'Siberian Husky', name: 'John Snow', shelter_id: @shelter_1.id)
       @pet_3 = Pet.create!(adoptable: true, age: 4, breed: 'Chihuahua', name: 'Maximus', shelter_id: @shelter_1.id)
-      @app_2 = App.create!(name: 'Sandy', street_address: '2222 Grease 2', city: 'Frisco', state: 'CO', zip_code: '8091', description: 'Dont like dogs. Dont want any', status: 'Rejected' )
+      @app_2 = App.create!(name: 'Sandy', street_address: '2222 Grease 2', city: 'Frisco', state: 'CO', zip_code: '809100', description: 'Dont like dogs. Dont want any', status: 'Rejected' )
     end
 
     it 'I can see applications information' do
