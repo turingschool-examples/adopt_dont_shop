@@ -18,4 +18,14 @@ class Pet < ApplicationRecord
       where("name ILIKE ?", "%#{query}%")
     end
   end
+
+  def pending?(application_id)
+    app_pet(application_id).status == "Pending"
+  end
+
+  private
+
+  def app_pet(application_id)
+    application_pets.find_by(application_id: application_id)
+  end
 end
