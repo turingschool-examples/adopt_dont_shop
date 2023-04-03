@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe "/admin/applications/:id" do
-  before do
+  before(:each) do
     @shelter_1 = Shelter.create!(foster_program: true, name: "Taj Mahal for Dogs", city: "Sky City", rank: 20)
     @pet_1 = @shelter_1.pets.create!(name: "Foster", age: 1000, breed: "dog")
     @pet_2 = @shelter_1.pets.create!(name: "Bento", age: 23, breed: "dog")
@@ -67,7 +67,8 @@ RSpec.describe "/admin/applications/:id" do
       click_link("Approve #{@pet_1.id}")
       click_link("Approve #{@pet_3.id}")
       click_link("Approve #{@pet_5.id}")
-      save_and_open_page
+      
+      expect(@application_1.status).to eq("Approved")
       expect(page.all(:link, "Reject this Pet").count).to eq(0)
       expect(page.all(:link, "Approve this Pet!").count).to eq(0)
       expect(current_path).to eq("/admin/#{@application_1.id}")
@@ -84,7 +85,6 @@ RSpec.describe "/admin/applications/:id" do
     visit "/admin/applications/#{@application_2.id}"
     expect(page).to have_no_content("The application for this pet has been approved.")
     click_link("Approve #{@pet_4.id}")
-    save_and_open_page
     expect(page).to have_content("The application for this pet has been approved.")
     
     visit "/admin/applications/#{@application_3.id}"

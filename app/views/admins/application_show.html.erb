@@ -1,5 +1,11 @@
 <h1><%= "#{@application.applicant_name}'s application" %></h1>
 <h2> Pet Wishlist </h2><br/><br/>
+<h2> Application Status: <%= @application.status %></h2>
+  <% @application.pet_applications.pluck(:condition).all? { |condition| condition = "Approved" } %>
+    <% @application.update %>
+    <% "/admin/#{@application.id}" %>
+    <% end %>
+  <% end %>
   <% @application.pets.each do |pet| %>
 <h3><%= pet.name %></h3>
   <% if PetApplication.joins(:pet).where("pet_id = #{pet.id} and application_id = #{@application.id}").pluck(:condition).first == "Pending" %>

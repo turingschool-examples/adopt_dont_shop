@@ -9,4 +9,11 @@ class Application < ApplicationRecord
 
   has_many :pet_applications
   has_many :pets, through: :pet_applications
+
+  def update_status
+    if pet_applications.pluck(:condition).all? { |condition| condition == "Approved" }
+    self.update(status: "Approved")
+    self.save
+    end
+  end
 end
