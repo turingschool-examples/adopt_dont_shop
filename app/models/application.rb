@@ -7,15 +7,4 @@ class Application < ApplicationRecord
   validates :state, presence: true
   validates :zip, presence: true
   validates :description, presence: true
-
-
-  def change_status_to_pending
-    self.status = "Pending"
-  end
-
-
-  def self.only_pending
-    where(status: "Pending")
-  end
-
 end

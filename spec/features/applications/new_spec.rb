@@ -2,13 +2,17 @@ require 'rails_helper'
 
 RSpec.describe "Filling out forms" do
   
-  it 'fails to fill out form' do
-    visit '/applications/new'
-    
-    click_button "Create Application"
-    save_and_open_page
-    expect(page).to have_current_path('/applications/new?')
-    #I'm validating on backend and front end, but this test still fails.
-    #Probably something the way capybara handles the click button request?
-  end
+ it 'fills out form' do
+  visit "/applications/new"
+
+  fill_in "name", with: "Jimbo"
+  fill_in "street_address", with: "269 North"
+  fill_in "city", with: "Provo"
+  fill_in "state", with: "UT"
+  fill_in "zip", with: "84606"
+  fill_in "description", with: "pass the test please"
+  
+  click_button "Create Application"
+ end
+
 end
