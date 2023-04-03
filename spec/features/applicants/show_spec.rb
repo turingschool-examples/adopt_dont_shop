@@ -113,6 +113,7 @@ RSpec.describe "Applicant Show" do
         expect(page).to have_content("Description of why You would make a Good Home:")
     end
   end
+  
   describe "visit applicant with no pets added" do
     before :each do
       @shelter_1 = Shelter.create(name: 'Mystery Building', city: 'Irvine CA', foster_program: false, rank: 9)
