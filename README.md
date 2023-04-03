@@ -21,7 +21,7 @@ In this project, students will build upon the code in this repo to create a Pet 
 * Use of `resources` on this project is not permitted
 * Use of scaffolding on this project is not permitted
 * Students wanting to use any extra gems on this project must first get permission from your instructors
-  * Pre-approved gems are `capybara, pry, faker, factorybot, orderly, simplecov, shoulda-matchers, launchy`
+  * Pre-approved gems are `capybara, pry, faker, factory_bot, orderly, simplecov, shoulda-matchers, launchy`
 
 ## Project Phases
 
