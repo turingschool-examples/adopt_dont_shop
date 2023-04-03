@@ -35,5 +35,12 @@ RSpec.describe 'admin application show', type: :feature do
       expect(page).to have_button('Reject Pet')
       expect(page).to have_button('Approve Pet')
     end
+
+    it 'has a button to approve all pets' do
+      visit "/admin/applications/#{application_1.id}"
+
+      click_button('Approve All Pets')
+      expect(page).to have_content("Application Status: Approved")
+    end
   end
 end
