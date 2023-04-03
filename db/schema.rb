@@ -22,6 +22,7 @@ ActiveRecord::Schema.define(version: 2023_04_01_164522) do
     t.string "state"
     t.string "zip"
     t.string "description"
+    t.string "status", default: "In Progress"
     t.bigint "pet_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

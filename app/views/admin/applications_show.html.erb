@@ -1,0 +1,14 @@
+<%= @application.status %>
+<% if @application.status == 'Pending' %>
+  <p> Applying For: </p>
+  <p> <% @application.pets.each do |pet| %> </p>
+  <p> <%= link_to pet.name, "/pets/#{pet.id}" %>, <%= link_to 'Approve Application', approved: true %> </p>
+  <p> <% end %> </p>
+<% end %>
+<% if @application.status == 'Approved' %>
+  <p> Applying For: </p>
+  <p> <% @application.pets.each do |pet| %> </p>
+  <p> <%= link_to pet.name, "/pets/#{pet.id}" %>, <%= @application.status %> </p>
+  <p> <% end %> </p>
+<% end %>
+
