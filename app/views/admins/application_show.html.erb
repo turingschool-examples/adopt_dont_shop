@@ -2,14 +2,14 @@
 <h2> Pet Wishlist </h2><br/><br/>
 <h2> Application Status: <%= @application.status %></h2>
   <% @application.update_status %>
-  <% @application.pets.each do |pet| %>
-<h3><%= pet.name %></h3>
-  <% if PetApplication.joins(:pet).where("pet_id = #{pet.id} and application_id = #{@application.id}").pluck(:condition).first == "Pending" %>
-  <p><%= link_to "Approve this Pet!", "/admin/applications/#{PetApplication.joins(:pet).where("pet_id = #{pet.id}").pluck(:id).first}?condition_update=Approved", id: "Approve #{pet.id}", method: :post %> 
-  <p><%= link_to "Reject this Pet", "/admin/applications/#{PetApplication.joins(:pet).where("pet_id = #{pet.id}").pluck(:id).first}?condition_update=Denied", id: "Reject #{pet.id}", method: :post %></p>
-  <% elsif PetApplication.joins(:pet).where("pet_id = #{pet.id} and application_id = #{@application.id}").pluck(:condition).first == "Approved" %>
-  <p><%= "The application for this pet has been approved." %></p>
+<% @pet_applications.each do |pet_app| %>
+  <h3><%= Pet.where(id: pet_app.pet_id).pluck(:name).first %></h3>
+  <% if pet_app.condition == "Pending" %>
+    <p><%= link_to "Approve this Pet!", "/admin/applications/#{pet_app.application_id}?condition_update=Approved&pet_app=#{pet_app.id}", id: "Approve #{pet_app.pet_id}", method: :post %>
+    <p><%= link_to "Reject this Pet", "/admin/applications/#{pet_app.application_id}?condition_update=Denied&pet_app=#{pet_app.id}", id: "Reject #{pet_app.pet_id}", method: :post %></p>
+  <% elsif pet_app.condition == "Approved" %>
+    <p><%= "The application for this pet has been approved." %></p>
   <% else %>
-  <p><%= "The application for this pet has been denied." %></p>
+    <p><%= "The application for this pet has been denied." %></p>
   <% end %>
 <% end %>

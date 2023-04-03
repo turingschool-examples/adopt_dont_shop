@@ -10,7 +10,7 @@ RSpec.describe "/admin/applications/:id" do
     @pet_5 = @shelter_1.pets.create!(name: "Dragon", age: 400,)
     @application_1 = Application.create!(applicant_name: "Bob", street_address: "123 Home St", city: "Denver", state: "CO", zip_code: "80238", description: "I love animals", status: "Pending")
     @application_2 = Application.create!(applicant_name: "Nebula", street_address: "45 Hippy Avenue", city: "Portland", state: "OR", zip_code: "40009", description: "Animals deserve to be freed into the woods", status: "Pending")
-    @application_3 = Application.create!(applicant_name: "Angry Tim", street_address: "94 Gun Street", city: "Dallas", state: "TX", zip_code: "60888", description: "Don't question me or my motives", status: "Approved")
+    @application_3 = Application.create!(applicant_name: "Angry Tim", street_address: "94 Gun Street", city: "Dallas", state: "TX", zip_code: "60888", description: "Don't question me or my motives", status: "Pending")
     PetApplication.create!(pet_id: @pet_1.id, application_id: @application_1.id)
     PetApplication.create!(pet_id: @pet_3.id, application_id: @application_1.id)
     PetApplication.create!(pet_id: @pet_5.id, application_id: @application_1.id)
@@ -58,6 +58,15 @@ RSpec.describe "/admin/applications/:id" do
     
     expect(page.all(:link, "Reject this Pet").count).to eq(2)
     expect(page).to have_content("The application for this pet has been denied.")
+  end
+  
+  it "reject button works 2" do
+    visit "/admin/applications/#{@application_3.id}"
+
+    expect(page.all(:link, "Reject this Pet").count).to eq(2)
+    expect(page).to have_no_content("The application for this pet has been denied.")
+    click_link("Reject #{@pet_5.id}")
+    expect(page).to have_current_path("/admin/applications/#{@application_3.id}")
   end
 
   describe 'Application status change' do
