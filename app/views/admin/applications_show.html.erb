@@ -5,8 +5,16 @@
   <li>Address: <%= @application.street_address%>, <%= @application.city%> 
   <%=@application.state%> <%=@application.zip%></li>
   <li><%=@application.description%></li>
-  <li>Pets: <% @application.pets.each do |pet|%>
-  <%=link_to "#{pet.name}", "/pets/#{pet.id}"%> 
+  <li>Pets: <% @applicationpets.each do |appPet|%>
+  <% if appPet.approved == nil %>
+      <%= form_with url: "/admin/applications/#{@application.id}/?pet_id=#{appPet.pet_id}", method: :patch, local: true do |form| %>
+      <%=link_to "#{appPet.find_name}", "/pets/#{appPet.pet_id}"%>
+          <%= form.submit "Approve #{appPet.find_name}"%>
+          <%= form.submit "Reject #{appPet.find_name}"%> 
+  <% end %>
+  <% else %>
+  <span><%= appPet.find_name %>:Approved <%= appPet.approved %></span>
+  <% end %>
   <% end %>
   </li>
   <li>App Status: <%= @application.status %>
@@ -28,6 +36,3 @@ Why would you make a good owner for these pet(s)
     <%= render partial: '/partials/adopt_form' %>
     <% end %>
 <% end %>
-
-
-

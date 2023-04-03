@@ -6,6 +6,12 @@ class Shelter < ApplicationRecord
   has_many :pets, dependent: :destroy
   has_many :ShelterVeterinarians
 
+  def self.order_alpha
+    select("shelters.*")
+    .from("shelters")
+    .order("name DESC")
+  end
+
   def self.order_by_recently_created
     order(created_at: :desc)
   end
@@ -31,5 +37,9 @@ class Shelter < ApplicationRecord
 
   def shelter_pets_filtered_by_age(age_filter)
     adoptable_pets.where('age >= ?', age_filter)
+  end
+
+  def self.join_application_pending
+    joins(pets: :applications).where("status = 'Pending'").pluck("name")
   end
 end

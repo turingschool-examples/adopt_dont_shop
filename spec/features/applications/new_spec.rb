@@ -14,4 +14,5 @@ RSpec.describe "Filling out forms" do
   
   click_button "Create Application"
  end
+
 end
