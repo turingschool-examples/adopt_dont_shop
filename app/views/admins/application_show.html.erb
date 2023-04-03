@@ -5,10 +5,9 @@
   <% if PetApplication.joins(:pet).where("pet_id = #{pet.id} and application_id = #{@application.id}").pluck(:condition).first == "Pending" %>
   <p><%= link_to "Approve this Pet!", "/admin/applications/#{PetApplication.joins(:pet).where("pet_id = #{pet.id}").pluck(:id).first}?condition_update=Approved", id: "Approve #{pet.id}", method: :post %> 
   <p><%= link_to "Reject this Pet", "/admin/applications/#{PetApplication.joins(:pet).where("pet_id = #{pet.id}").pluck(:id).first}?condition_update=Denied", id: "Reject #{pet.id}", method: :post %></p>
-  <% elsif PetApplication.joins(:pet).where("pet_id = #{pet.id}").pluck(:condition).first == "Approved" %>
+  <% elsif PetApplication.joins(:pet).where("pet_id = #{pet.id} and application_id = #{@application.id}").pluck(:condition).first == "Approved" %>
   <p><%= "The application for this pet has been approved." %></p>
   <% else %>
   <p><%= "The application for this pet has been denied." %></p>
   <% end %>
 <% end %>
-exit

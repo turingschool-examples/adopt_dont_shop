@@ -60,20 +60,20 @@ RSpec.describe "/admin/applications/:id" do
     expect(page).to have_content("The application for this pet has been denied.")
   end
 
-  # describe 'All Pets accepted on Application' do
-  #   it 'Once all pets are approved page redirects to show page and shows Approved status' do
-  #     visit "/admin/applications/#{@application_1.id}"
+  describe 'All Pets accepted on Application' do
+    it 'Once all pets are approved page redirects to show page and shows Approved status' do
+      visit "/admin/applications/#{@application_1.id}"
 
-  #     click_link("Approve #{@pet_1.id}")
-  #     click_link("Approve #{@pet_3.id}")
-  #     click_link("Approve #{@pet_5.id}")
-
-  #     expect(page.all(:link, "Reject this Pet").count).to eq(0)
-  #     expect(page.all(:link, "Approve this Pet!").count).to eq(0)
-  #     expect(current_path).to eq("/admin/applications/#{@application_id.id}")
-  #     expect(page).to have_content("Application Approved")
-  #   end
-  # end
+      click_link("Approve #{@pet_1.id}")
+      click_link("Approve #{@pet_3.id}")
+      click_link("Approve #{@pet_5.id}")
+      save_and_open_page
+      expect(page.all(:link, "Reject this Pet").count).to eq(0)
+      expect(page.all(:link, "Approve this Pet!").count).to eq(0)
+      expect(current_path).to eq("/admin/#{@application_1.id}")
+      expect(page).to have_content("Application Approved")
+    end
+  end
 
   it "doesn't affect pets on other applications" do
     visit "/admin/applications/#{@application_1.id}"
@@ -84,6 +84,7 @@ RSpec.describe "/admin/applications/:id" do
     visit "/admin/applications/#{@application_2.id}"
     expect(page).to have_no_content("The application for this pet has been approved.")
     click_link("Approve #{@pet_4.id}")
+    save_and_open_page
     expect(page).to have_content("The application for this pet has been approved.")
     
     visit "/admin/applications/#{@application_3.id}"
