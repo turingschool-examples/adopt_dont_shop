@@ -7,6 +7,7 @@ class ApplicationsController < ApplicationController
     @application = Application.find(params[:id])
     @pets = @application.pets
     @searched_pets = Pet.search(params[:pet_name]) if !params[:pet_name].nil?
+    @application.update
   end
 
   def create
@@ -28,6 +29,9 @@ class ApplicationsController < ApplicationController
     application = Application.find(params[:id])
     if application.description == nil && application.status == "In Progress"
       application.update(status: params[:status], description: params[:freeform])
+      redirect_to "/applications/#{application.id}"
+    else
+      application.update_status
       redirect_to "/applications/#{application.id}"
     end
   end

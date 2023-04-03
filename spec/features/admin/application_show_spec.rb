@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe "/admin/applications/:id" do
-  before do
+  before(:each) do
     @shelter_1 = Shelter.create!(foster_program: true, name: "Taj Mahal for Dogs", city: "Sky City", rank: 20)
     @pet_1 = @shelter_1.pets.create!(name: "Foster", age: 1000, breed: "dog")
     @pet_2 = @shelter_1.pets.create!(name: "Bento", age: 23, breed: "dog")
@@ -55,8 +55,26 @@ RSpec.describe "/admin/applications/:id" do
     expect(page.all(:link, "Reject this Pet").count).to eq(3)
     expect(page).to have_no_content("The application for this pet has been denied.")
     click_link("Reject #{@pet_1.id}")
+    
     expect(page.all(:link, "Reject this Pet").count).to eq(2)
     expect(page).to have_content("The application for this pet has been denied.")
+  end
+
+  describe 'All Pets accepted on Application' do
+    it 'Once all pets are approved page redirects to show page and shows Approved status' do
+      visit "/admin/applications/#{@application_1.id}"
+
+      click_link("Approve #{@pet_1.id}")
+      click_link("Approve #{@pet_3.id}")
+      click_link("Approve #{@pet_5.id}")
+
+      @application_1.update_status
+      expect(@application_1.status).to eq("Approved")
+      expect(page.all(:link, "Reject this Pet").count).to eq(0)
+      expect(page.all(:link, "Approve this Pet!").count).to eq(0)
+      expect(current_path).to eq("/admin/applications/#{@application_1.id}")
+      expect(page).to have_content("Application Status: Approved")
+    end
   end
 
   it "doesn't affect pets on other applications" do

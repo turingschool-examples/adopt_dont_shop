@@ -4,7 +4,6 @@ class PetApplication < ApplicationRecord
   validates :condition, inclusion: { in: ["Pending", "Approved", "Denied"] }
 
   def change_condition(condition_change)
-    # require 'pry'; binding.pry
     self.condition = condition_change
     self.save
   end
