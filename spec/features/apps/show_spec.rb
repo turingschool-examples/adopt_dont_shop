@@ -8,6 +8,7 @@ RSpec.describe 'the apps show', type: :feature do
       @pet_1 = @app_1.pets.create!(adoptable: true, age: 3, breed: 'German Shepard', name: 'Zues', shelter_id: @shelter_1.id)
       @pet_2 = @app_1.pets.create!(adoptable: true, age: 1, breed: 'Siberian Husky', name: 'John Snow', shelter_id: @shelter_1.id)
       @pet_3 = Pet.create!(adoptable: true, age: 4, breed: 'Chihuahua', name: 'Maximus', shelter_id: @shelter_1.id)
+      @app_2 = App.create!(name: 'Sandy', street_address: '2222 Grease 2', city: 'Frisco', state: 'CO', zip_code: '809100', description: 'Dont like dogs. Dont want any', status: 'Rejected' )
     end
 
     it 'I can see applications information' do
@@ -97,5 +98,31 @@ RSpec.describe 'the apps show', type: :feature do
       expect(page).to_not have_field("application_text")
       expect(page).to_not have_button("Submit Application")
     end
+
+    it 'When i visit an applications show page and have not chosen any pets then I do not see a section to submit my application' do
+      visit "/apps/#{@app_2.id}"
+
+      expect(page).to_not have_button("Submit Application")
+    end
+
+    # it 'I see any pet whose name partially matches my search' do
+    #   visit "/apps/#{@app_1.id}"
+
+    #   fill_in("Search Pets", with: "Zu")
+    #   click_button("Search")
+
+    #   expect(current_path).to eq("/apps/#{app_1.id}")
+    #   expect(page).to have_content("Zeus")
+    # end
+
+    # it "I see my pet searach is case insensitive" do
+    #   visit "/apps/#{@app_1.id}"
+
+    #   fill_in("Search by pet name:", with: "zU")
+    #   click_button("Search")
+
+    #   expect(current_path).to eq("/apps/#{app_1.id}")
+    #   expect(page).to have_content("Zeus")
+    # end
   end
 end
