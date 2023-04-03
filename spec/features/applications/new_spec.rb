@@ -16,7 +16,6 @@ RSpec.describe 'new application page', type: :feature do
     fill_in('State', with: 'MS')
     fill_in('Zip code', with: '38655')
     fill_in('Reason', with: 'Im lonely')
-    save_and_open_page
     click_button('Create Application')
     new_app = Application.find_by(name: "Samuel Xander")
 
