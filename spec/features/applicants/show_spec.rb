@@ -127,7 +127,7 @@ RSpec.describe "Applicant Show" do
     end
   end
   describe "Search for partial matches" do
-    it "When I search fluff, I see pets: scooby, scooby doobie, 
+    it "When I search scooby, I see pets: scooby, scooby doobie, 
         and scooby doobie doo" do
       @shelter_1 = Shelter.create(name: 'Mystery Building', city: 'Irvine CA', foster_program: false, rank: 9)
       @scooby = Pet.create(name: 'scooby', age: 2, breed: 'Great Dane', adoptable: true, shelter_id: @shelter_1.id)
@@ -144,7 +144,7 @@ RSpec.describe "Applicant Show" do
       expect(page).to have_content(@scoobydoobiedoo.name)
     end
 
-    it "When I search fluff, I see Fluffy, FLUFF, Mr. Fluff" do
+    it "Case Insensitivity check when I search fluff, I see Fluffy, FLUFF, Mr. Fluff" do
       @shelter_1 = Shelter.create(name: 'Mystery Building', city: 'Irvine CA', foster_program: false, rank: 9)
       @fluffy = Pet.create(name: 'Fluffy', age: 2, breed: 'Great Dane', adoptable: true, shelter_id: @shelter_1.id)
       @fluff = Pet.create(name: 'FLUFF', age: 3, breed: 'Golden Retriever', adoptable: true, shelter_id: @shelter_1.id)
