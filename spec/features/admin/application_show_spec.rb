@@ -55,7 +55,7 @@ RSpec.describe "/admin/applications/:id" do
     expect(page.all(:link, "Reject this Pet").count).to eq(3)
     expect(page).to have_no_content("The application for this pet has been denied.")
     click_link("Reject #{@pet_1.id}")
-    save_and_open_page
+    
     expect(page.all(:link, "Reject this Pet").count).to eq(2)
     expect(page).to have_content("The application for this pet has been denied.")
   end
