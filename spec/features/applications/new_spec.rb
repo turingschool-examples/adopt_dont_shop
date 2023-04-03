@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "Filling out forms" do
   
-  xit 'fails to fill out form' do
+  it 'fails to fill out form' do
     visit '/applications/new'
     
     click_button "Create Application"

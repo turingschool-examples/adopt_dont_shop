@@ -1,0 +1,11 @@
+<% if @pets.any? %>
+  <% @pets.each do |pet| %>
+  <ul>
+  <li>Adoptable: <%= pet.adoptable %></li>
+  <li>Age: <%= pet.age %></li>
+  <li>Breed: <%= pet.breed %></li>
+  <li>Name: <%= pet.name %></li>
+  <%= button_to 'Adopt this Pet', "/applications/#{params[:id]}?pet_id=#{pet.id}", method: :patch %>
+  </ul>
+  <% end %>
+  <% end %>

@@ -23,26 +23,10 @@ Why would you make a good owner for these pet(s)
 </ul>
 
 <% if @application.status == "In Progress" %>
-  <%= form_with url: "/applications/#{@application.id}/?name=", method: :get, local: true do |form| %>   
-  <h2>Add a Pet to this Application </h2>
-  <ul>
-   <span> <%= form.label :name %> </span>
-   <span> <%= form.text_field :name %> </span>
-   <span> <%= form.submit 'Search' %> </span>
-  <% end %>
-
-  <% if @pets.any? %>
-  <% @pets.each do |pet| %>
-  <ul>
-  <li>Adoptable: <%= pet.adoptable %></li>
-  <li>Age: <%= pet.age %></li>
-  <li>Breed: <%= pet.breed %></li>
-  <li>Name: <%= pet.name %></li>
-  <%= button_to 'Adopt this Pet', "/applications/#{params[:id]}?pet_id=#{pet.id}", method: :patch %>
-  </ul>
-  <% end %>
-  <% end %>
-
+  <%= render partial: '/partials/search_form', locals: {path: "/applications/#{@application.id}/?name=", method: :get, button_text: 'Search'} %>
+    <% if params[:name] %>
+    <%= render partial: '/partials/adopt_form' %>
+    <% end %>
 <% end %>
 
 
