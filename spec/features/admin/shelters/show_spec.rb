@@ -24,7 +24,7 @@ RSpec.describe 'admin shelters show', type: :feature do
 
     it 'I see a statistics section with Average Pet Age, Number of Adoptable pets and Number of Pets adopted listed' do
       visit "/admin/shelters/#{shelter_1.id}"
-
+require 'pry'; binding.pry
       expect(page).to have_content('Statistics')
       expect(page).to have_content("Average Pet Age: 2")
       expect(page).to have_content("Number of Adoptable Pets: 2")
