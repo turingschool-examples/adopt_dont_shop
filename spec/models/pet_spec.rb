@@ -17,9 +17,9 @@ RSpec.describe Pet, type: :model do
     @pet_2 = @shelter_1.pets.create(name: 'Clawdia', breed: 'shorthair', age: 3, adoptable: true)
     @pet_3 = @shelter_1.pets.create(name: 'Ann', breed: 'ragdoll', age: 3, adoptable: false)
     @application_1 = Application.create!(name: "John Doe", street_address: "123 Main St", city: "Denver", state: "CO", zip_code: "80202", description: "I love dogs", status: "In Progress")
-    @application_2 = Application.create!(name: "John Doe", street_address: "123 Main St", city: "Denver", state: "CO", zip_code: "80202", description: "I love dogs", status: "In Progress")
     @application_pets_1 = ApplicationPet.create!(application_id: @application_1.id, pet_id: @pet_1.id)
-    @application_pets_2 = ApplicationPet.create!(application_id: @application_2.id, pet_id: @pet_3.id, status: 'Approved')
+    @application_pets_2 = ApplicationPet.create!(application_id: @application_1.id, pet_id: @pet_3.id, status: 'Approved')
+    @application_pets_3 = ApplicationPet.create!(application_id: @application_1.id, pet_id: @pet_2.id, status: 'Rejected')
   end
 
   describe 'class methods' do
@@ -50,6 +50,26 @@ RSpec.describe Pet, type: :model do
       
       it 'returns false when the application status is not Pending' do
         expect(@pet_3.pending?(@application_pets_2.application_id)).to eq(false)
+      end
+    end
+
+    describe 'approved?' do
+      it 'returns true when the application is approved' do
+        expect(@pet_3.approved?(@application_pets_2.application_id)).to eq(true)
+      end
+      
+      it 'returns false when the application status is not approved' do
+        expect(@pet_1.approved?(@application_pets_1.application_id)).to eq(false)
+      end
+    end
+
+    describe 'rejected?' do
+      it 'returns true when the application is rejected' do
+        expect(@pet_2.rejected?(@application_pets_3.application_id)).to eq(true)
+      end
+      
+      it 'returns false when the application status is not rejected' do
+        expect(@pet_1.rejected?(@application_pets_2.application_id)).to eq(false)
       end
     end
 

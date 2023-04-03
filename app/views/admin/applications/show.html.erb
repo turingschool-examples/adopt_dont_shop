@@ -4,9 +4,10 @@
   <p><%= pet.name %>
   <% if pet.pending?(@application.id) %>
     <%= button_to 'Approve Pet', "/application_pets/#{@application.id}?pet_id=#{pet.id}&status=approved", method: :patch %>
-    <%= button_to 'Reject Pet', "/application_pets/#{@application.id}?pet_id=#{pet.id}&status=rejected", method: :patch %></p>
-  <% else %>
-  <% binding.pry %>
-    <p><%= "#{pet.status}" %></p>
+    <%= button_to 'Reject Pet', "/application_pets/#{@application.id}?pet_id=#{pet.id}&status=rejected", method: :patch %></p> 
+  <% elsif pet.approved?(@application.id) %>
+    <p>Approved</p>
+  <% elsif pet.rejected?(@application.id) %>
+    <p>Rejected</p>
   <% end %>
 <% end %>
