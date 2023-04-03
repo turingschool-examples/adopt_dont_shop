@@ -8,10 +8,12 @@ class ApplicationPetsController < ApplicationController
   def update
     if 
       application_pet = ApplicationPet.where(application_id: params[:id], pet_id: params[:pet_id])
+      require 'pry'; binding.pry
       app.application_pets.update(status: 'Approved')
     else
-      
+      app.application_pets.update(status: 'Rejected')
     end
+    require 'pry'; binding.pry
     redirect_to "/admin/applications/#{params[:id]}"
   end
 

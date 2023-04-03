@@ -3,8 +3,10 @@
 <% @application.pets.each do |pet| %>
   <p><%= pet.name %>
   <% if pet.pending?(@application.id) %>
-    <%= button_to 'Approve Pet', "/application_pets/#{@application.id}?pet_id=#{pet.id}&status=approved", method: :patch %></p>
+    <%= button_to 'Approve Pet', "/application_pets/#{@application.id}?pet_id=#{pet.id}&status=approved", method: :patch %>
+    <%= button_to 'Reject Pet', "/application_pets/#{@application.id}?pet_id=#{pet.id}&status=rejected", method: :patch %></p>
   <% else %>
-    <p><%= 'Approved' %></p>
+  <% binding.pry %>
+    <p><%= "#{pet.status}" %></p>
   <% end %>
 <% end %>

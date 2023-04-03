@@ -21,6 +21,10 @@ RSpec.describe Shelter, type: :model do
     @pet_2 = @shelter_1.pets.create(name: 'Clawdia', breed: 'shorthair', age: 3, adoptable: true)
     @pet_3 = @shelter_3.pets.create(name: 'Lucille Bald', breed: 'sphynx', age: 8, adoptable: true)
     @pet_4 = @shelter_1.pets.create(name: 'Ann', breed: 'ragdoll', age: 5, adoptable: true)
+
+    @application_1 = Application.create!(name: 'John Doe', street_address: '123 Main St', city: 'Denver', state: 'CO', zip_code: '80202', description: 'I love animals!', status: 'Pending')
+
+    @application_pet_1 = ApplicationPet.create!(application: @application_1, pet: @pet_1)
   end
 
   describe 'class methods' do
@@ -35,6 +39,12 @@ RSpec.describe Shelter, type: :model do
           expect(Shelter.reverse_alpha_shelters).to eq([@shelter_2, @shelter_3, @shelter_1])
         end
       end
+
+      describe '#pending_app_shelters' do
+        it 'returns shelters with pending applications' do
+          expect(Shelter.pending_app_shelters).to eq([@shelter_1])
+        end
+      end
     end
 
     describe '#order_by_recently_created' do
@@ -46,6 +56,14 @@ RSpec.describe Shelter, type: :model do
     describe '#order_by_number_of_pets' do
       it 'orders the shelters by number of pets they have, descending' do
         expect(Shelter.order_by_number_of_pets).to eq([@shelter_1, @shelter_3, @shelter_2])
+      end
+    end
+
+    describe '#find_name_and_address' do
+      it 'returns the name and address of the shelter' do
+        result = Shelter.find_name_and_address(@shelter_1.id)
+        expect(result.name).to eq(@shelter_1.name)
+        expect(result.city).to eq(@shelter_1.city)
       end
     end
   end

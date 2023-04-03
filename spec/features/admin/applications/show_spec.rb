@@ -16,5 +16,13 @@ RSpec.describe 'admin application show', type: :feature do
       expect(current_path).to eq("/admin/applications/#{application_1.id}")
       expect(page).to have_content('Approved')
     end
+
+    it 'For every pet that the application is for, I see a button to reject the application for that specific pet' do
+      visit "/admin/applications/#{application_1.id}"
+
+      click_button('Reject Pet')
+      expect(current_path).to eq("/admin/applications/#{application_1.id}")
+      expect(page).to have_content('Rejected')
+    end
   end
 end

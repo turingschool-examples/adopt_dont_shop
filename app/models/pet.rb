@@ -20,6 +20,7 @@ class Pet < ApplicationRecord
   end
 
   def pending?(application_id)
+    require 'pry'; binding.pry
     app_pet(application_id).status == "Pending"
   end
 
