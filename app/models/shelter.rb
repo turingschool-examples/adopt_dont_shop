@@ -25,6 +25,14 @@ class Shelter < ApplicationRecord
     pets.where(adoptable: true)
   end
 
+  def adoptable_pets_count
+    pets.where(adoptable: true).count
+  end
+
+  def pets_adopted
+    pets.where(adoptable: false).count
+  end
+
   def alphabetical_pets
     adoptable_pets.order(name: :asc)
   end
@@ -47,5 +55,9 @@ class Shelter < ApplicationRecord
    
   def self.pending_app_shelters
     joins(:applications).where(applications: {status: "Pending"}).order(name: :asc)
+  end
+
+  def average_pet_age
+    pets.average(:age)
   end
 end
