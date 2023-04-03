@@ -45,7 +45,7 @@ street_address:  "333 Round Blvd.",
 city: "Sacramento",
 state: "CA",
 zip: "90071",
-status: "Rejected",
+status: "In Progress",
 description: "I LOVE pets",
 )
 

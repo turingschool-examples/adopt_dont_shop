@@ -44,6 +44,12 @@ RSpec.describe ApplicationPet, type: :model do
       end
     end
 
+    describe "::find_application" do
+      xit "finds the application_pet records that match with pet and application" do
+        
+      end
+    end
+
   end
 
 end

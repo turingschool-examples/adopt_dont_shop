@@ -1,5 +1,5 @@
-<% if @pets.any? %>
-  <% @pets.each do |pet| %>
+<% if @pet_filtered.any? %>
+  <% @pet_filtered.each do |pet| %>
   <ul>
   <li>Adoptable: <%= pet.adoptable %></li>
   <li>Age: <%= pet.age %></li>

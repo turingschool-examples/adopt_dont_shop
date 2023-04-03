@@ -3,6 +3,7 @@ class ApplicationsController < ApplicationController
   def show
     @application = Application.find(params[:id])
     @pets = Pet.filter_by_name(params,@application)
+    @pet_filtered = Pet.filter_by_name(params,@application)
   end
 
   def new

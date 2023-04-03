@@ -6,12 +6,18 @@
   <%=@application.state%> <%=@application.zip%></li>
   <li><%=@application.description%></li>
   <li>Pets: <% @applicationpets.each do |appPet|%>
-  <% if appPet.approved == nil %>
+  <% if appPet.pet.adoptable == false && appPet.approved != true %>
+    <%= form_with url: "/admin/applications/#{@application.id}/?pet_id=#{appPet.pet_id}", method: :patch, local: true do |form| %>
+      <%=link_to "#{appPet.find_name}", "/pets/#{appPet.pet_id}"%>
+          <span>IS ALREADY ADOPTED</span>
+          <%= form.submit "Reject #{appPet.find_name}"%>
+  <% end %>
+  <% elsif appPet.approved == nil %>
       <%= form_with url: "/admin/applications/#{@application.id}/?pet_id=#{appPet.pet_id}", method: :patch, local: true do |form| %>
       <%=link_to "#{appPet.find_name}", "/pets/#{appPet.pet_id}"%>
           <%= form.submit "Approve #{appPet.find_name}"%>
-          <%= form.submit "Reject #{appPet.find_name}"%> 
-  <% end %>
+          <%= form.submit "Reject #{appPet.find_name}"%>
+    <% end %>
   <% else %>
   <span><%= appPet.find_name %>:Approved <%= appPet.approved %></span>
   <% end %>

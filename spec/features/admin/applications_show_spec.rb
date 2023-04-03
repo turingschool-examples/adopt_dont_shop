@@ -14,8 +14,18 @@ RSpec.describe 'admin/applications/:id' do
       zip: "80012",
       description: "I like pets",
       status: "Pending"
-  )
+    )
+    @application_2 = @pet_1.applications.create(
+      name: "Brady",
+      street_address:  "333 Fake St",
+      city: "Denver",
+      state: "CO",
+      zip: "80555",
+      description: "I love pets",
+      status: "Pending"
+    )
     ApplicationPet.create!(pet: @pet_2, application: @application_1)
+    ApplicationPet.create!(pet: @pet_2, application: @application_2)
   end
 
   #User Story 12
@@ -69,6 +79,31 @@ RSpec.describe 'admin/applications/:id' do
       expect(page).to_not have_selector(:button, "Approve Bare-y Manilow")
       expect(page).to_not have_selector(:button, "Reject Bare-y Manilow")
       expect(page).to have_content("Pets: Bare-y Manilow:Approved false\nMr. Pirate")
+    end
+  end
+  #User Story 14
+  describe "When I visit admin/applications/:id" do
+    it "Approving/rejecting a pet does not affect the same pet on other applications" do
+      visit "/admin/applications/#{@application_1.id}"
+      expect(page).to have_selector(:button, "Approve Mr. Pirate")
+      expect(page).to have_selector(:button, "Reject Mr. Pirate")
+      expect(page).to have_selector(:button, "Approve Bare-y Manilow")
+      expect(page).to have_selector(:button, "Reject Bare-y Manilow")
+
+      click_button("Reject Mr. Pirate")
+      click_button("Approve Bare-y Manilow")
+
+      visit "/admin/applications/#{@application_2.id}"
+      expect(page).to have_selector(:button, "Approve Mr. Pirate")
+      expect(page).to have_selector(:button, "Reject Mr. Pirate")
+      expect(page).to have_selector(:button, "Approve Bare-y Manilow")
+      expect(page).to have_selector(:button, "Reject Bare-y Manilow")
+    end
+  end
+  #User Story 15
+  describe "When I visit admin/applications/:id" do
+    xit "Approving all pets takes me back to the showpage and changes status to 'Approved'" do
+      
     end
   end
 end

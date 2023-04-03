@@ -6,8 +6,9 @@ class AdminController < ApplicationController
 
   def applications_show
     @application = Application.find(params[:id])
-    @pets = Pet.filter_by_name(params,@application)
+    @pets = Pet.all
     @applicationpets = ApplicationPet.findall(@application.pets,@application)
+    @pet_filtered = Pet.filter_by_name(params,@application)
   end
 
   def applications_update
@@ -24,6 +25,9 @@ class AdminController < ApplicationController
         approved: false,
       })
     end
+
+    @all_application_pets = ApplicationPet.findall(@application.pets,@application)
+    @application.update_status(@all_application_pets)
     redirect_to "/admin/applications/#{@application.id}"
 
   end
