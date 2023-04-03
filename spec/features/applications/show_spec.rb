@@ -59,15 +59,41 @@ RSpec.describe 'application show page', type: :feature do
     end
 
     context 'there pets currently added for adoption to the application' do
-      it 'shows the field for adding a reason for adoption' do
+      before(:each) do
         fill_in("Search pets", with: "Cheese")
         click_button("Search Pets")
         click_button("Adopt this Pet")
+      end
 
+      it 'shows the field for adding a reason for adoption' do
         expect(page).to have_content("Add Reason for Adopting and Submit Application")
         expect(page).to have_field("Reason for adopting", type: :text)
         expect(page).to have_button("Submit Application")
       end
+
+      it 'cannot submit the application without a reason' do
+        click_button("Submit Application")
+
+        expect(current_path).to eq("/applications/#{@app_1.id}")
+        expect(page).to have_content("Add a Pet to this Application")
+        expect(page).to have_content("Status: In Progress")
+        expect(page).to have_content("Add Reason for Adopting and Submit Application")
+        expect(page).to have_field("Reason for adopting", type: :text)
+        expect(page).to have_button("Submit Application")
+      end
+
+      it 'can submit the application with a reason' do
+        fill_in("Reason for adopting", with: "I love cheese")
+        click_button("Submit Application")
+
+        expect(current_path).to eq("/applications/#{@app_1.id}")
+        expect(page).to_not have_content("Add a Pet to this Application")
+        expect(page).to have_content("Status: Pending")
+        expect(page).to_not have_content("Add Reason for Adopting and Submit Application")
+        expect(page).to_not have_field("Reason for adopting", type: :text)
+        expect(page).to_not have_button("Submit Application")
+      end
+
     end
   end
 

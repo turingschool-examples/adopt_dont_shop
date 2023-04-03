@@ -5,6 +5,9 @@
 <p>State: <%= @application.state %></p>
 <p>Zip Code: <%= @application.zip_code %></p>
 <p>Status: <%= @application.status %></p>
+<% if @application.status != "In Progress" %>
+  <p>Reason for Adopting: <%= @application.reason %></p>
+<% end %>
 
 <h3>Adopted pets</h3>
 <% @application.pets.each do |pet| %>

@@ -2,16 +2,16 @@ class ApplicationsController < ApplicationController
 
   def show
     @application = Application.find(params[:id])
-    if params[:search_pets]
+    if params[:search_pets].present?
       @pets = Pet.search_adoptable_pets(params[:search_pets])
     end
 
-    if params[:adopted_pet_id] && !@application.already_added?(params[:adopted_pet_id])
+    if params[:adopted_pet_id].present? && !@application.already_added?(params[:adopted_pet_id])
       pet_app = PetApplication.create(application_id: params[:id], pet_id: params[:adopted_pet_id])
       params[:adopted_pet_id] = nil
     end
 
-    if params[:reason_for_adopting]
+    if params[:reason_for_adopting].present?
       @application.update(status: "Pending")
     end
   end
