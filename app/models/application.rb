@@ -14,6 +14,12 @@ class Application < ApplicationRecord
     if pet_applications.pluck(:condition).all? { |condition| condition == "Approved" }
       self.update(status: "Approved")
       self.save
+      pets = pet_applications.map do |pet_app|
+        pet_app.pet
+      end
+      pets.each do |pet|
+        pet.pet_adopted
+      end
     elsif
       pet_applications.pluck(:condition).include?("Pending") == true
     else
