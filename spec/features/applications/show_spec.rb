@@ -152,6 +152,5 @@ RSpec.describe 'the application show' do
       expect(page).to have_content("App Status: In Progress")
     end
   end
-  
 end
 

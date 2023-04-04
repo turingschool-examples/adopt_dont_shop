@@ -145,8 +145,22 @@ RSpec.describe 'admin/applications/:id' do
       click_button("Approve Mr. Pirate")
 
       visit "/pets/#{@pet_1.id}"
-      save_and_open_page
       expect(page).to have_content("Adoptable: false")
+      end
+    end
+
+    #User Story 18
+    describe "Pets can only have one approved application on them at any time" do
+      it "removes the approve button from admin when other app approved" do
+        visit "/admin/applications/#{@application_1.id}"
+        expect(page).to have_content("App Status: Pending")
+        click_button("Approve Bare-y Manilow")
+        click_button("Approve Mr. Pirate")
+
+        visit "/admin/applications/#{@application_2.id}"
+
+        expect(page).not_to have_content("Approve")
+        expect(page).to have_content("IS ALREADY ADOPTED")
       end
     end
 end
