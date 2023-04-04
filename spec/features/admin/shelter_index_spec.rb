@@ -80,4 +80,25 @@ RSpec.describe "/admin/shelters" do
       expect(@shelter_7.name).to appear_before(@shelter_5.name)
     end
   end
+
+  it "has a shelter names are a link to that shelter" do
+    visit "admin/shelters"
+   
+    expect(page).to have_link("Taj Mahal for Dogs", :href => "/admin/shelters/#{@shelter_1.id}")
+    expect(page).to have_link("Valhalla for Cats", :href => "/admin/shelters/#{@shelter_2.id}")
+    expect(page).to have_link("Alexandria for Squirrels", :href => "/admin/shelters/#{@shelter_3.id}")
+    expect(page).to have_link("Shangri La for Turtles", :href => "/admin/shelters/#{@shelter_4.id}")
+  end
+
+  it "link to admin shelter show page is functional" do
+    visit "admin/shelters"
+
+    click_link "Taj Mahal for Dogs"
+    expect(page).to have_current_path("/admin/shelters/#{@shelter_1.id}")
+
+    visit "admin/shelters"
+
+    click_link "Alexandria for Squirrels"
+    expect(page).to have_current_path("/admin/shelters/#{@shelter_3.id}")
+  end
 end

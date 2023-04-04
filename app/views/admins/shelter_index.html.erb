@@ -1,7 +1,7 @@
 <%= content_tag :div, id: "all_shelters" do %>
   <h2><%= "All Shelters" %></h2>
   <% @all_shelters.each do |shelter| %>
-  <%= shelter.name %><br/>
+  <%= link_to shelter.name, "/admin/shelters/#{shelter.id}" %><br/>
   <% end %>
 <% end %>
 <%= content_tag :div, id: "open_app_shelters" do %>
