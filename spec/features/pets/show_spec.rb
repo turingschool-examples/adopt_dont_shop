@@ -30,9 +30,9 @@ RSpec.describe 'the shelter show' do
     before(:each) do
       @shelter_1 = Shelter.create!(foster_program: true, name: "Taj Mahal for Dogs", city: "Sky City", rank: 20)
       @pet_1 = @shelter_1.pets.create!(name: "Foster", age: 1000, breed: "dog", adoptable: true)
-      @pet_2 = @shelter_1.pets.create!(name: "Bento", age: 23, breed: "dog")
+      @pet_2 = @shelter_1.pets.create!(name: "Bento", age: 23, breed: "dog", adoptable: true)
       @pet_3 = @shelter_1.pets.create!(name: "Quiggle", age: 555, adoptable: true)
-      @pet_4 = @shelter_1.pets.create!(name: "Simpleton", age: 80)
+      @pet_4 = @shelter_1.pets.create!(name: "Simpleton", age: 80, adoptable: true)
       @pet_5 = @shelter_1.pets.create!(name: "Dragon", age: 400, adoptable: true)
       @application_1 = Application.create!(applicant_name: "Bob", street_address: "123 Home St", city: "Denver", state: "CO", zip_code: "80238", description: "I love animals", status: "Pending")
       @application_2 = Application.create!(applicant_name: "Nebula", street_address: "45 Hippy Avenue", city: "Portland", state: "OR", zip_code: "40009", description: "Animals deserve to be freed into the woods", status: "Pending")
@@ -70,6 +70,21 @@ RSpec.describe 'the shelter show' do
 
       visit "/pets/#{@pet_5.id}"
       expect(page).to have_content("Adoptable: false")
+    end
+
+    it 'approval of pets within one application does not impact other pets' do
+      visit "/admin/applications/#{@application_1.id}"
+
+      click_link("Approve #{@pet_1.id}")
+      click_link("Approve #{@pet_3.id}")
+      click_link("Approve #{@pet_5.id}")
+      @application_1.update_status
+
+      visit "/pets/#{@pet_2.id}"
+      expect(page).to have_content("Adoptable: true")
+
+      visit "/pets/#{@pet_4.id}"
+      expect(page).to have_content("Adoptable: true")
     end
   end
 end
