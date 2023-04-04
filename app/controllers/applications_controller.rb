@@ -14,10 +14,11 @@ class ApplicationsController < ApplicationController
   def create
     @application = Application.new(application_params)
     if @application.save
+      flash[:alert] = nil
       redirect_to "/applications/#{@application.id}"
     else
       flash[:alert] = "Please fill in all required fields."
-      redirect_to "/applications/new"
+      render :new
     end
   end
   
