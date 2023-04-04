@@ -8,7 +8,7 @@ RSpec.describe "/admin/applications/:id" do
     @pet_3 = @shelter_1.pets.create!(name: "Quiggle", age: 555,)
     @pet_4 = @shelter_1.pets.create!(name: "Simpleton", age: 80,)
     @pet_5 = @shelter_1.pets.create!(name: "Dragon", age: 400,)
-    @application_1 = Application.create!(applicant_name: "Bob", street_address: "123 Home St", city: "Denver", state: "CO", zip_code: "80238", description: "I love animals")
+    @application_1 = Application.create!(applicant_name: "Bob", street_address: "123 Home St", city: "Denver", state: "CO", zip_code: "80238", description: "I love animals", status: "Pending")
     @application_2 = Application.create!(applicant_name: "Nebula", street_address: "45 Hippy Avenue", city: "Portland", state: "OR", zip_code: "40009", description: "Animals deserve to be freed into the woods", status: "Pending")
     @application_3 = Application.create!(applicant_name: "Angry Tim", street_address: "94 Gun Street", city: "Dallas", state: "TX", zip_code: "60888", description: "Don't question me or my motives", status: "Pending")
     PetApplication.create!(pet_id: @pet_1.id, application_id: @application_1.id)
@@ -69,9 +69,11 @@ RSpec.describe "/admin/applications/:id" do
     expect(page).to have_current_path("/admin/applications/#{@application_3.id}")
   end
 
-  describe 'All Pets accepted on Application' do
+  describe 'Application status change' do
     it 'Once all pets are approved page redirects to show page and shows Approved status' do
       visit "/admin/applications/#{@application_1.id}"
+
+      expect(@application_1.status).to eq("Pending")
 
       click_link("Approve #{@pet_1.id}")
       click_link("Approve #{@pet_3.id}")
@@ -83,6 +85,38 @@ RSpec.describe "/admin/applications/:id" do
       expect(page.all(:link, "Approve this Pet!").count).to eq(0)
       expect(current_path).to eq("/admin/applications/#{@application_1.id}")
       expect(page).to have_content("Application Status: Approved")
+    end
+
+    it 'if any pet_application conditions are still pending, application status does not change' do
+      visit "/admin/applications/#{@application_1.id}"
+
+      click_link("Approve #{@pet_1.id}")
+      click_link("Approve #{@pet_3.id}")
+
+      @application_1.update_status
+      expect(@application_1.status).to eq("Pending")
+      expect(page.all(:link, "Reject this Pet").count).to eq(1)
+      expect(page.all(:link, "Approve this Pet!").count).to eq(1)
+      expect(current_path).to eq("/admin/applications/#{@application_1.id}")
+      expect(page).to have_content("Application Status: Pending")
+    end
+
+    it 'if any pet_application conditions are rejected and no more are pending, application status changes to rejected' do
+      visit "/admin/applications/#{@application_1.id}"
+
+      click_link("Reject #{@pet_1.id}")
+      click_link("Reject #{@pet_3.id}")
+
+      expect(page).to have_content("Application Status: Pending")
+      
+      click_link("Reject #{@pet_5.id}")
+
+      @application_1.update_status
+      expect(@application_1.status).to eq("Rejected")
+      expect(page.all(:link, "Reject this Pet").count).to eq(0)
+      expect(page.all(:link, "Approve this Pet!").count).to eq(0)
+      expect(current_path).to eq("/admin/applications/#{@application_1.id}")
+      expect(page).to have_content("Application Status: Rejected")
     end
   end
 
