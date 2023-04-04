@@ -85,6 +85,24 @@ RSpec.describe Shelter, type: :model do
       end
     end
 
+    describe ".adoptable_pet_count" do
+      it "returns number of adoptable pets" do
+        expect(@shelter_1.adoptable_pet_count).to eq(2)
+        expect(@shelter_3.adoptable_pet_count).to eq(1)
+        pet_4 = @shelter_3.pets.create(name: 'Yahoo Chocolate Drink', breed: 'sphynx', age: 8, adoptable: true)
+        expect(@shelter_3.adoptable_pet_count).to eq(2)
+      end
+    end
+
+    describe ".average_adoptable_pet_age" do
+      it "returns average age of adoptable pets" do
+        expect(@shelter_1.average_adoptable_pet_age).to eq(4)
+        expect(@shelter_3.average_adoptable_pet_age).to eq(8)
+        pet_4 = @shelter_3.pets.create(name: 'Yahoo Chocolate Drink', breed: 'sphynx', age: 16, adoptable: true)
+        expect(@shelter_3.average_adoptable_pet_age).to eq(12)
+      end
+    end
+
     describe '.alphabetical_pets' do
       it 'returns pets associated with the given shelter in alphabetical name order' do
         expect(@shelter_1.alphabetical_pets).to eq([@pet_4, @pet_2])
