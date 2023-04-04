@@ -48,7 +48,7 @@ RSpec.describe Application, type: :model do
         expect(@application_1.status).to eq("Approved")
       end
 
-      it 'status stays as "Pending if not pet_applications conditions are approved or denied' do
+      it 'status stays as Pending if not all pet_applications conditions are approved or denied' do
         expect(@application_2.status).to eq("Pending")
         @application_2.update_status
         expect(@application_2.status).to eq("Pending")
