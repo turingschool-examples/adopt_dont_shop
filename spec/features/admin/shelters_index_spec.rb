@@ -42,5 +42,33 @@ RSpec.describe 'admin shelters' do
       expect(@shelter_3.name).to appear_before(@shelter_1.name)
     end
   end
+
+  #User Story 19
+  describe "Admin Shelters Show Page" do
+    it "has the shelters name and full address" do
+      visit "admin/shelters/:#{@shelter_1.id}"
+
+      expect(page).to have_content("#{@shelter_1.name}")
+      expect(page).to have_content("#{@shelter_1.city}")
+    end
+  end
 end
+
+# Customer.find_by_sql("SELECT * FROM customers INNER JOIN
+#    orders ON customers.id = orders.customer_id 
+#    ORDER BY customers.created_at desc")
+
+# [ ] done
+
+# SQL Only Story
+
+# For this story, you should write your queries in raw sql. You can use the ActiveRecord find_by_sql method to execute raw sql queries: https://guides.rubyonrails.org/active_record_querying.html#finding-by-sql
+
+# 19. Admin Shelters Show Page
+
+# As a visitor
+# When I visit an admin shelter show page
+# Then I see that shelter's name and full address
+
+# NOTE: Your query should only return the necessary data to complete the story
 

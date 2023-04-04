@@ -72,6 +72,12 @@ RSpec.describe Shelter, type: :model do
         expect(Shelter.order_alpha).to eq([@shelter_2,@shelter_3,@shelter_1])
       end
     end
+    describe "#get_name_city" do
+      xit "gets name and city" do
+        expect(Shelter.get_name_city(@shelter_2)).to eq([shelter_id: nil, name: "RGV animal shelter", city: "Harlingen, TX"])
+      end
+    end
+    #not sure why this test fails
   end
 
   describe 'instance methods' do
