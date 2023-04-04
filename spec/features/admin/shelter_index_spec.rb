@@ -55,11 +55,30 @@ RSpec.describe "/admin/shelters" do
     end
   end
 
-  it "sorts open shelters by reverse alphabeital order by name" do
+  it "sorts open shelters in alphabetical order by name" do
+    @shelter_5 = Shelter.create!(foster_program: true, name: "elephantine", city: "Haberdashery", rank: 40)
+    @shelter_6 = Shelter.create!(foster_program: true, name: "beryllium", city: "jubilant", rank: 40)
+    @shelter_7 = Shelter.create!(foster_program: true, name: "Diaphenous", city: "Gimble", rank: 40)
+    @shelter_8 = Shelter.create!(foster_program: true, name: "Concatinate", city: "Fantastic", rank: 40)
+    @pet_10 = @shelter_5.pets.create!(name: "sdf", age: 799)
+    @pet_11 = @shelter_6.pets.create!(name: "wer", age: 799)
+    @pet_12 = @shelter_7.pets.create!(name: "dfg", age: 799)
+    @pet_13 = @shelter_8.pets.create!(name: "fgh", age: 799)
+    @application_8 = Application.create!(applicant_name: "rtb", street_address: "45 Hippy Avenue", city: "Portland", state: "OR", zip_code: "40009", description: "Animals deserve to be freed into the woods", status: "Pending")
+    @application_9 = Application.create!(applicant_name: "hgn", street_address: "94 Gun Street", city: "Dallas", state: "TX", zip_code: "60888", description: "Don't question me or my motives", status: "Pending")
+    @application_10 = Application.create!(applicant_name: "xdg", street_address: "94 Gun Street", city: "Dallas", state: "TX", zip_code: "60888", description: "Don't question me or my motives", status: "Pending")
+    @application_11 = Application.create!(applicant_name: "ine", street_address: "94 Gun Street", city: "Dallas", state: "TX", zip_code: "60888", description: "Don't question me or my motives", status: "Pending")
+    PetApplication.create!(pet_id: @pet_10.id, application_id: @application_8.id)
+    PetApplication.create!(pet_id: @pet_11.id, application_id: @application_9.id)
+    PetApplication.create!(pet_id: @pet_12.id, application_id: @application_10.id)
+    PetApplication.create!(pet_id: @pet_13.id, application_id: @application_11.id)
     visit "admin/shelters" 
+    save_and_open_page
     
     within("#open_app_shelters") do
-      expect(@shelter_2.name).to appear_before(@shelter_4.name)
+      expect(@shelter_6.name).to appear_before(@shelter_8.name)
+      expect(@shelter_8.name).to appear_before(@shelter_7.name)
+      expect(@shelter_7.name).to appear_before(@shelter_5.name)
     end
   end
 end
