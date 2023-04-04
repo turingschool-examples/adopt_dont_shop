@@ -69,6 +69,26 @@ RSpec.describe "/admin/applications/:id" do
     expect(page).to have_current_path("/admin/applications/#{@application_3.id}")
   end
 
+  it "approve/reject buttons do not affect pets on other applications" do
+    visit "/admin/applications/#{@application_1.id}"
+    expect(page).to have_no_content("The application for this pet has been denied.")
+    click_link("Reject #{@pet_5.id}")
+    
+    visit "/admin/applications/#{@application_2.id}"
+    expect(page).to have_no_content("The application for this pet has been approved.")
+    click_link("Approve #{@pet_4.id}")
+    
+    visit "/admin/applications/#{@application_3.id}"
+    expect(page).to have_no_content("The application for this pet has been approved.")
+    expect(page).to have_no_content("The application for this pet has been denied.")
+    
+    visit "/admin/applications/#{@application_1.id}"
+    expect(page).to have_content("The application for this pet has been denied.")
+    
+    visit "/admin/applications/#{@application_2.id}"
+    expect(page).to have_content("The application for this pet has been approved.")
+  end
+
   describe 'Application status change' do
     it 'Once all pets are approved page redirects to show page and shows Approved status' do
       visit "/admin/applications/#{@application_1.id}"
@@ -118,27 +138,25 @@ RSpec.describe "/admin/applications/:id" do
       expect(current_path).to eq("/admin/applications/#{@application_1.id}")
       expect(page).to have_content("Application Status: Rejected")
     end
-  end
 
-  it "doesn't affect pets on other applications" do
-    visit "/admin/applications/#{@application_1.id}"
-    expect(page).to have_no_content("The application for this pet has been denied.")
-    click_link("Reject #{@pet_5.id}")
-    expect(page).to have_content("The application for this pet has been denied.")
+    it 'pending applications do not show approve button if aanother application is approved' do
+      visit "/admin/applications/#{@application_2.id}"
+
+      click_link("Approve #{@pet_2.id}")
+      click_link("Approve #{@pet_4.id}")
     
-    visit "/admin/applications/#{@application_2.id}"
-    expect(page).to have_no_content("The application for this pet has been approved.")
-    click_link("Approve #{@pet_4.id}")
-    expect(page).to have_content("The application for this pet has been approved.")
-    
-    visit "/admin/applications/#{@application_3.id}"
-    expect(page).to have_no_content("The application for this pet has been approved.")
-    expect(page).to have_no_content("The application for this pet has been denied.")
-    
-    visit "/admin/applications/#{@application_1.id}"
-    expect(page).to have_content("The application for this pet has been denied.")
-    
-    visit "/admin/applications/#{@application_2.id}"
-    expect(page).to have_content("The application for this pet has been approved.")
+      @application_2.update_status
+      expect(@application_2.pets[0].adoptable).to eq(false)
+      expect(@application_2.pets[1].adoptable).to eq(false)
+      expect(page).to have_content("Application Status: Approved")
+
+
+      visit "/admin/applications/#{@application_3.id}"
+      
+      expect(@application_3.status).to eq("Pending")
+      expect(page.all(:link, "Reject this Pet").count).to eq(2)
+      expect(page.all(:link, "Approve this Pet!").count).to eq(1)
+      expect(page).to have_content("Application Status: Pending")
+    end
   end
 end
