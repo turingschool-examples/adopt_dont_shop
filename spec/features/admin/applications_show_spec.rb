@@ -113,4 +113,40 @@ RSpec.describe 'admin/applications/:id' do
       expect(page).to have_content("App Status: Approved!")
     end
   end
+
+  #User Story 16 
+  describe "One or more pets rejected on an Application"
+    it "Changes to rejected when first pet is rejected" do
+      visit "/admin/applications/#{@application_1.id}"
+      expect(page).to have_content("App Status: Pending")
+
+      click_button("Reject Bare-y Manilow")
+      expect(page).to have_content("App Status: Rejected")
+      click_button("Approve Mr. Pirate")
+      expect(page).to have_content("App Status: Rejected")
+    end
+
+    it "Changes to rejected when the second pet is rejected" do
+      visit "/admin/applications/#{@application_1.id}"
+      expect(page).to have_content("App Status: Pending")
+
+      click_button("Approve Bare-y Manilow")
+      expect(page).to have_content("App Status: In Progress")
+      click_button("Reject Mr. Pirate")
+      expect(page).to have_content("App Status: Rejected")
+    end
+
+    #User Story 17
+    describe "Application Approval makes pets not adoptable" do
+      it 'approves all the pets' do
+      visit "/admin/applications/#{@application_1.id}"
+      expect(page).to have_content("App Status: Pending")
+      click_button("Approve Bare-y Manilow")
+      click_button("Approve Mr. Pirate")
+
+      visit "/pets/#{@pet_1.id}"
+      save_and_open_page
+      expect(page).to have_content("Adoptable: false")
+      end
+    end
 end
