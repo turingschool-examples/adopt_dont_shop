@@ -3,7 +3,7 @@ class ApplicationsController < ApplicationController
   def show
     @application = Application.find(params[:id])
     @pets = @application.pets
-    @pets_search = search_by_name(params[:search])
+    @pets_search = Pet.search(params[:search]) if params[:search].present?
   end
 
   
@@ -26,10 +26,6 @@ class ApplicationsController < ApplicationController
     application.update(status: 1)
     application.update(good_owner: params[:good_owner])
     redirect_to "/applications/#{application.id}"
-  end
-
-  def search_by_name(name)
-    Pet.search(name) if name.present?
   end
   
   private
