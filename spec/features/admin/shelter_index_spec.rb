@@ -73,7 +73,6 @@ RSpec.describe "/admin/shelters" do
     PetApplication.create!(pet_id: @pet_12.id, application_id: @application_10.id)
     PetApplication.create!(pet_id: @pet_13.id, application_id: @application_11.id)
     visit "admin/shelters" 
-    save_and_open_page
     
     within("#open_app_shelters") do
       expect(@shelter_6.name).to appear_before(@shelter_8.name)

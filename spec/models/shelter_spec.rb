@@ -50,7 +50,7 @@ RSpec.describe Shelter, type: :model do
         PetApplication.create!(pet_id: pet4.id, application_id: application3.id)
         PetApplication.create!(pet_id: pet5.id, application_id: application3.id)
 
-        expect(Shelter.open_apps).to eq([shelter2, shelter4])
+        expect(Shelter.open_apps.all).to eq([shelter4, shelter2])
       end
 
       it 'reverse_alph method returns shelters in reverse alphabetical order' do
