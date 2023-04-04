@@ -7,6 +7,7 @@ class Application < ApplicationRecord
                         :state, 
                         :zip_code, 
                         :description
+  after_update :update_pets_adoptable_status
 
   def eligible?
     status == "In Progress" && !pets.empty?
@@ -19,4 +20,11 @@ class Application < ApplicationRecord
       application
     end
   end
+
+  def update_pets_adoptable_status
+    if self.status == "Approved"
+      pets.update(adoptable: false)
+    end
+  end
+
 end
