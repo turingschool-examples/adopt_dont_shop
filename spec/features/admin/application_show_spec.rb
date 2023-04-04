@@ -140,22 +140,23 @@ RSpec.describe "/admin/applications/:id" do
     end
 
     it 'pending applications do not show approve button if aanother application is approved' do
-      visit "/admin/applications/#{@application_1.id}"
+      visit "/admin/applications/#{@application_2.id}"
 
       click_link("Approve #{@pet_2.id}")
       click_link("Approve #{@pet_4.id}")
+    
       @application_2.update_status
+      expect(@application_2.pets[0].adoptable).to eq(false)
+      expect(@application_2.pets[1].adoptable).to eq(false)
       expect(page).to have_content("Application Status: Approved")
 
 
       visit "/admin/applications/#{@application_3.id}"
-
+      
       expect(@application_3.status).to eq("Pending")
-      expect(@pet_4.adoptable).to eq(false)
       expect(page.all(:link, "Reject this Pet").count).to eq(2)
       expect(page.all(:link, "Approve this Pet!").count).to eq(1)
       expect(page).to have_content("Application Status: Pending")
     end
   end
-
 end
