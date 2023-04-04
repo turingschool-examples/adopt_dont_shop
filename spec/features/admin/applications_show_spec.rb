@@ -15,20 +15,41 @@ RSpec.describe 'admin/applications'do
     @app_2 = Application.create!(name: 'Franklin', address: '611 Wallow Ct', city: 'Santa Fe', state: 'NM', zip: '87508', description: 'Lonely guy with hella money', status: "In Progress")
 
     PetApplication.create!(application: @app_2, pet: @pet_7)
+    PetApplication.create!(application: @app_1, pet: @pet_5)
     end
 
     it 'has approve button for each pet' do
       visit "/admin/applications/#{@app_2.id}"
+
       expect(page).to have_content('Approve Application')
       expect(page).to have_content(@pet_7.name)
     end
 
     it 'can approve application' do
       visit "/admin/applications/#{@app_2.id}"
+
       click_on 'Approve Application'
+
       expect(page).to have_content('Approved')
       expect(page).to have_content(@pet_7.name)
       expect(page).to have_no_content('Approve Application')
+    end
+
+    it 'can reject application' do
+      visit "/admin/applications/#{@app_1.id}"
+
+      click_on 'Reject Application'
+
+      expect(page).to have_content('Rejected')
+      expect(page).to have_content(@pet_5.name)
+      expect(page).to have_no_content('Reject Application')
+    end
+
+    it 'has rejection button for each pet' do
+      visit "/admin/applications/#{@app_1.id}"
+
+      expect(page).to have_content('Reject Application')
+      expect(page).to have_content(@pet_5.name)
     end
   end
 end
