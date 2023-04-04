@@ -41,7 +41,11 @@ class Shelter < ApplicationRecord
     joins(pets: :applications).where("status = 'Pending'").pluck("name")
   end
 
-  def self.get_name_city(shelter)
-    Shelter.find_by_sql("SELECT name, city FROM shelters WHERE id = #{shelter.id}")
+  def self.get_name(id)
+    Shelter.find_by_sql("SELECT name FROM shelters WHERE id = #{id}")
+  end
+
+  def self.get_city(id)
+    Shelter.find_by_sql("SELECT city FROM shelters WHERE id = #{id}")
   end
 end

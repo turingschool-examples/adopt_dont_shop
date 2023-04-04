@@ -4,6 +4,11 @@ class AdminController < ApplicationController
     @shelters_pending = Shelter.join_application_pending
   end
 
+  def shelters_show
+    @shelter = Shelter.find(params[:id])
+    @shelters = Shelter.all
+  end
+
   def applications_show
     @application = Application.find(params[:id])
     @pets = Pet.all
@@ -31,9 +36,4 @@ class AdminController < ApplicationController
     redirect_to "/admin/applications/#{@application.id}"
 
   end
-
-  def 
-    
-  end
-
 end

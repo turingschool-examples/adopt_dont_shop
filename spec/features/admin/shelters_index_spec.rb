@@ -46,8 +46,8 @@ RSpec.describe 'admin shelters' do
   #User Story 19
   describe "Admin Shelters Show Page" do
     it "has the shelters name and full address" do
-      visit "admin/shelters/:#{@shelter_1.id}"
-
+      visit "admin/shelters/#{@shelter_1.id}"
+      save_and_open_page 
       expect(page).to have_content("#{@shelter_1.name}")
       expect(page).to have_content("#{@shelter_1.city}")
     end

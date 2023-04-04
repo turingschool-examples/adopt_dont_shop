@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   get '/admin/shelters', to: 'admin#shelters_index'
   get '/admin/applications/:id', to: 'admin#applications_show'
   patch '/admin/applications/:id', to: 'admin#applications_update'
-  get '/admin/shelters/:shelter_id', to: 'admin#shelter_show'
+  get '/admin/shelters/:id', to: 'admin#shelters_show'
 
 
   get '/shelters', to: 'shelters#index'
