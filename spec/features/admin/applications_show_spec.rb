@@ -51,5 +51,16 @@ RSpec.describe 'admin/applications'do
       expect(page).to have_content('Reject Application')
       expect(page).to have_content(@pet_5.name)
     end
+
+    it 'displays buttons approve or reject for pet of specific application' do
+      visit "/admin/applications/#{@app_1.id}"
+
+      click_on 'Approve Application'
+
+      visit "/admin/applications/#{@app_2.id}"
+
+      expect(page).to have_content('Reject Application')
+      expect(page).to have_content('Approve Application')
+    end
   end
 end
