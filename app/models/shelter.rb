@@ -48,4 +48,8 @@ class Shelter < ApplicationRecord
     find_by_sql("SELECT CONCAT(street_address, ' ', city, ' ', state, ' ', zipcode) AS full_address FROM shelters WHERE id=#{tag}").first.full_address
   end
 
+  def average_adoptable_pet_age
+    pets.where(adoptable: :true).average(:age).to_f.round(2)
+  end
+
 end
