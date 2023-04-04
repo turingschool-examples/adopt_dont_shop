@@ -9,7 +9,10 @@ class AdminController < ApplicationController
     @application = Application.find(params[:id])
     @pets = @application.pets
     @application.status = 'Pending' if !@application.pet_applications.nil?
-    @application.status = 'Approved' if params[:approved] == 'true'
+    @pet = @pets.find(params[:approved]) if !params[:approved].nil?
+    PetApplication.joins(:pet).where("pet_id = #{@pet.id} and application_id = #{@application.id}").first.update_to('Approved') if !params[:approved].nil?
+    PetApplication.joins(:pet).where("pet_id = #{@pet.id} and application_id = #{@application.id}").first.update_to('Rejected') if !params[:rejected].nil?
+    @pet_applications = PetApplication.joins(:pet)
   end
 end
 

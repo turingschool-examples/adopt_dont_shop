@@ -19,7 +19,6 @@ RSpec.describe 'admin/applications'do
 
     it 'has approve button for each pet' do
       visit "/admin/applications/#{@app_2.id}"
-      save_and_open_page
       expect(page).to have_content('Approve Application')
       expect(page).to have_content(@pet_7.name)
     end
