@@ -102,5 +102,28 @@ RSpec.describe Shelter, type: :model do
         expect(@shelter_1.pet_count).to eq(3)
       end
     end
+
+    describe 'Class Methods' do
+      before do
+        @shelter_5 = Shelter.create!(foster_program: true, name: "Taj Mahal for Dogs", city: "Sky City", rank: 20, street_address: "123 road street", state: "WA", zipcode: "55555")
+        @shelter_6 = Shelter.create!(foster_program: true, name: "Valhalla for Cats", city: "Literally the Moon", rank: 30, street_address: "345 street avenue", state: "CO", zipcode: "44444")
+        @shelter_7 = Shelter.create!(foster_program: true, name: "Alexandria for Squirrels", city: "Death City", rank: 40, street_address: "567 avenue road", state: "NV", zipcode: "33333")
+        @shelter_8 = Shelter.create!(foster_program: true, name: "Shangri La for Turtles", city: "Seattle", rank: 50, street_address: "789 avenue road", state: "HI", zipcode: "22222")
+      end
+
+      it "#find_name" do
+        expect(Shelter.find_name(@shelter_5.id)).to eq("Taj Mahal for Dogs")
+        expect(Shelter.find_name(@shelter_7.id)).to eq("Alexandria for Squirrels")
+      end
+
+      it "#find_address" do
+        expect(Shelter.find_address(@shelter_5.id)).to eq("123 road street Sky City WA 55555")
+        expect(Shelter.find_address(@shelter_7.id)).to eq("567 avenue road Death City NV 33333")
+      end
+
+      it "#reverse_alph" do
+        expect(Shelter.reverse_alph).to eq([@shelter_6,@shelter_5,@shelter_8,@shelter_2,@shelter_3,@shelter_1,@shelter_7])
+      end
+    end
   end
 end

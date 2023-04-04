@@ -39,4 +39,12 @@ class Shelter < ApplicationRecord
   def self.reverse_alph
     self.find_by_sql("SELECT * FROM shelters ORDER BY name DESC")
   end
+
+  def self.find_name(tag)
+    find_by_sql("SELECT name FROM shelters WHERE id=#{tag}").first[:name]
+  end
+
+  def self.find_address(tag)
+    find_by_sql("SELECT CONCAT(street_address, ' ', city, ' ', state, ' ', zipcode) AS full_address FROM shelters WHERE id=#{tag}").first.full_address
+  end
 end

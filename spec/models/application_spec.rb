@@ -29,8 +29,8 @@ RSpec.describe Application, type: :model do
     PetApplication.create!(pet_id: @pet_1.id, application_id: @application_1.id, condition: "Approved")
     PetApplication.create!(pet_id: @pet_3.id, application_id: @application_1.id, condition: "Approved")
     PetApplication.create!(pet_id: @pet_5.id, application_id: @application_1.id, condition: "Approved")
-    PetApplication.create!(pet_id: @pet_2.id, application_id: @application_2.id)
-    PetApplication.create!(pet_id: @pet_4.id, application_id: @application_2.id)
+    @pet_app_1 = PetApplication.create!(pet_id: @pet_2.id, application_id: @application_2.id)
+    @pet_app_2 = PetApplication.create!(pet_id: @pet_4.id, application_id: @application_2.id)
     PetApplication.create!(pet_id: @pet_4.id, application_id: @application_3.id)
     PetApplication.create!(pet_id: @pet_5.id, application_id: @application_3.id)
   end
@@ -45,6 +45,10 @@ RSpec.describe Application, type: :model do
         expect(@application_1.status).to eq("Pending")
         @application_1.update_status
         expect(@application_1.status).to eq("Approved")
+      end
+
+      it '#find_pet_apps' do
+        expect(@application_2.find_pet_apps).to eq([@pet_app_1, @pet_app_2])
       end
     end
   end

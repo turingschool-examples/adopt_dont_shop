@@ -5,6 +5,11 @@ class AdminsController < ApplicationController
     @app_shelters = Shelter.open_apps
   end
 
+  def shelter_show
+    @shelter_name = Shelter.find_name(params[:id])
+    @shelter_address = Shelter.find_address(params[:id])
+  end
+
   def application_show
     @application = Application.find(params[:id])
     @pet_applications = @application.find_pet_apps
