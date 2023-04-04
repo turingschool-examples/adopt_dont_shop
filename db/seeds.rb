@@ -5,7 +5,14 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+<<<<<<< Updated upstream
 
+=======
+# PetApplication.destroy_all
+# Pet.destroy_all
+# Application.destroy_all
+# Shelter.destroy_all
+>>>>>>> Stashed changes
 
 
 @shelter_1 = Shelter.create!(foster_program: true, name: "Taj Mahal for Dogs", city: "Sky City", rank: 20)
