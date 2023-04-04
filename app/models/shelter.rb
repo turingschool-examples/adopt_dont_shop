@@ -48,5 +48,4 @@ class Shelter < ApplicationRecord
     find_by_sql("SELECT CONCAT(street_address, ' ', city, ' ', state, ' ', zipcode) AS full_address FROM shelters WHERE id=#{tag}").first.full_address
   end
 
-
 end

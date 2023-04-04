@@ -16,7 +16,6 @@ RSpec.describe Application, type: :model do
     it {should validate_presence_of(:status)}
   end
   
-
   before(:each) do
     @shelter_1 = Shelter.create!(foster_program: true, name: "Taj Mahal for Dogs", city: "Sky City", rank: 20)
     @pet_1 = @shelter_1.pets.create!(name: "Foster", age: 1000, breed: "dog")
