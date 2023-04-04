@@ -21,16 +21,12 @@ class ApplicationsController < ApplicationController
   end
 
   def edit
-    @application = Application.find(params[:id])
   end
 
   def update
     application = Application.find(params[:id])
     if application.description == nil && application.status == "In Progress"
       application.update(status: params[:status], description: params[:freeform])
-      redirect_to "/applications/#{application.id}"
-    else
-      application.update_status
       redirect_to "/applications/#{application.id}"
     end
   end

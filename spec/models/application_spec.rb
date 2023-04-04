@@ -56,14 +56,14 @@ RSpec.describe Application, type: :model do
       
       it 'status stays as Pending if not all pet_applications conditions are approved or denied' do
         expect(@application_2.status).to eq("Pending")
-        @app_2 = @application_2.update_status
-        expect(@app_2.status).to eq("Pending")
+        @application_2.update_status
+        expect(@application_2.status).to eq("Pending")
       end
 
       it 'status changes to rejected if any pet_application conditions are denied and no more are pending' do
         expect(@application_3.status).to eq("Pending")
-        @app_3 = @application_3.update_status
-        expect(@app_3.status).to eq("Rejected")
+        @application_3.update_status
+        expect(@application_3.status).to eq("Rejected")
       end
     end
   end
