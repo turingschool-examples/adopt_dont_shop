@@ -33,7 +33,7 @@ class Shelter < ApplicationRecord
   end
 
   def self.open_apps
-    Shelter.joins(pets: :applications).where(applications: {status: "Pending"}).order(name: :DESC)
+    Shelter.joins(pets: :applications).where(applications: {status: "Pending"}).order("LOWER(shelters.name) ASC")
   end
 
   def self.reverse_alph
@@ -47,4 +47,5 @@ class Shelter < ApplicationRecord
   def self.find_address(tag)
     find_by_sql("SELECT CONCAT(street_address, ' ', city, ' ', state, ' ', zipcode) AS full_address FROM shelters WHERE id=#{tag}").first.full_address
   end
+
 end
