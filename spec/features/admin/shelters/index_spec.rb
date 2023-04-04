@@ -39,4 +39,16 @@ RSpec.describe 'admin shelters index', type: :feature do
       expect(page).to_not have_content(@shelter_3.name)
     end
   end
+
+  it 'there is a link to every shelter show page' do
+    visit '/admin/shelters'
+
+    expect(page).to have_link(@shelter_1.name)
+    expect(page).to have_link(@shelter_2.name)
+    expect(page).to have_link(@shelter_3.name)
+
+    click_link(@shelter_1.name, match: :first)
+
+    expect(current_path).to eq("/admin/shelters/#{@shelter_1.id}")
+  end
 end
