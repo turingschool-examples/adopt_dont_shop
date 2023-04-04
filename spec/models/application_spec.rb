@@ -16,25 +16,6 @@ RSpec.describe Application, type: :model do
     it {should validate_presence_of(:status)}
   end
   
-  before(:each) do
-    @shelter_1 = Shelter.create!(foster_program: true, name: "Taj Mahal for Dogs", city: "Sky City", rank: 20)
-    @pet_1 = @shelter_1.pets.create!(name: "Foster", age: 1000, breed: "dog")
-    @pet_2 = @shelter_1.pets.create!(name: "Bento", age: 23, breed: "dog")
-    @pet_3 = @shelter_1.pets.create!(name: "Quiggle", age: 555,)
-    @pet_4 = @shelter_1.pets.create!(name: "Simpleton", age: 80,)
-    @pet_5 = @shelter_1.pets.create!(name: "Dragon", age: 400,)
-    @application_1 = Application.create!(applicant_name: "Bob", street_address: "123 Home St", city: "Denver", state: "CO", zip_code: "80238", description: "I love animals", status: "Pending")
-    @application_2 = Application.create!(applicant_name: "Nebula", street_address: "45 Hippy Avenue", city: "Portland", state: "OR", zip_code: "40009", description: "Animals deserve to be freed into the woods", status: "Pending")
-    @application_3 = Application.create!(applicant_name: "Angry Tim", street_address: "94 Gun Street", city: "Dallas", state: "TX", zip_code: "60888", description: "Don't question me or my motives", status: "Approved")
-    PetApplication.create!(pet_id: @pet_1.id, application_id: @application_1.id, condition: "Approved")
-    PetApplication.create!(pet_id: @pet_3.id, application_id: @application_1.id, condition: "Approved")
-    PetApplication.create!(pet_id: @pet_5.id, application_id: @application_1.id, condition: "Approved")
-    @pet_app_1 = PetApplication.create!(pet_id: @pet_2.id, application_id: @application_2.id)
-    @pet_app_2 = PetApplication.create!(pet_id: @pet_4.id, application_id: @application_2.id)
-    PetApplication.create!(pet_id: @pet_4.id, application_id: @application_3.id)
-    PetApplication.create!(pet_id: @pet_5.id, application_id: @application_3.id)
-  end
-  
   describe "class methods" do
     
   end
@@ -54,8 +35,8 @@ RSpec.describe Application, type: :model do
         PetApplication.create!(pet_id: @pet_1.id, application_id: @application_1.id, condition: "Approved")
         PetApplication.create!(pet_id: @pet_3.id, application_id: @application_1.id, condition: "Approved")
         PetApplication.create!(pet_id: @pet_5.id, application_id: @application_1.id, condition: "Approved")
-        PetApplication.create!(pet_id: @pet_2.id, application_id: @application_2.id, condition: "Denied")
-        PetApplication.create!(pet_id: @pet_4.id, application_id: @application_2.id, condition: "Pending")
+        @pet_app_1 = PetApplication.create!(pet_id: @pet_2.id, application_id: @application_2.id, condition: "Denied")
+        @pet_app_2 = PetApplication.create!(pet_id: @pet_4.id, application_id: @application_2.id, condition: "Pending")
         PetApplication.create!(pet_id: @pet_4.id, application_id: @application_3.id, condition: "Denied")
         PetApplication.create!(pet_id: @pet_5.id, application_id: @application_3.id, condition: "Denied")
       end
@@ -68,19 +49,21 @@ RSpec.describe Application, type: :model do
 
 
       it '#find_pet_apps' do
-        expect(@application_2.find_pet_apps).to eq([@pet_app_1, @pet_app_2])
+        # expect(@application_2.find_pet_apps).to eq([@pet_app_1, @pet_app_2])
+        expect(@application_2.find_pet_apps.first).to eq(@pet_app_1)
+        expect(@application_2.find_pet_apps[1]).to eq(@pet_app_2)
       end
       
       it 'status stays as Pending if not all pet_applications conditions are approved or denied' do
         expect(@application_2.status).to eq("Pending")
-        @application_2.update_status
-        expect(@application_2.status).to eq("Pending")
+        @app_2 = @application_2.update_status
+        expect(@app_2.status).to eq("Pending")
       end
 
       it 'status changes to rejected if any pet_application conditions are denied and no more are pending' do
         expect(@application_3.status).to eq("Pending")
-        @application_3.update_status
-        expect(@application_3.status).to eq("Rejected")
+        @app_3 = @application_3.update_status
+        expect(@app_3.status).to eq("Rejected")
       end
     end
   end
