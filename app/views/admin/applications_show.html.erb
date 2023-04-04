@@ -1,0 +1,5 @@
+<%= @application.status %>
+<p> Applying For: </p>
+<p> <% @application.pets.each do |pet| %> </p>
+<p> <%= link_to pet.name, "/pets/#{pet.id}" %> <% if @pet_applications.where("pet_id = #{pet.id} and application_id = #{@application.id}").first.status != 'Approved' %> <%= link_to 'Approve Application', approved: :"#{pet.id}" %> <%= link_to 'Reject Application', rejected: :"#{pet.id}" %> <% end %>, <%= @pet_applications.where("pet_id = #{pet.id} and application_id = #{@application.id}").first.status %> </p>
+<p> <% end %> </p>

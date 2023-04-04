@@ -45,6 +45,7 @@ group :development, :test do
   gem 'pry'
   gem 'rspec-rails'
   gem 'simplecov'
+  gem 'net-http'
 end
 
 group :development do
