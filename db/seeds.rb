@@ -5,10 +5,10 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+PetApplication.destroy_all
 Application.destroy_all
 Pet.destroy_all
 Shelter.destroy_all
-PetApplication.destroy_all
 @application = Application.create!(name: 'Taylor', address: '123 Side St', city: 'Denver', state: 'CO', zip: '80202', description: 'I love animals') 
 @application_2 = Application.create!(name: 'John', address: '123 Main St', city: 'Denver', state: 'CO', zip: '80202', description: 'I love animals', status: 'Pending')
 @application_3 = Application.create!(name: 'Jane', address: '123 Main St', city: 'Denver', state: 'CO', zip: '80202', description: 'I love animals', status: 'Pending')
