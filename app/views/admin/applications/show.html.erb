@@ -7,24 +7,31 @@
 <% @pets.each do |pet| %>
 <ul>
   <li><%= pet.name %>
-    <% if pet.pet_app(@application).approved.nil? %>
+    <% if pet.has_accepted_application(@application) %>
+      This pet has already been approved for adoption
+      <%= render partial: 'accept_reject', locals: {pet_app_id: pet.pet_app(@application).id, 
+        value: false, 
+        button_text: "Reject #{pet.name}"
+        } %>
 
-      <%= form_with url: "/pet_applications/#{pet.pet_app(@application).id}", method: :patch, local: true do |form|%> 
-      <%= form.hidden_field :approved, value: true %>
-        <%= form.submit "Approve #{pet.name}" %>
-      <% end %>
+    <% elsif pet.pet_app(@application).approved.nil? %>
+      <%= render partial: 'accept_reject', locals: {pet_app_id: pet.pet_app(@application).id, 
+      value: true, 
+      button_text: "Approve #{pet.name}"
+      } %>
 
-      <%= form_with url: "/pet_applications/#{pet.pet_app(@application).id}", method: :patch, local: true do |form|%> 
-        <%= form.submit "Reject #{pet.name}" %>
-      <% end %>
+      <%= render partial: 'accept_reject', locals: {pet_app_id: pet.pet_app(@application).id, 
+      value: false, 
+      button_text: "Reject #{pet.name}"
+      } %>
 
     <% elsif pet.pet_app(@application).approved == true %>
       is Approved
 
-    <% else %>
-      is Rejected
+    <% else pet.pet_app(@application).approved == false %>
+      is Rejected      
     <% end %>
-    
+
   </li>
 </ul>
 <% end %>

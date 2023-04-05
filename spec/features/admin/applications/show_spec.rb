@@ -120,4 +120,17 @@ RSpec.describe '/admin/application/:id', type: :feature do
       expect(page).to have_content('Application Status: Rejected')
     end
   end
+
+  describe 'If the same pet is on two different applications' do
+    it 'When one application the pet is on is approved then the other application will show a message that the pet is already adopted' do
+      visit "/admin/applications/#{application_1.id}"
+
+      click_button 'Approve Bella'
+      click_button 'Approve Rigby'
+      visit "/admin/applications/#{application_2.id}"
+save_and_open_page
+      expect(page).to have_content('This pet has already been approved for adoption')
+      expect(page).to have_button('Reject Bella')
+    end
+  end
 end

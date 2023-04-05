@@ -40,12 +40,26 @@ RSpec.describe Pet, type: :model do
         expect(@pet_3.shelter_name).to eq(@shelter_1.name)
       end
     end
+
     describe '#pet_app' do
       it 'returns the pet application for a given pet' do
         application = Application.create!(name: 'Taylor', address: '123 Side St', city: 'Denver', state: 'CO', zip: '80202', description: 'I love animals', status: 1)
         pet_app = PetApplication.create!(pet: @pet_1, application: application)
 
         expect(@pet_1.pet_app(application)).to eq(pet_app)
+      end
+    end
+
+    describe '#has_accepted_application' do
+      it 'returns true or false if the pet has an accepted application' do
+
+        application_1 = Application.create!(name: 'Taylor', address: '123 Side St', city: 'Denver', state: 'CO', zip: '80202', description: 'I love animals', status: 1)
+        application_2 = Application.create!(name: 'Thomas', address: '456 W Side', city: 'Denver', state: 'CO', zip: '80123', description: 'I love animals more!', status: 2)
+        pet_app_1 = PetApplication.create!(pet: @pet_1, application: application_1)
+        pet_app_2 = PetApplication.create!(pet: @pet_1, application: application_2)
+        
+        expect(@pet_1.has_accepted_application(application_1)).to be true
+        expect(@pet_1.has_accepted_application(application_2)).to be false
       end
     end
   end
