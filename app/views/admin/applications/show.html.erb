@@ -7,8 +7,10 @@
 <% @pets.each do |pet| %>
 <ul>
   <li><%= pet.name %>
-    <% if pet.pet_app(@application).approved.nil? %>
+    <% if pet.has_accepted_application(@application) %>
+      This pet has already been approved for adoption
 
+    <% elsif pet.pet_app(@application).approved.nil? %>
       <%= form_with url: "/pet_applications/#{pet.pet_app(@application).id}", method: :patch, local: true do |form|%> 
       <%= form.hidden_field :approved, value: true %>
         <%= form.submit "Approve #{pet.name}" %>
@@ -21,10 +23,10 @@
     <% elsif pet.pet_app(@application).approved == true %>
       is Approved
 
-    <% else %>
-      is Rejected
+    <% else pet.pet_app(@application).approved == false %>
+      is Rejected      
     <% end %>
-    
+
   </li>
 </ul>
 <% end %>
