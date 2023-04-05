@@ -27,4 +27,15 @@ class Application < ApplicationRecord
     end
   end
 
+  def update_status(params)
+    if params[:approve_all]
+      application_pets.update_all(status: 'Approved')
+    else
+      pet = application_pets.find_by(pet_id: params[:pet_id])
+      pet.update(status: params[:status].capitalize) if pet
+      update(status: params[:status].capitalize)
+    end
+
+    update(status: 'Approved') if application_pets.all_approved?
+  end
 end
