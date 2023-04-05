@@ -11,8 +11,8 @@ RSpec.describe '/admin/application/:id', type: :feature do
   let!(:luna) { shelter.pets.create!(name: 'Luna', age: 4, breed: 'Pitbull', adoptable: true) }
 
   let!(:pet_app_1) { PetApplication.create!(pet: bella, application: application_1) }
-  let!(:pet_app_3) { PetApplication.create!(pet: bella, application: application_2) }
   let!(:pet_app_2) { PetApplication.create!(pet: rigby, application: application_1) }
+  let!(:pet_app_3) { PetApplication.create!(pet: bella, application: application_2) }
 
   describe 'When I visit the admin applications show page' do
     it 'I see every pet that the application is for' do
@@ -68,6 +68,37 @@ RSpec.describe '/admin/application/:id', type: :feature do
       visit "/admin/applications/#{application_2.id}"
       
       expect(page).to have_button('Approve Bella')
+    end
+  end
+
+  describe 'When you approve all pets for an application' do
+    it 'the application now has a status of Approved' do
+      visit "/admin/applications/#{application_1.id}"
+
+      click_button 'Approve Bella'
+      click_button 'Approve Rigby'
+
+      expect(current_path).to eq("/admin/applications/#{application_1.id}")
+      expect(page).to have_content('Application Status: Accepted')
+
+      visit "/applications/#{application_1.id}"
+
+      expect(page).to have_content('Status: Accepted')
+    end
+  end
+
+  describe 'When you reject one pet for an application' do
+    it 'the application now has a status of Rejected' do
+      visit "/admin/applications/#{application_1.id}"
+
+      click_button 'Approve Bella'
+      
+      expect(page).to have_content('Application Status: Pending')
+
+      click_button 'Reject Rigby'
+
+      expect(current_path).to eq("/admin/applications/#{application_1.id}")
+      expect(page).to have_content('Application Status: Rejected')
     end
   end
 end
