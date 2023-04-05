@@ -60,6 +60,21 @@ RSpec. describe "Admin Shelter show page", type: :feature do
       within('#statistics'){expect(page).to have_content("Average Pet Age: 1000")}
     end
 
+    it 'Action Required section lists all pets with pending app and not marked rejected or approved' do
+      visit "/admin/shelters/#{@shelter_1.id}"
+      
+      within('#action_required'){expect(page).to have_content("Action Required")}
+      within('#action_required'){expect(page).to have_content(@pet_1.name)}
+      within('#action_required'){expect(page).to have_content(@pet_5.name)}
+
+      visit "/admin/applications/#{@application_1.id}"
+      click_link "Approve #{@pet_1.id}"
+      visit "/admin/shelters/#{@shelter_1.id}"
+
+      within('#action_required'){expect(page).to_not have_content(@pet_1.name)}
+      within('#action_required'){expect(page).to have_content(@pet_5.name)}
+     end
+     
     it "shows number of adoptable pets in statistics section" do
       pet_6 = @shelter_3.pets.create!(name: "Rockabilly", age: 200)
       pet_7 = @shelter_1.pets.create!(name: "Malaria", age: 12)

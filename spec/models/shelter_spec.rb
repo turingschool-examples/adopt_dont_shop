@@ -20,8 +20,7 @@ RSpec.describe Shelter, type: :model do
     @pet_1 = @shelter_1.pets.create(name: 'Mr. Pirate', breed: 'tuxedo shorthair', age: 5, adoptable: false)
     @pet_2 = @shelter_1.pets.create(name: 'Clawdia', breed: 'shorthair', age: 3, adoptable: true)
     @pet_3 = @shelter_3.pets.create(name: 'Lucille Bald', breed: 'sphynx', age: 8, adoptable: true)
-    @pet_4 = @shelter_1.pets.create(name: 'Ann', breed: 'ragdoll', age: 5, adoptable: true)
-  end
+    @pet_4 = @shelter_1.pets.create(name: 'Ann', breed: 'ragdoll', age: 5, adoptable: true)  end
 
   describe 'class methods' do
     describe '#search' do
@@ -42,13 +41,13 @@ RSpec.describe Shelter, type: :model do
         application1 = Application.create!(applicant_name: "Bob", street_address: "123 Home St", city: "Denver", state: "CO", zip_code: "80238", description: "I love animals")
         application2 = Application.create!(applicant_name: "Nebula", street_address: "45 Hippy Avenue", city: "Portland", state: "OR", zip_code: "40009", description: "Animals deserve to be freed into the woods", status: "Pending")
         application3 = Application.create!(applicant_name: "Angry Tim", street_address: "94 Gun Street", city: "Dallas", state: "TX", zip_code: "60888", description: "Don't question me or my motives", status: "Approved")
-        PetApplication.create!(pet_id: pet1.id, application_id: application1.id)
+        pet_app_1 = PetApplication.create!(pet_id: pet1.id, application_id: application1.id)
         PetApplication.create!(pet_id: pet3.id, application_id: application1.id)
-        PetApplication.create!(pet_id: pet5.id, application_id: application1.id)
+        pet_app_2 = PetApplication.create!(pet_id: pet5.id, application_id: application1.id)
         PetApplication.create!(pet_id: pet2.id, application_id: application2.id)
         PetApplication.create!(pet_id: pet4.id, application_id: application2.id)
         PetApplication.create!(pet_id: pet4.id, application_id: application3.id)
-        PetApplication.create!(pet_id: pet5.id, application_id: application3.id)
+        pet_app_3 = PetApplication.create!(pet_id: pet5.id, application_id: application3.id, condition: "Approved")
 
         expect(Shelter.open_apps.all).to eq([shelter4, shelter2])
       end
@@ -74,6 +73,32 @@ RSpec.describe Shelter, type: :model do
         expect(Shelter.order_by_number_of_pets.first.name).to eq(@shelter_1.name)
         expect(Shelter.order_by_number_of_pets[1].name).to eq(@shelter_3.name)
         expect(Shelter.order_by_number_of_pets[2].name).to eq(@shelter_2.name)
+        end
+      end
+        
+    describe '.pending_applications' do
+      it 'checks if shelter pets have pending applications' do
+        shelter1 = Shelter.create!(foster_program: true, name: "Taj Mahal for Dogs", city: "Sky City", rank: 20)
+        shelter2 = Shelter.create!(foster_program: true, name: "Valhalla for Cats", city: "Sky City", rank: 30)
+        shelter3 = Shelter.create!(foster_program: true, name: "Alexandria for Squirrels", city: "Sky City", rank: 40)
+        shelter4 = Shelter.create!(foster_program: true, name: "Shangri La for Turtles", city: "Sky City", rank: 50)
+        pet1 = shelter1.pets.create!(name: "Foster", age: 1000, breed: "dog")
+        pet2 = shelter2.pets.create!(name: "Bento", age: 23, breed: "dog")
+        pet3 = shelter3.pets.create!(name: "Quiggle", age: 555,)
+        pet4 = shelter4.pets.create!(name: "Simpleton", age: 80,)
+        pet5 = shelter1.pets.create!(name: "Snapchat", age: 799,)
+        application1 = Application.create!(applicant_name: "Bob", street_address: "123 Home St", city: "Denver", state: "CO", zip_code: "80238", description: "I love animals")
+        application2 = Application.create!(applicant_name: "Nebula", street_address: "45 Hippy Avenue", city: "Portland", state: "OR", zip_code: "40009", description: "Animals deserve to be freed into the woods", status: "Pending")
+        application3 = Application.create!(applicant_name: "Angry Tim", street_address: "94 Gun Street", city: "Dallas", state: "TX", zip_code: "60888", description: "Don't question me or my motives", status: "Approved")
+        pet_app_1 = PetApplication.create!(pet_id: pet1.id, application_id: application1.id)
+        PetApplication.create!(pet_id: pet3.id, application_id: application1.id)
+        pet_app_2 = PetApplication.create!(pet_id: pet5.id, application_id: application1.id)
+        PetApplication.create!(pet_id: pet2.id, application_id: application2.id)
+        PetApplication.create!(pet_id: pet4.id, application_id: application2.id)
+        PetApplication.create!(pet_id: pet4.id, application_id: application3.id)
+        pet_app_3 = PetApplication.create!(pet_id: pet5.id, application_id: application3.id, condition: "Approved")
+
+        expect(shelter1.pending_pet_applications).to eq([pet1, pet5])
       end
     end
   end
@@ -120,6 +145,7 @@ RSpec.describe Shelter, type: :model do
         expect(@shelter_1.pet_count).to eq(3)
       end
     end
+
 
     describe 'Class Methods' do
       before do
