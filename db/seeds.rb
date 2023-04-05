@@ -19,3 +19,8 @@ Shelter.destroy_all
 @rigby = @shelter.pets.create!(name: 'Rigby', age: 2, breed: 'Mix', adoptable: true) 
 @luna = @shelter.pets.create!(name: 'Luna', age: 4, breed: 'Pitbull', adoptable: true) 
 @jimmy = @shelter_2.pets.create!(name: 'Clawdia', breed: 'shorthair', age: 3, adoptable: true)
+@pa_1 = PetApplication.create!(pet: @bella, application: @application)
+@pa_2 = PetApplication.create!(pet: @rigby, application: @application)
+@pa_3 = PetApplication.create!(pet: @luna, application: @application)
+@pa_4 = PetApplication.create!(pet: @jimmy, application: @application_2)
+@pa_5 = PetApplication.create!(pet: @jimmy, application: @application_3)
