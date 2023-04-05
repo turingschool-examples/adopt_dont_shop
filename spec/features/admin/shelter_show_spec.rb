@@ -73,6 +73,32 @@ RSpec. describe "Admin Shelter show page", type: :feature do
 
       within('#action_required'){expect(page).to_not have_content(@pet_1.name)}
       within('#action_required'){expect(page).to have_content(@pet_5.name)}
+     end
+     
+    it "shows number of adoptable pets in statistics section" do
+      pet_6 = @shelter_3.pets.create!(name: "Rockabilly", age: 200)
+      pet_7 = @shelter_1.pets.create!(name: "Malaria", age: 12)
+      pet_app_1 = PetApplication.create!(pet_id: pet_6.id, application_id: @application_3.id)
+      pet_app_2 = PetApplication.create!(pet_id: pet_7.id, application_id: @application_3.id)
+
+      visit "/admin/shelters/#{@shelter_3.id}"
+      
+      within('#statistics'){expect(page).to have_content("Adoptable Pets: 2")}
+
+      visit "/admin/shelters/#{@shelter_1.id}"
+
+      within('#statistics'){expect(page).to have_content("Adoptable Pets: 3")}
+
+      visit "/admin/applications/#{@application_3.id}"
+      click_link "Approve #{@pet_4.id}"
+      click_link "Approve #{@pet_5.id}"
+      click_link "Approve #{pet_6.id}"
+      click_link "Approve #{pet_7.id}"
+      @application_3.update_status
+
+      visit "/admin/shelters/#{@shelter_1.id}"
+      
+      within('#statistics'){expect(page).to have_content("Adoptable Pets: 1")}
     end
   end
 end
