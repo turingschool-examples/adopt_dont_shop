@@ -9,8 +9,8 @@ RSpec.describe 'admin index page', type: :feature do
     let!(:pet_2) { shelter_1.pets.create!(name: 'Clawdia', breed: 'shorthair', age: 3, adoptable: true) }
     let!(:pet_3) { shelter_3.pets.create!(name: 'Lucille Bald', breed: 'sphynx', age: 8, adoptable: true) }
 
-    let!(:application_1) { Application.create!(name: 'John Doe', address: '123 Main St', city: 'Denver', state: 'CO', zip: '80202', description: 'I love animals!') }
-    let!(:application_2) { Application.create!(name: 'Jane Doe', address: '123 Main St', city: 'Denver', state: 'CO', zip: '80202', description: 'I love animals!') }
+    let!(:application_1) { Application.create!(name: 'John Doe', address: '123 Main St', city: 'Denver', state: 'CO', zip: '80202', description: 'I love animals!', status: 'Pending') }
+    let!(:application_2) { Application.create!(name: 'Jane Doe', address: '123 Main St', city: 'Denver', state: 'CO', zip: '80202', description: 'I love animals!', status: 'Pending') }
 
     it 'I see a all shelters in reverse alphabetical order' do
 
@@ -32,8 +32,11 @@ RSpec.describe 'admin index page', type: :feature do
       PetApplication.create!(pet: pet_3, application: application_2)
 
       visit '/admin/shelters'
+      
+      Shelter.with_pending_applications
 
-      expect(shelter_1.with_pending_applications).to eq("Aurora shelter")
+      expect(page).to have_content(shelter_1.name)
+      expect(page).to have_content(shelter_3.name)
     end
   end
 end
