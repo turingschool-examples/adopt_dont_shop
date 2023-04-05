@@ -100,5 +100,21 @@ RSpec. describe "Admin Shelter show page", type: :feature do
       
       within('#statistics'){expect(page).to have_content("Adoptable Pets: 1")}
     end
+
+    it "link to admin application show page next to each pet in Action Required section" do
+      visit "/admin/shelters/#{@shelter_1.id}"
+
+      within('#action_required'){expect(page).to have_link("Pet: Foster; Applicant: Bob", :href => "/admin/applications/#{@application_1.id}")}
+      within('#action_required'){expect(page).to have_link("Pet: Snapchat; Applicant: Angry Tim", :href => "/admin/applications/#{@application_3.id}")}
+      within('#action_required'){expect(page).to have_link("Pet: Snapchat; Applicant: Bob", :href => "/admin/applications/#{@application_1.id}")}
+      within('#action_required'){expect(page).to_not have_link("Pet: Malaria; Applicant: Nebula", :href => "/admin/applications/#{@application_2.id}")}
+      
+      pet_7 = @shelter_1.pets.create!(name: "Malaria", age: 12)
+      pet_app_1 = PetApplication.create!(pet_id: pet_7.id, application_id: @application_2.id)
+
+      visit "/admin/shelters/#{@shelter_1.id}"
+
+      within('#action_required'){expect(page).to have_link("Pet: Malaria; Applicant: Nebula", :href => "/admin/applications/#{@application_2.id}")}
+    end
   end
 end

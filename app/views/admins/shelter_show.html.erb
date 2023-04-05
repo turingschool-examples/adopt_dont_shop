@@ -1,12 +1,14 @@
 <h2><%= @shelter_name %></h2>
 <p><%= @shelter_address %></p>
 <%= content_tag :div, id: "statistics" do %>
-<%= "Average Pet Age: #{@shelter.average_adoptable_pet_age}" %>
+<%= "Average Pet Age: #{@shelter.average_adoptable_pet_age}" %><br/>
 <%= "Adoptable Pets: #{@shelter.adoptable_pet_count}" %>
 <% end %>
 <%= content_tag :div, id: "action_required" do %>
 <h2>Action Required</h2>
 <% @shelter.pending_pet_applications.each do |pet| %>
-<%= pet.name %><br/>
-<% end %>
+    <% pet.pet_applications.each do |app| %>
+      <%= link_to "Pet: #{app.pet.name}; Applicant: #{app.application.applicant_name}", "/admin/applications/#{app.application.id}" %><br/>
+    <% end %>
+  <% end %>
 <% end %>
