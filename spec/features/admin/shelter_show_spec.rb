@@ -24,6 +24,48 @@ RSpec. describe "Admin Shelter show page", type: :feature do
       PetApplication.create!(pet_id: @pet_5.id, application_id: @application_3.id)
     end
 
+    it "has a statistics section" do
+      within('#statistics'){expect(page).to have_content("Statistics")}
+    end
+
+    it 'shows count of pets that have been adopted' do
+      @pet_6 = @shelter_3.pets.create!(name: "Rockabilly", age: 200)
+      @pet_7 = @shelter_1.pets.create!(name: "Malaria", age: 12)
+      PetApplication.create!(pet_id: pet_6.id, application_id: @application_3.id)
+      PetApplication.create!(pet_id: pet_7.id, application_id: @application_3.id)
+      visit "/admin/applications/#{@application_3.id}"
+      click_link "Approve #{@pet_4.id}"
+      click_link "Approve #{@pet_5.id}"
+      click_link "Approve #{@pet_6.id}"
+      click_link "Approve #{@pet_7.id}"
+      @application_3.update_status
+
+      visit "/admin/shelters/#{@shelter_4.id}"
+
+      within('#statistics'){expect(page).to have_content("Count of adopted pets: 1")}
+
+      visit "/admin/shelters/#{@shelter_1.id}"
+
+      within('#statistics'){expect(page).to have_content("Count of adopted pets: 2")}
+
+      visit "/admin/shelters/#{@shelter_3.id}"
+
+      within('#statistics'){expect(page).to have_content("Count of adopted pets: 1")}
+
+      visit "/admin/applications/#{@application_1.id}"
+      click_link "Approve #{@pet_1.id}"
+      click_link "Approve #{@pet_3.id}"
+      @application_1.update_status
+
+      visit "/admin/shelters/#{@shelter_1.id}"
+      
+      within('#statistics'){expect(page).to have_content("Count of adopted pets: 3")}
+
+      visit "/admin/shelters/#{@shelter_3.id}"
+      
+      within('#statistics'){expect(page).to have_content("Count of adopted pets: 2")}
+    end
+
     it "shows the correct info" do
       visit "/admin/shelters/#{@shelter_2.id}"
       expect(page).to have_content("Valhalla for Cats")
@@ -47,7 +89,7 @@ RSpec. describe "Admin Shelter show page", type: :feature do
       visit "/admin/shelters/#{@shelter_1.id}"
 
       within('#statistics'){expect(page).to have_content("Average Pet Age: 603.67")}
-
+    
       visit "/admin/applications/#{@application_3.id}"
       click_link "Approve #{@pet_4.id}"
       click_link "Approve #{@pet_5.id}"
