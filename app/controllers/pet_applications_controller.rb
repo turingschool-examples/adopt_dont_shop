@@ -25,6 +25,7 @@ class PetApplicationsController < ApplicationController
       application.update(status: 3)
     else
       application.update(status: 2)
+      application.update_pets
     end
   end
 end

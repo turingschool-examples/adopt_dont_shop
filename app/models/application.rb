@@ -12,4 +12,8 @@ class Application < ApplicationRecord
   def has_rejected_pets?
     pet_applications.where(approved: false).present?
   end
+
+  def update_pets
+    pets.update_all(adoptable: false)
+  end
 end
