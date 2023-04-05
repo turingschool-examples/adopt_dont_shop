@@ -17,4 +17,8 @@ class Pet < ApplicationRecord
   def pet_app(app)
     PetApplication.where("pet_id = #{self.id} and application_id = #{app.id}").first
   end
+
+  def has_accepted_application(app)
+    applications.where('status = 2 and applications.id != ?', app.id).present?
+  end
 end
