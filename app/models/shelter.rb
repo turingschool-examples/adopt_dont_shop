@@ -61,6 +61,6 @@ class Shelter < ApplicationRecord
   end
   
   def pending_pet_applications
-    Pet.where(shelter_id: self.id).joins(:pet_applications).where(pet_applications: {condition: "Pending"})
+    Pet.where(shelter_id: self.id).joins(:pet_applications).where(pet_applications: {condition: "Pending"}).distinct
   end
 end
