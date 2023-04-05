@@ -85,6 +85,25 @@ RSpec.describe '/admin/application/:id', type: :feature do
 
       expect(page).to have_content('Status: Accepted')
     end
+
+    it 'the adoptable attribute for each pet is changed to false' do
+      visit "/pets/#{bella.id}"
+
+      expect(page).to have_content(true)
+
+      visit "/admin/applications/#{application_1.id}"
+
+      click_button 'Approve Bella'
+      click_button 'Approve Rigby'
+
+      visit "/pets/#{bella.id}"
+
+      expect(page).to have_content(false)
+
+      visit "/pets/#{rigby.id}"
+
+      expect(page).to have_content(false)
+    end
   end
 
   describe 'When you reject one pet for an application' do
