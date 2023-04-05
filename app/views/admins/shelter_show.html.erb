@@ -5,5 +5,7 @@
 <% end %>
 <%= content_tag :div, id: "action_required" do %>
 <h2>Action Required</h2>
-
+<% @shelter.pending_pet_applications.each do |pet| %>
+<%= pet.name %><br/>
+<% end %>
 <% end %>
