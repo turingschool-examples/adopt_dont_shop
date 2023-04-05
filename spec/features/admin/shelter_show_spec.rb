@@ -42,7 +42,6 @@ RSpec. describe "Admin Shelter show page", type: :feature do
       click_link "Approve #{@pet_7.id}"
       @application_3.update_status
       visit "/admin/shelters/#{@shelter_4.id}"
-      save_and_open_page
 
       within('#statistics'){expect(page).to have_content("Count of adopted pets: 1")}
 
@@ -146,6 +145,7 @@ RSpec. describe "Admin Shelter show page", type: :feature do
     end
 
     it "link to admin application show page next to each pet in Action Required section" do
+      PetApplication.create!(pet_id: @pet_5.id, application_id: @application_1.id)
       visit "/admin/shelters/#{@shelter_1.id}"
 
       within('#action_required'){expect(page).to have_link("Pet: Foster; Applicant: Bob", :href => "/admin/applications/#{@application_1.id}")}
