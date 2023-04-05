@@ -24,6 +24,11 @@
 </table>
 
   <h2>Shelters with Pending Applications</h2>
-  <% Shelter.all do |shelter| %>
-    <p><%= shelter.with_pending_applications %></p>
+<ul>
+  <% Shelter.with_pending_applications.each do |shelter_name| %>
+    <li><%= shelter_name %></li>
   <% end %>
+</ul>
+
+
+
