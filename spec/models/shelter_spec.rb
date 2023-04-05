@@ -80,10 +80,12 @@ RSpec.describe Shelter, type: :model do
         application1 = Application.create!(name: 'John Doe', address: '123 Main St', city: 'Denver', state: 'CO', zip: '80202', description: 'I love animals', status: 'Pending')
         application2 = Application.create!(name: 'Jane Doe', address: '123 Main St', city: 'Denver', state: 'CO', zip: '80202', description: 'I love animals', status: 'Pending')
 
+        shelters = [shelter1, shelter3]
+
         PetApplication.create!(pet: pet2, application: application1)
         PetApplication.create!(pet: pet3, application: application2)
-        
-        expect(shelter1.with_pending_applications).to eq("Aurora shelter")
+
+        expect(Shelter.with_pending_applications).to eq(["Aurora shelter", "Fancy pets of Colorado"])
       end
     end
   end
