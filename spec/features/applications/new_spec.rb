@@ -27,8 +27,7 @@ RSpec.describe 'applications/new', type: :feature do
       fill_in 'Zip', with: '80202'
 
       click_button 'Submit'
-
-      expect(current_path).to eq("/applications/new")
+      
       expect(page).to have_content("Please fill in all required fields.")
     end
   end

@@ -3,7 +3,7 @@ class ApplicationsController < ApplicationController
   def show
     @application = Application.find(params[:id])
     @pets = @application.pets
-    @pets_search = search_by_name(params[:search])
+    @pets_search = Pet.search(params[:search]) if params[:search].present?
   end
 
   
@@ -14,10 +14,11 @@ class ApplicationsController < ApplicationController
   def create
     @application = Application.new(application_params)
     if @application.save
+      flash[:alert] = nil
       redirect_to "/applications/#{@application.id}"
     else
       flash[:alert] = "Please fill in all required fields."
-      redirect_to "/applications/new"
+      render :new
     end
   end
   
@@ -26,10 +27,6 @@ class ApplicationsController < ApplicationController
     application.update(status: 1)
     application.update(good_owner: params[:good_owner])
     redirect_to "/applications/#{application.id}"
-  end
-
-  def search_by_name(name)
-    Pet.search(name) if name.present?
   end
   
   private
