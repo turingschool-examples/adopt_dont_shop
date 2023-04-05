@@ -9,20 +9,21 @@
   <li><%= pet.name %>
     <% if pet.has_accepted_application(@application) %>
       This pet has already been approved for adoption
-
-      <%= form_with url: "/pet_applications/#{pet.pet_app(@application).id}", method: :patch, local: true do |form|%> 
-        <%= form.submit "Reject #{pet.name}" %>
-      <% end %>
+      <%= render partial: 'accept_reject', locals: {pet_app_id: pet.pet_app(@application).id, 
+        value: false, 
+        button_text: "Reject #{pet.name}"
+        } %>
 
     <% elsif pet.pet_app(@application).approved.nil? %>
-      <%= form_with url: "/pet_applications/#{pet.pet_app(@application).id}", method: :patch, local: true do |form|%> 
-      <%= form.hidden_field :approved, value: true %>
-        <%= form.submit "Approve #{pet.name}" %>
-      <% end %>
+      <%= render partial: 'accept_reject', locals: {pet_app_id: pet.pet_app(@application).id, 
+      value: true, 
+      button_text: "Approve #{pet.name}"
+      } %>
 
-      <%= form_with url: "/pet_applications/#{pet.pet_app(@application).id}", method: :patch, local: true do |form|%> 
-        <%= form.submit "Reject #{pet.name}" %>
-      <% end %>
+      <%= render partial: 'accept_reject', locals: {pet_app_id: pet.pet_app(@application).id, 
+      value: false, 
+      button_text: "Reject #{pet.name}"
+      } %>
 
     <% elsif pet.pet_app(@application).approved == true %>
       is Approved
