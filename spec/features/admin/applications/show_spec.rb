@@ -128,8 +128,9 @@ RSpec.describe '/admin/application/:id', type: :feature do
       click_button 'Approve Bella'
       click_button 'Approve Rigby'
       visit "/admin/applications/#{application_2.id}"
-
+save_and_open_page
       expect(page).to have_content('This pet has already been approved for adoption')
+      expect(page).to have_button('Reject Bella')
     end
   end
 end
