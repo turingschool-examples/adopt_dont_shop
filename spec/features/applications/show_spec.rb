@@ -10,16 +10,24 @@ RSpec.describe 'application show page' do
     end
 
     it 'displays an application with attributes'do
-    visit "/applications/#{@app_1.id}"
+      visit "/applications/#{@app_1.id}"
 
-    expect(page).to have_content(@app_1.name)
-    expect(page).to have_content(@app_1.address)
-    expect(page).to have_content(@app_1.city)
-    expect(page).to have_content(@app_1.state)
-    expect(page).to have_content(@app_1.zip)
-    expect(page).to have_content(@app_1.description)
-    expect(page).to have_content(@app_1.status)
-    expect(page).to have_content(@pet_1.name)
+      expect(page).to have_content(@app_1.name)
+      expect(page).to have_content(@app_1.address)
+      expect(page).to have_content(@app_1.city)
+      expect(page).to have_content(@app_1.state)
+      expect(page).to have_content(@app_1.zip)
+      expect(page).to have_content(@app_1.description)
+      expect(page).to have_content(@app_1.status)
+      expect(page).to have_content(@pet_1.name)
+    end
+
+    it 'has pet add header in search section' do
+      visit "/applications/#{@app_1.id}"
+
+      within(".search") do
+        page.should have_content("Add a Pet to this Application")
+      end
     end
   end
 
