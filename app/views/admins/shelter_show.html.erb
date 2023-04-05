@@ -1,12 +1,13 @@
 <h2><%= @shelter_name %></h2>
 <p><%= @shelter_address %></p>
 <%= content_tag :div, id: "statistics" do %>
-<h3>Statistics</h3>
-<%= "Average Pet Age: #{@shelter.average_adoptable_pet_age}" %>
+  <h3>Statistics</h3>
+  <%= "Count of adopted pets: #{@shelter.count_adopted_pets}" %><br/>
+  <%= "Average Pet Age: #{@shelter.average_adoptable_pet_age}" %>
 <% end %>
 <%= content_tag :div, id: "action_required" do %>
-<h2>Action Required</h2>
-<% @shelter.pending_pet_applications.each do |pet| %>
-<%= pet.name %><br/>
-<% end %>
+  <h2>Action Required</h2>
+  <% @shelter.pending_pet_applications.each do |pet| %>
+  <%= pet.name %><br/>
+  <% end %>
 <% end %>

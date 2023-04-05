@@ -17,7 +17,7 @@ RSpec. describe "Admin Shelter show page", type: :feature do
       @application_3 = Application.create!(applicant_name: "Angry Tim", street_address: "94 Gun Street", city: "Dallas", state: "TX", zip_code: "60888", description: "Don't question me or my motives")
       PetApplication.create!(pet_id: @pet_1.id, application_id: @application_1.id)
       PetApplication.create!(pet_id: @pet_3.id, application_id: @application_1.id)
-      PetApplication.create!(pet_id: @pet_5.id, application_id: @application_1.id)
+      # PetApplication.create!(pet_id: @pet_5.id, application_id: @application_1.id)
       PetApplication.create!(pet_id: @pet_2.id, application_id: @application_2.id)
       PetApplication.create!(pet_id: @pet_4.id, application_id: @application_2.id)
       PetApplication.create!(pet_id: @pet_4.id, application_id: @application_3.id)
@@ -25,22 +25,24 @@ RSpec. describe "Admin Shelter show page", type: :feature do
     end
 
     it "has a statistics section" do
+      visit "/admin/shelters/#{@shelter_1.id}"
+   
       within('#statistics'){expect(page).to have_content("Statistics")}
     end
 
     it 'shows count of pets that have been adopted' do
       @pet_6 = @shelter_3.pets.create!(name: "Rockabilly", age: 200)
       @pet_7 = @shelter_1.pets.create!(name: "Malaria", age: 12)
-      PetApplication.create!(pet_id: pet_6.id, application_id: @application_3.id)
-      PetApplication.create!(pet_id: pet_7.id, application_id: @application_3.id)
+      PetApplication.create!(pet_id: @pet_6.id, application_id: @application_3.id)
+      PetApplication.create!(pet_id: @pet_7.id, application_id: @application_3.id)
       visit "/admin/applications/#{@application_3.id}"
       click_link "Approve #{@pet_4.id}"
       click_link "Approve #{@pet_5.id}"
       click_link "Approve #{@pet_6.id}"
       click_link "Approve #{@pet_7.id}"
       @application_3.update_status
-
       visit "/admin/shelters/#{@shelter_4.id}"
+      save_and_open_page
 
       within('#statistics'){expect(page).to have_content("Count of adopted pets: 1")}
 
